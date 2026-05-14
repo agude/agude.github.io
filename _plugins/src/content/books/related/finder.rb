@@ -269,12 +269,12 @@ module Jekyll
 
         # Link tiers match BacklinkBuilder's priority order: book (3) > short_story (2) > series (1).
         # Short story links resolve to their containing book's URL, so they surface the anthology.
-        def process_mentioned_books        = process_link_tier('forward_links', :target, 'book')
+        def process_mentioned_books = process_link_tier('forward_links', :target, 'book')
         def process_mentioned_short_stories = process_link_tier('forward_links', :target, 'short_story')
         def process_mentioned_series       = process_link_tier('forward_links', :target, 'series')
         def process_backlink_books         = process_link_tier('backlinks', :source, 'book')
-        def process_backlink_short_stories  = process_link_tier('backlinks', :source, 'short_story')
-        def process_backlink_series        = process_link_tier('backlinks', :source, 'series')
+        def process_backlink_short_stories = process_link_tier('backlinks', :source, 'short_story')
+        def process_backlink_series = process_link_tier('backlinks', :source, 'series')
 
         def process_link_tier(cache_key, entry_key, link_type)
           current_urls = Set.new(@candidate_books.map(&:url))

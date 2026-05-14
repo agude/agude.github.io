@@ -361,7 +361,8 @@ class TestBacklinksFinder < Minitest::Test
 
     accelerando_backlink = result[:backlinks].find { |b| b[0] == 'Accelerando' }
     refute_nil accelerando_backlink, 'Should find Accelerando in backlinks'
-    assert_equal 'book', accelerando_backlink[2],
+    assert_equal 'book',
+                 accelerando_backlink[2],
                  'Direct book_link should override series_link even with multiple reviews in family'
   end
 
@@ -402,7 +403,8 @@ class TestBacklinksFinder < Minitest::Test
     result = finder.find
 
     titles = result[:backlinks].map(&:first)
-    refute_includes titles, 'Direct Linker',
+    refute_includes titles,
+                    'Direct Linker',
                     'Direct book links to OTHER series books should not appear as backlinks'
 
     # But Fall of Hyperion SHOULD show Direct Linker
@@ -411,7 +413,8 @@ class TestBacklinksFinder < Minitest::Test
     result2 = finder2.find
 
     titles2 = result2[:backlinks].map(&:first)
-    assert_includes titles2, 'Direct Linker',
+    assert_includes titles2,
+                    'Direct Linker',
                     'Direct book link should appear on the target book page'
   end
 
@@ -457,7 +460,8 @@ class TestBacklinksFinder < Minitest::Test
     source_backlinks = result[:backlinks].select { |b| b[0] == 'Source Book' }
     assert_equal 1, source_backlinks.length, 'Source with multiple reviews should be deduplicated'
     # And it should be type 'book' (higher priority than 'series')
-    assert_equal 'book', source_backlinks.first[2],
+    assert_equal 'book',
+                 source_backlinks.first[2],
                  'Deduplication should keep higher priority type'
   end
 end

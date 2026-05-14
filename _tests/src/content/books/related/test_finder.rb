@@ -931,8 +931,18 @@ class TestRelatedBooksFinder < Minitest::Test
       collection: coll,
     )
 
-    coll.docs = [curr, series_book, author_book, mentioned_book, mentioned_short_story,
-                 mentioned_series, backlink_book, backlink_short_story, backlink_series, recent_book]
+    coll.docs = [
+      curr,
+      series_book,
+      author_book,
+      mentioned_book,
+      mentioned_short_story,
+      mentioned_series,
+      backlink_book,
+      backlink_short_story,
+      backlink_series,
+      recent_book,
+    ]
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
 
     # Set up forward_links and backlinks
