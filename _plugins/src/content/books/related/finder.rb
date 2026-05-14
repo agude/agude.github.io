@@ -8,7 +8,10 @@ require_relative '../../../infrastructure/text_processing_utils'
 module Jekyll
   module Books
     module Related
-      # Finds and ranks related books based on series, author, and recency.
+      # Finds and ranks related books using a waterfall of criteria.
+      #
+      # Priority order: series → author → mentioned books → mentioned short stories →
+      # mentioned series → backlink books → backlink short stories → backlink series → recent.
       #
       # This class handles the data retrieval logic for finding related books.
       # It does not produce any HTML output.
@@ -99,8 +102,16 @@ module Jekyll
           all_potential_books = fetch_potential_books(urls_to_exclude)
           books_by_date_desc = all_potential_books.sort_by(&:date).reverse
 
+          # Waterfall priority order — each tier fills slots not claimed by earlier tiers.
+          # Link tiers use BacklinkBuilder's priority: book > short_story > series.
           process_series(all_potential_books)
           process_authors(books_by_date_desc)
+          process_mentioned_books
+          process_mentioned_short_stories
+          process_mentioned_series
+          process_backlink_books
+          process_backlink_short_stories
+          process_backlink_series
           process_recent(books_by_date_desc)
         end
 
@@ -237,22 +248,51 @@ module Jekyll
         end
 
         def process_authors(books_by_date)
-          return unless @candidate_books.uniq(&:url).length < @max_books
+          current_urls = Set.new(@candidate_books.map(&:url))
+          return unless current_urls.size < @max_books
 
           current_authors = parse_authors(@page['book_authors'])
           return unless current_authors.any?
 
-          author_books = find_author_books(books_by_date, current_authors)
+          author_books = find_author_books(books_by_date, current_authors, current_urls)
           @candidate_books.concat(author_books)
         end
 
-        def find_author_books(books_by_date, current_authors)
-          current_urls = Set.new(@candidate_books.map(&:url))
+        def find_author_books(books_by_date, current_authors, current_urls)
           books_by_date.select do |book|
             next if current_urls.include?(book.url)
 
             book_authors = parse_authors(book.data['book_authors'])
             current_authors.intersect?(book_authors)
+          end
+        end
+
+        # Link tiers match BacklinkBuilder's priority order: book (3) > short_story (2) > series (1).
+        # Short story links resolve to their containing book's URL, so they surface the anthology.
+        def process_mentioned_books        = process_link_tier('forward_links', :target, 'book')
+        def process_mentioned_short_stories = process_link_tier('forward_links', :target, 'short_story')
+        def process_mentioned_series       = process_link_tier('forward_links', :target, 'series')
+        def process_backlink_books         = process_link_tier('backlinks', :source, 'book')
+        def process_backlink_short_stories  = process_link_tier('backlinks', :source, 'short_story')
+        def process_backlink_series        = process_link_tier('backlinks', :source, 'series')
+
+        def process_link_tier(cache_key, entry_key, link_type)
+          current_urls = Set.new(@candidate_books.map(&:url))
+          return unless current_urls.size < @max_books
+
+          links = @site.data.dig('link_cache', cache_key, @page['url']) || []
+          candidates = links
+                       .select { |entry| entry[:type] == link_type }
+                       .map { |entry| entry[entry_key] }
+                       .sort_by(&:date)
+                       .reverse
+
+          candidates.each do |book|
+            break if current_urls.size >= @max_books
+            next if current_urls.include?(book.url)
+
+            @candidate_books << book
+            current_urls.add(book.url)
           end
         end
 
