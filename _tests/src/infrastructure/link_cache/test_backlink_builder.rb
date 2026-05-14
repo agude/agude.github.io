@@ -516,6 +516,52 @@ class TestBacklinkBuilder < Minitest::Test
     assert_equal 'series', fall_accelerando[:type], 'Series-only link should be type series'
   end
 
+  def test_priority_upgrade_from_separate_documents
+    # Two separate source documents link to the same target via different link types.
+    # Verifies priority upgrade works regardless of document scan order.
+    target_book = create_doc(
+      { 'title' => 'Target Book', 'published' => true, 'series' => 'Test Series' },
+      '/books/target.html',
+      'The target of multiple links.',
+    )
+    # First source: only links via series
+    series_linker = create_doc(
+      { 'title' => 'Series Linker', 'published' => true },
+      '/books/series-linker.html',
+      "I mention {% series_link 'Test Series' %}.",
+    )
+    # Second source: links via both series AND direct book_link
+    dual_linker = create_doc(
+      { 'title' => 'Dual Linker', 'published' => true },
+      '/books/dual-linker.html',
+      "I mention {% series_link 'Test Series' %} and {% book_link 'Target Book' %}.",
+    )
+    series_page = create_doc(
+      { 'title' => 'Test Series', 'layout' => 'series_page' },
+      '/series/test-series.html',
+    )
+
+    site = create_site(
+      {},
+      { 'books' => [target_book, series_linker, dual_linker] },
+      [series_page],
+    )
+    backlinks = site.data['link_cache']['backlinks']
+
+    target_backlinks = backlinks['/books/target.html']
+    refute_nil target_backlinks
+
+    # Series linker should have type 'series' (only way it linked)
+    series_only = target_backlinks.find { |b| b[:source].data['title'] == 'Series Linker' }
+    refute_nil series_only
+    assert_equal 'series', series_only[:type]
+
+    # Dual linker should have type 'book' (upgraded from series)
+    dual = target_backlinks.find { |b| b[:source].data['title'] == 'Dual Linker' }
+    refute_nil dual
+    assert_equal 'book', dual[:type], 'book_link should upgrade priority over series_link'
+  end
+
   private
 
   def rebuild_backlinks(site)

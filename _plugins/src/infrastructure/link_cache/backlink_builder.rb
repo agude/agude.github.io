@@ -18,10 +18,13 @@ module Jekyll
           @link_cache = link_cache
           @maps = maps
           @backlinks = Hash.new { |h, k| h[k] = {} }
+          @forward_links = Hash.new { |h, k| h[k] = {} }
         end
 
         def build
           return unless @link_cache['books']&.any? && @site.collections.key?('books')
+
+          build_url_to_doc_map
 
           @site.collections['books'].docs.each do |source_doc|
             scan_doc(source_doc)
@@ -31,6 +34,14 @@ module Jekyll
         end
 
         private
+
+        # Forward links only track book-to-book relationships (not links to series pages).
+        # This matches backlinks, which are also book-to-book despite being triggered by
+        # series_link tags (series_map resolves to book docs, not series page docs).
+        def build_url_to_doc_map
+          @url_to_doc = {}
+          @site.collections['books'].docs.each { |doc| @url_to_doc[doc.url] = doc }
+        end
 
         def scan_doc(doc)
           return unless doc.respond_to?(:content) && doc.content && !doc.content.empty?
@@ -114,18 +125,25 @@ module Jekyll
         def add_backlink(target_url, source_doc, type)
           return if source_doc.url == target_url
 
-          existing = @backlinks[target_url][source_doc.url]
+          existing_back = @backlinks[target_url][source_doc.url]
           new_p = LINK_TYPE_PRIORITY[type]
 
-          return unless existing.nil? || new_p > LINK_TYPE_PRIORITY[existing[:type]]
+          return unless existing_back.nil? || new_p > LINK_TYPE_PRIORITY[existing_back[:type]]
 
           @backlinks[target_url][source_doc.url] = { source: source_doc, type: type }
+
+          target_doc = @url_to_doc[target_url]
+          @forward_links[source_doc.url][target_url] = { target: target_doc, type: type } if target_doc
         end
 
         def finalize_backlinks
-          final = {}
-          @backlinks.each { |target, sources| final[target] = sources.values }
-          @link_cache['backlinks'] = final
+          final_back = {}
+          @backlinks.each { |target, sources| final_back[target] = sources.values }
+          @link_cache['backlinks'] = final_back
+
+          final_forward = {}
+          @forward_links.each { |source, targets| final_forward[source] = targets.values }
+          @link_cache['forward_links'] = final_forward
         end
       end
     end

@@ -14,6 +14,7 @@ class TestLinkCacheStructure < Minitest::Test
     books_topbar_nav
     favorites_mentions
     favorites_posts_to_books
+    forward_links
     series
     series_map
     short_stories
@@ -28,6 +29,7 @@ class TestLinkCacheStructure < Minitest::Test
     books
     favorites_mentions
     favorites_posts_to_books
+    forward_links
     series
     series_map
     short_stories
