@@ -55,6 +55,7 @@ module Jekyll
           'sidebar_nav' => [],
           'books_topbar_nav' => [],
           'backlinks' => {},
+          'forward_links' => {},
           'favorites_mentions' => {},
           'favorites_posts_to_books' => {},
           'url_to_canonical_map' => {},

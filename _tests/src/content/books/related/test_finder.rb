@@ -461,6 +461,698 @@ class TestRelatedBooksFinder < Minitest::Test
     assert_equal 2, result[:books].length
   end
 
+  # --- Forward links (mentioned books) tests ---
+
+  def test_mentioned_books_appear_after_series_and_author
+    coll = MockCollection.new([], 'books')
+    # Current book mentions "Mentioned Book" via book_link
+    curr = @helper.create_book(
+      title: 'Current Book',
+      authors: ['Author A'],
+      date_offset_days: 10,
+      url_suffix: 'current',
+      collection: coll,
+    )
+    # Same author book (should appear first after series)
+    same_author = @helper.create_book(
+      title: 'Same Author Book',
+      authors: ['Author A'],
+      date_offset_days: 5,
+      url_suffix: 'same-author',
+      collection: coll,
+    )
+    # Mentioned book (should appear after same author)
+    mentioned = @helper.create_book(
+      title: 'Mentioned Book',
+      authors: ['Author B'],
+      date_offset_days: 3,
+      url_suffix: 'mentioned',
+      collection: coll,
+    )
+
+    coll.docs = [curr, same_author, mentioned]
+    site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    # Inject forward_links: current → mentioned
+    site.data['link_cache']['forward_links'] = {
+      curr.url => [{ target: mentioned, type: 'book' }],
+    }
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 3)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_equal 2, result[:books].length
+    assert_equal same_author.url, result[:books][0].url, 'Same author should come first'
+    assert_equal mentioned.url, result[:books][1].url, 'Mentioned book should come second'
+  end
+
+  def test_mentioned_short_story_appears_between_book_and_series
+    coll = MockCollection.new([], 'books')
+    curr = @helper.create_book(
+      title: 'Current Book',
+      authors: ['Author A'],
+      date_offset_days: 10,
+      url_suffix: 'current',
+      collection: coll,
+    )
+    # Mentioned via book_link (highest priority)
+    book_mentioned = @helper.create_book(
+      title: 'Book Mentioned',
+      authors: ['Author B'],
+      date_offset_days: 5,
+      url_suffix: 'book-mentioned',
+      collection: coll,
+    )
+    # Mentioned via short_story_link (medium priority)
+    short_story_mentioned = @helper.create_book(
+      title: 'Short Story Mentioned',
+      authors: ['Author C'],
+      date_offset_days: 4,
+      url_suffix: 'short-story-mentioned',
+      collection: coll,
+    )
+    # Mentioned via series_link (lowest priority)
+    series_mentioned = @helper.create_book(
+      title: 'Series Mentioned',
+      authors: ['Author D'],
+      date_offset_days: 3,
+      url_suffix: 'series-mentioned',
+      collection: coll,
+    )
+
+    coll.docs = [curr, book_mentioned, short_story_mentioned, series_mentioned]
+    site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    site.data['link_cache']['forward_links'] = {
+      curr.url => [
+        { target: series_mentioned, type: 'series' },
+        { target: short_story_mentioned, type: 'short_story' },
+        { target: book_mentioned, type: 'book' },
+      ],
+    }
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 3)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_equal 3, result[:books].length
+    assert_equal book_mentioned.url, result[:books][0].url, 'Book mention first'
+    assert_equal short_story_mentioned.url, result[:books][1].url, 'Short story mention second'
+    assert_equal series_mentioned.url, result[:books][2].url, 'Series mention third'
+  end
+
+  def test_mentioned_book_takes_priority_over_mentioned_series
+    coll = MockCollection.new([], 'books')
+    curr = @helper.create_book(
+      title: 'Current Book',
+      authors: ['Author A'],
+      date_offset_days: 10,
+      url_suffix: 'current',
+      collection: coll,
+    )
+    # Mentioned via book_link (higher priority)
+    book_mentioned = @helper.create_book(
+      title: 'Book Mentioned',
+      authors: ['Author B'],
+      date_offset_days: 5,
+      url_suffix: 'book-mentioned',
+      collection: coll,
+    )
+    # Mentioned via series_link (lower priority)
+    series_mentioned = @helper.create_book(
+      title: 'Series Mentioned',
+      authors: ['Author C'],
+      date_offset_days: 3,
+      url_suffix: 'series-mentioned',
+      collection: coll,
+    )
+
+    coll.docs = [curr, book_mentioned, series_mentioned]
+    site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    site.data['link_cache']['forward_links'] = {
+      curr.url => [
+        { target: series_mentioned, type: 'series' },
+        { target: book_mentioned, type: 'book' },
+      ],
+    }
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 2)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_equal 2, result[:books].length
+    assert_equal book_mentioned.url, result[:books][0].url, 'Book mention should come before series mention'
+    assert_equal series_mentioned.url, result[:books][1].url
+  end
+
+  def test_mentioned_books_sorted_by_date_within_tier
+    coll = MockCollection.new([], 'books')
+    curr = @helper.create_book(
+      title: 'Current Book',
+      authors: ['Author A'],
+      date_offset_days: 20,
+      url_suffix: 'current',
+      collection: coll,
+    )
+    # Older mentioned book
+    mentioned_old = @helper.create_book(
+      title: 'Mentioned Old',
+      authors: ['Author B'],
+      date_offset_days: 10,
+      url_suffix: 'mentioned-old',
+      collection: coll,
+    )
+    # More recent mentioned book
+    mentioned_recent = @helper.create_book(
+      title: 'Mentioned Recent',
+      authors: ['Author C'],
+      date_offset_days: 2,
+      url_suffix: 'mentioned-recent',
+      collection: coll,
+    )
+
+    coll.docs = [curr, mentioned_old, mentioned_recent]
+    site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    site.data['link_cache']['forward_links'] = {
+      curr.url => [
+        { target: mentioned_old, type: 'book' },
+        { target: mentioned_recent, type: 'book' },
+      ],
+    }
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 2)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_equal 2, result[:books].length
+    assert_equal mentioned_recent.url, result[:books][0].url, 'More recent should come first'
+    assert_equal mentioned_old.url, result[:books][1].url
+  end
+
+  # --- Backlinks (mentioning reviews) tests ---
+
+  def test_backlinks_appear_after_forward_links
+    coll = MockCollection.new([], 'books')
+    curr = @helper.create_book(
+      title: 'Current Book',
+      authors: ['Author A'],
+      date_offset_days: 10,
+      url_suffix: 'current',
+      collection: coll,
+    )
+    # Book that current mentions
+    mentioned = @helper.create_book(
+      title: 'Mentioned Book',
+      authors: ['Author B'],
+      date_offset_days: 5,
+      url_suffix: 'mentioned',
+      collection: coll,
+    )
+    # Book that mentions current (backlink)
+    mentioner = @helper.create_book(
+      title: 'Mentioner Book',
+      authors: ['Author C'],
+      date_offset_days: 3,
+      url_suffix: 'mentioner',
+      collection: coll,
+    )
+
+    coll.docs = [curr, mentioned, mentioner]
+    site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    site.data['link_cache']['forward_links'] = {
+      curr.url => [{ target: mentioned, type: 'book' }],
+    }
+    site.data['link_cache']['backlinks'] = {
+      curr.url => [{ source: mentioner, type: 'book' }],
+    }
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 3)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_equal 2, result[:books].length
+    assert_equal mentioned.url, result[:books][0].url, 'Forward link should come before backlink'
+    assert_equal mentioner.url, result[:books][1].url, 'Backlink should come second'
+  end
+
+  def test_backlink_short_story_appears_between_book_and_series
+    coll = MockCollection.new([], 'books')
+    curr = @helper.create_book(
+      title: 'Current Book',
+      authors: ['Author A'],
+      date_offset_days: 10,
+      url_suffix: 'current',
+      collection: coll,
+    )
+    # Mentions current via book_link (highest priority)
+    book_mentioner = @helper.create_book(
+      title: 'Book Mentioner',
+      authors: ['Author B'],
+      date_offset_days: 5,
+      url_suffix: 'book-mentioner',
+      collection: coll,
+    )
+    # Mentions current via short_story_link (medium priority)
+    short_story_mentioner = @helper.create_book(
+      title: 'Short Story Mentioner',
+      authors: ['Author C'],
+      date_offset_days: 4,
+      url_suffix: 'short-story-mentioner',
+      collection: coll,
+    )
+    # Mentions current via series_link (lowest priority)
+    series_mentioner = @helper.create_book(
+      title: 'Series Mentioner',
+      authors: ['Author D'],
+      date_offset_days: 3,
+      url_suffix: 'series-mentioner',
+      collection: coll,
+    )
+
+    coll.docs = [curr, book_mentioner, short_story_mentioner, series_mentioner]
+    site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    site.data['link_cache']['backlinks'] = {
+      curr.url => [
+        { source: series_mentioner, type: 'series' },
+        { source: short_story_mentioner, type: 'short_story' },
+        { source: book_mentioner, type: 'book' },
+      ],
+    }
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 3)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_equal 3, result[:books].length
+    assert_equal book_mentioner.url, result[:books][0].url, 'Book backlink first'
+    assert_equal short_story_mentioner.url, result[:books][1].url, 'Short story backlink second'
+    assert_equal series_mentioner.url, result[:books][2].url, 'Series backlink third'
+  end
+
+  def test_backlink_book_takes_priority_over_backlink_series
+    coll = MockCollection.new([], 'books')
+    curr = @helper.create_book(
+      title: 'Current Book',
+      authors: ['Author A'],
+      date_offset_days: 10,
+      url_suffix: 'current',
+      collection: coll,
+    )
+    # Mentions current via book_link
+    book_mentioner = @helper.create_book(
+      title: 'Book Mentioner',
+      authors: ['Author B'],
+      date_offset_days: 5,
+      url_suffix: 'book-mentioner',
+      collection: coll,
+    )
+    # Mentions current via series_link
+    series_mentioner = @helper.create_book(
+      title: 'Series Mentioner',
+      authors: ['Author C'],
+      date_offset_days: 3,
+      url_suffix: 'series-mentioner',
+      collection: coll,
+    )
+
+    coll.docs = [curr, book_mentioner, series_mentioner]
+    site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    site.data['link_cache']['backlinks'] = {
+      curr.url => [
+        { source: series_mentioner, type: 'series' },
+        { source: book_mentioner, type: 'book' },
+      ],
+    }
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 2)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_equal 2, result[:books].length
+    assert_equal book_mentioner.url, result[:books][0].url, 'Book backlink should come before series backlink'
+    assert_equal series_mentioner.url, result[:books][1].url
+  end
+
+  def test_backlinks_sorted_by_date_within_tier
+    coll = MockCollection.new([], 'books')
+    curr = @helper.create_book(
+      title: 'Current Book',
+      authors: ['Author A'],
+      date_offset_days: 20,
+      url_suffix: 'current',
+      collection: coll,
+    )
+    mentioner_old = @helper.create_book(
+      title: 'Mentioner Old',
+      authors: ['Author B'],
+      date_offset_days: 10,
+      url_suffix: 'mentioner-old',
+      collection: coll,
+    )
+    mentioner_recent = @helper.create_book(
+      title: 'Mentioner Recent',
+      authors: ['Author C'],
+      date_offset_days: 2,
+      url_suffix: 'mentioner-recent',
+      collection: coll,
+    )
+
+    coll.docs = [curr, mentioner_old, mentioner_recent]
+    site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    site.data['link_cache']['backlinks'] = {
+      curr.url => [
+        { source: mentioner_old, type: 'book' },
+        { source: mentioner_recent, type: 'book' },
+      ],
+    }
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 2)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_equal 2, result[:books].length
+    assert_equal mentioner_recent.url, result[:books][0].url, 'More recent should come first'
+    assert_equal mentioner_old.url, result[:books][1].url
+  end
+
+  # --- Full waterfall priority tests ---
+
+  def test_full_waterfall_priority_order
+    coll = MockCollection.new([], 'books')
+    # Current book in a series
+    curr = @helper.create_book(
+      title: 'Current Book',
+      series: 'Test Series',
+      book_num: 2,
+      authors: ['Author A'],
+      date_offset_days: 30,
+      url_suffix: 'current',
+      collection: coll,
+    )
+    # 1. Series book (highest priority)
+    series_book = @helper.create_book(
+      title: 'Series Book',
+      series: 'Test Series',
+      book_num: 1,
+      authors: ['Author B'],
+      date_offset_days: 25,
+      url_suffix: 'series',
+      collection: coll,
+    )
+    # 2. Same author
+    author_book = @helper.create_book(
+      title: 'Author Book',
+      authors: ['Author A'],
+      date_offset_days: 20,
+      url_suffix: 'author',
+      collection: coll,
+    )
+    # 3. Mentioned book (forward_link type: book)
+    mentioned_book = @helper.create_book(
+      title: 'Mentioned Book',
+      authors: ['Author C'],
+      date_offset_days: 18,
+      url_suffix: 'mentioned-book',
+      collection: coll,
+    )
+    # 4. Mentioned short_story (forward_link type: short_story)
+    mentioned_short_story = @helper.create_book(
+      title: 'Mentioned Short Story',
+      authors: ['Author D'],
+      date_offset_days: 16,
+      url_suffix: 'mentioned-short-story',
+      collection: coll,
+    )
+    # 5. Mentioned series (forward_link type: series)
+    mentioned_series = @helper.create_book(
+      title: 'Mentioned Series',
+      authors: ['Author E'],
+      date_offset_days: 14,
+      url_suffix: 'mentioned-series',
+      collection: coll,
+    )
+    # 6. Backlink book (backlinks type: book)
+    backlink_book = @helper.create_book(
+      title: 'Backlink Book',
+      authors: ['Author F'],
+      date_offset_days: 12,
+      url_suffix: 'backlink-book',
+      collection: coll,
+    )
+    # 7. Backlink short_story (backlinks type: short_story)
+    backlink_short_story = @helper.create_book(
+      title: 'Backlink Short Story',
+      authors: ['Author G'],
+      date_offset_days: 10,
+      url_suffix: 'backlink-short-story',
+      collection: coll,
+    )
+    # 8. Backlink series (backlinks type: series)
+    backlink_series = @helper.create_book(
+      title: 'Backlink Series',
+      authors: ['Author H'],
+      date_offset_days: 8,
+      url_suffix: 'backlink-series',
+      collection: coll,
+    )
+    # 9. Recent fallback
+    recent_book = @helper.create_book(
+      title: 'Recent Book',
+      authors: ['Author I'],
+      date_offset_days: 1,
+      url_suffix: 'recent',
+      collection: coll,
+    )
+
+    coll.docs = [curr, series_book, author_book, mentioned_book, mentioned_short_story,
+                 mentioned_series, backlink_book, backlink_short_story, backlink_series, recent_book]
+    site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+
+    # Set up forward_links and backlinks
+    site.data['link_cache']['forward_links'] = {
+      curr.url => [
+        { target: mentioned_book, type: 'book' },
+        { target: mentioned_short_story, type: 'short_story' },
+        { target: mentioned_series, type: 'series' },
+      ],
+    }
+    site.data['link_cache']['backlinks'] = {
+      curr.url => [
+        { source: backlink_book, type: 'book' },
+        { source: backlink_short_story, type: 'short_story' },
+        { source: backlink_series, type: 'series' },
+      ],
+    }
+
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 9)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_equal 9, result[:books].length
+    expected_order = [
+      series_book.url,            # 1. Series
+      author_book.url,            # 2. Same author
+      mentioned_book.url,         # 3. Mentioned book
+      mentioned_short_story.url,  # 4. Mentioned short_story
+      mentioned_series.url,       # 5. Mentioned series
+      backlink_book.url,          # 6. Backlink book
+      backlink_short_story.url,   # 7. Backlink short_story
+      backlink_series.url,        # 8. Backlink series
+      recent_book.url,            # 9. Recent fallback
+    ]
+    assert_equal expected_order, result[:books].map(&:url), 'Full waterfall priority order'
+  end
+
+  def test_handles_missing_forward_links_and_backlinks_cache_entries
+    coll = MockCollection.new([], 'books')
+    curr = @helper.create_book(
+      title: 'Current Book',
+      authors: ['Author A'],
+      date_offset_days: 10,
+      url_suffix: 'current',
+      collection: coll,
+    )
+    other = @helper.create_book(
+      title: 'Other Book',
+      authors: ['Author A'],
+      date_offset_days: 5,
+      url_suffix: 'other',
+      collection: coll,
+    )
+
+    coll.docs = [curr, other]
+    site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    # Explicitly don't set forward_links or backlinks for curr.url
+    # The cache exists but has no entry for this page
+    site.data['link_cache']['forward_links'] = {}
+    site.data['link_cache']['backlinks'] = {}
+
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 3)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    # Should still work, falling through to author/recent
+    assert_equal 1, result[:books].length
+    assert_equal other.url, result[:books][0].url
+  end
+
+  def test_deduplication_across_forward_and_back_link_tiers
+    # BookA mentions BookB (forward_link) AND BookB mentions BookA (backlink).
+    # BookB should appear only once in BookA's related books (from forward_link tier).
+    coll = MockCollection.new([], 'books')
+    book_a = @helper.create_book(
+      title: 'Book A',
+      authors: ['Author A'],
+      date_offset_days: 10,
+      url_suffix: 'book-a',
+      collection: coll,
+    )
+    book_b = @helper.create_book(
+      title: 'Book B',
+      authors: ['Author B'],
+      date_offset_days: 5,
+      url_suffix: 'book-b',
+      collection: coll,
+    )
+
+    coll.docs = [book_a, book_b]
+    site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    # BookA → BookB (forward) AND BookA ← BookB (backlink)
+    site.data['link_cache']['forward_links'] = {
+      book_a.url => [{ target: book_b, type: 'book' }],
+    }
+    site.data['link_cache']['backlinks'] = {
+      book_a.url => [{ source: book_b, type: 'book' }],
+    }
+
+    finder = Jekyll::Books::Related::Finder.new(site, book_a, 3)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    # BookB should appear exactly once (from forward_link tier, not duplicated from backlink)
+    assert_equal 1, result[:books].length
+    assert_equal book_b.url, result[:books][0].url
+  end
+
+  def test_deduplication_across_tiers
+    coll = MockCollection.new([], 'books')
+    curr = @helper.create_book(
+      title: 'Current Book',
+      authors: ['Author A'],
+      date_offset_days: 10,
+      url_suffix: 'current',
+      collection: coll,
+    )
+    # This book is both same author AND mentioned
+    overlap_book = @helper.create_book(
+      title: 'Overlap Book',
+      authors: ['Author A'],
+      date_offset_days: 5,
+      url_suffix: 'overlap',
+      collection: coll,
+    )
+    # Only mentioned
+    mentioned_only = @helper.create_book(
+      title: 'Mentioned Only',
+      authors: ['Author B'],
+      date_offset_days: 3,
+      url_suffix: 'mentioned-only',
+      collection: coll,
+    )
+
+    coll.docs = [curr, overlap_book, mentioned_only]
+    site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    site.data['link_cache']['forward_links'] = {
+      curr.url => [
+        { target: overlap_book, type: 'book' },
+        { target: mentioned_only, type: 'book' },
+      ],
+    }
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 3)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    # Overlap book should appear once (from author tier, not duplicated from mentioned tier)
+    assert_equal 2, result[:books].length
+    assert_equal overlap_book.url, result[:books][0].url, 'Overlap book appears from author tier'
+    assert_equal mentioned_only.url, result[:books][1].url, 'Mentioned-only book fills next slot'
+  end
+
+  # --- Integration test: full pipeline with Liquid tags ---
+
+  def test_integration_finder_uses_backlink_builder_output
+    # This test runs the full pipeline: books with Liquid tags → BacklinkBuilder → Finder
+    # Verifies the contract between how BacklinkBuilder stores entries and Finder reads them.
+    curr = create_doc(
+      {
+        'title' => 'Current Book',
+        'book_authors' => ['Author A'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 10),
+      },
+      '/books/current.html',
+      "Current book that mentions {% book_link 'Mentioned Book' %}.",
+    )
+    mentioned = create_doc(
+      {
+        'title' => 'Mentioned Book',
+        'book_authors' => ['Author B'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 5),
+      },
+      '/books/mentioned.html',
+      'A book that gets mentioned.',
+    )
+    mentioner = create_doc(
+      {
+        'title' => 'Mentioner Book',
+        'book_authors' => ['Author C'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 3),
+      },
+      '/books/mentioner.html',
+      "This book mentions {% book_link 'Current Book' %}.",
+    )
+
+    # create_site runs LinkCacheGenerator which runs BacklinkBuilder
+    site = create_site(@site_config_base.dup, { 'books' => [curr, mentioned, mentioner] })
+
+    # Verify BacklinkBuilder populated the caches (guards against test helper changes)
+    forward_links = site.data.dig('link_cache', 'forward_links', curr.url)
+    backlinks = site.data.dig('link_cache', 'backlinks', curr.url)
+    refute_nil forward_links, 'BacklinkBuilder should populate forward_links for curr'
+    refute_nil backlinks, 'BacklinkBuilder should populate backlinks for curr'
+    assert forward_links.any? { |e| e[:target].url == mentioned.url }, 'forward_links should include mentioned book'
+    assert backlinks.any? { |e| e[:source].url == mentioner.url }, 'backlinks should include mentioner book'
+
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 3)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    # Verify Finder correctly reads both forward_links and backlinks
+    assert_equal 2, result[:books].length
+    urls = result[:books].map(&:url)
+    assert_includes urls, '/books/mentioned.html', 'Should include forward-linked book'
+    assert_includes urls, '/books/mentioner.html', 'Should include backlinking book'
+  end
+
   # Helper class for test setup and utilities
   class BookTestHelper
     attr_reader :test_time_now,
