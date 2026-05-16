@@ -18,23 +18,20 @@ module Jekyll
       class Finder
         DEFAULT_MAX_BOOKS = 3
 
-        # Accepts site + page directly (for use outside Liquid context).
-        # Legacy: also accepts a Liquid::Context as the first argument.
-        def initialize(site_or_context, page_or_max_books = nil, max_books = nil)
-          if site_or_context.respond_to?(:registers)
-            # Legacy Liquid::Context interface
-            @site = site_or_context.registers[:site]
-            @page = site_or_context.registers[:page]
-            @max_books = page_or_max_books
-          else
-            # Direct site + page interface
-            @site = site_or_context
-            @page = page_or_max_books
-            @max_books = max_books
-          end
-          @max_books ||= @site&.config&.dig('display_limits', 'related_books') || DEFAULT_MAX_BOOKS
+        # @param site [Jekyll::Site] The Jekyll site object
+        # @param page [Jekyll::Document, Jekyll::Page] The current page/document
+        # @param max_books [Integer, nil] Maximum related books to return (default from config)
+        # @param rendered_content [String, nil] The rendered HTML content of the page,
+        #   used to score mentions by count and position. Pass this when calling from
+        #   a layout where `context['content']` is available.
+        def initialize(site, page = nil, max_books = nil, rendered_content = nil)
+          @site = site
+          @page = page
+          @max_books = max_books || @site&.config&.dig('display_limits', 'related_books') || DEFAULT_MAX_BOOKS
+          @rendered_content = rendered_content
           @logs = String.new
           @candidate_books = []
+          @mention_data = parse_book_mentions(@rendered_content)
         end
 
         def find
@@ -284,8 +281,14 @@ module Jekyll
           candidates = links
                        .select { |entry| entry[:type] == link_type }
                        .map { |entry| entry[entry_key] }
-                       .sort_by(&:date)
-                       .reverse
+
+          # Forward links: score by mention count/position, sort by score desc then title
+          # Backlinks: sort alphabetically by title (no scoring — mentions are in other pages)
+          candidates = if cache_key == 'forward_links'
+                         candidates.sort_by { |book| [-score_book_mention(book.url), book.data['title'].to_s.downcase] }
+                       else
+                         candidates.sort_by { |book| book.data['title'].to_s.downcase }
+                       end
 
           candidates.each do |book|
             break if current_urls.size >= @max_books
@@ -321,6 +324,56 @@ module Jekyll
         def parse_book_num(obj)
           data = obj.is_a?(Jekyll::Document) || obj.is_a?(Jekyll::Page) ? obj.data : obj
           Jekyll::Books::Core::BookDataUtils.parse_book_number(data['book_number'])
+        end
+
+        # Parses rendered HTML content to count book link occurrences and their positions.
+        # Returns a hash mapping book URLs to { count:, positions: [] }.
+        def parse_book_mentions(content)
+          return {} unless content && !content.empty?
+
+          mentions = Hash.new { |h, k| h[k] = { count: 0, positions: [] } }
+          content_length = content.length.to_f
+          return mentions if content_length.zero?
+
+          # Match book links by href pattern: <a href="/books/slug/" or "/books/slug.html">
+          # Requires /books/ followed by a path segment (slug) to avoid matching /books-on-tape/
+          content.scan(/<a[^>]+href=["'](\/books\/[^"'\/]+(?:\/|\.html))["'][^>]*>/i) do
+            url = Regexp.last_match[1]
+            position = (Regexp.last_match.begin(0) / content_length) * 100
+            mentions[url][:count] += 1
+            mentions[url][:positions] << position
+          end
+
+          mentions
+        end
+
+        # Scores a book based on mention count and position in the review.
+        # Higher scores indicate more prominent mentions.
+        #
+        # Uses MIN position across all mentions — if a book appears early anywhere,
+        # it's substantive regardless of later mentions.
+        #
+        # Threshold of 92% determined via precision/recall analysis on 20 reviews:
+        # - 92% gives 100% recall, 70% precision, F1=82% for detecting "future reads"
+        # - False positives (late comparisons) are acceptable since series/author
+        #   tiers already surface those books if relevant
+        FUTURE_READ_THRESHOLD = 92
+        FUTURE_READ_PENALTY = 0.25
+
+        def score_book_mention(url)
+          # Books not found in rendered content score 0. This handles stale captures
+          # (defined but never used in prose) — they shouldn't surface as related.
+          return 0.0 unless @mention_data&.key?(url)
+
+          data = @mention_data[url]
+          count = data[:count]
+          min_position = data[:positions].min || 100
+
+          if min_position >= FUTURE_READ_THRESHOLD
+            count * FUTURE_READ_PENALTY
+          else
+            count.to_f
+          end
         end
       end
     end

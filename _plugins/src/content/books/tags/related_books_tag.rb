@@ -24,7 +24,10 @@ module Jekyll
         def render(context)
           site = context.registers[:site]
           page = context.registers[:page]
-          finder = Jekyll::Books::Related::Finder.new(site, page)
+          # context['content'] contains the fully rendered page content when this tag
+          # runs from a layout. This is used to score book mentions by count/position.
+          rendered_content = context['content']
+          finder = Jekyll::Books::Related::Finder.new(site, page, nil, rendered_content)
           result = finder.find
 
           return result[:logs] if result[:books].empty?
