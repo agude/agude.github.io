@@ -56,7 +56,7 @@ childhood: so much that feels like it needs to be done, so little that you
 actually have to do. Long summers, but not long enough, full of exploration
 and activity. Someone else is doing all the work to maintain Toad, Badger,
 Mole, and Ratty's lifestyle, but they can't even conceive of it. Their lives
-sprang into existence as they are and are almost unchanging.
+sprang into existence as they are and are only slowly unchanging.
 
 The book alternates between philosophy chapters, mostly with Mole and Ratty,
 and Toad's action chapters. The philosophy chapters are about home: what it
