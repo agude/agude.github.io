@@ -22,7 +22,8 @@ same_as_urls:
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is a standalone novel.
+follows Mole, Ratty, Badger, and Toad in a story bucolic life in the English
+countryside: playing around in boats, long summers, and the pull of home.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
@@ -86,24 +87,24 @@ and so little that you actually have to do. Of long, but not long enough,
 summers full of exploration and activity. You get a sense that someone else is
 doing all the work to maintain Toad, Badger, Mole, and Ratty's lifestyle, but
 that they can't even conceive of it: their lives sprung into existence as they
-are and are unchanging. <!-- TODO:Much as a child has no idea all the work
-that goes into maintaining their life style; am I making that clear?! -->
+are and are unchanging.
 
-{{ this_book }} alternates between philosophy chapters, mostly with Mole and
-Ratty, and Toad's action chapters. The philosophy chapters are about home:
-what it means to leave it, to be tempted away from it, to realize it's what
-gives your life meaning, to return and reclaim it. Toad's chapters are getting
-into trouble with motorcars, being thrown into and breaking out of jail,
-high-speed chases on trains, and fighting weasels, ferrets, and stoats. The
-intertwining of the two provides a good mix of thought and action, and lets us
-rest between the troubles Toad has.
+This book alternates between philosophy chapters, mostly with Mole and Ratty,
+and Toad's action chapters. The philosophy chapters are about home: what it
+means to leave it, to be tempted away from it, to realize it's what gives your
+life meaning, to return and reclaim it. Toad's chapters are getting into
+trouble with motorcars, being thrown into and breaking out of jail, high-speed
+chases on trains, and fighting weasels, ferrets, and stoats. The intertwining
+of the two provides a good mix of thought and action, and lets us rest between
+the troubles Toad has.
 
-The philosophy chapters remind me a lot of my father. They way he focused on
-living a life that he defined as good, focusing on the craft of his art and
-family. The way he felt like your home or things could be glad to see you,
-just as you were glad to see them. I don't think he got them from {{ this_book
-}}, but I wouldn't be surprised if he decided to read it to me because of how
-it aligned with his thinking.
+The philosophy chapters remind me a lot of my father, who studied philosophy
+in college and almost went on to a PhD. The way he focused on living a life
+that he defined as good, focusing on the craft of his art and family. The way
+he felt like your home or things could be glad to see you, just as you were
+glad to see them. I don't think he got these ideas from {{ this_book }}, but I
+wouldn't be surprised if he decided to read it to me because of how it aligned
+with his thinking.
 
 {{ this_book }} was obviously hugely influential to {{ jacques }} when writing
 the {{ redwall_series }}. {{ jacquess_lastname }} animals share a lot of the
@@ -121,3 +122,8 @@ reminiscent of {{ adamss_lastname }} {{ watership_down }} (although {{
 watership_down }} is much darker). The way Mole can feel his home calling to
 him "like an electric shock" is the similar to how Shivers allows Harrier Du
 Bois to commune with Revachol in {{ disco_elysium }}.
+
+I enjoyed {{ this_book }}, and I suspect my children, who loved {{
+jacquess_lastname }} {{ redwall_series }}, would too. We've sort of drifted
+out of me reading to them at bedtime as they've started reading their own
+books, but we might have to start it up again for one last book.
