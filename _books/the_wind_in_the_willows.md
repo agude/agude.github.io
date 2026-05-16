@@ -80,15 +80,14 @@ loudly. I don't know if we actually read the whole book, although on this
 re-read I found some of the chapters to be familiar, and others to be
 completely new, so I suspect we only read some of them.
 
-This book is such a perfect story for children. It encapsulates the feeling of
-childhood, of having so much that feels like it needs to be done, and so
-little that you actually have to do. Of long, but not long enough, summers
-full of exploration and activity. You get a sense that someone else is doing
-all the work to maintain Toad, Badger, Mole, and Ratty's lifestyle, but that
-they can't even conceive of it: their lives sprung into existence as they are
-and are unchanging.
-<!-- TODO:Much as a child has no idea all the work that goes into maintaining their
-life style; am I making that clear?! -->
+{{ this_book }} is such a perfect story for children. It encapsulates the
+feeling of childhood, of having so much that feels like it needs to be done,
+and so little that you actually have to do. Of long, but not long enough,
+summers full of exploration and activity. You get a sense that someone else is
+doing all the work to maintain Toad, Badger, Mole, and Ratty's lifestyle, but
+that they can't even conceive of it: their lives sprung into existence as they
+are and are unchanging. <!-- TODO:Much as a child has no idea all the work
+that goes into maintaining their life style; am I making that clear?! -->
 
 {{ this_book }} alternates between philosophy chapters, mostly with Mole and
 Ratty, and Toad's action chapters. The philosophy chapters are about home:
@@ -99,10 +98,12 @@ high-speed chases on trains, and fighting weasels, ferrets, and stoats. The
 intertwining of the two provides a good mix of thought and action, and lets us
 rest between the troubles Toad has.
 
-The philosophy chapters remind me a lot of my father.
-<!-- Wait, may the "my father" paragraph comes down here!? We set up with book
-structure, then what it means to me in nostalgia, then look outwards to other
-influences? -->
+The philosophy chapters remind me a lot of my father. They way he focused on
+living a life that he defined as good, focusing on the craft of his art and
+family. The way he felt like your home or things could be glad to see you,
+just as you were glad to see them. I don't think he got them from {{ this_book
+}}, but I wouldn't be surprised if he decided to read it to me because of how
+it aligned with his thinking.
 
 {{ this_book }} was obviously hugely influential to {{ jacques }} when writing
 the {{ redwall_series }}. {{ jacquess_lastname }} animals share a lot of the
