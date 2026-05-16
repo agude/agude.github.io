@@ -56,12 +56,12 @@ childhood: so much that feels like it needs to be done, so little that you
 actually have to do. Long summers, but not long enough, full of exploration
 and activity. Someone else is doing all the work to maintain Toad, Badger,
 Mole, and Ratty's lifestyle, but they can't even conceive of it. Their lives
-sprang into existence as they are and are only slowly unchanging.
+sprang into existence as they are and are only slowly changing.
 
 The book alternates between philosophy chapters, mostly with Mole and Ratty,
-and Toad's action chapters. The philosophy chapters are about home: what it
-means to leave it, to be tempted away from it, to realize it's what gives your
-life meaning, to return and reclaim it. Toad's chapters are getting into
+and Toad's chapters. The philosophy chapters are about home: what it means to
+leave it, to be tempted away from it, to realize it's what gives your life
+meaning, to return and reclaim it. Toad's chapters are about getting into
 trouble with motorcars, being thrown into and breaking out of jail, high-speed
 chases on trains, and fighting weasels, ferrets, and stoats. The two strands
 provide a good mix of thought and action, letting us rest between the troubles
@@ -69,11 +69,11 @@ Toad gets into.
 
 The philosophy chapters remind me of my father, who studied philosophy in
 college and almost went on to a PhD. The way he focused on living a life he
-defined as good, on the craft of his art and family. The way he felt like your
-home or your things could be glad to see you, just as you were glad to see
-them. I don't think he got these ideas from {{ this_book }}, but I wouldn't be
-surprised if he decided to read it to me because of how it aligned with his
-thinking.
+defined as good, on the craft of his art, and on his family. The way he felt
+like your home or your things could be glad to see you, just as you were glad
+to see them. I don't think he got these ideas from {{ this_book }}, but I
+wouldn't be surprised if he decided to read it to me because of how it aligned
+with his thinking.
 
 {{ this_book }} was hugely influential to {{ jacques }} when writing the {{
 redwall_series }}. {{ jacquess_lastname }} animals share the same traits as {{
@@ -89,8 +89,8 @@ based on Odysseus's from {{ homers }} {{ the_odyssey }}; it's right there in
 the chapter title. The anthropomorphized animals in England recall {{
 adamss_lastname }} {{ watership_down }}, though {{ watership_down }} is much
 darker. The way Mole can feel his home calling to him "like an electric shock"
-is similar to how Shivers allows Harrier Du Bois to commune with Revachol in
-{{ disco_elysium }}.
+is similar to how Shivers allows Harrier Du Bois to commune with the city
+Revachol in {{ disco_elysium }}.
 
 I enjoyed {{ this_book }}, and I suspect my children, who loved {{
 jacquess_lastname }} {{ redwall_series }}, would too. We've drifted out of me
