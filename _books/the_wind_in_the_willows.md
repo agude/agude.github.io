@@ -27,52 +27,22 @@ English countryside: playing around in boats, long summers, and the pull of
 home.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
-{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
-{% capture the_authors %}{% author_link page.book_authors link=false possessive %}{% endcapture %}
 {% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
-{% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text=author_last_name_text %}{% endcapture %}
 {% capture the_authors_lastname_possessive %}{% author_link page.book_authors link=false link_text=author_last_name_text possessive %}{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
-{% capture the_authors_link %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture the_authors_lastname_link %}{% author_link page.book_authors link_text=author_last_name_text %}{% endcapture %}
-{% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
 
 {% capture disco_elysium %}{% book_link "Disco Elysium" %}{% endcapture %}
 
 {% capture jacques %}{% author_link "Brian Jacques" %}{% endcapture %}
-{% capture jacquess %}{% author_link "Brian Jacques" possessive %}{% endcapture %}
-{% capture jacques_lastname %}{% author_link "Brian Jacques" link_text="Jacques" %}{% endcapture %}
 {% capture jacquess_lastname %}{% author_link "Brian Jacques" link_text="Jacques" possessive %}{% endcapture %}
 {% capture redwall_series %}{% series_link "Redwall" %}{% endcapture %}
 {% capture redwall %}{% book_link "Redwall" %}{% endcapture %}
 {% capture mossflower %}{% book_link "Mossflower" %}{% endcapture %}
 
-{% capture homer %}{% author_link "Homer" %}{% endcapture %}
 {% capture homers %}{% author_link "Homer" possessive %}{% endcapture %}
 {% capture the_odyssey %}{% book_link "The Odyssey" %}{% endcapture %}
 
-{% capture tennyson %}{% author_link "Alfred, Lord Tennyson" %}{% endcapture %}
-{% capture tennysons %}{% author_link "Alfred, Lord Tennyson" possessive %}{% endcapture %}
-{% capture tennyson_lastname %}{% author_link "Alfred, Lord Tennyson" link_text="Tennyson" %}{% endcapture %}
-{% capture tennysons_lastname %}{% author_link "Alfred, Lord Tennyson" link_text="Tennyson" possessive %}{% endcapture %}
-
-{% capture adams %}{% author_link "Richard Adams" %}{% endcapture %}
-{% capture adamss %}{% author_link "Richard Adams" possessive %}{% endcapture %}
-{% capture adams_lastname %}{% author_link "Richard Adams" link_text="Adams" %}{% endcapture %}
 {% capture adamss_lastname %}{% author_link "Richard Adams" link_text="Adams" possessive %}{% endcapture %}
 {% capture watership_down %}{% book_link "Watership Down" %}{% endcapture %}
-
-{% capture lewis %}{% author_link "C.S. Lewis" %}{% endcapture %}
-{% capture lewiss %}{% author_link "C.S. Lewis" possessive %}{% endcapture %}
-{% capture lewis_lastname %}{% author_link "C.S. Lewis" link_text="Lewis" %}{% endcapture %}
-{% capture lewiss_lastname %}{% author_link "C.S. Lewis" link_text="Lewis" possessive %}{% endcapture %}
-{% capture narnia %}{% series_link "The Chronicles of Narnia" %}{% endcapture %}
-
-{% capture milne %}{% author_link "A.A. Milne" %}{% endcapture %}
-{% capture milnes %}{% author_link "A.A. Milne" possessive %}{% endcapture %}
-{% capture milne_lastname %}{% author_link "A.A. Milne" link_text="Milne" %}{% endcapture %}
-{% capture milnes_lastname %}{% author_link "A.A. Milne" link_text="Milne" possessive %}{% endcapture %}
-{% capture winnie_the_pooh %}{% book_link "Winnie-the-Pooh" %}{% endcapture %}
 
 My father read {{ this_book }} to me when I was young. My first memory of it
 is him reading the final chapter, _The Return of Ulysses_, in which Toad,
