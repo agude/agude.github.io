@@ -844,6 +844,130 @@ class TestRelatedBooksFinder < Minitest::Test
     assert_equal mentioned_beta.url, result[:books][1].url
   end
 
+  def test_mixed_scores_date_tiebreaker_only_for_tied_pair
+    coll = MockCollection.new([], 'books')
+    curr = @helper.create_book(
+      title: 'Current Book',
+      authors: ['Author A'],
+      date_offset_days: 20,
+      url_suffix: 'current',
+      collection: coll,
+    )
+    # High score (2 mentions), oldest date
+    high_score = @helper.create_book(
+      title: 'Zeta High Score',
+      authors: ['Author B'],
+      date_offset_days: 15,
+      url_suffix: 'high-score',
+      collection: coll,
+    )
+    # Low score (1 mention), older date
+    low_score_old = @helper.create_book(
+      title: 'Alpha Low Old',
+      authors: ['Author C'],
+      date_offset_days: 10,
+      url_suffix: 'low-old',
+      collection: coll,
+    )
+    # Low score (1 mention), recent date
+    low_score_recent = @helper.create_book(
+      title: 'Beta Low Recent',
+      authors: ['Author D'],
+      date_offset_days: 2,
+      url_suffix: 'low-recent',
+      collection: coll,
+    )
+
+    coll.docs = [curr, high_score, low_score_old, low_score_recent]
+    site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    site.data['link_cache']['forward_links'] = {
+      curr.url => [
+        { target: high_score, type: 'book' },
+        { target: low_score_old, type: 'book' },
+        { target: low_score_recent, type: 'book' },
+      ],
+    }
+
+    # high_score mentioned twice, others once
+    rendered_content = <<~HTML
+      <a href="#{high_score.url}">First mention</a>
+      <a href="#{high_score.url}">Second mention</a>
+      <a href="#{low_score_old.url}">Once</a>
+      <a href="#{low_score_recent.url}">Once</a>
+    HTML
+
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 3, rendered_content)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_equal 3, result[:books].length
+    # high_score wins on score (2 > 1), regardless of being oldest
+    assert_equal high_score.url, result[:books][0].url, 'Highest score should be first despite oldest date'
+    # Tied scores: low_score_recent wins on date over low_score_old
+    assert_equal low_score_recent.url, result[:books][1].url, 'More recent should be second among tied scores'
+    assert_equal low_score_old.url, result[:books][2].url, 'Older should be third among tied scores'
+  end
+
+  def test_mixed_dates_alpha_tiebreaker_only_for_tied_pair
+    coll = MockCollection.new([], 'books')
+    curr = @helper.create_book(
+      title: 'Current Book',
+      authors: ['Author A'],
+      date_offset_days: 20,
+      url_suffix: 'current',
+      collection: coll,
+    )
+    # Same score, most recent date
+    recent_date = @helper.create_book(
+      title: 'Zeta Recent',
+      authors: ['Author B'],
+      date_offset_days: 2,
+      url_suffix: 'recent',
+      collection: coll,
+    )
+    # Same score, same older date, alpha first
+    old_date_alpha = @helper.create_book(
+      title: 'Alpha Old',
+      authors: ['Author C'],
+      date_offset_days: 10,
+      url_suffix: 'old-alpha',
+      collection: coll,
+    )
+    # Same score, same older date, alpha second
+    old_date_beta = @helper.create_book(
+      title: 'Beta Old',
+      authors: ['Author D'],
+      date_offset_days: 10,
+      url_suffix: 'old-beta',
+      collection: coll,
+    )
+
+    coll.docs = [curr, recent_date, old_date_alpha, old_date_beta]
+    site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    site.data['link_cache']['forward_links'] = {
+      curr.url => [
+        { target: recent_date, type: 'book' },
+        { target: old_date_alpha, type: 'book' },
+        { target: old_date_beta, type: 'book' },
+      ],
+    }
+    # No rendered_content, all score 0
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 3)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_equal 3, result[:books].length
+    # recent_date wins on date, regardless of title (Zeta)
+    assert_equal recent_date.url, result[:books][0].url, 'Most recent should be first despite Zeta title'
+    # Tied dates: alpha_old wins on title over beta_old
+    assert_equal old_date_alpha.url, result[:books][1].url, 'Alpha should be second among tied dates'
+    assert_equal old_date_beta.url, result[:books][2].url, 'Beta should be third among tied dates'
+  end
+
   def test_mentioned_books_scored_by_mention_count
     coll = MockCollection.new([], 'books')
     curr = @helper.create_book(
