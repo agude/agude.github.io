@@ -90,14 +90,19 @@ and are unchanging.
 <!-- TODO:Much as a child has no idea all the work that goes into maintaining their
 life style; am I making that clear?! -->
 
-The book has a mix of philosophy chapters, mostly with Mole and Ratty, that
-explore emotions, feelings, and how to live. 
-
-And then there are Toad's chapters, which are a more straightforward story of
-action and adventure, of getting into trouble with motorcars, getting thrown
-into and breaking out of jail, and fighting weasels, ferrets, and stoats. The
+{{ this_book }} alternates between philosophy chapters, mostly with Mole and
+Ratty, and Toad's action chapters. The philosophy chapters are about home:
+what it means to leave it, to be tempted away from it, to realize it's what
+gives your life meaning, to return and reclaim it. Toad's chapters are getting
+into trouble with motorcars, being thrown into and breaking out of jail,
+high-speed chases on trains, and fighting weasels, ferrets, and stoats. The
 intertwining of the two provides a good mix of thought and action, and lets us
 rest between the troubles Toad has.
+
+The philosophy chapters remind me a lot of my father.
+<!-- Wait, may the "my father" paragraph comes down here!? We set up with book
+structure, then what it means to me in nostalgia, then look outwards to other
+influences? -->
 
 {{ this_book }} was obviously hugely influential to {{ jacques }} when writing
 the {{ redwall_series }}. {{ jacquess_lastname }} animals share a lot of the
