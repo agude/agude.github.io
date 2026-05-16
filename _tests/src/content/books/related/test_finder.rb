@@ -752,7 +752,7 @@ class TestRelatedBooksFinder < Minitest::Test
     assert_equal series_mentioned.url, result[:books][1].url
   end
 
-  def test_mentioned_books_sorted_alphabetically_when_no_rendered_content
+  def test_mentioned_books_sorted_by_date_when_scores_tied
     coll = MockCollection.new([], 'books')
     curr = @helper.create_book(
       title: 'Current Book',
@@ -761,19 +761,65 @@ class TestRelatedBooksFinder < Minitest::Test
       url_suffix: 'current',
       collection: coll,
     )
-    # Book with title that comes later alphabetically
-    mentioned_beta = @helper.create_book(
-      title: 'Beta Book',
+    # Older book (alphabetically first)
+    mentioned_alpha = @helper.create_book(
+      title: 'Alpha Book',
       authors: ['Author B'],
       date_offset_days: 10,
+      url_suffix: 'mentioned-alpha',
+      collection: coll,
+    )
+    # More recent book (alphabetically second)
+    mentioned_beta = @helper.create_book(
+      title: 'Beta Book',
+      authors: ['Author C'],
+      date_offset_days: 2,
       url_suffix: 'mentioned-beta',
       collection: coll,
     )
-    # Book with title that comes first alphabetically
+
+    coll.docs = [curr, mentioned_alpha, mentioned_beta]
+    site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    site.data['link_cache']['forward_links'] = {
+      curr.url => [
+        { target: mentioned_alpha, type: 'book' },
+        { target: mentioned_beta, type: 'book' },
+      ],
+    }
+    # No rendered_content, so all books score 0 — ties broken by date desc
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 2)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_equal 2, result[:books].length
+    assert_equal mentioned_beta.url, result[:books][0].url, 'More recent book should come first when scores tied'
+    assert_equal mentioned_alpha.url, result[:books][1].url
+  end
+
+  def test_mentioned_books_sorted_alphabetically_when_scores_and_dates_tied
+    coll = MockCollection.new([], 'books')
+    curr = @helper.create_book(
+      title: 'Current Book',
+      authors: ['Author A'],
+      date_offset_days: 20,
+      url_suffix: 'current',
+      collection: coll,
+    )
+    # Same date, title comes later alphabetically
+    mentioned_beta = @helper.create_book(
+      title: 'Beta Book',
+      authors: ['Author B'],
+      date_offset_days: 5,
+      url_suffix: 'mentioned-beta',
+      collection: coll,
+    )
+    # Same date, title comes first alphabetically
     mentioned_alpha = @helper.create_book(
       title: 'Alpha Book',
       authors: ['Author C'],
-      date_offset_days: 2,
+      date_offset_days: 5,
       url_suffix: 'mentioned-alpha',
       collection: coll,
     )
@@ -786,7 +832,7 @@ class TestRelatedBooksFinder < Minitest::Test
         { target: mentioned_alpha, type: 'book' },
       ],
     }
-    # No rendered_content, so all books score equally and sort alphabetically
+    # No rendered_content, same dates — ties broken alphabetically
     finder = Jekyll::Books::Related::Finder.new(site, curr, 2)
     result = nil
     Time.stub :now, @test_time_now do
@@ -794,7 +840,7 @@ class TestRelatedBooksFinder < Minitest::Test
     end
 
     assert_equal 2, result[:books].length
-    assert_equal mentioned_alpha.url, result[:books][0].url, 'Alpha should come first alphabetically'
+    assert_equal mentioned_alpha.url, result[:books][0].url, 'Alpha should come first when scores and dates tied'
     assert_equal mentioned_beta.url, result[:books][1].url
   end
 

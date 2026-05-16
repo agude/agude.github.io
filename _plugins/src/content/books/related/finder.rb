@@ -282,10 +282,10 @@ module Jekyll
                        .select { |entry| entry[:type] == link_type }
                        .map { |entry| entry[entry_key] }
 
-          # Forward links: score by mention count/position, sort by score desc then title
+          # Forward links: score by mention count/position, sort by score desc, date desc, then title
           # Backlinks: sort alphabetically by title (no scoring — mentions are in other pages)
           candidates = if cache_key == 'forward_links'
-                         candidates.sort_by { |book| [-score_book_mention(book.url), book.data['title'].to_s.downcase] }
+                         candidates.sort_by { |book| [-score_book_mention(book.url), -book.date.to_i, book.data['title'].to_s.downcase] }
                        else
                          candidates.sort_by { |book| book.data['title'].to_s.downcase }
                        end
