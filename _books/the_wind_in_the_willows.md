@@ -75,13 +75,29 @@ is a standalone novel.
 My father read {{ this_book }} to me when I was young. My first memory of it
 is him reading the final chapter, _The Return of Ulysses_, in which Toad,
 Badger, Mole, and Ratty storm Toad Hall and take it back from the weasels,
-ferrets, and stoats. I remember him singing _When The Toad Came Home_. I don't
-know if we actually read the whole book, although on this re-read I found some
-of the chapters to be familiar, and others to be completely new, so I suspect
-we only read some of them.
+ferrets, and stoats; and I remember him singing _When The Toad Came Home_
+loudly. I don't know if we actually read the whole book, although on this
+re-read I found some of the chapters to be familiar, and others to be
+completely new, so I suspect we only read some of them.
 
-<!-- Section about how its like childhood: so much to do and so little needs
-to be done. How it captures my father's philosophy. -->
+This book is such a perfect story for children. It encapsulates the feeling of
+childhood, of having so much that feels like it needs to be done, and so
+little that you actually have to do. Of long, but not long enough, summers
+full of exploration and activity. You get a sense that someone else is doing
+all the work to maintain Toad, Badger, Mole, and Ratty's lifestyle, but that
+they can't even conceive of it: their lives sprung into existence as they are
+and are unchanging.
+<!-- TODO:Much as a child has no idea all the work that goes into maintaining their
+life style; am I making that clear?! -->
+
+The book has a mix of philosophy chapters, mostly with Mole and Ratty, that
+explore emotions, feelings, and how to live. 
+
+And then there are Toad's chapters, which are a more straightforward story of
+action and adventure, of getting into trouble with motorcars, getting thrown
+into and breaking out of jail, and fighting weasels, ferrets, and stoats. The
+intertwining of the two provides a good mix of thought and action, and lets us
+rest between the troubles Toad has.
 
 {{ this_book }} was obviously hugely influential to {{ jacques }} when writing
 the {{ redwall_series }}. {{ jacquess_lastname }} animals share a lot of the
