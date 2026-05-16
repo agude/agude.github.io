@@ -15,23 +15,20 @@ module Jekyll
       #
       # This class handles the data retrieval logic for finding related books.
       # It does not produce any HTML output.
+      #
+      # rubocop:disable Metrics/ClassLength
       class Finder
         DEFAULT_MAX_BOOKS = 3
 
         # @param site [Jekyll::Site] The Jekyll site object
         # @param page [Jekyll::Document, Jekyll::Page] The current page/document
         # @param max_books [Integer, nil] Maximum related books to return (default from config)
-        # @param rendered_content [String, nil] The rendered HTML content of the page,
-        #   used to score mentions by count and position. Pass this when calling from
-        #   a layout where `context['content']` is available.
-        def initialize(site, page = nil, max_books = nil, rendered_content = nil)
+        def initialize(site, page = nil, max_books = nil)
           @site = site
           @page = page
           @max_books = max_books || @site&.config&.dig('display_limits', 'related_books') || DEFAULT_MAX_BOOKS
-          @rendered_content = rendered_content
           @logs = String.new
           @candidate_books = []
-          @mention_data = parse_book_mentions(@rendered_content)
         end
 
         def find
@@ -43,6 +40,14 @@ module Jekyll
 
           { logs: @logs, books: final_books }
         end
+
+        # Position threshold for detecting "future reads" mentions at end of reviews.
+        # Threshold of 92% determined via precision/recall analysis on 20 reviews:
+        # - 92% gives 100% recall, 70% precision, F1=82% for detecting "future reads"
+        # - False positives (late comparisons) are acceptable since series/author
+        #   tiers already surface those books if relevant
+        FUTURE_READ_THRESHOLD = 92
+        FUTURE_READ_PENALTY = 0.25
 
         private
 
@@ -278,24 +283,28 @@ module Jekyll
           return unless current_urls.size < @max_books
 
           links = @site.data.dig('link_cache', cache_key, @page['url']) || []
-          candidates = links
-                       .select { |entry| entry[:type] == link_type }
-                       .map { |entry| entry[entry_key] }
+          type_entries = links.select { |entry| entry[:type] == link_type }
+          sorted_entries = sort_link_entries(type_entries, entry_key, cache_key == 'forward_links')
 
-          # Forward links: score by mention count/position, sort by score desc, date desc, then title
-          # Backlinks: sort alphabetically by title (no scoring — mentions are in other pages)
-          candidates = if cache_key == 'forward_links'
-                         candidates.sort_by { |book| [-score_book_mention(book.url), -book.date.to_i, book.data['title'].to_s.downcase] }
-                       else
-                         candidates.sort_by { |book| book.data['title'].to_s.downcase }
-                       end
-
-          candidates.each do |book|
+          sorted_entries.each do |entry|
             break if current_urls.size >= @max_books
+
+            book = entry[entry_key]
             next if current_urls.include?(book.url)
 
             @candidate_books << book
             current_urls.add(book.url)
+          end
+        end
+
+        def sort_link_entries(entries, entry_key, use_scoring)
+          if use_scoring
+            entries.sort_by do |entry|
+              book = entry[entry_key]
+              [-score_from_cache(entry), -book.date.to_i, book.data['title'].to_s.downcase]
+            end
+          else
+            entries.sort_by { |entry| entry[entry_key].data['title'].to_s.downcase }
           end
         end
 
@@ -326,48 +335,11 @@ module Jekyll
           Jekyll::Books::Core::BookDataUtils.parse_book_number(data['book_number'])
         end
 
-        # Parses rendered HTML content to count book link occurrences and their positions.
-        # Returns a hash mapping book URLs to { count:, positions: [] }.
-        def parse_book_mentions(content)
-          return {} unless content && !content.empty?
+        def score_from_cache(entry)
+          count = entry[:count]
+          return 0.0 if count.nil? || count.zero?
 
-          mentions = Hash.new { |h, k| h[k] = { count: 0, positions: [] } }
-          content_length = content.length.to_f
-          return mentions if content_length.zero?
-
-          # Match book links by href pattern: <a href="/books/slug/" or "/books/slug.html">
-          # Requires /books/ followed by a path segment (slug) to avoid matching /books-on-tape/
-          content.scan(/<a[^>]+href=["'](\/books\/[^"'\/]+(?:\/|\.html))["'][^>]*>/i) do
-            url = Regexp.last_match[1]
-            position = (Regexp.last_match.begin(0) / content_length) * 100
-            mentions[url][:count] += 1
-            mentions[url][:positions] << position
-          end
-
-          mentions
-        end
-
-        # Scores a book based on mention count and position in the review.
-        # Higher scores indicate more prominent mentions.
-        #
-        # Uses MIN position across all mentions — if a book appears early anywhere,
-        # it's substantive regardless of later mentions.
-        #
-        # Threshold of 92% determined via precision/recall analysis on 20 reviews:
-        # - 92% gives 100% recall, 70% precision, F1=82% for detecting "future reads"
-        # - False positives (late comparisons) are acceptable since series/author
-        #   tiers already surface those books if relevant
-        FUTURE_READ_THRESHOLD = 92
-        FUTURE_READ_PENALTY = 0.25
-
-        def score_book_mention(url)
-          # Books not found in rendered content score 0. This handles stale captures
-          # (defined but never used in prose) — they shouldn't surface as related.
-          return 0.0 unless @mention_data&.key?(url)
-
-          data = @mention_data[url]
-          count = data[:count]
-          min_position = data[:positions].min || 100
+          min_position = entry[:min_position] || 100
 
           if min_position >= FUTURE_READ_THRESHOLD
             count * FUTURE_READ_PENALTY
@@ -376,6 +348,7 @@ module Jekyll
           end
         end
       end
+      # rubocop:enable Metrics/ClassLength
     end
   end
 end

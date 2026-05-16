@@ -24,146 +24,63 @@ class TestRelatedBooksFinder < Minitest::Test
     @context = create_context({}, { site: create_site, page: create_doc })
   end
 
-  # Generates HTML content with book links placed at specified percentage positions.
-  # Positions are approximate: each ~50-char link HTML consumes space, so a link
-  # "at 50%" starts at byte 500 but extends to ~550. Tests use assert_in_delta
-  # with tolerance to account for this. For threshold tests near 92%, ensure
-  # positions are far enough apart (e.g., 91.5% vs 92.5%) to avoid overlap.
-  # @param links [Array<Hash>] Array of { url:, position: } where position is 0-100
-  # @param total_length [Integer] Target content length (default 1000 chars)
-  # @return [String] HTML content with links at approximately the specified positions
-  def content_with_links_at_positions(links, total_length: 1000)
-    # Sort by position to build content left-to-right
-    sorted = links.sort_by { |l| l[:position] }
-    content = String.new
-    sorted.each do |link|
-      target_pos = (link[:position] / 100.0 * total_length).to_i
-      padding_needed = [target_pos - content.length, 0].max
-      content << ('x' * padding_needed)
-      content << %(<a href="#{link[:url]}" class="book-link">Book</a>)
-    end
-    # Pad to reach total_length
-    remaining = [total_length - content.length, 0].max
-    content << ('x' * remaining)
-    content
-  end
+  # --- Unit tests for score_from_cache ---
 
-  # --- Unit tests for parse_book_mentions ---
+  def test_score_from_cache_returns_count_for_early_mentions
+    finder = Jekyll::Books::Related::Finder.new(nil, nil, nil)
+    entry = { count: 2, min_position: 50 }
 
-  def test_parse_book_mentions_counts_occurrences
-    finder = Jekyll::Books::Related::Finder.new(nil, nil, nil, nil)
-    content = <<~HTML
-      <a href="/books/alpha/" class="book-link">Alpha</a>
-      <a href="/books/alpha/" class="book-link">Alpha again</a>
-      <a href="/books/beta/" class="book-link">Beta</a>
-    HTML
-
-    result = finder.send(:parse_book_mentions, content)
-
-    assert_equal 2, result['/books/alpha/'][:count]
-    assert_equal 1, result['/books/beta/'][:count]
-  end
-
-  def test_parse_book_mentions_tracks_positions
-    finder = Jekyll::Books::Related::Finder.new(nil, nil, nil, nil)
-    # Link at ~10% and ~90% of content
-    content = content_with_links_at_positions([
-      { url: '/books/early/', position: 10 },
-      { url: '/books/late/', position: 90 },
-    ])
-
-    result = finder.send(:parse_book_mentions, content)
-
-    assert_in_delta 10, result['/books/early/'][:positions].first, 5
-    assert_in_delta 90, result['/books/late/'][:positions].first, 5
-  end
-
-  def test_parse_book_mentions_returns_empty_hash_for_nil_content
-    finder = Jekyll::Books::Related::Finder.new(nil, nil, nil, nil)
-
-    result = finder.send(:parse_book_mentions, nil)
-
-    assert_equal({}, result)
-  end
-
-  def test_parse_book_mentions_returns_empty_hash_for_empty_content
-    finder = Jekyll::Books::Related::Finder.new(nil, nil, nil, nil)
-
-    result = finder.send(:parse_book_mentions, '')
-
-    assert_equal({}, result)
-  end
-
-  def test_parse_book_mentions_ignores_non_book_paths
-    finder = Jekyll::Books::Related::Finder.new(nil, nil, nil, nil)
-    content = <<~HTML
-      <a href="/books/valid-book/" class="book-link">Valid trailing slash</a>
-      <a href="/books/also-valid.html" class="book-link">Valid html extension</a>
-      <a href="/books-on-tape/audiobook/" class="book-link">Not a book (wrong prefix)</a>
-      <a href="/bookshelves/shelf1/" class="book-link">Not a book (different path)</a>
-      <a href="/posts/article/" class="book-link">Not a book (posts)</a>
-    HTML
-
-    result = finder.send(:parse_book_mentions, content)
-
-    assert_equal 2, result.keys.length
-    assert result.key?('/books/valid-book/')
-    assert result.key?('/books/also-valid.html')
-  end
-
-  def test_parse_book_mentions_case_insensitive_href
-    finder = Jekyll::Books::Related::Finder.new(nil, nil, nil, nil)
-    content = '<A HREF="/books/uppercase/" CLASS="book-link">Book</A>'
-
-    result = finder.send(:parse_book_mentions, content)
-
-    assert_equal 1, result['/books/uppercase/'][:count]
-  end
-
-  # --- Unit tests for score_book_mention ---
-
-  def test_score_book_mention_returns_count_for_early_mentions
-    content = content_with_links_at_positions([
-      { url: '/books/early/', position: 50 },
-      { url: '/books/early/', position: 60 },
-    ])
-    finder = Jekyll::Books::Related::Finder.new(nil, nil, nil, content)
-
-    score = finder.send(:score_book_mention, '/books/early/')
+    score = finder.send(:score_from_cache, entry)
 
     assert_equal 2.0, score
   end
 
-  def test_score_book_mention_penalizes_late_only_mentions
-    content = content_with_links_at_positions([
-      { url: '/books/late/', position: 95 },
-    ])
-    finder = Jekyll::Books::Related::Finder.new(nil, nil, nil, content)
+  def test_score_from_cache_penalizes_late_only_mentions
+    finder = Jekyll::Books::Related::Finder.new(nil, nil, nil)
+    entry = { count: 1, min_position: 95 }
 
-    score = finder.send(:score_book_mention, '/books/late/')
+    score = finder.send(:score_from_cache, entry)
 
     assert_equal 0.25, score # 1 * 0.25 penalty
   end
 
-  def test_score_book_mention_uses_min_position_for_threshold
-    # Book mentioned at 50% AND 95% — should NOT be penalized (min is 50%)
-    content = content_with_links_at_positions([
-      { url: '/books/mixed/', position: 50 },
-      { url: '/books/mixed/', position: 95 },
-    ])
-    finder = Jekyll::Books::Related::Finder.new(nil, nil, nil, content)
+  def test_score_from_cache_uses_min_position_for_threshold
+    # Book mentioned at min_position 50% — should NOT be penalized
+    finder = Jekyll::Books::Related::Finder.new(nil, nil, nil)
+    entry = { count: 2, min_position: 50 }
 
-    score = finder.send(:score_book_mention, '/books/mixed/')
+    score = finder.send(:score_from_cache, entry)
 
     assert_equal 2.0, score # No penalty because min position < 92%
   end
 
-  def test_score_book_mention_returns_zero_for_unknown_url
-    finder = Jekyll::Books::Related::Finder.new(nil, nil, nil, '<p>No links</p>')
+  def test_score_from_cache_returns_zero_for_zero_count
+    finder = Jekyll::Books::Related::Finder.new(nil, nil, nil)
+    entry = { count: 0, min_position: 100 }
 
-    score = finder.send(:score_book_mention, '/books/unknown/')
+    score = finder.send(:score_from_cache, entry)
 
-    # Books not found in rendered content score 0 — handles stale captures
+    assert_equal 0.0, score
+  end
+
+  def test_score_from_cache_returns_zero_for_nil_count
+    # Entries with nil count (unused captures, direct links) score 0.
+    # This is expected for links that exist for backlink symmetry but have no prose usage.
+    finder = Jekyll::Books::Related::Finder.new(nil, nil, nil)
+    entry = { count: nil, min_position: nil }
+
+    score = finder.send(:score_from_cache, entry)
+
+    assert_equal 0.0, score
+  end
+
+  def test_score_from_cache_returns_zero_for_missing_count_key
+    # Entry without count key (e.g., from older cache format) scores 0 gracefully
+    finder = Jekyll::Books::Related::Finder.new(nil, nil, nil)
+    entry = { type: 'book' } # No count or min_position keys
+
+    score = finder.send(:score_from_cache, entry)
+
     assert_equal 0.0, score
   end
 
@@ -639,7 +556,7 @@ class TestRelatedBooksFinder < Minitest::Test
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
     # Inject forward_links: current → mentioned
     site.data['link_cache']['forward_links'] = {
-      curr.url => [{ target: mentioned, type: 'book' }],
+      curr.url => [{ target: mentioned, type: 'book', count: 1, min_position: 50 }],
     }
     finder = Jekyll::Books::Related::Finder.new(site, curr, 3)
     result = nil
@@ -690,9 +607,9 @@ class TestRelatedBooksFinder < Minitest::Test
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
     site.data['link_cache']['forward_links'] = {
       curr.url => [
-        { target: series_mentioned, type: 'series' },
-        { target: short_story_mentioned, type: 'short_story' },
-        { target: book_mentioned, type: 'book' },
+        { target: series_mentioned, type: 'series', count: 1, min_position: 70 },
+        { target: short_story_mentioned, type: 'short_story', count: 1, min_position: 50 },
+        { target: book_mentioned, type: 'book', count: 1, min_position: 30 },
       ],
     }
     finder = Jekyll::Books::Related::Finder.new(site, curr, 3)
@@ -737,8 +654,8 @@ class TestRelatedBooksFinder < Minitest::Test
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
     site.data['link_cache']['forward_links'] = {
       curr.url => [
-        { target: series_mentioned, type: 'series' },
-        { target: book_mentioned, type: 'book' },
+        { target: series_mentioned, type: 'series', count: 1, min_position: 50 },
+        { target: book_mentioned, type: 'book', count: 1, min_position: 50 },
       ],
     }
     finder = Jekyll::Books::Related::Finder.new(site, curr, 2)
@@ -780,13 +697,13 @@ class TestRelatedBooksFinder < Minitest::Test
 
     coll.docs = [curr, mentioned_alpha, mentioned_beta]
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    # Same scores (count=1, early position) — ties broken by date desc
     site.data['link_cache']['forward_links'] = {
       curr.url => [
-        { target: mentioned_alpha, type: 'book' },
-        { target: mentioned_beta, type: 'book' },
+        { target: mentioned_alpha, type: 'book', count: 1, min_position: 50 },
+        { target: mentioned_beta, type: 'book', count: 1, min_position: 50 },
       ],
     }
-    # No rendered_content, so all books score 0 — ties broken by date desc
     finder = Jekyll::Books::Related::Finder.new(site, curr, 2)
     result = nil
     Time.stub :now, @test_time_now do
@@ -826,13 +743,13 @@ class TestRelatedBooksFinder < Minitest::Test
 
     coll.docs = [curr, mentioned_beta, mentioned_alpha]
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    # Same scores, same dates — ties broken alphabetically
     site.data['link_cache']['forward_links'] = {
       curr.url => [
-        { target: mentioned_beta, type: 'book' },
-        { target: mentioned_alpha, type: 'book' },
+        { target: mentioned_beta, type: 'book', count: 1, min_position: 50 },
+        { target: mentioned_alpha, type: 'book', count: 1, min_position: 50 },
       ],
     }
-    # No rendered_content, same dates — ties broken alphabetically
     finder = Jekyll::Books::Related::Finder.new(site, curr, 2)
     result = nil
     Time.stub :now, @test_time_now do
@@ -880,23 +797,16 @@ class TestRelatedBooksFinder < Minitest::Test
 
     coll.docs = [curr, high_score, low_score_old, low_score_recent]
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    # high_score has count=2, others have count=1 (all early positions)
     site.data['link_cache']['forward_links'] = {
       curr.url => [
-        { target: high_score, type: 'book' },
-        { target: low_score_old, type: 'book' },
-        { target: low_score_recent, type: 'book' },
+        { target: high_score, type: 'book', count: 2, min_position: 10 },
+        { target: low_score_old, type: 'book', count: 1, min_position: 50 },
+        { target: low_score_recent, type: 'book', count: 1, min_position: 60 },
       ],
     }
 
-    # high_score mentioned twice, others once
-    rendered_content = <<~HTML
-      <a href="#{high_score.url}">First mention</a>
-      <a href="#{high_score.url}">Second mention</a>
-      <a href="#{low_score_old.url}">Once</a>
-      <a href="#{low_score_recent.url}">Once</a>
-    HTML
-
-    finder = Jekyll::Books::Related::Finder.new(site, curr, 3, rendered_content)
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 3)
     result = nil
     Time.stub :now, @test_time_now do
       result = finder.find
@@ -946,14 +856,14 @@ class TestRelatedBooksFinder < Minitest::Test
 
     coll.docs = [curr, recent_date, old_date_alpha, old_date_beta]
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    # All have same score (count=1, early position)
     site.data['link_cache']['forward_links'] = {
       curr.url => [
-        { target: recent_date, type: 'book' },
-        { target: old_date_alpha, type: 'book' },
-        { target: old_date_beta, type: 'book' },
+        { target: recent_date, type: 'book', count: 1, min_position: 50 },
+        { target: old_date_alpha, type: 'book', count: 1, min_position: 50 },
+        { target: old_date_beta, type: 'book', count: 1, min_position: 50 },
       ],
     }
-    # No rendered_content, all score 0
     finder = Jekyll::Books::Related::Finder.new(site, curr, 3)
     result = nil
     Time.stub :now, @test_time_now do
@@ -996,22 +906,15 @@ class TestRelatedBooksFinder < Minitest::Test
 
     coll.docs = [curr, mentioned_once, mentioned_thrice]
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    # thrice has count=3, once has count=1 (both early positions)
     site.data['link_cache']['forward_links'] = {
       curr.url => [
-        { target: mentioned_once, type: 'book' },
-        { target: mentioned_thrice, type: 'book' },
+        { target: mentioned_once, type: 'book', count: 1, min_position: 50 },
+        { target: mentioned_thrice, type: 'book', count: 3, min_position: 10 },
       ],
     }
 
-    # Rendered content with three mentions of 'thrice' and one of 'once'
-    rendered_content = <<~HTML
-      <p>Early mention of <a href="#{mentioned_thrice.url}" class="book-link">Thrice</a>.</p>
-      <p>Another <a href="#{mentioned_thrice.url}" class="book-link">Thrice</a> reference.</p>
-      <p>Single <a href="#{mentioned_once.url}" class="book-link">Once</a> mention.</p>
-      <p>Third <a href="#{mentioned_thrice.url}" class="book-link">Thrice</a> at the end.</p>
-    HTML
-
-    finder = Jekyll::Books::Related::Finder.new(site, curr, 2, rendered_content)
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 2)
     result = nil
     Time.stub :now, @test_time_now do
       result = finder.find
@@ -1050,20 +953,15 @@ class TestRelatedBooksFinder < Minitest::Test
 
     coll.docs = [curr, substantive, future_read]
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    # Substantive at 10% (early, no penalty), Future at 95% (penalized)
     site.data['link_cache']['forward_links'] = {
       curr.url => [
-        { target: substantive, type: 'book' },
-        { target: future_read, type: 'book' },
+        { target: substantive, type: 'book', count: 1, min_position: 10 },
+        { target: future_read, type: 'book', count: 1, min_position: 95 },
       ],
     }
 
-    # Substantive at 10% (early), Future at 95% (after 92% threshold = penalized)
-    rendered_content = content_with_links_at_positions([
-      { url: substantive.url, position: 10 },
-      { url: future_read.url, position: 95 },
-    ])
-
-    finder = Jekyll::Books::Related::Finder.new(site, curr, 2, rendered_content)
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 2)
     result = nil
     Time.stub :now, @test_time_now do
       result = finder.find
@@ -1104,22 +1002,16 @@ class TestRelatedBooksFinder < Minitest::Test
 
     coll.docs = [curr, mixed_mentions, late_only]
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    # mixed_mentions: count=2, min_pos=5% (early, no penalty)
+    # late_only: count=1, min_pos=94% (penalized)
     site.data['link_cache']['forward_links'] = {
       curr.url => [
-        { target: mixed_mentions, type: 'book' },
-        { target: late_only, type: 'book' },
+        { target: mixed_mentions, type: 'book', count: 2, min_position: 5 },
+        { target: late_only, type: 'book', count: 1, min_position: 94 },
       ],
     }
 
-    # mixed_mentions: at 5% (early) and 95% (late) - min is 5%, no penalty, count=2
-    # late_only: only at 95% - penalized, count=1
-    rendered_content = content_with_links_at_positions([
-      { url: mixed_mentions.url, position: 5 },
-      { url: late_only.url, position: 94 },
-      { url: mixed_mentions.url, position: 95 },
-    ])
-
-    finder = Jekyll::Books::Related::Finder.new(site, curr, 2, rendered_content)
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 2)
     result = nil
     Time.stub :now, @test_time_now do
       result = finder.find
@@ -1160,21 +1052,16 @@ class TestRelatedBooksFinder < Minitest::Test
 
     coll.docs = [curr, just_below, at_threshold]
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    # just_below at 91.5% -> below 92% threshold, no penalty
+    # at_threshold at 92.5% -> at/above 92% threshold, penalized
     site.data['link_cache']['forward_links'] = {
       curr.url => [
-        { target: just_below, type: 'book' },
-        { target: at_threshold, type: 'book' },
+        { target: just_below, type: 'book', count: 1, min_position: 91.5 },
+        { target: at_threshold, type: 'book', count: 1, min_position: 92.5 },
       ],
     }
 
-    # just_below at 91.5% -> below 92% threshold, no penalty
-    # at_threshold at 92.5% -> at/above 92% threshold, penalized
-    rendered_content = content_with_links_at_positions([
-      { url: just_below.url, position: 91.5 },
-      { url: at_threshold.url, position: 92.5 },
-    ])
-
-    finder = Jekyll::Books::Related::Finder.new(site, curr, 2, rendered_content)
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 2)
     result = nil
     Time.stub :now, @test_time_now do
       result = finder.find
@@ -1186,52 +1073,6 @@ class TestRelatedBooksFinder < Minitest::Test
     # Even though 'Alpha Above' < 'Zeta Below' alphabetically, score wins
     assert_equal just_below.url, result[:books][0].url, 'Book at 91.5% should not be penalized'
     assert_equal at_threshold.url, result[:books][1].url, 'Book at 92.5% should be penalized'
-  end
-
-  def test_parse_book_mentions_ignores_non_book_links
-    coll = MockCollection.new([], 'books')
-    curr = @helper.create_book(
-      title: 'Current Book',
-      authors: ['Author A'],
-      date_offset_days: 20,
-      url_suffix: 'current',
-      collection: coll,
-    )
-    # Only one actual book link
-    real_book = @helper.create_book(
-      title: 'Real Book',
-      authors: ['Author B'],
-      date_offset_days: 10,
-      url_suffix: 'real',
-      collection: coll,
-    )
-
-    coll.docs = [curr, real_book]
-    site = create_site(@site_config_base.dup, { 'books' => coll.docs })
-    site.data['link_cache']['forward_links'] = {
-      curr.url => [
-        { target: real_book, type: 'book' },
-      ],
-    }
-
-    # Content with various non-book links that should be ignored
-    rendered_content = <<~HTML
-      <a href="/about/">About page</a>
-      <a href="/posts/some-post/">Blog post</a>
-      <a href="https://example.com/books/external">External book link</a>
-      <a href="#{real_book.url}">Real Book</a>
-      <a href="/bookshelves/fiction/">Bookshelves</a>
-    HTML
-
-    finder = Jekyll::Books::Related::Finder.new(site, curr, 5, rendered_content)
-    result = nil
-    Time.stub :now, @test_time_now do
-      result = finder.find
-    end
-
-    # Should find the real book, non-book links should not interfere
-    assert_equal 1, result[:books].length
-    assert_equal real_book.url, result[:books][0].url
   end
 
   # --- Backlinks (mentioning reviews) tests ---
@@ -1424,7 +1265,7 @@ class TestRelatedBooksFinder < Minitest::Test
     assert_equal mentioner_beta.url, result[:books][1].url
   end
 
-  def test_backlinks_ignore_rendered_content_scoring
+  def test_backlinks_sort_alphabetically_not_by_score
     coll = MockCollection.new([], 'books')
     curr = @helper.create_book(
       title: 'Current Book',
@@ -1433,52 +1274,44 @@ class TestRelatedBooksFinder < Minitest::Test
       url_suffix: 'current',
       collection: coll,
     )
-    # Mentioner that appears many times in rendered_content
-    mentioner_many = @helper.create_book(
-      title: 'Zeta Many Mentions',
+    # Mentioner with title starting with Z
+    mentioner_zeta = @helper.create_book(
+      title: 'Zeta Mentioner',
       authors: ['Author B'],
       date_offset_days: 10,
-      url_suffix: 'mentioner-many',
+      url_suffix: 'mentioner-zeta',
       collection: coll,
     )
-    # Mentioner that appears once in rendered_content
-    mentioner_once = @helper.create_book(
-      title: 'Alpha One Mention',
+    # Mentioner with title starting with A
+    mentioner_alpha = @helper.create_book(
+      title: 'Alpha Mentioner',
       authors: ['Author C'],
       date_offset_days: 2,
-      url_suffix: 'mentioner-once',
+      url_suffix: 'mentioner-alpha',
       collection: coll,
     )
 
-    coll.docs = [curr, mentioner_many, mentioner_once]
+    coll.docs = [curr, mentioner_zeta, mentioner_alpha]
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    # Backlinks don't have count/min_position — they're sorted alphabetically
     site.data['link_cache']['backlinks'] = {
       curr.url => [
-        { source: mentioner_many, type: 'book' },
-        { source: mentioner_once, type: 'book' },
+        { source: mentioner_zeta, type: 'book' },
+        { source: mentioner_alpha, type: 'book' },
       ],
     }
 
-    # Rendered content with many mentions of mentioner_many
-    # If backlinks used scoring, mentioner_many would rank first
-    rendered_content = <<~HTML
-      <a href="#{mentioner_many.url}">Many 1</a>
-      <a href="#{mentioner_many.url}">Many 2</a>
-      <a href="#{mentioner_many.url}">Many 3</a>
-      <a href="#{mentioner_once.url}">Once</a>
-    HTML
-
-    finder = Jekyll::Books::Related::Finder.new(site, curr, 2, rendered_content)
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 2)
     result = nil
     Time.stub :now, @test_time_now do
       result = finder.find
     end
 
     assert_equal 2, result[:books].length
-    # Backlinks should sort alphabetically, ignoring mention counts
-    # 'Alpha One Mention' < 'Zeta Many Mentions'
-    assert_equal mentioner_once.url, result[:books][0].url, 'Backlinks should sort alphabetically, not by mention count'
-    assert_equal mentioner_many.url, result[:books][1].url
+    # Backlinks should sort alphabetically by title
+    # 'Alpha Mentioner' < 'Zeta Mentioner'
+    assert_equal mentioner_alpha.url, result[:books][0].url, 'Backlinks should sort alphabetically'
+    assert_equal mentioner_zeta.url, result[:books][1].url
   end
 
   # --- Full waterfall priority tests ---
@@ -1587,9 +1420,9 @@ class TestRelatedBooksFinder < Minitest::Test
     # Set up forward_links and backlinks
     site.data['link_cache']['forward_links'] = {
       curr.url => [
-        { target: mentioned_book, type: 'book' },
-        { target: mentioned_short_story, type: 'short_story' },
-        { target: mentioned_series, type: 'series' },
+        { target: mentioned_book, type: 'book', count: 1, min_position: 30 },
+        { target: mentioned_short_story, type: 'short_story', count: 1, min_position: 40 },
+        { target: mentioned_series, type: 'series', count: 1, min_position: 50 },
       ],
     }
     site.data['link_cache']['backlinks'] = {
@@ -1679,7 +1512,7 @@ class TestRelatedBooksFinder < Minitest::Test
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
     # BookA → BookB (forward) AND BookA ← BookB (backlink)
     site.data['link_cache']['forward_links'] = {
-      book_a.url => [{ target: book_b, type: 'book' }],
+      book_a.url => [{ target: book_b, type: 'book', count: 1, min_position: 50 }],
     }
     site.data['link_cache']['backlinks'] = {
       book_a.url => [{ source: book_b, type: 'book' }],
@@ -1726,8 +1559,8 @@ class TestRelatedBooksFinder < Minitest::Test
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
     site.data['link_cache']['forward_links'] = {
       curr.url => [
-        { target: overlap_book, type: 'book' },
-        { target: mentioned_only, type: 'book' },
+        { target: overlap_book, type: 'book', count: 1, min_position: 50 },
+        { target: mentioned_only, type: 'book', count: 1, min_position: 60 },
       ],
     }
     finder = Jekyll::Books::Related::Finder.new(site, curr, 3)
@@ -1800,6 +1633,475 @@ class TestRelatedBooksFinder < Minitest::Test
     urls = result[:books].map(&:url)
     assert_includes urls, '/books/mentioned.html', 'Should include forward-linked book'
     assert_includes urls, '/books/mentioner.html', 'Should include backlinking book'
+  end
+
+  # --- End-to-end integration tests (raw content → BacklinkBuilder → Finder) ---
+
+  def test_e2e_capture_usage_count_affects_ranking
+    # Full pipeline: captures with different usage counts → BacklinkBuilder → Finder ranking
+    curr = create_doc(
+      {
+        'title' => 'Current Book',
+        'book_authors' => ['Author A'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 10),
+      },
+      '/books/current.html',
+      <<~CONTENT,
+        {% capture often %}{% book_link "Often Mentioned" %}{% endcapture %}
+        {% capture once %}{% book_link "Once Mentioned" %}{% endcapture %}
+
+        I read {{ often }} first. Then {{ often }} again. And {{ often }} a third time.
+        Also {{ once }} appeared briefly.
+      CONTENT
+    )
+    often_book = create_doc(
+      {
+        'title' => 'Often Mentioned',
+        'book_authors' => ['Author B'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 5),
+      },
+      '/books/often.html',
+      'Content.',
+    )
+    once_book = create_doc(
+      {
+        'title' => 'Once Mentioned',
+        'book_authors' => ['Author C'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 5),
+      },
+      '/books/once.html',
+      'Content.',
+    )
+
+    site = create_site(@site_config_base.dup, { 'books' => [curr, often_book, once_book] })
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 2)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_equal 2, result[:books].length
+    # Often (count=3) should rank before once (count=1)
+    assert_equal '/books/often.html', result[:books][0].url, 'Higher mention count should rank first'
+    assert_equal '/books/once.html', result[:books][1].url
+  end
+
+  def test_e2e_late_position_penalty_affects_ranking
+    # Full pipeline: early vs late mentions → BacklinkBuilder calculates position → Finder applies penalty
+    curr = create_doc(
+      {
+        'title' => 'Current Book',
+        'book_authors' => ['Author A'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 10),
+      },
+      '/books/current.html',
+      <<~CONTENT,
+        {% capture early %}{% book_link "Early Book" %}{% endcapture %}
+        {% capture late %}{% book_link "Late Book" %}{% endcapture %}
+
+        {{ early }} is discussed substantively here at the start.
+        #{'x' * 1000}
+        {{ late }} is just a future-reads mention at the very end.
+      CONTENT
+    )
+    early_book = create_doc(
+      {
+        'title' => 'Early Book',
+        'book_authors' => ['Author B'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 5),
+      },
+      '/books/early.html',
+      'Content.',
+    )
+    late_book = create_doc(
+      {
+        'title' => 'Late Book',
+        'book_authors' => ['Author C'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 5),
+      },
+      '/books/late.html',
+      'Content.',
+    )
+
+    site = create_site(@site_config_base.dup, { 'books' => [curr, early_book, late_book] })
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 2)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_equal 2, result[:books].length
+    # Early (no penalty) should rank before late (0.25 penalty)
+    assert_equal '/books/early.html', result[:books][0].url, 'Early mention should rank before penalized late mention'
+    assert_equal '/books/late.html', result[:books][1].url
+  end
+
+  def test_e2e_unused_capture_ranks_below_used_capture
+    # Capture defined but never used in prose → scores 0 → ranks below used captures
+    curr = create_doc(
+      {
+        'title' => 'Current Book',
+        'book_authors' => ['Author A'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 10),
+      },
+      '/books/current.html',
+      <<~CONTENT,
+        {% capture used %}{% book_link "Used Book" %}{% endcapture %}
+        {% capture unused %}{% book_link "Unused Book" %}{% endcapture %}
+
+        I really enjoyed {{ used }}. Great read.
+      CONTENT
+    )
+    used_book = create_doc(
+      {
+        'title' => 'Used Book',
+        'book_authors' => ['Author B'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 20),
+      },
+      '/books/used.html',
+      'Content.',
+    )
+    unused_book = create_doc(
+      {
+        'title' => 'Unused Book',
+        'book_authors' => ['Author C'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 5),
+      },
+      '/books/unused.html',
+      'Content.',
+    )
+
+    site = create_site(@site_config_base.dup, { 'books' => [curr, used_book, unused_book] })
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 2)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_equal 2, result[:books].length
+    # Used (count=1, score=1) ranks before unused (count=nil, score=0)
+    # Even though unused_book is more recent
+    assert_equal '/books/used.html', result[:books][0].url, 'Used capture should rank before unused'
+    assert_equal '/books/unused.html', result[:books][1].url
+  end
+
+  def test_e2e_multiple_captures_to_same_book_aggregate
+    # Two captures pointing to the same book → counts sum → higher score
+    curr = create_doc(
+      {
+        'title' => 'Current Book',
+        'book_authors' => ['Author A'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 10),
+      },
+      '/books/current.html',
+      <<~CONTENT,
+        {% capture maze %}{% book_link "A Maze of Death" %}{% endcapture %}
+        {% capture death %}{% book_link "A Maze of Death" %}{% endcapture %}
+        {% capture other %}{% book_link "Other Book" %}{% endcapture %}
+
+        I read {{ maze }} first. Then {{ death }} reference. And {{ maze }} again.
+        Also {{ other }} once.
+      CONTENT
+    )
+    maze_book = create_doc(
+      {
+        'title' => 'A Maze of Death',
+        'book_authors' => ['PKD'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 5),
+      },
+      '/books/maze.html',
+      'Content.',
+    )
+    other_book = create_doc(
+      {
+        'title' => 'Other Book',
+        'book_authors' => ['Author B'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 5),
+      },
+      '/books/other.html',
+      'Content.',
+    )
+
+    site = create_site(@site_config_base.dup, { 'books' => [curr, maze_book, other_book] })
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 2)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_equal 2, result[:books].length
+    # Maze (count=3 from {{ maze }}x2 + {{ death }}x1) ranks before other (count=1)
+    assert_equal '/books/maze.html', result[:books][0].url, 'Aggregated counts should rank higher'
+    assert_equal '/books/other.html', result[:books][1].url
+  end
+
+  def test_e2e_direct_link_scores_zero
+    # Direct {% book_link %} without capture has no usage scoring → scores 0
+    curr = create_doc(
+      {
+        'title' => 'Current Book',
+        'book_authors' => ['Author A'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 10),
+      },
+      '/books/current.html',
+      <<~CONTENT,
+        {% capture captured %}{% book_link "Captured Book" %}{% endcapture %}
+
+        I read {{ captured }} via capture.
+        Also {% book_link 'Direct Book' %} inline.
+      CONTENT
+    )
+    captured_book = create_doc(
+      {
+        'title' => 'Captured Book',
+        'book_authors' => ['Author B'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 20),
+      },
+      '/books/captured.html',
+      'Content.',
+    )
+    direct_book = create_doc(
+      {
+        'title' => 'Direct Book',
+        'book_authors' => ['Author C'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 5),
+      },
+      '/books/direct.html',
+      'Content.',
+    )
+
+    site = create_site(@site_config_base.dup, { 'books' => [curr, captured_book, direct_book] })
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 2)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_equal 2, result[:books].length
+    # Captured (count=1) ranks before direct (count=nil, score=0)
+    assert_equal '/books/captured.html', result[:books][0].url, 'Captured link should rank before direct link'
+    assert_equal '/books/direct.html', result[:books][1].url
+  end
+
+  def test_e2e_forward_link_tier_precedes_backlink_tier
+    # Forward links (with scoring) appear before backlinks (alphabetical only)
+    curr = create_doc(
+      {
+        'title' => 'Current Book',
+        'book_authors' => ['Author A'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 10),
+      },
+      '/books/current.html',
+      <<~CONTENT,
+        {% capture forward %}{% book_link "Forward Book" %}{% endcapture %}
+
+        I discussed {{ forward }} in this review.
+      CONTENT
+    )
+    forward_book = create_doc(
+      {
+        'title' => 'Forward Book',
+        'book_authors' => ['Author B'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 30),
+      },
+      '/books/forward.html',
+      'Content.',
+    )
+    backlink_book = create_doc(
+      {
+        'title' => 'AAA Backlink Book',
+        'book_authors' => ['Author C'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 1),
+      },
+      '/books/backlink.html',
+      "This book mentions {% book_link 'Current Book' %}.",
+    )
+
+    site = create_site(@site_config_base.dup, { 'books' => [curr, forward_book, backlink_book] })
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 2)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_equal 2, result[:books].length
+    # Forward link tier comes before backlink tier, regardless of date or alphabetical order
+    assert_equal '/books/forward.html', result[:books][0].url, 'Forward link should precede backlink'
+    assert_equal '/books/backlink.html', result[:books][1].url
+  end
+
+  def test_e2e_deduplication_forward_and_backlink_same_book
+    # Book appears in both forward and backlink → should only appear once (forward tier wins)
+    book_a = create_doc(
+      {
+        'title' => 'Book A',
+        'book_authors' => ['Author A'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 10),
+      },
+      '/books/a.html',
+      <<~CONTENT,
+        {% capture b %}{% book_link "Book B" %}{% endcapture %}
+
+        I mentioned {{ b }} here.
+      CONTENT
+    )
+    book_b = create_doc(
+      {
+        'title' => 'Book B',
+        'book_authors' => ['Author B'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 5),
+      },
+      '/books/b.html',
+      <<~CONTENT,
+        {% capture a %}{% book_link "Book A" %}{% endcapture %}
+
+        I also mentioned {{ a }} in return.
+      CONTENT
+    )
+
+    site = create_site(@site_config_base.dup, { 'books' => [book_a, book_b] })
+    finder = Jekyll::Books::Related::Finder.new(site, book_a, 5)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    # Book B appears in forward_links AND backlinks for Book A
+    # Should only appear once
+    assert_equal 1, result[:books].length, 'Book B should appear only once despite being in both caches'
+    assert_equal '/books/b.html', result[:books][0].url
+  end
+
+  def test_e2e_nested_capture_counts_only_prose_usage
+    # Nested captures: inner used inside outer, outer used in prose.
+    # Only prose-level usage ({{ outer }}) counts, not {{ inner }} inside outer's body.
+    curr = create_doc(
+      {
+        'title' => 'Current Book',
+        'book_authors' => ['Author A'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 10),
+      },
+      '/books/current.html',
+      <<~CONTENT,
+        {% capture inner %}{% book_link "Nested Book" %}{% endcapture %}
+        {% capture outer %}Wrapper: {{ inner }}.{% endcapture %}
+        {% capture direct %}{% book_link "Direct Book" %}{% endcapture %}
+
+        I read {{ outer }} and {{ direct }}.
+      CONTENT
+    )
+    nested_book = create_doc(
+      {
+        'title' => 'Nested Book',
+        'book_authors' => ['Author B'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 5),
+      },
+      '/books/nested.html',
+      'Content.',
+    )
+    direct_book = create_doc(
+      {
+        'title' => 'Direct Book',
+        'book_authors' => ['Author C'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 5),
+      },
+      '/books/direct.html',
+      'Content.',
+    )
+
+    site = create_site(@site_config_base.dup, { 'books' => [curr, nested_book, direct_book] })
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 2)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_equal 2, result[:books].length
+    # Both have count=1 (only prose-level {{ outer }} and {{ direct }} count).
+    # {{ inner }} inside outer's body is template machinery, not a prose mention.
+    # With equal scores, they tie-break by date (same), then alphabetically.
+    urls = result[:books].map(&:url)
+    assert_includes urls, '/books/nested.html'
+    assert_includes urls, '/books/direct.html'
+  end
+
+  def test_e2e_raw_block_content_not_parsed
+    # Links inside {% raw %} blocks should not create forward links.
+    curr = create_doc(
+      {
+        'title' => 'Current Book',
+        'book_authors' => ['Author A'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 10),
+      },
+      '/books/current.html',
+      <<~CONTENT,
+        {% capture real %}{% book_link "Real Book" %}{% endcapture %}
+
+        I read {{ real }}.
+
+        Here's example Liquid syntax:
+        {% raw %}
+        {% capture example %}{% book_link "Example Book" %}{% endcapture %}
+        {{ example }}
+        {% endraw %}
+      CONTENT
+    )
+    real_book = create_doc(
+      {
+        'title' => 'Real Book',
+        'book_authors' => ['Author B'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 5),
+      },
+      '/books/real.html',
+      'Content.',
+    )
+    example_book = create_doc(
+      {
+        'title' => 'Example Book',
+        'book_authors' => ['Author C'],
+        'published' => true,
+        'date' => @test_time_now - (60 * 60 * 24 * 5),
+      },
+      '/books/example.html',
+      'Content.',
+    )
+
+    site = create_site(@site_config_base.dup, { 'books' => [curr, real_book, example_book] })
+    # Use max_books=1 to test only forward links tier (not recent tier fallback)
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 1)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    # Only real_book should appear; example_book is inside {% raw %}
+    assert_equal 1, result[:books].length, 'Only non-raw links should create forward links'
+    assert_equal '/books/real.html', result[:books][0].url
   end
 
   # Helper class for test setup and utilities

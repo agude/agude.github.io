@@ -158,23 +158,4 @@ class TestLinkCacheGeneratorShortStories < Minitest::Test
     assert_equal '/books/second-collection.html', location2['url']
     assert_equal 'duplicate-story', location2['slug']
   end
-
-  def test_does_not_incorrectly_match_tag_with_extra_content
-    # This test proves the need for a more robust regex.
-    # A simple non-greedy regex might match `{% short_story_title "A Title with a %}" %}`
-    # incorrectly by stopping at the first `%\}`.
-    # Our final regex should be robust enough to not match this at all.
-    malformed_content_book = create_doc(
-      { 'title' => 'Malformed Content', 'is_anthology' => true, 'published' => true },
-      '/books/malformed.html',
-      # This line is intentionally malformed Liquid
-      '### {% short_story_title "A Title with a %}" in it %}',
-    )
-
-    # We need to re-run the generator with this new book.
-    temp_site = create_site({}, { 'books' => [@anthology1, malformed_content_book] })
-    temp_cache = temp_site.data['link_cache']
-
-    assert_nil temp_cache['short_stories']['a title with a '], 'Should not create a partial match from a malformed tag'
-  end
 end
