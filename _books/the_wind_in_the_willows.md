@@ -22,8 +22,9 @@ same_as_urls:
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-follows Mole, Ratty, Badger, and Toad in a story bucolic life in the English
-countryside: playing around in boats, long summers, and the pull of home.
+follows Mole, Ratty, Badger, and Toad in a story of bucolic life in the
+English countryside: playing around in boats, long summers, and the pull of
+home.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
@@ -76,54 +77,52 @@ countryside: playing around in boats, long summers, and the pull of home.
 My father read {{ this_book }} to me when I was young. My first memory of it
 is him reading the final chapter, _The Return of Ulysses_, in which Toad,
 Badger, Mole, and Ratty storm Toad Hall and take it back from the weasels,
-ferrets, and stoats; and I remember him singing _When The Toad Came Home_
-loudly. I don't know if we actually read the whole book, although on this
-re-read I found some of the chapters to be familiar, and others to be
-completely new, so I suspect we only read some of them.
+ferrets, and stoats. I remember him singing _When The Toad Came Home_ loudly.
+I don't know if we read the whole book; on this re-read I found some chapters
+familiar and others completely new, so I suspect we only read some of them.
 
-{{ this_book }} is such a perfect story for children. It encapsulates the
-feeling of childhood, of having so much that feels like it needs to be done,
-and so little that you actually have to do. Of long, but not long enough,
-summers full of exploration and activity. You get a sense that someone else is
-doing all the work to maintain Toad, Badger, Mole, and Ratty's lifestyle, but
-that they can't even conceive of it: their lives sprung into existence as they
-are and are unchanging.
+{{ this_book }} is a perfect story for children. It captures the feeling of
+childhood: so much that feels like it needs to be done, so little that you
+actually have to do. Long summers, but not long enough, full of exploration
+and activity. Someone else is doing all the work to maintain Toad, Badger,
+Mole, and Ratty's lifestyle, but they can't even conceive of it. Their lives
+sprang into existence as they are and are almost unchanging.
 
-This book alternates between philosophy chapters, mostly with Mole and Ratty,
+The book alternates between philosophy chapters, mostly with Mole and Ratty,
 and Toad's action chapters. The philosophy chapters are about home: what it
 means to leave it, to be tempted away from it, to realize it's what gives your
 life meaning, to return and reclaim it. Toad's chapters are getting into
 trouble with motorcars, being thrown into and breaking out of jail, high-speed
-chases on trains, and fighting weasels, ferrets, and stoats. The intertwining
-of the two provides a good mix of thought and action, and lets us rest between
-the troubles Toad has.
+chases on trains, and fighting weasels, ferrets, and stoats. The two strands
+provide a good mix of thought and action, letting us rest between the troubles
+Toad gets into.
 
-The philosophy chapters remind me a lot of my father, who studied philosophy
-in college and almost went on to a PhD. The way he focused on living a life
-that he defined as good, focusing on the craft of his art and family. The way
-he felt like your home or things could be glad to see you, just as you were
-glad to see them. I don't think he got these ideas from {{ this_book }}, but I
-wouldn't be surprised if he decided to read it to me because of how it aligned
-with his thinking.
+The philosophy chapters remind me of my father, who studied philosophy in
+college and almost went on to a PhD. The way he focused on living a life he
+defined as good, on the craft of his art and family. The way he felt like your
+home or your things could be glad to see you, just as you were glad to see
+them. I don't think he got these ideas from {{ this_book }}, but I wouldn't be
+surprised if he decided to read it to me because of how it aligned with his
+thinking.
 
-{{ this_book }} was obviously hugely influential to {{ jacques }} when writing
-the {{ redwall_series }}. {{ jacquess_lastname }} animals share a lot of the
-same traits as {{ the_authors_lastname_possessive }}: badgers are fearsome and
-wise; moles are honest and obedient; weasels, ferrets, and stoats are bad.
-They're both English pastoral stories. They both feature songs woven through
-them. {{ jacquess_lastname }} {{ redwall }} even has the same uncomfortable
-juxtaposition of anthropomorphic animals in a human world, which he thankfully
-drops by the second book, {{ mossflower }}.
+{{ this_book }} was hugely influential to {{ jacques }} when writing the {{
+redwall_series }}. {{ jacquess_lastname }} animals share the same traits as {{
+the_authors_lastname_possessive }}: badgers are fearsome and wise; moles are
+honest and obedient; weasels, ferrets, and stoats are bad. Both are English
+pastoral stories. Both feature songs woven through them. {{ jacquess_lastname
+}} {{ redwall }} even has the same uncomfortable juxtaposition of
+anthropomorphic animals in a human world, which he thankfully drops by the
+second book, {{ mossflower }}.
 
-{{ this_book }} reminded me of others I've read. Of course, Toad's vengeful
-return is based on Odysseus's from {{ homers }} {{ the_odyssey }}, it's in the
-chapter title! The focus on anthropomorphized animals in England is
-reminiscent of {{ adamss_lastname }} {{ watership_down }} (although {{
-watership_down }} is much darker). The way Mole can feel his home calling to
-him "like an electric shock" is the similar to how Shivers allows Harrier Du
-Bois to commune with Revachol in {{ disco_elysium }}.
+{{ this_book }} reminded me of others I've read. Toad's vengeful return is
+based on Odysseus's from {{ homers }} {{ the_odyssey }}; it's right there in
+the chapter title. The anthropomorphized animals in England recall {{
+adamss_lastname }} {{ watership_down }}, though {{ watership_down }} is much
+darker. The way Mole can feel his home calling to him "like an electric shock"
+is similar to how Shivers allows Harrier Du Bois to commune with Revachol in
+{{ disco_elysium }}.
 
 I enjoyed {{ this_book }}, and I suspect my children, who loved {{
-jacquess_lastname }} {{ redwall_series }}, would too. We've sort of drifted
-out of me reading to them at bedtime as they've started reading their own
-books, but we might have to start it up again for one last book.
+jacquess_lastname }} {{ redwall_series }}, would too. We've drifted out of me
+reading to them at bedtime as they've started reading their own books, but we
+might have to start it up again for one last book.
