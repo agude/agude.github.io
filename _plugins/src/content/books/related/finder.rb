@@ -284,7 +284,7 @@ module Jekyll
 
           links = @site.data.dig('link_cache', cache_key, @page['url']) || []
           type_entries = links.select { |entry| entry[:type] == link_type }
-          sorted_entries = sort_link_entries(type_entries, entry_key, cache_key == 'forward_links')
+          sorted_entries = sort_link_entries(type_entries, entry_key)
 
           sorted_entries.each do |entry|
             break if current_urls.size >= @max_books
@@ -297,14 +297,10 @@ module Jekyll
           end
         end
 
-        def sort_link_entries(entries, entry_key, use_scoring)
-          if use_scoring
-            entries.sort_by do |entry|
-              book = entry[entry_key]
-              [-score_from_cache(entry), -book.date.to_i, book.data['title'].to_s.downcase]
-            end
-          else
-            entries.sort_by { |entry| entry[entry_key].data['title'].to_s.downcase }
+        def sort_link_entries(entries, entry_key)
+          entries.sort_by do |entry|
+            book = entry[entry_key]
+            [-score_from_cache(entry), -book.date.to_i, book.data['title'].to_s.downcase]
           end
         end
 

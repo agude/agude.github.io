@@ -10,12 +10,16 @@ module Jekyll
       #
       # Scans book content for link tags (book_link, series_link, short_story_link,
       # author_link) to build:
-      # - backlinks: which books reference this book (for display in backlink sections)
+      # - backlinks: which books reference this book (with usage scoring)
       # - forward_links: which books this book references (with usage scoring)
       #
       # Usage scoring tracks how link captures are used in prose:
       # - count: number of {{ var }} usages after the capture definition
       # - min_position: earliest usage position as percentage of prose length
+      #
+      # Both directions use the same scoring data — when Book A mentions Book B,
+      # the count/position from A's content appears in both A's forward link to B
+      # and B's backlink from A.
       #
       class BacklinkBuilder
         LINK_TYPE_PRIORITY = { 'book' => 4, 'author' => 3, 'short_story' => 2, 'series' => 1 }.freeze
@@ -321,35 +325,46 @@ module Jekyll
         def add_link(target_url, source_doc, type, count, min_position)
           return if source_doc.url == target_url
 
-          # Update backlinks (no scoring data)
-          existing_back = @backlinks[target_url][source_doc.url]
-          new_p = LINK_TYPE_PRIORITY[type]
+          update_backlink(target_url, source_doc, type, count, min_position)
+          update_forward_link(target_url, source_doc, type, count, min_position)
+        end
 
-          if existing_back.nil? || new_p > LINK_TYPE_PRIORITY[existing_back[:type]]
-            @backlinks[target_url][source_doc.url] = { source: source_doc, type: type }
+        def update_backlink(target_url, source_doc, type, count, min_position)
+          existing = @backlinks[target_url][source_doc.url]
+
+          if existing.nil?
+            @backlinks[target_url][source_doc.url] = {
+              source: source_doc,
+              type: type,
+              count: count,
+              min_position: min_position,
+            }
+          else
+            merge_entry(existing, type, count, min_position)
           end
+        end
 
-          # Update forward links (with scoring data)
+        def update_forward_link(target_url, source_doc, type, count, min_position)
           target_doc = @url_to_doc[target_url]
           return unless target_doc
 
-          existing_fwd = @forward_links[source_doc.url][target_url]
+          existing = @forward_links[source_doc.url][target_url]
 
-          if existing_fwd.nil?
+          if existing.nil?
             @forward_links[source_doc.url][target_url] = {
               target: target_doc,
               type: type,
               count: count,
               min_position: min_position,
             }
-          elsif new_p > LINK_TYPE_PRIORITY[existing_fwd[:type]]
-            # Upgrade type, merge scoring
-            @forward_links[source_doc.url][target_url][:type] = type
-            merge_scoring(existing_fwd, count, min_position)
           else
-            # Same or lower priority — just merge scoring
-            merge_scoring(existing_fwd, count, min_position)
+            merge_entry(existing, type, count, min_position)
           end
+        end
+
+        def merge_entry(existing, type, count, min_position)
+          existing[:type] = type if LINK_TYPE_PRIORITY[type] > LINK_TYPE_PRIORITY[existing[:type]]
+          merge_scoring(existing, count, min_position)
         end
 
         def merge_scoring(existing, count, min_position)

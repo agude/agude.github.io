@@ -1222,7 +1222,7 @@ class TestRelatedBooksFinder < Minitest::Test
     assert_equal series_mentioner.url, result[:books][1].url
   end
 
-  def test_backlinks_sorted_alphabetically_by_title
+  def test_backlinks_sorted_by_score
     coll = MockCollection.new([], 'books')
     curr = @helper.create_book(
       title: 'Current Book',
@@ -1231,27 +1231,29 @@ class TestRelatedBooksFinder < Minitest::Test
       url_suffix: 'current',
       collection: coll,
     )
-    mentioner_beta = @helper.create_book(
-      title: 'Beta Mentioner',
+    # Lower score (1 mention), alphabetically first
+    mentioner_alpha = @helper.create_book(
+      title: 'Alpha Mentioner',
       authors: ['Author B'],
       date_offset_days: 10,
+      url_suffix: 'mentioner-alpha',
+      collection: coll,
+    )
+    # Higher score (3 mentions), alphabetically second
+    mentioner_beta = @helper.create_book(
+      title: 'Beta Mentioner',
+      authors: ['Author C'],
+      date_offset_days: 2,
       url_suffix: 'mentioner-beta',
       collection: coll,
     )
-    mentioner_alpha = @helper.create_book(
-      title: 'Alpha Mentioner',
-      authors: ['Author C'],
-      date_offset_days: 2,
-      url_suffix: 'mentioner-alpha',
-      collection: coll,
-    )
 
-    coll.docs = [curr, mentioner_beta, mentioner_alpha]
+    coll.docs = [curr, mentioner_alpha, mentioner_beta]
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
     site.data['link_cache']['backlinks'] = {
       curr.url => [
-        { source: mentioner_beta, type: 'book' },
-        { source: mentioner_alpha, type: 'book' },
+        { source: mentioner_alpha, type: 'book', count: 1, min_position: 50 },
+        { source: mentioner_beta, type: 'book', count: 3, min_position: 10 },
       ],
     }
     finder = Jekyll::Books::Related::Finder.new(site, curr, 2)
@@ -1261,11 +1263,12 @@ class TestRelatedBooksFinder < Minitest::Test
     end
 
     assert_equal 2, result[:books].length
-    assert_equal mentioner_alpha.url, result[:books][0].url, 'Alpha should come first alphabetically'
-    assert_equal mentioner_beta.url, result[:books][1].url
+    # Beta has higher score (3) despite being alphabetically second
+    assert_equal mentioner_beta.url, result[:books][0].url, 'Higher scoring backlink should come first'
+    assert_equal mentioner_alpha.url, result[:books][1].url
   end
 
-  def test_backlinks_sort_alphabetically_not_by_score
+  def test_backlinks_tiebreak_by_date_then_alphabetically
     coll = MockCollection.new([], 'books')
     curr = @helper.create_book(
       title: 'Current Book',
@@ -1274,30 +1277,30 @@ class TestRelatedBooksFinder < Minitest::Test
       url_suffix: 'current',
       collection: coll,
     )
-    # Mentioner with title starting with Z
-    mentioner_zeta = @helper.create_book(
-      title: 'Zeta Mentioner',
-      authors: ['Author B'],
-      date_offset_days: 10,
-      url_suffix: 'mentioner-zeta',
-      collection: coll,
-    )
-    # Mentioner with title starting with A
+    # Same score, older date, alphabetically first
     mentioner_alpha = @helper.create_book(
       title: 'Alpha Mentioner',
-      authors: ['Author C'],
-      date_offset_days: 2,
+      authors: ['Author B'],
+      date_offset_days: 10,
       url_suffix: 'mentioner-alpha',
       collection: coll,
     )
+    # Same score, more recent date, alphabetically second
+    mentioner_beta = @helper.create_book(
+      title: 'Beta Mentioner',
+      authors: ['Author C'],
+      date_offset_days: 2,
+      url_suffix: 'mentioner-beta',
+      collection: coll,
+    )
 
-    coll.docs = [curr, mentioner_zeta, mentioner_alpha]
+    coll.docs = [curr, mentioner_alpha, mentioner_beta]
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
-    # Backlinks don't have count/min_position — they're sorted alphabetically
+    # Same scores — tiebreaker is date desc, then alphabetical
     site.data['link_cache']['backlinks'] = {
       curr.url => [
-        { source: mentioner_zeta, type: 'book' },
-        { source: mentioner_alpha, type: 'book' },
+        { source: mentioner_alpha, type: 'book', count: 1, min_position: 50 },
+        { source: mentioner_beta, type: 'book', count: 1, min_position: 50 },
       ],
     }
 
@@ -1308,10 +1311,9 @@ class TestRelatedBooksFinder < Minitest::Test
     end
 
     assert_equal 2, result[:books].length
-    # Backlinks should sort alphabetically by title
-    # 'Alpha Mentioner' < 'Zeta Mentioner'
-    assert_equal mentioner_alpha.url, result[:books][0].url, 'Backlinks should sort alphabetically'
-    assert_equal mentioner_zeta.url, result[:books][1].url
+    # Beta is more recent, should come first despite being alphabetically second
+    assert_equal mentioner_beta.url, result[:books][0].url, 'More recent backlink should win on date tiebreaker'
+    assert_equal mentioner_alpha.url, result[:books][1].url
   end
 
   # --- Full waterfall priority tests ---

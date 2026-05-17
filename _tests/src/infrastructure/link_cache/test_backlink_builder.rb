@@ -951,16 +951,16 @@ class TestBacklinkBuilder < Minitest::Test
     assert_equal 1, maze_link[:count], 'Forward reference should not count'
   end
 
-  def test_backlink_entries_lack_scoring_keys
-    # Backlinks are sorted alphabetically, not by score.
-    # Entries should NOT have count/min_position keys to avoid confusion.
+  def test_backlink_entries_accumulate_usage_scoring
+    # Backlinks include scoring data (count/min_position) so they can be ranked
+    # by how much the source talks about the target.
     source_book = create_doc(
       { 'title' => 'Source Book', 'published' => true },
       '/books/source.html',
       <<~CONTENT,
         {% capture target %}{% book_link "Target Book" %}{% endcapture %}
 
-        I mentioned {{ target }} here.
+        I mentioned {{ target }} here. And {{ target }} again.
       CONTENT
     )
     target_book = create_doc(
@@ -976,8 +976,45 @@ class TestBacklinkBuilder < Minitest::Test
     assert_equal 1, backlinks.length
 
     backlink_entry = backlinks.first
-    refute backlink_entry.key?(:count), 'Backlink entries should not have :count key'
-    refute backlink_entry.key?(:min_position), 'Backlink entries should not have :min_position key'
+    assert backlink_entry.key?(:count), 'Backlink entries should have :count key'
+    assert backlink_entry.key?(:min_position), 'Backlink entries should have :min_position key'
+    assert_equal 2, backlink_entry[:count], 'Should accumulate usages from source'
+  end
+
+  def test_backlink_scores_merge_across_multiple_captures
+    # When Source has multiple captures pointing to Target (e.g., book_link and
+    # author_link both resolving to the same book), scores should merge.
+    source_book = create_doc(
+      { 'title' => 'Source Book', 'published' => true },
+      '/books/source.html',
+      <<~CONTENT,
+        {% capture via_book %}{% book_link "Target Book" %}{% endcapture %}
+        {% capture via_series %}{% series_link "Target Series" %}{% endcapture %}
+
+        First {{ via_book }}. Then {{ via_series }}. And {{ via_book }} again.
+      CONTENT
+    )
+    target_book = create_doc(
+      { 'title' => 'Target Book', 'published' => true, 'series' => 'Target Series' },
+      '/books/target.html',
+      'Content.',
+    )
+    series_page = create_doc(
+      { 'title' => 'Target Series', 'layout' => 'series_page' },
+      '/series/target.html',
+    )
+
+    site = create_site({}, { 'books' => [source_book, target_book] }, [series_page])
+    backlinks = site.data['link_cache']['backlinks']['/books/target.html']
+
+    refute_nil backlinks
+    assert_equal 1, backlinks.length, 'Should deduplicate to single backlink entry'
+
+    backlink_entry = backlinks.first
+    # via_book used twice (idx 0, 2), via_series used once (idx 1) → total 3
+    assert_equal 3, backlink_entry[:count], 'Should merge counts from both captures'
+    # book_link (priority 4) > series_link (priority 1)
+    assert_equal 'book', backlink_entry[:type], 'Should use highest priority type'
   end
 
   def test_capture_referencing_nonexistent_book_creates_no_forward_link
