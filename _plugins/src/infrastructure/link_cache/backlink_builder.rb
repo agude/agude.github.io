@@ -28,6 +28,9 @@ module Jekyll
         # Link tag patterns for AST extraction
         LINK_TAGS = %w[book_link series_link series_text short_story_link author_link].freeze
 
+        # Direct link types (book, short_story) get position preference over indirect (series).
+        DIRECT_LINK_TYPES = %w[book short_story].freeze
+
         # Register stub tags so Liquid can parse content without Jekyll context
         def self.ensure_stub_tags_registered
           return if @stub_tags_registered
@@ -291,7 +294,9 @@ module Jekyll
         end
 
         def register_captured_links(doc, capture_defs, usages)
-          target_scores = Hash.new { |h, k| h[k] = { count: 0, min_position: nil, type: nil } }
+          target_scores = Hash.new do |h, k|
+            h[k] = { count: 0, min_position: nil, direct_min_position: nil, type: nil }
+          end
 
           capture_defs.each_with_index do |cap_def, cap_idx|
             cap_usages = usages[cap_idx] || []
@@ -300,7 +305,7 @@ module Jekyll
 
           target_scores.each do |url, scores|
             count = scores[:count].positive? ? scores[:count] : nil
-            add_link(url, doc, scores[:type], count, scores[:min_position])
+            add_link(url, doc, scores[:type], count, scores[:min_position], scores[:direct_min_position])
           end
         end
 
@@ -319,23 +324,29 @@ module Jekyll
           min_pos = cap_usages.min
           current_min = target_scores[url][:min_position]
           target_scores[url][:min_position] = current_min.nil? ? min_pos : [current_min, min_pos].min
+
+          # Also track direct link positions (book/short_story) for sorting preference
+          return unless DIRECT_LINK_TYPES.include?(type)
+
+          current_direct = target_scores[url][:direct_min_position]
+          target_scores[url][:direct_min_position] = current_direct.nil? ? min_pos : [current_direct, min_pos].min
         end
 
         def register_direct_links(doc, links)
           links.each do |link|
             # Direct links have no capture-based scoring
-            add_link(link[:url], doc, link[:type], nil, nil)
+            add_link(link[:url], doc, link[:type], nil, nil, nil)
           end
         end
 
-        def add_link(target_url, source_doc, type, count, min_position)
+        def add_link(target_url, source_doc, type, count, min_position, direct_min_position)
           return if source_doc.url == target_url
 
-          update_backlink(target_url, source_doc, type, count, min_position)
-          update_forward_link(target_url, source_doc, type, count, min_position)
+          update_backlink(target_url, source_doc, type, count, min_position, direct_min_position)
+          update_forward_link(target_url, source_doc, type, count, min_position, direct_min_position)
         end
 
-        def update_backlink(target_url, source_doc, type, count, min_position)
+        def update_backlink(target_url, source_doc, type, count, min_position, direct_min_position)
           existing = @backlinks[target_url][source_doc.url]
 
           if existing.nil?
@@ -344,13 +355,14 @@ module Jekyll
               type: type,
               count: count,
               min_position: min_position,
+              direct_min_position: direct_min_position,
             }
           else
-            merge_entry(existing, type, count, min_position)
+            merge_entry(existing, type, count, min_position, direct_min_position)
           end
         end
 
-        def update_forward_link(target_url, source_doc, type, count, min_position)
+        def update_forward_link(target_url, source_doc, type, count, min_position, direct_min_position)
           target_doc = @url_to_doc[target_url]
           return unless target_doc
 
@@ -362,27 +374,24 @@ module Jekyll
               type: type,
               count: count,
               min_position: min_position,
+              direct_min_position: direct_min_position,
             }
           else
-            merge_entry(existing, type, count, min_position)
+            merge_entry(existing, type, count, min_position, direct_min_position)
           end
         end
 
-        def merge_entry(existing, type, count, min_position)
+        def merge_entry(existing, type, count, min_position, direct_min_position)
           existing[:type] = type if LINK_TYPE_PRIORITY[type] > LINK_TYPE_PRIORITY[existing[:type]]
-          merge_scoring(existing, count, min_position)
+          existing[:count] = (existing[:count] || 0) + count if count
+          merge_min(:min_position, existing, min_position)
+          merge_min(:direct_min_position, existing, direct_min_position)
         end
 
-        def merge_scoring(existing, count, min_position)
-          existing[:count] = (existing[:count] || 0) + count if count
+        def merge_min(key, existing, new_value)
+          return unless new_value
 
-          return unless min_position
-
-          existing[:min_position] = if existing[:min_position]
-                                      [existing[:min_position], min_position].min
-                                    else
-                                      min_position
-                                    end
+          existing[key] = existing[key] ? [existing[key], new_value].min : new_value
         end
 
         def find_target_story(locs, from_book)

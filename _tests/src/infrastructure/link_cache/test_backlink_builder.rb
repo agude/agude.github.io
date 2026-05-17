@@ -121,6 +121,144 @@ class TestBacklinkBuilder < Minitest::Test
     assert_equal 'book', target_backlinks.first[:type]
   end
 
+  def test_direct_min_position_set_for_book_links
+    # When a book is linked via both series_link and book_link, direct_min_position
+    # should track the book_link position separately from min_position.
+    review = create_doc(
+      { 'title' => 'Review', 'published' => true },
+      '/books/review.html',
+      <<~CONTENT,
+        {% capture series %}{% series_link "Test Series" %}{% endcapture %}
+        {% capture book1 %}{% book_link "Book One" %}{% endcapture %}
+        {% capture book2 %}{% book_link "Book Two" %}{% endcapture %}
+
+        The {{ series }} is great.
+        I especially liked {{ book1 }}.
+        And later {{ book2 }}.
+      CONTENT
+    )
+    book1 = create_doc(
+      { 'title' => 'Book One', 'published' => true, 'series' => 'Test Series' },
+      '/books/book1.html',
+      'First.',
+    )
+    book2 = create_doc(
+      { 'title' => 'Book Two', 'published' => true, 'series' => 'Test Series' },
+      '/books/book2.html',
+      'Second.',
+    )
+    series_page = create_doc(
+      { 'title' => 'Test Series', 'layout' => 'series_page' },
+      '/series/test.html',
+    )
+
+    site = create_site({}, { 'books' => [review, book1, book2] }, [series_page])
+    forward_links = site.data['link_cache']['forward_links']['/books/review.html']
+
+    book1_link = forward_links.find { |l| l[:target].url == '/books/book1.html' }
+    book2_link = forward_links.find { |l| l[:target].url == '/books/book2.html' }
+
+    # Both books have same min_position (from series link which appears first)
+    assert_equal(
+      book1_link[:min_position],
+      book2_link[:min_position],
+      'Series link should give both books the same min_position',
+    )
+
+    # But direct_min_position differs based on individual book_link positions
+    refute_nil book1_link[:direct_min_position]
+    refute_nil book2_link[:direct_min_position]
+    assert_operator(
+      book1_link[:direct_min_position],
+      :<,
+      book2_link[:direct_min_position],
+      'Book One direct position should be earlier than Book Two',
+    )
+  end
+
+  def test_short_story_link_sets_direct_min_position
+    # Short story links should also set direct_min_position since they're direct references.
+    review = create_doc(
+      { 'title' => 'Review', 'published' => true },
+      '/books/review.html',
+      <<~CONTENT,
+        {% capture story %}{% short_story_link "Test Story" from_book="Anthology" %}{% endcapture %}
+
+        I loved {{ story }}.
+      CONTENT
+    )
+    anthology = create_doc(
+      { 'title' => 'Anthology', 'published' => true },
+      '/books/anthology.html',
+      'Stories.',
+    )
+
+    site = create_site_with_short_stories(
+      [review, anthology],
+      { 'test story' => [{ 'url' => '/books/anthology.html', 'parent_book_title' => 'Anthology' }] },
+    )
+    forward_links = site.data['link_cache']['forward_links']['/books/review.html']
+
+    story_link = forward_links.find { |l| l[:target].url == '/books/anthology.html' }
+    refute_nil story_link[:direct_min_position],
+               'Short story links should set direct_min_position'
+  end
+
+  def test_multiple_link_types_to_same_target
+    # When book_link, series_link, and short_story_link all point to the same book,
+    # they should merge correctly: type=book (highest priority), counts add up,
+    # and direct_min_position comes from book/short_story links only.
+    review = create_doc(
+      { 'title' => 'Review', 'published' => true },
+      '/books/review.html',
+      <<~CONTENT,
+        {% capture series %}{% series_link "Anthology Series" %}{% endcapture %}
+        {% capture book %}{% book_link "Anthology" %}{% endcapture %}
+        {% capture story %}{% short_story_link "Featured Story" from_book="Anthology" %}{% endcapture %}
+
+        First {{ series }} mention.
+        Then {{ book }} directly.
+        And {{ story }} too.
+        Back to {{ series }} again.
+      CONTENT
+    )
+    anthology = create_doc(
+      { 'title' => 'Anthology', 'published' => true, 'series' => 'Anthology Series' },
+      '/books/anthology.html',
+      'Stories.',
+    )
+    series_page = create_doc(
+      { 'title' => 'Anthology Series', 'layout' => 'series_page' },
+      '/series/anthology.html',
+    )
+
+    site = create_site_with_short_stories(
+      [review, anthology],
+      { 'featured story' => [{ 'url' => '/books/anthology.html', 'parent_book_title' => 'Anthology' }] },
+      [series_page],
+    )
+    forward_links = site.data['link_cache']['forward_links']['/books/review.html']
+
+    anthology_link = forward_links.find { |l| l[:target].url == '/books/anthology.html' }
+    refute_nil anthology_link
+
+    # Type should be 'book' (highest priority)
+    assert_equal 'book', anthology_link[:type]
+
+    # Count should include all: 2 series + 1 book + 1 short_story = 4
+    assert_equal 4, anthology_link[:count]
+
+    # min_position from series (earliest), direct_min_position from book link
+    refute_nil anthology_link[:min_position]
+    refute_nil anthology_link[:direct_min_position]
+    assert_operator(
+      anthology_link[:min_position],
+      :<,
+      anthology_link[:direct_min_position],
+      'Series appears first, so min_position < direct_min_position',
+    )
+  end
+
   def test_series_link_creates_backlinks_to_all_series_books
     series_book_1 = create_doc(
       { 'title' => 'Foundation', 'published' => true, 'series' => 'Foundation Series' },
@@ -1444,8 +1582,8 @@ class TestBacklinkBuilder < Minitest::Test
     Jekyll::Infrastructure::LinkCache::BacklinkBuilder.new(site, link_cache, maps).build
   end
 
-  def create_site_with_short_stories(books, short_stories_cache)
-    site = create_site({}, { 'books' => books })
+  def create_site_with_short_stories(books, short_stories_cache, pages = [])
+    site = create_site({}, { 'books' => books }, pages)
     site.data['link_cache']['short_stories'] = short_stories_cache
     rebuild_backlinks(site)
     site

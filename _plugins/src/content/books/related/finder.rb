@@ -294,7 +294,9 @@ module Jekyll
           entries.sort_by do |entry|
             book = entry[entry_key]
             # Sort by: count desc, position asc (earlier better), date desc, title asc
-            [-score_from_cache(entry), entry[:min_position] || 100, -book.date.to_i, book.data['title'].to_s.downcase]
+            # Prefer direct_min_position (from book/short_story links) over min_position (includes series)
+            position = entry[:direct_min_position] || entry[:min_position] || 100
+            [-score_from_cache(entry), position, -book.date.to_i, book.data['title'].to_s.downcase]
           end
         end
 
