@@ -10,29 +10,26 @@ module Jekyll
     module Related
       # Finds and ranks related books using a waterfall of criteria.
       #
-      # Priority order: series → author → mentioned books → mentioned short stories →
-      # mentioned series → backlink books → backlink short stories → backlink series → recent.
+      # Priority order: series → author → mentioned works (books + short stories) →
+      # mentioned series → backlink works → backlink series → recent.
+      #
+      # Books and short stories compete by score within the same tier, allowing
+      # a frequently-mentioned short story to outrank a rarely-mentioned book.
+      # Tiebreaker when scores match: position asc, date desc, title asc.
       #
       # This class handles the data retrieval logic for finding related books.
       # It does not produce any HTML output.
+      #
       class Finder
         DEFAULT_MAX_BOOKS = 3
 
-        # Accepts site + page directly (for use outside Liquid context).
-        # Legacy: also accepts a Liquid::Context as the first argument.
-        def initialize(site_or_context, page_or_max_books = nil, max_books = nil)
-          if site_or_context.respond_to?(:registers)
-            # Legacy Liquid::Context interface
-            @site = site_or_context.registers[:site]
-            @page = site_or_context.registers[:page]
-            @max_books = page_or_max_books
-          else
-            # Direct site + page interface
-            @site = site_or_context
-            @page = page_or_max_books
-            @max_books = max_books
-          end
-          @max_books ||= @site&.config&.dig('display_limits', 'related_books') || DEFAULT_MAX_BOOKS
+        # @param site [Jekyll::Site] The Jekyll site object
+        # @param page [Jekyll::Document, Jekyll::Page] The current page/document
+        # @param max_books [Integer, nil] Maximum related books to return (default from config)
+        def initialize(site, page = nil, max_books = nil)
+          @site = site
+          @page = page
+          @max_books = max_books || @site&.config&.dig('display_limits', 'related_books') || DEFAULT_MAX_BOOKS
           @logs = String.new
           @candidate_books = []
         end
@@ -103,14 +100,12 @@ module Jekyll
           books_by_date_desc = all_potential_books.sort_by(&:date).reverse
 
           # Waterfall priority order — each tier fills slots not claimed by earlier tiers.
-          # Link tiers use BacklinkBuilder's priority: book > short_story > series.
+          # Works tiers combine books and short stories, sorted by count (position/date/title tiebreaker).
           process_series(all_potential_books)
           process_authors(books_by_date_desc)
-          process_mentioned_books
-          process_mentioned_short_stories
+          process_mentioned_works
           process_mentioned_series
-          process_backlink_books
-          process_backlink_short_stories
+          process_backlink_works
           process_backlink_series
           process_recent(books_by_date_desc)
         end
@@ -267,32 +262,41 @@ module Jekyll
           end
         end
 
-        # Link tiers match BacklinkBuilder's priority order: book (3) > short_story (2) > series (1).
+        # Works tiers (books + short stories) compete by score; series stays separate
+        # because series links point to index pages, not individual reviews.
         # Short story links resolve to their containing book's URL, so they surface the anthology.
-        def process_mentioned_books = process_link_tier('forward_links', :target, 'book')
-        def process_mentioned_short_stories = process_link_tier('forward_links', :target, 'short_story')
-        def process_mentioned_series       = process_link_tier('forward_links', :target, 'series')
-        def process_backlink_books         = process_link_tier('backlinks', :source, 'book')
-        def process_backlink_short_stories = process_link_tier('backlinks', :source, 'short_story')
+        def process_mentioned_works = process_link_tier('forward_links', :target, %w[book short_story])
+        def process_mentioned_series = process_link_tier('forward_links', :target, 'series')
+        def process_backlink_works = process_link_tier('backlinks', :source, %w[book short_story])
         def process_backlink_series = process_link_tier('backlinks', :source, 'series')
 
         def process_link_tier(cache_key, entry_key, link_type)
+          link_types = Array(link_type)
           current_urls = Set.new(@candidate_books.map(&:url))
           return unless current_urls.size < @max_books
 
           links = @site.data.dig('link_cache', cache_key, @page['url']) || []
-          candidates = links
-                       .select { |entry| entry[:type] == link_type }
-                       .map { |entry| entry[entry_key] }
-                       .sort_by(&:date)
-                       .reverse
+          type_entries = links.select { |entry| link_types.include?(entry[:type]) }
+          sorted_entries = sort_link_entries(type_entries, entry_key)
 
-          candidates.each do |book|
+          sorted_entries.each do |entry|
             break if current_urls.size >= @max_books
+
+            book = entry[entry_key]
             next if current_urls.include?(book.url)
 
             @candidate_books << book
             current_urls.add(book.url)
+          end
+        end
+
+        def sort_link_entries(entries, entry_key)
+          entries.sort_by do |entry|
+            book = entry[entry_key]
+            # Sort by: count desc, position asc (earlier better), date desc, title asc
+            # Prefer direct_min_position (from book/short_story links) over min_position (includes series)
+            position = entry[:direct_min_position] || entry[:min_position] || 100
+            [-score_from_cache(entry), position, -book.date.to_i, book.data['title'].to_s.downcase]
           end
         end
 
@@ -321,6 +325,10 @@ module Jekyll
         def parse_book_num(obj)
           data = obj.is_a?(Jekyll::Document) || obj.is_a?(Jekyll::Page) ? obj.data : obj
           Jekyll::Books::Core::BookDataUtils.parse_book_number(data['book_number'])
+        end
+
+        def score_from_cache(entry)
+          entry[:count] || 0
         end
       end
     end
