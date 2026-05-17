@@ -1162,7 +1162,10 @@ class TestRelatedBooksFinder < Minitest::Test
     assert_equal mentioner.url, result[:books][1].url, 'Backlink should come second'
   end
 
-  def test_backlink_short_story_appears_between_book_and_series
+  # Verifies books and short stories share a tier, with series in a separate tier.
+  # Uses assert_includes (not order assertion) because both works have equal scores;
+  # their relative order depends on date tiebreaker, which isn't the focus here.
+  def test_backlink_books_and_short_stories_share_tier
     coll = MockCollection.new([], 'books')
     curr = @helper.create_book(
       title: 'Current Book',
@@ -1171,7 +1174,7 @@ class TestRelatedBooksFinder < Minitest::Test
       url_suffix: 'current',
       collection: coll,
     )
-    # Mentions current via book_link (highest priority)
+    # Mentions current via book_link
     book_mentioner = @helper.create_book(
       title: 'Book Mentioner',
       authors: ['Author B'],
@@ -1179,7 +1182,7 @@ class TestRelatedBooksFinder < Minitest::Test
       url_suffix: 'book-mentioner',
       collection: coll,
     )
-    # Mentions current via short_story_link (medium priority)
+    # Mentions current via short_story_link
     short_story_mentioner = @helper.create_book(
       title: 'Short Story Mentioner',
       authors: ['Author C'],
@@ -1187,7 +1190,7 @@ class TestRelatedBooksFinder < Minitest::Test
       url_suffix: 'short-story-mentioner',
       collection: coll,
     )
-    # Mentions current via series_link (lowest priority)
+    # Mentions current via series_link
     series_mentioner = @helper.create_book(
       title: 'Series Mentioner',
       authors: ['Author D'],
@@ -1198,11 +1201,12 @@ class TestRelatedBooksFinder < Minitest::Test
 
     coll.docs = [curr, book_mentioner, short_story_mentioner, series_mentioner]
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    # Equal scores for book and short_story — both should appear before series
     site.data['link_cache']['backlinks'] = {
       curr.url => [
-        { source: series_mentioner, type: 'series' },
-        { source: short_story_mentioner, type: 'short_story' },
-        { source: book_mentioner, type: 'book' },
+        { source: series_mentioner, type: 'series', count: 1, min_position: 10 },
+        { source: short_story_mentioner, type: 'short_story', count: 1, min_position: 20 },
+        { source: book_mentioner, type: 'book', count: 1, min_position: 20 },
       ],
     }
     finder = Jekyll::Books::Related::Finder.new(site, curr, 3)
@@ -1212,12 +1216,13 @@ class TestRelatedBooksFinder < Minitest::Test
     end
 
     assert_equal 3, result[:books].length
-    assert_equal book_mentioner.url, result[:books][0].url, 'Book backlink first'
-    assert_equal short_story_mentioner.url, result[:books][1].url, 'Short story backlink second'
-    assert_equal series_mentioner.url, result[:books][2].url, 'Series backlink third'
+    works_urls = result[:books].first(2).map(&:url)
+    assert_includes works_urls, book_mentioner.url, 'Book should appear in works tier'
+    assert_includes works_urls, short_story_mentioner.url, 'Short story should appear in works tier'
+    assert_equal series_mentioner.url, result[:books][2].url, 'Series remains in separate tier'
   end
 
-  def test_backlink_book_takes_priority_over_backlink_series
+  def test_backlink_works_tier_before_series_tier
     coll = MockCollection.new([], 'books')
     curr = @helper.create_book(
       title: 'Current Book',
@@ -1245,10 +1250,11 @@ class TestRelatedBooksFinder < Minitest::Test
 
     coll.docs = [curr, book_mentioner, series_mentioner]
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    # Series has higher score, but works tier still comes first
     site.data['link_cache']['backlinks'] = {
       curr.url => [
-        { source: series_mentioner, type: 'series' },
-        { source: book_mentioner, type: 'book' },
+        { source: series_mentioner, type: 'series', count: 5, min_position: 10 },
+        { source: book_mentioner, type: 'book', count: 1, min_position: 50 },
       ],
     }
     finder = Jekyll::Books::Related::Finder.new(site, curr, 2)
@@ -1258,8 +1264,145 @@ class TestRelatedBooksFinder < Minitest::Test
     end
 
     assert_equal 2, result[:books].length
-    assert_equal book_mentioner.url, result[:books][0].url, 'Book backlink should come before series backlink'
+    assert_equal book_mentioner.url, result[:books][0].url, 'Works tier comes before series tier regardless of score'
     assert_equal series_mentioner.url, result[:books][1].url
+  end
+
+  def test_short_story_outranks_book_when_higher_scored
+    coll = MockCollection.new([], 'books')
+    curr = @helper.create_book(
+      title: 'Current Book',
+      authors: ['Author A'],
+      date_offset_days: 10,
+      url_suffix: 'current',
+      collection: coll,
+    )
+    # Low-scored book (1 mention)
+    book_mentioner = @helper.create_book(
+      title: 'Book Mentioner',
+      authors: ['Author B'],
+      date_offset_days: 5,
+      url_suffix: 'book-mentioner',
+      collection: coll,
+    )
+    # High-scored short story (5 mentions)
+    short_story_mentioner = @helper.create_book(
+      title: 'Short Story Mentioner',
+      authors: ['Author C'],
+      date_offset_days: 3,
+      url_suffix: 'short-story-mentioner',
+      collection: coll,
+    )
+
+    coll.docs = [curr, book_mentioner, short_story_mentioner]
+    site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    site.data['link_cache']['forward_links'] = {
+      curr.url => [
+        { target: book_mentioner, type: 'book', count: 1, min_position: 10 },
+        { target: short_story_mentioner, type: 'short_story', count: 5, min_position: 20 },
+      ],
+    }
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 2)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_equal 2, result[:books].length
+    assert_equal short_story_mentioner.url, result[:books][0].url, 'Higher-scored short story should beat lower-scored book'
+    assert_equal book_mentioner.url, result[:books][1].url
+  end
+
+  def test_backlink_short_story_outranks_book_when_higher_scored
+    coll = MockCollection.new([], 'books')
+    curr = @helper.create_book(
+      title: 'Current Book',
+      authors: ['Author A'],
+      date_offset_days: 10,
+      url_suffix: 'current',
+      collection: coll,
+    )
+    # Low-scored book backlink (1 mention)
+    book_mentioner = @helper.create_book(
+      title: 'Book Mentioner',
+      authors: ['Author B'],
+      date_offset_days: 5,
+      url_suffix: 'book-mentioner',
+      collection: coll,
+    )
+    # High-scored short story backlink (5 mentions)
+    short_story_mentioner = @helper.create_book(
+      title: 'Short Story Mentioner',
+      authors: ['Author C'],
+      date_offset_days: 3,
+      url_suffix: 'short-story-mentioner',
+      collection: coll,
+    )
+
+    coll.docs = [curr, book_mentioner, short_story_mentioner]
+    site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    site.data['link_cache']['backlinks'] = {
+      curr.url => [
+        { source: book_mentioner, type: 'book', count: 1, min_position: 10 },
+        { source: short_story_mentioner, type: 'short_story', count: 5, min_position: 20 },
+      ],
+    }
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 2)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_equal 2, result[:books].length
+    assert_equal short_story_mentioner.url, result[:books][0].url, 'Higher-scored short story backlink should beat lower-scored book backlink'
+    assert_equal book_mentioner.url, result[:books][1].url
+  end
+
+  def test_works_tier_tiebreaker_by_date_then_title
+    coll = MockCollection.new([], 'books')
+    curr = @helper.create_book(
+      title: 'Current Book',
+      authors: ['Author A'],
+      date_offset_days: 20,
+      url_suffix: 'current',
+      collection: coll,
+    )
+    # Same score, older date, alphabetically first
+    book_mentioner = @helper.create_book(
+      title: 'Alpha Book',
+      authors: ['Author B'],
+      date_offset_days: 10,
+      url_suffix: 'book-mentioner',
+      collection: coll,
+    )
+    # Same score, more recent date, alphabetically second
+    short_story_mentioner = @helper.create_book(
+      title: 'Beta Short Story',
+      authors: ['Author C'],
+      date_offset_days: 5,
+      url_suffix: 'short-story-mentioner',
+      collection: coll,
+    )
+
+    coll.docs = [curr, book_mentioner, short_story_mentioner]
+    site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    # Identical scores — tiebreaker is date desc (more recent first)
+    site.data['link_cache']['forward_links'] = {
+      curr.url => [
+        { target: book_mentioner, type: 'book', count: 2, min_position: 30 },
+        { target: short_story_mentioner, type: 'short_story', count: 2, min_position: 30 },
+      ],
+    }
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 2)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_equal 2, result[:books].length
+    # Short story has more recent date despite being alphabetically second
+    assert_equal short_story_mentioner.url, result[:books][0].url, 'More recent date wins on score tie'
+    assert_equal book_mentioner.url, result[:books][1].url
   end
 
   def test_backlinks_sorted_by_score
@@ -1467,11 +1610,12 @@ class TestRelatedBooksFinder < Minitest::Test
         { target: mentioned_series, type: 'series', count: 1, min_position: 50 },
       ],
     }
+    # Give backlink_book higher score so it ranks first in combined works tier
     site.data['link_cache']['backlinks'] = {
       curr.url => [
-        { source: backlink_book, type: 'book' },
-        { source: backlink_short_story, type: 'short_story' },
-        { source: backlink_series, type: 'series' },
+        { source: backlink_book, type: 'book', count: 2, min_position: 10 },
+        { source: backlink_short_story, type: 'short_story', count: 1, min_position: 20 },
+        { source: backlink_series, type: 'series', count: 1, min_position: 60 },
       ],
     }
 

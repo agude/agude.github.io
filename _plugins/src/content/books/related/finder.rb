@@ -10,8 +10,12 @@ module Jekyll
     module Related
       # Finds and ranks related books using a waterfall of criteria.
       #
-      # Priority order: series → author → mentioned books → mentioned short stories →
-      # mentioned series → backlink books → backlink short stories → backlink series → recent.
+      # Priority order: series → author → mentioned works (books + short stories) →
+      # mentioned series → backlink works → backlink series → recent.
+      #
+      # Books and short stories compete by score within the same tier, allowing
+      # a frequently-mentioned short story to outrank a rarely-mentioned book.
+      # Tiebreaker when scores match: position asc, date desc, title asc.
       #
       # This class handles the data retrieval logic for finding related books.
       # It does not produce any HTML output.
@@ -96,14 +100,12 @@ module Jekyll
           books_by_date_desc = all_potential_books.sort_by(&:date).reverse
 
           # Waterfall priority order — each tier fills slots not claimed by earlier tiers.
-          # Link tiers use BacklinkBuilder's priority: book > short_story > series.
+          # Works tiers combine books and short stories, sorted by count (position/date/title tiebreaker).
           process_series(all_potential_books)
           process_authors(books_by_date_desc)
-          process_mentioned_books
-          process_mentioned_short_stories
+          process_mentioned_works
           process_mentioned_series
-          process_backlink_books
-          process_backlink_short_stories
+          process_backlink_works
           process_backlink_series
           process_recent(books_by_date_desc)
         end
@@ -260,21 +262,21 @@ module Jekyll
           end
         end
 
-        # Link tiers match BacklinkBuilder's priority order: book (3) > short_story (2) > series (1).
+        # Works tiers (books + short stories) compete by score; series stays separate
+        # because series links point to index pages, not individual reviews.
         # Short story links resolve to their containing book's URL, so they surface the anthology.
-        def process_mentioned_books = process_link_tier('forward_links', :target, 'book')
-        def process_mentioned_short_stories = process_link_tier('forward_links', :target, 'short_story')
-        def process_mentioned_series       = process_link_tier('forward_links', :target, 'series')
-        def process_backlink_books         = process_link_tier('backlinks', :source, 'book')
-        def process_backlink_short_stories = process_link_tier('backlinks', :source, 'short_story')
+        def process_mentioned_works = process_link_tier('forward_links', :target, %w[book short_story])
+        def process_mentioned_series = process_link_tier('forward_links', :target, 'series')
+        def process_backlink_works = process_link_tier('backlinks', :source, %w[book short_story])
         def process_backlink_series = process_link_tier('backlinks', :source, 'series')
 
         def process_link_tier(cache_key, entry_key, link_type)
+          link_types = Array(link_type)
           current_urls = Set.new(@candidate_books.map(&:url))
           return unless current_urls.size < @max_books
 
           links = @site.data.dig('link_cache', cache_key, @page['url']) || []
-          type_entries = links.select { |entry| entry[:type] == link_type }
+          type_entries = links.select { |entry| link_types.include?(entry[:type]) }
           sorted_entries = sort_link_entries(type_entries, entry_key)
 
           sorted_entries.each do |entry|
