@@ -108,7 +108,7 @@ I have a theory: throughout history, far more men have been famous than women.
 This shows up in biblical names as well, with Mary being essentially the only
 woman of importance in the Bible. This allows boy's names to survive
 generation to generation as parents look to famous men for inspiration and
-used their names. Parents of girls had fewer options, and so new names were
+use their names. Parents of girls had fewer options, and so new names were
 able to fill the void each generation, leading to their quick rise and fall.
 
 One pattern that is evident for both boy's and girl's names is the declining

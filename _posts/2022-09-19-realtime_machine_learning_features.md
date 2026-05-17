@@ -16,7 +16,7 @@ categories:
 {% capture file_dir %}/files/realtime-features/{% endcapture %}
 
 Machine learning models are excellent at automating simple, high frequency
-decision, like:
+decisions, like:
 
 - Should I allow this transaction?
 

@@ -25,7 +25,7 @@ categories:
 
 {% capture file_dir %}/files/coding-llm{% endcapture %}
 
-I first learned Python in 2005. My mentor at the time, Nao Sazuki, was
+I first learned Python in 2005. My mentor at the time, Nao Suzuki, was
 training me to do cosmology research and decided it would be a better use of
 my time to learn Python instead of IDL. He also told me something that changed
 how I thought about computers:

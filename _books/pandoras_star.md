@@ -33,7 +33,7 @@ wormholes are the main form of transportation. It deals with themes of:
   owning entire planets.
 
 - _Life, death, and the self_, since Humans can't really die because everyone
-  has a memory backups that can be loaded into a new clone. Some of the
+  has a memory backup that can be loaded into a new clone. Some of the
   characters struggle with the idea that the clone is not really them
   (something I agree with) but this is sort of glossed over in the book.
 

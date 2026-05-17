@@ -67,10 +67,10 @@ I was hoping Kelstern would "win" by coming up with a clever, heist-like plan,
 or that the dragons would use their superior intellect to do so. Instead, the
 dragon's plan became too simple: burn things.
 
-There is also a slight inconsistency: the dragons's plan was to profit off the
+There is also a slight inconsistency: the dragons' plan was to profit off the
 human economic system, but they also transferred several pieces of technology
 that revolutionized the empire, like fuel-free heat, new ship designs, and
-refrigeration. Perhaps the dragons's real motivation was to move humanity
+refrigeration. Perhaps the dragons' real motivation was to move humanity
 forward? But if so their other behavior seems too misanthropic for that.
 
 While a fun read, the story is far from perfect. In my ideal dragon story, the

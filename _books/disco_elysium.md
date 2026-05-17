@@ -132,7 +132,7 @@ that's the story of life. The ending is certain for all of us, but the journey
 there can be wonderful.
 
 The writing is haunting, with wonderfully crafted prose that reminds me of
-masterpieces like {{ faulkners }} {{ absalom }}[^gothic] It finds beauty in
+masterpieces like {{ faulkners }} {{ absalom }}.[^gothic] It finds beauty in
 the mundane and the decay that permeates Martinaise. This is never clearer
 than in the scene describing Harry watching his lost love as her streetcar
 recedes into the distance, which paints the picture perfectly in my mind:

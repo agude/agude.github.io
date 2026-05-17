@@ -92,11 +92,11 @@ Pogačar attacked in the Pyrenees and dropped the other contenders.
 
 The race for the [green jersey][green], awarded to the rider with the most
 sprint points which are earned by winning intermediate sprints and stages, was
-relatively boring this year. [Wout van Aert][van aert] ran away with it, never
+relatively boring this year. [Wout van Aert][van_aert] ran away with it, never
 losing the jersey after winning it on stage 2.
 
 [green]: https://en.wikipedia.org/wiki/Points_classification_in_the_Tour_de_France
-[van aert]: https://en.wikipedia.org/wiki/Wout_van_Aert
+[van_aert]: https://en.wikipedia.org/wiki/Wout_van_Aert
 
 Here is how the sprint race turned out, with sprint stages shaded in grey:
 

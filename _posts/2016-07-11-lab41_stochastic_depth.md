@@ -90,7 +90,7 @@ with it equal to 0.0 for the first layer and 0.5 for the last, although other
 functions (including a constant) are possible. With this model the expected
 depth of a network is effectively reduced by 25% with corresponding reductions
 in training time. The authors also show that it reduces the problems
-associated with vanishing gradients and diminishing feature use, as expected
+associated with vanishing gradients and diminishing feature reuse, as expected
 for a shallower network.
 
 {% capture image_2 %} {{ file_dir }}/training.png {% endcapture %}

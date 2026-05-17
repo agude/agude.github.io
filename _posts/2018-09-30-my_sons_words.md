@@ -78,7 +78,7 @@ age.][words_plot_linear]][words_plot_linear]
 
 Theo continued adding signs and Cantonese words for three months before he spoke
 a word in English, the language I speak to him. That is when he also started
-mimicking animal sounds. At 18 months his spoke his first word in Spanish, the
+mimicking animal sounds. At 18 months he spoke his first word in Spanish, the
 language my parents speak to him.
 
 Theo slowly added words, week by week, until right before he turned 2. At 23

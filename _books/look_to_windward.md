@@ -113,7 +113,7 @@ complete erasure---true death with no chance of rebirth.
 ### Thoughts
 
 At the end of {{ this_book }} we learn that the stakes we thought were in play
-never were. While this might put some off, but I loved the book as a tour of a
+never were. This might put some off, but I loved the book as a tour of a
 Culture Orbital, and for the deep characters: Quilan and the Hub are great
 portrayals of veterans suffering from PTSD.[^gulf_war]
 

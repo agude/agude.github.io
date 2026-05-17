@@ -109,7 +109,7 @@ botns }} and especially {{ urth_of_the_new_sun }}, another torture-linked
 savior who must bring destruction to save the world. And it is the inverse of
 {{ millers_lastname }} {{ a_canticle_for_leibowitz }}; instead of the church
 being the ark of humanity to protect it from the deluge, the Pax is the
-stagnation the must be wiped out by the flood.
+stagnation that must be wiped out by the flood.
 
 ### Story
 

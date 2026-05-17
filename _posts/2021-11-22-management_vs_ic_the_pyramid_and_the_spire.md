@@ -26,7 +26,7 @@ different skill set and job.
 I have been on both tracks, and while it is true that you can continue to be
 promoted without going into management, there are some trade offs. Many of
 these trade offs are discussed in depth elsewhere, but there is one I want to
-highlight that that is less obvious: _There is more room at the top of the
+highlight that is less obvious: _There is more room at the top of the
 manager track than the IC track._
 
 ## The Structure of the tracks

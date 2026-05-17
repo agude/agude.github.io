@@ -37,7 +37,7 @@ Teixcalaanli Empire and a mysterious alien race.
 
 {% capture hamiltons %}{% author_link "Peter F. Hamilton" possessive %}{% endcapture %}
 {% capture pandoras_star %}{% book_link "Pandora's Star" %}{% endcapture %}
-{% capture jusdas_unchained %}{% book_link "Judas Unchained" %}{% endcapture %}
+{% capture judas_unchained %}{% book_link "Judas Unchained" %}{% endcapture %}
 
 {% capture cards %}{% author_link "Orson Scott Card" possessive %}{% endcapture %}
 {% capture enders_game %}{% book_link "Ender's Game" %}{% endcapture %}
@@ -90,7 +90,7 @@ be with Three Seagrass makes her an outcast from her home.
 {{ this_book }} reminded me of several other pieces of science fiction:
 
 - The aliens call their ships starflyers, like the alien in {{ hamiltons }} {{
-  pandoras_star }} and {{ jusdas_unchained }}. Both books feature hive-mind
+  pandoras_star }} and {{ judas_unchained }}. Both books feature hive-mind
   aliens, and in both, humans consider genocide as a possible solution but are
   conflicted about it.
 
