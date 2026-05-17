@@ -16,7 +16,6 @@ module Jekyll
       # This class handles the data retrieval logic for finding related books.
       # It does not produce any HTML output.
       #
-      # rubocop:disable Metrics/ClassLength
       class Finder
         DEFAULT_MAX_BOOKS = 3
 
@@ -40,14 +39,6 @@ module Jekyll
 
           { logs: @logs, books: final_books }
         end
-
-        # Position threshold for detecting "future reads" mentions at end of reviews.
-        # Threshold of 92% determined via precision/recall analysis on 20 reviews:
-        # - 92% gives 100% recall, 70% precision, F1=82% for detecting "future reads"
-        # - False positives (late comparisons) are acceptable since series/author
-        #   tiers already surface those books if relevant
-        FUTURE_READ_THRESHOLD = 92
-        FUTURE_READ_PENALTY = 0.25
 
         private
 
@@ -300,7 +291,8 @@ module Jekyll
         def sort_link_entries(entries, entry_key)
           entries.sort_by do |entry|
             book = entry[entry_key]
-            [-score_from_cache(entry), -book.date.to_i, book.data['title'].to_s.downcase]
+            # Sort by: count desc, position asc (earlier better), date desc, title asc
+            [-score_from_cache(entry), entry[:min_position] || 100, -book.date.to_i, book.data['title'].to_s.downcase]
           end
         end
 
@@ -332,19 +324,9 @@ module Jekyll
         end
 
         def score_from_cache(entry)
-          count = entry[:count]
-          return 0.0 if count.nil? || count.zero?
-
-          min_position = entry[:min_position] || 100
-
-          if min_position >= FUTURE_READ_THRESHOLD
-            count * FUTURE_READ_PENALTY
-          else
-            count.to_f
-          end
+          entry[:count] || 0
         end
       end
-      # rubocop:enable Metrics/ClassLength
     end
   end
 end

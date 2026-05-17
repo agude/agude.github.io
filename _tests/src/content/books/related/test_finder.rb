@@ -35,23 +35,14 @@ class TestRelatedBooksFinder < Minitest::Test
     assert_equal 2.0, score
   end
 
-  def test_score_from_cache_penalizes_late_only_mentions
+  def test_score_from_cache_returns_count
+    # score_from_cache simply returns the count for sorting
     finder = Jekyll::Books::Related::Finder.new(nil, nil, nil)
-    entry = { count: 1, min_position: 95 }
+    entry = { count: 3, min_position: 95 }
 
     score = finder.send(:score_from_cache, entry)
 
-    assert_equal 0.25, score # 1 * 0.25 penalty
-  end
-
-  def test_score_from_cache_uses_min_position_for_threshold
-    # Book mentioned at min_position 50% — should NOT be penalized
-    finder = Jekyll::Books::Related::Finder.new(nil, nil, nil)
-    entry = { count: 2, min_position: 50 }
-
-    score = finder.send(:score_from_cache, entry)
-
-    assert_equal 2.0, score # No penalty because min position < 92%
+    assert_equal 3, score
   end
 
   def test_score_from_cache_returns_zero_for_zero_count
@@ -761,7 +752,56 @@ class TestRelatedBooksFinder < Minitest::Test
     assert_equal mentioned_beta.url, result[:books][1].url
   end
 
-  def test_mixed_scores_date_tiebreaker_only_for_tied_pair
+  def test_position_breaks_tie_when_counts_equal
+    # When counts are equal, earlier position wins (lower min_position is better)
+    coll = MockCollection.new([], 'books')
+    curr = @helper.create_book(
+      title: 'Current Book',
+      authors: ['Author A'],
+      date_offset_days: 20,
+      url_suffix: 'current',
+      collection: coll,
+    )
+    # Same count, early position, older date
+    early_mention = @helper.create_book(
+      title: 'Early Mention',
+      authors: ['Author B'],
+      date_offset_days: 10,
+      url_suffix: 'early',
+      collection: coll,
+    )
+    # Same count, late position, recent date
+    late_mention = @helper.create_book(
+      title: 'Late Mention',
+      authors: ['Author C'],
+      date_offset_days: 2,
+      url_suffix: 'late',
+      collection: coll,
+    )
+
+    coll.docs = [curr, early_mention, late_mention]
+    site = create_site(@site_config_base.dup, { 'books' => coll.docs })
+    # Same count, different positions — position should break tie
+    site.data['link_cache']['forward_links'] = {
+      curr.url => [
+        { target: early_mention, type: 'book', count: 1, min_position: 20 },
+        { target: late_mention, type: 'book', count: 1, min_position: 80 },
+      ],
+    }
+
+    finder = Jekyll::Books::Related::Finder.new(site, curr, 2)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_equal 2, result[:books].length
+    # Earlier position wins, even though late_mention has more recent date
+    assert_equal early_mention.url, result[:books][0].url, 'Earlier position should win over later'
+    assert_equal late_mention.url, result[:books][1].url
+  end
+
+  def test_date_breaks_tie_when_count_and_position_equal
     coll = MockCollection.new([], 'books')
     curr = @helper.create_book(
       title: 'Current Book',
@@ -778,7 +818,7 @@ class TestRelatedBooksFinder < Minitest::Test
       url_suffix: 'high-score',
       collection: coll,
     )
-    # Low score (1 mention), older date
+    # Low score (1 mention), same position, older date
     low_score_old = @helper.create_book(
       title: 'Alpha Low Old',
       authors: ['Author C'],
@@ -786,7 +826,7 @@ class TestRelatedBooksFinder < Minitest::Test
       url_suffix: 'low-old',
       collection: coll,
     )
-    # Low score (1 mention), recent date
+    # Low score (1 mention), same position, recent date
     low_score_recent = @helper.create_book(
       title: 'Beta Low Recent',
       authors: ['Author D'],
@@ -797,12 +837,12 @@ class TestRelatedBooksFinder < Minitest::Test
 
     coll.docs = [curr, high_score, low_score_old, low_score_recent]
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
-    # high_score has count=2, others have count=1 (all early positions)
+    # high_score has count=2, others have count=1 and same position — date breaks tie
     site.data['link_cache']['forward_links'] = {
       curr.url => [
         { target: high_score, type: 'book', count: 2, min_position: 10 },
         { target: low_score_old, type: 'book', count: 1, min_position: 50 },
-        { target: low_score_recent, type: 'book', count: 1, min_position: 60 },
+        { target: low_score_recent, type: 'book', count: 1, min_position: 50 },
       ],
     }
 
@@ -815,9 +855,9 @@ class TestRelatedBooksFinder < Minitest::Test
     assert_equal 3, result[:books].length
     # high_score wins on score (2 > 1), regardless of being oldest
     assert_equal high_score.url, result[:books][0].url, 'Highest score should be first despite oldest date'
-    # Tied scores: low_score_recent wins on date over low_score_old
-    assert_equal low_score_recent.url, result[:books][1].url, 'More recent should be second among tied scores'
-    assert_equal low_score_old.url, result[:books][2].url, 'Older should be third among tied scores'
+    # Tied count and position: more recent date wins
+    assert_equal low_score_recent.url, result[:books][1].url, 'More recent should be second when count and position tied'
+    assert_equal low_score_old.url, result[:books][2].url, 'Older should be third when count and position tied'
   end
 
   def test_mixed_dates_alpha_tiebreaker_only_for_tied_pair
