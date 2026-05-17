@@ -44,6 +44,7 @@ ranked_list:
   - The Sword of the Lictor
   - The Citadel of the Autarch
   - The Shadow of the Torturer
+  - The Wind in the Willows
   - A Canticle for Leibowitz
   - Destination Moon
   - Dragon's Egg
