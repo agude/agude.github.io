@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../text_processing_utils'
+require_relative 'liquid_ast_walker'
 
 module Jekyll
   module Infrastructure
@@ -16,7 +17,6 @@ module Jekyll
       # - count: number of {{ var }} usages after the capture definition
       # - min_position: earliest usage position as percentage of prose length
       #
-      # rubocop:disable Metrics/ClassLength
       class BacklinkBuilder
         LINK_TYPE_PRIORITY = { 'book' => 4, 'author' => 3, 'short_story' => 2, 'series' => 1 }.freeze
         LINK_FALSE_PATTERN = /link\s*=\s*(?:'false'|"false"|false)/
@@ -57,54 +57,88 @@ module Jekyll
           finalize_links
         end
 
-        # Simple state container for variable usage tracking.
-        # Defined outside private to avoid RuboCop UselessConstantScoping warning.
-        UsageTrackingState = Struct.new(
-          :capture_defs,
-          :total_prose_vars,
-          :seen_captures,
-          :prose_var_index,
-          :capture_occurrence_counts,
-        ) do
-          def initialize(capture_defs, total_prose_vars)
-            super(capture_defs, total_prose_vars, {}, 0, Hash.new(0))
+        # Result of walking a Liquid AST to extract link data.
+        ScanResult = Struct.new(:capture_defs, :direct_links, :prose_vars, keyword_init: true) do
+          def compute_usages
+            return {} if prose_vars.empty?
+
+            usages = Hash.new { |h, k| h[k] = [] }
+            total = prose_vars.length
+
+            prose_vars.each_with_index do |var_info, idx|
+              next unless var_info[:owning_capture_idx]
+
+              position_pct = (idx.to_f / total * 100).round(1)
+              usages[var_info[:owning_capture_idx]] << position_pct
+            end
+
+            usages
+          end
+        end
+
+        # State container for AST walking. Encapsulates handler logic.
+        class ScanState
+          attr_reader :capture_defs, :direct_links, :prose_vars
+
+          def initialize(builder, doc)
+            @builder = builder
+            @doc = doc
+            @capture_defs = []
+            @direct_links = []
+            @prose_vars = []
+            @seen_captures = {}
+            @capture_occurrence_counts = Hash.new(0)
           end
 
-          def mark_capture_seen(var_name)
-            occurrence = capture_occurrence_counts[var_name]
-            capture_occurrence_counts[var_name] += 1
+          def handle_capture(node, _ctx)
+            var_name = node.instance_variable_get(:@to)
+            links = @builder.send(:extract_links_from_capture, node.nodelist, @doc)
+
+            update_capture_tracking(var_name)
+            @capture_defs << { var_name: var_name, targets: links } unless links.empty?
+          end
+
+          def handle_tag(node, ctx)
+            return if ctx[:inside_capture]
+
+            link = @builder.send(:extract_link_from_tag, node, @doc)
+            @direct_links.concat(link) if link
+          end
+
+          def handle_variable(node, ctx)
+            return if ctx[:inside_capture]
+
+            var_name = @builder.send(:extract_variable_name, node)
+            return unless var_name
+
+            @prose_vars << { var_name: var_name, owning_capture_idx: @seen_captures[var_name] }
+          end
+
+          private
+
+          def update_capture_tracking(var_name)
+            occurrence = @capture_occurrence_counts[var_name]
+            @capture_occurrence_counts[var_name] += 1
+            cap_idx = @capture_defs.length
 
             count = 0
-            capture_defs.each_with_index do |cap_def, idx|
-              next unless cap_def[:var_name] == var_name
+            @capture_defs.each_with_index do |cd, idx|
+              next unless cd[:var_name] == var_name
 
-              if count == occurrence
-                seen_captures[var_name] = idx
-                return idx
-              end
-              count += 1
+              count += 1 if count < occurrence
+              @seen_captures[var_name] = idx if count == occurrence
             end
-            nil
-          end
-
-          def owning_capture_for(var_name)
-            seen_captures[var_name]
-          end
-
-          def next_position_percentage
-            pct = (prose_var_index.to_f / total_prose_vars * 100).round(1)
-            self.prose_var_index += 1
-            pct
+            @seen_captures[var_name] = cap_idx
           end
         end
 
         private
 
-        def parse_liquid_safely(doc)
+        def parse_liquid_or_raise(doc)
           Liquid::Template.parse(doc.content)
         rescue Liquid::SyntaxError => e
-          Jekyll.logger.warn('BacklinkBuilder:', "Skipping #{doc.url}, malformed Liquid: #{e.message}")
-          nil
+          raise Jekyll::Errors::FatalException,
+                "BacklinkBuilder: malformed Liquid in #{doc.url}: #{e.message}"
         end
 
         def build_url_to_doc_map
@@ -126,100 +160,37 @@ module Jekyll
           return unless doc.respond_to?(:content) && doc.content && !doc.content.empty?
 
           self.class.ensure_stub_tags_registered
-          template = parse_liquid_safely(doc)
-          return unless template
+          template = parse_liquid_or_raise(doc)
 
-          # Extract captures containing link tags (returns array of definitions)
-          capture_defs = extract_link_captures(template.root.nodelist, doc)
+          result = walk_ast_for_links(template.root.nodelist, doc)
+          usages = result.compute_usages
 
-          # Build lookup by variable name for direct link detection
-          captured_var_names = capture_defs.map { |c| c[:var_name] }.uniq
-
-          # Find direct (non-captured) link tags
-          direct_links = extract_direct_links(template.root.nodelist, doc, captured_var_names)
-
-          # Find variable usages for position/count scoring
-          usages = find_variable_usages(template.root.nodelist, capture_defs)
-
-          # Register all links with scoring data
-          register_captured_links(doc, capture_defs, usages)
-          register_direct_links(doc, direct_links)
+          register_captured_links(doc, result.capture_defs, usages)
+          register_direct_links(doc, result.direct_links)
         end
 
-        # Walk AST to find {% capture var %}...{% endcapture %} blocks containing link tags.
-        # Returns array of definitions: [{ var_name:, targets: [{ url:, type: }] }, ...]
-        # Multiple definitions for the same var_name are tracked separately for redefinition handling.
-        def extract_link_captures(nodelist, doc, capture_defs = [])
-          return capture_defs unless nodelist
+        # Single-pass AST walk that extracts all link-related data.
+        def walk_ast_for_links(nodelist, doc)
+          state = ScanState.new(self, doc)
 
-          nodelist.each do |node|
-            case node
-            when Liquid::Capture
-              process_capture_node(node, doc, capture_defs)
-            when Liquid::BlockBody, Liquid::For
-              # BlockBody wraps content inside conditionals/loops — walk into it
-              extract_link_captures(node.nodelist, doc, capture_defs)
-            when Liquid::If, Liquid::Unless, Liquid::Case
-              # Walk into conditionals
-              extract_from_conditional(node, doc, capture_defs)
-            end
-          end
+          walker = LiquidAstWalker.new(
+            on_capture: ->(node, ctx) { state.handle_capture(node, ctx) },
+            on_tag: ->(node, ctx) { state.handle_tag(node, ctx) },
+            on_variable: ->(node, ctx) { state.handle_variable(node, ctx) },
+          )
 
-          capture_defs
+          walker.walk(nodelist)
+
+          ScanResult.new(
+            capture_defs: state.capture_defs,
+            direct_links: state.direct_links,
+            prose_vars: state.prose_vars,
+          )
         end
 
-        def process_capture_node(node, doc, capture_defs)
-          var_name = node.instance_variable_get(:@to)
-          links = find_links_in_nodelist(node.nodelist, doc)
-
-          return if links.empty?
-
-          capture_defs << { var_name: var_name, targets: links }
-        end
-
-        def extract_from_conditional(node, doc, capture_defs)
-          # Liquid::If has nodelist (then) and potentially else_block
-          extract_link_captures(node.nodelist, doc, capture_defs)
-
-          # Handle else/elsif blocks
-          if node.respond_to?(:else_block) && node.else_block
-            extract_link_captures([node.else_block], doc, capture_defs)
-          end
-
-          # Handle Liquid::Condition blocks in Case
-          return unless node.respond_to?(:blocks)
-
-          node.blocks.each do |block|
-            extract_link_captures(block.nodelist, doc, capture_defs) if block.respond_to?(:nodelist)
-          end
-        end
-
-        # Find link tags within a nodelist (inside a capture)
-        # IMPORTANT: Specific subclasses (If, Capture, etc.) must come BEFORE Liquid::Tag
-        # because they inherit from Tag, and Ruby's case matches the first clause.
-        def find_links_in_nodelist(nodelist, doc)
-          links = []
-          return links unless nodelist
-
-          nodelist.each do |node|
-            case node
-            when Liquid::BlockBody, Liquid::Capture
-              # BlockBody wraps content inside conditionals; Capture is a nested block
-              links.concat(find_links_in_nodelist(node.nodelist, doc))
-            when Liquid::If, Liquid::Unless, Liquid::Case, Liquid::For
-              # Recurse into conditionals/loops (these inherit from Tag)
-              links.concat(find_links_in_nodelist(node.nodelist, doc))
-              if node.respond_to?(:else_block) && node.else_block
-                links.concat(find_links_in_nodelist([node.else_block], doc))
-              end
-            when Liquid::Tag
-              # General tags (book_link, series_link, etc.) — must be last
-              link = extract_link_from_tag(node, doc)
-              links.concat(link) if link
-            end
-          end
-
-          links
+        def extract_links_from_capture(nodelist, doc)
+          tags = LiquidAstWalker.find_tags_in(nodelist) { |n| LINK_TAGS.include?(n.tag_name) }
+          tags.flat_map { |tag| extract_link_from_tag(tag, doc) }.compact
         end
 
         # Extract link info from a tag node
@@ -296,121 +267,6 @@ module Jekyll
         def extract_quoted_string(markup)
           match = markup.match(/['"]([^'"]+)['"]/)
           match&.[](1)
-        end
-
-        # Find direct link tags (not inside captures)
-        def extract_direct_links(nodelist, doc, captured_var_names)
-          links = []
-          walk_for_direct_links(nodelist, doc, links, captured_var_names, false)
-          links
-        end
-
-        # IMPORTANT: Specific subclasses must come BEFORE Liquid::Tag
-        def walk_for_direct_links(nodelist, doc, links, captured_vars, inside_capture)
-          return unless nodelist
-
-          nodelist.each do |node|
-            case node
-            when Liquid::BlockBody
-              walk_for_direct_links(node.nodelist, doc, links, captured_vars, inside_capture)
-            when Liquid::Capture
-              # Mark that we're inside a capture — don't collect as direct
-              walk_for_direct_links(node.nodelist, doc, links, captured_vars, true)
-            when Liquid::If, Liquid::Unless, Liquid::Case, Liquid::For
-              walk_for_direct_links(node.nodelist, doc, links, captured_vars, inside_capture)
-              if node.respond_to?(:else_block) && node.else_block
-                walk_for_direct_links([node.else_block], doc, links, captured_vars, inside_capture)
-              end
-            when Liquid::Tag
-              # General tags — must be last
-              next if inside_capture
-
-              link = extract_link_from_tag(node, doc)
-              links.concat(link) if link
-            end
-          end
-        end
-
-        # Find {{ var }} usages in prose, tracking position by AST order.
-        # Only counts usages AFTER the capture definition (forward refs don't count).
-        # Returns hash keyed by capture_def index: { capture_idx => [positions as percentages] }
-        #
-        # Position is calculated as percentage through prose Variable nodes, not characters.
-        # This avoids regex-based position tracking which can drift with markdown code blocks.
-        def find_variable_usages(nodelist, capture_defs)
-          return {} if capture_defs.empty?
-
-          # First pass: count total prose variables for percentage calculation
-          total_prose_vars = count_prose_variables(nodelist, false)
-          return {} if total_prose_vars.zero?
-
-          # Second pass: collect usages with AST-order positions
-          usages = Hash.new { |h, k| h[k] = [] }
-          state = UsageTrackingState.new(capture_defs, total_prose_vars)
-          collect_variable_usages(nodelist, usages, state, false)
-          usages
-        end
-
-        def count_prose_variables(nodelist, inside_capture)
-          count = 0
-          return count unless nodelist
-
-          nodelist.each do |node|
-            case node
-            when Liquid::Variable
-              count += 1 unless inside_capture
-            when Liquid::Capture
-              count += count_prose_variables(node.nodelist, true)
-            when Liquid::BlockBody
-              count += count_prose_variables(node.nodelist, inside_capture)
-            when Liquid::If, Liquid::Unless, Liquid::Case, Liquid::For
-              count += count_prose_variables(node.nodelist, inside_capture)
-              if node.respond_to?(:else_block) && node.else_block
-                count += count_prose_variables([node.else_block], inside_capture)
-              end
-            end
-          end
-          count
-        end
-
-        def collect_variable_usages(nodelist, usages, state, inside_capture)
-          return unless nodelist
-
-          nodelist.each do |node|
-            case node
-            when Liquid::Variable
-              process_prose_variable(node, usages, state) unless inside_capture
-            when Liquid::Capture
-              process_capture_for_usage_tracking(node, state)
-              collect_variable_usages(node.nodelist, usages, state, true)
-            when Liquid::BlockBody
-              collect_variable_usages(node.nodelist, usages, state, inside_capture)
-            when Liquid::If, Liquid::Unless, Liquid::Case, Liquid::For
-              collect_variable_usages(node.nodelist, usages, state, inside_capture)
-              if node.respond_to?(:else_block) && node.else_block
-                collect_variable_usages([node.else_block], usages, state, inside_capture)
-              end
-            end
-          end
-        end
-
-        def process_capture_for_usage_tracking(node, state)
-          var_name = node.instance_variable_get(:@to)
-          state.mark_capture_seen(var_name)
-        end
-
-        def process_prose_variable(node, usages, state)
-          var_name = extract_variable_name(node)
-          return unless var_name
-
-          # Check if we've seen a capture for this variable (forward ref detection)
-          owning_capture_idx = state.owning_capture_for(var_name)
-          position = state.next_position_percentage
-
-          # Forward references (usage before capture) don't count
-          return unless owning_capture_idx
-
-          usages[owning_capture_idx] << position
         end
 
         def extract_variable_name(node)
@@ -530,7 +386,6 @@ module Jekyll
           @link_cache['forward_links'] = final_forward
         end
       end
-      # rubocop:enable Metrics/ClassLength
     end
   end
 end

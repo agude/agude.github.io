@@ -1273,53 +1273,51 @@ class TestBacklinkBuilder < Minitest::Test
   end
 
   # --- Error handling tests ---
+  # Malformed Liquid fails loudly — a broken build is better than silently
+  # shipping incomplete backlink data.
 
-  def test_malformed_liquid_skipped_gracefully
-    # Malformed Liquid should not crash the build. The bad document is skipped,
-    # and other documents are still processed normally.
+  def test_malformed_liquid_raises_fatal_exception
     malformed_book = create_doc(
       { 'title' => 'Malformed', 'published' => true },
       '/books/malformed.html',
       '{% capture unclosed This is broken Liquid.',
     )
-    good_book = create_doc(
-      { 'title' => 'Good Book', 'published' => true },
-      '/books/good.html',
-      "I recommend {% book_link 'Target Book' %}.",
-    )
-    target_book = create_doc(
-      { 'title' => 'Target Book', 'published' => true },
-      '/books/target.html',
-      'Content.',
-    )
 
-    # Should not raise — malformed doc is skipped
-    site = create_site({}, { 'books' => [malformed_book, good_book, target_book] })
+    error = assert_raises(Jekyll::Errors::FatalException) do
+      create_site({}, { 'books' => [malformed_book] })
+    end
 
-    # Good book's links should still be processed
-    backlinks = site.data['link_cache']['backlinks']['/books/target.html']
-    refute_nil backlinks, 'Backlinks should exist for target'
-    assert_equal 1, backlinks.length
-    assert_equal '/books/good.html', backlinks.first[:source].url
+    assert_includes error.message, '/books/malformed.html'
+    assert_includes error.message, 'malformed Liquid'
   end
 
-  def test_malformed_liquid_no_forward_links
-    # A book with malformed Liquid should have no forward links (it was skipped).
+  def test_malformed_liquid_unclosed_if_raises_fatal_exception
     malformed_book = create_doc(
       { 'title' => 'Malformed', 'published' => true },
       '/books/malformed.html',
       "{% if unclosed %}{% book_link 'Target' %}",
     )
-    target_book = create_doc(
-      { 'title' => 'Target', 'published' => true },
-      '/books/target.html',
-      'Content.',
+
+    error = assert_raises(Jekyll::Errors::FatalException) do
+      create_site({}, { 'books' => [malformed_book] })
+    end
+
+    assert_includes error.message, '/books/malformed.html'
+  end
+
+  def test_malformed_liquid_error_includes_syntax_details
+    malformed_book = create_doc(
+      { 'title' => 'Malformed', 'published' => true },
+      '/books/malformed.html',
+      '{% for item in %}broken{% endfor %}',
     )
 
-    site = create_site({}, { 'books' => [malformed_book, target_book] })
-    forward_links = site.data['link_cache']['forward_links']['/books/malformed.html']
+    error = assert_raises(Jekyll::Errors::FatalException) do
+      create_site({}, { 'books' => [malformed_book] })
+    end
 
-    assert(forward_links.nil? || forward_links.empty?, 'Malformed doc should have no forward links')
+    # Error message should include Liquid's syntax error details
+    assert_includes error.message, 'BacklinkBuilder'
   end
 
   # --- Liquid internals contract tests ---
