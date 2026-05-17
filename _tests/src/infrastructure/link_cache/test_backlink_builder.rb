@@ -711,6 +711,45 @@ class TestBacklinkBuilder < Minitest::Test
     assert_equal 3, maze_link[:count], 'Should count 3 usages of {{ maze }}'
   end
 
+  def test_captures_with_no_targets_do_not_inflate_subsequent_capture_counts
+    # Regression test: captures that resolve to nothing (self-referential, unreviewed books)
+    # should not have their prose usages attributed to the next valid capture.
+    #
+    # Bug scenario: {% capture this_book %}{% book_link page.title %}{% endcapture %}
+    # resolves to self (excluded), but {{ this_book }} usages were counted against
+    # the next capture that DID have valid targets.
+    book_with_captures = create_doc(
+      { 'title' => 'Review', 'published' => true },
+      '/books/review.html',
+      <<~CONTENT,
+        {% capture this_book %}{% book_link "Review" %}{% endcapture %}
+        {% capture other %}{% book_link "Other Book" %}{% endcapture %}
+
+        I mention {{ this_book }} many times. Like {{ this_book }} here.
+        And {{ this_book }} again. But {{ other }} only once.
+      CONTENT
+    )
+    other_book = create_doc(
+      { 'title' => 'Other Book', 'published' => true },
+      '/books/other.html',
+      'Content.',
+    )
+
+    # NOTE: "Review" book_link resolves to the current doc (self-referential, excluded)
+    site = create_site({}, { 'books' => [book_with_captures, other_book] })
+    forward_links = site.data['link_cache']['forward_links']['/books/review.html']
+
+    other_link = forward_links.find { |l| l[:target].url == '/books/other.html' }
+    refute_nil other_link
+
+    # The 3 usages of {{ this_book }} should NOT inflate {{ other }}'s count
+    assert_equal(
+      1,
+      other_link[:count],
+      'Usages of captures with no targets should not inflate other captures',
+    )
+  end
+
   def test_calculates_position_by_occurrence_order
     # Position is based on occurrence order among all prose variables, not character position.
     # This avoids regex-based position tracking which can drift with markdown code blocks.
