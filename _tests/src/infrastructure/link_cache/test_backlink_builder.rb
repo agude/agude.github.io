@@ -1272,6 +1272,96 @@ class TestBacklinkBuilder < Minitest::Test
     assert_equal 1, author_link[:count]
   end
 
+  # --- Error handling tests ---
+
+  def test_malformed_liquid_skipped_gracefully
+    # Malformed Liquid should not crash the build. The bad document is skipped,
+    # and other documents are still processed normally.
+    malformed_book = create_doc(
+      { 'title' => 'Malformed', 'published' => true },
+      '/books/malformed.html',
+      '{% capture unclosed This is broken Liquid.',
+    )
+    good_book = create_doc(
+      { 'title' => 'Good Book', 'published' => true },
+      '/books/good.html',
+      "I recommend {% book_link 'Target Book' %}.",
+    )
+    target_book = create_doc(
+      { 'title' => 'Target Book', 'published' => true },
+      '/books/target.html',
+      'Content.',
+    )
+
+    # Should not raise — malformed doc is skipped
+    site = create_site({}, { 'books' => [malformed_book, good_book, target_book] })
+
+    # Good book's links should still be processed
+    backlinks = site.data['link_cache']['backlinks']['/books/target.html']
+    refute_nil backlinks, 'Backlinks should exist for target'
+    assert_equal 1, backlinks.length
+    assert_equal '/books/good.html', backlinks.first[:source].url
+  end
+
+  def test_malformed_liquid_no_forward_links
+    # A book with malformed Liquid should have no forward links (it was skipped).
+    malformed_book = create_doc(
+      { 'title' => 'Malformed', 'published' => true },
+      '/books/malformed.html',
+      "{% if unclosed %}{% book_link 'Target' %}",
+    )
+    target_book = create_doc(
+      { 'title' => 'Target', 'published' => true },
+      '/books/target.html',
+      'Content.',
+    )
+
+    site = create_site({}, { 'books' => [malformed_book, target_book] })
+    forward_links = site.data['link_cache']['forward_links']['/books/malformed.html']
+
+    assert(forward_links.nil? || forward_links.empty?, 'Malformed doc should have no forward links')
+  end
+
+  # --- Liquid internals contract tests ---
+  # These tests verify assumptions about Liquid's internal structure.
+  # If Liquid changes its ivars in a future version, these tests fail fast.
+
+  def test_liquid_capture_exposes_variable_name
+    # BacklinkBuilder accesses @to to get the capture variable name.
+    template = Liquid::Template.parse('{% capture foo %}bar{% endcapture %}')
+    capture_node = template.root.nodelist.find { |n| n.is_a?(Liquid::Capture) }
+
+    var_name = capture_node.instance_variable_get(:@to)
+    assert_equal 'foo',
+                 var_name,
+                 'Liquid::Capture @to ivar changed — update BacklinkBuilder.process_capture_node'
+  end
+
+  def test_liquid_tag_exposes_markup
+    # BacklinkBuilder accesses @markup to parse tag arguments.
+    Jekyll::Infrastructure::LinkCache::BacklinkBuilder.ensure_stub_tags_registered
+    template = Liquid::Template.parse("{% book_link 'Test Title' %}")
+    tag_node = template.root.nodelist.find { |n| n.is_a?(Liquid::Tag) && n.tag_name == 'book_link' }
+
+    markup = tag_node.instance_variable_get(:@markup)
+    assert_includes markup,
+                    'Test Title',
+                    'Liquid::Tag @markup ivar changed — update BacklinkBuilder.extract_link_from_tag'
+  end
+
+  def test_liquid_variable_exposes_name
+    # BacklinkBuilder accesses @name to identify variable usages.
+    template = Liquid::Template.parse('{{ my_var }}')
+    var_node = template.root.nodelist.find { |n| n.is_a?(Liquid::Variable) }
+
+    name_obj = var_node.instance_variable_get(:@name)
+    # @name can be a VariableLookup or String depending on Liquid version
+    actual_name = name_obj.is_a?(Liquid::VariableLookup) ? name_obj.name : name_obj
+    assert_equal 'my_var',
+                 actual_name,
+                 'Liquid::Variable @name ivar changed — update BacklinkBuilder.extract_variable_name'
+  end
+
   private
 
   def rebuild_backlinks(site)

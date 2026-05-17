@@ -49,7 +49,6 @@ module Jekyll
           return unless @link_cache['books']&.any? && @site.collections.key?('books')
 
           build_url_to_doc_map
-          build_author_url_map
 
           @site.collections['books'].docs.each do |source_doc|
             scan_doc_with_ast(source_doc)
@@ -101,17 +100,24 @@ module Jekyll
 
         private
 
+        def parse_liquid_safely(doc)
+          Liquid::Template.parse(doc.content)
+        rescue Liquid::SyntaxError => e
+          Jekyll.logger.warn('BacklinkBuilder:', "Skipping #{doc.url}, malformed Liquid: #{e.message}")
+          nil
+        end
+
         def build_url_to_doc_map
           @url_to_doc = {}
           @site.collections['books'].docs.each { |doc| @url_to_doc[doc.url] = doc }
-        end
 
-        def build_author_url_map
-          @author_url_map = {}
+          # Author pages added by URL for unified lookup in add_link
+          @author_by_title = {}
           @site.pages.each do |page|
             next unless page.data['layout'] == 'author_page'
 
-            @author_url_map[normalize(page.data['title'])] = page
+            @author_by_title[normalize(page.data['title'])] = page
+            @url_to_doc[page.url] = page
           end
         end
 
@@ -120,7 +126,8 @@ module Jekyll
           return unless doc.respond_to?(:content) && doc.content && !doc.content.empty?
 
           self.class.ensure_stub_tags_registered
-          template = Liquid::Template.parse(doc.content)
+          template = parse_liquid_safely(doc)
+          return unless template
 
           # Extract captures containing link tags (returns array of definitions)
           capture_defs = extract_link_captures(template.root.nodelist, doc)
@@ -280,7 +287,7 @@ module Jekyll
           title = extract_quoted_string(markup)
           return nil unless title
 
-          author_page = @author_url_map[normalize(title)]
+          author_page = @author_by_title[normalize(title)]
           return nil unless author_page
 
           [{ url: author_page.url, type: 'author' }]
@@ -467,7 +474,7 @@ module Jekyll
           end
 
           # Update forward links (with scoring data)
-          target_doc = @url_to_doc[target_url] || @author_url_map.values.find { |p| p.url == target_url }
+          target_doc = @url_to_doc[target_url]
           return unless target_doc
 
           existing_fwd = @forward_links[source_doc.url][target_url]

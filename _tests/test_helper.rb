@@ -463,9 +463,6 @@ def create_mock_converter(config)
 end
 
 def generate_link_cache(site)
-  silent_logger = Minitest::Mock.new
-  4.times { silent_logger.expect :info, nil, [String, String] }
-
   Jekyll.stub :logger, silent_logger do
     Jekyll::Infrastructure::LinkCacheGenerator.new.generate(site)
   end
