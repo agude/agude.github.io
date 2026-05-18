@@ -1,11 +1,11 @@
 ---
-date: 2026-05-10
+date: 2026-05-18
 title: Neuromancer
 book_authors: William Gibson
 series: Sprawl
 book_number: 1
 is_anthology: false
-rating: null
+rating: 5
 image: /books/covers/neuromancer.jpg
 wikidata_qid: Q662029
 isbn: 978-0-441-56956-4
