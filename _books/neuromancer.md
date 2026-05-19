@@ -1,5 +1,5 @@
 ---
-date: 2026-05-18
+date: 2026-05-18 10:46:00 -0700
 title: Neuromancer
 book_authors: William Gibson
 series: Sprawl
