@@ -133,3 +133,10 @@ same_as_urls:
 {% capture westworld %}{% tv_show_title "Westworld" %}{% endcapture %}
 {% capture blade_runner %}{% movie_title "Blade Runner" %}{% endcapture %}
 {% capture elysium %}{% movie_title "Elysium" %}{% endcapture %}
+
+{% capture weber %}{% author_link "David Weber" %}{% endcapture %}
+{% capture webers %}{% author_link "David Weber" possessive %}{% endcapture %}
+{% capture weber_lastname %}{% author_link "David Weber" link_text="Weber" %}{% endcapture %}
+{% capture webers_lastname %}{% author_link "David Weber" link_text="Weber" possessive %}{% endcapture %}
+{% capture honor_harrington %}{% series_link "Honor Harrington" %}{% endcapture %}
+{% capture the_honor_of_the_queen %}{% book_link "The Honor of the Queen" %}{% endcapture %}
