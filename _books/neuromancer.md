@@ -133,6 +133,7 @@ same_as_urls:
 {% capture westworld %}{% tv_show_title "Westworld" %}{% endcapture %}
 {% capture blade_runner %}{% movie_title "Blade Runner" %}{% endcapture %}
 {% capture elysium %}{% movie_title "Elysium" %}{% endcapture %}
+{% capture inception %}{% movie_title "Inception" %}{% endcapture %}
 
 {% capture weber %}{% author_link "David Weber" %}{% endcapture %}
 {% capture webers %}{% author_link "David Weber" possessive %}{% endcapture %}
