@@ -141,3 +141,25 @@ same_as_urls:
 {% capture webers_lastname %}{% author_link "David Weber" link_text="Weber" possessive %}{% endcapture %}
 {% capture honor_harrington %}{% series_link "Honor Harrington" %}{% endcapture %}
 {% capture the_honor_of_the_queen %}{% book_link "The Honor of the Queen" %}{% endcapture %}
+
+I was apprehensive about reading {{ this_book }}. It was so influential in the
+cyberpunk genre---we'll talk about that later---that I was worried it would
+come off derivative itself, having already read and see many of the works it
+inspired. Or worse, that it would be all ideas with no story as we so often
+see in science fiction.
+
+{{ this_book }} is a heist. That's a great choice by {{ the_authors_lastname
+}} because it gives the story instant momentum and a reason to explore the
+world: you have to assemble the team.
+
+I picked up {{ this_book }} after getting a chapter into my {{ snow_crash }}
+re-read, and realizing I had never read a single thing by {{
+the_authors_lastname }}. {{ snow_crash }} is a response and satire to a lot of
+what {{ the_authors_lastname }} developed, and I knew I wouldn't be able to
+spot it without first going through {{ this_book }}.
+
+The puppet shops, where people can sell their bodies while their mind is
+turned off, were later used by Whedon <!-- TODO: Link as author? Something
+else? --> in {{ dollhouse }}. The way Wintermute _literally_ can't know the
+code word, it just can't exist in his mind, is similar to how the host robots
+in {{ westworld }} can't see things that might reveal they're hosts.
