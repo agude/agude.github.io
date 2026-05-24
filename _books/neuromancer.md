@@ -23,7 +23,11 @@ same_as_urls:
   - "https://www.google.com/search?kgmid=/m/05g5q"
 ---
 
-{% book_link page.title %}, by {% author_link page.book_authors link=false %}, is the first book in {% series_text page.series link=false %}.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the first book in {% series_text page.series link=false %}. It's the story
+of Case---a down-on-his-luck hacker---and Molly Millions---a street
+samurai---who are hired by a mysterious ex-special forces agent to pull off a
+heist.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
@@ -35,8 +39,10 @@ same_as_urls:
 {% capture the_authors_link %}{% author_link page.book_authors possessive %}{% endcapture %}
 {% capture the_authors_lastname_link %}{% author_link page.book_authors link_text=author_last_name_text %}{% endcapture %}
 {% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
-
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
+
+{% capture johnny_mnemonic %}{% short_story_link "Johnny Mnemonic" %}{% endcapture %}
+{% capture burning_chrome %}{% book_link "Burning Chrome" %}{% endcapture %}
 
 {% capture simmons %}{% author_link "Dan Simmons" %}{% endcapture %}
 {% capture simmonss %}{% author_link "Dan Simmons" possessive %}{% endcapture %}
@@ -44,6 +50,7 @@ same_as_urls:
 {% capture simmonss_lastname %}{% author_link "Dan Simmons" link_text="Simmons" possessive %}{% endcapture %}
 {% capture hyperion_cantos %}{% series_link "Hyperion Cantos" %}{% endcapture %}
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
+{% capture the_detectives_tale %}{% short_story_link "The Detective's Tale" from_book="Hyperion" %}{% endcapture %}
 
 {% capture arkady_and_boris %}{% author_link "Arkady Strugatsky" link_text="Arkady" %} and {% author_link "Boris Strugatsky" %}{% endcapture %}
 {% capture arkady_and_boriss %}{% author_link "Arkady Strugatsky" link_text="Arkady" %} and {% author_link "Boris Strugatsky" possessive %}{% endcapture %}
@@ -61,6 +68,7 @@ same_as_urls:
 {% capture qntms %}{% author_link "qntm" possessive %}{% endcapture %}
 {% capture valuable_humans %}{% book_link "Valuable Humans in Transit and Other Stories" %}{% endcapture %}
 {% capture lena %}{% short_story_link "Lena" from_book="Valuable Humans in Transit and Other Stories" %}{% endcapture %}
+{% capture driver %}{% short_story_link "Driver" from_book="Valuable Humans in Transit and Other Stories" %}{% endcapture %}
 
 {% capture stephenson %}{% author_link "Neal Stephenson" %}{% endcapture %}
 {% capture stephensons %}{% author_link "Neal Stephenson" possessive %}{% endcapture %}
@@ -86,6 +94,20 @@ same_as_urls:
 {% capture stross_lastname %}{% author_link "Charles Stross" link_text="Stross" %}{% endcapture %}
 {% capture strosss_lastname %}{% author_link "Charles Stross" link_text="Stross" possessive %}{% endcapture %}
 {% capture accelerando %}{% book_link "Accelerando" %}{% endcapture %}
+
+{% capture rajaniemi %}{% author_link "Hannu Rajaniemi" %}{% endcapture %}
+{% capture rajaniemis %}{% author_link "Hannu Rajaniemi" possessive %}{% endcapture %}
+{% capture rajaniemi_lastname %}{% author_link "Hannu Rajaniemi" link_text="Rajaniemi" %}{% endcapture %}
+{% capture rajaniemis_lastname %}{% author_link "Hannu Rajaniemi" link_text="Rajaniemi" possessive %}{% endcapture %}
+{% capture jean_le_flambeur %}{% series_link "Jean le Flambeur" %}{% endcapture %}
+{% capture the_quantum_thief %}{% book_link "The Quantum Thief" %}{% endcapture %}
+
+{% capture vinge %}{% author_link "Vernor Vinge" %}{% endcapture %}
+{% capture vinges %}{% author_link "Vernor Vinge" possessive %}{% endcapture %}
+{% capture vinge_lastname %}{% author_link "Vernor Vinge" link_text="Vinge" %}{% endcapture %}
+{% capture vinges_lastname %}{% author_link "Vernor Vinge" link_text="Vinge" possessive %}{% endcapture %}
+{% capture zones_of_thought %}{% series_link "Zones of Thought" %}{% endcapture %}
+{% capture a_fire_upon_the_deep %}{% book_link "A Fire Upon The Deep" %}{% endcapture %}
 
 {% capture card %}{% author_link "Orson Scott Card" %}{% endcapture %}
 {% capture cards %}{% author_link "Orson Scott Card" possessive %}{% endcapture %}
@@ -121,10 +143,6 @@ same_as_urls:
 {% capture we_are_bob %}{% book_link "We Are Legion (We Are Bob)" %}{% endcapture %}
 
 {% capture disco_elysium %}{% book_link "Disco Elysium" %}{% endcapture %}
-
-{% capture sprawl %}{% series_link "Sprawl" %}{% endcapture %}
-{% capture johnny_mnemonic %}{% short_story_link "Johnny Mnemonic" %}{% endcapture %}
-{% capture burning_chrome %}{% book_link "Burning Chrome" %}{% endcapture %}
 
 {% capture the_matrix %}{% movie_title "The Matrix" %}{% endcapture %}
 {% capture deus_ex %}{% game_title "Deus Ex" %}{% endcapture %}
@@ -163,3 +181,53 @@ turned off, were later used by Whedon <!-- TODO: Link as author? Something
 else? --> in {{ dollhouse }}. The way Wintermute _literally_ can't know the
 code word, it just can't exist in his mind, is similar to how the host robots
 in {{ westworld }} can't see things that might reveal they're hosts.
+
+### Cyberspace: Mind--Body Duality
+
+{{ the_authors_lastname }} originated the concept of "cyberspace" as a place
+in {{ burning_chrome }}, and uses that idea again in {{ this_book }} and the
+rest of {{ this_series }}. In some ways it's the core idea that future authors
+latched onto: there is another place, where your body doesn't matter, just
+your mind and your skill. This is what appeals to Case. He feels trapped in
+his body once cyberspace is cut off from him.
+
+{{ the_matrix }} used many ideas from {{ this_book }}, but the most
+influential is that idea: that who you are now is a lie; there is another
+place where you are who you are supposed to be. For Case, in {{ this_book }}
+that place is cyberspace, but in {{ the_matrix }} the Wachowski sisters invert
+it: cyberspace is the lie that traps you.
+
+{{ simmons_lastname }}, pastiching {{ the_authors_lastname_possessive }} work,
+uses it as part of the setting of {{ the_detectives_tale }}. This fits with
+the other things he borrows for {{ hyperion }}: decks, hacking, neon colored
+shapes in cyberspace, a cowboy _literally_ named Gibson. But he is also
+extending the underlying idea: Johnny is of both worlds simultaneously, a mind
+in cyberspace and a body in the real. Case despises his body and wants to
+become more virtual, while Johnny yearns to be more human.
+
+Then there is Dixie Flatline, the dead hacker whose mind was loaded into ROM,
+who starts fresh from the exact same point every time he is rebooted, just
+like a modern LLM. Flatline is the extreme Case thinks he wants: a mind that
+exists only in software. But Flatline is in hell. He can't acclimate because
+he always resets; he has no sense of passing time. His only wish at the end of
+the heist is to be erased. It's an idea that others---{{ qntms }} {{ lena }}
+and {{ driver }}, all of {{ taylors_lastname }} {{ bobiverse }}---have
+explored as well: what it means to be a person, what role the body plays in
+it, and if the mind can exist on its own.
+
+Other authors have played with the same ideas about cyberspace and the body
+and mind: {{ stephensons_lastname }} {{ snow_crash }} takes cyberspace and
+commercializes it. {{ bankss_lastname }} {{ surface_detail }} puts whole
+civilizations and wars into the virtual. {{ strosss_lastname }} {{ accelerando
+}} and {{ rajaniemis_lastname }} {{ jean_le_flambeur }} completely blur the
+lines between real and virtual with brains extended beyond the body, minds
+living in simulations, multiple copies of the same person, etc. {{
+vinges_lastname }} {{ a_fire_upon_the_deep }} inverts Case's desire entirely,
+showing us single minds with many bodies. All different answers to the same
+question.
+
+### Identity
+
+### Autonomy
+
+### History
