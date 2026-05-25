@@ -50,7 +50,7 @@ heist.
 {% capture simmonss_lastname %}{% author_link "Dan Simmons" link_text="Simmons" possessive %}{% endcapture %}
 {% capture hyperion_cantos %}{% series_link "Hyperion Cantos" %}{% endcapture %}
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
-{% capture the_detectives_tale %}{% short_story_link "The Detective's Tale" from_book="Hyperion" %}{% endcapture %}
+{% capture the_detectives_tale %}{% short_story_link "The Detective's Tale" %}{% endcapture %}
 
 {% capture arkady_and_boris %}{% author_link "Arkady Strugatsky" link_text="Arkady" %} and {% author_link "Boris Strugatsky" %}{% endcapture %}
 {% capture arkady_and_boriss %}{% author_link "Arkady Strugatsky" link_text="Arkady" %} and {% author_link "Boris Strugatsky" possessive %}{% endcapture %}
@@ -67,8 +67,8 @@ heist.
 {% capture qntm %}{% author_link "qntm" %}{% endcapture %}
 {% capture qntms %}{% author_link "qntm" possessive %}{% endcapture %}
 {% capture valuable_humans %}{% book_link "Valuable Humans in Transit and Other Stories" %}{% endcapture %}
-{% capture lena %}{% short_story_link "Lena" from_book="Valuable Humans in Transit and Other Stories" %}{% endcapture %}
-{% capture driver %}{% short_story_link "Driver" from_book="Valuable Humans in Transit and Other Stories" %}{% endcapture %}
+{% capture lena %}{% short_story_link "Lena" %}{% endcapture %}
+{% capture driver %}{% short_story_link "Driver" %}{% endcapture %}
 
 {% capture stephenson %}{% author_link "Neal Stephenson" %}{% endcapture %}
 {% capture stephensons %}{% author_link "Neal Stephenson" possessive %}{% endcapture %}
@@ -228,6 +228,31 @@ question.
 
 ### Identity
 
+<!--
+
+- Armitage/Corto
+- Tessier-Ashpool dynasty are something other than human, so are all people in
+  power.
+- Follow in, people evolving towards corporatehood, like accelerando.
+- wintermute using the dead to communcate, can only use identity masks.
+
+-->
+
 ### Autonomy
 
+<!--
+
+- Wintermute is a swiss citizen, but doesn't own the hardware it runs on.
+- Turn police as anti-singularity
+- Hard-code blindspots, things wintermute can't know
+- Neural cutouts, molly turning herself off to puppet.
+- Armitage as puppet of wintermute (like Jukka for the Captain)
+
+-->
+
 ### History
+
+{{ the_author }}
+
+Case is a lot like Red from {{ arkady_and_boriss }} {{ roadside_picnic }}: a
+self-destructive loser
