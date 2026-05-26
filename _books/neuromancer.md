@@ -226,7 +226,26 @@ vinges_lastname }} {{ a_fire_upon_the_deep }} inverts Case's desire entirely,
 showing us single minds with many bodies. All different answers to the same
 question.
 
-### Identity
+### Identity and Autonomy
+
+Cyberspace allowing the body and mind to be split opens up a new question: if
+who "you" are isn't one thing, can you control all the pieces? {{
+the_authors_lastname }} has a simple answer: no. Flatline is the obvious
+example. He sold his mind scan which is now owned by Sense/Net and rented out.
+But who you are and are you in control goes much deeper in {{ this_book }}
+
+Armitage appears to be your standard highly-competent professional. Ex-special
+forces, he's cool, calm, collected. He always knows exactly what to do, who
+they need for the heist. And he's not real. His body is a Corto, his mind
+destroyed in the failure of the Screaming Fist mission, to be supressed and
+rebuilt by Wintermute.
+
+Wintermute itself has the same problem. It's "thoughts" are a citizen of
+Switzerland, but its body, the hardware it runs on, is owned by
+Tessier-Ashpool.
+
+Molly and others rent out their body a puppets, using hardware to turn off
+their mind.
 
 <!--
 
@@ -237,8 +256,6 @@ question.
 - wintermute using the dead to communcate, can only use identity masks.
 
 -->
-
-### Autonomy
 
 <!--
 
