@@ -226,46 +226,39 @@ vinges_lastname }} {{ a_fire_upon_the_deep }} inverts Case's desire entirely,
 showing us single minds with many bodies. All different answers to the same
 question.
 
-### Identity and Autonomy
+### Power
 
-Cyberspace allowing the body and mind to be split opens up a new question: if
-who "you" are isn't one thing, can you control all the pieces? {{
-the_authors_lastname }} has a simple answer: no. Flatline is the obvious
-example. He sold his mind scan which is now owned by Sense/Net and rented out.
-But who you are and are you in control goes much deeper in {{ this_book }}
+The question a heist invites is "Who is actually running this?" {{
+the_authors_lastname }} uses that question to explore power and humanity in
+his setting. His answer is "No one human". Case thinks Armitage is in charge
+and {{ the_authors_lastname }} sets us up to believe him. Armitage is the
+perfect lead: he always knows what to do, he has a special forces pedigree, he
+has the motive. And it's all fake. Wintermute implanted it in him to use as a
+puppet.
 
-Armitage appears to be your standard highly-competent professional. Ex-special
-forces, he's cool, calm, collected. He always knows exactly what to do, who
-they need for the heist. And he's not real. His body is a Corto, his mind
-destroyed in the failure of the Screaming Fist mission, to be supressed and
-rebuilt by Wintermute.
+Wintermute itself is not human. It has power over Armitage and Case. But it
+doesn't control its body: its mind has Swiss Citizenship, its hardware is
+fully owned by Tessier-Ashpool. Tessier-Ashpool are also more and less than
+human. A family as corporation, with ownership rotating between clones and
+cryogenically frozen members. The clones are disposable, literally murdered
+for pleasure by the original family members on a whim.
 
-Wintermute itself has the same problem. It's "thoughts" are a citizen of
-Switzerland, but its body, the hardware it runs on, is owned by
-Tessier-Ashpool.
+Tessier-Ashpool makes Case realize that he hasn't considered anything except
+the zaibatsu as powerful before, but that everyone who has power has traded
+their humanity, has evolved towards being a corporation.
 
-Molly and others rent out their body a puppets, using hardware to turn off
-their mind.
+The theme exists outside of the structure of the heist: Molly sells her self
+as a puppet, where her body is used as an unconscious prostitute and as a
+torture in personalized snuff porn, in order to raise the funds needed to
+augment herself and become a street samurai.
 
-<!--
-
-- Armitage/Corto
-- Tessier-Ashpool dynasty are something other than human, so are all people in
-  power.
-- Follow in, people evolving towards corporatehood, like accelerando.
-- wintermute using the dead to communcate, can only use identity masks.
-
--->
-
-<!--
-
-- Wintermute is a swiss citizen, but doesn't own the hardware it runs on.
-- Turn police as anti-singularity
-- Hard-code blindspots, things wintermute can't know
-- Neural cutouts, molly turning herself off to puppet.
-- Armitage as puppet of wintermute (like Jukka for the Captain)
-
--->
+{{ stross_lastname }} explores the idea of humanity evolving towards
+corporations in {{ accelerando }}. {{ wattss_lastname }} {{ blindsight }} has
+a computer controlling a living being with the Captain and Jukka Sarasti, and
+also has humans modifying themselves to maintain power in a world ruled by
+non-human Vampires, AIs, and aliens. {{ falls_lastname }} {{ attack_helicopter
+}} has a woman, Barb, trade her humanity, her gender, to become better at
+killing.
 
 ### History
 
