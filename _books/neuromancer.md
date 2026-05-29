@@ -226,41 +226,49 @@ lines between real and virtual with brains extended beyond the body, minds
 living in simulations, multiple copies of the same person, etc. {{
 vinges_lastname }} {{ a_fire_upon_the_deep }} inverts Case's desire entirely,
 showing us single minds with many bodies. All different ways of asking: what
-makes you human, what do you lose when you give it up?
+makes you human?
 
 ### Power: What Would You Trade For It
 
-The question a heist invites is "Who is actually running this?" {{
-the_authors_lastname }} uses that question to explore power and humanity in
-his setting. His answer is "No one human". Case thinks Armitage is in charge
-and {{ the_authors_lastname }} sets us up to believe him. Armitage is the
-perfect lead: he always knows what to do, he has a special forces pedigree, he
-has the motive. And it's all fake. Wintermute implanted it in him to use as a
-puppet.
+The heist keeps asking: "Who is really running this?"
+But the real question is "What did they trade away to get there?"
 
-Wintermute itself is not human. It has power over Armitage and Case. But it
-doesn't control its body: its mind has Swiss Citizenship, its hardware is
-fully owned by Tessier-Ashpool. Tessier-Ashpool are also more and less than
-human. A family as corporation, with ownership rotating between clones and
-cryogenically frozen members. The clones are disposable, literally murdered
-for pleasure by the original family members on a whim.
+<!-- Or what's missing in their humanity? -->
 
-Tessier-Ashpool makes Case realize that he hasn't considered anything except
-the zaibatsu as powerful before, but that everyone who has power has traded
-their humanity, has evolved towards being a corporation.
+In {{ this_book }}, in each case, the answer is part of their humanity.
 
-The theme exists outside of the structure of the heist: Molly sells her self
-as a puppet, where her body is used as an unconscious prostitute and as a
-torture in personalized snuff porn, in order to raise the funds needed to
-augment herself and become a street samurai.
+Armitage traded his identity---Wintermute rebuilt him from Corto's wreckage
+as a puppet. Wintermute trade
+
+Armitage runs the crew, but Wintermute runs Armitage as a puppet. Wintermute
+is manipulating everyone, but Tessier-Ashpool owns its hardware.
+Tessier-Ashpool has immense wealth, but they failed at the thing they wanted
+most: to become more than human. Tessier's plan would have had them merge with
+their Neuromancer AI, become a hive, let the new corporate mind make
+decisions. Her husband Ashpool killed her for it, and without her guidance
+they became something less than human: clones and cryogenics as succession
+plan, murder and sadism for fun.
+
+Ashpool's death makes Case connect his desire to transcend his body with the
+power he sees around him. He's always understood the zaibatsus as powerful, as
+immortal hives, their DNA coded in Silicon. He has accepted that the powerful
+are more and less than human, that they slowly become something different. But
+he had not connected it with his own desire to transcend his body, to become
+something that persists.
+
+<!-- Case wants to escape, get out of his body. He thinks flatline is what he
+wants but it's not. T-A makes him realize the Zaibatsu are it already,
+immortal hives with their DNA etched in silicon. But T-A is also the reminder
+of what a failure to reach that state looks like. -->
+
+<!-- Molly sold her free will to buy the means to take control of her life. -->
 
 {{ stross_lastname }} explores the idea of humanity evolving towards
 corporations in {{ accelerando }}. {{ wattss_lastname }} {{ blindsight }} has
 a computer controlling a living being with the Captain and Jukka Sarasti, and
 also has humans modifying themselves to maintain power in a world ruled by
 non-human Vampires, AIs, and aliens. {{ falls_lastname }} {{ attack_helicopter
-}} has a woman, Barb, trade her humanity, her gender, to become better at
-killing.
+}} has Barb trade her humanity, her gender, to become better at killing.
 
 ### Other Works
 
