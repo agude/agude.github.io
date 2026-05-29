@@ -176,12 +176,6 @@ the_authors_lastname }}. {{ snow_crash }} is a response and satire to a lot of
 what {{ the_authors_lastname }} developed, and I knew I wouldn't be able to
 spot it without first going through {{ this_book }}.
 
-The puppet shops, where people can sell their bodies while their mind is
-turned off, were later used by Whedon <!-- TODO: Link as author? Something
-else? --> in {{ dollhouse }}. The way Wintermute _literally_ can't know the
-code word, it just can't exist in his mind, is similar to how the host robots
-in {{ westworld }} can't see things that might reveal they're hosts.
-
 ### Cyberspace: Mind--Body Duality
 
 {{ the_authors_lastname }} originated the concept of "cyberspace" as a place
@@ -260,9 +254,15 @@ non-human Vampires, AIs, and aliens. {{ falls_lastname }} {{ attack_helicopter
 }} has a woman, Barb, trade her humanity, her gender, to become better at
 killing.
 
-### History
+### Other Works
 
 {{ the_author }}
 
 Case is a lot like Red from {{ arkady_and_boriss }} {{ roadside_picnic }}: a
 self-destructive loser
+
+The puppet shops, where people can sell their bodies while their mind is
+turned off, were later used by Whedon <!-- TODO: Link as author? Something
+else? --> in {{ dollhouse }}. The way Wintermute _literally_ can't know the
+code word, it just can't exist in his mind, is similar to how the host robots
+in {{ westworld }} can't see things that might reveal they're hosts.
