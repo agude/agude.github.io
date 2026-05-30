@@ -228,47 +228,51 @@ vinges_lastname }} {{ a_fire_upon_the_deep }} inverts Case's desire entirely,
 showing us single minds with many bodies. All different ways of asking: what
 makes you human?
 
-### Power: What Would You Trade For It
+### Power: What It Costs You
 
-The heist keeps asking: "Who is really running this?"
-But the real question is "What did they trade away to get there?"
+The heist keeps us asking: "Who is really running this?" As each layer is
+revealed, we realize the question actually is: "What did they lose to get
+there?" Some of them made a conscious trade off, giving up part of themselves
+for power, but others had no choice, like Armitage/Corto.
 
-<!-- Or what's missing in their humanity? -->
+Corto didn't choose to give up his humanity, Wintermute found him broken and
+built Armitage in the empty shell. He runs the crew, but lost his freewill;
+he's a puppet that stares at the wall when Wintermute isn't controlling him.
+Wintermute, although the architect of the heist and the power behind Armitage,
+also didn't choose. It was created, with a free mind but a body wholly owned
+by Tessier-Ashpool. Flatline is similar. The hacker sold his brain-scan, but
+the copied version had no say in it. Its only act of will is its demand to be
+erased.
 
-In {{ this_book }}, in each case, the answer is part of their humanity.
+But some people looked at the bargain and decided to take it. Molly sold her
+body as a meat puppet, where it was used for prostitution and worse, and used
+the money to pay for the mods that made her a razorgirl. She traded her
+consciousness and bodily autonomy for agency, the power to be who she wanted.
+Tessier-Ashpool tried to trade their humanity: merging with their Neuromancer
+AI, forming a hive, letting the new corporate mind make their decisions. They
+failed when Tessier's husband, Ashpool, killed her because he disagreed with
+their direction. Instead they became sadists, murdering each other's clones
+for fun, slowly going insane with cryogenics. The fact that they chose didn't
+save them from the horror.
 
-Armitage traded his identity---Wintermute rebuilt him from Corto's wreckage
-as a puppet. Wintermute trade
+Other authors have explored the same axis. On the chosen side: {{
+stross_lastname }} makes the evolution explicit in {{ accelerando }}: humanity
+uses and evolves towards corporations, at first under their control and then
+entirely independent. {{ falls_lastname }} {{ attack_helicopter }} has Barb
+willingly trade her gender and her humanity to become better at killing. On
+the imposed side: {{ wattss_lastname }} {{ blindsight }} shows the vampire
+Sarasti controlled by the AI Captain, an unconscious alien manipulating
+everyone, and humans modifying themselves just to survive in a world ruled by
+post-human powers. But choice or no, the cost is the same.
 
-Armitage runs the crew, but Wintermute runs Armitage as a puppet. Wintermute
-is manipulating everyone, but Tessier-Ashpool owns its hardware.
-Tessier-Ashpool has immense wealth, but they failed at the thing they wanted
-most: to become more than human. Tessier's plan would have had them merge with
-their Neuromancer AI, become a hive, let the new corporate mind make
-decisions. Her husband Ashpool killed her for it, and without her guidance
-they became something less than human: clones and cryogenics as succession
-plan, murder and sadism for fun.
-
-Ashpool's death makes Case connect his desire to transcend his body with the
-power he sees around him. He's always understood the zaibatsus as powerful, as
-immortal hives, their DNA coded in Silicon. He has accepted that the powerful
-are more and less than human, that they slowly become something different. But
-he had not connected it with his own desire to transcend his body, to become
-something that persists.
-
-<!-- Case wants to escape, get out of his body. He thinks flatline is what he
-wants but it's not. T-A makes him realize the Zaibatsu are it already,
-immortal hives with their DNA etched in silicon. But T-A is also the reminder
-of what a failure to reach that state looks like. -->
-
-<!-- Molly sold her free will to buy the means to take control of her life. -->
-
-{{ stross_lastname }} explores the idea of humanity evolving towards
-corporations in {{ accelerando }}. {{ wattss_lastname }} {{ blindsight }} has
-a computer controlling a living being with the Captain and Jukka Sarasti, and
-also has humans modifying themselves to maintain power in a world ruled by
-non-human Vampires, AIs, and aliens. {{ falls_lastname }} {{ attack_helicopter
-}} has Barb trade her humanity, her gender, to become better at killing.
+Case bridges the divide. He's always understood the zaibatsus as powerful, as
+immortal hives, their DNA coded in silicon. He has always accepted that the
+powerful are more and less than human, that they slowly become something
+different. He's always wanted to escape his body. But until he saw
+Tessier-Ashpool, and their failure, he hadn't connected that these were all
+the same impulse. Case thinks he's choosing, but the choice was made for him:
+by the gangsters that burned out his nerves, by Armitage when he implanted the
+toxins that keep Case loyal.
 
 ### Other Works
 
