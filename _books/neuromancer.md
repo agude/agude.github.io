@@ -213,11 +213,11 @@ it: cyberspace is the lie that traps you away from the real.
 {{ simmons_lastname }}, pastiching {{ the_authors_lastname_possessive }} work,
 uses cyberspace as part of the setting of {{ the_detectives_tale }}. This fits
 with the other things he borrows for {{ hyperion }}: decks, hacking,
-neon-colored shapes in the virtual, a cowboy _literally_ named Gibson. But he
-is also extending the underlying idea: Johnny is of both worlds
-simultaneously, a mind in cyberspace and a body in the real. Case despises his
-body and wants to become more virtual. Johnny yearns to be more human. They're
-moving in opposite directions while asking the same question.
+neon-colored shapes, a cowboy _literally_ named Gibson. But he is also
+extending the underlying idea: Johnny is of both worlds simultaneously, a mind
+in cyberspace and a body in the real. Case despises his body and wants to
+become more virtual. Johnny yearns to be more human. They're moving in
+opposite directions while asking the same question.
 
 Other authors have played with the same ideas about cyberspace and the body
 and mind: {{ stephensons_lastname }} {{ snow_crash }} takes cyberspace and
