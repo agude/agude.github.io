@@ -179,7 +179,8 @@ gives the story instant momentum and a reason to explore the world: you have
 to assemble the team and then you have to steal the loot. In the end though,
 it _is_ the ideas that made {{ this_book }} so influential: cyberspace; a
 world where tech advances and society backslides; neon zaibatsu skyscrapers
-towering over slums; rogue AI; ninjas, katanas, and shurikens.
+towering over slums; rogue AI; and corporations so powerful they start to look
+like a new form of life.
 
 All these ideas orbit one question: What do you lose when you become more than
 human?
@@ -203,19 +204,20 @@ all of {{ taylors_lastname }} {{ bobiverse }}---have explored as well: what it
 means to be a person, what role the body plays in it, and if the mind can
 exist on its own.
 
-{{ the_matrix }} used many ideas from {{ this_book }}, but the most
-influential: that who you are now is a lie; there is another place where you
-are who you are supposed to be. For Case, in {{ this_book }} that place is
-cyberspace, but in {{ the_matrix }} the Wachowski sisters invert it:
-cyberspace is the lie that traps you away from the real.
+{{ the_matrix }} borrowed many ideas from {{ this_book }}, but the most
+important may be this one: that who you are now is a lie, and there is another
+place where you are who you are supposed to be. For Case, in {{ this_book }}
+that place is cyberspace, but in {{ the_matrix }} the Wachowski sisters invert
+it: cyberspace is the lie that traps you away from the real.
 
 {{ simmons_lastname }}, pastiching {{ the_authors_lastname_possessive }} work,
-uses it as part of the setting of {{ the_detectives_tale }}. This fits with
-the other things he borrows for {{ hyperion }}: decks, hacking, neon-colored
-shapes in cyberspace, a cowboy _literally_ named Gibson. But he is also
-extending the underlying idea: Johnny is of both worlds simultaneously, a mind
-in cyberspace and a body in the real. Case despises his body and wants to
-become more virtual, while Johnny yearns to be more human.
+uses cyberspace as part of the setting of {{ the_detectives_tale }}. This fits
+with the other things he borrows for {{ hyperion }}: decks, hacking,
+neon-colored shapes in the virtual, a cowboy _literally_ named Gibson. But he
+is also extending the underlying idea: Johnny is of both worlds
+simultaneously, a mind in cyberspace and a body in the real. Case despises his
+body and wants to become more virtual. Johnny yearns to be more human. They're
+moving in opposite directions while asking the same question.
 
 Other authors have played with the same ideas about cyberspace and the body
 and mind: {{ stephensons_lastname }} {{ snow_crash }} takes cyberspace and
@@ -270,9 +272,9 @@ immortal hives, their DNA coded in silicon. He has always accepted that the
 powerful are more and less than human, that they slowly become something
 different. He's always wanted to escape his body. But until he saw
 Tessier-Ashpool, and their failure, he hadn't connected that these were all
-the same impulse. Case thinks he's choosing, but the choice was made for him:
+the same impulse. Case thinks he's choosing but the choice was made for him,
 by the gangsters that burned out his nerves, by Armitage when he implanted the
-toxins that keep Case loyal.
+toxins. The novel keeps showing him he isn't.
 
 ### Other Works
 
