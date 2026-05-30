@@ -164,7 +164,8 @@ I picked up {{ this_book }} after getting a chapter into my {{ snow_crash }}
 re-read, and realizing I had never read a single thing by {{
 the_authors_lastname }}. {{ snow_crash }} is a response and satire to a lot of
 what {{ the_authors_lastname }} developed, and I wouldn't be able to spot it
-without first going through the original.
+without first going through the original. So I put {{ stephensons_lastname }}
+book aside to give the classic a read.
 
 But I was apprehensive about reading {{ this_book }}. It is so influential in
 the cyberpunk genre that I was worried it would come off derivative itself,
