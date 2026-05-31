@@ -205,16 +205,17 @@ jean_le_flambeur }}, {{ house_of_suns }}, {{ three_body_problem }}---where the
 story and the characters are just there because you can't sell a book without
 them; {{ this_book }} isn't one of them.
 
-The crew is full of great characters---Flatline the dead hacker's mind loaded
-into ROM, Peter Riviera the holographic projection artist and sadist,
-Wintermute and Neuromancer the plotting AIs---but Case and Molly are the
-highlights. Case is a loser who hates his body and only feels like himself in
-Cyberspace. Except he's now trapped in his flesh because his last job went bad
-and they burned his nerves out, preventing him from jacking in. He's
-committing slow suicide via drugs and Chiba gangs, dragging everyone around
-him down with him. He's tragic because without his obsession, he could have
-gotten clean, met Linda without turning her into a junkie who gets killed
-trying to pawn stolen goods. I want him to turn his life around but he can't.
+The crew is full of great characters---Armitage the ex-special forces
+mastermind, Flatline the dead hacker's mind loaded into ROM, Peter Riviera the
+holographic projection artist and sadist, Wintermute and Neuromancer the
+plotting AIs---but Case and Molly are the highlights. Case is a loser who
+hates his body and only feels like himself in Cyberspace. Except he's now
+trapped in his flesh because his last job went bad and they burned his nerves
+out, preventing him from jacking in. He's committing slow suicide via drugs
+and Chiba gangs, dragging everyone around him down with him. He's tragic
+because without his obsession, he could have gotten clean, met Linda without
+turning her into a junkie who gets killed trying to pawn stolen goods. I want
+him to turn his life around but he can't.
 
 Molly is the opposite. She's cool, under control, deadly; you know this as
 soon as you meet her. Molly, too, is tragic. She's in control now, she's
@@ -235,7 +236,7 @@ human?
 {{ the_authors_lastname }} originated the concept of "cyberspace" as a place
 in {{ burning_chrome }}, and uses that idea again in {{ this_book }} and the
 rest of {{ this_series }}. It's the core idea that future authors latched
-onto: there is another place where your body doesn't matter, just your mind
+onto: there is another place, where your body doesn't matter, just your mind
 and your skill. This is what appeals to Case. He feels trapped in his body
 once cyberspace is cut off from him.
 
@@ -247,10 +248,10 @@ It's an idea that others---{{ qntms }} {{ lena }} and {{ driver }}, all of {{
 taylors_lastname }} {{ bobiverse }}---have explored as well.
 
 {{ the_matrix }} borrowed many ideas from {{ this_book }}, but the most
-important is this one: who you are now is a lie, and there is another place
-where you are who you are supposed to be. For Case, that place is cyberspace,
-but in {{ the_matrix }} the Wachowski sisters invert it: cyberspace is the lie
-that traps you away from the real.
+important is this: who you are now is a lie, and there is another place where
+you are who you are supposed to be. For Case, that place is cyberspace, but in
+{{ the_matrix }} the Wachowski sisters invert it: cyberspace is the lie that
+traps you away from the real.
 
 {{ simmons_lastname }}, pastiching {{ the_authors_lastname_possessive }} work,
 uses cyberspace as part of the setting of {{ the_detectives_tale }}. This fits
@@ -278,11 +279,12 @@ them made a conscious trade-off, giving up part of themselves for power.
 Others had no choice, like Armitage/Corto.
 
 Corto didn't choose to give up his humanity. Wintermute found him broken and
-built Armitage in the empty shell. He runs the crew but has no free will;
-he's a puppet that stares at the wall when Wintermute isn't controlling him.
+built Armitage in the empty shell. He runs the crew but has no free will; he's
+a puppet that stares at the wall when Wintermute isn't controlling him.
 Wintermute, although the architect of the heist and the power behind Armitage,
 also didn't choose. It was created, with a free mind but a body wholly owned
-by Tessier-Ashpool. Flatline is similar: the copied version had no say in it.
+by Tessier-Ashpool. Flatline, too, had no say. The copy didn't consent to
+exist.
 
 But some people looked at the bargain and decided to take it. Molly sold her
 body to pay for the mods that made her a razorgirl, trading consciousness and
@@ -311,17 +313,17 @@ different. He's always wanted to escape his body. But until he saw
 Tessier-Ashpool, and their failure, he hadn't connected that these were all
 the same impulse. Case thinks he's choosing but the choice was made for him by
 the gangsters and by Armitage when he implanted the toxins. The novel keeps
-showing him he isn't.
+showing him he never was.
 
 ### Other Works
 
 {{ the_author }} drew a lot on previous works. His ideas about society
 backsliding while technology advances were seen in works like {{
 dicks_lastname }} {{ ubik }} and {{ brunners_lastname }} {{ stand_on_zanzibar
-}}. The Panther Moderns' leader in {{ this_book }} is Lupus Yonderboy, a direct
-reference to {{ brunners_lastname }} slang. Case follows the template of Red
-from {{ arkady_and_boriss }} {{ roadside_picnic }}: a self-destructive loser
-with a special talent.
+}}. The Panther Moderns' leader in {{ this_book }} is Lupus Yonderboy, a
+direct reference to {{ brunners_lastname }} slang. Case follows the template
+of Red from {{ arkady_and_boriss }} {{ roadside_picnic }}: a self-destructive
+loser with a special talent.
 
 In the other direction, lots of writers have been influenced by {{ this_book
 }}. {{ stephensons_lastname }} {{ snow_crash }}, of course, with its
