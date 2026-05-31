@@ -127,6 +127,7 @@ heist.
 {% capture dick_lastname %}{% author_link "Philip K. Dick" link_text="Dick" %}{% endcapture %}
 {% capture dicks_lastname %}{% author_link "Philip K. Dick" link_text="Dick" possessive %}{% endcapture %}
 {% capture do_androids_dream %}{% book_link "Do Androids Dream of Electric Sheep?" %}{% endcapture %}
+{% capture ubik %}{% book_link "Ubik" %}{% endcapture %}
 
 {% capture martine %}{% author_link "Arkady Martine" %}{% endcapture %}
 {% capture martines %}{% author_link "Arkady Martine" possessive %}{% endcapture %}
@@ -147,11 +148,16 @@ heist.
 {% capture the_matrix %}{% movie_title "The Matrix" %}{% endcapture %}
 {% capture deus_ex %}{% game_title "Deus Ex" %}{% endcapture %}
 {% capture shadowrun %}{% game_title "Shadowrun" %}{% endcapture %}
-{% capture dollhouse %}{% tv_show_title "Dollhouse" %}{% endcapture %}
 {% capture westworld %}{% tv_show_title "Westworld" %}{% endcapture %}
 {% capture blade_runner %}{% movie_title "Blade Runner" %}{% endcapture %}
 {% capture elysium %}{% movie_title "Elysium" %}{% endcapture %}
 {% capture inception %}{% movie_title "Inception" %}{% endcapture %}
+
+{% capture whedon %}{% author_link "Joss Whedon" %}{% endcapture %}
+{% capture whedons %}{% author_link "Joss Whedon" possessive %}{% endcapture %}
+{% capture whedon_lastname %}{% author_link "Joss Whedon" link_text="Whedon" %}{% endcapture %}
+{% capture whedons_lastname %}{% author_link "Joss Whedon" link_text="Whedon" possessive %}{% endcapture %}
+{% capture dollhouse %}{% tv_show_title "Dollhouse" %}{% endcapture %}
 
 {% capture weber %}{% author_link "David Weber" %}{% endcapture %}
 {% capture webers %}{% author_link "David Weber" possessive %}{% endcapture %}
@@ -279,13 +285,22 @@ toxins. The novel keeps showing him he isn't.
 
 ### Other Works
 
-{{ the_author }}
+{{ the_author }} drew a lot on previous works. His ideas about society
+backsliding while technology advances were seen in works like {{
+dicks_lastname }} {{ ubik }} and {{ brunners_lastname }} {{ stand_on_zanzibar
+}}. The Panther Moderns' leader in {{ this_book }} is Lupus Yonderboy, a direct
+reference to {{ brunners_lastname }} slang. Case follows the template of Red
+from {{ arkady_and_boriss }} {{ roadside_picnic }}: a self-destructive loser
+with a special talent.
 
-Case is a lot like Red from {{ arkady_and_boriss }} {{ roadside_picnic }}: a
-self-destructive loser
-
-The puppet shops, where people can sell their bodies while their mind is
-turned off, were later used by Whedon <!-- TODO: Link as author? Something
-else? --> in {{ dollhouse }}. The way Wintermute _literally_ can't know the
-code word, it just can't exist in his mind, is similar to how the host robots
-in {{ westworld }} can't see things that might reveal they're hosts.
+In the other direction, lots of writers have been influenced by {{ this_book
+}}. {{ stephensons_lastname }} {{ snow_crash }}, of course, with its
+commercialization, Mafia rule, katanas, and metaverse; that was the whole
+point of me reading this! The puppet shops, where people can sell their bodies
+while their mind is turned off, were later used by {{ whedon_lastname }} in {{
+dollhouse }}. The way Wintermute _literally_ can't know the code word, it just
+can't exist in his mind, is similar to how the host robots in {{ westworld }}
+can't see things that might reveal they're hosts. {{ deus_ex }} borrows
+Molly's mirrorshades and the Panther Moderns' playbook of terrorism to cover
+up infiltration. Almost everything---neon, zaibatsus, street samurai,
+cyberdecks, plus dragons!---wound up in {{ shadowrun }}.
