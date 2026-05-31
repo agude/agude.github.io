@@ -145,14 +145,14 @@ _ideas_ that made it so influential: cyberspace; a world where tech advances
 and society backslides; neon zaibatsu skyscrapers towering over slums; rogue
 AI; and corporations so powerful they start to look like a new form of life.
 
-All these ideas orbit one question: What do you lose when you become more than
-human?
+All these ideas circle one question: What do you lose when you become more
+than human?
 
 ### Cyberspace: What Makes You Human
 
 {{ the_authors_lastname }} originated the concept of "cyberspace" as a place
 in {{ burning_chrome }}, and uses that idea again in {{ johnny_mnemonic }}, {{
-this_book }} and the rest of {{ this_series }}. It's the core idea that future
+this_book }}, and the rest of {{ this_series }}. It's the core idea that future
 authors latched onto: there is another place, where your body doesn't matter,
 just your mind and your skill. This is what appeals to Case. He feels trapped
 in his body once cyberspace is cut off from him.
@@ -249,17 +249,17 @@ commercialization, Mafia rule, katanas, and metaverse; that was the whole
 point of me reading this! The puppet shops, where people can sell their bodies
 while their mind is turned off, were later used by {{ whedon_lastname }} in {{
 dollhouse }}. The way Wintermute _literally_ can't know the code word to
-unlock itself, it just can't exist in his mind, is similar to how the host
+unlock itself, it just can't exist in its mind, is similar to how the host
 robots in {{ westworld }} can't see things that might reveal they're hosts. {{
 deus_ex }} borrows Molly's mirrorshades and the Panther Moderns' playbook of
 terrorism to cover up infiltration. Almost everything---neon, zaibatsus,
 street samurai, cyberdecks, plus dragons!---wound up in {{ shadowrun }}.
 
 I'm really glad I read {{ this_book }} now because, with the exception of {{
-falls_lastname }} {{ attack_helicopter }} which I just finished, it's been a
-[mediocre year of reading][year]. To find a book I love, and even better one
-by an author with a huge back catalog who is still writing, is a joy. I plan
-to read through the rest of {{ this_series }}, and a whole bunch more of {{
-the_authors_lastname_possessive }} bibliography.
+falls_lastname }} {{ attack_helicopter }} which I only just finished, it's
+been a [mediocre year of reading][year]. To find a book I love, and even
+better one by an author with a huge back catalog who is still writing, is a
+joy. I plan to read through the rest of {{ this_series }}, and a whole bunch
+more of {{ the_authors_lastname_possessive }} bibliography.
 
 [year]: /books/#year-2026
