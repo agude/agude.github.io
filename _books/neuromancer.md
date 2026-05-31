@@ -102,6 +102,19 @@ heist.
 {% capture jean_le_flambeur %}{% series_link "Jean le Flambeur" %}{% endcapture %}
 {% capture the_quantum_thief %}{% book_link "The Quantum Thief" %}{% endcapture %}
 
+{% capture reynolds %}{% author_link "Alastair Reynolds" %}{% endcapture %}
+{% capture reynoldss %}{% author_link "Alastair Reynolds" possessive %}{% endcapture %}
+{% capture reynolds_lastname %}{% author_link "Alastair Reynolds" link_text="Reynolds" %}{% endcapture %}
+{% capture reynoldss_lastname %}{% author_link "Alastair Reynolds" link_text="Reynolds" possessive %}{% endcapture %}
+{% capture house_of_suns %}{% book_link "House of Suns" %}{% endcapture %}
+
+{% capture liu %}{% author_link "Liu Cixin" %}{% endcapture %}
+{% capture lius %}{% author_link "Liu Cixin" possessive %}{% endcapture %}
+{% capture liu_lastname %}{% author_link "Liu Cixin" link_text="Liu" %}{% endcapture %}
+{% capture lius_lastname %}{% author_link "Liu Cixin" link_text="Liu" possessive %}{% endcapture %}
+{% capture remembrance_of_earths_past %}{% series_link "Remembrance of Earth's Past" %}{% endcapture %}
+{% capture three_body_problem %}{% book_link "The Three-Body Problem" %}{% endcapture %}
+
 {% capture vinge %}{% author_link "Vernor Vinge" %}{% endcapture %}
 {% capture vinges %}{% author_link "Vernor Vinge" possessive %}{% endcapture %}
 {% capture vinge_lastname %}{% author_link "Vernor Vinge" link_text="Vinge" %}{% endcapture %}
@@ -180,14 +193,39 @@ would be all great ideas with no story as we so often see in science fiction.
 But it's not! The ideas _are_ great, but the story and characters are too, and
 the pacing is fast.
 
+## The Story
+
 That pacing comes from <span class="nowrap">{{ this_book }}'s</span> heist
-structure, and it's a great choice by {{ the_authors_lastname }} because it
-gives the story instant momentum and a reason to explore the world: you have
-to assemble the team and then you have to steal the loot. In the end though,
-it _is_ the ideas that made {{ this_book }} so influential: cyberspace; a
-world where tech advances and society backslides; neon zaibatsu skyscrapers
-towering over slums; rogue AI; and corporations so powerful they start to look
-like a new form of life.
+format, and it's a great choice by {{ the_authors_lastname }} because it gives
+the story instant momentum and structure. We now have a reason to explore the
+world: you have to assemble the team and then you have to steal the loot. I
+couldn't stop turning the pages because I wanted to meet the next deranged
+member of the crew, see the next part of the world. I've read a lot of "big
+idea" sci-fi---{{ ubik }}, {{ jean_le_flambeur }}, {{ house_of_suns }}, {{
+three_body_problem }}---where the story and the characters are just there
+because you can't sell a book without them.
+
+The crew is full of great characters---Flatline the brainscan in ROM, Peter
+Riviera that holographic projection artist and sadist, Wintermute and
+Neuromancer the plotting AIs---but Case and Molly are the highlights. Case is
+a loser who hates his body and only feels like himself in Cyberspace. Except
+he's now trapped in his flesh because his last job went bad and they burned
+his nerves out, preventing him from jacking in. Now he's trying to commit slow
+suicide via drugs and Chiba gangs, while dragging everyone around him down.
+He's tragic because if it were not for his obsession, he could have gotten
+clean, met Linda without turning her into a junkie who gets killed trying to
+pawn stolen goods. I want him to turn his life around but he can't.
+
+Molly is the opposite. She's cool, under control, deadly; you know this as
+soon as you meet her. Molly, too, is tragic. She's in control now, she's
+strong now, because of the abuse she went through, the loss she's had to live
+with. She's consciously traded her humanity for augments and implants so that
+she has that control, but she's still a tool for others to use.
+
+The story and characters are why _I_ loved {{ this_book }}, but it's the
+_ideas_ that made it so influential: cyberspace; a world where tech advances
+and society backslides; neon zaibatsu skyscrapers towering over slums; rogue
+AI; and corporations so powerful they start to look like a new form of life.
 
 All these ideas orbit one question: What do you lose when you become more than
 human?
