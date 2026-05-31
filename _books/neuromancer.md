@@ -24,10 +24,10 @@ same_as_urls:
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the first book in {% series_text page.series link=false %}. It's the story
-of Case---a down-on-his-luck hacker---and Molly Millions---a street
-samurai---who are hired by a mysterious ex-special forces agent to pull off a
-heist.
+is the first book in {% series_text page.series link=false %}, and one of the
+founding texts of cyberpunk. In it, Case, a hacker who can't jack in anymore,
+and street samurai Molly Millions are hired by a mysterious ex-special forces
+agent to pull off a heist.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
@@ -158,7 +158,9 @@ heist.
 
 {% capture disco_elysium %}{% book_link "Disco Elysium" %}{% endcapture %}
 
+{% capture wachowski_sisters %}{% author_link "Lana Wachowski" link_text="Lana" %} and {% author_link "Lilly Wachowski" %}{% endcapture %}
 {% capture the_matrix %}{% movie_title "The Matrix" %}{% endcapture %}
+
 {% capture deus_ex %}{% game_title "Deus Ex" %}{% endcapture %}
 {% capture shadowrun %}{% game_title "Shadowrun" %}{% endcapture %}
 {% capture westworld %}{% tv_show_title "Westworld" %}{% endcapture %}
@@ -234,11 +236,11 @@ human?
 ### Cyberspace: What Makes You Human
 
 {{ the_authors_lastname }} originated the concept of "cyberspace" as a place
-in {{ burning_chrome }}, and uses that idea again in {{ this_book }} and the
-rest of {{ this_series }}. It's the core idea that future authors latched
-onto: there is another place, where your body doesn't matter, just your mind
-and your skill. This is what appeals to Case. He feels trapped in his body
-once cyberspace is cut off from him.
+in {{ burning_chrome }}, and uses that idea again in {{ johnny_mnemonic }}, {{
+this_book }} and the rest of {{ this_series }}. It's the core idea that future
+authors latched onto: there is another place, where your body doesn't matter,
+just your mind and your skill. This is what appeals to Case. He feels trapped
+in his body once cyberspace is cut off from him.
 
 But Dixie Flatline already has what Case wants: a mind that exists only in
 software, starting fresh from the exact same point every time he's rebooted,
@@ -250,7 +252,7 @@ taylors_lastname }} {{ bobiverse }}---have explored as well.
 {{ the_matrix }} borrowed many ideas from {{ this_book }}, but the most
 important is this: who you are now is a lie, and there is another place where
 you are who you are supposed to be. For Case, that place is cyberspace, but in
-{{ the_matrix }} the Wachowski sisters invert it: cyberspace is the lie that
+{{ the_matrix }} {{ wachowski_sisters }} invert it: cyberspace is the lie that
 traps you away from the real.
 
 {{ simmons_lastname }}, pastiching {{ the_authors_lastname_possessive }} work,
@@ -323,7 +325,8 @@ dicks_lastname }} {{ ubik }} and {{ brunners_lastname }} {{ stand_on_zanzibar
 }}. The Panther Moderns' leader in {{ this_book }} is Lupus Yonderboy, a
 direct reference to {{ brunners_lastname }} slang. Case follows the template
 of Red from {{ arkady_and_boriss }} {{ roadside_picnic }}: a self-destructive
-loser with a special talent.
+loser with a special talent. And the rain-slicked neon aesthetic is right out
+of {{ blade_runner }}.
 
 In the other direction, lots of writers have been influenced by {{ this_book
 }}. {{ stephensons_lastname }} {{ snow_crash }}, of course, with its
@@ -336,3 +339,12 @@ robots in {{ westworld }} can't see things that might reveal they're hosts. {{
 deus_ex }} borrows Molly's mirrorshades and the Panther Moderns' playbook of
 terrorism to cover up infiltration. Almost everything---neon, zaibatsus,
 street samurai, cyberdecks, plus dragons!---wound up in {{ shadowrun }}.
+
+I'm really glad I read {{ this_book }} now because, with the exception of {{
+falls_lastname }} {{ attack_helicopter }} which I just finished, it's been a
+[mediocre year of reading][year]. To find a book I love, and even better one
+by an author with a huge back catalog who is still writing, is a joy. I plan
+to read through the rest of {{ this_series }}, and a whole bunch more of {{
+the_authors_lastname_possessive }} bibliography.
+
+[year]: /books/#year-2026
