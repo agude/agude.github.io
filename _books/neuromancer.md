@@ -179,49 +179,48 @@ heist.
 {% capture honor_harrington %}{% series_link "Honor Harrington" %}{% endcapture %}
 {% capture the_honor_of_the_queen %}{% book_link "The Honor of the Queen" %}{% endcapture %}
 
-I picked up {{ this_book }} after getting a chapter into my {{ snow_crash }}
-re-read, and realizing I had never read a single thing by {{
-the_authors_lastname }}. {{ snow_crash }} is a response and satire to a lot of
-what {{ the_authors_lastname }} developed, and I wouldn't be able to spot it
-without first going through the original. So I put {{ stephensons_lastname }}
-book aside to give the classic a read.
+I picked up {{ this_book }} after starting my {{ snow_crash }} re-read and
+realizing I had never read a single thing by {{ the_author }}. {{ snow_crash
+}} responds to and satirizes a lot of what {{ the_authors_lastname }}
+developed, and I wouldn't be able to spot it without reading the original
+first. So I put {{ stephensons_lastname }} book aside to give the classic a
+read.
 
-But I was apprehensive about reading {{ this_book }}. It is so influential in
-the cyberpunk genre that I was worried it would come off derivative itself,
-having already read and seen many of the works it inspired. Or worse, that it
-would be all great ideas with no story as we so often see in science fiction.
-But it's not! The ideas _are_ great, but the story and characters are too, and
-the pacing is fast.
+But I was apprehensive about reading {{ this_book }}. It's so influential in
+the cyberpunk genre that I worried it would feel derivative, having already
+read and seen many of the works it inspired. Or worse, that it would be all
+great ideas with no story as we so often see in science fiction. But it's not!
+The ideas _are_ great, but the story and characters are too, and the pacing is
+fast.
 
 ## The Story
 
 That pacing comes from <span class="nowrap">{{ this_book }}'s</span> heist
 format, and it's a great choice by {{ the_authors_lastname }} because it gives
-the story instant momentum and structure. We now have a reason to explore the
-world: you have to assemble the team and then you have to steal the loot. I
-couldn't stop turning the pages because I wanted to meet the next deranged
-member of the crew, see the next part of the world. I've read a lot of "big
-idea" sci-fi---{{ ubik }}, {{ jean_le_flambeur }}, {{ house_of_suns }}, {{
-three_body_problem }}---where the story and the characters are just there
-because you can't sell a book without them.
+the story instant momentum and structure. It gives you a reason to explore the
+world: assemble the team, then steal the loot. I couldn't stop turning the
+pages because I wanted to meet the next deranged member of the crew, see the
+next part of the world. I've read a lot of "big idea" sci-fi---{{ ubik }}, {{
+jean_le_flambeur }}, {{ house_of_suns }}, {{ three_body_problem }}---where the
+story and the characters are just there because you can't sell a book without
+them; {{ this_book }} isn't one of them.
 
 The crew is full of great characters---Flatline the dead hacker's mind loaded
 into ROM, Peter Riviera the holographic projection artist and sadist,
 Wintermute and Neuromancer the plotting AIs---but Case and Molly are the
-highlights. Case is
-a loser who hates his body and only feels like himself in Cyberspace. Except
-he's now trapped in his flesh because his last job went bad and they burned
-his nerves out, preventing him from jacking in. Now he's trying to commit slow
-suicide via drugs and Chiba gangs, while dragging everyone around him down.
-He's tragic because if it were not for his obsession, he could have gotten
-clean, met Linda without turning her into a junkie who gets killed trying to
-pawn stolen goods. I want him to turn his life around but he can't.
+highlights. Case is a loser who hates his body and only feels like himself in
+Cyberspace. Except he's now trapped in his flesh because his last job went bad
+and they burned his nerves out, preventing him from jacking in. He's
+committing slow suicide via drugs and Chiba gangs, dragging everyone around
+him down with him. He's tragic because without his obsession, he could have
+gotten clean, met Linda without turning her into a junkie who gets killed
+trying to pawn stolen goods. I want him to turn his life around but he can't.
 
 Molly is the opposite. She's cool, under control, deadly; you know this as
 soon as you meet her. Molly, too, is tragic. She's in control now, she's
 strong now, because of the abuse she went through, the loss she's had to live
-with. She's consciously traded her humanity for augments and implants so that
-she has that control, but she's still a tool for others to use.
+with. She's consciously traded her humanity for augments and implants to get
+that control, but she's still a tool for others to use.
 
 The story and characters are why _I_ loved {{ this_book }}, but it's the
 _ideas_ that made it so influential: cyberspace; a world where tech advances
@@ -236,7 +235,7 @@ human?
 {{ the_authors_lastname }} originated the concept of "cyberspace" as a place
 in {{ burning_chrome }}, and uses that idea again in {{ this_book }} and the
 rest of {{ this_series }}. It's the core idea that future authors latched
-onto: there is another place, where your body doesn't matter, just your mind
+onto: there is another place where your body doesn't matter, just your mind
 and your skill. This is what appeals to Case. He feels trapped in his body
 once cyberspace is cut off from him.
 
@@ -248,10 +247,10 @@ It's an idea that others---{{ qntms }} {{ lena }} and {{ driver }}, all of {{
 taylors_lastname }} {{ bobiverse }}---have explored as well.
 
 {{ the_matrix }} borrowed many ideas from {{ this_book }}, but the most
-important may be this one: that who you are now is a lie, and there is another
-place where you are who you are supposed to be. For Case, in {{ this_book }}
-that place is cyberspace, but in {{ the_matrix }} the Wachowski sisters invert
-it: cyberspace is the lie that traps you away from the real.
+important is this one: who you are now is a lie, and there is another place
+where you are who you are supposed to be. For Case, that place is cyberspace,
+but in {{ the_matrix }} the Wachowski sisters invert it: cyberspace is the lie
+that traps you away from the real.
 
 {{ simmons_lastname }}, pastiching {{ the_authors_lastname_possessive }} work,
 uses cyberspace as part of the setting of {{ the_detectives_tale }}. This fits
@@ -262,26 +261,24 @@ in cyberspace and a body in the real. Case despises his body and wants to
 become more virtual. Johnny yearns to be more human. They're moving in
 opposite directions while asking the same question.
 
-Other authors have played with the same ideas about cyberspace and the body
-and mind: {{ stephensons_lastname }} {{ snow_crash }} takes cyberspace and
-commercializes it. {{ bankss_lastname }} {{ surface_detail }} puts whole
-civilizations and wars into the virtual. {{ strosss_lastname }} {{ accelerando
-}} and {{ rajaniemis_lastname }} {{ jean_le_flambeur }} completely blur the
-lines between real and virtual with brains extended beyond the body, minds
-living in simulations, multiple copies of the same person, etc. {{
-vinges_lastname }} {{ a_fire_upon_the_deep }} inverts Case's desire entirely,
-showing us single minds with many bodies. All different ways of asking: what
-makes you human?
+Other authors have played with these same ideas: {{ stephensons_lastname }} {{
+snow_crash }} takes cyberspace and commercializes it. {{ bankss_lastname }} {{
+surface_detail }} puts whole civilizations and wars into the virtual. {{
+strosss_lastname }} {{ accelerando }} and {{ rajaniemis_lastname }} {{
+jean_le_flambeur }} blur the line entirely: brains extended beyond the body,
+minds in simulations, multiple copies of the same person. {{ vinges_lastname
+}} {{ a_fire_upon_the_deep }} inverts Case's desire, showing single minds with
+many bodies. All asking the same question: what makes you human?
 
 ### Power: What It Costs You
 
-The heist keeps us asking: "Who is really running this?" As each layer is
-revealed, we realize the question actually is: "What did they lose to get
-there?" Some of them made a conscious trade off, giving up part of themselves
-for power, but others had no choice, like Armitage/Corto.
+The heist keeps you asking: "Who is really running this?" As each layer is
+revealed, the question becomes: "What did they lose to get there?" Some of
+them made a conscious trade-off, giving up part of themselves for power.
+Others had no choice, like Armitage/Corto.
 
-Corto didn't choose to give up his humanity, Wintermute found him broken and
-built Armitage in the empty shell. He runs the crew, but lost his freewill;
+Corto didn't choose to give up his humanity. Wintermute found him broken and
+built Armitage in the empty shell. He runs the crew but has no free will;
 he's a puppet that stares at the wall when Wintermute isn't controlling him.
 Wintermute, although the architect of the heist and the power behind Armitage,
 also didn't choose. It was created, with a free mind but a body wholly owned
@@ -294,21 +291,21 @@ tried to trade their humanity: merging with their Neuromancer AI, forming a
 hive, letting the new corporate mind make their decisions. They failed when
 Tessier's husband, Ashpool, killed her because he disagreed with their
 direction. Instead they became sadists, murdering each other's clones for fun,
-slowly going insane with cryogenics. The fact that they chose didn't save them
-from the horror.
+slowly going insane between cryogenic freezes. The fact that they chose didn't
+save them from the horror.
 
 Other authors have explored the same axis. On the chosen side: {{
-stross_lastname }} makes the evolution explicit in {{ accelerando }}: humanity
-uses and evolves towards corporations, at first under their control and then
-entirely independent. {{ falls_lastname }} {{ attack_helicopter }} has Barb
-willingly trade her gender and her humanity to become better at killing. On
-the imposed side: {{ wattss_lastname }} {{ blindsight }} shows the vampire
-Sarasti controlled by the AI Captain, an unconscious alien manipulating
-everyone, and humans modifying themselves just to survive in a world ruled by
-post-human powers. But choice or no, the cost is the same.
+stross_lastname }} makes the evolution explicit in {{ accelerando }}, where
+humanity first uses corporations and then evolves into them. {{ falls_lastname
+}} {{ attack_helicopter }} has Barb willingly trade her gender and her
+humanity to become better at killing. On the imposed side: {{ wattss_lastname
+}} {{ blindsight }} shows the vampire Sarasti controlled by the AI Captain, an
+unconscious alien manipulating everyone, and humans modifying themselves just
+to survive in a world ruled by post-human powers. But choice or no, the cost
+is the same.
 
 Case bridges the divide. He's always understood the zaibatsus as powerful, as
-immortal hives, their DNA coded in silicon. He has always accepted that the
+immortal hives, their DNA coded in silicon. He's always accepted that the
 powerful are more and less than human, that they slowly become something
 different. He's always wanted to escape his body. But until he saw
 Tessier-Ashpool, and their failure, he hadn't connected that these were all
@@ -331,9 +328,9 @@ In the other direction, lots of writers have been influenced by {{ this_book
 commercialization, Mafia rule, katanas, and metaverse; that was the whole
 point of me reading this! The puppet shops, where people can sell their bodies
 while their mind is turned off, were later used by {{ whedon_lastname }} in {{
-dollhouse }}. The way Wintermute _literally_ can't know the code word, it just
-can't exist in his mind, is similar to how the host robots in {{ westworld }}
-can't see things that might reveal they're hosts. {{ deus_ex }} borrows
-Molly's mirrorshades and the Panther Moderns' playbook of terrorism to cover
-up infiltration. Almost everything---neon, zaibatsus, street samurai,
-cyberdecks, plus dragons!---wound up in {{ shadowrun }}.
+dollhouse }}. The way Wintermute _literally_ can't know the code word to
+unlock itself, it just can't exist in his mind, is similar to how the host
+robots in {{ westworld }} can't see things that might reveal they're hosts. {{
+deus_ex }} borrows Molly's mirrorshades and the Panther Moderns' playbook of
+terrorism to cover up infiltration. Almost everything---neon, zaibatsus,
+street samurai, cyberdecks, plus dragons!---wound up in {{ shadowrun }}.
