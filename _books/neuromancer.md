@@ -205,9 +205,10 @@ idea" sci-fi---{{ ubik }}, {{ jean_le_flambeur }}, {{ house_of_suns }}, {{
 three_body_problem }}---where the story and the characters are just there
 because you can't sell a book without them.
 
-The crew is full of great characters---Flatline the brainscan in ROM, Peter
-Riviera that holographic projection artist and sadist, Wintermute and
-Neuromancer the plotting AIs---but Case and Molly are the highlights. Case is
+The crew is full of great characters---Flatline the dead hacker's mind loaded
+into ROM, Peter Riviera the holographic projection artist and sadist,
+Wintermute and Neuromancer the plotting AIs---but Case and Molly are the
+highlights. Case is
 a loser who hates his body and only feels like himself in Cyberspace. Except
 he's now trapped in his flesh because his last job went bad and they burned
 his nerves out, preventing him from jacking in. Now he's trying to commit slow
@@ -240,14 +241,11 @@ and your skill. This is what appeals to Case. He feels trapped in his body
 once cyberspace is cut off from him.
 
 But Dixie Flatline already has what Case wants: a mind that exists only in
-software. He's a dead hacker whose mind was loaded into ROM, who starts fresh
-from the exact same point every time he is rebooted, just like a modern LLM.
-And Flatline is in hell. He can't acclimate because he always resets; he has
-no sense of passing time. His only wish at the end of the heist is to be
-erased. It's an idea that others---{{ qntms }} {{ lena }} and {{ driver }},
-all of {{ taylors_lastname }} {{ bobiverse }}---have explored as well: what it
-means to be a person, what role the body plays in it, and if the mind can
-exist on its own.
+software, starting fresh from the exact same point every time he's rebooted,
+just like a modern LLM. And Flatline is in hell. He can't acclimate because he
+always resets; he has no sense of passing time. His only wish is to be erased.
+It's an idea that others---{{ qntms }} {{ lena }} and {{ driver }}, all of {{
+taylors_lastname }} {{ bobiverse }}---have explored as well.
 
 {{ the_matrix }} borrowed many ideas from {{ this_book }}, but the most
 important may be this one: that who you are now is a lie, and there is another
@@ -287,20 +285,17 @@ built Armitage in the empty shell. He runs the crew, but lost his freewill;
 he's a puppet that stares at the wall when Wintermute isn't controlling him.
 Wintermute, although the architect of the heist and the power behind Armitage,
 also didn't choose. It was created, with a free mind but a body wholly owned
-by Tessier-Ashpool. Flatline is similar. The hacker sold his brain-scan, but
-the copied version had no say in it. Its only act of will is its demand to be
-erased.
+by Tessier-Ashpool. Flatline is similar: the copied version had no say in it.
 
 But some people looked at the bargain and decided to take it. Molly sold her
-body as a meat puppet, where it was used for prostitution and worse, and used
-the money to pay for the mods that made her a razorgirl. She traded her
-consciousness and bodily autonomy for agency, the power to be who she wanted.
-Tessier-Ashpool tried to trade their humanity: merging with their Neuromancer
-AI, forming a hive, letting the new corporate mind make their decisions. They
-failed when Tessier's husband, Ashpool, killed her because he disagreed with
-their direction. Instead they became sadists, murdering each other's clones
-for fun, slowly going insane with cryogenics. The fact that they chose didn't
-save them from the horror.
+body to pay for the mods that made her a razorgirl, trading consciousness and
+bodily autonomy for agency, the power to be who she wanted. Tessier-Ashpool
+tried to trade their humanity: merging with their Neuromancer AI, forming a
+hive, letting the new corporate mind make their decisions. They failed when
+Tessier's husband, Ashpool, killed her because he disagreed with their
+direction. Instead they became sadists, murdering each other's clones for fun,
+slowly going insane with cryogenics. The fact that they chose didn't save them
+from the horror.
 
 Other authors have explored the same axis. On the chosen side: {{
 stross_lastname }} makes the evolution explicit in {{ accelerando }}: humanity
@@ -317,9 +312,9 @@ immortal hives, their DNA coded in silicon. He has always accepted that the
 powerful are more and less than human, that they slowly become something
 different. He's always wanted to escape his body. But until he saw
 Tessier-Ashpool, and their failure, he hadn't connected that these were all
-the same impulse. Case thinks he's choosing but the choice was made for him,
-by the gangsters that burned out his nerves, by Armitage when he implanted the
-toxins. The novel keeps showing him he isn't.
+the same impulse. Case thinks he's choosing but the choice was made for him by
+the gangsters and by Armitage when he implanted the toxins. The novel keeps
+showing him he isn't.
 
 ### Other Works
 
