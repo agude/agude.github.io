@@ -120,7 +120,7 @@ pages because I wanted to meet the next deranged member of the crew, see the
 next part of the world. I've read a lot of "big idea" sci-fi---{{ ubik }}, {{
 jean_le_flambeur }}, {{ house_of_suns }}, {{ three_body_problem }}---where the
 story and the characters are just there because you can't sell a book without
-them; {{ this_book }} isn't one of them.
+them; {{ this_book }} doesn't have that problem.
 
 The crew is full of great characters---Armitage the ex-special forces
 mastermind, Flatline the dead hacker's mind loaded into ROM, Peter Riviera the
@@ -129,10 +129,10 @@ plotting AIs---but Case and Molly are the highlights. Case is a loser who
 hates his body and only feels like himself in Cyberspace. Except he's now
 trapped in his flesh because his last job went bad and they burned his nerves
 out, preventing him from jacking in. He's committing slow suicide via drugs
-and Chiba gangs, dragging everyone around him down with him. He's tragic
-because without his obsession, he could have gotten clean, met Linda without
-turning her into a junkie who gets killed trying to pawn stolen goods. I want
-him to turn his life around but he can't.
+and Chiba gangs, dragging everyone around him down. He's tragic because
+without his obsession, he could have gotten clean, met Linda without turning
+her into a junkie who gets killed trying to pawn stolen goods. I want him to
+turn his life around but he can't.
 
 Molly is the opposite. She's cool, under control, deadly; you know this as
 soon as you meet her. Molly, too, is tragic. She's in control now, she's
@@ -143,7 +143,7 @@ that control, but she's still a tool for others to use.
 The story and characters are why _I_ loved {{ this_book }}, but it's the
 _ideas_ that made it so influential: cyberspace; a world where tech advances
 and society backslides; neon zaibatsu skyscrapers towering over slums; rogue
-AI; and corporations so powerful they start to look like a new form of life.
+AI; and corporations so powerful they've evolved past humans.
 
 All these ideas circle one question: What do you lose when you become more
 than human?
@@ -152,10 +152,10 @@ than human?
 
 {{ the_authors_lastname }} originated the concept of "cyberspace" as a place
 in {{ burning_chrome }}, and uses that idea again in {{ johnny_mnemonic }}, {{
-this_book }}, and the rest of {{ this_series }}. It's the core idea that future
-authors latched onto: there is another place, where your body doesn't matter,
-just your mind and your skill. This is what appeals to Case. He feels trapped
-in his body once cyberspace is cut off from him.
+this_book }}, and the rest of {{ this_series }}. It's the core idea that
+future authors latched onto: there is another place, where your body doesn't
+matter, just your mind and your skill. This is what appeals to Case. He feels
+trapped in his body once cyberspace is cut off from him.
 
 But Dixie Flatline already has what Case wants: a mind that exists only in
 software, starting fresh from the exact same point every time he's rebooted,
@@ -170,7 +170,7 @@ you are who you are supposed to be. For Case, that place is cyberspace, but in
 {{ the_matrix }} {{ wachowski_sisters }} invert it: cyberspace is the lie that
 traps you away from the real.
 
-{{ simmons_lastname }}, pastiching {{ the_authors_lastname_possessive }} work,
+{{ simmons_lastname }}, imitating {{ the_authors_lastname_possessive }} work,
 uses cyberspace as part of the setting of {{ the_detectives_tale }}. This fits
 with the other things he borrows for {{ hyperion }}: decks, hacking,
 neon-colored shapes, a cowboy _literally_ named Gibson. But he is also
@@ -185,8 +185,8 @@ surface_detail }} puts whole civilizations and wars into the virtual. {{
 strosss_lastname }} {{ accelerando }} and {{ rajaniemis_lastname }} {{
 jean_le_flambeur }} blur the line entirely: brains extended beyond the body,
 minds in simulations, multiple copies of the same person. {{ vinges_lastname
-}} {{ a_fire_upon_the_deep }} inverts Case's desire, showing single minds with
-many bodies. All asking the same question: what makes you human?
+}} {{ a_fire_upon_the_deep }} explores a related idea: a person with many
+bodies. All asking the same question: what makes you human?
 
 ### Power: What It Costs You
 
@@ -220,17 +220,16 @@ humanity first uses corporations and then evolves into them. {{ falls_lastname
 humanity to become better at killing. On the imposed side: {{ wattss_lastname
 }} {{ blindsight }} shows the vampire Sarasti controlled by the AI Captain, an
 unconscious alien manipulating everyone, and humans modifying themselves just
-to survive in a world ruled by post-human powers. But choice or no, the cost
-is the same.
+to survive in a world ruled by post-human powers. But choice or no, they all
+lose something.
 
 Case bridges the divide. He's always understood the zaibatsus as powerful, as
 immortal hives, their DNA coded in silicon. He's always accepted that the
 powerful are more and less than human, that they slowly become something
-different. He's always wanted to escape his body. But until he saw
-Tessier-Ashpool, and their failure, he hadn't connected that these were all
-the same impulse. Case thinks he's choosing but the choice was made for him by
-the gangsters and by Armitage when he implanted the toxins. The novel keeps
-showing him he never was.
+different. He's always wanted to escape his body. But seeing Tessier-Ashpool
+take that same path, and their failure, shows him where it leads. Case thinks
+he's choosing, but the gangsters and Armitage already chose for him. The novel
+keeps showing him he never had a choice.
 
 ### Other Works
 
