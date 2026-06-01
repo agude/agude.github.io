@@ -230,7 +230,8 @@ module Jekyll
           return nil unless title
 
           locs = @link_cache['books'][normalize(title)]
-          return nil unless locs
+                 &.reject { |b| b['canonical_url']&.start_with?('/') }
+          return nil unless locs&.any?
 
           [{ url: locs.first['url'], type: 'book' }]
         end
@@ -278,7 +279,9 @@ module Jekyll
         end
 
         def extract_quoted_string(markup)
-          match = markup.match(/['"]([^'"]+)['"]/)
+          # Match the opening quote, capture everything until the SAME closing quote.
+          # This allows apostrophes inside double-quoted strings and vice versa.
+          match = markup.match(/"([^"]+)"/) || markup.match(/'([^']+)'/)
           match&.[](1)
         end
 

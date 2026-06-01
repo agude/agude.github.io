@@ -160,6 +160,32 @@ class TestShortStoryBuilder < Minitest::Test
     refute_nil stories['h3 story']
   end
 
+  def test_skips_archived_anthology_reviews
+    canonical = create_doc(
+      { 'title' => 'Hyperion', 'published' => true, 'is_anthology' => true },
+      '/books/hyperion.html',
+      "## {% short_story_title \"The Detective's Tale\" %}",
+    )
+    archived = create_doc(
+      {
+        'title' => 'Hyperion',
+        'published' => true,
+        'is_anthology' => true,
+        'canonical_url' => '/books/hyperion.html',
+      },
+      '/books/hyperion/review-2023.html',
+      "## {% short_story_title \"The Detective's Tale\" %}",
+    )
+
+    site = create_site({}, { 'books' => [canonical, archived] })
+    stories = site.data['link_cache']['short_stories']["the detective's tale"]
+
+    assert_equal 1, stories.length, 'Archived review should not register short stories'
+    assert_equal '/books/hyperion.html',
+                 stories.first['url'],
+                 'Short story should point to canonical anthology URL'
+  end
+
   def test_handles_missing_books_collection
     site = create_site({}, {}, [])
     stories = site.data['link_cache']['short_stories']

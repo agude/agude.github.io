@@ -354,6 +354,95 @@ class TestBacklinkBuilder < Minitest::Test
     assert_equal 1, (backlinks['/books/book-b.html'] || []).length
   end
 
+  def test_double_quoted_title_with_apostrophe
+    # The old regex /['"]([^'"]+)['"]/ treated apostrophes as closing quotes,
+    # truncating "Ender's Game" to "Ender". The fix uses separate patterns
+    # for single and double quotes so internal apostrophes are preserved.
+    target = create_doc(
+      { 'title' => "Ender's Game", 'published' => true },
+      '/books/enders-game.html',
+      'Content.',
+    )
+    review = create_doc(
+      { 'title' => 'Review', 'published' => true },
+      '/books/review.html',
+      'I read {% book_link "Ender\'s Game" %}.',
+    )
+
+    site = create_site({}, { 'books' => [target, review] })
+    backlinks = site.data['link_cache']['backlinks']
+
+    assert_equal 1,
+                 (backlinks['/books/enders-game.html'] || []).length,
+                 'Apostrophe in double-quoted title should not break quote parsing'
+  end
+
+  def test_apostrophe_in_short_story_title_resolves
+    anthology = create_doc(
+      { 'title' => 'Anthology', 'published' => true },
+      '/books/anthology.html',
+      'Stories.',
+    )
+    review = create_doc(
+      { 'title' => 'Review', 'published' => true },
+      '/books/review.html',
+      %q(I read {% short_story_link "The Priest's Tale" from_book="Anthology" %}.),
+    )
+
+    site = create_site_with_short_stories(
+      [anthology, review],
+      { "the priest's tale" => [{ 'url' => '/books/anthology.html', 'parent_book_title' => 'Anthology' }] },
+    )
+    backlinks = site.data['link_cache']['backlinks']
+
+    assert_equal 1,
+                 (backlinks['/books/anthology.html'] || []).length,
+                 'Apostrophe in short story title should resolve correctly'
+  end
+
+  def test_apostrophe_in_series_name_resolves
+    series_book = create_doc(
+      { 'title' => 'First Book', 'published' => true, 'series' => "The King's War" },
+      '/books/first.html',
+      'Content.',
+    )
+    review = create_doc(
+      { 'title' => 'Review', 'published' => true },
+      '/books/review.html',
+      %q(I love {% series_link "The King's War" %}.),
+    )
+    series_page = create_doc(
+      { 'title' => "The King's War", 'layout' => 'series_page' },
+      '/series/the-kings-war.html',
+    )
+
+    site = create_site({}, { 'books' => [series_book, review] }, [series_page])
+    backlinks = site.data['link_cache']['backlinks']
+
+    assert_equal 1,
+                 (backlinks['/books/first.html'] || []).length,
+                 'Apostrophe in series name should not break quote parsing'
+  end
+
+  def test_apostrophe_in_author_name_resolves
+    author_page = create_doc(
+      { 'title' => "Patrick O'Brian", 'layout' => 'author_page' },
+      "/authors/patrick-o'brian.html",
+    )
+    review = create_doc(
+      { 'title' => 'Review', 'published' => true },
+      '/books/review.html',
+      %q(By {% author_link "Patrick O'Brian" %}.),
+    )
+
+    site = create_site({}, { 'books' => [review] }, [author_page])
+    forward_links = site.data['link_cache']['forward_links']['/books/review.html']
+
+    author_link = forward_links&.find { |l| l[:target]&.url == "/authors/patrick-o'brian.html" }
+    refute_nil author_link, 'Apostrophe in author name should resolve correctly'
+    assert_equal 'author', author_link[:type]
+  end
+
   def test_series_text_with_quoted_string_creates_backlinks
     series_book_1 = create_doc(
       { 'title' => 'On Basilisk Station', 'published' => true, 'series' => 'Honor Harrington' },
@@ -1096,6 +1185,125 @@ class TestBacklinkBuilder < Minitest::Test
     refute_nil story_link, 'Should have forward link via short story capture'
     assert_equal 'short_story', story_link[:type]
     assert_equal 1, story_link[:count], 'Should count the {{ story }} usage'
+  end
+
+  def test_book_link_and_short_story_link_without_from_book_merge_counts
+    # Reproduces real scenario: Neuromancer links to both "Hyperion" (book_link)
+    # AND "The Detective's Tale" (short_story_link without from_book).
+    # Both resolve to Hyperion's URL and should merge: type=book, counts summed.
+    hyperion = create_doc(
+      { 'title' => 'Hyperion', 'published' => true },
+      '/books/hyperion.html',
+      'An anthology.',
+    )
+    review = create_doc(
+      { 'title' => 'Review', 'published' => true },
+      '/books/review.html',
+      <<~CONTENT,
+        {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
+        {% capture detectives_tale %}{% short_story_link "The Detective's Tale" %}{% endcapture %}
+
+        I mention {{ hyperion }} here.
+        And {{ detectives_tale }} there.
+      CONTENT
+    )
+
+    # Short story without from_book resolves when all locs have same URL
+    site = create_site_with_short_stories(
+      [hyperion, review],
+      { "the detective's tale" => [{ 'url' => '/books/hyperion.html', 'parent_book_title' => 'Hyperion' }] },
+    )
+    forward_links = site.data['link_cache']['forward_links']['/books/review.html']
+
+    hyperion_link = forward_links.find { |l| l[:target].url == '/books/hyperion.html' }
+    refute_nil hyperion_link, 'Should have forward link to Hyperion'
+
+    # book_link (priority 4) > short_story (priority 2), so type should be 'book'
+    assert_equal 'book', hyperion_link[:type], 'Direct book_link should set type to book'
+
+    # Counts should merge: 1 from {{ hyperion }} + 1 from {{ detectives_tale }} = 2
+    assert_equal 2, hyperion_link[:count], 'Should merge counts from book_link and short_story_link'
+  end
+
+  def test_book_link_resolves_to_canonical_not_archived_review
+    # Book families: "Hyperion" has a canonical page and an archived re-review.
+    # book_link should resolve to the canonical URL, not the archived one.
+    canonical = create_doc(
+      { 'title' => 'Hyperion', 'published' => true },
+      '/books/hyperion.html',
+      'Canonical review.',
+    )
+    archived = create_doc(
+      {
+        'title' => 'Hyperion',
+        'published' => true,
+        'canonical_url' => '/books/hyperion.html',
+      },
+      '/books/hyperion/review-2023.html',
+      'Older review.',
+    )
+    review = create_doc(
+      { 'title' => 'Review', 'published' => true },
+      '/books/review.html',
+      'I read {% book_link "Hyperion" %}.',
+    )
+
+    site = create_site({}, { 'books' => [canonical, archived, review] })
+    forward_links = site.data['link_cache']['forward_links']['/books/review.html']
+
+    hyperion_link = forward_links.find { |l| l[:target].url == '/books/hyperion.html' }
+    archived_link = forward_links.find { |l| l[:target].url == '/books/hyperion/review-2023.html' }
+
+    refute_nil hyperion_link, 'Should link to canonical Hyperion page'
+    assert_nil archived_link, 'Should NOT link to archived review'
+  end
+
+  def test_book_family_book_link_and_short_story_merge_to_canonical
+    # Full book-family scenario: canonical anthology + archived re-review.
+    # book_link and short_story_link should both resolve to the canonical URL
+    # and merge their counts.
+    canonical = create_doc(
+      { 'title' => 'Hyperion', 'published' => true, 'is_anthology' => true },
+      '/books/hyperion.html',
+      "## {% short_story_title \"The Detective's Tale\" %}\n\nStory content.",
+    )
+    archived = create_doc(
+      {
+        'title' => 'Hyperion',
+        'published' => true,
+        'is_anthology' => true,
+        'canonical_url' => '/books/hyperion.html',
+      },
+      '/books/hyperion/review-2023.html',
+      "## {% short_story_title \"The Detective's Tale\" %}\n\nOlder review.",
+    )
+    review = create_doc(
+      { 'title' => 'Review', 'published' => true },
+      '/books/review.html',
+      <<~CONTENT,
+        {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
+        {% capture detectives_tale %}{% short_story_link "The Detective's Tale" %}{% endcapture %}
+
+        I mention {{ hyperion }} here.
+        And {{ detectives_tale }} there.
+      CONTENT
+    )
+
+    # Don't inject short_stories manually — let the real ShortStoryBuilder run
+    # so we test the full pipeline including canonical_url filtering.
+    site = create_site({}, { 'books' => [canonical, archived, review] })
+    forward_links = site.data['link_cache']['forward_links']['/books/review.html']
+
+    hyperion_link = forward_links.find { |l| l[:target].url == '/books/hyperion.html' }
+    refute_nil hyperion_link, 'Should have forward link to canonical Hyperion'
+
+    assert_equal 'book', hyperion_link[:type], 'book_link priority should win'
+    assert_equal 2,
+                 hyperion_link[:count],
+                 'Should merge counts: 1 from book_link + 1 from short_story_link'
+
+    archived_link = forward_links.find { |l| l[:target].url == '/books/hyperion/review-2023.html' }
+    assert_nil archived_link, 'Should NOT have forward link to archived review'
   end
 
   def test_forward_reference_ignored_in_usage_count

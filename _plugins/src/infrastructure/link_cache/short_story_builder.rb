@@ -21,6 +21,7 @@ module Jekyll
           @site.collections['books'].docs.each do |book|
             next if book.data['published'] == false
             next unless book.data['is_anthology'] == true
+            next if book.data['canonical_url']&.start_with?('/')
 
             scan_book(book)
           end
