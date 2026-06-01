@@ -21,6 +21,7 @@ ranked_list:
   - Hyperion
   - Inversions
   - The Hydrogen Sonata
+  - Neuromancer
   - The Colonel
   - The Fall of Hyperion
   - The Triumphant
