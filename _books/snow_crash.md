@@ -1,5 +1,5 @@
 ---
-date: 2026-06-04
+date: 2026-06-04 21:08:53 -0700
 title: Snow Crash
 book_authors: Neal Stephenson
 series: null
