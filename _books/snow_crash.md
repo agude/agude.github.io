@@ -1,11 +1,11 @@
 ---
-date: 2026-05-10
+date: 2026-06-04
 title: Snow Crash
 book_authors: Neal Stephenson
 series: null
 book_number: 1
 is_anthology: false
-rating: null
+rating: 4
 image: /books/covers/snow_crash.jpg
 wikidata_qid: Q768389
 isbn: 978-0-553-08853-3
