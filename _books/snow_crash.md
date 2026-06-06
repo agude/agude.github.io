@@ -28,6 +28,10 @@ is a 1992 science fiction novel.
 {% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text=author_last_name_text %}{% endcapture %}
 {% capture the_authors_lastname_possessive %}{% author_link page.book_authors link=false link_text=author_last_name_text possessive %}{% endcapture %}
 
+{% capture clarke_lastname %}{% author_link "Arthur C. Clarke" link_text="Clarke" %}{% endcapture %}
+{% capture heinlein_lastname %}{% author_link "Robert A. Heinlein" link_text="Heinlein" %}{% endcapture %}
+{% capture bradbury_lastname %}{% author_link "Ray Bradbury" link_text="Bradbury" %}{% endcapture %}
+
 {% capture dick %}{% author_link "Philip K. Dick" %}{% endcapture %}
 {% capture dicks %}{% author_link "Philip K. Dick" possessive %}{% endcapture %}
 {% capture dick_lastname %}{% author_link "Philip K. Dick" link_text="Dick" %}{% endcapture %}
@@ -62,6 +66,7 @@ is a 1992 science fiction novel.
 {% capture gibsons_lastname %}{% author_link "William Gibson" link_text="Gibson" possessive %}{% endcapture %}
 {% capture sprawl %}{% series_link "Sprawl" %}{% endcapture %}
 {% capture neuromancer %}{% book_link "Neuromancer" %}{% endcapture %}
+{% capture count_zero %}{% book_link "Count Zero" %}{% endcapture %}
 
 {% capture stross %}{% author_link "Charles Stross" %}{% endcapture %}
 {% capture strosss %}{% author_link "Charles Stross" possessive %}{% endcapture %}
@@ -108,3 +113,43 @@ is a 1992 science fiction novel.
 {% capture melville_lastname %}{% author_link "Herman Melville" link_text="Melville" %}{% endcapture %}
 {% capture melvilles_lastname %}{% author_link "Herman Melville" link_text="Melville" possessive %}{% endcapture %}
 {% capture moby_dick %}{% book_link "Moby Dick" %}{% endcapture %}
+
+<!--
+  1. Lede
+  2. I stopped and read neuromancer to see how they connect. There connection
+     with accelerando.
+  3. More on what snow crash's thesis is, what it does. The culture imposed,
+     imported.
+  4. NOW we can go broader. The best sci fi uses it self as a mirror. The best
+     stories aren't about what they seem. We already covered neuromancer,
+     accelerando. But also hyperion, let's pull a Banks book, maybe one other
+     example.
+  5. I loved the writing in this book. And the story. It's like Vonnegut with a
+     story you actually want to read.
+  6. Maybe what I didn't love. We'll see. Ending.
+  7. Connections
+  8. Conclusion.
+-->
+
+I first read {{ this_book }} in college, and I thought it was fine. Some cool
+ideas, some great writing, some real weirdness. Good, not great. I think the
+problem was I didn't have any context to place it in the canon. Although I'd
+read a lot of science fiction growing up, it had been mostly golden-age authors
+like {{ clarke_lastname }}, {{ heinlein_lastname }}, and {{ bradbury_lastname
+}}. I had almost completely missed New Wave authors like {{ brunner_lastname
+}}, and probably hadn't even heard of cyberpunk. I started reading it again a
+month ago and realized I was making the same mistake. So I paused and read {{
+gibsons_lastname }} {{ neuromancer }}. I'm glad I did.
+
+{{ this_book }} is about a mind-virus that changes how people behave, makes
+them unconscious; it's about the metaverse; it's about the replacement of
+government by franchises; it's about high-speed pizza delivery; it's about
+depleted uranium miniguns and smart wheels and katanas. That's the text. But
+like {{ strosss_lastname }} {{ accelerando }} and {{ neuromancer }}, it's not
+really _about_ those things. It's about society and culture.
+
+{{ neuromancer }} is a heist story that explores what makes us human, and how
+the structures of power strip that humanity away. {{ accelerando }} watches
+the solar system get consumed for computation and focuses on how the legal
+structures---laws, corporations---are a form of technology. {{ this_book }} is
+about human culture...
