@@ -49,6 +49,13 @@ is a 1992 science fiction novel.
 {% capture brunners_lastname %}{% author_link "John Brunner" link_text="Brunner" possessive %}{% endcapture %}
 {% capture stand_on_zanzibar %}{% book_link "Stand on Zanzibar" %}{% endcapture %}
 
+{% capture dan_brown %}{% author_link "Dan Brown" %}{% endcapture %}
+{% capture dan_browns %}{% author_link "Dan Brown" possessive %}{% endcapture %}
+{% capture dan_brown_lastname %}{% author_link "Dan Brown" link_text="Brown" %}{% endcapture %}
+{% capture dan_browns_lastname %}{% author_link "Dan Brown" link_text="Brown" possessive %}{% endcapture %}
+{% capture angels_and_demons %}{% book_link "Angels & Demons" %}{% endcapture %}
+{% capture the_da_vinci_code %}{% book_link "The Da Vinci Code" %}{% endcapture %}
+
 {% capture winters %}{% author_link "Ben H. Winters" %}{% endcapture %}
 {% capture winterss %}{% author_link "Ben H. Winters" possessive %}{% endcapture %}
 {% capture winters_lastname %}{% author_link "Ben H. Winters" link_text="Winters" %}{% endcapture %}
@@ -137,47 +144,52 @@ is a 1992 science fiction novel.
   8. Conclusion.
 -->
 
-I first read {{ this_book }} in college, and I thought it was fine. Some cool
-ideas, some great writing, some real weirdness. Good, not great. I think the
-problem was I didn't have any context to place it in the canon. Although I'd
-read a lot of science fiction growing up, it had been mostly golden-age authors
-like {{ clarke_lastname }}, {{ heinlein_lastname }}, and {{ bradbury_lastname
-}}. I had almost completely missed New Wave authors like {{ brunner_lastname
-}}, and probably hadn't even heard of cyberpunk. I started reading it again a
-month ago and realized I was making the same mistake. So I paused and read {{
-gibsons_lastname }} {{ neuromancer }}. I'm glad I did.
-
-### Culture
-
-Without reading {{ gibsons_lastname }} first, I wouldn't have seen how {{
-the_authors_lastname }} is responding to him.
+I first read {{ this_book }} in college and didn't really get it. It had some
+cool ideas, great writing, some authentic weirdness. The problem was I didn't
+have any context to place it within the canon. Although I'd read a lot of
+science fiction growing up, it had been mostly golden-age authors like {{
+clarke_lastname }}, {{ heinlein_lastname }}, and {{ bradbury_lastname }}. I
+had almost completely missed New Wave authors like {{ brunner_lastname }}, and
+probably hadn't even heard of cyberpunk. This time I decided to fix that, and
+read {{ gibsons_lastname }} {{ neuromancer }} first. I'm glad I did. {{
+neuromancer }} is about what makes us human and how we strip it away for
+power. This book responds that it is even simpler: you don't need to jack in
+or have your humanity cut away and replaced with chrome to lose yourself:
+commodified, homogenized, and commercialized culture does it for you already.
 
 {{ this_book }} is about a mind-virus that changes how people behave, makes
-them unconscious; it's about the metaverse; it's about the replacement of
+them unconscious zombies; it's about the metaverse; it's about the replacement of
 government by franchises; it's about high-speed pizza delivery; it's about
-depleted uranium miniguns and smart wheels and katanas. That's the text. But
-like {{ neuromancer }}, it's not really _about_ those things. It's about our
-humanity, our society, and our culture.
+depleted uranium miniguns and smart wheels and katanas. That's the text, but
+all of it is {{ the_authors_lastname }} defamiliarizing 80s and 90s
+consumerism, exaggerating it so you notice what is already there.
 
-{{ neuromancer }} is a heist story that explores what makes us human, how the
-structures of power strip that humanity away. {{ this_book }} shows a simpler
-version, that you don't need to jack in or have your humanity cut away and
-replaced with chrome to lose yourself: commodified, homogenized, and
-commercialized culture does it for you already. In {{ gibsons_lastname }}
-work, there are still organic subcultures like the Panther Moderns or the
-Rastafarians or even the console cowboys. {{ the_authors_lastname }} has done
-away with all that. Culture in {{ this_book }} comes top-down, packaged in a
-franchise container and sold the same everywhere. Your ethnicity? Turned into
-a stereotype-filled franchise like Mr. Lee's Hong Kong or NarcoColombia. Your
-neighborhood? A burbclave patterned on apartheid South Africa with a
-copy/paste HoA constitution. Your religion? Televangelism-cum-conspiracy
-theory with a subscription plan. Even the pirate gangs have stolen their
-identity from the Western and Kung Fu movie stars. The one thing that almost
-escaped capture was the Metaverse. It started as a bottom-up culture built by
-hackers, but even it got taken over and turned into a strip mall with millions
-of default Brandy and Clint avatars.
+{{ gibsons_lastname }} left room for organic subcultures to survive next to
+the towering zaibatsu, like the Panther Moderns or the Rastafarians or even
+the console cowboys. {{ the_authors_lastname }} has done away with all that.
+Culture in {{ this_book }} comes top-down, packaged in a franchise container
+and sold the same everywhere. Your ethnicity? Turned into a stereotype-filled
+franchise like Mr. Lee's Hong Kong or NarcoColombia. Your neighborhood? A
+burbclave patterned on apartheid South Africa with a copy/paste HoA
+constitution. Your religion? Televangelism-cum-conspiracy theory with a
+subscription plan. Even the pirate gangs have stolen their identity from the
+Western and Kung Fu movie stars. The one thing that almost escaped capture was
+the Metaverse. It started as a bottom-up culture built by hackers, but even it
+got taken over and turned into a strip mall with millions of default Brandy
+and Clint avatars. The last bastion has become a product.
 
-One of the things I love about {{ this_book }} is the writing. {{
+One thing I loved about this book is how the author weaves Mesopotamian
+history, neurolinguistics, Pentecostal glossolalia, and fiber-optic cable into
+a conspiracy that slows comes together: the implication that culture has
+always been franchised, always pushed from the top down with the Sumerian
+[_Me_][me] being the first example. Unraveling the plot is what kept me
+hooked. The most similar experience I can think of is---I'm sorry, I'm
+sorry!---{{ dan_browns }} {{ angels_and_demons }} and {{ the_da_vinci_code }}.
+They both mix history, science, and world-wide conspiracies into a thriller.
+
+[me]: https://en.wikipedia.org/wiki/Me_(mythology)
+
+Another thing I loved about {{ this_book }} is the writing. {{
 the_authors_lastname }} uses {{ vonneguts_lastname }} style of playing obvious
 absurdities straight to highlight the contradiction. The first chapter is a
 wonderful example, where the narrator describes in over-the-top prose how fast
@@ -185,17 +197,15 @@ Hiro's car is, how powerful his gun is, how he is a master with his katanas,
 at driving, at delivering... pizza. He drives his badass car into a pool. He
 lives in a storage container. He's a master sword fighter in video games.
 
-The story is also exciting. {{ the_author }} carefully weaves together
-history, myth, and his invented world to create a compelling conspiracy.
-
-But {{ this_book }} has plenty of faults. I like books where you have to think
-to piece it together, like {{ hyperion }} with all its intertextuality, or {{
-echopraxia }} where the narrator has no idea what's actually happening. {{
-this_book }} is almost that, but just when you start piecing things together,
-Hiro will pause and explain the entire thing to you, or worse, the librarian
-program will lecture Hiro about it for 10 pages. The exposition drags on and
-slows down the plot. And Y.T.'s enthusiastic sex scene with a man three times her
-age creeped me out both times I read it.
+But {{ this_book }} has plenty of faults, in fact many shared with {{
+dan_brown }}. I like books where you have to think to piece it together, like
+{{ hyperion }} with all its intertextuality, or {{ echopraxia }} where the
+narrator has no idea what's actually happening. {{ this_book }} is almost
+that, but just when you start piecing things together, Hiro will pause and
+explain the entire thing to you, or worse, the librarian program will lecture
+Hiro about it for 10 pages. The exposition drags on and slows down the plot.
+And Y.T.'s enthusiastic sex scene with a man three times her age creeped me
+out both times I read it.
 
 {{ the_authors_lastname }} makes a lot of references to {{ neuromancer }}: he
 uses the same "sarariman" Rōmaji, the scene where a flying drone cuts off
