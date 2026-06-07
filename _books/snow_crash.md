@@ -180,12 +180,11 @@ and Clint avatars. The last bastion has become a product.
 
 One thing I loved about this book is how the author weaves Mesopotamian
 history, neurolinguistics, Pentecostal glossolalia, and fiber-optic cable into
-a conspiracy that slows comes together: the implication that culture has
+a conspiracy that slowly comes together: the implication that culture has
 always been franchised, always pushed from the top down with the Sumerian
 [_Me_][me] being the first example. Unraveling the plot is what kept me
 hooked. The most similar experience I can think of is---I'm sorry, I'm
 sorry!---{{ dan_browns }} {{ angels_and_demons }} and {{ the_da_vinci_code }}.
-They both mix history, science, and world-wide conspiracies into a thriller.
 
 [me]: https://en.wikipedia.org/wiki/Me_(mythology)
 
@@ -193,19 +192,23 @@ Another thing I loved about {{ this_book }} is the writing. {{
 the_authors_lastname }} uses {{ vonneguts_lastname }} style of playing obvious
 absurdities straight to highlight the contradiction. The first chapter is a
 wonderful example, where the narrator describes in over-the-top prose how fast
-Hiro's car is, how powerful his gun is, how he is a master with his katanas,
-at driving, at delivering... pizza. He drives his badass car into a pool. He
+Hiro's car is, how powerful his gun is, how he is a master with his katana, at
+driving, at delivering... pizza. He drives his badass car into a pool. He
 lives in a storage container. He's a master sword fighter in video games.
 
-But {{ this_book }} has plenty of faults, in fact many shared with {{
-dan_brown }}. I like books where you have to think to piece it together, like
-{{ hyperion }} with all its intertextuality, or {{ echopraxia }} where the
-narrator has no idea what's actually happening. {{ this_book }} is almost
-that, but just when you start piecing things together, Hiro will pause and
-explain the entire thing to you, or worse, the librarian program will lecture
-Hiro about it for 10 pages. The exposition drags on and slows down the plot.
-And Y.T.'s enthusiastic sex scene with a man three times her age creeped me
-out both times I read it.
+But {{ this_book }} has plenty of faults, the biggest of which it shares with
+{{ dan_brown }}. I like books where you have to think to piece it together,
+like {{ hyperion }} with all its intertextuality, or {{ echopraxia }} where
+the narrator has no idea what's actually happening. {{ this_book }} doesn't
+quite get there. Just when you start piecing things together, Hiro will pause
+and explain the entire thing to you, or worse, the librarian program will
+lecture Hiro about it for 10 pages. The exposition drags on and slows down the
+plot.
+
+There is also the scene where fifteen year old Y.T. has enthusiastic sex with
+Raven, a man in his forties. It creeped me out when I first read it and it
+creeped me out this time too. It's a lot of the reason I didn't like {{
+this_book }} the first time I read it.
 
 {{ the_authors_lastname }} makes a lot of references to {{ neuromancer }}: he
 uses the same "sarariman" Rōmaji, the scene where a flying drone cuts off
