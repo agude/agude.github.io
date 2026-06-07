@@ -147,29 +147,35 @@ like {{ clarke_lastname }}, {{ heinlein_lastname }}, and {{ bradbury_lastname
 month ago and realized I was making the same mistake. So I paused and read {{
 gibsons_lastname }} {{ neuromancer }}. I'm glad I did.
 
+### Culture
+
+Without reading {{ gibsons_lastname }} first, I wouldn't have seen how {{
+the_authors_lastname }} is responding to him.
+
 {{ this_book }} is about a mind-virus that changes how people behave, makes
 them unconscious; it's about the metaverse; it's about the replacement of
 government by franchises; it's about high-speed pizza delivery; it's about
 depleted uranium miniguns and smart wheels and katanas. That's the text. But
-like {{ strosss_lastname }} {{ accelerando }} and {{ neuromancer }}, it's not
-really _about_ those things. It's about society and culture.
+like {{ neuromancer }}, it's not really _about_ those things. It's about our
+humanity, our society, and our culture.
 
-{{ neuromancer }} is a heist story that explores what makes us human, and how
-the structures of power strip that humanity away. {{ accelerando }} watches
-the solar system get consumed for computation and focuses on how the legal
-structures---laws, corporations---are a form of technology. {{ this_book }} is
-about how human culture is commodified, homogenized, and pushed from the top
-down.
-
-Your home country? Turned into a stereotype-filled franchise like Mr. Lee's
-Hong Kong or Nova Sicilia or NarcoColombia. Your neighborhood? A burbclave
-patterned on apartheid South Africa with HOAs as constitution. Your religion?
-Televangelism taken to the extreme, with a subscription plan. Even the pirate
-gangs have stolen their identity from the Western and Kung Fu movie stars. The
-one thing that almost escaped it was the Metaverse. It started as a bottom-up
-culture built by hackers---the only people unaffected by the religious
-virus---but even it got taken over. Turned into a strip mall with millions of
-default Brandy and Clint avatars.
+{{ neuromancer }} is a heist story that explores what makes us human, how the
+structures of power strip that humanity away. {{ this_book }} shows a simpler
+version, that you don't need to jack in or have your humanity cut away and
+replaced with chrome to lose yourself: commodified, homogenized, and
+commercialized culture does it for you already. In {{ gibsons_lastname }}
+work, there are still organic subcultures like the Panther Moderns or the
+Rastafarians or even the console cowboys. {{ the_authors_lastname }} has done
+away with all that. Culture in {{ this_book }} comes top-down, packaged in a
+franchise container and sold the same everywhere. Your ethnicity? Turned into
+a stereotype-filled franchise like Mr. Lee's Hong Kong or NarcoColombia. Your
+neighborhood? A burbclave patterned on apartheid South Africa with a
+copy/paste HoA constitution. Your religion? Televangelism-cum-conspiracy
+theory with a subscription plan. Even the pirate gangs have stolen their
+identity from the Western and Kung Fu movie stars. The one thing that almost
+escaped capture was the Metaverse. It started as a bottom-up culture built by
+hackers, but even it got taken over and turned into a strip mall with millions
+of default Brandy and Clint avatars.
 
 One of the things I love about {{ this_book }} is the writing. {{
 the_authors_lastname }} uses {{ vonneguts_lastname }} style of playing obvious
@@ -186,9 +192,9 @@ But {{ this_book }} has plenty of faults. I like books where you have to think
 to piece it together, like {{ hyperion }} with all its intertextuality, or {{
 echopraxia }} where the narrator has no idea what's actually happening. {{
 this_book }} is almost that, but just when you start piecing things together,
-Hiro will pause and explain the entire thing to you, or worse the librarian
+Hiro will pause and explain the entire thing to you, or worse, the librarian
 program will lecture Hiro about it for 10 pages. The exposition drags on and
-slows down the plot. And Y.T.'s enthusiastic sex scene with a man 3 times her
+slows down the plot. And Y.T.'s enthusiastic sex scene with a man three times her
 age creeped me out both times I read it.
 
 {{ the_authors_lastname }} makes a lot of references to {{ neuromancer }}: he
