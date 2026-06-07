@@ -110,6 +110,7 @@ is a 1992 science fiction novel.
 {% capture wattss_lastname %}{% author_link "Peter Watts" link_text="Watts" possessive %}{% endcapture %}
 {% capture firefall %}{% series_link "Firefall" %}{% endcapture %}
 {% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
+{% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}
 
 {% capture the_matrix %}{% movie_title "The Matrix" %}{% endcapture %}
 
@@ -164,17 +165,33 @@ Your home country? Turned into a stereotype-filled franchise like Mr. Lee's
 Hong Kong or Nova Sicilia or NarcoColombia. Your neighborhood? A burbclave
 patterned on apartheid South Africa with HOAs as constitution. Your religion?
 Televangelism taken to the extreme, with a subscription plan. Even the pirate
-gangs have stolen their identity from the Western and Kung Fu movie stars.
-
-The one thing that almost escaped it was the Metaverse. It started as a
-bottom-up culture built by hackers---the only people unaffected by the
-religious virus---but even it got taken over. Turned into a strip mall with
-millions of default Brandy and Clint avatars.
+gangs have stolen their identity from the Western and Kung Fu movie stars. The
+one thing that almost escaped it was the Metaverse. It started as a bottom-up
+culture built by hackers---the only people unaffected by the religious
+virus---but even it got taken over. Turned into a strip mall with millions of
+default Brandy and Clint avatars.
 
 One of the things I love about {{ this_book }} is the writing. {{
 the_authors_lastname }} uses {{ vonneguts_lastname }} style of playing obvious
 absurdities straight to highlight the contradiction. The first chapter is a
 wonderful example, where the narrator describes in over-the-top prose how fast
 Hiro's car is, how powerful his gun is, how he is a master with his katanas,
-at driving, at delivering... pizza. We're told he is a badass only to see him
-constantly fail.
+at driving, at delivering... pizza. He drives his badass car into a pool. He
+lives in a storage container. He's a master sword fighter in video games.
+
+The story is also exciting. {{ the_author }} carefully weaves together
+history, myth, and his invented world to create a compelling conspiracy.
+
+But {{ this_book }} has plenty of faults. I like books where you have to think
+to piece it together, like {{ hyperion }} with all its intertextuality, or {{
+echopraxia }} where the narrator has no idea what's actually happening. {{
+this_book }} is almost that, but just when you start piecing things together,
+Hiro will pause and explain the entire thing to you, or worse the librarian
+program will lecture Hiro about it for 10 pages. The exposition drags on and
+slows down the plot. And Y.T.'s enthusiastic sex scene with a man 3 times her
+age creeped me out both times I read it.
+
+{{ the_authors_lastname }} makes a lot of references to {{ neuromancer }}: he
+uses the same "sarariman" Rōmaji, the scene where a flying drone cuts off
+someone's head, in Rife's metaverse HQ all the computers and databases are
+represented as primary colored geometric shapes just like cyberspace.
