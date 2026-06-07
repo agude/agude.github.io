@@ -38,6 +38,11 @@ is a 1992 science fiction novel.
 {% capture dicks_lastname %}{% author_link "Philip K. Dick" link_text="Dick" possessive %}{% endcapture %}
 {% capture ubik %}{% book_link "Ubik" %}{% endcapture %}
 
+{% capture vonnegut %}{% author_link "Kurt Vonnegut" %}{% endcapture %}
+{% capture vonneguts %}{% author_link "Kurt Vonnegut" possessive %}{% endcapture %}
+{% capture vonnegut_lastname %}{% author_link "Kurt Vonnegut" link_text="Vonnegut" %}{% endcapture %}
+{% capture vonneguts_lastname %}{% author_link "Kurt Vonnegut" possessive link_text="Vonnegut" %}{% endcapture %}
+
 {% capture brunner %}{% author_link "John Brunner" %}{% endcapture %}
 {% capture brunners %}{% author_link "John Brunner" possessive %}{% endcapture %}
 {% capture brunner_lastname %}{% author_link "John Brunner" link_text="Brunner" %}{% endcapture %}
@@ -152,4 +157,24 @@ really _about_ those things. It's about society and culture.
 the structures of power strip that humanity away. {{ accelerando }} watches
 the solar system get consumed for computation and focuses on how the legal
 structures---laws, corporations---are a form of technology. {{ this_book }} is
-about human culture...
+about how human culture is commodified, homogenized, and pushed from the top
+down.
+
+Your home country? Turned into a stereotype-filled franchise like Mr. Lee's
+Hong Kong or Nova Sicilia or NarcoColombia. Your neighborhood? A burbclave
+patterned on apartheid South Africa with HOAs as constitution. Your religion?
+Televangelism taken to the extreme, with a subscription plan. Even the pirate
+gangs have stolen their identity from the Western and Kung Fu movie stars.
+
+The one thing that almost escaped it was the Metaverse. It started as a
+bottom-up culture built by hackers---the only people unaffected by the
+religious virus---but even it got taken over. Turned into a strip mall with
+millions of default Brandy and Clint avatars.
+
+One of the things I love about {{ this_book }} is the writing. {{
+the_authors_lastname }} uses {{ vonneguts_lastname }} style of playing obvious
+absurdities straight to highlight the contradiction. The first chapter is a
+wonderful example, where the narrator describes in over-the-top prose how fast
+Hiro's car is, how powerful his gun is, how he is a master with his katanas,
+at driving, at delivering... pizza. We're told he is a badass only to see him
+constantly fail.
