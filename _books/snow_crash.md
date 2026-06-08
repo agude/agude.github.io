@@ -35,6 +35,13 @@ conspiracy to reprogram the human mind.
 
 {% capture YT %}<span class="nowrap">Y.T.</span>{% endcapture %}
 
+{% capture the_diamond_age %}{% book_link "The Diamond Age" %}{% endcapture %}
+{% capture anathem %}{% book_link "Anathem" %}{% endcapture %}
+{% capture cryptonomicon %}{% book_link "Cryptonomicon" %}{% endcapture %}
+{% capture seveneves %}{% book_link "Seveneves" %}{% endcapture %}
+{% capture reamde %}{% book_link "Reamde" %}{% endcapture %}
+{% capture the_baroque_cycle %}{% series_link "The Baroque Cycle" %}{% endcapture %}
+
 {% capture clarke_lastname %}{% author_link "Arthur C. Clarke" link_text="Clarke" %}{% endcapture %}
 {% capture heinlein_lastname %}{% author_link "Robert A. Heinlein" link_text="Heinlein" %}{% endcapture %}
 {% capture bradbury_lastname %}{% author_link "Ray Bradbury" link_text="Bradbury" %}{% endcapture %}
@@ -154,17 +161,19 @@ consumerism, exaggerating it so you notice what is already there.
 
 {{ gibsons_lastname }} left room for organic subcultures to survive next to
 the towering zaibatsu, like the Panther Moderns or the Rastafarians or even
-the console cowboys. {{ the_authors_lastname }} has done away with all that.
-Culture in {{ this_book }} comes top-down, packaged in a franchise container
-and sold the same everywhere. Your ethnicity? Turned into a stereotype-filled
-franchise like Mr. Lee's Hong Kong or NarcoColombia. Your neighborhood? A
-burbclave patterned on apartheid South Africa with a copy/paste HoA
-constitution. Your religion? Televangelism-cum-conspiracy theory with a
-subscription plan. Even the pirate gangs have stolen their identity from the
-Western and Kung Fu movie stars. The one thing that almost escaped capture was
-the Metaverse. It started as a bottom-up culture built by hackers, but even it
-got taken over and turned into a strip mall with millions of default Brandy
-and Clint avatars. The last bastion has become a product.
+the console cowboys. {{ the_authors_lastname }} makes direct reference to {{
+neuromancer }}---the same 'sarariman' Rōmaji, a drone decapitation, Rife's
+primary-colored cyberspace---but does away with the rest. Culture in {{
+this_book }} comes top-down, packaged in a franchise container and sold the
+same everywhere. Your ethnicity? Turned into a stereotype-filled franchise
+like Mr. Lee's Hong Kong or NarcoColombia. Your neighborhood? A burbclave
+patterned on apartheid South Africa with a copy/paste HoA constitution. Your
+religion? Televangelism-cum-conspiracy theory with a subscription plan. Even
+the pirate gangs have stolen their identity from the Western and Kung Fu movie
+stars. The one thing that almost escaped capture was the Metaverse. It started
+as a bottom-up culture built by hackers, but even it got taken over and turned
+into a strip mall with millions of default Brandy and Clint avatars. The last
+bastion has become a product.
 
 One thing I loved about this book is how the author weaves Mesopotamian
 history, neurolinguistics, Pentecostal glossolalia, and fiber-optic cable into
@@ -195,7 +204,7 @@ lecture Hiro about it for 10 pages. The exposition drags on and slows down the
 plot. And as is {{ the_authors_lastname_possessive }} habit, the story ends
 abruptly, but it didn't bother me as much this time when I was ready for it.
 
-And there is also the scene where fifteen year old {{ YT }} has enthusiastic
+And there is also the scene where fifteen-year-old {{ YT }} has enthusiastic
 sex with Raven, a man in his forties. It creeped me out when I first read it
 and it creeped me out this time too. It's a lot of the reason I didn't like {{
 this_book }} the first time.
@@ -218,14 +227,17 @@ unintentionally apt observation that Ahab "just didn't know when to let go";
 she means of the harpoon, but she's describing both Ahab and Raven's obsession
 with revenge.
 
-There are some smaller references too: motorcycles in the meterverse are out
+There are some smaller references too: motorcycles in the Metaverse are out
 of {{ tron }}. The freighters full of refugees are seen again in {{
 winterss_lastname }} {{ countdown_city }}. The idea of compartmentalizing
 information in the brain of your employees was used in {{ severance }}. And
 the boat chase through the raft reminded me of the chase through the floating
 city in {{ williamss_lastname }} {{ city_on_fire }}.
 
-<!-- {{ the_authors_lastname }} makes a lot of references to {{ neuromancer
-}}: he uses the same "sarariman" Rōmaji, the scene where a flying drone cuts
-off someone's head, in Rife's metaverse HQ all the computers and databases are
-represented as primary colored geometric shapes just like cyberspace. -->
+With a lot more context I enjoyed {{ this_book }} a lot more than my first
+read through. There are complicated ideas that come out best when you
+understand what they're responding to. It's something I appreciate now: the
+best sci-fi rewards a closer read. I look forward to revisiting some other of
+{{ the_authors_lastname_possessive }} works. I remember really enjoying {{
+anathem }} when I read it in grad school, and I've never read his more famous
+{{ cryptonomicon }}.
