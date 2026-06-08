@@ -117,7 +117,7 @@ console cowboys. {{ the_authors_lastname }} has done away with all that.
 Culture in {{ this_book }} comes top-down, packaged in a franchise container
 and sold the same everywhere. Your ethnicity? Turned into a stereotype-filled
 franchise like Mr. Lee's Hong Kong or NarcoColombia. Your neighborhood? A
-burbclave patterned on apartheid South Africa with a copy/paste HoA
+burbclave patterned on apartheid South Africa with a copy/paste HOA
 constitution. Your religion? Televangelism-cum-conspiracy theory with a
 subscription plan. Even the pirate gangs have stolen their identity from
 Western and Kung Fu movie stars. The one thing that almost escaped capture was
@@ -174,7 +174,7 @@ a_fire_upon_the_deep }}, where the Blight is transmitted as infected
 information, and {{ qntms }} {{ there_is_no_antimemetics_division }}, where
 antimemes are ideas that can't be thought and have power over people. Cops
 showing advertisements, jails run by big-box stores, countries with
-subscriptions for citizenship, and a nickel-and-dime religion is right out of
+subscriptions for citizenship, and a nickel-and-dime religion are right out of
 {{ dicks_lastname }} {{ ubik }}. The pairing of Hiro and Da5id as hackers who
 started off small together, one hitting it big while the other didn't, mirrors
 Bishop and Cosmo from {{ sneakers }}. And {{ YT }}, herself a harpooner, makes
@@ -185,16 +185,16 @@ with revenge.
 
 Some smaller references: motorcycles in the Metaverse are out of {{ tron }}.
 The freighters full of refugees appear again in {{ winterss_lastname }} {{
-countdown_city }}. The idea of compartmentalizing information in the brain of
+countdown_city }}. The idea of compartmentalizing information in the brains of
 your employees was used in {{ severance }}. Rife's private aircraft carrier is
 out of {{ brunners_lastname }} {{ stand_on_zanzibar }}. And the boat chase
 through the raft reminded me of the chase through the floating city in {{
 williamss_lastname }} {{ city_on_fire }}.
 
-With a lot more context I enjoyed {{ this_book }} much more than my first read
-through. There are complicated ideas that come out best when you understand
-what they're responding to. It's something I appreciate now: the best sci-fi
-rewards a closer read. I look forward to revisiting some of {{
+With a lot more context, I enjoyed {{ this_book }} much more than my first
+read-through. There are complicated ideas that come out best when you
+understand what they're responding to. It's something I appreciate now: the
+best sci-fi rewards a closer read. I look forward to revisiting some of {{
 the_authors_lastname_possessive }} other works. I remember really enjoying {{
 anathem }} when I read it in grad school, and I've never read his more famous
 {{ cryptonomicon }}.
