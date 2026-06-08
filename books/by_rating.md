@@ -35,6 +35,7 @@ ranked_list:
   - The Tainted Cup
   - Exit Strategy
   - Explorers on the Moon
+  - Snow Crash
   - Childhood's End
   - Excession
   - Roadside Picnic
