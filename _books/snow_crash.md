@@ -161,19 +161,17 @@ consumerism, exaggerating it so you notice what is already there.
 
 {{ gibsons_lastname }} left room for organic subcultures to survive next to
 the towering zaibatsu, like the Panther Moderns or the Rastafarians or even
-the console cowboys. {{ the_authors_lastname }} makes direct reference to {{
-neuromancer }}---the same 'sarariman' Rōmaji, a drone decapitation, Rife's
-primary-colored cyberspace---but does away with the rest. Culture in {{
-this_book }} comes top-down, packaged in a franchise container and sold the
-same everywhere. Your ethnicity? Turned into a stereotype-filled franchise
-like Mr. Lee's Hong Kong or NarcoColombia. Your neighborhood? A burbclave
-patterned on apartheid South Africa with a copy/paste HoA constitution. Your
-religion? Televangelism-cum-conspiracy theory with a subscription plan. Even
-the pirate gangs have stolen their identity from the Western and Kung Fu movie
-stars. The one thing that almost escaped capture was the Metaverse. It started
-as a bottom-up culture built by hackers, but even it got taken over and turned
-into a strip mall with millions of default Brandy and Clint avatars. The last
-bastion has become a product.
+the console cowboys. {{ the_authors_lastname }} has done away with all that.
+Culture in {{ this_book }} comes top-down, packaged in a franchise container
+and sold the same everywhere. Your ethnicity? Turned into a stereotype-filled
+franchise like Mr. Lee's Hong Kong or NarcoColombia. Your neighborhood? A
+burbclave patterned on apartheid South Africa with a copy/paste HoA
+constitution. Your religion? Televangelism-cum-conspiracy theory with a
+subscription plan. Even the pirate gangs have stolen their identity from the
+Western and Kung Fu movie stars. The one thing that almost escaped capture was
+the Metaverse. It started as a bottom-up culture built by hackers, but even it
+got taken over and turned into a strip mall with millions of default Brandy
+and Clint avatars. The last bastion has become a product.
 
 One thing I loved about this book is how the author weaves Mesopotamian
 history, neurolinguistics, Pentecostal glossolalia, and fiber-optic cable into
