@@ -47,6 +47,8 @@ conspiracy to reprogram the human mind.
 {% capture vonneguts_lastname %}{% author_link "Kurt Vonnegut" possessive link_text="Vonnegut" %}{% endcapture %}
 
 {% capture brunner_lastname %}{% author_link "John Brunner" link_text="Brunner" %}{% endcapture %}
+{% capture brunners_lastname %}{% author_link "John Brunner" link_text="Brunner" possessive %}{% endcapture %}
+{% capture stand_on_zanzibar %}{% book_link "Stand on Zanzibar" %}{% endcapture %}
 
 {% capture dan_brown %}{% author_link "Dan Brown" %}{% endcapture %}
 {% capture dan_browns %}{% author_link "Dan Brown" possessive %}{% endcapture %}
@@ -172,12 +174,14 @@ unintentionally apt observation that Ahab "just didn't know when to let go";
 she means of the harpoon, but she's describing both Ahab and Raven's obsession
 with revenge.
 
-There are some smaller references too: motorcycles in the Metaverse are out
-of {{ tron }}. The freighters full of refugees are seen again in {{
+There are some smaller references too: motorcycles in the Metaverse are out of
+{{ tron }}. The freighters full of refugees are seen again in {{
 winterss_lastname }} {{ countdown_city }}. The idea of compartmentalizing
-information in the brain of your employees was used in {{ severance }}. And
-the boat chase through the raft reminded me of the chase through the floating
-city in {{ williamss_lastname }} {{ city_on_fire }}.
+information in the brain of your employees was used in {{ severance }}. Rife's
+private aircraft carrier is out of {{ brunners_lastname }} {{
+stand_on_zanzibar }}. And the boat chase through the raft reminded me of the
+chase through the floating city in {{ williamss_lastname }} {{ city_on_fire
+}}.
 
 With a lot more context I enjoyed {{ this_book }} a lot more than my first
 read through. There are complicated ideas that come out best when you
