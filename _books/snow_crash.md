@@ -147,10 +147,13 @@ clarke_lastname }}, {{ heinlein_lastname }}, and {{ bradbury_lastname }}. I
 had almost completely missed New Wave authors like {{ brunner_lastname }}, and
 probably hadn't even heard of cyberpunk. This time I decided to fix that, and
 read {{ gibsons_lastname }} {{ neuromancer }} first. I'm glad I did. {{
-neuromancer }} is about what makes us human and how we strip it away for
-power. This book responds that it is even simpler: you don't need to jack in
-or have your humanity cut away and replaced with chrome to lose yourself:
-commodified, homogenized, and commercialized culture does it for you already.
+the_authors_lastname }} makes direct references to {{ neuromancer }}---the
+same 'sarariman' Rōmaji, a drone decapitation, Rife's primary-colored
+cyberspace---but the real connection is the themes. {{ neuromancer }} is about
+what makes us human and how we strip it away for power. This book responds
+that it is even simpler: you don't need to jack in or have your humanity cut
+away and replaced with chrome to lose yourself: commodified, homogenized, and
+commercialized culture does it for you already.
 
 {{ this_book }} is about a mind-virus that changes how people behave, makes
 them unconscious zombies; it's about the metaverse; it's about the replacement
