@@ -85,21 +85,21 @@ conspiracy to reprogram the human mind.
 {% capture melvilles_lastname %}{% author_link "Herman Melville" link_text="Melville" possessive %}{% endcapture %}
 {% capture moby_dick %}{% book_link "Moby Dick" %}{% endcapture %}
 
-I first read {{ this_book }} in college and didn't really get it. It had some
-cool ideas, great writing, some authentic weirdness. The problem was I didn't
-have any context to place it within the canon. Although I'd read a lot of
-science fiction growing up, it had been mostly golden-age authors like {{
-clarke_lastname }}, {{ heinlein_lastname }}, and {{ bradbury_lastname }}. I
-had almost completely missed New Wave authors like {{ brunner_lastname }}, and
-probably hadn't even heard of cyberpunk. This time I decided to fix that, and
-read {{ gibsons_lastname }} {{ neuromancer }} first. I'm glad I did. {{
-the_authors_lastname }} makes direct references to {{ neuromancer }}---the
-same 'sarariman' Rōmaji, a drone decapitation, Rife's primary-colored
-cyberspace---but the real connection is the themes. {{ neuromancer }} is about
-what makes us human and how we strip it away for power. This book responds
-that it is even simpler: you don't need to jack in or have your humanity cut
-away and replaced with chrome to lose yourself: commodified, homogenized, and
-commercialized culture does it for you already.
+I first read {{ this_book }} in college and didn't get it. It had cool ideas,
+great writing, some authentic weirdness. The problem was I had no context to
+place it within the canon. I'd read a lot of science fiction growing up, but
+it was mostly golden-age authors like {{ clarke_lastname }}, {{
+heinlein_lastname }}, and {{ bradbury_lastname }}. I had completely missed New
+Wave authors like {{ brunner_lastname }}, and probably hadn't even heard of
+cyberpunk. This time I decided to fix that, reading {{ gibsons_lastname }} {{
+neuromancer }} first. I'm glad I did. {{ the_authors_lastname }} makes direct
+references to {{ neuromancer }}---the same 'sarariman' Rōmaji, a drone
+decapitation, Rife's primary-colored cyberspace---but the real connection is
+thematic. {{ neuromancer }} is about what makes us human and how we strip it
+away for power. This book responds that it's even simpler: you don't need to
+jack in or have your humanity cut away and replaced with chrome to lose
+yourself. Commodified, homogenized, commercialized culture does it for you
+already.
 
 {{ this_book }} is about a mind-virus that changes how people behave, makes
 them unconscious zombies; it's about the metaverse; it's about the replacement
@@ -116,77 +116,78 @@ and sold the same everywhere. Your ethnicity? Turned into a stereotype-filled
 franchise like Mr. Lee's Hong Kong or NarcoColombia. Your neighborhood? A
 burbclave patterned on apartheid South Africa with a copy/paste HoA
 constitution. Your religion? Televangelism-cum-conspiracy theory with a
-subscription plan. Even the pirate gangs have stolen their identity from the
+subscription plan. Even the pirate gangs have stolen their identity from
 Western and Kung Fu movie stars. The one thing that almost escaped capture was
 the Metaverse. It started as a bottom-up culture built by hackers, but even it
 got taken over and turned into a strip mall with millions of default Brandy
 and Clint avatars. The last bastion has become a product.
 
-One thing I loved about this book is how the author weaves Mesopotamian
-history, neurolinguistics, Pentecostal glossolalia, and fiber-optic cable into
-a conspiracy that slowly comes together: the implication that culture has
-always been franchised, always pushed from the top down with the Sumerian
-[_Me_][me] being the first example. Unraveling the plot is what kept me
-hooked. The most similar experience I can think of is---I'm sorry, I'm
-sorry!---{{ dan_browns }} {{ angels_and_demons }} and {{ the_da_vinci_code }}.
+What I loved about this book is how {{ the_authors_lastname }} weaves
+Mesopotamian history, neurolinguistics, Pentecostal glossolalia, and
+fiber-optic cable into a conspiracy that slowly comes together: the
+implication that culture has _always_ been franchised, always pushed from the
+top down, with the Sumerian [_Me_][me] as the first example. Unraveling the
+plot is what kept me hooked. The most similar experience I can think of
+is---I'm sorry, I'm sorry!---{{ dan_browns }} {{ angels_and_demons }} and {{
+the_da_vinci_code }}.
 
 [me]: https://en.wikipedia.org/wiki/Me_(mythology)
 
-{{ the_authors_lastname_possessive }} prose fit the book perfectly. {{
+{{ the_authors_lastname_possessive }} prose fits the book perfectly. {{
 the_authors_lastname }} uses {{ vonneguts_lastname }} style of playing obvious
 absurdities straight to highlight the contradiction; it reinforces the theme
-_and_ is funny! The first chapter is a wonderful example, where the narrator
+_and_ is funny! The first chapter is a wonderful example: the narrator
 describes in over-the-top prose how fast Hiro's car is, how powerful his gun
 is, how he is a master with his katana, at driving, at delivering... pizza. He
 drives his badass car into a pool. He lives in a storage container. He's a
 master sword fighter in video games.
 
 But {{ this_book }} has plenty of faults, the biggest of which it shares with
-{{ dan_brown }}. I like books where you have to think to piece it together,
-like {{ hyperion }} with all its intertextuality, or {{ echopraxia }} where
-the narrator has no idea what's actually happening. {{ this_book }} doesn't
-quite get there. Just when you start piecing things together, Hiro will pause
-and explain the entire thing to you, or worse, the librarian program will
-lecture Hiro about it for 10 pages. The exposition drags on and slows down the
-plot. And as is {{ the_authors_lastname_possessive }} habit, the story ends
-abruptly, but it didn't bother me as much this time when I was ready for it.
+{{ dan_brown }}. I like books where you have to think to piece things
+together, like {{ hyperion }} with all its intertextuality, or {{ echopraxia
+}} where the narrator has no idea what's actually happening. {{ this_book }}
+doesn't get there. Just when you start piecing things together, Hiro will
+pause and explain the entire thing to you, or worse, the librarian program
+will lecture him about it for 10 pages. The exposition drags and slows down
+the plot. And as is {{ the_authors_lastname_possessive }} habit, the story
+ends abruptly, but it didn't bother me as much this time because I was ready
+for it.
 
-And there is also the scene where fifteen-year-old {{ YT }} has enthusiastic
-sex with Raven, a man in his forties. It creeped me out when I first read it
-and it creeped me out this time too. It's a lot of the reason I didn't like {{
+And there is the scene where fifteen-year-old {{ YT }} has enthusiastic sex
+with Raven, a man in his forties. It creeped me out when I first read it and
+it creeped me out this time too. It's a lot of the reason I didn't like {{
 this_book }} the first time.
 
-{{ this_book }} reminded me of some other works of fiction. The idea that
-humans were controllable because they lacked consciousness, and that Enki's
-defense was to grant it to them, is the opposite of the idea explored in {{
-wattss_lastname }} {{ blindsight }} where consciousness is an evolutionary
-dead end. Ideas that spread and infect people are explored by both {{
-vinges_lastname }} {{ a_fire_upon_the_deep }}, where the Blight is transmitted
-as infected information, and {{ qntms }} {{ there_is_no_antimemetics_division
-}}, where antimemes are ideas that can't be thought and have power over
-people. Cops showing advertisements, jails run by big-box stores, countries
-with subscriptions for citizenship, and a nickel-and-dime religion is right
-out of {{ dicks_lastname }} {{ ubik }}. And the pairing of Hiro and Da5id as
-hackers who started off small together, and then one hit it big, mirrors
-Bishop and Cosmo from {{ sneakers }}. {{ YT }}, herself a harpooner, makes
-several references to {{ melvilles_lastname }} {{ moby_dick }}, including the
-unintentionally apt observation that Ahab "just didn't know when to let go";
-she means of the harpoon, but she's describing both Ahab and Raven's obsession
-with revenge.
+{{ this_book }} reminded me of some other works. The idea that humans were
+controllable because they lacked consciousness, and that Enki's defense was to
+grant it to them, is the opposite of the idea in {{ wattss_lastname }} {{
+blindsight }} where consciousness is an evolutionary dead end. Ideas that
+spread and infect people are explored in both {{ vinges_lastname }} {{
+a_fire_upon_the_deep }}, where the Blight is transmitted as infected
+information, and {{ qntms }} {{ there_is_no_antimemetics_division }}, where
+antimemes are ideas that can't be thought and have power over people. Cops
+showing advertisements, jails run by big-box stores, countries with
+subscriptions for citizenship, and a nickel-and-dime religion is right out of
+{{ dicks_lastname }} {{ ubik }}. And the pairing of Hiro and Da5id as hackers
+who started off small together, one hitting it big while the other didn't,
+mirrors Bishop and Cosmo from {{ sneakers }}. {{ YT }}, herself a harpooner,
+makes several references to {{ melvilles_lastname }} {{ moby_dick }},
+including the unintentionally apt observation that Ahab "just didn't know when
+to let go"; she means of the harpoon, but she's describing both Ahab and
+Raven's obsession with revenge.
 
-There are some smaller references too: motorcycles in the Metaverse are out of
-{{ tron }}. The freighters full of refugees are seen again in {{
-winterss_lastname }} {{ countdown_city }}. The idea of compartmentalizing
-information in the brain of your employees was used in {{ severance }}. Rife's
-private aircraft carrier is out of {{ brunners_lastname }} {{
-stand_on_zanzibar }}. And the boat chase through the raft reminded me of the
-chase through the floating city in {{ williamss_lastname }} {{ city_on_fire
-}}.
+Some smaller references: motorcycles in the Metaverse are out of {{ tron }}.
+The freighters full of refugees appear again in {{ winterss_lastname }} {{
+countdown_city }}. The idea of compartmentalizing information in the brain of
+your employees was used in {{ severance }}. Rife's private aircraft carrier is
+out of {{ brunners_lastname }} {{ stand_on_zanzibar }}. And the boat chase
+through the raft reminded me of the chase through the floating city in {{
+williamss_lastname }} {{ city_on_fire }}.
 
-With a lot more context I enjoyed {{ this_book }} a lot more than my first
-read through. There are complicated ideas that come out best when you
-understand what they're responding to. It's something I appreciate now: the
-best sci-fi rewards a closer read. I look forward to revisiting some other of
-{{ the_authors_lastname_possessive }} works. I remember really enjoying {{
+With a lot more context I enjoyed {{ this_book }} much more than my first read
+through. There are complicated ideas that come out best when you understand
+what they're responding to. It's something I appreciate now: the best sci-fi
+rewards a closer read. I look forward to revisiting some of {{
+the_authors_lastname_possessive }} other works. I remember really enjoying {{
 anathem }} when I read it in grad school, and I've never read his more famous
 {{ cryptonomicon }}.
