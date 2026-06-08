@@ -20,13 +20,20 @@ same_as_urls:
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is a 1992 science fiction novel.
+is a satirical cyberpunk novel set in a near-future America where the federal
+government has collapsed and everything---pizza, religion, neighborhoods,
+national defense---is run by competing franchises. It follows Hiro
+Protagonist, a hacker and pizza delivery driver, and <span
+class="nowrap">Y.T.</span>, a teenage skateboard courier, as they uncover a
+conspiracy to reprogram the human mind.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 {% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
 {% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text=author_last_name_text %}{% endcapture %}
 {% capture the_authors_lastname_possessive %}{% author_link page.book_authors link=false link_text=author_last_name_text possessive %}{% endcapture %}
+
+{% capture YT %}<span class="nowrap">Y.T.</span>{% endcapture %}
 
 {% capture clarke_lastname %}{% author_link "Arthur C. Clarke" link_text="Clarke" %}{% endcapture %}
 {% capture heinlein_lastname %}{% author_link "Robert A. Heinlein" link_text="Heinlein" %}{% endcapture %}
@@ -88,8 +95,6 @@ is a 1992 science fiction novel.
 
 {% capture qntm %}{% author_link "qntm" %}{% endcapture %}
 {% capture qntms %}{% author_link "qntm" possessive %}{% endcapture %}
-{% capture qntm_lastname %}{% author_link "qntm" link_text="qntm" %}{% endcapture %}
-{% capture qntms_lastname %}{% author_link "qntm" link_text="qntm" possessive %}{% endcapture %}
 {% capture there_is_no_antimemetics_division %}{% book_link "There Is No Antimemetics Division" %}{% endcapture %}
 
 {% capture vinge %}{% author_link "Vernor Vinge" %}{% endcapture %}
@@ -127,23 +132,6 @@ is a 1992 science fiction novel.
 {% capture melvilles_lastname %}{% author_link "Herman Melville" link_text="Melville" possessive %}{% endcapture %}
 {% capture moby_dick %}{% book_link "Moby Dick" %}{% endcapture %}
 
-<!--
-  1. Lede
-  2. I stopped and read neuromancer to see how they connect. There connection
-     with accelerando.
-  3. More on what snow crash's thesis is, what it does. The culture imposed,
-     imported.
-  4. NOW we can go broader. The best sci fi uses it self as a mirror. The best
-     stories aren't about what they seem. We already covered neuromancer,
-     accelerando. But also hyperion, let's pull a Banks book, maybe one other
-     example.
-  5. I loved the writing in this book. And the story. It's like Vonnegut with a
-     story you actually want to read.
-  6. Maybe what I didn't love. We'll see. Ending.
-  7. Connections
-  8. Conclusion.
--->
-
 I first read {{ this_book }} in college and didn't really get it. It had some
 cool ideas, great writing, some authentic weirdness. The problem was I didn't
 have any context to place it within the canon. Although I'd read a lot of
@@ -158,8 +146,8 @@ or have your humanity cut away and replaced with chrome to lose yourself:
 commodified, homogenized, and commercialized culture does it for you already.
 
 {{ this_book }} is about a mind-virus that changes how people behave, makes
-them unconscious zombies; it's about the metaverse; it's about the replacement of
-government by franchises; it's about high-speed pizza delivery; it's about
+them unconscious zombies; it's about the metaverse; it's about the replacement
+of government by franchises; it's about high-speed pizza delivery; it's about
 depleted uranium miniguns and smart wheels and katanas. That's the text, but
 all of it is {{ the_authors_lastname }} defamiliarizing 80s and 90s
 consumerism, exaggerating it so you notice what is already there.
@@ -188,13 +176,14 @@ sorry!---{{ dan_browns }} {{ angels_and_demons }} and {{ the_da_vinci_code }}.
 
 [me]: https://en.wikipedia.org/wiki/Me_(mythology)
 
-Another thing I loved about {{ this_book }} is the writing. {{
+{{ the_authors_lastname_possessive }} prose fit the book perfectly. {{
 the_authors_lastname }} uses {{ vonneguts_lastname }} style of playing obvious
-absurdities straight to highlight the contradiction. The first chapter is a
-wonderful example, where the narrator describes in over-the-top prose how fast
-Hiro's car is, how powerful his gun is, how he is a master with his katana, at
-driving, at delivering... pizza. He drives his badass car into a pool. He
-lives in a storage container. He's a master sword fighter in video games.
+absurdities straight to highlight the contradiction; it reinforces the theme
+_and_ is funny! The first chapter is a wonderful example, where the narrator
+describes in over-the-top prose how fast Hiro's car is, how powerful his gun
+is, how he is a master with his katana, at driving, at delivering... pizza. He
+drives his badass car into a pool. He lives in a storage container. He's a
+master sword fighter in video games.
 
 But {{ this_book }} has plenty of faults, the biggest of which it shares with
 {{ dan_brown }}. I like books where you have to think to piece it together,
@@ -203,14 +192,40 @@ the narrator has no idea what's actually happening. {{ this_book }} doesn't
 quite get there. Just when you start piecing things together, Hiro will pause
 and explain the entire thing to you, or worse, the librarian program will
 lecture Hiro about it for 10 pages. The exposition drags on and slows down the
-plot.
+plot. And as is {{ the_authors_lastname_possessive }} habit, the story ends
+abruptly, but it didn't bother me as much this time when I was ready for it.
 
-There is also the scene where fifteen year old Y.T. has enthusiastic sex with
-Raven, a man in his forties. It creeped me out when I first read it and it
-creeped me out this time too. It's a lot of the reason I didn't like {{
-this_book }} the first time I read it.
+And there is also the scene where fifteen year old {{ YT }} has enthusiastic
+sex with Raven, a man in his forties. It creeped me out when I first read it
+and it creeped me out this time too. It's a lot of the reason I didn't like {{
+this_book }} the first time.
 
-{{ the_authors_lastname }} makes a lot of references to {{ neuromancer }}: he
-uses the same "sarariman" Rōmaji, the scene where a flying drone cuts off
-someone's head, in Rife's metaverse HQ all the computers and databases are
-represented as primary colored geometric shapes just like cyberspace.
+{{ this_book }} reminded me of some other works of fiction. The idea that
+humans were controllable because they lacked consciousness, and that Enki's
+defense was to grant it to them, is the opposite of the idea explored in {{
+wattss_lastname }} {{ blindsight }} where consciousness is an evolutionary
+dead end. Ideas that spread and infect people are explored by both {{
+vinges_lastname }} {{ a_fire_upon_the_deep }}, where the Blight is transmitted
+as infected information, and {{ qntms }} {{ there_is_no_antimemetics_division
+}}, where antimemes are ideas that can't be thought and have power over
+people. Cops showing advertisements, jails run by big-box stores, countries
+with subscriptions for citizenship, and a nickel-and-dime religion is right
+out of {{ dicks_lastname }} {{ ubik }}. And the pairing of Hiro and Da5id as
+hackers who started off small together, and then one hit it big, mirrors
+Bishop and Cosmo from {{ sneakers }}. {{ YT }}, herself a harpooner, makes
+several references to {{ melvilles_lastname }} {{ moby_dick }}, including the
+unintentionally apt observation that Ahab "just didn't know when to let go";
+she means of the harpoon, but she's describing both Ahab and Raven's obsession
+with revenge.
+
+There are some smaller references too: motorcycles in the meterverse are out
+of {{ tron }}. The freighters full of refugees are seen again in {{
+winterss_lastname }} {{ countdown_city }}. The idea of compartmentalizing
+information in the brain of your employees was used in {{ severance }}. And
+the boat chase through the raft reminded me of the chase through the floating
+city in {{ williamss_lastname }} {{ city_on_fire }}.
+
+<!-- {{ the_authors_lastname }} makes a lot of references to {{ neuromancer
+}}: he uses the same "sarariman" Rōmaji, the scene where a flying drone cuts
+off someone's head, in Rife's metaverse HQ all the computers and databases are
+represented as primary colored geometric shapes just like cyberspace. -->
