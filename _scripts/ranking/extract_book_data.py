@@ -11,7 +11,9 @@ import json
 import re
 from pathlib import Path
 
-BOOKS_DIR = Path(__file__).resolve().parent.parent / "_books"
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+BOOKS_DIR = PROJECT_ROOT / "_books"
+BY_RATING_FILE = PROJECT_ROOT / "books" / "by_rating.md"
 OUTPUT_FILE = Path(__file__).resolve().parent / "book_ranking_state.json"
 
 # Seed ELO based on current rating so the matchup selector
@@ -148,11 +150,60 @@ def slug_from_path(path: Path) -> str:
     return path.stem
 
 
+def build_title_to_slug_map(books: dict) -> dict[str, str]:
+    """Build a case-insensitive title -> slug lookup."""
+    mapping = {}
+    for slug, data in books.items():
+        mapping[data["title"].lower()] = slug
+    return mapping
+
+
+def extract_ranked_list(books: dict) -> list[str]:
+    """Read the ranked_list from by_rating.md and return as ordered slugs."""
+    if not BY_RATING_FILE.exists():
+        print(f"Warning: {BY_RATING_FILE} not found, falling back to ELO order")
+        slugs = list(books.keys())
+        slugs.sort(key=lambda s: -(books[s].get("elo") or 1500))
+        return slugs
+
+    content = BY_RATING_FILE.read_text()
+    fm, _ = parse_front_matter(content)
+    titles = fm.get("ranked_list", [])
+    if not titles:
+        print("Warning: no ranked_list in by_rating.md, falling back to ELO order")
+        slugs = list(books.keys())
+        slugs.sort(key=lambda s: -(books[s].get("elo") or 1500))
+        return slugs
+
+    title_map = build_title_to_slug_map(books)
+    ranked_slugs = []
+    unmatched = []
+
+    for title in titles:
+        slug = title_map.get(title.lower())
+        if slug:
+            ranked_slugs.append(slug)
+        else:
+            unmatched.append(title)
+
+    if unmatched:
+        print(f"Warning: {len(unmatched)} titles not matched to book files:")
+        for t in unmatched:
+            print(f"  - {t}")
+
+    # Append any books not in the ranked list at the end
+    ranked_set = set(ranked_slugs)
+    for slug in sorted(books.keys()):
+        if slug not in ranked_set:
+            ranked_slugs.append(slug)
+
+    return ranked_slugs
+
+
 def main():
     books = {}
 
     for filepath in sorted(BOOKS_DIR.glob("*.md")):
-        # Skip templates
         if filepath.name.startswith("_"):
             continue
 
@@ -164,7 +215,6 @@ def main():
 
         slug = slug_from_path(filepath)
 
-        # Normalize authors to list
         authors = fm.get("book_authors", [])
         if isinstance(authors, str):
             authors = [authors]
@@ -185,6 +235,8 @@ def main():
             "matches": 0,
         }
 
+    ranked_list = extract_ranked_list(books)
+
     state = {
         "meta": {
             "created": "2026-03-01",
@@ -192,10 +244,11 @@ def main():
         },
         "matches": [],
         "books": books,
+        "ranked_list": ranked_list,
     }
 
     OUTPUT_FILE.write_text(json.dumps(state, indent=2, ensure_ascii=False) + "\n")
-    print(f"Wrote {len(books)} books to {OUTPUT_FILE}")
+    print(f"Wrote {len(books)} books ({len(ranked_list)} ranked) to {OUTPUT_FILE}")
 
 
 if __name__ == "__main__":

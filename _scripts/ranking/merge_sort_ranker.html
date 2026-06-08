@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Insertion Ranker</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #1a1a2e; color: #e0e0e0; min-height: 100vh; }
+
+        header { background: #16213e; border-bottom: 1px solid #0f3460; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; }
+        header h1 { font-size: 1.4em; color: #fff; }
+        .controls { display: flex; gap: 10px; align-items: center; }
+        .controls button, .controls label { font-size: 0.9em; padding: 6px 14px; border: 1px solid #0f3460; border-radius: 4px; background: #16213e; color: #e0e0e0; cursor: pointer; }
+        .controls button:hover, .controls label:hover { background: #0f3460; }
+        .controls button:disabled { opacity: 0.4; cursor: default; }
+        .controls input[type="file"] { display: none; }
+
+        #load-prompt { text-align: center; padding: 80px 24px; }
+        #load-prompt h2 { margin-bottom: 16px; color: #ccc; }
+        #load-prompt label { display: inline-block; font-size: 1.1em; padding: 12px 28px; border: 2px dashed #0f3460; border-radius: 8px; cursor: pointer; color: #aaa; }
+        #load-prompt label:hover { border-color: #e94560; color: #e94560; }
+
+        #main { display: none; padding: 20px; }
+
+        /* Book being placed - sticky at top */
+        .placing-bar { position: sticky; top: 0; z-index: 10; background: #16213e; border: 2px solid #e94560; border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 16px; }
+        .placing-bar img { width: 50px; height: 75px; object-fit: cover; border-radius: 4px; flex-shrink: 0; }
+        .placing-bar .info { flex: 1; }
+        .placing-bar .label { font-size: 0.7em; text-transform: uppercase; letter-spacing: 1px; color: #e94560; }
+        .placing-bar .title { font-size: 1.1em; font-weight: 700; color: #fff; }
+        .placing-bar .author { font-size: 0.85em; color: #aaa; }
+        .placing-bar .pick-btn { padding: 8px 16px; background: #e94560; border: none; border-radius: 4px; color: #fff; cursor: pointer; font-weight: 600; }
+        .placing-bar .pick-btn:hover { background: #c73852; }
+        .placing-bar .search-status { font-size: 0.8em; color: #888; }
+
+        /* The ranked list */
+        .ranked-table { width: 100%; max-width: 900px; margin: 0 auto; border-collapse: collapse; }
+        .ranked-table tr { border-bottom: 1px solid #0f3460; }
+        .ranked-table tr.in-range { background: #1a2340; }
+        .ranked-table tr.pivot { background: #2a1a3a; border: 2px solid #a78bfa; }
+        .ranked-table tr.inserted { background: #1a3a2a; border: 2px solid #4ade80; }
+        .ranked-table tr.dimmed { opacity: 0.35; }
+        .ranked-table td { padding: 8px 12px; vertical-align: middle; }
+        .ranked-table .rank-num { width: 40px; text-align: right; color: #888; font-size: 0.85em; }
+        .ranked-table .book-img { width: 36px; }
+        .ranked-table .book-img img { width: 36px; height: 54px; object-fit: cover; border-radius: 3px; }
+        .ranked-table .book-info { }
+        .ranked-table .book-info .title { font-weight: 600; color: #fff; font-size: 0.95em; }
+        .ranked-table .book-info .author { color: #888; font-size: 0.8em; }
+        .ranked-table .buttons-cell { width: 220px; text-align: right; white-space: nowrap; }
+        .ranked-table .buttons-cell button { padding: 6px 14px; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.85em; margin-left: 6px; }
+        .ranked-table .btn-better { background: #4ade80; color: #1a1a2e; }
+        .ranked-table .btn-better:hover { background: #22c55e; }
+        .ranked-table .btn-worse { background: #f87171; color: #1a1a2e; }
+        .ranked-table .btn-worse:hover { background: #ef4444; }
+
+        /* Pick mode overlay */
+        .pick-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 50; display: none; align-items: flex-start; justify-content: center; padding-top: 60px; }
+        .pick-overlay.active { display: flex; }
+        .pick-panel { background: #16213e; border-radius: 12px; padding: 24px; width: 500px; max-height: 80vh; display: flex; flex-direction: column; }
+        .pick-panel h2 { color: #fff; margin-bottom: 12px; }
+        .pick-panel input { width: 100%; padding: 10px 14px; border: 1px solid #0f3460; border-radius: 6px; background: #0f3460; color: #e0e0e0; font-size: 1em; margin-bottom: 12px; }
+        .pick-panel input::placeholder { color: #666; }
+        .pick-panel .pick-list { flex: 1; overflow-y: auto; }
+        .pick-panel .pick-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 6px; cursor: pointer; }
+        .pick-panel .pick-item:hover { background: #0f3460; }
+        .pick-panel .pick-item img { width: 32px; height: 48px; object-fit: cover; border-radius: 3px; }
+        .pick-panel .pick-item .pick-title { font-size: 0.9em; color: #fff; }
+        .pick-panel .pick-item .pick-author { font-size: 0.75em; color: #888; }
+        .pick-panel .close-btn { position: absolute; top: 12px; right: 16px; background: none; border: none; color: #888; font-size: 1.5em; cursor: pointer; }
+
+        /* Export modal */
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 100; align-items: center; justify-content: center; }
+        .modal-overlay.active { display: flex; }
+        .modal { background: #16213e; border-radius: 12px; padding: 24px; max-width: 600px; width: 90%; max-height: 80vh; display: flex; flex-direction: column; }
+        .modal h2 { margin-bottom: 12px; color: #fff; }
+        .modal textarea { flex: 1; min-height: 300px; background: #0f3460; border: 1px solid #333; border-radius: 4px; color: #e0e0e0; font-family: monospace; font-size: 13px; padding: 12px; resize: vertical; }
+        .modal .modal-buttons { margin-top: 12px; display: flex; gap: 10px; justify-content: flex-end; }
+        .modal button { padding: 8px 18px; border: 1px solid #0f3460; border-radius: 4px; background: #16213e; color: #e0e0e0; cursor: pointer; }
+        .modal button:hover { background: #0f3460; }
+        .modal button.primary { background: #e94560; border-color: #e94560; color: #fff; }
+        .modal button.primary:hover { background: #c73852; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Binary Insertion Ranker</h1>
+    <div class="controls">
+        <label>Load JSON <input type="file" id="file-input" accept=".json"></label>
+        <button id="btn-export" disabled>Export YAML</button>
+        <button id="btn-undo" disabled>Undo</button>
+    </div>
+</header>
+
+<div id="load-prompt">
+    <h2>Load book_ranking_state.json to begin</h2>
+    <label>Choose file <input type="file" id="file-input-main" accept=".json"></label>
+</div>
+
+<div id="main">
+    <div class="placing-bar" id="placing-bar">
+        <img id="placing-img" src="" alt="">
+        <div class="info">
+            <div class="label">Placing:</div>
+            <div class="title" id="placing-title"></div>
+            <div class="author" id="placing-author"></div>
+        </div>
+        <div class="search-status" id="search-status"></div>
+        <button class="pick-btn" id="btn-pick">Pick Book</button>
+    </div>
+    <table class="ranked-table" id="ranked-table">
+        <tbody id="ranked-tbody"></tbody>
+    </table>
+</div>
+
+<!-- Pick book overlay -->
+<div class="pick-overlay" id="pick-overlay">
+    <div class="pick-panel">
+        <h2>Pick a book to place</h2>
+        <input type="text" id="pick-search" placeholder="Filter by title or author...">
+        <div class="pick-list" id="pick-list"></div>
+    </div>
+</div>
+
+<!-- Export modal -->
+<div class="modal-overlay" id="export-modal">
+    <div class="modal">
+        <h2>Ranked List (YAML)</h2>
+        <textarea id="export-text" readonly></textarea>
+        <div class="modal-buttons">
+            <button id="btn-copy">Copy</button>
+            <button class="primary" id="btn-close-modal">Close</button>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    const IMG_BASE = "../../";
+
+    let allBooks = {};
+    let rankedList = [];
+    let currentSlug = null;
+    let lo = 0, hi = 0, mid = 0;
+    let comparisons = 0;
+    let undoStack = [];
+
+    const fileInput = document.getElementById("file-input");
+    const fileInputMain = document.getElementById("file-input-main");
+    const loadPrompt = document.getElementById("load-prompt");
+    const mainEl = document.getElementById("main");
+    const btnExport = document.getElementById("btn-export");
+    const btnUndo = document.getElementById("btn-undo");
+    const btnPick = document.getElementById("btn-pick");
+    const pickOverlay = document.getElementById("pick-overlay");
+    const pickSearch = document.getElementById("pick-search");
+
+    fileInput.addEventListener("change", handleFile);
+    fileInputMain.addEventListener("change", handleFile);
+    btnExport.addEventListener("click", showExport);
+    btnUndo.addEventListener("click", undo);
+    btnPick.addEventListener("click", () => showPicker());
+    pickSearch.addEventListener("input", renderPickList);
+    pickOverlay.addEventListener("click", (e) => { if (e.target === pickOverlay) hidePicker(); });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+        if (e.key === "ArrowLeft" || e.key === "a") vote("better");
+        if (e.key === "ArrowRight" || e.key === "d") vote("worse");
+        if (e.key === "Escape") hidePicker();
+        if (e.key === "z" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); undo(); }
+    });
+
+    document.getElementById("btn-copy").addEventListener("click", () => {
+        const ta = document.getElementById("export-text");
+        ta.select();
+        navigator.clipboard.writeText(ta.value);
+    });
+    document.getElementById("btn-close-modal").addEventListener("click", () => {
+        document.getElementById("export-modal").classList.remove("active");
+    });
+
+    function handleFile(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            try {
+                loadState(JSON.parse(ev.target.result));
+            } catch (err) {
+                alert("Invalid JSON: " + err.message);
+            }
+        };
+        reader.readAsText(file);
+    }
+
+    function imgPath(book) {
+        if (!book.image) return "";
+        return IMG_BASE + book.image.replace(/^\//, "");
+    }
+
+    function loadState(state) {
+        allBooks = state.books || {};
+        if (state.ranked_list && state.ranked_list.length > 0) {
+            rankedList = state.ranked_list.filter(s => allBooks[s]);
+        } else {
+            const slugs = Object.keys(allBooks);
+            slugs.sort((a, b) => (allBooks[b].elo || 1500) - (allBooks[a].elo || 1500));
+            rankedList = slugs;
+        }
+
+        loadPrompt.style.display = "none";
+        mainEl.style.display = "block";
+        btnExport.disabled = false;
+
+        currentSlug = null;
+        renderTable();
+        showPicker();
+    }
+
+    function showPicker() {
+        pickSearch.value = "";
+        renderPickList();
+        pickOverlay.classList.add("active");
+        pickSearch.focus();
+    }
+
+    function hidePicker() {
+        pickOverlay.classList.remove("active");
+    }
+
+    function startPlacement(slug) {
+        currentSlug = slug;
+        comparisons = 0;
+        undoStack = [];
+
+        // Remove from list if re-ranking
+        const idx = rankedList.indexOf(slug);
+        if (idx !== -1) rankedList.splice(idx, 1);
+
+        lo = 0;
+        hi = rankedList.length;
+        mid = Math.floor((lo + hi) / 2);
+
+        hidePicker();
+        renderPlacingBar();
+        renderTable();
+    }
+
+    function vote(choice) {
+        if (!currentSlug || rankedList.length === 0) return;
+
+        undoStack.push({ lo, hi, mid });
+        btnUndo.disabled = false;
+
+        if (choice === "better") {
+            hi = mid;
+        } else {
+            lo = mid + 1;
+        }
+        comparisons++;
+
+        if (lo >= hi) {
+            rankedList.splice(lo, 0, currentSlug);
+            currentSlug = null;
+            renderTable(lo);
+            renderPlacingBar();
+            btnUndo.disabled = true;
+            undoStack = [];
+        } else {
+            mid = Math.floor((lo + hi) / 2);
+            renderTable();
+        }
+        updateSearchStatus();
+    }
+
+    function undo() {
+        if (undoStack.length === 0) return;
+        const prev = undoStack.pop();
+        lo = prev.lo;
+        hi = prev.hi;
+        mid = prev.mid;
+        comparisons = Math.max(0, comparisons - 1);
+        btnUndo.disabled = undoStack.length === 0;
+        renderTable();
+        updateSearchStatus();
+    }
+
+    function renderPlacingBar() {
+        const bar = document.getElementById("placing-bar");
+        if (!currentSlug) {
+            document.getElementById("placing-title").textContent = "None selected";
+            document.getElementById("placing-author").textContent = "";
+            document.getElementById("placing-img").src = "";
+            document.getElementById("search-status").textContent = "";
+            return;
+        }
+        const book = allBooks[currentSlug];
+        document.getElementById("placing-img").src = imgPath(book);
+        document.getElementById("placing-title").textContent = book.title;
+        document.getElementById("placing-author").textContent = (book.authors || []).join(", ");
+        updateSearchStatus();
+    }
+
+    function updateSearchStatus() {
+        if (!currentSlug) {
+            document.getElementById("search-status").textContent = "";
+            return;
+        }
+        const maxSteps = Math.ceil(Math.log2(rankedList.length + 1));
+        document.getElementById("search-status").textContent =
+            `Step ${comparisons + 1} / ~${maxSteps} · positions ${lo + 1}–${hi}`;
+    }
+
+    function renderTable(insertedAt) {
+        const tbody = document.getElementById("ranked-tbody");
+        tbody.innerHTML = "";
+
+        rankedList.forEach((slug, i) => {
+            const book = allBooks[slug];
+            const tr = document.createElement("tr");
+
+            // Determine row state
+            if (insertedAt !== undefined && i === insertedAt) {
+                tr.classList.add("inserted");
+            } else if (currentSlug) {
+                if (i >= lo && i < hi) {
+                    tr.classList.add("in-range");
+                } else {
+                    tr.classList.add("dimmed");
+                }
+                if (i === mid) {
+                    tr.classList.add("pivot");
+                }
+            }
+
+            // Rank number
+            const tdRank = document.createElement("td");
+            tdRank.className = "rank-num";
+            tdRank.textContent = i + 1;
+            tr.appendChild(tdRank);
+
+            // Image
+            const tdImg = document.createElement("td");
+            tdImg.className = "book-img";
+            tdImg.innerHTML = `<img src="${imgPath(book)}" alt="">`;
+            tr.appendChild(tdImg);
+
+            // Info
+            const tdInfo = document.createElement("td");
+            tdInfo.className = "book-info";
+            tdInfo.innerHTML = `<div class="title">${book.title}</div><div class="author">${(book.authors || [])[0] || ""}</div>`;
+            tr.appendChild(tdInfo);
+
+            // Buttons (only on pivot row)
+            const tdBtns = document.createElement("td");
+            tdBtns.className = "buttons-cell";
+            if (currentSlug && i === mid) {
+                tdBtns.innerHTML = `
+                    <button class="btn-better">▲ Better <kbd>←</kbd></button>
+                    <button class="btn-worse">▼ Worse <kbd>→</kbd></button>
+                `;
+                tdBtns.querySelector(".btn-better").addEventListener("click", () => vote("better"));
+                tdBtns.querySelector(".btn-worse").addEventListener("click", () => vote("worse"));
+            }
+            tr.appendChild(tdBtns);
+
+            tbody.appendChild(tr);
+        });
+
+        // Scroll pivot into view
+        if (currentSlug) {
+            const rows = tbody.querySelectorAll("tr");
+            if (rows[mid]) rows[mid].scrollIntoView({ block: "center", behavior: "smooth" });
+        } else if (insertedAt !== undefined) {
+            const rows = tbody.querySelectorAll("tr");
+            if (rows[insertedAt]) rows[insertedAt].scrollIntoView({ block: "center", behavior: "smooth" });
+        }
+    }
+
+    function renderPickList() {
+        const container = document.getElementById("pick-list");
+        const filter = pickSearch.value.toLowerCase();
+        const slugs = Object.keys(allBooks)
+            .filter(slug => {
+                const b = allBooks[slug];
+                return (b.title + " " + (b.authors || []).join(" ")).toLowerCase().includes(filter);
+            })
+            .sort((a, b) => allBooks[a].title.localeCompare(allBooks[b].title));
+
+        container.innerHTML = "";
+        slugs.forEach(slug => {
+            const book = allBooks[slug];
+            const div = document.createElement("div");
+            div.className = "pick-item";
+            div.innerHTML = `
+                <img src="${imgPath(book)}" alt="">
+                <div>
+                    <div class="pick-title">${book.title}</div>
+                    <div class="pick-author">${(book.authors || []).join(", ")}</div>
+                </div>
+            `;
+            div.addEventListener("click", () => startPlacement(slug));
+            container.appendChild(div);
+        });
+    }
+
+    function showExport() {
+        const lines = rankedList.map(slug => `  - ${allBooks[slug].title.toLowerCase()}`);
+        document.getElementById("export-text").value = lines.join("\n");
+        document.getElementById("export-modal").classList.add("active");
+    }
+})();
+</script>
+</body>
+</html>
