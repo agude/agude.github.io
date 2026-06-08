@@ -102,6 +102,8 @@ jack in or have your humanity cut away and replaced with chrome to lose
 yourself. Commodified, homogenized, commercialized culture does it for you
 already.
 
+### Culture Franchised
+
 {{ this_book }} is about a mind-virus that changes how people behave, makes
 them unconscious zombies; it's about the metaverse; it's about the replacement
 of government by franchises; it's about high-speed pizza delivery; it's about
@@ -122,6 +124,8 @@ Western and Kung Fu movie stars. The one thing that almost escaped capture was
 the Metaverse. It started as a bottom-up culture built by hackers, but even it
 got taken over and turned into a strip mall with millions of default Brandy
 and Clint avatars. The last bastion has become a product.
+
+### The Writing
 
 What I loved about this book is how {{ the_authors_lastname }} weaves
 Mesopotamian history, neurolinguistics, Pentecostal glossolalia, and
@@ -158,6 +162,8 @@ And then there is the scene where fifteen-year-old {{ YT }} has enthusiastic
 sex with Raven, a man in his forties. It creeped me out when I first read it
 and it creeped me out this time too. It's a lot of the reason I didn't like {{
 this_book }} originally.
+
+### Other Works
 
 {{ this_book }} reminded me of some other works. The idea that humans were
 controllable because they lacked consciousness, and that Enki's defense was to
