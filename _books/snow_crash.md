@@ -62,6 +62,7 @@ conspiracy to reprogram the human mind.
 
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
 
+{% capture gibson_lastname %}{% author_link "William Gibson" link_text="Gibson" %}{% endcapture %}
 {% capture gibsons_lastname %}{% author_link "William Gibson" link_text="Gibson" possessive %}{% endcapture %}
 {% capture neuromancer %}{% book_link "Neuromancer" %}{% endcapture %}
 
@@ -108,9 +109,9 @@ depleted uranium miniguns and smart wheels and katanas. That's the text, but
 all of it is {{ the_authors_lastname }} defamiliarizing 80s and 90s
 consumerism, exaggerating it so you notice what is already there.
 
-{{ gibsons_lastname }} left room for organic subcultures to survive next to
-the towering zaibatsu, like the Panther Moderns or the Rastafarians or even
-the console cowboys. {{ the_authors_lastname }} has done away with all that.
+{{ gibson_lastname }} left room for organic subcultures to survive next to the
+towering zaibatsu, like the Panther Moderns or the Rastafarians or even the
+console cowboys. {{ the_authors_lastname }} has done away with all that.
 Culture in {{ this_book }} comes top-down, packaged in a franchise container
 and sold the same everywhere. Your ethnicity? Turned into a stereotype-filled
 franchise like Mr. Lee's Hong Kong or NarcoColombia. Your neighborhood? A
@@ -153,10 +154,10 @@ the plot. And as is {{ the_authors_lastname_possessive }} habit, the story
 ends abruptly, but it didn't bother me as much this time because I was ready
 for it.
 
-And there is the scene where fifteen-year-old {{ YT }} has enthusiastic sex
-with Raven, a man in his forties. It creeped me out when I first read it and
-it creeped me out this time too. It's a lot of the reason I didn't like {{
-this_book }} the first time.
+And then there is the scene where fifteen-year-old {{ YT }} has enthusiastic
+sex with Raven, a man in his forties. It creeped me out when I first read it
+and it creeped me out this time too. It's a lot of the reason I didn't like {{
+this_book }} originally.
 
 {{ this_book }} reminded me of some other works. The idea that humans were
 controllable because they lacked consciousness, and that Enki's defense was to
@@ -168,13 +169,13 @@ information, and {{ qntms }} {{ there_is_no_antimemetics_division }}, where
 antimemes are ideas that can't be thought and have power over people. Cops
 showing advertisements, jails run by big-box stores, countries with
 subscriptions for citizenship, and a nickel-and-dime religion is right out of
-{{ dicks_lastname }} {{ ubik }}. And the pairing of Hiro and Da5id as hackers
-who started off small together, one hitting it big while the other didn't,
-mirrors Bishop and Cosmo from {{ sneakers }}. {{ YT }}, herself a harpooner,
-makes several references to {{ melvilles_lastname }} {{ moby_dick }},
-including the unintentionally apt observation that Ahab "just didn't know when
-to let go"; she means of the harpoon, but she's describing both Ahab and
-Raven's obsession with revenge.
+{{ dicks_lastname }} {{ ubik }}. The pairing of Hiro and Da5id as hackers who
+started off small together, one hitting it big while the other didn't, mirrors
+Bishop and Cosmo from {{ sneakers }}. And {{ YT }}, herself a harpooner, makes
+several references to {{ melvilles_lastname }} {{ moby_dick }}, including the
+unintentionally apt observation that Ahab "just didn't know when to let go";
+she means of the harpoon, but she's describing both Ahab and Raven's obsession
+with revenge.
 
 Some smaller references: motorcycles in the Metaverse are out of {{ tron }}.
 The freighters full of refugees appear again in {{ winterss_lastname }} {{
