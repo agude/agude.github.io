@@ -5,20 +5,15 @@ title: "Resume"
 seo_title: "Alexander Gude - Resume"
 description: >
   Alexander Gude's Resume. Alex is a machine learning engineer.
-job_title: "Staff Machine Learning Engineer"
+job_title: "Senior Staff Machine Learning Engineer"
 career_start_year: 2015
 
 statement: >
-  A highly accomplished machine learning engineer with YEARS_PLACEHOLDER years
-  of experience driving innovation in fraud detection, anti-money laundering,
-  and financial modeling at leading technology companies Cash App and Intuit.
-  Demonstrated success in spearheading high-impact initiatives, such as enabling
-  instant bank account opening at Cash App that increased paycheck deposits by
-  90%, as well as developing cutting-edge fraud monitoring systems that reduced
-  fraud volumes by 12x in 18 months. A strategic leader adept at building and
-  managing high-performing data science teams, implementing engineering best
-  practices, and deploying machine learning models that delivered tangible
-  business value.
+  Machine learning engineer with YEARS_PLACEHOLDER years of experience in
+  fraud detection and financial risk at Cash App and Intuit. Built the ACH
+  fraud program that reduced fraud volumes by over 200x and the transaction
+  categorization system that drives loan sizing, deposit eligibility, and
+  compliance for millions of customers.
 
 experience:
   - company: "Cash App"
@@ -30,32 +25,41 @@ experience:
         dates: "2020--2023"
     bullets:
       - >
-        Estimated the impact of instant bank account opening (as opposed to delayed
-        until card shipment) to customer paycheck deposit attach rates. Took the
-        lead in pre-emptively building anti-fraud checkpoints for the process and
-        worked with legal, compliance, and business operations to get the program
-        green-lit by our external banking partners. Instant bank accounts delivered
-        a 90% increase in paycheck deposits by our customers and a 55% increase in
-        dollar inflows from paychecks.
+        Sized the opportunity and built the anti-fraud controls for instant
+        bank account opening, the primary launch blocker. Worked with
+        compliance and external banking partners to get the program green-lit.
+        Instant bank accounts delivered a 90% increase in paycheck deposits
+        and a 55% increase in revenue from paycheck deposits.
       - >
-        Developed high-recall metrics for monitoring fraud across all ACH transfers
-        giving high visibility into developing problem areas. Built automated alerts
-        based on these metrics so bad activity did not slip through any gaps.
+        Built the ACH fraud detection program from the ground up: developed
+        high-recall monitoring metrics, scaled a human review pipeline to
+        thousands of reviews per week, and deployed targeted rules and machine
+        learning models. Reduced fraud volumes by 12x in the first 18 months,
+        and with continual improvements over 200x across five years.
       - >
-        Using the fraud metrics, targeted high precision rules and machine learning
-        models to curtail the worst fraud. Lowered fraud volumes by 12x in 18
-        months.
+        Briefed the IRS, state tax administrators, and banking partners on the
+        anti-fraud program, securing continued confidence in Cash App's
+        deposit controls, without which tax refund deposits, 18% of all
+        inflows, could have been redirected away from Cash App accounts.
       - >
-        Monitored the fraud metrics for tax returns deposited to customer accounts.
-        Briefed the IRS and state tax administrators on Cash App Tax's anti-fraud
-        program, including my monitoring, alerting, models, and rules. My work gave
-        them enough confidence to not redirect tax refund deposits from our
-        customer's bank accounts, which were 18% of all inflows in 2022.
+        Built and own the ACH transaction categorization system for Cash App
+        Banking. Deployed the first ML model, then integrated generative AI,
+        the first GenAI deployment at Cash App, reducing uncategorized
+        transactions by an additional 3x. The system drives lending decisions,
+        deposit eligibility, fraud risk scoring, and compliance workflows for
+        millions of customers. Work submitted as a patent.
       - >
-        Deployed first ACH categorization model for Cash App Banking, reducing
-        uncategorized transactions by 50% and increasing tracked payroll deposit
-        volume by 30%. The improved income categorization has allowed us to make
-        more profitable loans by sizing loan offers to expected ability to repay.
+        Analyzed deposit limit policies and demonstrated that per-transaction
+        caps were blocking legitimate customers at a rate exceeding 97%,
+        driving a cross-functional initiative to restructure limits that
+        unblocked over $100M in annual deposit volume.
+      - >
+        Built an LLM-powered fraud investigation tool that exceeded human
+        reviewer precision. Automated compliance document generation from
+        code and metrics. Championed AI adoption across the risk
+        organization, presenting at Block's inaugural AI Summit, building
+        over 20 agent skills for daily fraud analysis, and coaching
+        engineers across multiple teams on integrating LLMs.
 
   - company: "Intuit"
     location: "Mountain View, CA"
@@ -66,27 +70,28 @@ experience:
         dates: "2018--2019"
     bullets:
       - >
-        Led 8 data scientists in building machine learning models to detect and stop
-        fraud.
+        Led 8 data scientists in building machine learning models to detect
+        and stop fraud.
       - >
         Drove adoption of engineering best practices by the team, including
-        implementation of peer review for code changes and automated correctness
-        checking, building of CI/CD pipelines for code and model deployment, and
-        added metrics around test coverage and code health, reducing number of P0
+        peer review, automated correctness checking, CI/CD pipelines for
+        code and model deployment, and test coverage metrics, reducing P0
         production bugs from 2 in the first year to 0.
       - >
-        Deployed the first in-product, real-time account takeover prevention model
-        at Intuit---launched in production in TurboTax and alerted security to a
-        possible breach within the first week of running. Back-testing showed it
-        would have detected 95% of last year's stolen tax return downloads.
+        Deployed the first in-product, real-time account takeover prevention
+        model at Intuit---launched in production in TurboTax and alerted
+        security to a possible breach within the first week of running.
+        Back-testing showed it would have detected 95% of last year's stolen
+        tax return downloads.
       - >
-        Drove migration of machine learning models from Intuit's on-prem data center
-        to AWS platform without interruption of services, saving $1.5M per year in
-        operation costs.
+        Drove migration of machine learning models from Intuit's on-prem data
+        center to AWS platform without interruption of services, saving $1.5M
+        per year in operation costs.
       - >
-        Improved the TurboTax Online account takeover model leading to a 90%
-        reduction in wrongly challenged users, stopping 10X as many fraudsters, and
-        shortening feature processing time from 2 hours to under a second.
+        Improved the legacy TurboTax Online account takeover model, leading to
+        a 90% reduction in wrongly challenged users, stopping 10X as many
+        fraudsters, and shortening feature processing time from 2 hours to
+        under a second.
 
   - company: "Lab41, an In-Q-Tel Lab"
     location: "Menlo Park, CA"
@@ -95,25 +100,24 @@ experience:
         dates: "2015--2017"
     bullets:
       - >
-        Led a team of 3 engineers in investigating the latest computer vision
-        techniques for vehicle re-identification using deep learning and develop a
-        system within 6 months that enabled clients to automatically detect the same
-        vehicle across multiple videos from security cameras. Handed over the new
-        system to customer's internal development team and provided training.
+        Led a team of 3 engineers to build a vehicle re-identification system
+        using deep learning within 6 months, enabling clients to
+        automatically detect the same vehicle across multiple security
+        camera feeds. Handed over the system to the customer's internal
+        development team and provided training.
       - >
-        Worked as part of a team of 3 scientists to develop an embedding technique
-        to train a convolutional neural network on unlabeled, open-source image
-        data. Built a system using TensorFlow that learned to embed images and text
-        into a joint vector space, allowing customers to perform content-based image
-        retrieval on a corpus of 100M untagged images.
+        Built a system using TensorFlow that embedded images and text into a
+        joint vector space, trained on unlabeled open-source image data.
+        Enabled customers to perform content-based image retrieval on a
+        corpus of 100M untagged images. Published at BMVC 2017.
       - >
-        Designed and implemented a recommender system evaluation framework in Python
-        and Spark and leveraged it to develop a Python-snippet recommender using
-        word embeddings.
+        Designed and implemented a recommender system evaluation framework in
+        Python and Spark and leveraged it to develop a Python-snippet
+        recommender using word embeddings.
 
 skills:
-  languages: 'Python, Scala, SQL, shell script, C++, <span class="latex">L<sup>a</sup>T<sub>e</sub>X</span>'
-  tools: "Sagemaker, NumPy, SciPy, Matplotlib, Tensorflow, Pandas, Spark, git, Linux, vim"
+  languages: 'Python, SQL, Scala, shell script, C++, <span class="latex">L<sup>a</sup>T<sub>e</sub>X</span>'
+  tools: "PyTorch, scikit-learn, XGBoost, Snowflake, dbt, NumPy, Pandas, Matplotlib, git, Linux, vim"
 
 education:
   - company: "University of Minnesota"
