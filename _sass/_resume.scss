@@ -125,24 +125,18 @@
 }
 
 @media print {
+  @page {
+    margin: 0.5in;
+  }
+
   html {
     font-size: 10pt;
   }
 
-  .sidebar {
-    display: none;
-  }
-
-  .content {
-    margin-left: 0;
-    margin-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    max-width: none;
-  }
-
   .resume {
-    h2:after {
+    color: black;
+
+    h2 {
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
     }

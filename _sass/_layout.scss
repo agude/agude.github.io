@@ -41,3 +41,13 @@ footer {
 .themed .related-posts li a:hover {
   color: $sidebar_color;
 }
+
+@media print {
+  .content {
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    max-width: none;
+  }
+}
