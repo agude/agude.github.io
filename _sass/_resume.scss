@@ -125,29 +125,10 @@
 }
 
 @media print {
-  @page {
-    margin: 0.5in;
-  }
-
-  html {
-    font-size: 10pt;
-  }
-
   .resume {
-    color: black;
-
     h2 {
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .anchor-link-img {
-      display: none;
     }
 
     .resume-header-grid {

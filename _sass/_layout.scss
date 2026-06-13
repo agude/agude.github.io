@@ -43,6 +43,12 @@ footer {
 }
 
 @media print {
+  .themed .content a {
+    color: inherit;
+  }
+}
+
+@media print {
   .content {
     margin-left: 0;
     margin-right: 0;

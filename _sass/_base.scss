@@ -268,3 +268,29 @@ a[href^="#fnref:"] {
   font-size: $lead-font-size;
   font-weight: 300;
 }
+
+@media print {
+  @page {
+    margin: 0.5in;
+  }
+
+  html {
+    font-size: 10pt;
+  }
+
+  body, h1, h2, h3, h4, h5, h6, strong {
+    color: black;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .anchor-link-img {
+    display: none;
+  }
+
+  .markdown-alt-link {
+    display: none !important;
+  }
+}
