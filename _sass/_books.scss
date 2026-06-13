@@ -115,12 +115,14 @@ a.book-nav-item {
 }
 
 @media print {
-  .related .book-card {
+  .related .book-card,
+  .previous-reviews .book-card {
     grid-template-columns: 8em 1fr;
     padding: 0.5em 0;
   }
 
-  .related .card-book-cover {
+  .related .card-book-cover,
+  .previous-reviews .card-book-cover {
     max-width: none;
   }
 }
