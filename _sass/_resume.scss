@@ -123,3 +123,45 @@
     margin-right: -0.15em;
   }
 }
+
+@media print {
+  html {
+    font-size: 10pt;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .content {
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    max-width: none;
+  }
+
+  .resume {
+    h2:after {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .anchor-link-img {
+      display: none;
+    }
+
+    .resume-header-grid {
+      break-inside: avoid;
+    }
+
+    li {
+      break-inside: avoid;
+    }
+  }
+}
