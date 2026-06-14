@@ -214,7 +214,7 @@ class TestCitationUtilsFullCitations < TestCitationUtilsBase
   def build_article_expected
     'Doe, Jane. <a href="http://example.com/article_url">"My Research Findings"</a> ' \
       "<cite>Journal of Important Discoveries</cite>. vol.#{NBSP}15, no.#{NBSP}3. 2023. " \
-      "pp.#{NBSP}101--115. doi:#{NBSP}<a href=\"https://doi.org/10.1234/jid.2023.15.3.101\">" \
+      "pp.#{NBSP}101–115. doi:#{NBSP}<a href=\"https://doi.org/10.1234/jid.2023.15.3.101\">" \
       '10.1234/jid.2023.15.3.101</a>.'
   end
 
@@ -248,7 +248,7 @@ class TestCitationUtilsFullCitations < TestCitationUtilsBase
   def build_chapter_expected
     'ChapterAuthor, C. <a href="http://example.com/chapter_url">"On Specific Topics"</a> ' \
       '<cite>The Big Book of Topics</cite>. Edited by Book Editor. University Press. 2021. ' \
-      "pp.#{NBSP}45--60."
+      "pp.#{NBSP}45–60."
   end
 
   def build_journal_no_url_params
@@ -268,7 +268,7 @@ class TestCitationUtilsFullCitations < TestCitationUtilsBase
 
   def build_journal_no_url_expected
     'Clopath, Henrietta. "Genuine Art versus Mechanism" <cite>Brush and Pencil</cite>. ' \
-      "vol.#{NBSP}7, no.#{NBSP}6. March 1, 1901. pp.#{NBSP}331--333. doi:#{NBSP}" \
+      "vol.#{NBSP}7, no.#{NBSP}6. March 1, 1901. pp.#{NBSP}331–333. doi:#{NBSP}" \
       '<a href="https://doi.org/10.2307/25505621">10.2307/25505621</a>.'
   end
 
@@ -295,7 +295,7 @@ class TestCitationUtilsFullCitations < TestCitationUtilsBase
   def build_maximal_expected
     'Maximus, A. <a href="http://example.com/max">"The Component Piece"</a> ' \
       '<cite>The Grand Collection</cite>. Edited by Ed Itor. 3rd Revised ed. ' \
-      "vol.#{NBSP}X, no.#{NBSP}1. OmniPress. 2025. pp.#{NBSP}10--20. doi:#{NBSP}" \
+      "vol.#{NBSP}X, no.#{NBSP}1. OmniPress. 2025. pp.#{NBSP}10–20. doi:#{NBSP}" \
       '<a href="https://doi.org/10.9999/max.123">10.9999/max.123</a>. Retrieved Feb 29, 2028.'
   end
 end

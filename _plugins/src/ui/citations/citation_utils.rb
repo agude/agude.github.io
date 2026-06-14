@@ -203,7 +203,7 @@ module Jekyll
         def self._generate_pages_part(first_page:, last_page:, page:)
           if _present?(first_page)
             pg_str = "pp.#{NBSP}#{_escape_html(first_page)}"
-            pg_str += "--#{_escape_html(last_page)}" if _present?(last_page)
+            pg_str += "–#{_escape_html(last_page)}" if _present?(last_page)
             return pg_str
           elsif _present?(page)
             return "p.#{NBSP}#{_escape_html(page)}"
