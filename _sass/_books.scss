@@ -114,19 +114,6 @@ a.book-nav-item {
   text-decoration: none;
 }
 
-@media print {
-  .related .book-card,
-  .previous-reviews .book-card {
-    grid-template-columns: 8em 1fr;
-    padding: 0.5em 0;
-  }
-
-  .related .card-book-cover,
-  .previous-reviews .card-book-cover {
-    max-width: none;
-  }
-}
-
 // Alphabetical jump links for book lists
 .alpha-jump-links {
   display: flex;

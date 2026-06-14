@@ -73,3 +73,16 @@
   @extend .card-element;
   font-size: $card-font-size;
 }
+
+@media print {
+  .book-card,
+  .article-card {
+    grid-template-columns: 8em 1fr;
+    padding: 0.5em 0;
+  }
+
+  .card-book-cover,
+  .card-image {
+    max-width: none;
+  }
+}
