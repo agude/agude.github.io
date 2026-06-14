@@ -151,6 +151,43 @@ a.sidebar-nav-item:focus {
 
 @media print {
   .sidebar {
+    position: static;
+    width: 100%;
+    padding: 0;
+    background: none !important;
+    color: black;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 2.5rem;
+    padding-bottom: 0.4rem;
+  }
+
+  .sidebar a {
+    color: black;
+  }
+
+  .sidebar-identity {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    margin-bottom: 0;
+    gap: 0.25rem;
+  }
+
+  .sidebar-identity .lead {
+    color: black !important;
+    font-size: 9pt;
+  }
+
+  .sidebar-sticky {
+    max-width: none;
+    margin-left: 0;
+  }
+
+  .sidebar-portrait,
+  .sidebar-nav,
+  .sidebar-social-links,
+  .sidebar .legal {
     display: none;
   }
 }

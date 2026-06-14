@@ -125,6 +125,10 @@
 }
 
 @media print {
+  body:has(> main > article.resume) .sidebar {
+    display: none;
+  }
+
   .resume {
     h2 {
       -webkit-print-color-adjust: exact;
