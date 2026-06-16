@@ -98,6 +98,10 @@ a.post-tag {
 }
 
 // Anchor links
+h1[id], h2[id], h3[id], h4[id], h5[id], h6[id] {
+  scroll-margin-top: 1rem;
+}
+
 h1 .anchor-link-img, h2 .anchor-link-img, h3 .anchor-link-img, h4 .anchor-link-img, h5 .anchor-link-img, h6 .anchor-link-img  {
   visibility: hidden;
 }
