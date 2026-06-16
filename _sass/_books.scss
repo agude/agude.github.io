@@ -6,7 +6,8 @@
 .book-cover-float-container {
   float: none;
   margin: 0 0 1.5rem 0;
-  max-width: 15em;
+  width: 15em;
+  max-width: 100%;
 }
 
 // The book cover image itself
@@ -14,6 +15,7 @@
   display: block;
   width: 100%;
   height: auto;
+  aspect-ratio: auto 2/3;
 }
 
 // Desktop Styles (With Float)

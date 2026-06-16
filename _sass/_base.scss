@@ -2,15 +2,28 @@
 // Resets, typography, tables, and foundational styles
 @use "variables" as *;
 
+// Skip link
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 0.5rem 1rem;
+  background: $body-bg;
+  color: $body-color;
+  transform: translateY(-100%);
+
+  &:focus {
+    transform: translateY(0);
+    outline: 2px solid $sidebar-color;
+  }
+}
+
 // Box-sizing reset
 html {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 *, *:before, *:after {
-  -webkit-box-sizing: inherit;
-  -moz-box-sizing: inherit;
   box-sizing: inherit;
 }
 
@@ -37,8 +50,7 @@ body {
   background-color: $body-bg;
   margin: 0;
   padding: 0;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 // Links
@@ -47,7 +59,7 @@ a {
   text-decoration: none;
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     text-decoration: underline;
   }
 
@@ -186,7 +198,7 @@ dd {
 
 // Dashed un-ordered lists
 ul {
-  list-style-type: "— "; /* em dash with space*/
+  list-style-type: "–  ";
 }
 
 ul > li::marker {
@@ -297,5 +309,13 @@ a[href^="#fnref:"] {
 
   .reversefootnote {
     display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0s !important;
+    animation-duration: 0s !important;
+    animation-iteration-count: 1 !important;
   }
 }
