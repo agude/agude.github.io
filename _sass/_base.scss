@@ -59,7 +59,7 @@ a {
   text-decoration: none;
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     text-decoration: underline;
   }
 
@@ -309,5 +309,13 @@ a[href^="#fnref:"] {
 
   .reversefootnote {
     display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0s !important;
+    animation-duration: 0s !important;
+    animation-iteration-count: 1 !important;
   }
 }
