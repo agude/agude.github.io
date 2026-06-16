@@ -1,6 +1,6 @@
 {% assign homeurl = site.baseurl | append: "/" %}
 
-<aside class="sidebar">
+<aside class="sidebar" aria-label="Sidebar">
   <div class="container sidebar-sticky">
     <div class="sidebar-about">
       <div class="sidebar-identity">
@@ -11,7 +11,7 @@
       </div>
     </div>
 
-    <nav class="sidebar-nav">
+    <nav class="sidebar-nav" aria-label="Site">
       <a class="sidebar-nav-item{% if page.url == homeurl %} active{% endif %}" href="{{ homeurl }}">Home</a>
 
       {% comment %}
@@ -38,27 +38,27 @@
       <div class="sidebar-social-links-buttons">
 
         {% comment %} BlueSky Button {% endcomment %}
-        <a rel="me" class="sidebar-button bluesky-button" href="https://bsky.app/profile/{{ site.author.bluesky }}">
+        <a rel="me" class="sidebar-button bluesky-button" href="https://bsky.app/profile/{{ site.author.bluesky }}" aria-label="Bluesky">
           {% include icon-bluesky.svg %}
         </a>
 
         {% comment %} Mastodon Button {% endcomment %}
-        <a rel="me" class="sidebar-button mastodon-button" href="https://{{ site.author.mastodon_instance }}/@{{ site.author.mastodon }}">
+        <a rel="me" class="sidebar-button mastodon-button" href="https://{{ site.author.mastodon_instance }}/@{{ site.author.mastodon }}" aria-label="Mastodon">
           {% include icon-mastodon.svg %}
         </a>
 
         {% comment %} Github Button {% endcomment %}
-        <a rel="me" class="sidebar-button github-button" href="https://www.github.com/{{ site.author.github}}/">
+        <a rel="me" class="sidebar-button github-button" href="https://www.github.com/{{ site.author.github}}/" aria-label="GitHub">
           {% include icon-github.svg %}
         </a>
 
         {% comment %} LinkedIn Button {% endcomment %}
-        <a rel="me" class="sidebar-button linkedin-button" href="https://www.linkedin.com/in/{{ site.author.linkedin}}/">
+        <a rel="me" class="sidebar-button linkedin-button" href="https://www.linkedin.com/in/{{ site.author.linkedin}}/" aria-label="LinkedIn">
           {% include icon-linkedin.svg %}
         </a>
 
         {% comment %} RSS Button {% endcomment %}
-        <a class="sidebar-button rss-button" href="/feed.xml">
+        <a class="sidebar-button rss-button" href="/feed.xml" aria-label="RSS feed">
           {% include icon-rss.svg %}
         </a>
 
@@ -70,7 +70,7 @@
     <div class="legal">
       <small>
         &copy;&nbsp;<time datetime="{{ '2016-01-01T00:00:00Z' | date_to_xmlschema }}">2016</time>&ndash;<time datetime="{{ site.time | date_to_xmlschema }}">{{ site.time | date: '%Y' }}</time> by {{ site.author.name }}<br>
-        Original content licensed <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" class="license-icons">{% include cc.svg %}{% include by.svg %}{% include sa.svg %}</a>
+        Original content licensed <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" class="license-icons" aria-label="CC BY-SA 4.0 license">{% include cc.svg %}{% include by.svg %}{% include sa.svg %}</a>
        </small>
      </div>
 

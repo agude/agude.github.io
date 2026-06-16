@@ -2,6 +2,23 @@
 // Resets, typography, tables, and foundational styles
 @use "variables" as *;
 
+// Skip link
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 0.5rem 1rem;
+  background: $body-bg;
+  color: $body-color;
+  transform: translateY(-100%);
+
+  &:focus {
+    transform: translateY(0);
+    outline: 2px solid $sidebar-color;
+  }
+}
+
 // Box-sizing reset
 html {
   box-sizing: border-box;
