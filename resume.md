@@ -12,7 +12,7 @@ statement: >
   Machine learning engineer with YEARS_PLACEHOLDER years of experience in
   fraud detection and financial risk at Cash App and Intuit. Built the ACH
   fraud program that reduced fraud volumes by over 200x and the transaction
-  categorization system that drives loan sizing, deposit eligibility, and
+  categorization system that drives loan sizing, benefits eligibility, and
   compliance for millions of customers.
 
 experience:
@@ -46,7 +46,7 @@ experience:
         Banking. Deployed the first ML model, then integrated generative AI,
         the first GenAI deployment at Cash App, reducing uncategorized
         transactions by an additional 3x. The system drives lending decisions,
-        deposit eligibility, fraud risk scoring, and compliance workflows for
+        benefits eligibility, fraud risk scoring, and compliance workflows for
         millions of customers. Work submitted as a patent.
       - >
         Analyzed deposit limit policies and demonstrated that per-transaction
