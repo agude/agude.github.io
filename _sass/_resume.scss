@@ -2,6 +2,9 @@
 @use "variables" as *;
 
 .resume {
+  font-family: $site-title-font-family;
+  line-height: 1.3;
+
   // Justify text
   p , li {
     text-align: justify;
@@ -10,6 +13,19 @@
     hyphenate-limit-chars: 7;
     hyphenate-limit-lines: 2;
     text-wrap: pretty;
+  }
+
+  p {
+    margin-bottom: 0.4em;
+  }
+
+  ul {
+    margin-top: 0.2em;
+    margin-bottom: 0.4em;
+  }
+
+  li {
+    margin-bottom: 0.1em;
   }
 
   // Headers
@@ -33,11 +49,15 @@
   .subtitle {
     text-align: center;
     font-size: $h3-font-size;
+    margin-bottom: 0.3em;
   }
 
   h2 {
+    font-size: $h3-font-size;
     color: $sidebar-color;
     overflow: hidden;
+    margin-top: 0.6em;
+    margin-bottom: 0.3em;
   }
 
   h2:after { // Add a line after the header text
@@ -53,10 +73,10 @@
   .resume-header-grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    grid-gap: 0.2em;
-    padding: 0.2em;
-    margin-top: 0.25em;
-    margin-bottom: 0.25em;
+    grid-gap: 0.1em;
+    padding: 0;
+    margin-top: 0.15em;
+    margin-bottom: 0.15em;
   }
 
   .resume-header-grid p, .resume-header-grid h3 {
@@ -92,10 +112,10 @@
   .resume-skills-grid {
     display: grid;
     grid-template-columns: 1fr 4fr;
-    grid-gap: 0.2em;
-    padding: 0.2em;
-    margin-top: 0.25em;
-    margin-bottom: 0.25em;
+    grid-gap: 0.1em;
+    padding: 0;
+    margin-top: 0.15em;
+    margin-bottom: 0.15em;
   }
 
   .resume-skills-grid p {
@@ -133,6 +153,7 @@
 
   .resume {
     h2 {
+      color: $sidebar-color !important;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
     }
