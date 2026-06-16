@@ -4,11 +4,12 @@
 .resume {
   // Justify text
   p , li {
-    word-break: break-word;
     text-align: justify;
-    text-justify: inter-character;
+    text-justify: inter-word;
     hyphens: auto;
+    hyphenate-limit-chars: 7;
     hyphenate-limit-lines: 2;
+    text-wrap: pretty;
   }
 
   // Headers
@@ -60,11 +61,12 @@
 
   .resume-header-grid p, .resume-header-grid h3 {
     margin: 0;
-    word-break: unset;
     text-align: unset;
     text-justify: unset;
     hyphens: unset;
+    hyphenate-limit-chars: unset;
     hyphenate-limit-lines: unset;
+    text-wrap: unset;
     display: inline;
   }
 
