@@ -4,7 +4,7 @@
 <figure>
   {% comment %} The image {% endcomment %}
   <a href="{{ include | optional: 'url' }}">
-    <img src="{{ include | optional: 'url' }}" alt="{{ include | optional: 'image_alt' | default: "A figure with a caption" }}" />
+    <img src="{{ include | optional: 'url' }}" alt="{{ include | optional: 'image_alt' | default: "A figure with a caption" }}" decoding="async" />
   </a>
   {% comment %} The caption {% endcomment %}
   {% assign caption = include | optional: 'caption' %}

@@ -34,6 +34,7 @@ layout: default
     <img id="lead-image"
       src="{{ image }}"
       alt="{{ page | optional: 'image_alt' | default: "Article header image, used for decoration." | strip }}"
+      decoding="async"
     />
   {% endif %}
 
