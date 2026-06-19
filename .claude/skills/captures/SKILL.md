@@ -146,13 +146,15 @@ Common abbreviations are fine in the variable name: `botns`, `cantos`.
 
 ### Movies, Games, Other Media
 
-These don't have link tags, so use raw HTML:
+These use their own title tags (`movie_title`, `game_title`, `tv_show_title`) — styled text, not hyperlinks:
 
 ```liquid
 {% capture terminator %}{% movie_title "Terminator" %}{% endcapture %}
 {% capture fallout %}{% game_title "Fallout" %}{% endcapture %}
 {% capture ds9 %}{% tv_show_title "Deep Space Nine" %}{% endcapture %}
 ```
+
+Filmmakers and showrunners, though, get `author_link` pages just like book authors — link the *person* with `author_link`, the *work* with the title tag.
 
 **Exception**: Disco Elysium is treated as a book and uses `{% book_link "Disco Elysium" %}`.
 

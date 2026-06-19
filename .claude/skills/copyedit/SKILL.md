@@ -47,7 +47,13 @@ You must:
 
 ### Polish Mode
 
-**Add the edited copy to the bottom of the article, separated by a markdown HR break.** This is a first draft. After that, work with the author to iterate: propose options for specific sentences or paragraphs, discuss transitions, and refine collaboratively.
+**Add the edited copy to the bottom of the article, separated by a markdown HR break.** This is a first draft, not the final word — the author applies the prose himself.
+
+After the draft, the mode is **advisory**: diagnose what isn't landing, brainstorm, and review what he slots in (the loop is advise → he edits → "take a look" → review). Don't silently rewrite paragraphs. Specifically:
+
+- **Offer 2-4 labeled options plus a recommendation** for a given sentence or transition, and let him choose. Don't converge on one rewrite prematurely.
+- **Flag, don't apply, meaning changes.** Any edit that adds interpretation, shifts emphasis, or is a taste call gets flagged for his decision, not applied. Preserve meaning, opinions, humor, and all Liquid tags.
+- **Number your suggestions** so they're easy to reference.
 
 ### Grammar Mode
 
@@ -75,6 +81,8 @@ Key points:
 - Don't make it sound more formal or academic
 - Don't add superlatives or intensifiers
 - Don't stack comma-separated adjectives ("brutal, high-stakes", "dark, gritty"). Pick one.
+- Don't overclaim interpretation --- keep to what the text supports, not what you read into it (character intent, desire, aspiration).
+- Don't add metaphors or figurative language; say it literally.
 
 ## Book Review Structure
 

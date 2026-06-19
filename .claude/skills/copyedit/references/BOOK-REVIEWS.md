@@ -38,6 +38,7 @@ The first paragraph is special:
 2. **No capture variables**: Cannot define `{% capture %}` blocks and use them here (the capture becomes the excerpt instead of the paragraph text). Inline plugin tags (`{% book_link %}`, `{% author_link %}`, `{% series_text %}`) work fine.
 3. **Can use page variables**: `{{ page.title }}`, `{{ page.book_authors }}`, `{{ page.series }}`
 4. **Must stand alone**: Should make sense without the rest of the review
+5. **No quality verdict**: give the plot premise (new situation, conflict, who's involved), not how good it is — the verdict belongs in paragraph 2. Before drafting P1 options, read the existing P2 so P1 doesn't preempt it (the constraint runs both ways).
 
 Standard opening pattern:
 ```markdown
@@ -114,6 +115,16 @@ The transition from paragraph 1 to paragraph 2 is a prose challenge:
 > P1: "This book follows a soldier named Kassad..."
 > P2: "Kassad's story is military sci-fi at its best, but it's also our first hint that the Hegemony isn't what it seems."
 
+## Paragraph Structure
+
+- **Every sentence must support the paragraph's thesis.** A sentence that's
+  actually a dig at a weakness doesn't belong in a paragraph arguing a strength —
+  even if it's true.
+- **Preserve intentional logical buildup within a sentence.** If the author
+  chains ideas (multiple storylines → expands the universe → bigger battles),
+  splitting the chain can destroy the rhetorical flow.
+- **Avoid vague claims** ("the action is tighter"). Prefer concrete specifics.
+
 ## Common Sections
 
 Reviews often include:
@@ -121,6 +132,25 @@ Reviews often include:
 - **Story** --- Plot discussion, pacing, what worked/didn't
 - **Literary References** --- Connections to other works (generates backlinks)
 - Per-story sections for anthologies
+
+## Literary Comparisons
+
+The "reminded me" section — typically the last substantive section before the
+close. It's a **signature** of these reviews (see `STYLE.md`), so a long one is
+fine.
+
+- **Lead in.** Open with a sentence like `{{ this_book }} reminded me of many
+  other books.` (or "several others" / "a few others"). Don't jump straight into
+  the comparisons.
+- **Format varies with content.** Flowing prose for a few tightly-related works;
+  a bullet list when collecting many discrete connections.
+- **Group by theme, not chronology** — related works share a sentence joined with
+  semicolons (e.g. an identity/consciousness cluster; "death when optional"; the
+  author's own other work).
+- **Digits for numbers:** "3 generations", "9 stories", "20 years."
+- **Never close on a bare list** — end on a sentence that states the point.
+  Comparisons also get woven into the thematic sections as influence lists; don't
+  trim those to hit a count either.
 
 ## Backlinks
 
