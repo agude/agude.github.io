@@ -109,6 +109,15 @@ edition. If so, search the Wikidata edition entities for an
 English-language ISBN, or find one on the publisher's site. The ISBN
 should be ISBN-13 format (978-...).
 
+#### Check Awards for Anthologies
+
+The metadata script only finds awards for the collection itself. For
+anthologies (`is_anthology: true`), also check whether any individual
+stories in the collection won Hugo, Nebula, or Locus awards and add
+those to the `awards` list. The `awards` field should reflect all
+awards associated with the book's contents, not just the collection
+as a whole.
+
 #### Verify `same_as_urls`
 
 The work-level Wikidata entity (the original novel, not a specific

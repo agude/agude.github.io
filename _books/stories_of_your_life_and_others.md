@@ -11,7 +11,9 @@ wikidata_qid: Q3045861
 isbn: 978-0-7653-0418-6
 date_published: 2002-07
 awards:
+  - hugo
   - locus
+  - nebula
 same_as_urls:
   - "https://www.wikidata.org/wiki/Q3045861"
   - "https://en.wikipedia.org/wiki/Stories_of_Your_Life_and_Others"
