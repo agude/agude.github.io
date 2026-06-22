@@ -72,6 +72,11 @@ Check the metadata for issues that need manual fixes:
   Do not query the Wikidata API directly with ad hoc code (raw
   `requests`/`urllib` calls get a 403 --- Wikimedia requires a
   `User-Agent` header).
+- **Awards (anthologies)** --- `update_book_metadata.py` only finds
+  awards for the collection itself. For anthologies
+  (`is_anthology: true`), also check whether individual stories won
+  Hugo, Nebula, or Locus awards and add them to `awards`; the field
+  should cover the book's contents, not just the collection.
 - **`same_as_urls`** --- Work-level Wikidata entities have the richest
   URLs. If you used an edition QID, check whether a work entity exists.
 
