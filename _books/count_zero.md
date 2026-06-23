@@ -1,5 +1,5 @@
 ---
-date: 2026-06-22
+date: 2026-06-22 21:47:57 -0700
 title: Count Zero
 book_authors: William Gibson
 series: Sprawl
