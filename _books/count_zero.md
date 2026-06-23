@@ -1,11 +1,11 @@
 ---
-date: 2026-06-05
+date: 2026-06-22
 title: Count Zero
 book_authors: William Gibson
 series: Sprawl
 book_number: 2
 is_anthology: false
-rating: null
+rating: 5
 image: /books/covers/count_zero.jpg
 wikidata_qid: Q2384854
 isbn: 978-0-87795-793-7
