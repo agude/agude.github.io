@@ -82,3 +82,8 @@ same_as_urls:
 {% capture ds9 %}{% tv_show_title "Deep Space Nine" %}{% endcapture %}
 {% capture soylent_green %}{% movie_title "Soylent Green" %}{% endcapture %}
 {% capture the_matrix %}{% movie_title "The Matrix" %}{% endcapture %}
+
+I've been on a bit of a cyberpunk kick recently, reading {{ neuromancer }}
+(which I loved!) in order to prepare myself to re-read {{ snow_crash }}. In
+doing so, I realized {{ accelerando }} is more punk than I'd given it credit
+for.
