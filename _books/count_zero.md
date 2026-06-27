@@ -83,7 +83,28 @@ same_as_urls:
 {% capture soylent_green %}{% movie_title "Soylent Green" %}{% endcapture %}
 {% capture the_matrix %}{% movie_title "The Matrix" %}{% endcapture %}
 
-I've been on a bit of a cyberpunk kick recently, reading {{ neuromancer }}
-(which I loved!) in order to prepare myself to re-read {{ snow_crash }}. In
-doing so, I realized {{ accelerando }} is more punk than I'd given it credit
-for.
+I've been on a bit of a cyberpunk kick recently. I started {{ snow_crash }},
+then paused and picked up {{ neuromancer }} in order to build the context I'd
+need to understand {{ stephensons_lastname }} satire. What I discovered in
+that diversion is that I **love** {{ the_authors_lastname_possessive }}
+writing. So I was excited to pick up {{ this_series }} again.
+
+{{ this_book }} takes place 8 years after the events of {{ neuromancer }}
+and although it has the same fast pacing and ideas about power, it _feels_
+more real. You see the world from the ground looking up. The three main
+characters aren't bad-ass cowboys or street samurai, but people just trying to
+survive in a newly transhuman world. And they spend a lot more time in the
+world <!-- Not the word I want... I almost want to say "in the dirt" -->,
+hanging out in the projects, in an abandoned mall, hiding out in the
+countryside.
+
+Towering above the plot are the zaibatsus, just as in {{ neuromancer }}. And
+again just as in {{ neuromancer }} they are compared to other, more and less
+human power structures: not Tessier-Ashpool in this case
+compared to them are not Tessier
+
+Bobby Newmark, the eponymous _Count Zero_, a teenage cowboy whose first run
+almost kills him. Marly Krushkova, a Parisian art dealer fallen on hard times
+after And Turner, a merceinary who
+
+In doing so, I realized {{ accelerando }} is more punk than I'd given it credit for.
