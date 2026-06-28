@@ -105,12 +105,16 @@ in orbit: hiding in abandoned malls, crawling through the Appalachian
 mountains, hanging out in the projects. It makes the world feel alive in a way
 it didn't in {{ neuromancer }}.
 
-Towering above the plot are the zaibatsus, just as in {{ neuromancer }}. And
-again just as in {{ neuromancer }} they are compared to other, more and less
-human power structures: not Tessier-Ashpool in this case
-compared to them are not Tessier
+Towering above the plot are the zaibatsus. Turner is hired by Hosaka to
+extract a defecting scientist from Maas Biolabs. And they seem to be the
+ultimate power, but just as in {{ neuromancer }} there are others above them.
+Virek, the richest man in the world, is manipulating both of them for his own
+ends.
 
-Marly Krushkova, a Parisian art dealer fallen on hard times
-after And Turner, a merceinary who
+they are compared to other, more and less human power structures: Vivek the
+
+> And, for an instant, she stared directly into those soft blue eyes and knew,
+> with an instinctive mammalian certainty, that the exceedingly rich were no
+> longer even remotely human.
 
 In doing so, I realized {{ accelerando }} is more punk than I'd given it credit for.
