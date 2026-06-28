@@ -84,27 +84,33 @@ same_as_urls:
 {% capture the_matrix %}{% movie_title "The Matrix" %}{% endcapture %}
 
 I've been on a bit of a cyberpunk kick recently. I started {{ snow_crash }},
-then paused and picked up {{ neuromancer }} in order to build the context I'd
-need to understand {{ stephensons_lastname }} satire. What I discovered in
-that diversion is that I **love** {{ the_authors_lastname_possessive }}
-writing. So I was excited to pick up {{ this_series }} again.
+then paused and picked up {{ neuromancer }} to build the context I'd need to
+understand {{ stephensons_lastname }} satire. What I discovered in that
+diversion is that I **love** {{ the_authors_lastname_possessive }} writing. So
+I was excited to pick up {{ this_series }} again.
 
-{{ this_book }} takes place 8 years after the events of {{ neuromancer }}
-and although it has the same fast pacing and ideas about power, it _feels_
-more real. You see the world from the ground looking up. The three main
-characters aren't bad-ass cowboys or street samurai, but people just trying to
-survive in a newly transhuman world. And they spend a lot more time in the
-world <!-- Not the word I want... I almost want to say "in the dirt" -->,
-hanging out in the projects, in an abandoned mall, hiding out in the
-countryside.
+{{ this_book }} takes place 8 years after the events of {{ neuromancer }} and
+although it has the same fast pacing and ideas about power, it _feels_ more
+real. Case in {{ neuromancer }} doesn't seem like a bad-ass---he's a druggy
+loser trying to get the street to kill him because he's too scared to kill
+himself---but he _is_ a cowboy, he's good at his job, he is a vital part of
+the team. He's an anti-hero. Bobby Newmark, the eponymous _Count Zero_, is
+hardly a hero at all. He's just a teen who _hopes_ to be a cowboy someday. His
+first run almost kills him. Marly Krushkova doesn't have augmented vision and
+blades in her fingers, she sells art. Turner, the emotionally damaged
+mercenary, is the closest to a bad-ass that would have fit in {{ neuromancer
+}}, but even he feels small and helpless. All three are just trying to survive
+in a newly transhuman world. They spend a lot of time in the dirt instead of
+in orbit: hiding in abandoned malls, crawling through the Appalachian
+mountains, hanging out in the projects. It makes the world feel alive in a way
+it didn't in {{ neuromancer }}.
 
 Towering above the plot are the zaibatsus, just as in {{ neuromancer }}. And
 again just as in {{ neuromancer }} they are compared to other, more and less
 human power structures: not Tessier-Ashpool in this case
 compared to them are not Tessier
 
-Bobby Newmark, the eponymous _Count Zero_, a teenage cowboy whose first run
-almost kills him. Marly Krushkova, a Parisian art dealer fallen on hard times
+Marly Krushkova, a Parisian art dealer fallen on hard times
 after And Turner, a merceinary who
 
 In doing so, I realized {{ accelerando }} is more punk than I'd given it credit for.
