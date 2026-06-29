@@ -1,11 +1,11 @@
 ---
-date: 2026-06-22
+date: 2026-06-29
 title: Fahrenheit 451
 book_authors: Ray Bradbury
 series: null
 book_number: 1
 is_anthology: false
-rating: null
+rating: 3
 image: /books/covers/fahrenheit_451.jpg
 wikidata_qid: Q202009
 isbn: 978-0-7432-4722-1
