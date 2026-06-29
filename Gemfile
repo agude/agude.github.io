@@ -20,7 +20,7 @@ gem 'webrick', '~> 1.9'
 gem 'logger', '~> 1.7'
 
 # For parsing HTML in custom plugins
-gem 'nokogiri', '~> 1.19', '>= 1.19.1'
+gem 'nokogiri', '~> 1.19'
 
 # Tests
 group :development, :test do
