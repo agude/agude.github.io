@@ -16,8 +16,11 @@ energy physics, and cosmology.
 - {% citation
     author_last="Ni et al."
     work_title="Sampled Image Tagging and Retrieval Methods on User Generated Content"
-    container_title="British Machine Vision Conference 2017"
-    url="https://bmva-archive.org.uk/bmvc/2017/papers/paper104/index.html"
+    container_title="Proceedings of the British Machine Vision Conference (BMVC)"
+    first_page="104.1"
+    date="2017"
+    url="https://dx.doi.org/10.5244/C.31.104"
+    doi="10.5244/C.31.104"
   %} ([arXiv:1611.06962][arxiv-1611])
 
 {% comment %} ML References {% endcomment %}
