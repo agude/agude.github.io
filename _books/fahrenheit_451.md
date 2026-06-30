@@ -1,5 +1,5 @@
 ---
-date: 2026-06-29
+date: 2026-06-29 13:05:01 -0700
 title: Fahrenheit 451
 book_authors: Ray Bradbury
 series: null
