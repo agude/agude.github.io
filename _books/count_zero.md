@@ -105,6 +105,20 @@ in orbit: hiding in abandoned malls, crawling through the Appalachian
 mountains, hanging out in the projects. It makes the world feel alive in a way
 it didn't in {{ neuromancer }}.
 
+{{ neuromancer }} focused on power and its cost, taking us inside the
+Tessier-Ashpool dynasty to show how their quest for it had destroyed their
+humanity. {{ this_book }} views the same power from the outside.
+The zaibatsus tower over the plot, but they're more like dangerous weather,
+raining down thugs and mercenaries indiscriminately.
+
+<!-- Power from the outside -> Evolution
+Accelerando
+Snow Crash
+Subversion and I liked this book
+Other works
+Closing
+-->
+
 Towering above the plot are the zaibatsus. Turner is hired by Hosaka to
 extract a defecting scientist from Maas Biolabs. And they seem to be the
 ultimate power, but just as in {{ neuromancer }} there are others above them.
