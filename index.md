@@ -1,6 +1,7 @@
 ---
 layout: homepage
 title: Home
+markdown_output: false
 description: >
   Hi there! I'm Alex Gude, a physicist and data scientist in Silicon Valley.
   This site is where you can find my thoughts on machine learning, data
