@@ -89,46 +89,63 @@ understand {{ stephensons_lastname }} satire. What I discovered in that
 diversion is that I **love** {{ the_authors_lastname_possessive }} writing. So
 I was excited to pick up {{ this_series }} again.
 
+### Power Revisited
+
 {{ this_book }} takes place 8 years after the events of {{ neuromancer }} and
 although it has the same fast pacing and ideas about power, it _feels_ more
-real. Case in {{ neuromancer }} doesn't seem like a bad-ass---he's a druggy
-loser trying to get the street to kill him because he's too scared to kill
-himself---but he _is_ a cowboy, he's good at his job, he is a vital part of
-the team. He's an anti-hero. Bobby Newmark, the eponymous _Count Zero_, is
-hardly a hero at all. He's just a teen who _hopes_ to be a cowboy someday. His
-first run almost kills him. Marly Krushkova doesn't have augmented vision and
-blades in her fingers, she sells art. Turner, the emotionally damaged
-mercenary, is the closest to a bad-ass that would have fit in {{ neuromancer
-}}, but even he feels small and helpless. All three are just trying to survive
-in a newly transhuman world. They spend a lot of time in the dirt instead of
-in orbit: hiding in abandoned malls, crawling through the Appalachian
-mountains, hanging out in the projects. It makes the world feel alive in a way
-it didn't in {{ neuromancer }}.
+real. The characters are smaller, just trying to survive in a newly transhuman
+world. Bobby Newmark, the eponymous _Count Zero_, is just a teen who _hopes_
+to be a cowboy someday; his first run almost kills him. Case in {{ neuromancer
+}} was _also_ a loser---he's a druggy trying to get the street to kill him
+because he's too scared to kill himself---but he _is_ a cowboy, he's good at
+his job, he is a vital part of the team. He's an anti-hero whereas Bobby isn't
+even that. Marly Krushkova doesn't have augmented vision and blades in her
+fingers, she sells art. Turner, the emotionally damaged mercenary, is the
+closest to a bad-ass that would have fit in {{ neuromancer }}, but even he
+feels small and helpless. They spend a lot of time in the dirt instead of in
+orbit: hiding in abandoned malls, crawling through the Appalachian mountains,
+hanging out in the projects. It makes the world feel alive in a way it didn't
+in {{ neuromancer }}.
 
 {{ neuromancer }} focused on power and its cost, taking us inside the
 Tessier-Ashpool dynasty to show how their quest for it had destroyed their
-humanity. {{ this_book }} views the same power from the outside.
-The zaibatsus tower over the plot, but they're more like dangerous weather,
-raining down thugs and mercenaries indiscriminately.
-
-<!-- Power from the outside -> Evolution
-Accelerando
-Snow Crash
-Subversion and I liked this book
-Other works
-Closing
--->
-
-Towering above the plot are the zaibatsus. Turner is hired by Hosaka to
-extract a defecting scientist from Maas Biolabs. And they seem to be the
-ultimate power, but just as in {{ neuromancer }} there are others above them.
-Virek, the richest man in the world, is manipulating both of them for his own
-ends.
-
-they are compared to other, more and less human power structures: Vivek the
+humanity. {{ this_book }} views the same power from the outside. The zaibatsus
+tower over the plot, but they're more like dangerous weather, raining down
+thugs and mercenaries indiscriminately; it's not personal. Above them is the
+world's richest man, Josef Virek, dying of some fast-growing cancer and
+playing the zaibatsus against each other, trying to find a way to "jump" to
+the next evolutionary step. He has already lost his humanity, even before the
+jump, as {{ the_authors_lastname }} makes clear when Marly meets Virek's
+simstim avatar:
 
 > And, for an instant, she stared directly into those soft blue eyes and knew,
 > with an instinctive mammalian certainty, that the exceedingly rich were no
 > longer even remotely human.
 
-In doing so, I realized {{ accelerando }} is more punk than I'd given it credit for.
+But the heroes, the zaibatsus, Virek are all human power in scale, even if
+they've left their humanity behind. Wintermute and Neuromancer were also on
+this scale: they were comprehensible. But at the end of {{ neuromancer }} they
+merged, and shattered into incomprehensible, all-powerful things that live in
+cyberspace. {{ the_authors_lastname }} handles that incomprehensible power in
+the way humans have for millennia: religion. The fragments of the AI appear to
+the humans as [Loa][lwa] from [Haitian Vodou][vodou]. And they behave the same
+way as Loa, possessing mortals in the world and riding them.
+
+[lwa]: https://en.wikipedia.org/wiki/Lwa
+[vodou]: https://en.wikipedia.org/wiki/Haitian_Vodou
+
+### Punk Influenced
+
+{{ this_book }} makes the connection between {{
+the_authors_lastname_possessive }} {{ this_series }} and {{
+stephensons_lastname }} {{ snow_crash }} even clearer. I had thought that {{
+stephenson }} took {{ neuromancer }} and added mysticism, but now I see it was
+in {{ the_authors_lastname_possessive }} work all along. Angela's brain was
+modified to allow her to connect to the divine, similar to Enki's nam-shub.
+She speaks in Haitian Creole when communing with the divine which other
+characters liken to speaking in tongues, just as Rife's followers do. Both use
+religion as a parallel system to technology.
+
+I've come to see that {{ accelerando }} is more punk than I'd given it credit
+for. It's taking the same ideas about power and evolution from {{ this_series
+}}
