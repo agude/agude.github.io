@@ -136,15 +136,15 @@ way as Loa, possessing mortals in the world and riding them.
 
 ### Punk Influenced
 
-{{ this_book }} makes the connection between {{
+{{ this_book }} deepens the connection between {{
 the_authors_lastname_possessive }} {{ this_series }} and {{
-stephensons_lastname }} {{ snow_crash }} even clearer. I had thought that {{
-stephenson }} took {{ neuromancer }} and added mysticism, but now I see it was
-in {{ the_authors_lastname_possessive }} work all along. Angela's brain was
-modified to allow her to connect to the divine, similar to Enki's nam-shub.
-She speaks in Haitian Creole when communing with the divine which other
-characters liken to speaking in tongues, just as Rife's followers do. Both use
-religion as a parallel system to technology.
+stephensons_lastname }} {{ snow_crash }}. I had thought that {{ stephenson }}
+took {{ neuromancer }} and added mysticism, but now I see it was in {{
+the_authors_lastname_possessive }} work all along. Angela's brain was modified
+to allow her to connect to the divine, similar to Enki's nam-shub. She speaks
+in Haitian Creole when communing with the divine which other characters liken
+to speaking in tongues, just as Rife's followers do. Both use religion as a
+parallel system to technology.
 
 I've come to see that {{ accelerando }} is more punk than I'd given it credit
 for. It's taking the same ideas about power and evolution from {{ this_series
