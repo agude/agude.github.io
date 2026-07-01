@@ -1,6 +1,15 @@
 // Use 'variables' and make its members available globally in this file
 @use "variables" as *;
 
+.linktree-header {
+  width: fit-content;
+  margin: 0 auto;
+
+  h1 {
+    text-align: center;
+  }
+}
+
 // Linktree container
 .linktree-container {
   display: flex;
