@@ -149,7 +149,7 @@ module Jekyll
 
       def page_description
         desc = @data['description']&.strip
-        desc&.empty? ? nil : desc
+        desc unless desc.nil? || desc.empty?
       end
 
       def excerpt_text
