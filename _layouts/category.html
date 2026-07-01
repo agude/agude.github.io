@@ -5,6 +5,7 @@ layout: default
   <h1 class="category-title">
     Topic:&nbsp;{{ page.title }}
   </h1>
+  {% include markdown_alternate_link.html standalone=true %}
   {{ content }}
 
   {% assign topic = page | optional: 'category-name' %}

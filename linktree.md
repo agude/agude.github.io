@@ -7,10 +7,6 @@ description: >
 sidebar_include: false
 ---
 
-<div class="headline-center" markdown="1">
-# Where To Find Me Online
-</div>
-
 <div class="linktree-container">
 
 {% comment %} Bluesky {% endcomment %}
