@@ -177,28 +177,29 @@ pontoon town off LA is like the raft, the slamhound is similar to the rat
 thing, the orthodox Scientologists with {{ hubbard_lastname }} as saint are
 just like the Pearly Gates franchise with Jesus, Elvis, and Reverend Wayne.
 
-{{ this_book }} reminded me of some other works. Virek's autonomous wealth,
-sometimes at war with itself, was like the corporations-as-code in {{
-strosss_lastname }} {{ accelerando }} executing their owners' (and then their
-own) intent independently. Protagonists who don't understand what's going on,
-at the mercy of forces far greater than themselves, is something {{
+{{ this_book }} reminded me of many others. Structurally, the helpless
+protagonists at the mercy of larger forces they don't understand recalls {{
 wattss_lastname }} {{ echopraxia }} and {{ alexs_lastname }} {{
-a_mote_in_shadow }} also do. The enzyme addiction that keeps zaibatsu
-employees loyal is like Ketracel-white from {{ ds9 }}. A continually growing
-villain whose size confines them to water is similar to the megatherians from
-{{ wolfes_lastname }} {{ botns }}. Turner's Bushido ethic matches Colonel
-Kassad's in {{ simmonss_lastname }} {{ hyperion }}. The krill-based food and
-collapsed food chain is similar to {{ soylent_green }}. Bobby riding with
-Angela and the Loa through cyberspace, doing things normal cowboys can't,
-reads as a proto-Neo from {{ the_matrix }}. Turner's extraction team, with a
-cowboy riding shotgun to handle cyberspace, mirrors the mages riding shotgun
-in {{ williamss_lastname }} {{ metropolitan_series }} series. The dog robot
-that blows up Turner in the first few pages reminded me of Metalhead from {{
-black_mirror }} or the Hound from {{ bradburys_lastname }} {{ fahrenheit_451
-}}. {{ the_authors_lastname_possessive }} trick of making you invest in a
-story that he rips out from under you is one {{ banks_lastname }} later uses
-in {{ matter }}, where after hundreds of pages the medieval power struggle
-gets swatted away by a cosmic horror.
+a_mote_in_shadow }}. {{ the_authors_lastname_possessive }} trick of making you
+invest in a story that he rips out from under you is one {{ banks_lastname }}
+later uses in {{ matter }}, where after hundreds of pages the medieval power
+struggle gets swatted away by a cosmic horror.
+
+The details are familiar as well: The enzyme addiction that keeps zaibatsu
+employees loyal is like Ketracel-white from {{ ds9 }}, while the collapsed
+food chain and krill wafers is {{ soylent_green }}. Turner's extraction team,
+with a cowboy riding shotgun to handle cyberspace, mirrors the mages riding
+shotgun in {{ williamss_lastname }} {{ metropolitan_series }} series. The dog
+robot that blows up Turner in the first few pages reminded me of Metalhead
+from {{ black_mirror }} or the Hound from {{ bradburys_lastname }} {{
+fahrenheit_451 }}.
+
+And of course the series is hugely influential in cyberpunk: Virek's
+autonomous wealth, sometimes at war with itself, was like the
+corporations-as-code in {{ strosss_lastname }} {{ accelerando }} executing
+their owners' (and then their own) intent independently. Angela and Bobby
+riding cyberspace together, pulling off impossible feats, reads as a proto-Neo
+sequence from {{ the_matrix }}.
 
 I'm always nervous picking up the second book of an author I just discovered,
 worried they'll break my heart. {{ this_book }} put those fears to rest. {{
