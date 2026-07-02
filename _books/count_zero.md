@@ -198,9 +198,9 @@ in {{ williamss_lastname }} {{ metropolitan_series }} series. The dog robot
 that blows up Turner in the first few pages reminded me of Metalhead from {{
 black_mirror }} or the Hound from {{ bradburys_lastname }} {{ fahrenheit_451
 }}. {{ the_authors_lastname_possessive }} trick of making you invest in a
-story that he rips out from under is one {{ banks_lastname }} later uses in {{
-matter }}, where after hundreds of pages the medieval power struggle gets
-swatted away by a cosmic horror.
+story that he rips out from under you is one {{ banks_lastname }} later uses
+in {{ matter }}, where after hundreds of pages the medieval power struggle
+gets swatted away by a cosmic horror.
 
 I'm always nervous picking up the second book of an author I just discovered,
 worried they'll break my heart. {{ this_book }} put those fears to rest. {{
