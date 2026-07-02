@@ -154,7 +154,7 @@ stephensons_lastname }} {{ snow_crash }}. I had thought that {{ stephenson }}
 took {{ neuromancer }} and added mysticism, but now I see it was in {{
 the_authors_lastname_possessive }} work all along. Angela's brain was modified
 to allow her to connect to the divine, similar to Enki's nam-shub. She speaks
-in Haitian Creole when communing with the divine which other characters liken
+in Haitian Creole when communing with the divine, which other characters liken
 to speaking in tongues, just as Rife's followers do. Both use religion as a
 parallel system to technology.
 
@@ -162,8 +162,8 @@ parallel system to technology.
 sometimes at war with itself, was like the corporations-as-code in {{
 strosss_lastname }} {{ accelerando }} executing their owners' (and then their
 own) intent independently. Protagonists who don't understand what's going on
-and are at the mercy of forces far greater than themselves was something we
-saw in {{ wattss_lastname }} {{ echopraxia }} and {{ alexs_lastname }} {{
+and are at the mercy of forces far greater than themselves is something we
+also saw in {{ wattss_lastname }} {{ echopraxia }} and {{ alexs_lastname }} {{
 a_mote_in_shadow }}. The enzyme addiction that keeps zaibatsu employees loyal
 is like Ketracel-white from {{ ds9 }}. A continually growing villain whose
 size confines them to water is similar to the megatherians from {{
@@ -176,6 +176,6 @@ Metalhead from {{ black_mirror }} or the Hound from {{ bradburys_lastname }}
 
 I'm always nervous picking up the second book of an author I just discovered,
 worried they'll break my heart. {{ this_book }} put those fears to rest. {{
-the_author }} writes such short, energetic prose the sweep me along, and his
+the_author }} writes such short, energetic prose that sweeps me along, and his
 character work is extraordinary: everyone feels different, but alive.
 I'm looking forward to {{ mona_lisa_overdrive }}.
