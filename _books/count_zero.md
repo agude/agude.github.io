@@ -68,6 +68,9 @@ and something stranger.
 {% capture stephensons_lastname %}{% author_link "Neal Stephenson" link_text="Stephenson" possessive %}{% endcapture %}
 {% capture snow_crash %}{% book_link "Snow Crash" %}{% endcapture %}
 
+{% capture hubbard %}{% author_link "L. Ron Hubbard" %}{% endcapture %}
+{% capture hubbard_lastname %}{% author_link "L. Ron Hubbard" link_text="Hubbard" %}{% endcapture %}
+
 {% capture williams %}{% author_link "Walter Jon Williams" %}{% endcapture %}
 {% capture williamss %}{% author_link "Walter Jon Williams" possessive %}{% endcapture %}
 {% capture williams_lastname %}{% author_link "Walter Jon Williams" link_text="Williams" %}{% endcapture %}
@@ -173,7 +176,8 @@ in Haitian Creole when communing with the divine, which other characters liken
 to speaking in tongues, just as Rife's followers do. Both use religion as a
 parallel system to technology. There are some smaller similarities too: the
 pontoon town off LA is like the raft, the slamhound is similar to the rat
-thing.
+thing, the orthodox Scientologists with {{ hubbard_lastname }} as saint are
+just like the Pearly Gates franchise with Jesus, Elvis, and Reverend Wayne.
 
 {{ this_book }} reminded me of some other works. Virek's autonomous wealth,
 sometimes at war with itself, was like the corporations-as-code in {{
@@ -186,8 +190,12 @@ employees loyal is like Ketracel-white from {{ ds9 }}. A continually growing
 villain whose size confines them to water is similar to the megatherians from
 {{ wolfes_lastname }} {{ botns }}. Turner's Bushido ethic matches Colonel
 Kassad's in {{ simmonss_lastname }} {{ hyperion }}. The krill-based food and
-collapsed food chain is similar to {{ soylent_green }}. The dog robot that
-blows up Turner in the first few pages reminded me of Metalhead from {{
+collapsed food chain is similar to {{ soylent_green }}. Bobby riding with
+Angela and the Loa through cyberspace, doing things normal cowboys can't,
+reads as a proto-Neo from {{ the_matrix }}. Turner's extraction team, with a
+cowboy riding shotgun to handle cyberspace, mirrors the mages riding shotgun
+in {{ williamss_lastname }} {{ metropolitan_series }} series. The dog robot
+that blows up Turner in the first few pages reminded me of Metalhead from {{
 black_mirror }} or the Hound from {{ bradburys_lastname }} {{ fahrenheit_451
 }}. {{ the_authors_lastname_possessive }} trick of making you invest in a
 story that he rips out from under is one {{ banks_lastname }} later uses in {{
