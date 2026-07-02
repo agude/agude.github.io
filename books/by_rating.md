@@ -22,6 +22,7 @@ ranked_list:
   - Inversions
   - The Hydrogen Sonata
   - Neuromancer
+  - Count Zero
   - The Colonel
   - The Fall of Hyperion
   - The Triumphant
