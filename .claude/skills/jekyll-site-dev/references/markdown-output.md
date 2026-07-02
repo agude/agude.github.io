@@ -19,15 +19,18 @@ LLMS.TXT (:site, :post_render)  [llms_txt_generator.rb]
      Indexes all .md files → /llms.txt with absolute URLs
 ```
 
-## Key Files (`content/markdown_output/`)
+## Key Files
 
-| File                           | Purpose                                                                                                               |
-| ------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
-| `markdown_body_hook.rb`        | Pre-render hooks; re-renders content with `render_mode: :markdown` using standalone template (avoids cache pollution) |
-| `markdown_output_assembler.rb` | Post-render hook; assembles header + body + footer into `.md` files                                                   |
-| `markdown_card_utils.rb`       | Formats card data hashes as Markdown list items (`- [Title](url) by Author --- stars`)                                |
-| `markdown_link_formatter.rb`   | Formats resolved link data as `[text](url)` for link tags                                                             |
-| `llms_txt_generator.rb`        | Generates `/llms.txt` index grouped by Blog Posts, Book Reviews, Optional                                             |
+Pipeline files live in `content/markdown_output/`; shared utilities have
+been relocated to their respective domains.
+
+| File                                                     | Purpose                                                                                                               |
+| -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `content/markdown_output/markdown_body_hook.rb`          | Pre-render hooks; re-renders content with `render_mode: :markdown` using standalone template (avoids cache pollution) |
+| `content/markdown_output/markdown_output_assembler.rb`   | Post-render hook; assembles header + body + footer into `.md` files                                                   |
+| `ui/cards/markdown_card_utils.rb`                        | Formats card data hashes as Markdown list items (`- [Title](url) by Author --- stars`)                                |
+| `infrastructure/links/markdown_link_formatter.rb`        | Formats resolved link data as `[text](url)` for link tags                                                             |
+| `content/markdown_output/llms_txt_generator.rb`          | Generates `/llms.txt` index grouped by Blog Posts, Book Reviews, Optional                                             |
 
 ## Render Mode Pattern
 
@@ -36,7 +39,7 @@ Tags check `context.registers[:render_mode]` to branch output:
 ```ruby
 def render(context)
   if context.registers[:render_mode] == :markdown
-    # Emit Markdown via MarkdownCardUtils / MarkdownLinkFormatter
+    # Emit Markdown via UI::Cards::MarkdownCardUtils / Infrastructure::Links::MarkdownLinkFormatter
   else
     # Emit HTML via existing Renderer classes
   end
