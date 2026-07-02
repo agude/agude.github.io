@@ -39,6 +39,7 @@ and something stranger.
 {% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
 
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
+{% capture this_series_no_the %}{% series_link "Sprawl" %} series{% endcapture %}
 
 {% capture neuromancer %}{% book_link "Neuromancer" %}{% endcapture %}
 {% capture mona_lisa_overdrive %}{% book_link "Mona Lisa Overdrive" %}{% endcapture %}
@@ -122,7 +123,7 @@ someday; his first run almost kills him. Case in {{ neuromancer }} was _also_
 a loser---he's a druggy trying to get the street to kill him because he's too
 scared to kill himself---but he _is_ a cowboy, he's good at his job, a vital
 part of the team. He's an anti-hero whereas Bobby isn't even that. Marly
-Krushkova doesn't have augmented vision and blades in her fingers; she sells
+Krushkova doesn't have augmented vision or blades in her fingers; she sells
 art. Turner, the emotionally damaged mercenary, is the closest to a bad-ass
 who would have fit in {{ neuromancer }}. But {{ the_authors_lastname }} sets
 it up brilliantly: he gives Turner's team backstories, a meticulous plan...
@@ -133,15 +134,16 @@ hanging out in the projects. It makes the world feel alive in a way it didn't
 in {{ neuromancer }}.
 
 {{ neuromancer }} focused on power and its cost, taking us inside the
-Tessier-Ashpool dynasty to show how their quest for it had destroyed their
+Tessier-Ashpool dynasty to show how a pursuit of power destroyed their
 humanity. {{ this_book }} views the same power from the outside. The zaibatsus
-tower over the plot, but they're more like dangerous weather, raining down
-thugs and mercenaries indiscriminately; it's not personal. Above them is the
-world's richest man, Josef Virek, dying of some fast-growing cancer and
-playing the zaibatsus against each other, trying to find a way to "jump" to
-the next evolutionary step. He has already lost his humanity, even before the
-jump, as {{ the_authors_lastname }} makes clear when Marly meets Virek's
-simstim avatar:
+tower over the plot, functioning less like traditional villains and more like
+dangerous weather: massive and unfeeling forces that cause widespread
+collateral damage without ever recognizing it. Above them is the world's
+richest man, Josef Virek, dying of some fast-growing cancer and playing the
+zaibatsus against each other, trying to find a way to "jump" to the next
+evolutionary step. He has already lost his humanity, even before the jump, as
+{{ the_authors_lastname }} makes clear when Marly meets Virek's simstim
+avatar:
 
 > And, for an instant, she stared directly into those soft blue eyes and knew,
 > with an instinctive mammalian certainty, that the exceedingly rich were no
@@ -162,7 +164,7 @@ behave the same way, possessing mortals and riding them.
 ### Punk Influenced
 
 {{ this_book }} deepens the connection between {{
-the_authors_lastname_possessive }} {{ this_series }} and {{
+the_authors_lastname_possessive }} {{ this_series_no_the }} and {{
 stephensons_lastname }} {{ snow_crash }}. I had thought {{ stephenson }} took
 {{ neuromancer }} and added mysticism, but now I see it was in {{
 the_authors_lastname_possessive }} work all along. Angela's brain was modified
@@ -170,7 +172,8 @@ to allow her to connect to the divine, similar to Enki's nam-shub. She speaks
 in Haitian Creole when communing with the divine, which other characters liken
 to speaking in tongues, just as Rife's followers do. Both use religion as a
 parallel system to technology. There are some smaller similarities too: the
-pontoon town off LA is like the raft, the rat thing is similar to the slamhound.
+pontoon town off LA is like the raft, the slamhound is similar to the rat
+thing.
 
 {{ this_book }} reminded me of some other works. Virek's autonomous wealth,
 sometimes at war with itself, was like the corporations-as-code in {{
@@ -184,10 +187,10 @@ villain whose size confines them to water is similar to the megatherians from
 {{ wolfes_lastname }} {{ botns }}. Turner's Bushido ethic matches Colonel
 Kassad's in {{ simmonss_lastname }} {{ hyperion }}. The krill-based food and
 collapsed food chain is similar to {{ soylent_green }}. The dog robot that
-tries to kill Turner in the first few pages reminded me of Metalhead from {{
+blows up Turner in the first few pages reminded me of Metalhead from {{
 black_mirror }} or the Hound from {{ bradburys_lastname }} {{ fahrenheit_451
 }}. {{ the_authors_lastname_possessive }} trick of making you invest in a
-story that he rips out from under you is used by {{ banks_lastname }} in {{
+story that he rips out from under is one {{ banks_lastname }} later uses in {{
 matter }}, where after hundreds of pages the medieval power struggle gets
 swatted away by a cosmic horror.
 
