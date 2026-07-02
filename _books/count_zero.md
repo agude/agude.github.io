@@ -95,6 +95,12 @@ and something stranger.
 {% capture firefall %}{% series_link "Firefall" %}{% endcapture %}
 {% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}
 
+{% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
+{% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
+{% capture banks_lastname %}{% author_link "Iain M. Banks" link_text="Banks" %}{% endcapture %}
+{% capture bankss_lastname %}{% author_link "Iain M. Banks" link_text="Banks" possessive %}{% endcapture %}
+{% capture matter %}{% book_link "Matter" %}{% endcapture %}
+
 {% capture black_mirror %}{% tv_show_title "Black Mirror" %}{% endcapture %}
 {% capture ds9 %}{% tv_show_title "Deep Space Nine" %}{% endcapture %}
 {% capture soylent_green %}{% movie_title "Soylent Green" %}{% endcapture %}
@@ -120,11 +126,11 @@ Krushkova doesn't have augmented vision and blades in her fingers; she sells
 art. Turner, the emotionally damaged mercenary, is the closest to a bad-ass
 who would have fit in {{ neuromancer }}. But {{ the_authors_lastname }} sets
 it up brilliantly: he gives Turner's team backstories, a meticulous plan...
-and then blows it away. Everyone's gone, none of their planning mattered. They
-were pawns the entire time. The characters in {{ this_book }} spend a lot of
-time in the dirt instead of in orbit: hiding in abandoned malls, crawling
-through the Appalachian mountains, hanging out in the projects. It makes the
-world feel alive in a way it didn't in {{ neuromancer }}.
+and then blows it away. Everyone's gone, none of their planning mattered. The
+characters in {{ this_book }} spend a lot of time in the dirt instead of in
+orbit: hiding in abandoned malls, crawling through the Appalachian mountains,
+hanging out in the projects. It makes the world feel alive in a way it didn't
+in {{ neuromancer }}.
 
 {{ neuromancer }} focused on power and its cost, taking us inside the
 Tessier-Ashpool dynasty to show how their quest for it had destroyed their
@@ -163,7 +169,8 @@ the_authors_lastname_possessive }} work all along. Angela's brain was modified
 to allow her to connect to the divine, similar to Enki's nam-shub. She speaks
 in Haitian Creole when communing with the divine, which other characters liken
 to speaking in tongues, just as Rife's followers do. Both use religion as a
-parallel system to technology.
+parallel system to technology. There are some smaller similarities too: the
+pontoon town off LA is like the raft, the rat thing is similar to the slamhound.
 
 {{ this_book }} reminded me of some other works. Virek's autonomous wealth,
 sometimes at war with itself, was like the corporations-as-code in {{
@@ -179,7 +186,10 @@ Kassad's in {{ simmonss_lastname }} {{ hyperion }}. The krill-based food and
 collapsed food chain is similar to {{ soylent_green }}. The dog robot that
 tries to kill Turner in the first few pages reminded me of Metalhead from {{
 black_mirror }} or the Hound from {{ bradburys_lastname }} {{ fahrenheit_451
-}}.
+}}. {{ the_authors_lastname_possessive }} trick of making you invest in a
+story that he rips out from under you is used by {{ banks_lastname }} in {{
+matter }}, where after hundreds of pages the medieval power struggle gets
+swatted away by a cosmic horror.
 
 I'm always nervous picking up the second book of an author I just discovered,
 worried they'll break my heart. {{ this_book }} put those fears to rest. {{
