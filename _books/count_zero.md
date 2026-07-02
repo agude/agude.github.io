@@ -174,32 +174,30 @@ in Haitian Creole when communing with the divine, which other characters liken
 to speaking in tongues, just as Rife's followers do. Both use religion as a
 parallel system to technology. There are some smaller similarities too: the
 pontoon town off LA is like the raft, the slamhound is similar to the rat
-thing, the orthodox Scientologists with {{ hubbard_lastname }} as saint are
+thing, the Orthodox Scientologists with {{ hubbard_lastname }} as a saint are
 just like the Pearly Gates franchise with Jesus, Elvis, and Reverend Wayne.
 
-{{ this_book }} reminded me of many others. Structurally, the helpless
-protagonists at the mercy of larger forces they don't understand recalls {{
+{{ this_book }} reminded me of many other works. Structurally, the helpless
+protagonists at the mercy of forces they don't understand recall {{
 wattss_lastname }} {{ echopraxia }} and {{ alexs_lastname }} {{
-a_mote_in_shadow }}. {{ the_authors_lastname_possessive }} trick of making you
-invest in a story that he rips out from under you is one {{ banks_lastname }}
-later uses in {{ matter }}, where after hundreds of pages the medieval power
-struggle gets swatted away by a cosmic horror.
+a_mote_in_shadow }}. {{ the_authors_lastname_possessive }} trick of investing
+you in a story only to rip it away is one {{ banks_lastname }} later uses in
+{{ matter }}, where a medieval power struggle is suddenly swatted away by a
+cosmic horror.
 
-The details are familiar as well: The enzyme addiction that keeps zaibatsu
-employees loyal is like Ketracel-white from {{ ds9 }}, while the collapsed
-food chain and krill wafers is {{ soylent_green }}. Turner's extraction team,
-with a cowboy riding shotgun to handle cyberspace, mirrors the mages riding
-shotgun in {{ williamss_lastname }} {{ metropolitan_series }} series. The dog
-robot that blows up Turner in the first few pages reminded me of Metalhead
-from {{ black_mirror }} or the Hound from {{ bradburys_lastname }} {{
-fahrenheit_451 }}.
+The world-building details are familiar: the zaibatsu-loyalty enzyme acts like
+Ketracel-white from {{ ds9 }}, while the collapsed food chain and krill wafers
+are {{ soylent_green }}. Turner's extraction team, with a cyberspace cowboy
+riding shotgun, mirrors the mages in {{ williamss_lastname }} {{
+metropolitan_series }} series. The robot dog that blows up Turner in the first
+few pages reminded me of Metalhead from {{ black_mirror }} or the Hound from
+{{ bradburys_lastname }} {{ fahrenheit_451 }}.
 
-And of course the series is hugely influential in cyberpunk: Virek's
-autonomous wealth, sometimes at war with itself, was like the
+Virek's autonomous wealth, sometimes at war with itself, was like the
 corporations-as-code in {{ strosss_lastname }} {{ accelerando }} executing
-their owners' (and then their own) intent independently. Angela and Bobby
-riding cyberspace together, pulling off impossible feats, reads as a proto-Neo
-sequence from {{ the_matrix }}.
+their owners' (and then their own) intent independently. Bobby and the Loa
+pulling off impossible feats in cyberspace reads as a proto-Neo sequence from
+{{ the_matrix }}.
 
 I'm always nervous picking up the second book of an author I just discovered,
 worried they'll break my heart. {{ this_book }} put those fears to rest. {{
