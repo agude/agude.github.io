@@ -97,27 +97,27 @@ same_as_urls:
 
 I've been on a bit of a cyberpunk kick recently. I started {{ snow_crash }},
 then paused and picked up {{ neuromancer }} to build the context I'd need to
-understand {{ stephensons_lastname }} satire. What I discovered in that
-diversion is that I **love** {{ the_authors_lastname_possessive }} writing. So
-I was excited to pick up {{ this_series }} again.
+understand {{ stephensons_lastname }} satire. That diversion taught me I
+**love** {{ the_authors_lastname_possessive }} writing, so I was excited to
+pick up {{ this_series }} again.
 
 ### Power Revisited
 
-{{ this_book }} takes place 8 years after the events of {{ neuromancer }} and
-although it has the same fast pacing and ideas about power, it _feels_ more
-real. The characters are smaller, just trying to survive in a newly transhuman
-world. Bobby Newmark, the eponymous _Count Zero_, is just a teen who _hopes_
-to be a cowboy someday; his first run almost kills him. Case in {{ neuromancer
-}} was _also_ a loser---he's a druggy trying to get the street to kill him
-because he's too scared to kill himself---but he _is_ a cowboy, he's good at
-his job, he is a vital part of the team. He's an anti-hero whereas Bobby isn't
-even that. Marly Krushkova doesn't have augmented vision and blades in her
-fingers, she sells art. Turner, the emotionally damaged mercenary, is the
-closest to a bad-ass that would have fit in {{ neuromancer }}, but even he
-feels small and helpless. They spend a lot of time in the dirt instead of in
-orbit: hiding in abandoned malls, crawling through the Appalachian mountains,
-hanging out in the projects. It makes the world feel alive in a way it didn't
-in {{ neuromancer }}.
+{{ this_book }} takes place 8 years after {{ neuromancer }}. It has the same
+fast pacing and ideas about power, but it _feels_ more real. The characters
+are smaller, just trying to survive in a newly transhuman world. Bobby
+Newmark, the eponymous _Count Zero_, is just a teen who _hopes_ to be a cowboy
+someday; his first run almost kills him. Case in {{ neuromancer }} was _also_
+a loser---he's a druggy trying to get the street to kill him because he's too
+scared to kill himself---but he _is_ a cowboy, he's good at his job, a vital
+part of the team. He's an anti-hero whereas Bobby isn't even that. Marly
+Krushkova doesn't have augmented vision and blades in her fingers; she sells
+art. Turner, the emotionally damaged mercenary, is the closest to a bad-ass
+who would have fit in {{ neuromancer }}, but even he feels small and helpless
+when everything goes to hell. They spend a lot of time in the dirt instead of
+in orbit: hiding in abandoned malls, crawling through the Appalachian
+mountains, hanging out in the projects. It makes the world feel alive in a way
+it didn't in {{ neuromancer }}.
 
 {{ neuromancer }} focused on power and its cost, taking us inside the
 Tessier-Ashpool dynasty to show how their quest for it had destroyed their
@@ -134,14 +134,14 @@ simstim avatar:
 > with an instinctive mammalian certainty, that the exceedingly rich were no
 > longer even remotely human.
 
-But the heroes, the zaibatsus, Virek are all human power in scale, even if
+But the heroes, the zaibatsus, and Virek are all human-scale power, even if
 they've left their humanity behind. Wintermute and Neuromancer were also on
 this scale: they were comprehensible. But at the end of {{ neuromancer }} they
 merged, and then shattered into incomprehensible, all-powerful things that
 live in cyberspace. {{ the_authors_lastname }} handles that incomprehensible
-power in the way humans have for millennia: religion. The fragments of the AI
+power the way humans have for millennia: religion. The fragments of the AI
 appear to the humans as [Loa][lwa] from [Haitian Vodou][vodou]. And they
-behave the same way as Loa, possessing mortals in the world and riding them.
+behave the same way, possessing mortals and riding them.
 
 [lwa]: https://en.wikipedia.org/wiki/Lwa
 [vodou]: https://en.wikipedia.org/wiki/Haitian_Vodou
@@ -150,8 +150,8 @@ behave the same way as Loa, possessing mortals in the world and riding them.
 
 {{ this_book }} deepens the connection between {{
 the_authors_lastname_possessive }} {{ this_series }} and {{
-stephensons_lastname }} {{ snow_crash }}. I had thought that {{ stephenson }}
-took {{ neuromancer }} and added mysticism, but now I see it was in {{
+stephensons_lastname }} {{ snow_crash }}. I had thought {{ stephenson }} took
+{{ neuromancer }} and added mysticism, but now I see it was in {{
 the_authors_lastname_possessive }} work all along. Angela's brain was modified
 to allow her to connect to the divine, similar to Enki's nam-shub. She speaks
 in Haitian Creole when communing with the divine, which other characters liken
@@ -161,21 +161,21 @@ parallel system to technology.
 {{ this_book }} reminded me of some other works. Virek's autonomous wealth,
 sometimes at war with itself, was like the corporations-as-code in {{
 strosss_lastname }} {{ accelerando }} executing their owners' (and then their
-own) intent independently. Protagonists who don't understand what's going on
-and are at the mercy of forces far greater than themselves is something we
-also saw in {{ wattss_lastname }} {{ echopraxia }} and {{ alexs_lastname }} {{
-a_mote_in_shadow }}. The enzyme addiction that keeps zaibatsu employees loyal
-is like Ketracel-white from {{ ds9 }}. A continually growing villain whose
-size confines them to water is similar to the megatherians from {{
-wolfes_lastname }} {{ botns }}. Turner's Bushido ethic matches Colonel
+own) intent independently. Protagonists who don't understand what's going on,
+at the mercy of forces far greater than themselves, is something {{
+wattss_lastname }} {{ echopraxia }} and {{ alexs_lastname }} {{
+a_mote_in_shadow }} also do. The enzyme addiction that keeps zaibatsu
+employees loyal is like Ketracel-white from {{ ds9 }}. A continually growing
+villain whose size confines them to water is similar to the megatherians from
+{{ wolfes_lastname }} {{ botns }}. Turner's Bushido ethic matches Colonel
 Kassad's in {{ simmonss_lastname }} {{ hyperion }}. The krill-based food and
 collapsed food chain is similar to {{ soylent_green }}. The dog robot that
-tries to kill Turner in the first few pages of the book reminded me of
-Metalhead from {{ black_mirror }} or the Hound from {{ bradburys_lastname }}
-{{ fahrenheit_451 }}.
+tries to kill Turner in the first few pages reminded me of Metalhead from {{
+black_mirror }} or the Hound from {{ bradburys_lastname }} {{ fahrenheit_451
+}}.
 
 I'm always nervous picking up the second book of an author I just discovered,
 worried they'll break my heart. {{ this_book }} put those fears to rest. {{
 the_author }} writes such short, energetic prose that sweeps me along, and his
-character work is extraordinary: everyone feels different, but alive.
-I'm looking forward to {{ mona_lisa_overdrive }}.
+character work is extraordinary: everyone feels different, but alive. I'm
+looking forward to {{ mona_lisa_overdrive }}.
