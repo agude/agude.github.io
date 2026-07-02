@@ -44,6 +44,18 @@ same_as_urls:
 {% capture strosss_lastname %}{% author_link "Charles Stross" link_text="Stross" possessive %}{% endcapture %}
 {% capture accelerando %}{% book_link "Accelerando" %}{% endcapture %}
 
+{% capture bradbury %}{% author_link "Ray Bradbury" %}{% endcapture %}
+{% capture bradburys %}{% author_link "Ray Bradbury" possessive %}{% endcapture %}
+{% capture bradbury_lastname %}{% author_link "Ray Bradbury" link_text="Bradbury" %}{% endcapture %}
+{% capture bradburys_lastname %}{% author_link "Ray Bradbury" link_text="Bradbury" possessive %}{% endcapture %}
+{% capture fahrenheit_451 %}{% book_link "Fahrenheit 451" %}{% endcapture %}
+
+{% capture alex %}{% author_link "A. N. Alex" %}{% endcapture %}
+{% capture alexs %}{% author_link "A. N. Alex" possessive %}{% endcapture %}
+{% capture alex_lastname %}{% author_link "A. N. Alex" link_text="Alex" %}{% endcapture %}
+{% capture alexs_lastname %}{% author_link "A. N. Alex" link_text="Alex" possessive %}{% endcapture %}
+{% capture a_mote_in_shadow %}{% book_link "A Mote in Shadow" %}{% endcapture %}
+
 {% capture stephenson %}{% author_link "Neal Stephenson" %}{% endcapture %}
 {% capture stephensons %}{% author_link "Neal Stephenson" possessive %}{% endcapture %}
 {% capture stephenson_lastname %}{% author_link "Neal Stephenson" link_text="Stephenson" %}{% endcapture %}
@@ -125,11 +137,11 @@ simstim avatar:
 But the heroes, the zaibatsus, Virek are all human power in scale, even if
 they've left their humanity behind. Wintermute and Neuromancer were also on
 this scale: they were comprehensible. But at the end of {{ neuromancer }} they
-merged, and shattered into incomprehensible, all-powerful things that live in
-cyberspace. {{ the_authors_lastname }} handles that incomprehensible power in
-the way humans have for millennia: religion. The fragments of the AI appear to
-the humans as [Loa][lwa] from [Haitian Vodou][vodou]. And they behave the same
-way as Loa, possessing mortals in the world and riding them.
+merged, and then shattered into incomprehensible, all-powerful things that
+live in cyberspace. {{ the_authors_lastname }} handles that incomprehensible
+power in the way humans have for millennia: religion. The fragments of the AI
+appear to the humans as [Loa][lwa] from [Haitian Vodou][vodou]. And they
+behave the same way as Loa, possessing mortals in the world and riding them.
 
 [lwa]: https://en.wikipedia.org/wiki/Lwa
 [vodou]: https://en.wikipedia.org/wiki/Haitian_Vodou
@@ -146,6 +158,24 @@ in Haitian Creole when communing with the divine which other characters liken
 to speaking in tongues, just as Rife's followers do. Both use religion as a
 parallel system to technology.
 
-I've come to see that {{ accelerando }} is more punk than I'd given it credit
-for. It's taking the same ideas about power and evolution from {{ this_series
-}}
+{{ this_book }} reminded me of some other works. Virek's autonomous wealth,
+sometimes at war with itself, was like the corporations-as-code in {{
+strosss_lastname }} {{ accelerando }} executing their owners' (and then their
+own) intent independently. Protagonists who don't understand what's going on
+and are at the mercy of forces far greater than themselves was something we
+saw in {{ wattss_lastname }} {{ echopraxia }} and {{ alexs_lastname }} {{
+a_mote_in_shadow }}. The enzyme addiction that keeps zaibatsu employees loyal
+is like Ketracel-white from {{ ds9 }}. A continually growing villain whose
+size confines them to water is similar to the megatherians from {{
+wolfes_lastname }} {{ botns }}. Turner's Bushido ethic matches Colonel
+Kassad's in {{ simmonss_lastname }} {{ hyperion }}. The krill-based food and
+collapsed food chain is similar to {{ soylent_green }}. The dog robot that
+tries to kill Turner in the first few pages of the book reminded me of
+Metalhead from {{ black_mirror }} or the Hound from {{ bradburys_lastname }}
+{{ fahrenheit_451 }}.
+
+I'm always nervous picking up the second book of an author I just discovered,
+worried they'll break my heart. {{ this_book }} put those fears to rest. {{
+the_author }} writes such short, energetic prose the sweep me along, and his
+character work is extraordinary: everyone feels different, but alive.
+I'm looking forward to {{ mona_lisa_overdrive }}.
