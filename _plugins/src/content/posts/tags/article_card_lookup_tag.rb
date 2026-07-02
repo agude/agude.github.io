@@ -10,7 +10,7 @@ require_relative '../../../infrastructure/plugin_logger_utils'
 require_relative '../article_card_renderer'
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../lookups/article_finder'
-require_relative '../../markdown_output/markdown_card_utils'
+require_relative '../../../ui/cards/markdown_card_utils'
 
 # Renders an article card by looking up a post by URL.
 #
@@ -28,7 +28,7 @@ module Jekyll
         Logger = Jekyll::Infrastructure::PluginLoggerUtils
         CardRenderer = Jekyll::Posts::ArticleCardRenderer
         Finder = Jekyll::Posts::Lookups::ArticleFinder
-        MdCards = Jekyll::MarkdownOutput::MarkdownCardUtils
+        MdCards = Jekyll::UI::Cards::MarkdownCardUtils
         private_constant :TagArgs, :Logger, :CardRenderer, :Finder, :MdCards
 
         QuotedFragment = Liquid::QuotedFragment

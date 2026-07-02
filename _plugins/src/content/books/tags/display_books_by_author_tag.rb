@@ -6,7 +6,7 @@ require 'liquid'
 require_relative '../lists/author_finder'
 require_relative '../lists/book_list_renderer_utils'
 require_relative '../../../infrastructure/tag_argument_utils'
-require_relative '../../markdown_output/markdown_card_utils'
+require_relative '../../../ui/cards/markdown_card_utils'
 require_relative '../../../ui/tags/display_tag_renderable'
 
 module Jekyll

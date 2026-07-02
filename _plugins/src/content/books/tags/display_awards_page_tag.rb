@@ -8,7 +8,7 @@ require_relative '../lists/by_award_finder'
 require_relative '../lists/favorites_lists_finder'
 require_relative '../core/book_card_renderer'
 require_relative '../../../infrastructure/text_processing_utils'
-require_relative '../../markdown_output/markdown_card_utils'
+require_relative '../../../ui/cards/markdown_card_utils'
 
 # Liquid Tag to display the entire content of the "By Award" page,
 # including a unified navigation bar, the list of books grouped by major awards,
@@ -164,7 +164,7 @@ module Jekyll
 
         # Markdown renderer for awards page content
         class MarkdownRenderer
-          MdCards = Jekyll::MarkdownOutput::MarkdownCardUtils
+          MdCards = Jekyll::UI::Cards::MarkdownCardUtils
           private_constant :MdCards
 
           def initialize(context)

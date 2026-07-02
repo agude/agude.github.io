@@ -7,7 +7,7 @@ require 'cgi'
 
 require_relative '../ranking/ranked_books/processor'
 require_relative '../ranking/ranked_books/renderer'
-require_relative '../../markdown_output/markdown_card_utils'
+require_relative '../../../ui/cards/markdown_card_utils'
 
 # Liquid Tag to validate (in non-prod) and render a list of books
 # grouped by rating, based on a monotonically sorted list of titles.
@@ -43,7 +43,7 @@ module Jekyll
                 "Syntax Error in 'display_ranked_books': A variable name holding the list must be provided."
         end
 
-        MdCards = Jekyll::MarkdownOutput::MarkdownCardUtils
+        MdCards = Jekyll::UI::Cards::MarkdownCardUtils
         private_constant :MdCards
 
         def render(context)

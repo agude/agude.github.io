@@ -6,7 +6,7 @@ require 'liquid'
 require_relative '../lists/series_finder'
 require_relative '../lists/renderers/for_series_renderer'
 require_relative '../../../infrastructure/tag_argument_utils'
-require_relative '../../markdown_output/markdown_card_utils'
+require_relative '../../../ui/cards/markdown_card_utils'
 require_relative '../../../infrastructure/text_processing_utils'
 require_relative '../../../ui/tags/display_tag_renderable'
 

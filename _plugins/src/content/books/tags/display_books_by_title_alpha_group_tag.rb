@@ -5,7 +5,7 @@ require 'jekyll'
 require 'liquid'
 require_relative '../lists/by_title_alpha_finder'
 require_relative '../lists/renderers/by_title_alpha_renderer'
-require_relative '../../markdown_output/markdown_card_utils'
+require_relative '../../../ui/cards/markdown_card_utils'
 require_relative '../../../ui/tags/display_tag_renderable'
 
 # Liquid Tag to display all books, grouped by the first letter of their

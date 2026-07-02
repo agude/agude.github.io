@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../../content/markdown_output/markdown_card_utils'
+require_relative '../cards/markdown_card_utils'
 
 module Jekyll
   module UI
@@ -13,7 +13,7 @@ module Jekyll
     # Also exposes the `MdCards` constant so including classes don't need
     # their own alias.
     module DisplayTagRenderable
-      MdCards = Jekyll::MarkdownOutput::MarkdownCardUtils
+      MdCards = Jekyll::UI::Cards::MarkdownCardUtils
       private_constant :MdCards
 
       private
