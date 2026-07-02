@@ -20,7 +20,12 @@ same_as_urls:
   - "https://www.google.com/search?kgmid=/m/01z439"
 ---
 
-{% book_link page.title %}, by {% author_link page.book_authors link=false %}, is the second book in {% series_text page.series link=false %}.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the second book in {% series_text page.series link=false %}. It follows
+three strangers---a teenage hacker on his first run, a mercenary hired to
+extract a defecting scientist, and an art dealer tracking down mysterious
+boxes---as they're pulled into a struggle between zaibatsus, the ultra-rich,
+and something stranger.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
@@ -113,11 +118,14 @@ scared to kill himself---but he _is_ a cowboy, he's good at his job, a vital
 part of the team. He's an anti-hero whereas Bobby isn't even that. Marly
 Krushkova doesn't have augmented vision and blades in her fingers; she sells
 art. Turner, the emotionally damaged mercenary, is the closest to a bad-ass
-who would have fit in {{ neuromancer }}, but even he feels small and helpless
-when everything goes to hell. They spend a lot of time in the dirt instead of
-in orbit: hiding in abandoned malls, crawling through the Appalachian
-mountains, hanging out in the projects. It makes the world feel alive in a way
-it didn't in {{ neuromancer }}.
+who would have fit in {{ neuromancer }}. But {{ the_authors_lastname }} sets
+it up brilliantly: he gives Turner a team with personal backstories and
+unanswered questions, setting us up for a replay of the first book, only to
+suddenly subvert them in under a paragraph, showing how out of Turner's
+control things are. The characters in {{ this_book }} spend a lot of time in
+the dirt instead of in orbit: hiding in abandoned malls, crawling through the
+Appalachian mountains, hanging out in the projects. It makes the world feel
+alive in a way it didn't in {{ neuromancer }}.
 
 {{ neuromancer }} focused on power and its cost, taking us inside the
 Tessier-Ashpool dynasty to show how their quest for it had destroyed their
