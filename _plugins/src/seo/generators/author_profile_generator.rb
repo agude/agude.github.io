@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../json_ld_builder'
+require_relative '../person_json_ld_builder'
 
 module Jekyll
   module SEO
@@ -8,7 +8,7 @@ module Jekyll
       # Generates JSON-LD Person schema for author profile pages.
       module AuthorProfileLdGenerator
         def self.generate_hash(document, site)
-          Jekyll::SEO::JsonLdBuilder.build('Person', document: document, site: site) do |schema|
+          Jekyll::SEO::PersonJsonLdBuilder.build('Person', document: document, site: site) do |schema|
             schema.name document.data['title']
             schema.url
             schema.same_as document.data['same_as_urls']

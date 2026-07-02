@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../json_ld_builder'
+require_relative '../person_json_ld_builder'
 
 module Jekyll
   module SEO
@@ -12,7 +12,7 @@ module Jekyll
           education = document.data['education']
           current_employer = experience&.dig(0, 'company')
 
-          Jekyll::SEO::JsonLdBuilder.build('Person', document: document, site: site) do |schema|
+          Jekyll::SEO::PersonJsonLdBuilder.build('Person', document: document, site: site) do |schema|
             schema.author_identity_from_site
             schema.url
             schema.job_title document.data['job_title']
