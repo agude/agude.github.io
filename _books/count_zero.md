@@ -119,13 +119,12 @@ part of the team. He's an anti-hero whereas Bobby isn't even that. Marly
 Krushkova doesn't have augmented vision and blades in her fingers; she sells
 art. Turner, the emotionally damaged mercenary, is the closest to a bad-ass
 who would have fit in {{ neuromancer }}. But {{ the_authors_lastname }} sets
-it up brilliantly: he gives Turner a team with personal backstories and
-unanswered questions, setting us up for a replay of the first book, only to
-suddenly subvert them in under a paragraph, showing how out of Turner's
-control things are. The characters in {{ this_book }} spend a lot of time in
-the dirt instead of in orbit: hiding in abandoned malls, crawling through the
-Appalachian mountains, hanging out in the projects. It makes the world feel
-alive in a way it didn't in {{ neuromancer }}.
+it up brilliantly: he gives Turner's team backstories, a meticulous plan...
+and then blows it away. Everyone's gone, none of their planning mattered. They
+were pawns the entire time. The characters in {{ this_book }} spend a lot of
+time in the dirt instead of in orbit: hiding in abandoned malls, crawling
+through the Appalachian mountains, hanging out in the projects. It makes the
+world feel alive in a way it didn't in {{ neuromancer }}.
 
 {{ neuromancer }} focused on power and its cost, taking us inside the
 Tessier-Ashpool dynasty to show how their quest for it had destroyed their
