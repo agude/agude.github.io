@@ -29,14 +29,9 @@ and something stranger.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
-{% capture the_authors %}{% author_link page.book_authors link=false possessive %}{% endcapture %}
 {% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
 {% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text=author_last_name_text %}{% endcapture %}
 {% capture the_authors_lastname_possessive %}{% author_link page.book_authors link=false link_text=author_last_name_text possessive %}{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
-{% capture the_authors_link %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture the_authors_lastname_link %}{% author_link page.book_authors link_text=author_last_name_text %}{% endcapture %}
-{% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
 
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 {% capture this_series_no_the %}{% series_link "Sprawl" %} series{% endcapture %}
@@ -44,65 +39,28 @@ and something stranger.
 {% capture neuromancer %}{% book_link "Neuromancer" %}{% endcapture %}
 {% capture mona_lisa_overdrive %}{% book_link "Mona Lisa Overdrive" %}{% endcapture %}
 
-{% capture stross %}{% author_link "Charles Stross" %}{% endcapture %}
-{% capture strosss %}{% author_link "Charles Stross" possessive %}{% endcapture %}
-{% capture stross_lastname %}{% author_link "Charles Stross" link_text="Stross" %}{% endcapture %}
 {% capture strosss_lastname %}{% author_link "Charles Stross" link_text="Stross" possessive %}{% endcapture %}
 {% capture accelerando %}{% book_link "Accelerando" %}{% endcapture %}
 
-{% capture bradbury %}{% author_link "Ray Bradbury" %}{% endcapture %}
-{% capture bradburys %}{% author_link "Ray Bradbury" possessive %}{% endcapture %}
-{% capture bradbury_lastname %}{% author_link "Ray Bradbury" link_text="Bradbury" %}{% endcapture %}
 {% capture bradburys_lastname %}{% author_link "Ray Bradbury" link_text="Bradbury" possessive %}{% endcapture %}
 {% capture fahrenheit_451 %}{% book_link "Fahrenheit 451" %}{% endcapture %}
 
-{% capture alex %}{% author_link "A. N. Alex" %}{% endcapture %}
-{% capture alexs %}{% author_link "A. N. Alex" possessive %}{% endcapture %}
-{% capture alex_lastname %}{% author_link "A. N. Alex" link_text="Alex" %}{% endcapture %}
 {% capture alexs_lastname %}{% author_link "A. N. Alex" link_text="Alex" possessive %}{% endcapture %}
 {% capture a_mote_in_shadow %}{% book_link "A Mote in Shadow" %}{% endcapture %}
 
 {% capture stephenson %}{% author_link "Neal Stephenson" %}{% endcapture %}
-{% capture stephensons %}{% author_link "Neal Stephenson" possessive %}{% endcapture %}
-{% capture stephenson_lastname %}{% author_link "Neal Stephenson" link_text="Stephenson" %}{% endcapture %}
 {% capture stephensons_lastname %}{% author_link "Neal Stephenson" link_text="Stephenson" possessive %}{% endcapture %}
 {% capture snow_crash %}{% book_link "Snow Crash" %}{% endcapture %}
 
-{% capture hubbard %}{% author_link "L. Ron Hubbard" %}{% endcapture %}
 {% capture hubbard_lastname %}{% author_link "L. Ron Hubbard" link_text="Hubbard" %}{% endcapture %}
 
-{% capture williams %}{% author_link "Walter Jon Williams" %}{% endcapture %}
-{% capture williamss %}{% author_link "Walter Jon Williams" possessive %}{% endcapture %}
-{% capture williams_lastname %}{% author_link "Walter Jon Williams" link_text="Williams" %}{% endcapture %}
 {% capture williamss_lastname %}{% author_link "Walter Jon Williams" link_text="Williams" possessive %}{% endcapture %}
 {% capture metropolitan_series %}{% series_link "Metropolitan" %}{% endcapture %}
-{% capture city_on_fire %}{% book_link "City on Fire" %}{% endcapture %}
 
-{% capture simmons %}{% author_link "Dan Simmons" %}{% endcapture %}
-{% capture simmonss %}{% author_link "Dan Simmons" possessive %}{% endcapture %}
-{% capture simmons_lastname %}{% author_link "Dan Simmons" link_text="Simmons" %}{% endcapture %}
-{% capture simmonss_lastname %}{% author_link "Dan Simmons" link_text="Simmons" possessive %}{% endcapture %}
-{% capture cantos %}{% series_link "Hyperion Cantos" %}{% endcapture %}
-{% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
-
-{% capture wolfe %}{% author_link "Gene Wolfe" %}{% endcapture %}
-{% capture wolfes %}{% author_link "Gene Wolfe" possessive %}{% endcapture %}
-{% capture wolfe_lastname %}{% author_link "Gene Wolfe" link_text="Wolfe" %}{% endcapture %}
-{% capture wolfes_lastname %}{% author_link "Gene Wolfe" link_text="Wolfe" possessive %}{% endcapture %}
-{% capture botns %}{% series_link "The Book of the New Sun" %}{% endcapture %}
-{% capture the_shadow_of_the_torturer %}{% book_link "The Shadow of the Torturer" %}{% endcapture %}
-
-{% capture watts %}{% author_link "Peter Watts" %}{% endcapture %}
-{% capture wattss %}{% author_link "Peter Watts" possessive %}{% endcapture %}
-{% capture watts_lastname %}{% author_link "Peter Watts" link_text="Watts" %}{% endcapture %}
 {% capture wattss_lastname %}{% author_link "Peter Watts" link_text="Watts" possessive %}{% endcapture %}
-{% capture firefall %}{% series_link "Firefall" %}{% endcapture %}
 {% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}
 
-{% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
-{% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
 {% capture banks_lastname %}{% author_link "Iain M. Banks" link_text="Banks" %}{% endcapture %}
-{% capture bankss_lastname %}{% author_link "Iain M. Banks" link_text="Banks" possessive %}{% endcapture %}
 {% capture matter %}{% book_link "Matter" %}{% endcapture %}
 
 {% capture black_mirror %}{% tv_show_title "Black Mirror" %}{% endcapture %}
