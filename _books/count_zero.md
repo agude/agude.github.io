@@ -139,14 +139,12 @@ in {{ neuromancer }}.
 {{ neuromancer }} focused on power and its cost, taking us inside the
 Tessier-Ashpool dynasty to show how a pursuit of power destroyed their
 humanity. {{ this_book }} views the same power from the outside. The zaibatsus
-tower over the plot, functioning less like traditional villains and more like
-dangerous weather: massive and unfeeling forces that cause widespread
-collateral damage without ever recognizing it. Above them is the world's
-richest man, Josef Virek, dying of some fast-growing cancer and playing the
-zaibatsus against each other, trying to find a way to "jump" to the next
-evolutionary step. He has already lost his humanity, even before the jump, as
-{{ the_authors_lastname }} makes clear when Marly meets Virek's simstim
-avatar:
+tower over the plot, so high up they can't see the people they're crushing.
+Above them is the world's richest man, Josef Virek, dying of some fast-growing
+cancer and playing the zaibatsus against each other, trying to find a way to
+"jump" to the next evolutionary step. He has already lost his humanity, even
+before the jump, as {{ the_authors_lastname }} makes clear when Marly meets
+Virek's simstim avatar:
 
 > And, for an instant, she stared directly into those soft blue eyes and knew,
 > with an instinctive mammalian certainty, that the exceedingly rich were no
