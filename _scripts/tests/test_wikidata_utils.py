@@ -12,6 +12,7 @@ from wikidata_utils import (
     fetch_awards,
     get_claim_strings,
     get_claim_time,
+    get_earliest_edition_isbn,
     yaml_quoted,
 )
 
@@ -303,6 +304,126 @@ class TestFetchAwards:
             mock_fetch.side_effect = [mock_book_entity, mock_unknown_entity, mock_unknown_entity]
             result = fetch_awards("Q123")
             assert result == []
+
+
+class TestGetEarliestEditionIsbn:
+    def _work_entity(self, edition_qids):
+        return {
+            "claims": {
+                "P747": [
+                    {"mainsnak": {"datavalue": {"value": {"id": qid}}}}
+                    for qid in edition_qids
+                ]
+            }
+        }
+
+    def test_prefers_english_edition_over_earlier_non_english(self):
+        # French edition (Q1) is listed before the English one (Q2), but the
+        # English ISBN should win.
+        work_entity = self._work_entity(["Q1", "Q2"])
+        api_response = {
+            "entities": {
+                "Q1": {
+                    "claims": {
+                        "P212": [{"mainsnak": {"datavalue": {"value": "978-2-000-00000-0"}}}],
+                        "P407": [{"mainsnak": {"datavalue": {"value": {"id": "Q150"}}}}],
+                    }
+                },
+                "Q2": {
+                    "claims": {
+                        "P212": [{"mainsnak": {"datavalue": {"value": "978-0-000-00000-0"}}}],
+                        "P407": [{"mainsnak": {"datavalue": {"value": {"id": "Q1860"}}}}],
+                    }
+                },
+            }
+        }
+        with patch("wikidata_utils.fetch_entity", return_value=work_entity), patch(
+            "wikidata_utils.api_get", return_value=api_response
+        ):
+            result = get_earliest_edition_isbn("Q0")
+            assert result == "978-0-000-00000-0"
+
+    def test_falls_back_to_first_isbn_when_no_english_edition(self):
+        work_entity = self._work_entity(["Q1"])
+        api_response = {
+            "entities": {
+                "Q1": {
+                    "claims": {
+                        "P212": [{"mainsnak": {"datavalue": {"value": "978-2-000-00000-0"}}}],
+                        "P407": [{"mainsnak": {"datavalue": {"value": {"id": "Q150"}}}}],
+                    }
+                },
+            }
+        }
+        with patch("wikidata_utils.fetch_entity", return_value=work_entity), patch(
+            "wikidata_utils.api_get", return_value=api_response
+        ):
+            result = get_earliest_edition_isbn("Q0")
+            assert result == "978-2-000-00000-0"
+
+    def test_edition_without_language_claim_used_as_fallback(self):
+        work_entity = self._work_entity(["Q1"])
+        api_response = {
+            "entities": {
+                "Q1": {
+                    "claims": {
+                        "P212": [{"mainsnak": {"datavalue": {"value": "978-0-000-00000-0"}}}],
+                    }
+                },
+            }
+        }
+        with patch("wikidata_utils.fetch_entity", return_value=work_entity), patch(
+            "wikidata_utils.api_get", return_value=api_response
+        ):
+            result = get_earliest_edition_isbn("Q0")
+            assert result == "978-0-000-00000-0"
+
+    def test_edition_without_language_not_treated_as_english(self):
+        work_entity = self._work_entity(["Q1", "Q2"])
+        api_response = {
+            "entities": {
+                "Q1": {
+                    "claims": {
+                        "P212": [{"mainsnak": {"datavalue": {"value": "978-0-111-11111-1"}}}],
+                    }
+                },
+                "Q2": {
+                    "claims": {
+                        "P212": [{"mainsnak": {"datavalue": {"value": "978-0-222-22222-2"}}}],
+                        "P407": [{"mainsnak": {"datavalue": {"value": {"id": "Q1860"}}}}],
+                    }
+                },
+            }
+        }
+        with patch("wikidata_utils.fetch_entity", return_value=work_entity), patch(
+            "wikidata_utils.api_get", return_value=api_response
+        ):
+            result = get_earliest_edition_isbn("Q0")
+            assert result == "978-0-222-22222-2"
+
+    def test_isbn10_fallback_when_no_isbn13(self):
+        work_entity = self._work_entity(["Q1"])
+        api_response = {
+            "entities": {
+                "Q1": {
+                    "claims": {
+                        "P957": [{"mainsnak": {"datavalue": {"value": "0-000-00000-0"}}}],
+                        "P407": [{"mainsnak": {"datavalue": {"value": {"id": "Q1860"}}}}],
+                    }
+                },
+            }
+        }
+        with patch("wikidata_utils.fetch_entity", return_value=work_entity), patch(
+            "wikidata_utils.api_get", return_value=api_response
+        ):
+            result = get_earliest_edition_isbn("Q0")
+            assert result == "0-000-00000-0"
+
+    def test_no_editions_returns_none(self):
+        work_entity = self._work_entity([])
+        with patch("wikidata_utils.fetch_entity", return_value=work_entity):
+            result = get_earliest_edition_isbn("Q0")
+            assert result is None
 
 
 class TestAwardFamiliesMapping:

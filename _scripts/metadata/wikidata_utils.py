@@ -145,6 +145,17 @@ def get_claim_strings(entity: dict, prop_id: str) -> list[str]:
     return values
 
 
+def get_claim_entity_ids(entity: dict, prop_id: str) -> list[str]:
+    """Extract Q-IDs from all item-reference claims of a given property."""
+    claims = entity.get("claims", {})
+    qids: list[str] = []
+    for claim in claims.get(prop_id, []):
+        qid = claim.get("mainsnak", {}).get("datavalue", {}).get("value", {}).get("id")
+        if qid:
+            qids.append(qid)
+    return qids
+
+
 def get_claim_time(entity: dict, prop_id: str) -> str | None:
     """Extract the first time value from a property.
 
@@ -224,27 +235,28 @@ AWARD_FAMILIES: dict[str, str] = {
 }
 
 
+ENGLISH_LANGUAGE_QID = "Q1860"
+
+
 def get_earliest_edition_isbn(work_qid: str) -> str | None:
     """Find an ISBN from the editions of a work via the Wikidata API.
 
     Uses P747 (has edition or translation) on the work entity to find
-    edition Q-IDs, fetches them in batches, and returns the first ISBN
-    found. Prefers ISBN-13 (P212) over ISBN-10 (P957).
+    edition Q-IDs, fetches them in batches, and returns an ISBN found on an
+    English-language (P407) edition if one exists, otherwise the first ISBN
+    found in any language. Prefers ISBN-13 (P212) over ISBN-10 (P957).
     """
     # Get edition Q-IDs from the work entity.
     work = fetch_entity(work_qid)
-    edition_claims = work.get("claims", {}).get("P747", [])
-    edition_qids = []
-    for claim in edition_claims:
-        qid = claim.get("mainsnak", {}).get("datavalue", {}).get("value", {}).get("id")
-        if qid:
-            edition_qids.append(qid)
+    edition_qids = get_claim_entity_ids(work, "P747")
 
     if not edition_qids:
         log.debug("No editions found for %s", work_qid)
         return None
 
     log.debug("Checking %d editions for ISBN", len(edition_qids))
+
+    fallback_isbn = None
 
     # Fetch editions in batches of 50 (API limit).
     for i in range(0, len(edition_qids), 50):
@@ -261,9 +273,22 @@ def get_earliest_edition_isbn(work_qid: str) -> str | None:
             isbn_list = get_claim_strings(entity, "P212") or get_claim_strings(
                 entity, "P957"
             )
-            if isbn_list:
-                log.debug("Found ISBN %s in edition %s", isbn_list[0], qid)
+            if not isbn_list:
+                continue
+            if fallback_isbn is None:
+                fallback_isbn = isbn_list[0]
+            language_qids = get_claim_entity_ids(entity, "P407")
+            if ENGLISH_LANGUAGE_QID in language_qids:
+                log.debug(
+                    "Found English-language ISBN %s in edition %s",
+                    isbn_list[0],
+                    qid,
+                )
                 return isbn_list[0]
+
+    if fallback_isbn:
+        log.debug("No English-language edition found; using ISBN %s", fallback_isbn)
+        return fallback_isbn
 
     return None
 
@@ -299,16 +324,13 @@ def _resolve_award_family(award_qid: str, seen: set[str] | None = None) -> str |
         return AWARD_FAMILIES[award_qid]
 
     entity = fetch_entity(award_qid)
-    claims = entity.get("claims", {})
 
     for prop in ("P361", "P279"):
-        for claim in claims.get(prop, []):
-            parent_qid = claim.get("mainsnak", {}).get("datavalue", {}).get("value", {}).get("id")
-            if parent_qid:
-                log.debug("Traversing %s -> %s via %s", award_qid, parent_qid, prop)
-                result = _resolve_award_family(parent_qid, seen)
-                if result:
-                    return result
+        for parent_qid in get_claim_entity_ids(entity, prop):
+            log.debug("Traversing %s -> %s via %s", award_qid, parent_qid, prop)
+            result = _resolve_award_family(parent_qid, seen)
+            if result:
+                return result
 
     return None
 
@@ -321,21 +343,16 @@ def fetch_awards(book_qid: str) -> list[str]:
     """
     log.debug("Fetching awards for %s", book_qid)
     entity = fetch_entity(book_qid)
-    claims = entity.get("claims", {})
-    award_claims = claims.get("P166", [])
+    award_qids = get_claim_entity_ids(entity, "P166")
 
-    if not award_claims:
+    if not award_qids:
         log.debug("No awards (P166) found for %s", book_qid)
         return []
 
-    log.debug("Found %d award claims", len(award_claims))
+    log.debug("Found %d award claims", len(award_qids))
 
     slugs: set[str] = set()
-    for claim in award_claims:
-        award_qid = claim.get("mainsnak", {}).get("datavalue", {}).get("value", {}).get("id")
-        if not award_qid:
-            continue
-
+    for award_qid in award_qids:
         slug = _resolve_award_family(award_qid)
         if slug:
             slugs.add(slug)

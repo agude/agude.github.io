@@ -104,10 +104,22 @@ site for a more specific date and update the front matter.
 
 #### Check the ISBN
 
-The script takes the first ISBN it finds. This may be a foreign-language
-edition. If so, search the Wikidata edition entities for an
-English-language ISBN, or find one on the publisher's site. The ISBN
-should be ISBN-13 format (978-...).
+`update_book_metadata.py` prefers an English-language edition when one
+exists, but Wikidata's edition data is incomplete or wrong often enough
+to warrant a spot check. The ISBN should be ISBN-13 format (978-...).
+
+If the ISBN looks wrong (e.g., a `978-2-...` French prefix), list all
+editions with their language and ISBN:
+
+```bash
+cd _scripts/metadata && uv run list_editions.py Q_WORK_ID
+```
+
+This prints each edition's Q-ID, label, language, and ISBN, and flags
+which one the automatic picker selected. Do not query the Wikidata API
+directly with ad hoc code (raw `requests`/`urllib` calls get a 403 —
+Wikimedia requires a `User-Agent` header) — use this script, or find an
+ISBN on the publisher's site directly.
 
 #### Verify `same_as_urls`
 
