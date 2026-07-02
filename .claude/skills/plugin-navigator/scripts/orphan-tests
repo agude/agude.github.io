@@ -7,11 +7,26 @@ source "$(dirname "${BASH_SOURCE[0]}")/lib/common.sh"
 
 cd "$PROJECT_ROOT"
 
+# Cross-cutting test suites that intentionally have no matching plugin.
+ALLOWED_ORPHANS=(
+    "test_helper.rb"
+    "test_render_mode_coverage.rb"
+    "test_link_cache_structure.rb"
+)
+
+is_allowed_orphan() {
+    local name="$1"
+    for allowed in "${ALLOWED_ORPHANS[@]}"; do
+        [[ "$name" == "$allowed" ]] && return 0
+    done
+    return 1
+}
+
 orphan_count=0
 
 while IFS= read -r test_file; do
     basename="$(basename "$test_file")"
-    [[ "$basename" == "test_helper.rb" ]] && continue
+    is_allowed_orphan "$basename" && continue
 
     if ! find_plugin_for_test "$test_file" > /dev/null; then
         echo "$test_file"
