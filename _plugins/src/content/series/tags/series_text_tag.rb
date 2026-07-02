@@ -7,7 +7,7 @@ require 'strscan'
 require_relative '../series_link_resolver'
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../series_text_utils'
-require_relative '../../markdown_output/markdown_link_formatter'
+require_relative '../../../infrastructure/links/markdown_link_formatter'
 require_relative '../../../infrastructure/links/link_helper_utils'
 
 # Renders series text with appropriate context and linking.
@@ -30,7 +30,7 @@ module Jekyll
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         Resolver = Jekyll::Series::SeriesLinkResolver
         TextUtil = Jekyll::Series::SeriesTextUtils
-        MdLink = Jekyll::MarkdownOutput::MarkdownLinkFormatter
+        MdLink = Jekyll::Infrastructure::Links::MarkdownLinkFormatter
         LinkHelper = Jekyll::Infrastructure::Links::LinkHelperUtils
         private_constant :TagArgs, :Resolver, :TextUtil, :MdLink, :LinkHelper
 
