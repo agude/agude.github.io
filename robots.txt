@@ -7,6 +7,24 @@
 User-agent: *
 Disallow:
 
+# Block search engine crawlers from markdown alternate files.
+# These are generated for LLM/agent consumption via <link rel="alternate"
+# type="text/markdown"> and should not be indexed as web pages.
+# GitHub Pages does not support X-Robots-Tag headers, so robots.txt is the
+# only available mechanism.
+
+User-agent: Googlebot
+Disallow: /*.md$
+
+User-agent: Bingbot
+Disallow: /*.md$
+
+User-agent: YandexBot
+Disallow: /*.md$
+
+User-agent: Baiduspider
+Disallow: /*.md$
+
 # The auto-generated sitemap{% comment %}
 The Sitemap URL MUST be the full URL! See:
 
