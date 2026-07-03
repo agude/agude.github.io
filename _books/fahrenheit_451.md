@@ -59,3 +59,15 @@ same_as_urls:
 {% capture king_lastname %}{% author_link "Stephen King" link_text="King" %}{% endcapture %}
 {% capture kings_lastname %}{% author_link "Stephen King" link_text="King" possessive %}{% endcapture %}
 {% capture the_running_man %}{% book_link "The Running Man" %}{% endcapture %}
+
+{% capture orwell %}{% author_link "George Orwell" %}{% endcapture %}
+{% capture orwells %}{% author_link "George Orwell" possessive %}{% endcapture %}
+{% capture orwell_lastname %}{% author_link "George Orwell" link_text="Orwell" %}{% endcapture %}
+{% capture orwells_lastname %}{% author_link "George Orwell" link_text="Orwell" possessive %}{% endcapture %}
+{% capture nineteen_eighty_four %}{% book_link "1984" %}{% endcapture %}
+
+{% capture huxley %}{% author_link "Aldous Huxley" %}{% endcapture %}
+{% capture huxleys %}{% author_link "Aldous Huxley" possessive %}{% endcapture %}
+{% capture huxley_lastname %}{% author_link "Aldous Huxley" link_text="Huxley" %}{% endcapture %}
+{% capture huxleys_lastname %}{% author_link "Aldous Huxley" link_text="Huxley" possessive %}{% endcapture %}
+{% capture brave_new_world %}{% book_link "Brave New World" %}{% endcapture %}
