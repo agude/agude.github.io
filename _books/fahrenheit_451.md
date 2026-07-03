@@ -71,3 +71,12 @@ same_as_urls:
 {% capture huxley_lastname %}{% author_link "Aldous Huxley" link_text="Huxley" %}{% endcapture %}
 {% capture huxleys_lastname %}{% author_link "Aldous Huxley" link_text="Huxley" possessive %}{% endcapture %}
 {% capture brave_new_world %}{% book_link "Brave New World" %}{% endcapture %}
+
+I first read {{ this_book }} when I was a brand new reader, just starting to
+pick books out of the library for myself. I loved Bradbury's take on
+censorship, on the importance of free media and free thought. I saw it as a
+companion work to {{ orwells_lastname }} {{ nineteen_eighty_four }} or {{
+huxleys_lastname }} {{ brave_new_world }}. It felt very advanced, a book that
+showed you instead of telling you.
+
+Rereading it now, my opinion
