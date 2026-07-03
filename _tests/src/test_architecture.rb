@@ -80,9 +80,12 @@ class TestArchitecture < Minitest::Test
                  .select { |entry| File.directory?(File.join(PLUGINS_ROOT, entry)) }
                  .sort
 
-    assert_equal ALLOWED_DEPENDENCIES.keys.sort, on_disk,
-                 'Domains under _plugins/src and ALLOWED_DEPENDENCIES have ' \
-                 'diverged — update the rules table deliberately.'
+    assert_equal(
+      ALLOWED_DEPENDENCIES.keys.sort,
+      on_disk,
+      'Domains under _plugins/src and ALLOWED_DEPENDENCIES have ' \
+      'diverged — update the rules table deliberately.',
+    )
   end
 
   private
