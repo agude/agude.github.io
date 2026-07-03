@@ -34,3 +34,28 @@ same_as_urls:
 {% capture the_authors_link %}{% author_link page.book_authors possessive %}{% endcapture %}
 {% capture the_authors_lastname_link %}{% author_link page.book_authors link_text=author_last_name_text %}{% endcapture %}
 {% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
+
+{% capture stephenson %}{% author_link "Neal Stephenson" %}{% endcapture %}
+{% capture stephensons %}{% author_link "Neal Stephenson" possessive %}{% endcapture %}
+{% capture stephenson_lastname %}{% author_link "Neal Stephenson" link_text="Stephenson" %}{% endcapture %}
+{% capture stephensons_lastname %}{% author_link "Neal Stephenson" link_text="Stephenson" possessive %}{% endcapture %}
+{% capture snow_crash %}{% book_link "Snow Crash" %}{% endcapture %}
+
+{% capture gibson %}{% author_link "William Gibson" %}{% endcapture %}
+{% capture gibsons %}{% author_link "William Gibson" possessive %}{% endcapture %}
+{% capture gibson_lastname %}{% author_link "William Gibson" link_text="Gibson" %}{% endcapture %}
+{% capture gibsons_lastname %}{% author_link "William Gibson" link_text="Gibson" possessive %}{% endcapture %}
+{% capture sprawl %}{% series_link "Sprawl" %}{% endcapture %}
+{% capture count_zero %}{% book_link "Count Zero" %}{% endcapture %}
+{% capture neuromancer %}{% book_link "Neuromancer" %}{% endcapture %}
+
+{% capture dick %}{% author_link "Philip K. Dick" %}{% endcapture %}
+{% capture dicks %}{% author_link "Philip K. Dick" possessive %}{% endcapture %}
+{% capture dick_lastname %}{% author_link "Philip K. Dick" link_text="Dick" %}{% endcapture %}
+{% capture dicks_lastname %}{% author_link "Philip K. Dick" link_text="Dick" possessive %}{% endcapture %}
+
+{% capture king %}{% author_link "Stephen King" %}{% endcapture %}
+{% capture kings %}{% author_link "Stephen King" possessive %}{% endcapture %}
+{% capture king_lastname %}{% author_link "Stephen King" link_text="King" %}{% endcapture %}
+{% capture kings_lastname %}{% author_link "Stephen King" link_text="King" possessive %}{% endcapture %}
+{% capture the_running_man %}{% book_link "The Running Man" %}{% endcapture %}
