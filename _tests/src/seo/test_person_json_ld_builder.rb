@@ -18,6 +18,7 @@ class TestPersonJsonLdBuilder < Minitest::Test
         'alternate_names' => ['Pseudonym'],
         'honorific_prefix' => 'Dr.',
         'pronouns' => 'they/them',
+        'gender' => 'https://schema.org/Male',
         'linkedin' => 'testuser',
         'github' => 'testuser',
       },
@@ -70,6 +71,13 @@ class TestPersonJsonLdBuilder < Minitest::Test
       schema.pronouns 'they/them'
     end
     assert_equal 'they/them', result['pronouns']
+  end
+
+  def test_gender
+    result = Jekyll::SEO::PersonJsonLdBuilder.build('Person') do |schema|
+      schema.gender 'https://schema.org/Male'
+    end
+    assert_equal 'https://schema.org/Male', result['gender']
   end
 
   def test_works_for
@@ -185,6 +193,7 @@ class TestPersonJsonLdBuilder < Minitest::Test
     assert_equal 'Author', result['familyName']
     assert_equal 'Dr.', result['honorificPrefix']
     assert_equal 'they/them', result['pronouns']
+    assert_equal 'https://schema.org/Male', result['gender']
     assert_equal ['Pseudonym'], result['alternateName']
   end
 end

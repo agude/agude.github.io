@@ -27,6 +27,10 @@ module Jekyll
         set_if_present('pronouns', value)
       end
 
+      def gender(value)
+        set_if_present('gender', value)
+      end
+
       def author_identity_from_site
         author = @site&.config&.[]('author') || {}
         name author['name']
@@ -35,6 +39,7 @@ module Jekyll
         alternate_names author['alternate_names']
         honorific_prefix author['honorific_prefix']
         pronouns author['pronouns']
+        gender author['gender']
         image_url @site&.config&.[]('logo')
       end
 
