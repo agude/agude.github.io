@@ -12,19 +12,10 @@ module Jekyll
       class Finder
         DEFAULT_MAX_POSTS = 3
 
-        # Accepts site + page directly (for use outside Liquid context).
-        # Legacy: also accepts a Liquid::Context as the first argument.
-        def initialize(site_or_context, page_or_max_posts = nil, max_posts = nil)
-          if site_or_context.respond_to?(:registers)
-            @site = site_or_context.registers[:site]
-            @page = site_or_context.registers[:page]
-            @max_posts = page_or_max_posts
-          else
-            @site = site_or_context
-            @page = page_or_max_posts
-            @max_posts = max_posts
-          end
-          @max_posts ||= @site&.config&.dig('display_limits', 'related_posts') || DEFAULT_MAX_POSTS
+        def initialize(site, page = nil, max_posts = nil)
+          @site = site
+          @page = page
+          @max_posts = max_posts || @site&.config&.dig('display_limits', 'related_posts') || DEFAULT_MAX_POSTS
           @now_unix = Time.now.to_i
           @found_by_category = false
         end

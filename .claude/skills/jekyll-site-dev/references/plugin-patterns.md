@@ -56,7 +56,7 @@ end
 ```
 
 The mixin calls `render_markdown(data)` in markdown mode, or yields for HTML.
-It also exposes the `MdCards` constant (`MarkdownCardUtils`).
+It also exposes the `MdCards` constant (`Jekyll::UI::Cards::MarkdownCardUtils`).
 
 ## Finder / Renderer Separation
 

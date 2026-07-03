@@ -83,7 +83,7 @@ class TestRelatedPostsTag < Minitest::Test
     finder = nil
     result = nil
     Time.stub :now, @test_time_now do
-      finder = Jekyll::Posts::Related::Finder.new(@context, DEFAULT_MAX_POSTS)
+      finder = Jekyll::Posts::Related::Finder.new(@site, @post_curr, DEFAULT_MAX_POSTS)
       result = finder.find
     end
 
@@ -97,7 +97,7 @@ class TestRelatedPostsTag < Minitest::Test
     finder = nil
     result = nil
     Time.stub :now, @test_time_now do
-      finder = Jekyll::Posts::Related::Finder.new(@context, DEFAULT_MAX_POSTS)
+      finder = Jekyll::Posts::Related::Finder.new(@site, @post_curr, DEFAULT_MAX_POSTS)
       result = finder.find
     end
 
@@ -115,12 +115,11 @@ class TestRelatedPostsTag < Minitest::Test
     all_posts_for_this_test = @all_posts_for_site_default.dup.reject { |p| p.url == page_no_cats.url }
     all_posts_for_this_test << page_no_cats
     site_for_this_test = create_site(current_site_config, {}, [], all_posts_for_this_test)
-    context_no_cats = create_context({}, { site: site_for_this_test, page: page_no_cats })
 
     finder = nil
     result = nil
     Time.stub :now, @test_time_now do
-      finder = Jekyll::Posts::Related::Finder.new(context_no_cats, DEFAULT_MAX_POSTS)
+      finder = Jekyll::Posts::Related::Finder.new(site_for_this_test, page_no_cats, DEFAULT_MAX_POSTS)
       result = finder.find
     end
 
@@ -140,12 +139,11 @@ class TestRelatedPostsTag < Minitest::Test
     all_posts_for_this_test << page_no_cats
 
     site_for_this_test = create_site(current_site_config, {}, [], all_posts_for_this_test)
-    context_no_cats = create_context({}, { site: site_for_this_test, page: page_no_cats })
 
     finder = nil
     result = nil
     Time.stub :now, @test_time_now do
-      finder = Jekyll::Posts::Related::Finder.new(context_no_cats, DEFAULT_MAX_POSTS)
+      finder = Jekyll::Posts::Related::Finder.new(site_for_this_test, page_no_cats, DEFAULT_MAX_POSTS)
       result = finder.find
     end
 
@@ -159,7 +157,7 @@ class TestRelatedPostsTag < Minitest::Test
     finder = nil
     result = nil
     Time.stub :now, @test_time_now do
-      finder = Jekyll::Posts::Related::Finder.new(@context, DEFAULT_MAX_POSTS)
+      finder = Jekyll::Posts::Related::Finder.new(@site, @post_curr, DEFAULT_MAX_POSTS)
       result = finder.find
     end
 
@@ -174,12 +172,11 @@ class TestRelatedPostsTag < Minitest::Test
     current_site_config['related_posts'] = [@post_tech1, @post_uncat1, @post_gadgets1].sort_by(&:date).reverse
 
     site_for_dedup_test = create_site(current_site_config, {}, [], @all_posts_for_site_default)
-    context_for_dedup = create_context({}, { site: site_for_dedup_test, page: @post_curr })
 
     finder = nil
     result = nil
     Time.stub :now, @test_time_now do
-      finder = Jekyll::Posts::Related::Finder.new(context_for_dedup, DEFAULT_MAX_POSTS)
+      finder = Jekyll::Posts::Related::Finder.new(site_for_dedup_test, @post_curr, DEFAULT_MAX_POSTS)
       result = finder.find
     end
 
@@ -193,12 +190,11 @@ class TestRelatedPostsTag < Minitest::Test
     minimal_site_config = @site_config_base.dup
     minimal_site_config['related_posts'] = []
     minimal_site = create_site(minimal_site_config, {}, [], [page_isolated])
-    minimal_context = create_context({}, { site: minimal_site, page: page_isolated })
 
     finder = nil
     result = nil
     Time.stub :now, @test_time_now do
-      finder = Jekyll::Posts::Related::Finder.new(minimal_context, DEFAULT_MAX_POSTS)
+      finder = Jekyll::Posts::Related::Finder.new(minimal_site, page_isolated, DEFAULT_MAX_POSTS)
       result = finder.find
     end
 
@@ -209,7 +205,6 @@ class TestRelatedPostsTag < Minitest::Test
   def test_finder_logs_error_when_prerequisites_missing
     config = { 'plugin_logging' => { 'RELATED_POSTS' => true } }
     site = create_site(config, {}, [], [])
-    context = create_context({}, { site: site })
 
     mock_logger = Minitest::Mock.new
     mock_logger.expect(:error, nil) do |prefix, msg|
@@ -222,7 +217,7 @@ class TestRelatedPostsTag < Minitest::Test
     result = nil
     Jekyll.stub :logger, mock_logger do
       Time.stub :now, @test_time_now do
-        finder = Jekyll::Posts::Related::Finder.new(context, DEFAULT_MAX_POSTS)
+        finder = Jekyll::Posts::Related::Finder.new(site, nil, DEFAULT_MAX_POSTS)
         result = finder.find
       end
     end

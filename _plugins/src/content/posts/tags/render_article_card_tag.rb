@@ -6,7 +6,7 @@ require 'liquid'
 require_relative '../article_card_renderer'
 require_relative '../../../infrastructure/plugin_logger_utils'
 require_relative '../../../infrastructure/tag_argument_utils'
-require_relative '../../markdown_output/markdown_card_utils'
+require_relative '../../../ui/cards/markdown_card_utils'
 
 module Jekyll
   module Posts
@@ -31,7 +31,7 @@ module Jekyll
           validate_markup
         end
 
-        MdCards = Jekyll::MarkdownOutput::MarkdownCardUtils
+        MdCards = Jekyll::UI::Cards::MarkdownCardUtils
         private_constant :MdCards
 
         def render(context)

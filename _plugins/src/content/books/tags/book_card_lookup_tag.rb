@@ -8,7 +8,7 @@ require_relative '../../../infrastructure/plugin_logger_utils'
 require_relative '../core/book_card_renderer'
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../lookups/book_finder'
-require_relative '../../markdown_output/markdown_card_utils'
+require_relative '../../../ui/cards/markdown_card_utils'
 
 # Renders a book card by looking up a book by its title and optional date.
 #
@@ -30,7 +30,7 @@ module Jekyll
         Logger = Jekyll::Infrastructure::PluginLoggerUtils
         CardRenderer = Jekyll::Books::Core::BookCardRenderer
         Finder = Jekyll::Books::Lookups::BookFinder
-        MdCards = Jekyll::MarkdownOutput::MarkdownCardUtils
+        MdCards = Jekyll::UI::Cards::MarkdownCardUtils
         private_constant :TagArgs, :Logger, :CardRenderer, :Finder, :MdCards
 
         def initialize(tag_name, markup, tokens)

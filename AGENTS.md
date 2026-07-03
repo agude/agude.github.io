@@ -26,8 +26,10 @@ Jekyll-based static site (alexgude.com) running in Docker.
 - **Layouts:** `_layouts/`, `_includes/`.
 - **Plugins:** `_plugins/src/` (Domain-Driven Design).
   - `infrastructure/`: Low-level utils (Logger, Text, URL), **Link Cache**,
-    `GeneratedStaticFile`, `MarkdownWhitespaceNormalizer`.
-  - `ui/`: Generic components (Cards, Ratings, Citations).
+    `GeneratedStaticFile`, `MarkdownWhitespaceNormalizer`,
+    `MarkdownLinkFormatter`.
+  - `ui/`: Generic components (Cards, Ratings, Citations,
+    `MarkdownCardUtils`).
   - `seo/`: Two parallel subsystems both read by `_includes/head.html`:
     - `JsonLdInjector` populates `site.data['generated_json_ld_scripts']`
       with `<script type="application/ld+json">` tags. Layout-keyed

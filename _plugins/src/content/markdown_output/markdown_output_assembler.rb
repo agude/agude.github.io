@@ -8,8 +8,8 @@ require_relative '../books/reviews/finder'
 require_relative '../posts/related/finder'
 require_relative '../../infrastructure/text_processing_utils'
 require_relative 'markdown_body_hook'
-require_relative 'markdown_card_utils'
-require_relative 'markdown_link_formatter'
+require_relative '../../ui/cards/markdown_card_utils'
+require_relative '../../infrastructure/links/markdown_link_formatter'
 require_relative '../books/core/book_awards_formatter'
 require_relative 'tags/llms_txt_index_tag'
 
@@ -21,8 +21,9 @@ module Jekyll
     module MarkdownOutputAssembler
       Normalizer = Jekyll::Infrastructure::MarkdownWhitespaceNormalizer
       Text = Jekyll::Infrastructure::TextProcessingUtils
-      MdLink = Jekyll::MarkdownOutput::MarkdownLinkFormatter
-      private_constant :Normalizer, :Text, :MdLink
+      MdLink = Jekyll::Infrastructure::Links::MarkdownLinkFormatter
+      MarkdownCardUtils = Jekyll::UI::Cards::MarkdownCardUtils
+      private_constant :Normalizer, :Text, :MdLink, :MarkdownCardUtils
 
       def self.assemble_all(site)
         return unless MarkdownBodyHook.enabled?(site)

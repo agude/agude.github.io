@@ -8,7 +8,7 @@ require_relative '../post_list_utils'
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../../../infrastructure/plugin_logger_utils'
 require_relative '../category/renderer'
-require_relative '../../markdown_output/markdown_card_utils'
+require_relative '../../../ui/cards/markdown_card_utils'
 require_relative '../../../ui/tags/display_tag_renderable'
 
 # Displays article cards for posts in a specific category/topic.

@@ -5,7 +5,7 @@ require 'jekyll'
 require 'liquid'
 require_relative '../lists/all_books_by_author_finder'
 require_relative '../lists/renderers/by_author_then_series_renderer'
-require_relative '../../markdown_output/markdown_card_utils'
+require_relative '../../../ui/cards/markdown_card_utils'
 require_relative '../../../ui/tags/display_tag_renderable'
 
 # Liquid Tag to display all books, grouped first by author (alphabetically),

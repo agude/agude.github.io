@@ -71,7 +71,7 @@ class TestBookBacklinksTag < Minitest::Test
       { source: @source_doc_alpha, type: 'book' },
     ]
     context = create_context({}, { site: @site, page: @target_page })
-    finder = Jekyll::Books::Backlinks::Finder.new(context)
+    finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
     result = finder.find
 
     assert_kind_of Hash, result
@@ -86,7 +86,7 @@ class TestBookBacklinksTag < Minitest::Test
       { source: @source_doc_beta, type: 'direct' },
     ]
     context = create_context({}, { site: @site, page: @target_page })
-    finder = Jekyll::Books::Backlinks::Finder.new(context)
+    finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
     result = finder.find
 
     assert_equal 3, result[:backlinks].length
@@ -102,7 +102,7 @@ class TestBookBacklinksTag < Minitest::Test
       { source: @source_doc_beta, type: 'direct' },
     ]
     context = create_context({}, { site: @site, page: @target_page })
-    finder = Jekyll::Books::Backlinks::Finder.new(context)
+    finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
     result = finder.find
 
     assert_equal 2, result[:backlinks].length
@@ -127,7 +127,7 @@ class TestBookBacklinksTag < Minitest::Test
     }
 
     context = create_context({}, { site: site, page: target_book })
-    finder = Jekyll::Books::Backlinks::Finder.new(context)
+    finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
     result = finder.find
 
     assert_equal 1, result[:backlinks].length
@@ -150,7 +150,7 @@ class TestBookBacklinksTag < Minitest::Test
 
     # Test on Series Book 2, which only gets the series mention indirectly
     context = create_context({}, { site: site, page: series_book_2 })
-    finder = Jekyll::Books::Backlinks::Finder.new(context)
+    finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
     result = finder.find
 
     assert_equal 1, result[:backlinks].length
@@ -160,7 +160,7 @@ class TestBookBacklinksTag < Minitest::Test
 
   def test_finder_returns_empty_when_no_backlinks_found
     context = create_context({}, { site: @site, page: @target_page })
-    finder = Jekyll::Books::Backlinks::Finder.new(context)
+    finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
     result = finder.find
 
     assert_empty result[:backlinks]
@@ -182,7 +182,7 @@ class TestBookBacklinksTag < Minitest::Test
     end
 
     Jekyll.stub :logger, mock_logger do
-      finder = Jekyll::Books::Backlinks::Finder.new(context)
+      finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
       result = finder.find
 
       assert_empty result[:backlinks]

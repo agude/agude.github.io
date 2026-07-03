@@ -3,7 +3,7 @@
 require 'jekyll'
 require 'liquid'
 require_relative '../markdown_body_hook'
-require_relative '../markdown_card_utils'
+require_relative '../../../ui/cards/markdown_card_utils'
 
 module Jekyll
   module MarkdownOutput
@@ -15,7 +15,7 @@ module Jekyll
       # Usage: {% llms_txt_index %}
       class LlmsTxtIndexTag < Liquid::Tag
         Hook = Jekyll::MarkdownOutput::MarkdownBodyHook
-        MdCards = Jekyll::MarkdownOutput::MarkdownCardUtils
+        MdCards = Jekyll::UI::Cards::MarkdownCardUtils
         private_constant :Hook, :MdCards
 
         def initialize(tag_name, markup, tokens)

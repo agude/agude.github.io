@@ -6,7 +6,7 @@ require 'liquid'
 require 'strscan'
 require_relative '../short_story_resolver'
 require_relative '../../../infrastructure/tag_argument_utils'
-require_relative '../../markdown_output/markdown_link_formatter'
+require_relative '../../../infrastructure/links/markdown_link_formatter'
 require_relative '../../../infrastructure/links/link_helper_utils'
 
 # Liquid Tag for creating a link to a short story.
@@ -24,7 +24,7 @@ module Jekyll
         # Aliases for readability
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         Resolver = Jekyll::ShortStories::ShortStoryResolver
-        MdLink = Jekyll::MarkdownOutput::MarkdownLinkFormatter
+        MdLink = Jekyll::Infrastructure::Links::MarkdownLinkFormatter
         LinkHelper = Jekyll::Infrastructure::Links::LinkHelperUtils
         private_constant :TagArgs, :Resolver, :MdLink, :LinkHelper
 

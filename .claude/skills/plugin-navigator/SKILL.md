@@ -59,5 +59,6 @@ When reviewing test comprehensiveness:
 
 ## Known Quirks
 
-- Some tests in `lists/` test renderers in `lists/renderers/` (shows as "orphan" but isn't)
-- `test_helper.rb` is excluded from orphan detection
+- `test_helper.rb`, `test_render_mode_coverage.rb`, and
+  `test_link_cache_structure.rb` are allowlisted in `orphan-tests`
+  (cross-cutting suites with no matching plugin)

@@ -7,7 +7,7 @@ require 'cgi' # Keep for QuotedFragment
 require 'strscan'
 require_relative '../core/book_link_resolver'
 require_relative '../../../infrastructure/tag_argument_utils'
-require_relative '../../markdown_output/markdown_link_formatter'
+require_relative '../../../infrastructure/links/markdown_link_formatter'
 require_relative '../../../infrastructure/links/link_helper_utils'
 
 # Liquid Tag for creating a link to a book page, wrapped in <cite>.
@@ -26,7 +26,7 @@ module Jekyll
         # Aliases for readability
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         Resolver = Jekyll::Books::Core::BookLinkResolver
-        MdLink = Jekyll::MarkdownOutput::MarkdownLinkFormatter
+        MdLink = Jekyll::Infrastructure::Links::MarkdownLinkFormatter
         LinkHelper = Jekyll::Infrastructure::Links::LinkHelperUtils
         private_constant :TagArgs, :Resolver, :MdLink, :LinkHelper
 
