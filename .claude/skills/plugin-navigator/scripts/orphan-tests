@@ -12,6 +12,7 @@ ALLOWED_ORPHANS=(
     "test_helper.rb"
     "test_render_mode_coverage.rb"
     "test_link_cache_structure.rb"
+    "test_architecture.rb"
 )
 
 is_allowed_orphan() {
