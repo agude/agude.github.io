@@ -72,11 +72,61 @@ same_as_urls:
 {% capture huxleys_lastname %}{% author_link "Aldous Huxley" link_text="Huxley" possessive %}{% endcapture %}
 {% capture brave_new_world %}{% book_link "Brave New World" %}{% endcapture %}
 
-I first read {{ this_book }} when I was a brand new reader, just starting to
-pick books out of the library for myself. I loved Bradbury's take on
-censorship, on the importance of free media and free thought. I saw it as a
-companion work to {{ orwells_lastname }} {{ nineteen_eighty_four }} or {{
-huxleys_lastname }} {{ brave_new_world }}. It felt very advanced, a book that
-showed you instead of telling you.
+{% capture watts %}{% author_link "Peter Watts" %}{% endcapture %}
+{% capture wattss %}{% author_link "Peter Watts" possessive %}{% endcapture %}
+{% capture watts_lastname %}{% author_link "Peter Watts" link_text="Watts" %}{% endcapture %}
+{% capture wattss_lastname %}{% author_link "Peter Watts" link_text="Watts" possessive %}{% endcapture %}
+{% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
+{% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}
 
-Rereading it now, my opinion
+{% capture simmons %}{% author_link "Dan Simmons" %}{% endcapture %}
+{% capture simmonss %}{% author_link "Dan Simmons" possessive %}{% endcapture %}
+{% capture simmons_lastname %}{% author_link "Dan Simmons" link_text="Simmons" %}{% endcapture %}
+{% capture simmonss_lastname %}{% author_link "Dan Simmons" link_text="Simmons" possessive %}{% endcapture %}
+{% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
+
+{% capture faulkner %}{% author_link "William Faulkner" %}{% endcapture %}
+{% capture faulkners %}{% author_link "William Faulkner" possessive %}{% endcapture %}
+{% capture faulkner_lastname %}{% author_link "William Faulkner" link_text="Faulkner" %}{% endcapture %}
+{% capture faulkners_lastname %}{% author_link "William Faulkner" link_text="Faulkner" possessive %}{% endcapture %}
+{% capture absalom_absalom %}{% book_link "Absalom, Absalom!" %}{% endcapture %}
+
+{% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
+{% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
+{% capture banks_lastname %}{% author_link "Iain M. Banks" link_text="Banks" %}{% endcapture %}
+{% capture bankss_lastname %}{% author_link "Iain M. Banks" link_text="Banks" possessive %}{% endcapture %}
+{% capture culture %}{% series_link "Culture" %}{% endcapture %}
+{% capture use_of_weapons %}{% book_link "Use of Weapons" %}{% endcapture %}
+
+I first read {{ this_book }} when I was just starting to pick sci-fi books out
+of the library for myself. I loved Bradbury's take on censorship, on the
+importance of free media and free thought. I saw it as a companion work to {{
+orwells_lastname }} {{ nineteen_eighty_four }} or {{ huxleys_lastname }} {{
+brave_new_world }}. It felt very advanced, a book that showed you instead of
+telling you.
+
+Rereading it now, {{ the_authors_lastname_possessive }} writing is much
+simpler than I remember. {{ this_book }} is written as a series of vignettes
+in which Guy Montag experiences the world and slowly wakes from his dogmatic
+slumber. First, he burns some books and remarks about how much he loves
+burning things, then he meets Clarisse and realizes that curiosity and
+friendship have vanished from the world, then he gets home and his wife has
+overdosed, etc. A book is, in some sense, a collection of small scenes
+stitched together, but how the scenes fit and relate to each other is
+critically important. My favorite books---{{ echopraxia }}, {{ hyperion }}, {{
+use_of_weapons }}, {{ absalom_absalom }}---build deep layers of meaning and
+slowly reveal them. <!-- Or maybe peeling back? Are we building or revealing?
+--> {{ the_authors_lastname_possessive }} vignettes are individually effective
+and memorable, but isolated from each other. It makes {{ this_book }} feel
+didactic.
+
+{{ the_authors_lastname }} would be the first to tell you his book isn't about
+government censorship as I first read into it as a child. It couldn't be more
+obvious on my re-read that it is a screed about unchallenging culture, about
+the massification of media through TV and radio, how all the rough edges are
+filed off until no one is offended but no one has to think. It's in some ways
+truly prescient about the modern world. {{ the_authors_lastname }} was right
+that people don't want to be challenged, but he misjudged where that would
+lead. Modern social media, which replaced mass media, doesn't grind everything
+into the same, bland paste for everyone; it sections people off into bubbles,
+bubbles where their friends repeat back exactly what they want to hear.
