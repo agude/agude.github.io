@@ -92,6 +92,7 @@ ranked_list:
   - The Moon Is a Harsh Mistress
   - The Left Hand of Darkness
   - The War of the Worlds
+  - Fahrenheit 451
   - The Darfsteller
   - Rogue Bolo
   - The Last Policeman
