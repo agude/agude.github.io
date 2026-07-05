@@ -22,7 +22,10 @@ same_as_urls:
   - "https://www.google.com/search?kgmid=/m/02yqq"
 ---
 
-{% book_link page.title %}, by {% author_link page.book_authors link=false %}, is a standalone novel.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is a classic novel about the homogenization of mass media and our collective
+flight from intellectual challenge. It follows Guy Montag, a fireman who burns
+books for a living, as he slowly realizes he must stop.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
@@ -124,7 +127,7 @@ Montag experiences the world and slowly wakes from his dogmatic slumber.
 First, he burns some books and remarks about how much he loves burning things,
 then he meets Clarisse and realizes that curiosity and friendship have
 vanished from the world, then he gets home and his wife is dying of an
-overdosed, etc. A book is a collection of small scenes stitched together, but
+overdose, etc. A book is a collection of small scenes stitched together, but
 the stitching is its own craft, and it is where {{ this_book }} is simplest.
 
 Some of my favorite books have structures that reinforce their themes. {{
@@ -157,10 +160,10 @@ she talks about the dew.
 Fire and water combine at the end of the book and transform. Montag escapes
 into the river separating the city from the wilderness, bathes, and puts on
 Faber's clothes. He emerges literally a new man, and when he encounters the
-hobos their fire it is no longer threatening, but life-giving. The phoenix
-features through out the book, and Montag's transformation out of flames is an
+hobos their fire is no longer threatening, but life-giving. The phoenix
+features throughout the book, and Montag's transformation out of flames is an
 exact parallel, one which foreshadows civilization's rise from the flames of
-war the end the book.
+war at the end of the book.
 
 Captain Beatty, Montag's superior, is a fascinating character because he had
 the opportunities Montag had and refused the transformation. He constantly
