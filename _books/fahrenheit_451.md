@@ -145,13 +145,28 @@ didactic.
 ### The Imagery <!-- Don't love these titles -->
 
 But, despite the simplicity of the structure, {{ the_authors_lastname }}
-weaves in a lot of great elements. Captain Beatty, Montag's superior, is a
-fascinating character. He constantly quotes literature, showing that he has
-read many books, using it to attack Montag's ideas and show the contradictions
-inherent in books---it makes him the perfect foil for the ex-professor Faber.
-And it shows us that, although the captain has read a lot of challenging
-works, he still sides with the simplified society and decides to burn them. In
-the end that tension is probably why he commits suicide by flamethrower.
+weaves in great imagery. Fire dominates: People are torches, blazing through
+life; Montag's false smile melts like a candle; words blaze into minds as if
+stamped by fiery steel; women have sun-fired hair and blazing nails. Water is
+the antithesis: Clarisse, who begins Montag's journey away from burning,
+drinks in the rain, and Montag imitates her after she runs off, letting the
+water in. Her eyes are shining drops of water reflecting Montag back at
+himself. The autumn leaves around her are a dry rain. When he last sees her
+she talks about the dew.
 
-Fire is a constant motif in the story. Things burn, smolder, spark. The subway
-is a flue.
+Fire and water combine at the end of the book and transform. Montag escapes
+into the river separating the city from the wilderness, bathes, and puts on
+Faber's clothes. He emerges literally a new man, and when he encounters the
+hobos their fire it is no longer threatening, but life-giving. The phoenix
+features through out the book, and Montag's transformation out of flames is an
+exact parallel, one which foreshadows civilization's rise from the flames of
+war the end the book.
+
+Captain Beatty, Montag's superior, is a fascinating character because he had
+the opportunities Montag had and refused the transformation. He constantly
+quotes literature, showing that he has read many books, using it to attack
+Montag's ideas and show the contradictions inherent in books---it makes him
+the perfect foil for the ex-professor Faber. And it shows us that, although
+the captain has read a lot of challenging works, he still sides with the
+simplified society and decides to burn them. In the end that tension is
+probably why he commits suicide by flamethrower.
