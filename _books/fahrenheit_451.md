@@ -105,28 +105,27 @@ orwells_lastname }} {{ nineteen_eighty_four }} or {{ huxleys_lastname }} {{
 brave_new_world }}. It felt very advanced, a book that showed you instead of
 telling you.
 
-Rereading it now, {{ the_authors_lastname_possessive }} writing is much
-simpler than I remember. {{ this_book }} is written as a series of vignettes
-in which Guy Montag experiences the world and slowly wakes from his dogmatic
-slumber. First, he burns some books and remarks about how much he loves
-burning things, then he meets Clarisse and realizes that curiosity and
-friendship have vanished from the world, then he gets home and his wife has
-overdosed, etc. A book is, in some sense, a collection of small scenes
-stitched together, but how the scenes fit and relate to each other is
-critically important. My favorite books---{{ echopraxia }}, {{ hyperion }}, {{
-use_of_weapons }}, {{ absalom_absalom }}---build deep layers of meaning and
-slowly reveal them. <!-- Or maybe peeling back? Are we building or revealing?
---> {{ the_authors_lastname_possessive }} vignettes are individually effective
-and memorable, but isolated from each other. It makes {{ this_book }} feel
-didactic.
+But {{ the_authors_lastname }} would be the first to tell you his book isn't
+about government censorship as I first read into it as a child. It couldn't be
+more obvious on my re-read that it is a screed about unchallenging culture,
+about the massification of media through TV and radio, how all the rough edges
+are filed off until no one is offended but no one has to think. {{
+the_authors_lastname }} was truly prescient about one thing: people don't want
+to be challenged. But he misjudged where that would lead. Modern social media,
+which replaced mass media, doesn't grind things into the same, bland paste for
+everyone; it sections people off into bubbles, bubbles where their friends
+repeat back exactly what they want to hear.
 
-{{ the_authors_lastname }} would be the first to tell you his book isn't about
-government censorship as I first read into it as a child. It couldn't be more
-obvious on my re-read that it is a screed about unchallenging culture, about
-the massification of media through TV and radio, how all the rough edges are
-filed off until no one is offended but no one has to think. It's in some ways
-truly prescient about the modern world. {{ the_authors_lastname }} was right
-that people don't want to be challenged, but he misjudged where that would
-lead. Modern social media, which replaced mass media, doesn't grind everything
-into the same, bland paste for everyone; it sections people off into bubbles,
-bubbles where their friends repeat back exactly what they want to hear.
+Rereading it now, {{ the_authors_lastname_possessive }} writing is much
+simpler than I remember. {{ this_book }} is a series of vignettes in which Guy
+Montag experiences the world and slowly wakes from his dogmatic slumber.
+First, he burns some books and remarks about how much he loves burning things,
+then he meets Clarisse and realizes that curiosity and friendship have
+vanished from the world, then he gets home and his wife has overdosed, etc. A
+book is a collection of small scenes stitched together, but how the scenes fit
+and relate to each other is critically important. My favorite books---{{
+echopraxia }}, {{ hyperion }}, {{ use_of_weapons }}, {{ absalom_absalom
+}}---build deep layers of meaning and slowly reveal them. {{
+the_authors_lastname_possessive }} vignettes are individually effective and
+memorable, but isolated from each other. It makes {{ this_book }} feel
+didactic.
