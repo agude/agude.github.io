@@ -146,4 +146,12 @@ didactic.
 
 But, despite the simplicity of the structure, {{ the_authors_lastname }}
 weaves in a lot of great elements. Captain Beatty, Montag's superior, is a
-fascinating character. He constantly quotes
+fascinating character. He constantly quotes literature, showing that he has
+read many books, using it to attack Montag's ideas and show the contradictions
+inherent in books---it makes him the perfect foil for the ex-professor Faber.
+And it shows us that, although the captain has read a lot of challenging
+works, he still sides with the simplified society and decides to burn them. In
+the end that tension is probably why he commits suicide by flamethrower.
+
+Fire is a constant motif in the story. Things burn, smolder, spark. The subway
+is a flue.
