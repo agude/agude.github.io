@@ -122,10 +122,14 @@ Montag experiences the world and slowly wakes from his dogmatic slumber.
 First, he burns some books and remarks about how much he loves burning things,
 then he meets Clarisse and realizes that curiosity and friendship have
 vanished from the world, then he gets home and his wife has overdosed, etc. A
-book is a collection of small scenes stitched together, but how the scenes fit
-and relate to each other is critically important. My favorite books---{{
-echopraxia }}, {{ hyperion }}, {{ use_of_weapons }}, {{ absalom_absalom
-}}---build deep layers of meaning and slowly reveal them. {{
-the_authors_lastname_possessive }} vignettes are individually effective and
-memorable, but isolated from each other. It makes {{ this_book }} feel
-didactic.
+book is a collection of small scenes stitched together, and that stitching is
+its own craft, and where {{ this_book }} is simplest. Some of my favorite
+books have structure that reinforces the <!-- Their themes, their...
+soemthing? -->: {{ hyperion }} has six tales inside another, {{ use_of_weapons
+}} runs its two timelines in opposite directions, {{ absalom_absalom }} tells
+the same story over and over until the meaning changes. {{ echopraxia }} has a
+simpler structure but the themes and images repeat, giving the reader a chance
+to assemble it in a way the narrator can't. {{ the_authors_lastname_possessive
+}} vignettes are individually effective and memorable, even deep, but isolated
+from each other: each arrives, makes its point, and exits. The arrangement is
+so simply it makes {{ this_book }} feel didactic.
