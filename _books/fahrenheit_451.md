@@ -97,7 +97,7 @@ use_of_weapons }} runs its two timelines in opposite directions, one following
 its protagonist's latest missions forward, the other exploring backwards
 through his past until the mystery of his origin is revealed. {{
 absalom_absalom }} tells the same story over and over through unreliable
-narrators until the meaning changes, showing how the past isn't known, it's
+narrators until the meaning changes, showing how the past isn't known; it's
 constructed. Even {{ echopraxia }}, which has a simple structure, repeats its
 themes and images, giving the reader a chance to assemble a picture the
 narrator can't. {{ the_authors_lastname_possessive }} vignettes are
@@ -120,7 +120,7 @@ about the dew.
 At the end, water breaks fire's hold on Montag and is transformed. Montag
 escapes into the river separating the city from the wilderness, bathes, and
 puts on Faber's clothes. He emerges from the water baptized, a new man, and
-when he encounters the hobos their fire is no longer threatening but
+when he encounters the hobos, their fire is no longer threatening but
 life-giving. The phoenix appears throughout the book, and Montag's
 transformation out of flames is an exact parallel, foreshadowing
 civilization's rise from the flames of war at the end.
@@ -144,7 +144,7 @@ The subway blasting ads presages {{ dicks }} work. The ability to remember an
 entire book because the mind remembers more than it knows is the same ability
 that allows the Neuromancer AI to reconstruct places from memories in {{
 gibsons_lastname }} {{ neuromancer }}; the humans who remember books, acting
-as living databases, is an early version of the human data carriers in {{
+as living databases, are an early version of the human data carriers in {{
 johnny_mnemonic }}.
 
 One scene has stuck in my head for decades: the radio orders every citizen to
