@@ -38,6 +38,7 @@ books for a living, as he slowly realizes he must stop.
 {% capture gibsons_lastname %}{% author_link "William Gibson" link_text="Gibson" possessive %}{% endcapture %}
 {% capture count_zero %}{% book_link "Count Zero" %}{% endcapture %}
 {% capture neuromancer %}{% book_link "Neuromancer" %}{% endcapture %}
+{% capture johnny_mnemonic %}{% short_story_link "Johnny Mnemonic" %}{% endcapture %}
 
 {% capture dicks %}{% author_link "Philip K. Dick" possessive %}{% endcapture %}
 
@@ -86,27 +87,28 @@ First, he burns some books and remarks about how much he loves burning things,
 then he meets Clarisse and realizes that curiosity and friendship have
 vanished from the world, then he gets home and his wife is dying of an
 overdose, etc. A book is a collection of small scenes stitched together, but
-the stitching is its own craft, and it is where {{ this_book }} is simplest.
+how those scenes connect and relate is what makes a novel, and that is where
+{{ this_book }} is weakest.
 
 Some of my favorite books have structures that reinforce their themes. {{
 hyperion }} nests six tales inside a pilgrimage so that its theme---the new
 order replacing the old---plays out six times at different scales. {{
 use_of_weapons }} runs its two timelines in opposite directions, one following
-his latest missions forward, the other exploring backwards through his past
-until the mystery of his origin is answered. {{ absalom_absalom }} tells the
-same story over and over through unreliable narrators until the meaning
-changes, showing how the past isn't known, it's constructed. Even {{
-echopraxia }}, which has a simple structure, repeats its themes and images,
-giving the reader a chance to assemble a picture the narrator can't. {{
-the_authors_lastname_possessive }} vignettes are individually effective and
-memorable, even deep, but isolated from each other: each arrives, makes its
-point, and exits. The arrangement is so simple it makes {{ this_book }} feel
-didactic.
+its protagonist's latest missions forward, the other exploring backwards
+through his past until the mystery of his origin is revealed. {{
+absalom_absalom }} tells the same story over and over through unreliable
+narrators until the meaning changes, showing how the past isn't known, it's
+constructed. Even {{ echopraxia }}, which has a simple structure, repeats its
+themes and images, giving the reader a chance to assemble a picture the
+narrator can't. {{ the_authors_lastname_possessive }} vignettes are
+individually effective and memorable, even deep, but isolated from each other:
+each arrives, makes its point, and exits. The arrangement is so simple it
+makes {{ this_book }} feel didactic.
 
 ### The Imagery
 
 But despite the simplicity of the structure, {{ the_authors_lastname }} weaves
-in great imagery. Fire dominates: people are torches, blazing through life;
+in vivid imagery. Fire dominates: people are torches, blazing through life;
 Montag's false smile melts like a candle; words blaze into minds as if stamped
 by fiery steel; women have sun-fired hair and blazing nails. Water is the
 antithesis: Clarisse, who begins Montag's journey away from burning, drinks in
@@ -115,30 +117,35 @@ Her eyes are shining drops of water reflecting Montag back at himself. The
 autumn leaves around her are a dry rain. When he last sees her, she talks
 about the dew.
 
-Fire and water combine at the end of the book. Montag escapes into the river
-separating the city from the wilderness, bathes, and puts on Faber's clothes.
-He emerges literally a new man, and when he encounters the hobos their fire is
-no longer threatening but life-giving. The phoenix appears throughout the
-book, and Montag's transformation out of flames is an exact parallel,
-foreshadowing civilization's rise from the flames of war at the end.
+At the end, water breaks fire's hold on Montag and is transformed. Montag
+escapes into the river separating the city from the wilderness, bathes, and
+puts on Faber's clothes. He emerges from the water baptized, a new man, and
+when he encounters the hobos their fire is no longer threatening but
+life-giving. The phoenix appears throughout the book, and Montag's
+transformation out of flames is an exact parallel, foreshadowing
+civilization's rise from the flames of war at the end.
 
 Captain Beatty, Montag's superior, is a fascinating character because he had
-the same opportunities Montag had and refused the transformation. He
+the same opportunities Montag did and refused the transformation. He
 constantly quotes literature to attack Montag's ideas and expose the
 contradictions in books---the perfect foil for the ex-professor Faber. He has
 read widely and still sides with the simplified society, still chooses to
 burn. In the end that tension is probably why he commits suicide by
 flamethrower.
 
-{{ this_book }} reminds me of a few others. The Hound, which is neither fully
-robot nor fully animal, is the clear precursor to the slamhound in {{
+### Lineage and Legacy
+
+{{ this_book }} reminds me of a few other works. The Hound, which is neither
+fully robot nor fully animal, is the clear precursor to the slamhound in {{
 gibsons_lastname }} {{ count_zero }} and the rat thing in {{
 stephensons_lastname }} {{ snow_crash }}. The televised chase of Montag, with
 the whole city watching, is like {{ kings_lastname }} {{ the_running_man }}.
 The subway blasting ads presages {{ dicks }} work. The ability to remember an
 entire book because the mind remembers more than it knows is the same ability
 that allows the Neuromancer AI to reconstruct places from memories in {{
-gibsons_lastname }} {{ neuromancer }}.
+gibsons_lastname }} {{ neuromancer }}; the humans who remember books, acting
+as living databases, is an early version of the human data carriers in {{
+johnny_mnemonic }}.
 
 One scene has stuck in my head for decades: the radio orders every citizen to
 open their doors and look outside to catch Montag, and everyone does. That's
