@@ -59,13 +59,13 @@ books for a living, as he slowly realizes he must stop.
 
 {% capture use_of_weapons %}{% book_link "Use of Weapons" %}{% endcapture %}
 
-I first read {{ this_book }} when I was just starting to pick sci-fi books out
-of the library for myself. I loved {{ the_authors_lastname_possessive }} take
-on censorship and the importance of free media and free thought. I went on to
-read everything {{ the_authors_lastname }} wrote. I saw it as a companion work
-to {{ orwells_lastname }} {{ nineteen_eighty_four }} or {{ huxleys_lastname }}
-{{ brave_new_world }}. It felt very advanced, a book that showed you instead
-of telling you.
+I first read {{ this_book }} when I was just beginning to choose sci-fi books
+from the library for myself. I loved {{ the_authors_lastname_possessive }}
+take on censorship and the importance of free media and free thought. I went
+on to read everything {{ the_authors_lastname }} wrote. I saw it as a
+companion work to {{ orwells_lastname }} {{ nineteen_eighty_four }} or {{
+huxleys_lastname }} {{ brave_new_world }}. It felt very advanced, a book that
+showed you instead of telling.
 
 ### The Message
 
@@ -84,14 +84,14 @@ Rereading it now, {{ the_authors_lastname_possessive }} writing is much
 simpler than I remember. {{ this_book }} is a series of vignettes in which Guy
 Montag experiences the world and slowly wakes from his dogmatic slumber.
 First, he burns books and remarks on how much he loves the fire; next, he
-meets Clarisse and realizes curiosity and friendship have vanished; then, he
-returns home to find his wife dying of an overdose. A book is a collection of
-small scenes stitched together, but how those scenes relate is what makes a
-novel, and that is where {{ this_book }} is weakest.
+meets Clarisse and realizes curiosity and friendship have vanished from the
+world; then, he returns home to find his wife dying of an overdose. A book is
+a collection of small scenes stitched together, but how those scenes relate is
+what makes a novel, and that is where {{ this_book }} is weakest.
 
 Some of my favorite books have structures that reinforce their themes. {{
-hyperion }} nests six tales inside a pilgrimage so that its theme---the new
-order replacing the old---plays out six times at different scales. {{
+hyperion }} nests six tales inside a pilgrimage allowing its theme---the new
+order replacing the old---to play out six times at different scales. {{
 use_of_weapons }} runs its two timelines in opposite directions, one following
 its protagonist's latest missions forward, the other exploring backwards
 through his past until the mystery of his origin is revealed. {{
@@ -122,12 +122,12 @@ wilderness he discovers their fire is no longer threatening but life-giving.
 It's the culmination of the book's phoenix metaphor: Montag's transformation
 out of the flames foreshadows civilization's.
 
-Captain Beatty, Montag's superior, is a fascinating character because he had
-the same opportunities Montag did and refused the transformation. He
-constantly quotes literature to attack Montag's ideas and expose the
-contradictions in books---the perfect foil for the ex-professor Faber. He has
-read widely and still sides with the simplified society, still chooses to
-burn. In the end that tension is probably why he commits suicide by
+Not everyone accepts this transformation. Captain Beatty, Montag's superior,
+is a fascinating character because he had the same opportunities Montag did
+and refused it. He constantly quotes literature to attack Montag's ideas and
+expose the contradictions in books---the perfect foil for the ex-professor
+Faber. He has read widely and still sides with the simplified society, still
+chooses to burn. In the end that tension is probably why he commits suicide by
 flamethrower.
 
 ### Lineage and Legacy
