@@ -28,77 +28,34 @@ flight from intellectual challenge. It follows Guy Montag, a fireman who burns
 books for a living, as he slowly realizes he must stop.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
-{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
-{% capture the_authors %}{% author_link page.book_authors link=false possessive %}{% endcapture %}
 {% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
 {% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text=author_last_name_text %}{% endcapture %}
 {% capture the_authors_lastname_possessive %}{% author_link page.book_authors link=false link_text=author_last_name_text possessive %}{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
-{% capture the_authors_link %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture the_authors_lastname_link %}{% author_link page.book_authors link_text=author_last_name_text %}{% endcapture %}
-{% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
 
-{% capture stephenson %}{% author_link "Neal Stephenson" %}{% endcapture %}
-{% capture stephensons %}{% author_link "Neal Stephenson" possessive %}{% endcapture %}
-{% capture stephenson_lastname %}{% author_link "Neal Stephenson" link_text="Stephenson" %}{% endcapture %}
 {% capture stephensons_lastname %}{% author_link "Neal Stephenson" link_text="Stephenson" possessive %}{% endcapture %}
 {% capture snow_crash %}{% book_link "Snow Crash" %}{% endcapture %}
 
-{% capture gibson %}{% author_link "William Gibson" %}{% endcapture %}
-{% capture gibsons %}{% author_link "William Gibson" possessive %}{% endcapture %}
-{% capture gibson_lastname %}{% author_link "William Gibson" link_text="Gibson" %}{% endcapture %}
 {% capture gibsons_lastname %}{% author_link "William Gibson" link_text="Gibson" possessive %}{% endcapture %}
-{% capture sprawl %}{% series_link "Sprawl" %}{% endcapture %}
 {% capture count_zero %}{% book_link "Count Zero" %}{% endcapture %}
 {% capture neuromancer %}{% book_link "Neuromancer" %}{% endcapture %}
 
-{% capture dick %}{% author_link "Philip K. Dick" %}{% endcapture %}
 {% capture dicks %}{% author_link "Philip K. Dick" possessive %}{% endcapture %}
-{% capture dick_lastname %}{% author_link "Philip K. Dick" link_text="Dick" %}{% endcapture %}
-{% capture dicks_lastname %}{% author_link "Philip K. Dick" link_text="Dick" possessive %}{% endcapture %}
 
-{% capture king %}{% author_link "Stephen King" %}{% endcapture %}
-{% capture kings %}{% author_link "Stephen King" possessive %}{% endcapture %}
-{% capture king_lastname %}{% author_link "Stephen King" link_text="King" %}{% endcapture %}
 {% capture kings_lastname %}{% author_link "Stephen King" link_text="King" possessive %}{% endcapture %}
 {% capture the_running_man %}{% book_link "The Running Man" %}{% endcapture %}
 
-{% capture orwell %}{% author_link "George Orwell" %}{% endcapture %}
-{% capture orwells %}{% author_link "George Orwell" possessive %}{% endcapture %}
-{% capture orwell_lastname %}{% author_link "George Orwell" link_text="Orwell" %}{% endcapture %}
 {% capture orwells_lastname %}{% author_link "George Orwell" link_text="Orwell" possessive %}{% endcapture %}
 {% capture nineteen_eighty_four %}{% book_link "1984" %}{% endcapture %}
 
-{% capture huxley %}{% author_link "Aldous Huxley" %}{% endcapture %}
-{% capture huxleys %}{% author_link "Aldous Huxley" possessive %}{% endcapture %}
-{% capture huxley_lastname %}{% author_link "Aldous Huxley" link_text="Huxley" %}{% endcapture %}
 {% capture huxleys_lastname %}{% author_link "Aldous Huxley" link_text="Huxley" possessive %}{% endcapture %}
 {% capture brave_new_world %}{% book_link "Brave New World" %}{% endcapture %}
 
-{% capture watts %}{% author_link "Peter Watts" %}{% endcapture %}
-{% capture wattss %}{% author_link "Peter Watts" possessive %}{% endcapture %}
-{% capture watts_lastname %}{% author_link "Peter Watts" link_text="Watts" %}{% endcapture %}
-{% capture wattss_lastname %}{% author_link "Peter Watts" link_text="Watts" possessive %}{% endcapture %}
-{% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
 {% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}
 
-{% capture simmons %}{% author_link "Dan Simmons" %}{% endcapture %}
-{% capture simmonss %}{% author_link "Dan Simmons" possessive %}{% endcapture %}
-{% capture simmons_lastname %}{% author_link "Dan Simmons" link_text="Simmons" %}{% endcapture %}
-{% capture simmonss_lastname %}{% author_link "Dan Simmons" link_text="Simmons" possessive %}{% endcapture %}
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
 
-{% capture faulkner %}{% author_link "William Faulkner" %}{% endcapture %}
-{% capture faulkners %}{% author_link "William Faulkner" possessive %}{% endcapture %}
-{% capture faulkner_lastname %}{% author_link "William Faulkner" link_text="Faulkner" %}{% endcapture %}
-{% capture faulkners_lastname %}{% author_link "William Faulkner" link_text="Faulkner" possessive %}{% endcapture %}
 {% capture absalom_absalom %}{% book_link "Absalom, Absalom!" %}{% endcapture %}
 
-{% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
-{% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
-{% capture banks_lastname %}{% author_link "Iain M. Banks" link_text="Banks" %}{% endcapture %}
-{% capture bankss_lastname %}{% author_link "Iain M. Banks" link_text="Banks" possessive %}{% endcapture %}
-{% capture culture %}{% series_link "Culture" %}{% endcapture %}
 {% capture use_of_weapons %}{% book_link "Use of Weapons" %}{% endcapture %}
 
 I first read {{ this_book }} when I was just starting to pick sci-fi books out
