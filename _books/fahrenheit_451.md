@@ -146,7 +146,7 @@ memorable, even deep, but isolated from each other: each arrives, makes its
 point, and exits. The arrangement is so simple it makes {{ this_book }} feel
 didactic.
 
-### The Imagery <!-- Don't love these titles -->
+### The Imagery
 
 But despite the simplicity of the structure, {{ the_authors_lastname }} weaves
 in great imagery. Fire dominates: people are torches, blazing through life;
@@ -165,12 +165,13 @@ no longer threatening but life-giving. The phoenix appears throughout the
 book, and Montag's transformation out of flames is an exact parallel,
 foreshadowing civilization's rise from the flames of war at the end.
 
-Captain Beatty, Montag's superior, is fascinating character because he had the
-same opportunities Montag had and refused the transformation. He constantly
-quotes literature to attack Montag's ideas and expose the contradictions in
-books---the perfect foil for the ex-professor Faber. He has read widely and
-still sides with the simplified society, still chooses to burn. In the end
-that tension is probably why he commits suicide by flamethrower.
+Captain Beatty, Montag's superior, is a fascinating character because he had
+the same opportunities Montag had and refused the transformation. He
+constantly quotes literature to attack Montag's ideas and expose the
+contradictions in books---the perfect foil for the ex-professor Faber. He has
+read widely and still sides with the simplified society, still chooses to
+burn. In the end that tension is probably why he commits suicide by
+flamethrower.
 
 {{ this_book }} reminds me of a few others. The Hound, which is neither fully
 robot nor fully animal, is the clear precursor to the slamhound in {{
