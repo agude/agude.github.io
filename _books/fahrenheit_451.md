@@ -173,3 +173,18 @@ the perfect foil for the ex-professor Faber. And it shows us that, although
 the captain has read a lot of challenging works, he still sides with the
 simplified society and decides to burn them. In the end that tension is
 probably why he commits suicide by flamethrower.
+
+{{ this_book }} reminds me of a few others. The Hound, which is neither fully
+robot nor fully animal, is the clear precursor to the slamhound in {{
+gibsons_lastname }} {{ count_zero }} and the rat thing in {{
+stephensons_lastname }} {{ snow_crash }}. The televised chase of Montag, with
+the whole city watching, is like {{ kings_lastname }} {{ the_running_man }}.
+The subway blasting ads is right out of {{ dicks }} work. The ability to
+remember an entire book because the mind remembers more than it knows is the
+same ability that allows the Neuromancer AI to reconstruct places from
+memories in {{ gibsons_lastname }} {{ neuromancer }}.
+
+One scene has stuck in my head for decades: the radio orders every citizen to
+open their doors and look outside to catch Montag, and everyone does. That's
+the power of {{ the_authors_lastname_possessive }} simple writing. I look
+forward to re-reading the rest of his works soon.
