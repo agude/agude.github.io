@@ -83,12 +83,11 @@ they want to hear.
 Rereading it now, {{ the_authors_lastname_possessive }} writing is much
 simpler than I remember. {{ this_book }} is a series of vignettes in which Guy
 Montag experiences the world and slowly wakes from his dogmatic slumber.
-First, he burns some books and remarks about how much he loves burning things,
-then he meets Clarisse and realizes that curiosity and friendship have
-vanished from the world, then he gets home and his wife is dying of an
-overdose, etc. A book is a collection of small scenes stitched together, but
-how those scenes connect and relate is what makes a novel, and that is where
-{{ this_book }} is weakest.
+First, he burns books and remarks on how much he loves the fire; next, he
+meets Clarisse and realizes curiosity and friendship have vanished; then, he
+returns home to find his wife dying of an overdose. A book is a collection of
+small scenes stitched together, but how those scenes relate is what makes a
+novel, and that is where {{ this_book }} is weakest.
 
 Some of my favorite books have structures that reinforce their themes. {{
 hyperion }} nests six tales inside a pilgrimage so that its theme---the new
@@ -117,13 +116,11 @@ Her eyes are shining drops of water reflecting Montag back at himself. The
 autumn leaves around her are a dry rain. When he last sees her, she talks
 about the dew.
 
-At the end, water breaks fire's hold on Montag and is transformed. Montag
-escapes into the river separating the city from the wilderness, bathes, and
-puts on Faber's clothes. He emerges from the water baptized, a new man, and
-when he encounters the hobos, their fire is no longer threatening but
-life-giving. The phoenix appears throughout the book, and Montag's
-transformation out of flames is an exact parallel, foreshadowing
-civilization's rise from the flames of war at the end.
+In the end, Montag's baptism in the river breaks fire's hold. He bathes, puts
+on Faber's clothes, and emerges a new man. When he encounters the hobos in the
+wilderness he discovers their fire is no longer threatening but life-giving.
+It's the culmination of the book's phoenix metaphor: Montag's transformation
+out of the flames foreshadows civilization's.
 
 Captain Beatty, Montag's superior, is a fascinating character because he had
 the same opportunities Montag did and refused the transformation. He
@@ -140,12 +137,11 @@ fully robot nor fully animal, is the clear precursor to the slamhound in {{
 gibsons_lastname }} {{ count_zero }} and the rat thing in {{
 stephensons_lastname }} {{ snow_crash }}. The televised chase of Montag, with
 the whole city watching, is like {{ kings_lastname }} {{ the_running_man }}.
-The subway blasting ads presages {{ dicks }} work. The ability to remember an
-entire book because the mind remembers more than it knows is the same ability
-that allows the Neuromancer AI to reconstruct places from memories in {{
-gibsons_lastname }} {{ neuromancer }}; the humans who remember books, acting
-as living databases, are an early version of the human data carriers in {{
-johnny_mnemonic }}.
+The subway blasting ads presages {{ dicks }} work. The way a book can be
+preserved because the human minds retains more than it knows is the same way
+Neuromancer reconstructs places from human memories in {{ gibsons_lastname }}
+{{ neuromancer }}; using humans as storage devices is an early version of the
+data carriers in {{ johnny_mnemonic }}.
 
 One scene has stuck in my head for decades: the radio orders every citizen to
 open their doors and look outside to catch Montag, and everyone does. That's
