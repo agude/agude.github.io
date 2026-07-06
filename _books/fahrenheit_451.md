@@ -103,24 +103,24 @@ books for a living, as he slowly realizes he must stop.
 
 I first read {{ this_book }} when I was just starting to pick sci-fi books out
 of the library for myself. I loved {{ the_authors_lastname_possessive }} take
-on censorship, on the importance of free media and free thought. I went on to
-read every thing {{ the_authors_lastname }} wrote. I saw it as a companion
-work to {{ orwells_lastname }} {{ nineteen_eighty_four }} or {{
-huxleys_lastname }} {{ brave_new_world }}. It felt very advanced, a book that
-showed you instead of telling you.
+on censorship and the importance of free media and free thought. I went on to
+read everything {{ the_authors_lastname }} wrote. I saw it as a companion work
+to {{ orwells_lastname }} {{ nineteen_eighty_four }} or {{ huxleys_lastname }}
+{{ brave_new_world }}. It felt very advanced, a book that showed you instead
+of telling you.
 
 ### The Message
 
 But {{ the_authors_lastname }} would be the first to tell you his book isn't
-about government censorship as I first read into it as a child. It couldn't be
-more obvious on my re-read that it is a screed about unchallenging culture,
-about the massification of media through TV and radio, how all the rough edges
-are filed off until no one is offended but no one has to think. {{
-the_authors_lastname }} was truly prescient about one thing: people don't want
-to be challenged. But he misjudged where that would lead. Modern social media,
-which replaced mass media, doesn't grind things into the same, bland paste for
-everyone; it sections people off into bubbles, bubbles where their friends
-repeat back exactly what they want to hear.
+about government censorship, not the way I read it as a child. It's obvious
+now that it is a screed about unchallenging culture, about the massification
+of media through TV and radio, about how all the rough edges are filed off
+until no one is offended but no one has to think. {{ the_authors_lastname }}
+was truly prescient about one thing: people don't want to be challenged. But
+he misjudged where that would lead. Modern social media, which replaced mass
+media, doesn't grind things into the same bland paste for everyone; it
+sections people off into bubbles where their friends repeat back exactly what
+they want to hear.
 
 Rereading it now, {{ the_authors_lastname_possessive }} writing is much
 simpler than I remember. {{ this_book }} is a series of vignettes in which Guy
@@ -134,56 +134,53 @@ the stitching is its own craft, and it is where {{ this_book }} is simplest.
 Some of my favorite books have structures that reinforce their themes. {{
 hyperion }} nests six tales inside a pilgrimage so that its theme---the new
 order replacing the old---plays out six times at different scales. {{
-use_of_weapons }} runs its two timelines in opposite directions, one telling
-of his latest missions, and the other exploring his past in a way that allows
-the mystery of his origin to be answered at the end of the book. {{
-absalom_absalom }} tells the same story over and over by unreliable narrators
-until the meaning changes, showing how the past isn't known, it's constructed.
-Even {{ echopraxia }}, which has a simple structure, repeats its themes and
-images, giving the reader a chance to assemble a picture the narrator can't.
-{{ the_authors_lastname_possessive }} vignettes are individually effective and
+use_of_weapons }} runs its two timelines in opposite directions, one following
+his latest missions forward, the other exploring backwards through his past
+until the mystery of his origin is answered. {{ absalom_absalom }} tells the
+same story over and over through unreliable narrators until the meaning
+changes, showing how the past isn't known, it's constructed. Even {{
+echopraxia }}, which has a simple structure, repeats its themes and images,
+giving the reader a chance to assemble a picture the narrator can't. {{
+the_authors_lastname_possessive }} vignettes are individually effective and
 memorable, even deep, but isolated from each other: each arrives, makes its
 point, and exits. The arrangement is so simple it makes {{ this_book }} feel
 didactic.
 
 ### The Imagery <!-- Don't love these titles -->
 
-But, despite the simplicity of the structure, {{ the_authors_lastname }}
-weaves in great imagery. Fire dominates: People are torches, blazing through
-life; Montag's false smile melts like a candle; words blaze into minds as if
-stamped by fiery steel; women have sun-fired hair and blazing nails. Water is
-the antithesis: Clarisse, who begins Montag's journey away from burning,
-drinks in the rain, and Montag imitates her after she runs off, letting the
-water in. Her eyes are shining drops of water reflecting Montag back at
-himself. The autumn leaves around her are a dry rain. When he last sees her
-she talks about the dew.
+But despite the simplicity of the structure, {{ the_authors_lastname }} weaves
+in great imagery. Fire dominates: people are torches, blazing through life;
+Montag's false smile melts like a candle; words blaze into minds as if stamped
+by fiery steel; women have sun-fired hair and blazing nails. Water is the
+antithesis: Clarisse, who begins Montag's journey away from burning, drinks in
+the rain, and Montag imitates her after she runs off, letting the water in.
+Her eyes are shining drops of water reflecting Montag back at himself. The
+autumn leaves around her are a dry rain. When he last sees her, she talks
+about the dew.
 
-Fire and water combine at the end of the book and transform. Montag escapes
-into the river separating the city from the wilderness, bathes, and puts on
-Faber's clothes. He emerges literally a new man, and when he encounters the
-hobos their fire is no longer threatening, but life-giving. The phoenix
-features throughout the book, and Montag's transformation out of flames is an
-exact parallel, one which foreshadows civilization's rise from the flames of
-war at the end of the book.
+Fire and water combine at the end of the book. Montag escapes into the river
+separating the city from the wilderness, bathes, and puts on Faber's clothes.
+He emerges literally a new man, and when he encounters the hobos their fire is
+no longer threatening but life-giving. The phoenix appears throughout the
+book, and Montag's transformation out of flames is an exact parallel,
+foreshadowing civilization's rise from the flames of war at the end.
 
-Captain Beatty, Montag's superior, is a fascinating character because he had
-the opportunities Montag had and refused the transformation. He constantly
-quotes literature, showing that he has read many books, using it to attack
-Montag's ideas and show the contradictions inherent in books---it makes him
-the perfect foil for the ex-professor Faber. And it shows us that, although
-the captain has read a lot of challenging works, he still sides with the
-simplified society and decides to burn them. In the end that tension is
-probably why he commits suicide by flamethrower.
+Captain Beatty, Montag's superior, is fascinating character because he had the
+same opportunities Montag had and refused the transformation. He constantly
+quotes literature to attack Montag's ideas and expose the contradictions in
+books---the perfect foil for the ex-professor Faber. He has read widely and
+still sides with the simplified society, still chooses to burn. In the end
+that tension is probably why he commits suicide by flamethrower.
 
 {{ this_book }} reminds me of a few others. The Hound, which is neither fully
 robot nor fully animal, is the clear precursor to the slamhound in {{
 gibsons_lastname }} {{ count_zero }} and the rat thing in {{
 stephensons_lastname }} {{ snow_crash }}. The televised chase of Montag, with
 the whole city watching, is like {{ kings_lastname }} {{ the_running_man }}.
-The subway blasting ads is right out of {{ dicks }} work. The ability to
-remember an entire book because the mind remembers more than it knows is the
-same ability that allows the Neuromancer AI to reconstruct places from
-memories in {{ gibsons_lastname }} {{ neuromancer }}.
+The subway blasting ads presages {{ dicks }} work. The ability to remember an
+entire book because the mind remembers more than it knows is the same ability
+that allows the Neuromancer AI to reconstruct places from memories in {{
+gibsons_lastname }} {{ neuromancer }}.
 
 One scene has stuck in my head for decades: the radio orders every citizen to
 open their doors and look outside to catch Montag, and everyone does. That's
