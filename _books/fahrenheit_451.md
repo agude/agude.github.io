@@ -118,17 +118,17 @@ about the dew.
 
 In the end, Montag's baptism in the river breaks fire's hold. He bathes, puts
 on Faber's clothes, and emerges a new man. When he encounters the hobos in the
-wilderness he discovers their fire is no longer threatening but life-giving.
+wilderness, he discovers their fire is no longer threatening but life-giving.
 It's the culmination of the book's phoenix metaphor: Montag's transformation
 out of the flames foreshadows civilization's.
 
 Not everyone accepts this transformation. Captain Beatty, Montag's superior,
 is a fascinating character because he had the same opportunities Montag did
-and refused it. He constantly quotes literature to attack Montag's ideas and
+and refused them. He constantly quotes literature to attack Montag's ideas and
 expose the contradictions in books---the perfect foil for the ex-professor
 Faber. He has read widely and still sides with the simplified society, still
-chooses to burn. In the end that tension is probably why he commits suicide by
-flamethrower.
+chooses to burn. In the end, that tension is probably why he commits suicide
+by flamethrower.
 
 ### Lineage and Legacy
 
@@ -138,7 +138,7 @@ gibsons_lastname }} {{ count_zero }} and the rat thing in {{
 stephensons_lastname }} {{ snow_crash }}. The televised chase of Montag, with
 the whole city watching, is like {{ kings_lastname }} {{ the_running_man }}.
 The subway blasting ads presages {{ dicks }} work. The way a book can be
-preserved because the human minds retains more than it knows is the same way
+preserved because the human mind retains more than it knows is the same way
 Neuromancer reconstructs places from human memories in {{ gibsons_lastname }}
 {{ neuromancer }}; using humans as storage devices is an early version of the
 data carriers in {{ johnny_mnemonic }}.
