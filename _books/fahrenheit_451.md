@@ -102,11 +102,12 @@ books for a living, as he slowly realizes he must stop.
 {% capture use_of_weapons %}{% book_link "Use of Weapons" %}{% endcapture %}
 
 I first read {{ this_book }} when I was just starting to pick sci-fi books out
-of the library for myself. I loved Bradbury's take on censorship, on the
-importance of free media and free thought. I saw it as a companion work to {{
-orwells_lastname }} {{ nineteen_eighty_four }} or {{ huxleys_lastname }} {{
-brave_new_world }}. It felt very advanced, a book that showed you instead of
-telling you.
+of the library for myself. I loved {{ the_authors_lastname_possessive }} take
+on censorship, on the importance of free media and free thought. I went on to
+read every thing {{ the_authors_lastname }} wrote. I saw it as a companion
+work to {{ orwells_lastname }} {{ nineteen_eighty_four }} or {{
+huxleys_lastname }} {{ brave_new_world }}. It felt very advanced, a book that
+showed you instead of telling you.
 
 ### The Message
 
