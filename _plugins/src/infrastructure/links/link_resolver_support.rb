@@ -34,8 +34,10 @@ module Jekyll
         end
 
         # Wrap inner HTML with a link tag via LinkHelperUtils.
-        def wrap_with_link(inner_html, url)
-          LinkHelper._generate_link_html(@context, url, inner_html)
+        # @param preview_html [String, nil] Optional hover-preview markup, only emitted
+        #   when a real cross-page link is generated (see LinkHelperUtils._generate_link_html).
+        def wrap_with_link(inner_html, url, preview_html = nil)
+          LinkHelper._generate_link_html(@context, url, inner_html, preview_html)
         end
 
         # Convenience wrapper around PluginLoggerUtils that pre-fills @context.

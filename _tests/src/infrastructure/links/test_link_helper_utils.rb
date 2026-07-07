@@ -76,6 +76,50 @@ class TestLinkHelperUtils < Minitest::Test
     assert_equal expected, Jekyll::Infrastructure::Links::LinkHelperUtils._generate_link_html(ctx, found_doc.url, inner_html)
   end
 
+  # --- Tests for preview_html (Case 1 only) ---
+
+  def test_generate_link_different_page_appends_preview_html
+    site = create_site
+    found_doc = create_doc({ 'title' => 'Found Doc' }, '/found.html')
+    current_page = create_doc({}, '/current.html')
+    ctx = create_context({}, { site: site, page: current_page })
+    inner_html = '<cite>Found Doc</cite>'
+    preview_html = '<!--book-preview--><span>preview</span><!--/book-preview-->'
+
+    expected = "<a href=\"/found.html\">#{inner_html}#{preview_html}</a>"
+    result = Jekyll::Infrastructure::Links::LinkHelperUtils._generate_link_html(ctx, found_doc.url, inner_html, preview_html)
+    assert_equal expected, result
+  end
+
+  def test_generate_link_same_page_anchor_omits_preview_html
+    site = create_site
+    target_url_with_fragment = '/current.html#section'
+    current_page = create_doc({}, '/current.html')
+    ctx = create_context({}, { site: site, page: current_page })
+    inner_html = '<cite>Link to Section</cite>'
+    preview_html = '<!--book-preview--><span>preview</span><!--/book-preview-->'
+
+    expected = "<a href=\"#section\">#{inner_html}</a>"
+    result = Jekyll::Infrastructure::Links::LinkHelperUtils._generate_link_html(
+      ctx, target_url_with_fragment, inner_html, preview_html,
+    )
+    assert_equal expected, result
+  end
+
+  def test_generate_link_self_link_omits_preview_html
+    site = create_site
+    target_url_no_fragment = '/current.html'
+    current_page = create_doc({}, '/current.html')
+    ctx = create_context({}, { site: site, page: current_page })
+    inner_html = '<cite>Self Link</cite>'
+    preview_html = '<!--book-preview--><span>preview</span><!--/book-preview-->'
+
+    result = Jekyll::Infrastructure::Links::LinkHelperUtils._generate_link_html(
+      ctx, target_url_no_fragment, inner_html, preview_html,
+    )
+    assert_equal inner_html, result
+  end
+
   def test_generate_link_to_anchor_on_same_page
     site = create_site
     target_url_with_fragment = '/current.html#section'

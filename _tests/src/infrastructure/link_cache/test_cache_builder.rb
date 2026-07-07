@@ -259,4 +259,30 @@ class TestCacheBuilder < Minitest::Test
 
     refute_nil book_data['date']
   end
+
+  def test_book_data_includes_rating_and_image
+    book = create_doc(
+      { 'title' => 'Rated Book', 'published' => true, 'rating' => 5, 'image' => '/images/rated.jpg' },
+      '/books/rated.html',
+    )
+
+    site = create_site({}, { 'books' => [book] })
+    book_data = site.data['link_cache']['books']['rated book'].first
+
+    assert_equal 5, book_data['rating']
+    assert_equal '/images/rated.jpg', book_data['image']
+  end
+
+  def test_book_data_rating_and_image_default_to_nil
+    book = create_doc(
+      { 'title' => 'Unrated Book', 'published' => true },
+      '/books/unrated.html',
+    )
+
+    site = create_site({}, { 'books' => [book] })
+    book_data = site.data['link_cache']['books']['unrated book'].first
+
+    assert_nil book_data['rating']
+    assert_nil book_data['image']
+  end
 end

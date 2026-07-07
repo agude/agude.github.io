@@ -1,0 +1,106 @@
+// _previews.scss
+// CSS-only hover-preview cards for cross-page book links.
+//
+// Contract (emitted by the book link renderer):
+//
+//   <a href="/books/dune/">
+//     <cite class="book-title">Dune</cite>
+//     <span class="book-link-preview" aria-hidden="true">
+//       <span class="book-link-preview-cover" style="background-image: url(...)"></span>
+//       <span class="book-link-preview-text">
+//         <cite class="book-title">Dune</cite>
+//         <span class="book-link-preview-author">by Frank Herbert</span>
+//         <span class="book-rating ...">...</span>
+//       </span>
+//     </span>
+//   </a>
+//
+// The cover, author, and rating spans are all optional.
+@use "variables" as *;
+
+// Hidden by default. The background-image lives on the child
+// `.book-link-preview-cover`, not on this element, so browsers do not
+// fetch cover images until the preview is actually shown.
+.book-link-preview {
+  display: none;
+}
+
+// Anchors that contain a preview become the positioning context for it.
+a:has(> .book-link-preview) {
+  position: relative;
+}
+
+// Only reveal the preview for devices with real hover + a precise
+// pointer (mouse/trackpad). Touch devices never get it, since there is
+// no hover state to trigger it and no way to dismiss it.
+@media (hover: hover) and (pointer: fine) {
+  a:hover > .book-link-preview,
+  a:focus-visible > .book-link-preview {
+    display: flex;
+  }
+}
+
+.book-link-preview {
+  // Right-anchored to the link: the popup's right edge never extends past
+  // the link's own right edge, so it cannot overflow the viewport on the
+  // right no matter where the link sits in the text column.
+  position: absolute;
+  top: calc(100% + 0.3em);
+  right: 0;
+  z-index: 10;
+  width: 20em;
+  max-width: min(20em, 85vw);
+  gap: 0.5em;
+  align-items: flex-start;
+
+  background-color: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  padding: 0.75em;
+
+  // Reset styling inherited from the enclosing link so the preview
+  // reads like a small, independent card rather than a hyperlink.
+  font-style: normal;
+  white-space: normal;
+  text-align: left;
+}
+
+.book-link-preview-cover {
+  flex-shrink: 0;
+  width: 5em;
+  aspect-ratio: 2 / 3;
+  background-size: cover;
+  background-position: center;
+}
+
+.book-link-preview-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  min-width: 0;
+  font-size: $card-font-size;
+  font-weight: normal;
+  color: $body-color;
+  text-decoration: none;
+
+  // The title stays italic (per the global `.book-title` rule); only
+  // the weight/decoration/color reset above applies at this level.
+
+  .book-link-preview-author {
+    color: $muted-color;
+  }
+
+  // Ratings are sized for full-width use elsewhere; shrink them back
+  // down to fit inside the compact preview card.
+  .book-rating {
+    font-size: 1em;
+    margin-bottom: 0;
+  }
+}
+
+@media print {
+  .book-link-preview {
+    display: none !important;
+  }
+}

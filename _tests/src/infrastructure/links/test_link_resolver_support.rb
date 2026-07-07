@@ -81,6 +81,18 @@ class TestLinkResolverSupport < Minitest::Test
     assert_equal '<span>Test</span>', html
   end
 
+  def test_wrap_with_link_appends_preview_html
+    resolver = TestResolverStub.new(@ctx)
+    html = resolver.wrap_with_link('<span>Test</span>', '/some/url.html', '<!--preview-->')
+    assert_equal '<a href="/some/url.html"><span>Test</span><!--preview--></a>', html
+  end
+
+  def test_wrap_with_link_defaults_preview_html_to_nil
+    resolver = TestResolverStub.new(@ctx)
+    html = resolver.wrap_with_link('<span>Test</span>', '/some/url.html')
+    assert_equal '<a href="/some/url.html"><span>Test</span></a>', html
+  end
+
   # --- log_failure ---
 
   def test_log_failure_returns_empty_string_when_logging_disabled
