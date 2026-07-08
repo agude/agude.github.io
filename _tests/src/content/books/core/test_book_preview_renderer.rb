@@ -26,7 +26,7 @@ class TestBookPreviewRenderer < Minitest::Test
 
   def test_full_markup
     result = build.render
-    expected = '<!--book-preview--><span class="book-link-preview" aria-hidden="true">' \
+    expected = '<!--book-preview--><span class="book-link-preview" aria-hidden="true" hidden>' \
                '<img class="book-link-preview-cover" src="/images/dune.jpg" alt="Cover of Dune" />' \
                '<span class="book-link-preview-text">' \
                '<span class="book-link-preview-title">Dune</span>' \
