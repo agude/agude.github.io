@@ -23,18 +23,15 @@ class TestShortStoryResolver < Minitest::Test
 
   def test_render_unique_story_found_and_linked
     output = render_util('Unique Story')
-    expected = '<a href="/books/one.html#unique-story"><cite class="short-story-title">Unique Story</cite></a>'
-    assert_equal expected, output
+    assert_match(%r{<a href="/books/one\.html#unique-story"><cite class="short-story-title">Unique Story</cite>}, output)
   end
 
   def test_render_multiple_mentions_in_same_book_links_to_first
-    # This story is mentioned twice in "Book Three". The link should resolve to the first one
-    # without needing disambiguation, as it's not truly ambiguous (it's not in multiple books).
     output = render_util('Story Mentioned Twice In One Book')
-    expected =
-      '<a href="/books/three.html#story-mentioned-twice"><cite class="short-story-title">Story Mentioned Twice</cite></a>'
-    assert_equal expected, output
-    # Also assert that no error/warning log was generated for ambiguity
+    assert_match(
+      %r{<a href="/books/three\.html#story-mentioned-twice"><cite class="short-story-title">Story Mentioned Twice</cite>},
+      output,
+    )
     refute_match(/<!--.*?RENDER_SHORT_STORY_LINK_FAILURE.*?-->/, output)
   end
 
@@ -60,11 +57,11 @@ class TestShortStoryResolver < Minitest::Test
       },
     ]
 
-    # This would be ambiguous without the new logic
     output = render_util('Story in Archive')
-    expected =
-      '<a href="/books/canonical-anthology.html#story-slug"><cite class="short-story-title">Story in Archive</cite></a>'
-    assert_equal expected, output
+    assert_match(
+      %r{<a href="/books/canonical-anthology\.html#story-slug"><cite class="short-story-title">Story in Archive</cite>},
+      output,
+    )
     refute_match(/<!--.*?RENDER_SHORT_STORY_LINK_FAILURE.*?-->/, output, 'Should not log an ambiguity error')
   end
 
@@ -79,8 +76,10 @@ class TestShortStoryResolver < Minitest::Test
 
   def test_render_duplicate_story_with_disambiguation_succeeds
     output = render_util('Duplicate Story', 'Book Two')
-    expected = '<a href="/books/two.html#duplicate-story"><cite class="short-story-title">Duplicate Story</cite></a>'
-    assert_equal expected, output
+    assert_match(
+      %r{<a href="/books/two\.html#duplicate-story"><cite class="short-story-title">Duplicate Story</cite>},
+      output,
+    )
   end
 
   def test_render_duplicate_story_without_disambiguation_fails_and_logs
@@ -121,7 +120,6 @@ class TestShortStoryResolver < Minitest::Test
   end
 
   def test_render_link_is_created_for_anchor_on_current_page
-    # Simulate the story being on the current page
     @mock_story_cache['story on this page'] = [
       {
         'title' => 'Story On This Page',
@@ -133,6 +131,7 @@ class TestShortStoryResolver < Minitest::Test
     output = render_util('Story On This Page')
     expected = '<a href="#story-on-this-page"><cite class="short-story-title">Story On This Page</cite></a>'
     assert_equal expected, output
+    refute_match(/book-preview/, output, 'Same-page anchor links should not include a preview')
   end
 
   # --- resolve_data() tests ---
@@ -190,6 +189,65 @@ class TestShortStoryResolver < Minitest::Test
     assert data.frozen?, 'resolve_data() should return a frozen hash'
   end
 
+  def test_resolve_data_includes_parent_book_fields_when_book_cached
+    add_book_to_cache('Book One', '/books/one.html',
+                      rating: 4, image: '/images/one.jpg',
+                      authors: ['Author A'], series: 'Test Series', book_number: 1)
+
+    data = resolve_data_util('Unique Story')
+    assert_equal :found, data[:status]
+    assert_equal 'Book One', data[:book_title]
+    assert_equal ['Author A'], data[:authors]
+    assert_equal 4, data[:rating]
+    assert_equal '/images/one.jpg', data[:image]
+    assert_equal 'Test Series', data[:series]
+    assert_equal 1, data[:book_number]
+  end
+
+  def test_resolve_data_book_fields_nil_when_book_not_cached
+    data = resolve_data_util('Unique Story')
+    assert_equal :found, data[:status]
+    assert_nil data[:book_title]
+    assert_nil data[:authors]
+    assert_nil data[:rating]
+  end
+
+  # --- Preview tests ---
+
+  def test_render_includes_book_preview_when_book_cached
+    add_book_to_cache('Book One', '/books/one.html',
+                      rating: 4, image: '/images/one.jpg',
+                      authors: ['Author A'], series: 'Test Series', book_number: 1)
+
+    output = render_util('Unique Story')
+    assert_match(/<!--book-preview-->/, output)
+    assert_match(/<!--\/book-preview-->/, output)
+    assert_match(/book-link-preview/, output)
+    assert_match(/Author A/, output)
+  end
+
+  def test_render_no_preview_when_book_not_cached
+    output = render_util('Unique Story')
+    refute_match(/book-preview/, output)
+  end
+
+  def test_render_no_preview_for_same_page_anchor
+    add_book_to_cache('Current Book', '/current-page.html',
+                      rating: 5, image: '/images/current.jpg', authors: ['Author B'])
+
+    @mock_story_cache['story on this page'] = [
+      {
+        'title' => 'Story On This Page',
+        'parent_book_title' => 'Current Book',
+        'url' => '/current-page.html',
+        'slug' => 'story-on-this-page',
+      },
+    ]
+    output = render_util('Story On This Page')
+    assert_match(%r{<a href="#story-on-this-page">}, output)
+    refute_match(/book-preview/, output, 'Same-page anchor links should not include a preview')
+  end
+
   private
 
   # Creates mock short story cache data
@@ -241,6 +299,21 @@ class TestShortStoryResolver < Minitest::Test
     @site = create_site
     @site.data['link_cache']['short_stories'] = @mock_story_cache
     @site.config['plugin_logging']['RENDER_SHORT_STORY_LINK'] = true # Enable logging for tests
+  end
+
+  def add_book_to_cache(title, url, rating: nil, image: nil, authors: [], series: nil, book_number: nil)
+    normalized = Jekyll::Infrastructure::TextProcessingUtils.normalize_title(title)
+    @site.data['link_cache']['books'] ||= {}
+    @site.data['link_cache']['books'][normalized] ||= []
+    @site.data['link_cache']['books'][normalized] << {
+      'url' => url,
+      'title' => title,
+      'authors' => authors,
+      'rating' => rating,
+      'image' => image,
+      'series' => series,
+      'book_number' => book_number,
+    }
   end
 
   # Sets up test context

@@ -3,6 +3,7 @@
 # _plugins/src/content/short_stories/short_story_resolver.rb
 require_relative '../../infrastructure/links/link_resolver_support'
 require_relative '../../infrastructure/typography_utils'
+require_relative '../books/core/book_preview_renderer'
 
 module Jekyll
   module ShortStories
@@ -11,7 +12,8 @@ module Jekyll
       include Jekyll::Infrastructure::Links::LinkResolverSupport
 
       Typography = Jekyll::Infrastructure::TypographyUtils
-      private_constant :Typography
+      PreviewRenderer = Jekyll::Books::Core::BookPreviewRenderer
+      private_constant :Typography, :PreviewRenderer
 
       def initialize(context)
         super
@@ -49,7 +51,18 @@ module Jekyll
       def build_data_hash(target)
         if target
           url = "#{target['url']}##{target['slug']}"
-          { status: :found, url: url, display_text: target['title'] }.freeze
+          book = find_parent_book_data(target)
+          {
+            status: :found,
+            url: url,
+            display_text: target['title'],
+            book_title: book&.[]('title'),
+            authors: book&.[]('authors'),
+            rating: book&.[]('rating'),
+            image: book&.[]('image'),
+            series: book&.[]('series'),
+            book_number: book&.[]('book_number'),
+          }.freeze
         elsif @ambiguous
           { status: :ambiguous, url: nil, display_text: @title_input }.freeze
         else
@@ -64,8 +77,9 @@ module Jekyll
         when :empty_title
           @log_output
         when :found
+          preview_html = build_preview_html(data)
           cite = build_story_cite_element(data[:display_text])
-          html = wrap_with_link(cite, data[:url])
+          html = wrap_with_link(cite, data[:url], preview_html)
           @log_output + html
         when :not_found, :ambiguous
           cite = build_story_cite_element(data[:display_text])
@@ -147,6 +161,31 @@ module Jekyll
           level: :error,
         )
         nil
+      end
+
+      def find_parent_book_data(target)
+        cache = @site.data['link_cache'] || {}
+        books = cache['books'] || {}
+        norm_title = Text.normalize_title(target['parent_book_title'])
+        candidates = books[norm_title] || []
+        candidates.find { |b| b['url'] == target['url'] }
+      end
+
+      def build_preview_html(data)
+        return nil unless data[:book_title]
+
+        preview = PreviewRenderer.new(
+          @context,
+          data[:book_title],
+          data[:authors],
+          data[:rating],
+          data[:image],
+          series: data[:series],
+          book_number: data[:book_number],
+        )
+        html = preview.render
+        @log_output = @log_output.to_s + preview.log_output.to_s
+        html
       end
 
       def build_story_cite_element(display_text)
