@@ -252,8 +252,8 @@ class TestBookPreviewRenderer < Minitest::Test
 
   def test_extract_lede_clears_flag_on_exception
     bad_excerpt = Object.new
-    def bad_excerpt.output; raise 'boom'; end
-    def bad_excerpt.respond_to?(m, *); m == :output || super; end
+    def bad_excerpt.output = raise('boom')
+    def bad_excerpt.respond_to?(method, *) = method == :output || super
     doc = create_doc({}, '/books/test/')
     doc.data['excerpt'] = bad_excerpt
     @site.data['url_to_book_doc'] = { '/books/test/' => doc }

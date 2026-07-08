@@ -190,9 +190,15 @@ class TestShortStoryResolver < Minitest::Test
   end
 
   def test_resolve_data_includes_parent_book_fields_when_book_cached
-    add_book_to_cache('Book One', '/books/one.html',
-                      rating: 4, image: '/images/one.jpg',
-                      authors: ['Author A'], series: 'Test Series', book_number: 1)
+    add_book_to_cache(
+      'Book One',
+      '/books/one.html',
+      rating: 4,
+      image: '/images/one.jpg',
+      authors: ['Author A'],
+      series: 'Test Series',
+      book_number: 1,
+    )
 
     data = resolve_data_util('Unique Story')
     assert_equal :found, data[:status]
@@ -215,13 +221,19 @@ class TestShortStoryResolver < Minitest::Test
   # --- Preview tests ---
 
   def test_render_includes_book_preview_when_book_cached
-    add_book_to_cache('Book One', '/books/one.html',
-                      rating: 4, image: '/images/one.jpg',
-                      authors: ['Author A'], series: 'Test Series', book_number: 1)
+    add_book_to_cache(
+      'Book One',
+      '/books/one.html',
+      rating: 4,
+      image: '/images/one.jpg',
+      authors: ['Author A'],
+      series: 'Test Series',
+      book_number: 1,
+    )
 
     output = render_util('Unique Story')
     assert_match(/<!--book-preview-->/, output)
-    assert_match(/<!--\/book-preview-->/, output)
+    assert_match(%r{<!--/book-preview-->}, output)
     assert_match(/book-link-preview/, output)
     assert_match(/Author A/, output)
   end
@@ -232,8 +244,13 @@ class TestShortStoryResolver < Minitest::Test
   end
 
   def test_render_no_preview_for_same_page_anchor
-    add_book_to_cache('Current Book', '/current-page.html',
-                      rating: 5, image: '/images/current.jpg', authors: ['Author B'])
+    add_book_to_cache(
+      'Current Book',
+      '/current-page.html',
+      rating: 5,
+      image: '/images/current.jpg',
+      authors: ['Author B'],
+    )
 
     @mock_story_cache['story on this page'] = [
       {
@@ -244,7 +261,7 @@ class TestShortStoryResolver < Minitest::Test
       },
     ]
     output = render_util('Story On This Page')
-    assert_match(%r{<a href="#story-on-this-page">}, output)
+    assert_match(/<a href="#story-on-this-page">/, output)
     refute_match(/book-preview/, output, 'Same-page anchor links should not include a preview')
   end
 
