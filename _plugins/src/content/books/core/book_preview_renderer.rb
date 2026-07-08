@@ -43,7 +43,8 @@ module Jekyll
         # @param image [String, nil] Path to the book's cover image.
         # @param series [String, nil] The name of the series the book belongs to.
         # @param book_number [Integer, String, nil] The book's number within the series.
-        def initialize(context, canonical_title, authors, rating, image, series: nil, book_number: nil)
+        # @param lede_html [String, nil] Pre-sanitized HTML lede (first paragraph) for the book.
+        def initialize(context, canonical_title, authors, rating, image, series: nil, book_number: nil, lede_html: nil)
           @context = context
           @canonical_title = canonical_title
           @authors = authors || []
@@ -51,6 +52,7 @@ module Jekyll
           @image = image
           @series = series
           @book_number = book_number
+          @lede_html = lede_html
           @log_output = ''
         end
 
@@ -59,7 +61,7 @@ module Jekyll
           '<!--book-preview--><span class="book-link-preview" aria-hidden="true">' \
             "#{cover_html}<span class=\"book-link-preview-text\">" \
             "<cite class=\"book-title\">#{title_html}</cite>" \
-            "#{author_html}#{stars_html}#{series_html}</span></span><!--/book-preview-->"
+            "#{author_html}#{stars_html}#{series_html}#{lede_html}</span></span><!--/book-preview-->"
         end
 
         private
@@ -72,7 +74,8 @@ module Jekyll
           return '' if @image.to_s.strip.empty?
 
           escaped_image = CGI.escapeHTML(@image.to_s)
-          "<span class=\"book-link-preview-cover\" style=\"background-image: url('#{escaped_image}')\"></span>"
+          escaped_title = CGI.escapeHTML(@canonical_title.to_s)
+          "<img class=\"book-link-preview-cover\" src=\"#{escaped_image}\" alt=\"Cover of #{escaped_title}\" />"
         end
 
         def author_html
@@ -97,6 +100,12 @@ module Jekyll
           number_html = @book_number.to_s.strip.empty? ? '' : "&thinsp;##{@book_number}"
           '<span class="book-link-preview-series">' \
             "<span class=\"book-series\">#{escaped_series}</span>#{number_html}</span>"
+        end
+
+        def lede_html
+          return '' if @lede_html.to_s.strip.empty?
+
+          "<span class=\"book-link-preview-lede\">#{@lede_html}</span>"
         end
 
         def log_rating_error(error)

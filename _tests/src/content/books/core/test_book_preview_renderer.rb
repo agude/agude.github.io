@@ -20,14 +20,14 @@ class TestBookPreviewRenderer < Minitest::Test
   end
 
   def build(title: 'Dune', authors: ['Frank Herbert'], rating: 5, image: '/images/dune.jpg', context: @ctx,
-            series: nil, book_number: nil)
-    Renderer.new(context, title, authors, rating, image, series: series, book_number: book_number)
+            series: nil, book_number: nil, lede_html: nil)
+    Renderer.new(context, title, authors, rating, image, series: series, book_number: book_number, lede_html: lede_html)
   end
 
   def test_full_markup
     result = build.render
     expected = '<!--book-preview--><span class="book-link-preview" aria-hidden="true">' \
-               '<span class="book-link-preview-cover" style="background-image: url(\'/images/dune.jpg\')"></span>' \
+               '<img class="book-link-preview-cover" src="/images/dune.jpg" alt="Cover of Dune" />' \
                '<span class="book-link-preview-text">' \
                '<cite class="book-title">Dune</cite>' \
                '<span class="book-link-preview-author">by Frank Herbert</span>' \
@@ -122,7 +122,7 @@ class TestBookPreviewRenderer < Minitest::Test
 
   def test_escapes_image_attribute
     result = build(image: "/images/dune's \"cover\".jpg").render
-    assert_includes result, "url('/images/dune&#39;s &quot;cover&quot;.jpg')"
+    assert_includes result, 'src="/images/dune&#39;s &quot;cover&quot;.jpg"'
   end
 
   def test_log_output_defaults_to_empty_string
@@ -166,5 +166,32 @@ class TestBookPreviewRenderer < Minitest::Test
       '<span class="book-link-preview-series"><span class="book-series">Dune</span>&thinsp;#1</span>' \
       '</span></span><!--/book-preview-->',
     )
+  end
+
+  # --- Lede tests ---
+
+  def test_lede_included_when_provided
+    result = build(lede_html: 'A great sci-fi novel.').render
+    assert_includes result, '<span class="book-link-preview-lede">A great sci-fi novel.</span>'
+  end
+
+  def test_lede_omitted_when_nil
+    result = build(lede_html: nil).render
+    refute_includes result, 'book-link-preview-lede'
+  end
+
+  def test_lede_omitted_when_blank
+    result = build(lede_html: '   ').render
+    refute_includes result, 'book-link-preview-lede'
+  end
+
+  def test_lede_preserves_inline_html
+    result = build(lede_html: 'Features <cite class="book-title">Dune</cite> references.').render
+    assert_includes result, '<cite class="book-title">Dune</cite>'
+  end
+
+  def test_lede_output_no_newlines
+    result = build(lede_html: 'A great novel.').render
+    refute_match(/\n/, result)
   end
 end

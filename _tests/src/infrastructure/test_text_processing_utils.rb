@@ -318,6 +318,29 @@ class TestTextProcessingUtils < Minitest::Test
     assert_equal '', Jekyll::Infrastructure::TextProcessingUtils.strip_link_previews('')
   end
 
+  # --- Tests for strip_links ---
+
+  def test_strip_links_removes_anchor_tags_keeps_inner_html
+    html = '<a href="/books/foo/"><cite class="book-title">Foo</cite></a>'
+    assert_equal '<cite class="book-title">Foo</cite>',
+                 Jekyll::Infrastructure::TextProcessingUtils.strip_links(html)
+  end
+
+  def test_strip_links_removes_multiple_links
+    html = 'Read <a href="/a">Alpha</a> and <a href="/b">Beta</a>.'
+    assert_equal 'Read Alpha and Beta.',
+                 Jekyll::Infrastructure::TextProcessingUtils.strip_links(html)
+  end
+
+  def test_strip_links_nil_input
+    assert_equal '', Jekyll::Infrastructure::TextProcessingUtils.strip_links(nil)
+  end
+
+  def test_strip_links_no_links_passthrough
+    html = '<cite class="book-title">Foo</cite>'
+    assert_equal html, Jekyll::Infrastructure::TextProcessingUtils.strip_links(html)
+  end
+
   # --- Tests for escape_link_text (moved from MarkdownTextUtils) ---
 
   def test_escape_link_text_escapes_brackets

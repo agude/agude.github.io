@@ -147,6 +147,8 @@ module Jekyll
         # non-fatal logging (e.g. an invalid rating) into @log_output rather
         # than embedding it inside the preview span itself.
         def build_preview_html(data)
+          return nil if @site&.data&.[]('_building_lede')
+
           preview = PreviewRenderer.new(
             @context,
             data[:canonical_title],
@@ -155,10 +157,46 @@ module Jekyll
             data[:image],
             series: data[:series],
             book_number: data[:book_number],
+            lede_html: extract_lede(data[:url]),
           )
           html = preview.render
           @log_output = @log_output.to_s + preview.log_output.to_s
           html
+        end
+
+        def extract_lede(url)
+          return nil unless url && @site
+          return nil if @site.data['_building_lede']
+
+          doc = find_book_doc(url)
+          return nil unless doc
+
+          excerpt = doc.data['excerpt']
+          return nil unless excerpt.respond_to?(:output)
+
+          @site.data['_building_lede'] = true
+          begin
+            sanitize_lede(excerpt.output)
+          ensure
+            @site.data['_building_lede'] = false
+          end
+        end
+
+        def find_book_doc(url)
+          return nil unless url && @site
+
+          base_url = url.to_s.split('#', 2).first
+          doc_map = @site.data.dig('link_cache', 'url_to_book_doc') || {}
+          doc_map[base_url]
+        end
+
+        def sanitize_lede(html)
+          return nil if html.to_s.strip.empty?
+
+          clean = Text.strip_link_previews(html)
+          clean = Text.strip_links(clean)
+          clean = clean.gsub(%r{</?p[^>]*>}, '').strip
+          clean.empty? ? nil : clean
         end
 
         def fallback(title)

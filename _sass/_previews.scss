@@ -6,17 +6,18 @@
 //   <a href="/books/dune/">
 //     <cite class="book-title">Dune</cite>
 //     <span class="book-link-preview" aria-hidden="true">
-//       <span class="book-link-preview-cover" style="background-image: url(...)"></span>
+//       <img class="book-link-preview-cover" src="..." alt="Cover of ..." />
 //       <span class="book-link-preview-text">
 //         <cite class="book-title">Dune</cite>
 //         <span class="book-link-preview-author">by Frank Herbert</span>
 //         <span class="book-rating ...">...</span>
 //         <span class="book-link-preview-series"><span class="book-series">Dune</span>&thinsp;#1</span>
+//         <span class="book-link-preview-lede">A sci-fi novel about...</span>
 //       </span>
 //     </span>
 //   </a>
 //
-// The cover, author, rating, and series spans are all optional.
+// The cover, author, rating, series, and lede spans are all optional.
 @use "variables" as *;
 
 // Hidden by default. The background-image lives on the child
@@ -52,7 +53,7 @@ a:has(> .book-link-preview) {
   // Shrink-to-fit: size to the content (cover + longest text line),
   // capped so long titles wrap instead of widening the card.
   width: max-content;
-  max-width: min(20em, 85vw);
+  max-width: min(28em, 85vw);
   gap: 0.5em;
   align-items: flex-start;
 
@@ -69,12 +70,12 @@ a:has(> .book-link-preview) {
   text-align: left;
 }
 
-.book-link-preview-cover {
+img.book-link-preview-cover {
   flex-shrink: 0;
   width: 5em;
-  aspect-ratio: 2 / 3;
-  background-size: cover;
-  background-position: center;
+  height: auto;
+  object-fit: contain;
+  align-self: flex-start;
 }
 
 .book-link-preview-text {
@@ -106,6 +107,17 @@ a:has(> .book-link-preview) {
   .book-link-preview-series {
     color: $muted-color;
     font-size: $small-font-size;
+  }
+
+  .book-link-preview-lede {
+    font-style: normal;
+    font-size: $small-font-size;
+    color: $body-color;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }
 

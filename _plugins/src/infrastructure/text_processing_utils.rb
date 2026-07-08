@@ -123,6 +123,16 @@ module Jekyll
         html.to_s.gsub(%r{<!--book-preview-->.*?<!--/book-preview-->}m, '')
       end
 
+      # Removes <a> tags from HTML while preserving their inner content.
+      # Used to prevent nested links (e.g. when embedding an excerpt
+      # inside an <a>-wrapped hover preview).
+      #
+      # @param html [String, nil] The HTML string to process.
+      # @return [String] The HTML with <a> tags unwrapped.
+      def self.strip_links(html)
+        html.to_s.gsub(%r{<a\b[^>]*>(.*?)</a>}m, '\1')
+      end
+
       # Escapes characters that break Markdown link text: [ and ].
       def self.escape_link_text(text)
         text.to_s.gsub(/[\[\]]/) { |m| "\\#{m}" }
