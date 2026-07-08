@@ -26,10 +26,9 @@
   display: none;
 }
 
-// Anchors that contain a preview become the positioning context for it.
-a:has(> .book-link-preview) {
-  position: relative;
-}
+// The .container (article text column) is the positioning context.
+// Vertical placement uses the CSS static position (below the link text);
+// horizontal centering uses left/right: 0 + margin-inline: auto.
 
 // Only reveal the preview for devices with real hover + a precise
 // pointer (mouse/trackpad). Touch devices never get it, since there is
@@ -42,15 +41,14 @@ a:has(> .book-link-preview) {
 }
 
 .book-link-preview {
-  // Right-anchored to the link: the popup's right edge never extends past
-  // the link's own right edge, so it cannot overflow the viewport on the
-  // right no matter where the link sits in the text column.
   position: absolute;
-  top: calc(100% + 0.3em);
+  margin-top: 0.3em;
+  left: 0;
   right: 0;
   z-index: 10;
   width: 24em;
-  max-width: 85vw;
+  max-width: calc(100% - 2rem);
+  margin-inline: auto;
 
   background-color: white;
   border: 1px solid #e5e5e5;
@@ -119,6 +117,26 @@ img.book-link-preview-cover {
   color: $body-color;
   line-height: 1.4;
   margin-top: 0.3em;
+}
+
+@media (min-width: $sidebar-appear-breakpoint) {
+  @supports (anchor-name: --a) {
+    a:hover:has(> .book-link-preview),
+    a:focus-visible:has(> .book-link-preview) {
+      anchor-name: --book-link;
+    }
+
+    .book-link-preview {
+      position: fixed;
+      position-anchor: --book-link;
+      inset: auto;
+      top: calc(anchor(bottom) + 0.3em);
+      left: anchor(left);
+      margin: 0;
+      max-width: min(24em, calc(100vw - 2rem));
+      position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline;
+    }
+  }
 }
 
 @media print {
