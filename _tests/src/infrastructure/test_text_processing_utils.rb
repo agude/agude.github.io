@@ -341,6 +341,11 @@ class TestTextProcessingUtils < Minitest::Test
     assert_equal html, Jekyll::Infrastructure::TextProcessingUtils.strip_links(html)
   end
 
+  def test_strip_links_multiline_content
+    html = "<a href=\"/foo\">\n<cite>Foo</cite>\n</a>"
+    assert_equal "\n<cite>Foo</cite>\n", Jekyll::Infrastructure::TextProcessingUtils.strip_links(html)
+  end
+
   # --- Tests for escape_link_text (moved from MarkdownTextUtils) ---
 
   def test_escape_link_text_escapes_brackets

@@ -28,7 +28,7 @@ module Jekyll
 
         build_secondary_caches(site, link_cache, url_to_book_doc_map)
 
-        link_cache['url_to_book_doc'] = url_to_book_doc_map
+        site.data['url_to_book_doc'] = url_to_book_doc_map
         site.data['link_cache'] = link_cache
         Jekyll.logger.info 'Jekyll::Infrastructure::LinkCacheGenerator:', 'Cache built successfully.'
       end

@@ -173,7 +173,7 @@ module Jekyll
 
       def build_preview_html(data)
         return nil unless data[:book_title]
-        return nil if @site&.data&.[]('_building_lede')
+        return nil if PreviewRenderer.building_lede?(@site)
 
         preview = PreviewRenderer.new(
           @context,
@@ -183,40 +183,11 @@ module Jekyll
           data[:image],
           series: data[:series],
           book_number: data[:book_number],
-          lede_html: extract_lede(data[:url]),
+          lede_html: PreviewRenderer.extract_lede(@site, data[:url]),
         )
         html = preview.render
         @log_output = @log_output.to_s + preview.log_output.to_s
         html
-      end
-
-      def extract_lede(url)
-        return nil unless url && @site
-        return nil if @site.data['_building_lede']
-
-        base_url = url.to_s.split('#', 2).first
-        doc_map = @site.data.dig('link_cache', 'url_to_book_doc') || {}
-        doc = doc_map[base_url]
-        return nil unless doc
-
-        excerpt = doc.data['excerpt']
-        return nil unless excerpt.respond_to?(:output)
-
-        @site.data['_building_lede'] = true
-        begin
-          sanitize_lede(excerpt.output)
-        ensure
-          @site.data['_building_lede'] = false
-        end
-      end
-
-      def sanitize_lede(html)
-        return nil if html.to_s.strip.empty?
-
-        clean = Text.strip_link_previews(html)
-        clean = Text.strip_links(clean)
-        clean = clean.gsub(%r{</?p[^>]*>}, '').strip
-        clean.empty? ? nil : clean
       end
 
       def build_story_cite_element(display_text)

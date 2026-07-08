@@ -19,7 +19,6 @@ class TestLinkCacheStructure < Minitest::Test
     series_map
     short_stories
     sidebar_nav
-    url_to_book_doc
     url_to_canonical_map
   ].freeze
 
@@ -34,7 +33,6 @@ class TestLinkCacheStructure < Minitest::Test
     series
     series_map
     short_stories
-    url_to_book_doc
     url_to_canonical_map
   ].freeze
 

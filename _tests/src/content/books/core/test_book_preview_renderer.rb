@@ -194,4 +194,82 @@ class TestBookPreviewRenderer < Minitest::Test
     result = build(lede_html: 'A great novel.').render
     refute_match(/\n/, result)
   end
+
+  # --- Class-level lede extraction tests ---
+
+  def test_sanitize_lede_strips_links
+    html = '<p>Read <a href="/books/foo/"><cite>Foo</cite></a> next.</p>'
+    result = Renderer.sanitize_lede(html)
+    assert_equal 'Read <cite>Foo</cite> next.', result
+  end
+
+  def test_sanitize_lede_strips_previews_and_p_tags
+    html = '<p>Great book<!--book-preview--><span>preview</span><!--/book-preview-->.</p>'
+    result = Renderer.sanitize_lede(html)
+    assert_equal 'Great book.', result
+  end
+
+  def test_sanitize_lede_returns_nil_for_blank
+    assert_nil Renderer.sanitize_lede('')
+    assert_nil Renderer.sanitize_lede('   ')
+    assert_nil Renderer.sanitize_lede(nil)
+  end
+
+  def test_extract_lede_returns_nil_when_no_doc
+    result = Renderer.extract_lede(@site, '/nonexistent/')
+    assert_nil result
+  end
+
+  def test_extract_lede_returns_nil_when_building_lede_flag_set
+    excerpt = Struct.new(:output).new('<p>Some text.</p>')
+    doc = create_doc({ 'excerpt' => excerpt }, '/books/test/')
+    @site.data['url_to_book_doc'] = { '/books/test/' => doc }
+    @site.data['_building_lede'] = true
+
+    result = Renderer.extract_lede(@site, '/books/test/')
+    assert_nil result
+  ensure
+    @site.data.delete('_building_lede')
+  end
+
+  def test_extract_lede_strips_fragment_from_url
+    excerpt = Struct.new(:output).new('<p>Some text.</p>')
+    doc = create_doc({ 'excerpt' => excerpt }, '/books/test/')
+    @site.data['url_to_book_doc'] = { '/books/test/' => doc }
+
+    result = Renderer.extract_lede(@site, '/books/test/#some-anchor')
+    assert_equal 'Some text.', result
+  end
+
+  def test_extract_lede_clears_flag_after_completion
+    excerpt = Struct.new(:output).new('<p>Text.</p>')
+    doc = create_doc({ 'excerpt' => excerpt }, '/books/test/')
+    @site.data['url_to_book_doc'] = { '/books/test/' => doc }
+
+    Renderer.extract_lede(@site, '/books/test/')
+    refute @site.data['_building_lede'], 'Flag should be cleared after extraction'
+  end
+
+  def test_extract_lede_clears_flag_on_exception
+    bad_excerpt = Object.new
+    def bad_excerpt.output; raise 'boom'; end
+    def bad_excerpt.respond_to?(m, *); m == :output || super; end
+    doc = create_doc({}, '/books/test/')
+    doc.data['excerpt'] = bad_excerpt
+    @site.data['url_to_book_doc'] = { '/books/test/' => doc }
+
+    assert_raises(RuntimeError) { Renderer.extract_lede(@site, '/books/test/') }
+    refute @site.data['_building_lede'], 'Flag should be cleared even on exception'
+  end
+
+  def test_building_lede_returns_false_when_not_set
+    refute Renderer.building_lede?(@site)
+  end
+
+  def test_building_lede_returns_true_when_set
+    @site.data['_building_lede'] = true
+    assert Renderer.building_lede?(@site)
+  ensure
+    @site.data.delete('_building_lede')
+  end
 end

@@ -30,6 +30,46 @@ module Jekyll
         MAX_AUTHORS_BEFORE_ETAL = 3
         private_constant :MAX_AUTHORS_BEFORE_ETAL
 
+        # --- Class-level lede extraction (shared by all resolvers) ---
+
+        # True when we are already inside excerpt rendering, so callers
+        # can skip preview building entirely to avoid wasted work.
+        def self.building_lede?(site)
+          site&.data&.[]('_building_lede')
+        end
+
+        # Extracts and sanitizes the first-paragraph lede for a book at
+        # the given URL. Returns nil when the book has no excerpt, when
+        # we are already inside a lede extraction (re-entrance guard), or
+        # when the URL is not in the doc map.
+        def self.extract_lede(site, url)
+          return nil unless url && site
+          return nil if site.data['_building_lede']
+
+          base_url = url.to_s.split('#', 2).first
+          doc = (site.data['url_to_book_doc'] || {})[base_url]
+          return nil unless doc
+
+          excerpt = doc.data['excerpt']
+          return nil unless excerpt.respond_to?(:output)
+
+          site.data['_building_lede'] = true
+          begin
+            sanitize_lede(excerpt.output)
+          ensure
+            site.data['_building_lede'] = false
+          end
+        end
+
+        def self.sanitize_lede(html)
+          return nil if html.to_s.strip.empty?
+
+          clean = Text.strip_link_previews(html)
+          clean = Text.strip_links(clean)
+          clean = clean.gsub(%r{</?p[^>]*>}, '').strip
+          clean.empty? ? nil : clean
+        end
+
         # Any non-fatal issues encountered while rendering (e.g. an invalid
         # rating value), as an HTML comment. Empty string if none. This is
         # never embedded inside the preview span itself — callers should
@@ -97,7 +137,7 @@ module Jekyll
           return '' if @series.to_s.strip.empty?
 
           escaped_series = CGI.escapeHTML(@series.to_s)
-          number_html = @book_number.to_s.strip.empty? ? '' : "&thinsp;##{@book_number}"
+          number_html = @book_number.to_s.strip.empty? ? '' : "&thinsp;##{CGI.escapeHTML(@book_number.to_s)}"
           '<span class="book-link-preview-series">' \
             "<span class=\"book-series\">#{escaped_series}</span>#{number_html}</span>"
         end
