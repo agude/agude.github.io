@@ -12,12 +12,11 @@
 //         <span class="book-link-preview-author">by Frank Herbert</span>
 //         <span class="book-rating ...">...</span>
 //         <span class="book-link-preview-series"><span class="book-series">Dune</span>&thinsp;#1</span>
-//         <span class="book-link-preview-published">Published 1965</span>
 //       </span>
 //     </span>
 //   </a>
 //
-// The cover, author, rating, series, and published spans are all optional.
+// The cover, author, rating, and series spans are all optional.
 @use "variables" as *;
 
 // Hidden by default. The background-image lives on the child
@@ -50,7 +49,9 @@ a:has(> .book-link-preview) {
   top: calc(100% + 0.3em);
   right: 0;
   z-index: 10;
-  width: 20em;
+  // Shrink-to-fit: size to the content (cover + longest text line),
+  // capped so long titles wrap instead of widening the card.
+  width: max-content;
   max-width: min(20em, 85vw);
   gap: 0.5em;
   align-items: flex-start;
@@ -102,8 +103,7 @@ a:has(> .book-link-preview) {
     margin-bottom: 0;
   }
 
-  .book-link-preview-series,
-  .book-link-preview-published {
+  .book-link-preview-series {
     color: $muted-color;
     font-size: $small-font-size;
   }

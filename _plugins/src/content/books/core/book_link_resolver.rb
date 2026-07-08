@@ -121,7 +121,6 @@ module Jekyll
             authors: result['authors'],
             series: result['series'],
             book_number: result['book_number'],
-            date_published: result['date_published'],
           }.freeze
         end
 
@@ -156,7 +155,6 @@ module Jekyll
             data[:image],
             series: data[:series],
             book_number: data[:book_number],
-            date_published: data[:date_published],
           )
           html = preview.render
           @log_output = @log_output.to_s + preview.log_output.to_s

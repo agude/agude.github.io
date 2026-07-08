@@ -2,7 +2,6 @@
 
 # _plugins/src/content/books/core/book_preview_renderer.rb
 require 'cgi'
-require 'date'
 require_relative '../../../infrastructure/typography_utils'
 require_relative '../../../infrastructure/text_processing_utils'
 require_relative '../../../infrastructure/plugin_logger_utils'
@@ -44,9 +43,7 @@ module Jekyll
         # @param image [String, nil] Path to the book's cover image.
         # @param series [String, nil] The name of the series the book belongs to.
         # @param book_number [Integer, String, nil] The book's number within the series.
-        # @param date_published [Date, String, nil] The book's original publication date.
-        def initialize(context, canonical_title, authors, rating, image, series: nil, book_number: nil,
-                       date_published: nil)
+        def initialize(context, canonical_title, authors, rating, image, series: nil, book_number: nil)
           @context = context
           @canonical_title = canonical_title
           @authors = authors || []
@@ -54,7 +51,6 @@ module Jekyll
           @image = image
           @series = series
           @book_number = book_number
-          @date_published = date_published
           @log_output = ''
         end
 
@@ -63,7 +59,7 @@ module Jekyll
           '<!--book-preview--><span class="book-link-preview" aria-hidden="true">' \
             "#{cover_html}<span class=\"book-link-preview-text\">" \
             "<cite class=\"book-title\">#{title_html}</cite>" \
-            "#{author_html}#{stars_html}#{series_html}#{published_html}</span></span><!--/book-preview-->"
+            "#{author_html}#{stars_html}#{series_html}</span></span><!--/book-preview-->"
         end
 
         private
@@ -101,23 +97,6 @@ module Jekyll
           number_html = @book_number.to_s.strip.empty? ? '' : "&thinsp;##{@book_number}"
           '<span class="book-link-preview-series">' \
             "<span class=\"book-series\">#{escaped_series}</span>#{number_html}</span>"
-        end
-
-        def published_html
-          year = published_year
-          return '' unless year
-
-          "<span class=\"book-link-preview-published\">Published #{year}</span>"
-        end
-
-        def published_year
-          case @date_published
-          when Date
-            @date_published.year
-          when String
-            match = @date_published.match(/\A\d{4}/)
-            match && match[0]
-          end
         end
 
         def log_rating_error(error)

@@ -20,8 +20,8 @@ class TestBookPreviewRenderer < Minitest::Test
   end
 
   def build(title: 'Dune', authors: ['Frank Herbert'], rating: 5, image: '/images/dune.jpg', context: @ctx,
-            series: nil, book_number: nil, date_published: nil)
-    Renderer.new(context, title, authors, rating, image, series: series, book_number: book_number, date_published: date_published)
+            series: nil, book_number: nil)
+    Renderer.new(context, title, authors, rating, image, series: series, book_number: book_number)
   end
 
   def test_full_markup
@@ -155,46 +155,15 @@ class TestBookPreviewRenderer < Minitest::Test
     assert_includes result, '<span class="book-series">Cat &amp; &lt;Mouse&gt;</span>'
   end
 
-  def test_date_published_as_date_object
-    result = build(date_published: Date.new(2005, 7, 5)).render
-    assert_includes result, '<span class="book-link-preview-published">Published 2005</span>'
-  end
-
-  def test_date_published_as_year_month_string
-    result = build(date_published: '1959-10').render
-    assert_includes result, '<span class="book-link-preview-published">Published 1959</span>'
-  end
-
-  def test_date_published_as_full_date_string
-    result = build(date_published: '2021-03-02').render
-    assert_includes result, '<span class="book-link-preview-published">Published 2021</span>'
-  end
-
-  def test_nil_date_published_omits_published_span
-    result = build(date_published: nil).render
-    refute_match(/book-link-preview-published/, result)
-  end
-
-  def test_garbage_date_published_omits_published_span
-    result = build(date_published: 'not-a-date').render
-    refute_match(/book-link-preview-published/, result)
-  end
-
-  def test_non_date_non_string_date_published_omits_published_span
-    result = build(date_published: 12_345).render
-    refute_match(/book-link-preview-published/, result)
-  end
-
-  def test_series_and_published_output_no_newlines
-    result = build(series: 'Dune', book_number: 1, date_published: Date.new(1965, 8, 1)).render
+  def test_series_output_no_newlines
+    result = build(series: 'Dune', book_number: 1).render
     refute_match(/\n/, result)
   end
 
-  def test_full_markup_with_series_and_published
-    result = build(series: 'Dune', book_number: 1, date_published: Date.new(1965, 8, 1)).render
+  def test_full_markup_with_series
+    result = build(series: 'Dune', book_number: 1).render
     assert result.end_with?(
       '<span class="book-link-preview-series"><span class="book-series">Dune</span>&thinsp;#1</span>' \
-      '<span class="book-link-preview-published">Published 1965</span>' \
       '</span></span><!--/book-preview-->',
     )
   end

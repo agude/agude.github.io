@@ -28,7 +28,6 @@ class TestBookLinkResolver < Minitest::Test
       'book_authors' => ['Author A'],
       'series' => 'Test Series',
       'book_number' => 2,
-      'date_published' => Date.new(2005, 7, 5),
     }
     @series_book = create_doc(series_book_data, '/books/series-book.html')
     amb_a_data = { 'title' => 'Ambiguous Book', 'published' => true, 'book_authors' => ['Author A'] }
@@ -71,7 +70,7 @@ class TestBookLinkResolver < Minitest::Test
   # Builds the expected hover-preview markup for a found book, using the real
   # renderer so these tests stay in sync with BookPreviewRenderer's output
   # rather than hand-duplicating its escaping/formatting rules.
-  def preview_html(title:, authors:, rating: nil, image: nil, series: nil, book_number: nil, date_published: nil)
+  def preview_html(title:, authors:, rating: nil, image: nil, series: nil, book_number: nil)
     Jekyll::Books::Core::BookPreviewRenderer.new(
       @ctx,
       title,
@@ -80,7 +79,6 @@ class TestBookLinkResolver < Minitest::Test
       image,
       series: series,
       book_number: book_number,
-      date_published: date_published,
     ).render
   end
 
@@ -90,18 +88,16 @@ class TestBookLinkResolver < Minitest::Test
     assert_equal expected, render_link('Unique Book')
   end
 
-  def test_render_series_book_includes_series_and_published_preview
+  def test_render_series_book_includes_series_preview
     preview = preview_html(
       title: 'Series Book',
       authors: ['Author A'],
       series: 'Test Series',
       book_number: 2,
-      date_published: Date.new(2005, 7, 5),
     )
     expected = "<a href=\"/books/series-book.html\"><cite class=\"book-title\">Series Book</cite>#{preview}</a>"
     assert_equal expected, render_link('Series Book')
     assert_includes preview, '<span class="book-link-preview-series"><span class="book-series">Test Series</span>&thinsp;#2</span>'
-    assert_includes preview, '<span class="book-link-preview-published">Published 2005</span>'
   end
 
   def test_unique_book_with_link_text_override
@@ -600,10 +596,9 @@ class TestBookLinkResolver < Minitest::Test
     assert_equal ['Author A'], data[:authors]
     assert_nil data[:series]
     assert_nil data[:book_number]
-    assert_nil data[:date_published]
   end
 
-  def test_resolve_data_found_includes_series_book_number_and_date_published
+  def test_resolve_data_found_includes_series_and_book_number
     data = nil
     Jekyll.stub :logger, @silent_logger_stub do
       data = resolve_data_link('Series Book')
@@ -611,7 +606,6 @@ class TestBookLinkResolver < Minitest::Test
     assert_equal :found, data[:status]
     assert_equal 'Test Series', data[:series]
     assert_equal 2, data[:book_number]
-    assert_equal Date.new(2005, 7, 5), data[:date_published]
   end
 
   def test_resolve_data_found_cite_false

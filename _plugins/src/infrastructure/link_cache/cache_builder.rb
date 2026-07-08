@@ -113,7 +113,6 @@ module Jekyll
             'image' => book.data['image'],
             'series' => book.data['series'],
             'book_number' => book.data['book_number'],
-            'date_published' => book.data['date_published'],
           }
         end
 
