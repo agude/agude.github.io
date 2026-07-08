@@ -26,9 +26,13 @@
   display: none;
 }
 
-// Anchors that contain a preview become the positioning context for it.
-a:has(> .book-link-preview) {
-  position: relative;
+// On wide screens the link is the positioning context for the preview.
+// On narrow screens we leave the link unstyled so the preview positions
+// against the initial containing block and can center via viewport math.
+@media (min-width: $sidebar-appear-breakpoint) {
+  a:has(> .book-link-preview) {
+    position: relative;
+  }
 }
 
 // Only reveal the preview for devices with real hover + a precise
@@ -42,15 +46,18 @@ a:has(> .book-link-preview) {
 }
 
 .book-link-preview {
-  // Small screens: fixed card at the bottom of the viewport so it never
-  // clips.  At the sidebar breakpoint, switches to an absolute popover
-  // tethered below the link.
-  position: fixed;
-  bottom: 1rem;
-  left: 1rem;
-  right: 1rem;
+  // Narrow screens: centered in the viewport.  The link has no
+  // position: relative, so the preview positions against the initial
+  // containing block.  Vertical placement uses the CSS static position
+  // (right below the link text); margin-top adds a small gap.
+  position: absolute;
+  margin-top: 0.3em;
+  left: 0;
+  right: 0;
   z-index: 10;
-  width: auto;
+  width: 24em;
+  max-width: calc(100vw - 2rem);
+  margin-inline: auto;
 
   background-color: white;
   border: 1px solid #e5e5e5;
@@ -123,13 +130,12 @@ img.book-link-preview-cover {
 
 @media (min-width: $sidebar-appear-breakpoint) {
   .book-link-preview {
-    position: absolute;
     top: calc(100% + 0.3em);
-    bottom: auto;
+    margin-top: 0;
     left: auto;
     right: 0;
-    width: 24em;
     max-width: 85vw;
+    margin-inline: 0;
   }
 }
 
