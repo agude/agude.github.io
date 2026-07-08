@@ -42,15 +42,15 @@ a:has(> .book-link-preview) {
 }
 
 .book-link-preview {
-  // Right-anchored to the link: the popup's right edge never extends past
-  // the link's own right edge, so it cannot overflow the viewport on the
-  // right no matter where the link sits in the text column.
-  position: absolute;
-  top: calc(100% + 0.3em);
-  right: 0;
+  // Small screens: fixed card at the bottom of the viewport so it never
+  // clips.  At the sidebar breakpoint, switches to an absolute popover
+  // tethered below the link.
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
   z-index: 10;
-  width: 24em;
-  max-width: 85vw;
+  width: auto;
 
   background-color: white;
   border: 1px solid #e5e5e5;
@@ -119,6 +119,18 @@ img.book-link-preview-cover {
   color: $body-color;
   line-height: 1.4;
   margin-top: 0.3em;
+}
+
+@media (min-width: $sidebar-appear-breakpoint) {
+  .book-link-preview {
+    position: absolute;
+    top: calc(100% + 0.3em);
+    bottom: auto;
+    left: auto;
+    right: 0;
+    width: 24em;
+    max-width: 85vw;
+  }
 }
 
 @media print {
