@@ -14,8 +14,22 @@ class TestBookLinkResolver < Minitest::Test
     @author_b_page = create_doc({ 'title' => 'Author B', 'layout' => 'author_page' }, '/authors/b.html')
 
     # Books for testing
-    unique_book_data = { 'title' => 'Unique Book', 'published' => true, 'book_authors' => ['Author A'] }
+    unique_book_data = {
+      'title' => 'Unique Book',
+      'published' => true,
+      'book_authors' => ['Author A'],
+      'rating' => 5,
+      'image' => '/images/unique.jpg',
+    }
     @unique_book = create_doc(unique_book_data, '/books/unique.html')
+    series_book_data = {
+      'title' => 'Series Book',
+      'published' => true,
+      'book_authors' => ['Author A'],
+      'series' => 'Test Series',
+      'book_number' => 2,
+    }
+    @series_book = create_doc(series_book_data, '/books/series-book.html')
     amb_a_data = { 'title' => 'Ambiguous Book', 'published' => true, 'book_authors' => ['Author A'] }
     @ambiguous_book_a = create_doc(amb_a_data, '/books/ambiguous-a.html')
     amb_b_data = { 'title' => 'Ambiguous Book', 'published' => true, 'book_authors' => ['Author B'] }
@@ -27,7 +41,16 @@ class TestBookLinkResolver < Minitest::Test
 
     @site = create_site(
       {},
-      { 'books' => [@unique_book, @ambiguous_book_a, @ambiguous_book_b, @pen_name_book, @book_with_empty_author_list] },
+      {
+        'books' => [
+          @unique_book,
+          @ambiguous_book_a,
+          @ambiguous_book_b,
+          @pen_name_book,
+          @book_with_empty_author_list,
+          @series_book,
+        ],
+      },
       [@author_a_page, @author_b_page],
     )
     # Enable logging for this utility's tag type for all tests in this file.
@@ -44,13 +67,42 @@ class TestBookLinkResolver < Minitest::Test
     Jekyll::Books::Core::BookLinkResolver.new(context).resolve(title, link_text, author)
   end
 
+  # Builds the expected hover-preview markup for a found book, using the real
+  # renderer so these tests stay in sync with BookPreviewRenderer's output
+  # rather than hand-duplicating its escaping/formatting rules.
+  def preview_html(title:, authors:, rating: nil, image: nil, series: nil, book_number: nil)
+    Jekyll::Books::Core::BookPreviewRenderer.new(
+      @ctx,
+      title,
+      authors,
+      rating,
+      image,
+      series: series,
+      book_number: book_number,
+    ).render
+  end
+
   def test_render_unique_book_succeeds
-    expected = '<a href="/books/unique.html"><cite class="book-title">Unique Book</cite></a>'
+    preview = preview_html(title: 'Unique Book', authors: ['Author A'], rating: 5, image: '/images/unique.jpg')
+    expected = "<a href=\"/books/unique.html\"><cite class=\"book-title\">Unique Book</cite>#{preview}</a>"
     assert_equal expected, render_link('Unique Book')
   end
 
+  def test_render_series_book_includes_series_preview
+    preview = preview_html(
+      title: 'Series Book',
+      authors: ['Author A'],
+      series: 'Test Series',
+      book_number: 2,
+    )
+    expected = "<a href=\"/books/series-book.html\"><cite class=\"book-title\">Series Book</cite>#{preview}</a>"
+    assert_equal expected, render_link('Series Book')
+    assert_includes preview, '<span class="book-link-preview-series"><span class="book-series">Test Series</span>&thinsp;#2</span>'
+  end
+
   def test_unique_book_with_link_text_override
-    expected = '<a href="/books/unique.html"><cite class="book-title">Display Me</cite></a>'
+    preview = preview_html(title: 'Unique Book', authors: ['Author A'], rating: 5, image: '/images/unique.jpg')
+    expected = "<a href=\"/books/unique.html\"><cite class=\"book-title\">Display Me</cite>#{preview}</a>"
     assert_equal expected, render_link('Unique Book', 'Display Me')
   end
 
@@ -64,22 +116,26 @@ class TestBookLinkResolver < Minitest::Test
   end
 
   def test_render_ambiguous_book_with_correct_author_succeeds
-    expected = '<a href="/books/ambiguous-a.html"><cite class="book-title">Ambiguous Book</cite></a>'
+    preview_a = preview_html(title: 'Ambiguous Book', authors: ['Author A'])
+    expected = "<a href=\"/books/ambiguous-a.html\"><cite class=\"book-title\">Ambiguous Book</cite>#{preview_a}</a>"
     assert_equal expected, render_link('Ambiguous Book', nil, 'Author A')
 
-    expected_b = '<a href="/books/ambiguous-b.html"><cite class="book-title">Ambiguous Book</cite></a>'
+    preview_b = preview_html(title: 'Ambiguous Book', authors: ['Author B'])
+    expected_b = "<a href=\"/books/ambiguous-b.html\"><cite class=\"book-title\">Ambiguous Book</cite>#{preview_b}</a>"
     assert_equal expected_b, render_link('Ambiguous Book', nil, 'Author B')
   end
 
   def test_render_ambiguous_book_with_author_pen_name_succeeds
     # "A. A. Penname" is a pen name for "Author A"
-    expected = '<a href="/books/ambiguous-a.html"><cite class="book-title">Ambiguous Book</cite></a>'
+    preview = preview_html(title: 'Ambiguous Book', authors: ['Author A'])
+    expected = "<a href=\"/books/ambiguous-a.html\"><cite class=\"book-title\">Ambiguous Book</cite>#{preview}</a>"
     assert_equal expected, render_link('Ambiguous Book', nil, 'A. A. Penname')
   end
 
   def test_render_book_by_pen_name_succeeds
     # Link to a book that was published under a pen name
-    expected = '<a href="/books/penname.html"><cite class="book-title">Pen Name Book</cite></a>'
+    preview = preview_html(title: 'Pen Name Book', authors: ['A. A. Penname'])
+    expected = "<a href=\"/books/penname.html\"><cite class=\"book-title\">Pen Name Book</cite>#{preview}</a>"
     assert_equal expected, render_link('Pen Name Book')
   end
 
@@ -122,7 +178,8 @@ class TestBookLinkResolver < Minitest::Test
   end
 
   def test_unique_book_with_correct_author_param_succeeds
-    expected = '<a href="/books/unique.html"><cite class="book-title">Unique Book</cite></a>'
+    preview = preview_html(title: 'Unique Book', authors: ['Author A'], rating: 5, image: '/images/unique.jpg')
+    expected = "<a href=\"/books/unique.html\"><cite class=\"book-title\">Unique Book</cite>#{preview}</a>"
     # This would have passed before, but it's good to have an explicit test.
     assert_equal expected, render_link('Unique Book', nil, 'Author A')
   end
@@ -195,7 +252,8 @@ class TestBookLinkResolver < Minitest::Test
     # This call would be ambiguous without the filtering logic
     output = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve('Same Title', nil, nil)
 
-    expected = '<a href="/books/canonical.html"><cite class="book-title">Same Title</cite></a>'
+    preview = preview_html(title: 'Same Title', authors: ['Author A'])
+    expected = "<a href=\"/books/canonical.html\"><cite class=\"book-title\">Same Title</cite>#{preview}</a>"
     assert_equal expected, output
   end
 
@@ -229,11 +287,13 @@ class TestBookLinkResolver < Minitest::Test
 
     # 2. Test that it resolves correctly with an author filter
     output_a = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve('Ambiguous Book', nil, 'Author A')
-    expected_a = '<a href="/books/ambiguous-a.html"><cite class="book-title">Ambiguous Book</cite></a>'
+    preview_a = preview_html(title: 'Ambiguous Book', authors: ['Author A'])
+    expected_a = "<a href=\"/books/ambiguous-a.html\"><cite class=\"book-title\">Ambiguous Book</cite>#{preview_a}</a>"
     assert_equal expected_a, output_a
 
     output_b = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve('Ambiguous Book', nil, 'Author B')
-    expected_b = '<a href="/books/ambiguous-b.html"><cite class="book-title">Ambiguous Book</cite></a>'
+    preview_b = preview_html(title: 'Ambiguous Book', authors: ['Author B'])
+    expected_b = "<a href=\"/books/ambiguous-b.html\"><cite class=\"book-title\">Ambiguous Book</cite>#{preview_b}</a>"
     assert_equal expected_b, output_b
   end
 
@@ -307,7 +367,8 @@ class TestBookLinkResolver < Minitest::Test
     assert_match '[FATAL] Ambiguous book title', err.message
 
     # For a unique book, it should succeed.
-    expected = '<a href="/books/unique.html"><cite class="book-title">Unique Book</cite></a>'
+    preview = preview_html(title: 'Unique Book', authors: ['Author A'], rating: 5, image: '/images/unique.jpg')
+    expected = "<a href=\"/books/unique.html\"><cite class=\"book-title\">Unique Book</cite>#{preview}</a>"
     assert_equal expected, render_link('Unique Book', nil, '') # Empty string author filter
   end
 
@@ -346,16 +407,18 @@ class TestBookLinkResolver < Minitest::Test
 
     # Without date filter, this would be ambiguous (same author, same title)
     # With date filter, it should resolve to the correct one
+    preview = preview_html(title: 'Multi Review Book', authors: ['Author A'])
+
     output = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve(
       'Multi Review Book', nil, nil, '2023-10-17',
     )
-    expected = '<a href="/books/multi-review-1.html"><cite class="book-title">Multi Review Book</cite></a>'
+    expected = "<a href=\"/books/multi-review-1.html\"><cite class=\"book-title\">Multi Review Book</cite>#{preview}</a>"
     assert_equal expected, output
 
     output2 = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve(
       'Multi Review Book', nil, nil, '2025-09-20',
     )
-    expected2 = '<a href="/books/multi-review-2.html"><cite class="book-title">Multi Review Book</cite></a>'
+    expected2 = "<a href=\"/books/multi-review-2.html\"><cite class=\"book-title\">Multi Review Book</cite>#{preview}</a>"
     assert_equal expected2, output2
   end
 
@@ -375,7 +438,8 @@ class TestBookLinkResolver < Minitest::Test
     output = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve(
       'Dated Book', nil, 'Author A', '2023-10-17',
     )
-    expected = '<a href="/books/dated.html"><cite class="book-title">Dated Book</cite></a>'
+    preview = preview_html(title: 'Dated Book', authors: ['Author A'])
+    expected = "<a href=\"/books/dated.html\"><cite class=\"book-title\">Dated Book</cite>#{preview}</a>"
     assert_equal expected, output
   end
 
@@ -406,7 +470,8 @@ class TestBookLinkResolver < Minitest::Test
 
   def test_date_filter_with_empty_string_is_ignored
     # An empty date filter should be ignored
-    expected = '<a href="/books/unique.html"><cite class="book-title">Unique Book</cite></a>'
+    preview = preview_html(title: 'Unique Book', authors: ['Author A'], rating: 5, image: '/images/unique.jpg')
+    expected = "<a href=\"/books/unique.html\"><cite class=\"book-title\">Unique Book</cite>#{preview}</a>"
     assert_equal expected, render_link_with_date('Unique Book', nil, nil, '   ')
     assert_equal expected, render_link_with_date('Unique Book', nil, nil, '')
   end
@@ -455,7 +520,8 @@ class TestBookLinkResolver < Minitest::Test
       output = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve(
         'Date Object Book', nil, nil, '2023-10-17',
       )
-      expected = '<a href="/books/date-obj.html"><cite class="book-title">Date Object Book</cite></a>'
+      preview = preview_html(title: 'Date Object Book', authors: ['Author A'])
+      expected = "<a href=\"/books/date-obj.html\"><cite class=\"book-title\">Date Object Book</cite>#{preview}</a>"
       assert_equal expected, output
     end
   end
@@ -478,7 +544,8 @@ class TestBookLinkResolver < Minitest::Test
       output = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve(
         'String Date Book', nil, nil, '2023-10-17',
       )
-      expected = '<a href="/books/string-date.html"><cite class="book-title">String Date Book</cite></a>'
+      preview = preview_html(title: 'String Date Book', authors: ['Author A'])
+      expected = "<a href=\"/books/string-date.html\"><cite class=\"book-title\">String Date Book</cite>#{preview}</a>"
       assert_equal expected, output
     end
   end
@@ -524,6 +591,21 @@ class TestBookLinkResolver < Minitest::Test
     assert_equal 'Unique Book', data[:display_text]
     assert_equal 'Unique Book', data[:canonical_title]
     assert_equal true, data[:cite]
+    assert_equal 5, data[:rating]
+    assert_equal '/images/unique.jpg', data[:image]
+    assert_equal ['Author A'], data[:authors]
+    assert_nil data[:series]
+    assert_nil data[:book_number]
+  end
+
+  def test_resolve_data_found_includes_series_and_book_number
+    data = nil
+    Jekyll.stub :logger, @silent_logger_stub do
+      data = resolve_data_link('Series Book')
+    end
+    assert_equal :found, data[:status]
+    assert_equal 'Test Series', data[:series]
+    assert_equal 2, data[:book_number]
   end
 
   def test_resolve_data_found_cite_false
@@ -769,5 +851,36 @@ class TestBookLinkResolver < Minitest::Test
     resolver = Jekyll::Books::Core::BookLinkResolver.new(ctx)
     result = resolver.render_from_data('Unique Book', '/books/unique.html')
     assert_equal '<cite class="book-title">Unique Book</cite>', result
+  end
+
+  # --- Preview markup presence/absence (Step 2) ---
+
+  def test_resolve_found_book_contains_preview_inside_anchor
+    output = render_link('Unique Book')
+    assert_match(%r{\A<a href="/books/unique\.html">.*<!--book-preview-->.*<!--/book-preview-->.*</a>\z}, output)
+  end
+
+  def test_resolve_self_link_contains_no_preview
+    # A self-link never generates an <a> wrapper (Case 3), so the preview
+    # (built but discarded by LinkHelperUtils) must not appear anywhere.
+    page = create_doc({ 'path' => 'self.html' }, '/books/unique.html')
+    ctx = create_context({}, { site: @site, page: page })
+    output = Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve('Unique Book', nil, nil)
+    refute_match(/book-preview/, output)
+    refute_match(/<a /, output)
+  end
+
+  def test_resolve_not_found_contains_no_preview
+    output = nil
+    Jekyll.stub :logger, @silent_logger_stub do
+      output = render_link('Non-existent Book')
+    end
+    refute_match(/book-preview/, output)
+  end
+
+  def test_render_from_data_contains_no_preview_by_default
+    resolver = Jekyll::Books::Core::BookLinkResolver.new(@ctx)
+    result = resolver.render_from_data('Unique Book', '/books/unique.html')
+    refute_match(/book-preview/, result)
   end
 end

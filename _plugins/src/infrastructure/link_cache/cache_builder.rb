@@ -109,6 +109,10 @@ module Jekyll
             'authors' => Jekyll::Infrastructure::FrontMatterUtils.get_list_from_string_or_array(book.data['book_authors']),
             'canonical_url' => book.data['canonical_url'],
             'date' => book.data['date'],
+            'rating' => book.data['rating'],
+            'image' => book.data['image'],
+            'series' => book.data['series'],
+            'book_number' => book.data['book_number'],
           }
         end
 

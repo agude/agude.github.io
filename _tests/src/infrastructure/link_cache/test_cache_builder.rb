@@ -259,4 +259,61 @@ class TestCacheBuilder < Minitest::Test
 
     refute_nil book_data['date']
   end
+
+  def test_book_data_includes_rating_and_image
+    book = create_doc(
+      { 'title' => 'Rated Book', 'published' => true, 'rating' => 5, 'image' => '/images/rated.jpg' },
+      '/books/rated.html',
+    )
+
+    site = create_site({}, { 'books' => [book] })
+    book_data = site.data['link_cache']['books']['rated book'].first
+
+    assert_equal 5, book_data['rating']
+    assert_equal '/images/rated.jpg', book_data['image']
+  end
+
+  def test_book_data_rating_and_image_default_to_nil
+    book = create_doc(
+      { 'title' => 'Unrated Book', 'published' => true },
+      '/books/unrated.html',
+    )
+
+    site = create_site({}, { 'books' => [book] })
+    book_data = site.data['link_cache']['books']['unrated book'].first
+
+    assert_nil book_data['rating']
+    assert_nil book_data['image']
+  end
+
+  def test_book_data_includes_series_and_book_number
+    book = create_doc(
+      {
+        'title' => 'Series Book',
+        'published' => true,
+        'series' => 'Dune',
+        'book_number' => 1,
+      },
+      '/books/series-book.html',
+    )
+
+    site = create_site({}, { 'books' => [book] })
+    book_data = site.data['link_cache']['books']['series book'].first
+
+    assert_equal 'Dune', book_data['series']
+    assert_equal 1, book_data['book_number']
+  end
+
+  def test_book_data_series_and_book_number_default_to_nil
+    book = create_doc(
+      { 'title' => 'Standalone Book', 'published' => true },
+      '/books/standalone-book.html',
+    )
+
+    site = create_site({}, { 'books' => [book] })
+    book_data = site.data['link_cache']['books']['standalone book'].first
+
+    assert_nil book_data['series']
+    assert_nil book_data['book_number']
+  end
 end

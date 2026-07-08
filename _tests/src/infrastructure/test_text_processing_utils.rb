@@ -287,6 +287,65 @@ class TestTextProcessingUtils < Minitest::Test
     assert_equal '42', Jekyll::Infrastructure::TextProcessingUtils.strip_tags(42)
   end
 
+  def test_strip_tags_removes_book_preview_markup
+    html = '<a href="/books/dune.html"><cite>Dune</cite>' \
+           '<!--book-preview--><span class="book-link-preview">by Frank Herbert</span><!--/book-preview--></a>'
+    assert_equal 'Dune', Jekyll::Infrastructure::TextProcessingUtils.strip_tags(html)
+  end
+
+  # --- Tests for strip_link_previews ---
+
+  def test_strip_link_previews_removes_preview_span_and_content
+    html = 'Before<!--book-preview--><span class="book-link-preview">by Frank Herbert</span><!--/book-preview-->After'
+    assert_equal 'BeforeAfter', Jekyll::Infrastructure::TextProcessingUtils.strip_link_previews(html)
+  end
+
+  def test_strip_link_previews_removes_multiple_occurrences
+    html = 'A<!--book-preview-->one<!--/book-preview-->B<!--book-preview-->two<!--/book-preview-->C'
+    assert_equal 'ABC', Jekyll::Infrastructure::TextProcessingUtils.strip_link_previews(html)
+  end
+
+  def test_strip_link_previews_no_markers_passthrough
+    html = '<p>Plain content, no preview here.</p>'
+    assert_equal html, Jekyll::Infrastructure::TextProcessingUtils.strip_link_previews(html)
+  end
+
+  def test_strip_link_previews_nil_input
+    assert_equal '', Jekyll::Infrastructure::TextProcessingUtils.strip_link_previews(nil)
+  end
+
+  def test_strip_link_previews_empty_input
+    assert_equal '', Jekyll::Infrastructure::TextProcessingUtils.strip_link_previews('')
+  end
+
+  # --- Tests for strip_links ---
+
+  def test_strip_links_removes_anchor_tags_keeps_inner_html
+    html = '<a href="/books/foo/"><cite class="book-title">Foo</cite></a>'
+    assert_equal '<cite class="book-title">Foo</cite>',
+                 Jekyll::Infrastructure::TextProcessingUtils.strip_links(html)
+  end
+
+  def test_strip_links_removes_multiple_links
+    html = 'Read <a href="/a">Alpha</a> and <a href="/b">Beta</a>.'
+    assert_equal 'Read Alpha and Beta.',
+                 Jekyll::Infrastructure::TextProcessingUtils.strip_links(html)
+  end
+
+  def test_strip_links_nil_input
+    assert_equal '', Jekyll::Infrastructure::TextProcessingUtils.strip_links(nil)
+  end
+
+  def test_strip_links_no_links_passthrough
+    html = '<cite class="book-title">Foo</cite>'
+    assert_equal html, Jekyll::Infrastructure::TextProcessingUtils.strip_links(html)
+  end
+
+  def test_strip_links_multiline_content
+    html = "<a href=\"/foo\">\n<cite>Foo</cite>\n</a>"
+    assert_equal "\n<cite>Foo</cite>\n", Jekyll::Infrastructure::TextProcessingUtils.strip_links(html)
+  end
+
   # --- Tests for escape_link_text (moved from MarkdownTextUtils) ---
 
   def test_escape_link_text_escapes_brackets

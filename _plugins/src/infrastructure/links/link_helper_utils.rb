@@ -50,15 +50,18 @@ module Jekyll
         # @param context [Liquid::Context] The current Liquid context.
         # @param target_url [String, nil] The URL to link to.
         # @param inner_html_element [String] The pre-built inner HTML (e.g., <cite>...</cite>, <span>...</span>).
+        # @param preview_html [String, nil] Optional hover-preview markup, appended inside the
+        #   <a> after inner_html_element. Only emitted when a real cross-page link is generated
+        #   (Case 1 below) — same-page anchors and suppressed self-links never carry a preview.
         # @return [String] The final HTML string (linked or unlinked).
-        def self._generate_link_html(context, target_url, inner_html_element)
+        def self._generate_link_html(context, target_url, inner_html_element, preview_html = nil)
           site, page = _extract_context_components(context)
           return inner_html_element unless site && page
 
           target_url_str = target_url.to_s
           return inner_html_element if target_url_str.empty?
 
-          _build_link_with_url_resolution(site, page, target_url_str, inner_html_element)
+          _build_link_with_url_resolution(site, page, target_url_str, inner_html_element, preview_html)
         end
 
         def self._extract_context_components(context)
@@ -70,7 +73,7 @@ module Jekyll
         end
         private_class_method :_extract_context_components
 
-        def self._build_link_with_url_resolution(site, page, target_url_str, inner_html_element)
+        def self._build_link_with_url_resolution(site, page, target_url_str, inner_html_element, preview_html = nil)
           current_page_url = page['url']
           target_base_url, target_fragment = _parse_url_parts(target_url_str)
           current_canonical_url, target_canonical_url = _resolve_canonical_urls(
@@ -83,6 +86,7 @@ module Jekyll
             target_fragment: target_fragment,
             target_url_str: target_url_str,
             inner_html_element: inner_html_element,
+            preview_html: preview_html,
             site: site,
           }
           _build_appropriate_link(link_params)
@@ -118,6 +122,7 @@ module Jekyll
         #   :target_fragment [String, nil] The fragment (anchor) part of the target URL.
         #   :target_url_str [String] The full target URL string.
         #   :inner_html_element [String] The inner HTML element to wrap or return.
+        #   :preview_html [String, nil] Optional hover-preview markup (Case 1 only).
         #   :site [Jekyll::Site] The Jekyll site object.
         # @return [String] The final HTML string.
         def self._build_appropriate_link(params)
@@ -126,12 +131,13 @@ module Jekyll
           target_fragment = params[:target_fragment]
           target_url_str = params[:target_url_str]
           inner_html_element = params[:inner_html_element]
+          preview_html = params[:preview_html]
           site = params[:site]
 
           # Case 1: Different conceptual page - generate full link
           if current_canonical_url != target_canonical_url
             href = _normalize_href(target_url_str, site.config['baseurl'] || '')
-            "<a href=\"#{href}\">#{inner_html_element}</a>"
+            "<a href=\"#{href}\">#{inner_html_element}#{preview_html}</a>"
           # Case 2: Same page with anchor - generate relative anchor link
           elsif target_fragment
             "<a href=\"##{target_fragment}\">#{inner_html_element}</a>"

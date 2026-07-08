@@ -315,6 +315,21 @@ class TestSeoMetaGenerator < Minitest::Test
     assert_equal 'Line one. Line two.', result['description']
   end
 
+  def test_description_strips_book_link_preview_markup
+    doc = create_post_doc(
+      title: 'Test Post',
+      excerpt: 'See <a href="/books/dune.html"><cite>Dune</cite>' \
+               '<!--book-preview--><span class="book-link-preview">by Frank Herbert ★★★★★</span>' \
+               '<!--/book-preview--></a> for details.',
+    )
+    site = create_site(@site_config)
+    result = generate_meta(doc, site)
+
+    assert_equal 'See Dune for details.', result['description']
+    refute_match(/Frank Herbert/, result['description'])
+    refute_match(/★/, result['description'])
+  end
+
   def test_description_fallback_to_site_description
     doc = create_page_doc(title: 'Bare Page', layout: 'page')
     site = create_site(@site_config)

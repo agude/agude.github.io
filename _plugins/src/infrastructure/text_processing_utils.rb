@@ -106,8 +106,31 @@ module Jekyll
       end
 
       # Strip all HTML tags and decode entities, returning plain text.
+      # Book-link hover-preview markup is removed first (see strip_link_previews)
+      # so its text content (title/author/stars) never leaks into plain-text output.
       def self.strip_tags(html)
-        Nokogiri::HTML.fragment(html.to_s).text
+        Nokogiri::HTML.fragment(strip_link_previews(html)).text
+      end
+
+      # Removes book-link hover-preview markup (see BookPreviewRenderer), including
+      # its text content, from an HTML string. Used by any pipeline that reuses
+      # rendered HTML as plain text (meta descriptions, RSS feeds, etc), where the
+      # hidden preview's text would otherwise leak through.
+      #
+      # @param html [String, nil] The HTML string to clean.
+      # @return [String] The HTML string with preview spans removed.
+      def self.strip_link_previews(html)
+        html.to_s.gsub(%r{<!--book-preview-->.*?<!--/book-preview-->}m, '')
+      end
+
+      # Removes <a> tags from HTML while preserving their inner content.
+      # Used to prevent nested links (e.g. when embedding an excerpt
+      # inside an <a>-wrapped hover preview).
+      #
+      # @param html [String, nil] The HTML string to process.
+      # @return [String] The HTML with <a> tags unwrapped.
+      def self.strip_links(html)
+        html.to_s.gsub(%r{<a\b[^>]*>(.*?)</a>}m, '\1')
       end
 
       # Escapes characters that break Markdown link text: [ and ].

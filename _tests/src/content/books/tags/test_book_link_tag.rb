@@ -55,6 +55,14 @@ class TestBookLinkTag < Minitest::Test
     end
   end
 
+  # Builds the expected hover-preview markup for the integration test's
+  # Hyperion book, using the real renderer so this test stays in sync with
+  # BookPreviewRenderer's output rather than hand-duplicating its
+  # escaping/formatting rules.
+  def integration_preview_html
+    Jekyll::Books::Core::BookPreviewRenderer.new(@integration_context, 'Hyperion', ['Dan Simmons'], nil, nil).render
+  end
+
   # Helper to parse the tag and capture arguments passed to the resolver.
   # Uses Minitest::Mock to verify that resolve is actually called and to
   # capture the arguments for assertion.
@@ -203,7 +211,7 @@ class TestBookLinkTag < Minitest::Test
       # Case 1: Correct author, should link with citation (default)
       template_correct = Liquid::Template.parse("{% book_link 'Hyperion' author='Dan Simmons' %}")
       output_correct = template_correct.render!(@integration_context)
-      expected_output = '<a href="/books/hyperion-simmons.html"><cite class="book-title">Hyperion</cite></a>'
+      expected_output = "<a href=\"/books/hyperion-simmons.html\"><cite class=\"book-title\">Hyperion</cite>#{integration_preview_html}</a>"
       assert_equal expected_output, output_correct
 
       # Case 2: Incorrect author, should NOT link and should log a warning
@@ -215,7 +223,7 @@ class TestBookLinkTag < Minitest::Test
       # Case 3: cite=false, should render span.book-text instead of cite
       template_no_cite = Liquid::Template.parse("{% book_link 'Hyperion' author='Dan Simmons' cite=false %}")
       output_no_cite = template_no_cite.render!(@integration_context)
-      expected_no_cite_output = '<a href="/books/hyperion-simmons.html"><span class="book-text">Hyperion</span></a>'
+      expected_no_cite_output = "<a href=\"/books/hyperion-simmons.html\"><span class=\"book-text\">Hyperion</span>#{integration_preview_html}</a>"
       assert_equal expected_no_cite_output, output_no_cite
 
       # Case 4: cite=false with MISSING book should still use span (not cite)

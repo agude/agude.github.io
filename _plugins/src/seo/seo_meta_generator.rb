@@ -2,6 +2,7 @@
 
 require 'nokogiri'
 require_relative '../infrastructure/typography_utils'
+require_relative '../infrastructure/text_processing_utils'
 
 module Jekyll
   module SEO
@@ -165,7 +166,8 @@ module Jekyll
       end
 
       def strip_html(text)
-        Nokogiri::HTML.fragment(text.to_s).text.gsub(/\s+/, ' ').strip
+        cleaned = Infrastructure::TextProcessingUtils.strip_link_previews(text)
+        Nokogiri::HTML.fragment(cleaned).text.gsub(/\s+/, ' ').strip
       end
 
       # --- Image ---

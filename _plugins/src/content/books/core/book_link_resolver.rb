@@ -4,6 +4,7 @@
 require 'date'
 require_relative '../../../infrastructure/links/link_resolver_support'
 require_relative '../../../infrastructure/typography_utils'
+require_relative 'book_preview_renderer'
 
 module Jekyll
   module Books
@@ -13,7 +14,8 @@ module Jekyll
         include Jekyll::Infrastructure::Links::LinkResolverSupport
 
         Typography = Jekyll::Infrastructure::TypographyUtils
-        private_constant :Typography
+        PreviewRenderer = Jekyll::Books::Core::BookPreviewRenderer
+        private_constant :Typography, :PreviewRenderer
 
         # Renders the book link/cite HTML directly from title and URL data.
         # Used when the book data is already known (e.g., from backlinks).
@@ -21,10 +23,13 @@ module Jekyll
         # @param title [String] The canonical title to display (will be processed).
         # @param url [String] The URL of the book page.
         # @param cite [Boolean] true (default) for <cite> wrapper, false for span.book-text.
+        # @param preview_html [String, nil] Optional hover-preview markup to embed in the link.
+        #   Callers outside this class (e.g. backlinks/ranking renderers) never pass this, so
+        #   they get no preview.
         # @return [String] The generated HTML.
-        def render_from_data(title, url, cite: true)
+        def render_from_data(title, url, cite: true, preview_html: nil)
           inner_element = cite ? build_book_cite_element(title) : build_book_text_element(title)
-          wrap_with_link(inner_element, url)
+          wrap_with_link(inner_element, url, preview_html)
         end
 
         def resolve(title_raw, text_override, author_filter, date_filter = nil, cite: true)
@@ -111,6 +116,11 @@ module Jekyll
             display_text: found_display,
             canonical_title: result['title'],
             cite: cite,
+            rating: result['rating'],
+            image: result['image'],
+            authors: result['authors'],
+            series: result['series'],
+            book_number: result['book_number'],
           }.freeze
         end
 
@@ -123,8 +133,35 @@ module Jekyll
           when :not_found
             @log_output.to_s + fallback(data[:display_text])
           when :found
-            render_from_data(data[:display_text], data[:url], cite: @cite)
+            preview_html = build_preview_html(data)
+            @log_output.to_s + render_from_data(
+              data[:display_text],
+              data[:url],
+              cite: @cite,
+              preview_html: preview_html,
+            )
           end
+        end
+
+        # Builds the hover-preview markup for a found book, accumulating any
+        # non-fatal logging (e.g. an invalid rating) into @log_output rather
+        # than embedding it inside the preview span itself.
+        def build_preview_html(data)
+          return nil if PreviewRenderer.building_lede?(@site)
+
+          preview = PreviewRenderer.new(
+            @context,
+            data[:canonical_title],
+            data[:authors],
+            data[:rating],
+            data[:image],
+            series: data[:series],
+            book_number: data[:book_number],
+            lede_html: PreviewRenderer.extract_lede(@site, data[:url]),
+          )
+          html = preview.render
+          @log_output = @log_output.to_s + preview.log_output.to_s
+          html
         end
 
         def fallback(title)
