@@ -11,11 +11,13 @@
 //         <cite class="book-title">Dune</cite>
 //         <span class="book-link-preview-author">by Frank Herbert</span>
 //         <span class="book-rating ...">...</span>
+//         <span class="book-link-preview-series"><span class="book-series">Dune</span>&thinsp;#1</span>
+//         <span class="book-link-preview-published">Published 1965</span>
 //       </span>
 //     </span>
 //   </a>
 //
-// The cover, author, and rating spans are all optional.
+// The cover, author, rating, series, and published spans are all optional.
 @use "variables" as *;
 
 // Hidden by default. The background-image lives on the child
@@ -77,6 +79,8 @@ a:has(> .book-link-preview) {
 .book-link-preview-text {
   display: flex;
   flex-direction: column;
+  align-self: stretch;
+  justify-content: center;
   gap: 0.2em;
   min-width: 0;
   font-size: $card-font-size;
@@ -96,6 +100,12 @@ a:has(> .book-link-preview) {
   .book-rating {
     font-size: 1em;
     margin-bottom: 0;
+  }
+
+  .book-link-preview-series,
+  .book-link-preview-published {
+    color: $muted-color;
+    font-size: $small-font-size;
   }
 }
 

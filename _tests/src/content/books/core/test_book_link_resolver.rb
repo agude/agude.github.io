@@ -22,6 +22,15 @@ class TestBookLinkResolver < Minitest::Test
       'image' => '/images/unique.jpg',
     }
     @unique_book = create_doc(unique_book_data, '/books/unique.html')
+    series_book_data = {
+      'title' => 'Series Book',
+      'published' => true,
+      'book_authors' => ['Author A'],
+      'series' => 'Test Series',
+      'book_number' => 2,
+      'date_published' => Date.new(2005, 7, 5),
+    }
+    @series_book = create_doc(series_book_data, '/books/series-book.html')
     amb_a_data = { 'title' => 'Ambiguous Book', 'published' => true, 'book_authors' => ['Author A'] }
     @ambiguous_book_a = create_doc(amb_a_data, '/books/ambiguous-a.html')
     amb_b_data = { 'title' => 'Ambiguous Book', 'published' => true, 'book_authors' => ['Author B'] }
@@ -33,7 +42,16 @@ class TestBookLinkResolver < Minitest::Test
 
     @site = create_site(
       {},
-      { 'books' => [@unique_book, @ambiguous_book_a, @ambiguous_book_b, @pen_name_book, @book_with_empty_author_list] },
+      {
+        'books' => [
+          @unique_book,
+          @ambiguous_book_a,
+          @ambiguous_book_b,
+          @pen_name_book,
+          @book_with_empty_author_list,
+          @series_book,
+        ],
+      },
       [@author_a_page, @author_b_page],
     )
     # Enable logging for this utility's tag type for all tests in this file.
@@ -53,14 +71,37 @@ class TestBookLinkResolver < Minitest::Test
   # Builds the expected hover-preview markup for a found book, using the real
   # renderer so these tests stay in sync with BookPreviewRenderer's output
   # rather than hand-duplicating its escaping/formatting rules.
-  def preview_html(title:, authors:, rating: nil, image: nil)
-    Jekyll::Books::Core::BookPreviewRenderer.new(@ctx, title, authors, rating, image).render
+  def preview_html(title:, authors:, rating: nil, image: nil, series: nil, book_number: nil, date_published: nil)
+    Jekyll::Books::Core::BookPreviewRenderer.new(
+      @ctx,
+      title,
+      authors,
+      rating,
+      image,
+      series: series,
+      book_number: book_number,
+      date_published: date_published,
+    ).render
   end
 
   def test_render_unique_book_succeeds
     preview = preview_html(title: 'Unique Book', authors: ['Author A'], rating: 5, image: '/images/unique.jpg')
     expected = "<a href=\"/books/unique.html\"><cite class=\"book-title\">Unique Book</cite>#{preview}</a>"
     assert_equal expected, render_link('Unique Book')
+  end
+
+  def test_render_series_book_includes_series_and_published_preview
+    preview = preview_html(
+      title: 'Series Book',
+      authors: ['Author A'],
+      series: 'Test Series',
+      book_number: 2,
+      date_published: Date.new(2005, 7, 5),
+    )
+    expected = "<a href=\"/books/series-book.html\"><cite class=\"book-title\">Series Book</cite>#{preview}</a>"
+    assert_equal expected, render_link('Series Book')
+    assert_includes preview, '<span class="book-link-preview-series"><span class="book-series">Test Series</span>&thinsp;#2</span>'
+    assert_includes preview, '<span class="book-link-preview-published">Published 2005</span>'
   end
 
   def test_unique_book_with_link_text_override
@@ -557,6 +598,20 @@ class TestBookLinkResolver < Minitest::Test
     assert_equal 5, data[:rating]
     assert_equal '/images/unique.jpg', data[:image]
     assert_equal ['Author A'], data[:authors]
+    assert_nil data[:series]
+    assert_nil data[:book_number]
+    assert_nil data[:date_published]
+  end
+
+  def test_resolve_data_found_includes_series_book_number_and_date_published
+    data = nil
+    Jekyll.stub :logger, @silent_logger_stub do
+      data = resolve_data_link('Series Book')
+    end
+    assert_equal :found, data[:status]
+    assert_equal 'Test Series', data[:series]
+    assert_equal 2, data[:book_number]
+    assert_equal Date.new(2005, 7, 5), data[:date_published]
   end
 
   def test_resolve_data_found_cite_false

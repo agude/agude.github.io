@@ -19,8 +19,9 @@ class TestBookPreviewRenderer < Minitest::Test
     @site.config['plugin_logging']['BOOK_PREVIEW_RATING_ERROR'] = true
   end
 
-  def build(title: 'Dune', authors: ['Frank Herbert'], rating: 5, image: '/images/dune.jpg', context: @ctx)
-    Renderer.new(context, title, authors, rating, image)
+  def build(title: 'Dune', authors: ['Frank Herbert'], rating: 5, image: '/images/dune.jpg', context: @ctx,
+            series: nil, book_number: nil, date_published: nil)
+    Renderer.new(context, title, authors, rating, image, series: series, book_number: book_number, date_published: date_published)
   end
 
   def test_full_markup
@@ -31,7 +32,7 @@ class TestBookPreviewRenderer < Minitest::Test
                '<cite class="book-title">Dune</cite>' \
                '<span class="book-link-preview-author">by Frank Herbert</span>' \
                '<span class="book-rating star-rating-5" role="img" aria-label="Rating: 5 out of 5 stars. ' \
-               "Masterpiece — I loved it\" title=\"Masterpiece — I loved it\">" \
+               'Masterpiece — I loved it" title="Masterpiece — I loved it">' \
                '<span class="book_star full_star" aria-hidden="true">★</span>' \
                '<span class="book_star full_star" aria-hidden="true">★</span>' \
                '<span class="book_star full_star" aria-hidden="true">★</span>' \
@@ -100,7 +101,7 @@ class TestBookPreviewRenderer < Minitest::Test
 
   def test_more_than_three_authors_uses_et_al
     result = build(authors: ['A. One', 'B. Two', 'C. Three', 'D. Four']).render
-    assert_match(/by A\. One <abbr class="etal">et al\.<\/abbr>/, result)
+    assert_match(%r{by A\. One <abbr class="etal">et al\.</abbr>}, result)
     refute_match(/B\. Two/, result)
   end
 
@@ -126,5 +127,75 @@ class TestBookPreviewRenderer < Minitest::Test
 
   def test_log_output_defaults_to_empty_string
     assert_equal '', build.log_output
+  end
+
+  def test_series_with_number
+    result = build(series: 'Dune', book_number: 1).render
+    assert_includes result,
+                    '<span class="book-link-preview-series"><span class="book-series">Dune</span>&thinsp;#1</span>'
+  end
+
+  def test_series_without_number
+    result = build(series: 'Dune', book_number: nil).render
+    assert_includes result, '<span class="book-link-preview-series"><span class="book-series">Dune</span></span>'
+  end
+
+  def test_nil_series_omits_series_span
+    result = build(series: nil).render
+    refute_match(/book-link-preview-series/, result)
+  end
+
+  def test_blank_series_omits_series_span
+    result = build(series: '   ').render
+    refute_match(/book-link-preview-series/, result)
+  end
+
+  def test_escapes_series_html
+    result = build(series: 'Cat & <Mouse>', book_number: 1).render
+    assert_includes result, '<span class="book-series">Cat &amp; &lt;Mouse&gt;</span>'
+  end
+
+  def test_date_published_as_date_object
+    result = build(date_published: Date.new(2005, 7, 5)).render
+    assert_includes result, '<span class="book-link-preview-published">Published 2005</span>'
+  end
+
+  def test_date_published_as_year_month_string
+    result = build(date_published: '1959-10').render
+    assert_includes result, '<span class="book-link-preview-published">Published 1959</span>'
+  end
+
+  def test_date_published_as_full_date_string
+    result = build(date_published: '2021-03-02').render
+    assert_includes result, '<span class="book-link-preview-published">Published 2021</span>'
+  end
+
+  def test_nil_date_published_omits_published_span
+    result = build(date_published: nil).render
+    refute_match(/book-link-preview-published/, result)
+  end
+
+  def test_garbage_date_published_omits_published_span
+    result = build(date_published: 'not-a-date').render
+    refute_match(/book-link-preview-published/, result)
+  end
+
+  def test_non_date_non_string_date_published_omits_published_span
+    result = build(date_published: 12_345).render
+    refute_match(/book-link-preview-published/, result)
+  end
+
+  def test_series_and_published_output_no_newlines
+    result = build(series: 'Dune', book_number: 1, date_published: Date.new(1965, 8, 1)).render
+    refute_match(/\n/, result)
+  end
+
+  def test_full_markup_with_series_and_published
+    result = build(series: 'Dune', book_number: 1, date_published: Date.new(1965, 8, 1)).render
+    assert result.end_with?(
+      '<span class="book-link-preview-series"><span class="book-series">Dune</span>&thinsp;#1</span>' \
+      '<span class="book-link-preview-published">Published 1965</span>' \
+      '</span></span><!--/book-preview-->',
+    )
   end
 end

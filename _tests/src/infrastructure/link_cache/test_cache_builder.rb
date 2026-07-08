@@ -285,4 +285,38 @@ class TestCacheBuilder < Minitest::Test
     assert_nil book_data['rating']
     assert_nil book_data['image']
   end
+
+  def test_book_data_includes_series_book_number_and_date_published
+    book = create_doc(
+      {
+        'title' => 'Series Book',
+        'published' => true,
+        'series' => 'Dune',
+        'book_number' => 1,
+        'date_published' => '1965-08',
+      },
+      '/books/series-book.html',
+    )
+
+    site = create_site({}, { 'books' => [book] })
+    book_data = site.data['link_cache']['books']['series book'].first
+
+    assert_equal 'Dune', book_data['series']
+    assert_equal 1, book_data['book_number']
+    assert_equal '1965-08', book_data['date_published']
+  end
+
+  def test_book_data_series_book_number_and_date_published_default_to_nil
+    book = create_doc(
+      { 'title' => 'Standalone Book', 'published' => true },
+      '/books/standalone-book.html',
+    )
+
+    site = create_site({}, { 'books' => [book] })
+    book_data = site.data['link_cache']['books']['standalone book'].first
+
+    assert_nil book_data['series']
+    assert_nil book_data['book_number']
+    assert_nil book_data['date_published']
+  end
 end

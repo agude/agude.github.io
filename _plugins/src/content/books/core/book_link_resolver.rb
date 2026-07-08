@@ -119,6 +119,9 @@ module Jekyll
             rating: result['rating'],
             image: result['image'],
             authors: result['authors'],
+            series: result['series'],
+            book_number: result['book_number'],
+            date_published: result['date_published'],
           }.freeze
         end
 
@@ -132,7 +135,12 @@ module Jekyll
             @log_output.to_s + fallback(data[:display_text])
           when :found
             preview_html = build_preview_html(data)
-            @log_output.to_s + render_from_data(data[:display_text], data[:url], cite: @cite, preview_html: preview_html)
+            @log_output.to_s + render_from_data(
+              data[:display_text],
+              data[:url],
+              cite: @cite,
+              preview_html: preview_html,
+            )
           end
         end
 
@@ -140,7 +148,16 @@ module Jekyll
         # non-fatal logging (e.g. an invalid rating) into @log_output rather
         # than embedding it inside the preview span itself.
         def build_preview_html(data)
-          preview = PreviewRenderer.new(@context, data[:canonical_title], data[:authors], data[:rating], data[:image])
+          preview = PreviewRenderer.new(
+            @context,
+            data[:canonical_title],
+            data[:authors],
+            data[:rating],
+            data[:image],
+            series: data[:series],
+            book_number: data[:book_number],
+            date_published: data[:date_published],
+          )
           html = preview.render
           @log_output = @log_output.to_s + preview.log_output.to_s
           html
