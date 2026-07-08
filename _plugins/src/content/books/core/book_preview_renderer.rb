@@ -60,8 +60,8 @@ module Jekyll
         def render
           '<!--book-preview--><span class="book-link-preview" aria-hidden="true">' \
             "#{cover_html}<span class=\"book-link-preview-text\">" \
-            "<cite class=\"book-title\">#{title_html}</cite>" \
-            "#{author_html}#{stars_html}#{series_html}#{lede_html}</span></span><!--/book-preview-->"
+            "<span class=\"book-link-preview-title\">#{title_html}</span>" \
+            "#{author_html}#{stars_html}#{series_html}</span>#{lede_html}</span><!--/book-preview-->"
         end
 
         private

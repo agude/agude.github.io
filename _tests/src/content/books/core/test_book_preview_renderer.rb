@@ -29,7 +29,7 @@ class TestBookPreviewRenderer < Minitest::Test
     expected = '<!--book-preview--><span class="book-link-preview" aria-hidden="true">' \
                '<img class="book-link-preview-cover" src="/images/dune.jpg" alt="Cover of Dune" />' \
                '<span class="book-link-preview-text">' \
-               '<cite class="book-title">Dune</cite>' \
+               '<span class="book-link-preview-title">Dune</span>' \
                '<span class="book-link-preview-author">by Frank Herbert</span>' \
                '<span class="book-rating star-rating-5" role="img" aria-label="Rating: 5 out of 5 stars. ' \
                'Masterpiece — I loved it" title="Masterpiece — I loved it">' \
@@ -112,7 +112,7 @@ class TestBookPreviewRenderer < Minitest::Test
 
   def test_escapes_title_html
     result = build(title: 'Cat & <Mouse>').render
-    assert_includes result, '<cite class="book-title">Cat &amp; &lt;Mouse&gt;</cite>'
+    assert_includes result, '<span class="book-link-preview-title">Cat &amp; &lt;Mouse&gt;</span>'
   end
 
   def test_escapes_author_html
