@@ -87,11 +87,16 @@ img.book-link-preview-cover {
     font-family: $headline-font-family;
     font-weight: bold;
     font-style: italic;
+    font-size: 1.2em;
   }
 
   .book-link-preview-author {
     display: block;
     color: $muted-color;
+
+    abbr.etal {
+      color: inherit;
+    }
   }
 
   .book-rating {
