@@ -386,6 +386,32 @@ class TestSeoMetaGenerator < Minitest::Test
     assert_equal 'https://alexgude.com/files/headshot.jpg', result['image']
   end
 
+  # --- Image Alt Text Tests ---
+
+  def test_image_alt_from_hash
+    doc = create_book_doc(title: 'Test Book', image: { 'path' => '/covers/test.jpg', 'alt' => 'Cover of Test Book' })
+    site = create_site(@site_config)
+    result = generate_meta(doc, site)
+
+    assert_equal 'Cover of Test Book', result['image_alt']
+  end
+
+  def test_image_alt_falls_back_to_title
+    doc = create_book_doc(title: 'Test Book', image: '/covers/test.jpg')
+    site = create_site(@site_config)
+    result = generate_meta(doc, site)
+
+    assert_equal 'Test Book', result['image_alt']
+  end
+
+  def test_image_alt_nil_when_no_image
+    doc = create_page_doc(title: 'No Image', layout: 'page')
+    site = create_site(@site_config)
+    result = generate_meta(doc, site)
+
+    assert_nil result['image_alt']
+  end
+
   # --- Canonical URL Tests ---
 
   def test_canonical_url_absolute

@@ -27,6 +27,9 @@
 {%- endif -%}
 {%- if seo.image -%}
 <meta property="og:image" content="{{ seo.image }}" />
+{%- if seo.image_alt -%}
+<meta property="og:image:alt" content="{{ seo.image_alt | escape }}" />
+{%- endif -%}
 {%- endif -%}
 {%- if seo.og_type -%}
 <meta property="og:type" content="{{ seo.og_type }}" />
@@ -39,6 +42,12 @@
 {%- endif -%}
 {%- if seo.image -%}
 <meta name="twitter:image" content="{{ seo.image }}" />
+{%- if seo.image_alt -%}
+<meta name="twitter:image:alt" content="{{ seo.image_alt | escape }}" />
+{%- endif -%}
+{%- endif -%}
+{%- if seo.description -%}
+<meta name="twitter:description" content="{{ seo.description | escape }}" />
 {%- endif -%}
 {%- if seo.og_title -%}
 <meta name="twitter:title" content="{{ seo.og_title | escape }}" />
@@ -50,4 +59,6 @@
 <meta name="msvalidate.01" content="{{ seo.bing_site_verification }}" />
 {%- endif -%}
 <!-- End SEO Meta Tags -->
+{%- else -%}
+<title>{{ page.title | default: site.title | escape }}</title>
 {%- endif -%}
