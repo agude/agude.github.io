@@ -37,6 +37,7 @@
   a:hover > .book-link-preview,
   a:focus-visible > .book-link-preview {
     display: block;
+    transition: display 0s 200ms allow-discrete;
   }
 }
 
@@ -50,11 +51,22 @@
   max-width: calc(100% - 2rem);
   margin-inline: auto;
 
-  background-color: white;
-  border: 1px solid #e5e5e5;
+  background-color: $body-bg;
+  border: 1px solid $border-color;
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   padding: 0.75em;
+
+  // Invisible bridge above the card so the pointer can travel from the
+  // link text to the card without losing :hover on the parent <a>.
+  &::before {
+    content: "";
+    position: absolute;
+    top: -0.3em;
+    left: 0;
+    right: 0;
+    height: 0.3em;
+  }
 
   // Reset styling inherited from the enclosing link so the preview
   // reads like a small, independent card rather than a hyperlink.
@@ -111,7 +123,10 @@ img.book-link-preview-cover {
 }
 
 .book-link-preview-lede {
-  display: block;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
   font-style: normal;
   font-size: $small-font-size;
   color: $body-color;
