@@ -31,6 +31,7 @@ module Jekyll
         @title_input = title_raw.to_s.strip
         @book_filter = book_title_raw.to_s.strip if book_title_raw
         @norm_title = Text.normalize_title(@title_input)
+        @log_output = ''
 
         if @norm_title.empty?
           @log_output = log_failure(

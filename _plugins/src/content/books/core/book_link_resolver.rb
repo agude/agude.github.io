@@ -68,6 +68,7 @@ module Jekyll
           @norm_title = Text.normalize_title(@title)
           @date_filter = normalize_date_filter(date_filter)
           @cite = cite
+          @log_output = ''
         end
 
         def empty_title_result
