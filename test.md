@@ -1,10 +1,11 @@
 ---
 layout: test-page
-title: Test Papge
+title: Test Page
 description: >
   Test page to render all elements of my website.
 sidebar_include: false
 markdown_output: false
+sitemap: false
 ---
 
 # Markdown Test Page
