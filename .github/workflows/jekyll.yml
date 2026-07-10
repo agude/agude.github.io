@@ -14,15 +14,13 @@ permissions:
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
   # Test job - Runs on EVERY branch
   test:
     runs-on: ubuntu-latest
+    concurrency:
+      group: test-${{ github.ref }}
+      cancel-in-progress: true
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -123,6 +121,9 @@ jobs:
 
   # Deployment job
   deploy:
+    concurrency:
+      group: "pages"
+      cancel-in-progress: false
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
