@@ -195,8 +195,7 @@ module Jekyll
         return nil unless absolute_image_url
 
         image = @data['image']
-        alt = image['alt'] if image.is_a?(Hash)
-        alt || @data['title'] || @data['name']
+        image['alt'] if image.is_a?(Hash)
       end
 
       # --- URLs ---

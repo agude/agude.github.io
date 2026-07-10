@@ -396,12 +396,12 @@ class TestSeoMetaGenerator < Minitest::Test
     assert_equal 'Cover of Test Book', result['image_alt']
   end
 
-  def test_image_alt_falls_back_to_title
+  def test_image_alt_nil_when_no_explicit_alt
     doc = create_book_doc(title: 'Test Book', image: '/covers/test.jpg')
     site = create_site(@site_config)
     result = generate_meta(doc, site)
 
-    assert_equal 'Test Book', result['image_alt']
+    assert_nil result['image_alt']
   end
 
   def test_image_alt_nil_when_no_image
