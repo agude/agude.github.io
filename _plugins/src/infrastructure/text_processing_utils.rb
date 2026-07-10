@@ -6,6 +6,10 @@ module Jekyll
   module Infrastructure
     # Utility module for cleaning and processing HTML and text content.
     module TextProcessingUtils
+      PREVIEW_OPEN = '<!--book-preview-->'
+      PREVIEW_CLOSE = '<!--/book-preview-->'
+      PREVIEW_STRIP_REGEX = %r{#{Regexp.escape(PREVIEW_OPEN)}.*?#{Regexp.escape(PREVIEW_CLOSE)}}m
+
       # Cleans HTML content to plain text, normalizes whitespace.
       # Removes script and style tag contents.
       # @param html_content [String] The HTML string to clean.
@@ -119,7 +123,7 @@ module Jekyll
       # @param html [String, nil] The HTML string to clean.
       # @return [String] The HTML string with preview spans removed.
       def self.strip_link_previews(html)
-        html.to_s.gsub(%r{<!--book-preview-->.*?<!--/book-preview-->}m, '')
+        html.to_s.gsub(PREVIEW_STRIP_REGEX, '')
       end
 
       # Removes <a> tags from HTML while preserving their inner content.

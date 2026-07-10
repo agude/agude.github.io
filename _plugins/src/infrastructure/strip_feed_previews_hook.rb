@@ -9,7 +9,7 @@ require_relative 'text_processing_utils'
 # don't use the custom feed.xml override template.
 Jekyll::Hooks.register :pages, :post_render do |page|
   next unless page.output_ext == '.xml'
-  next unless page.output&.include?('<!--book-preview-->')
+  next unless page.output&.include?(Jekyll::Infrastructure::TextProcessingUtils::PREVIEW_OPEN)
 
   page.output = Jekyll::Infrastructure::TextProcessingUtils.strip_link_previews(page.output)
 end
