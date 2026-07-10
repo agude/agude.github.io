@@ -98,6 +98,21 @@ jobs:
           fi
           echo "All HTML structure checks passed."
 
+      - name: Validate feed XML
+        run: |
+          bundle exec ruby -rrexml -e '
+            feeds = Dir.glob("_site/**/feed*.xml") + Dir.glob("_site/**/books.xml")
+            feeds.uniq.each do |path|
+              print "#{path}: "
+              raw = File.read(path)
+              doc = REXML::Document.new(raw)
+              entries = REXML::XPath.match(doc, "//*[local_name()=\"entry\"]")
+              abort "FAILED — no <entry> elements (template may be unrendered)" if entries.empty?
+              abort "FAILED — starts with raw Liquid/HTML, not XML declaration" unless raw.start_with?("<?xml")
+              puts "OK (#{entries.length} entries)"
+            end
+          '
+
       - name: Check for broken links
         run: bundle exec ruby _bin/check_links.rb
 
