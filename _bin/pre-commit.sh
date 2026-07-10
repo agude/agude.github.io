@@ -26,7 +26,9 @@ fi
 
 cleanup() {
   if [ "$has_stash" = true ]; then
-    git stash pop -q 2>/dev/null || true
+    if ! git stash pop -q 2>/dev/null; then
+      echo "WARNING: Could not restore unstaged changes. Run 'git stash list' to recover." >&2
+    fi
   fi
 }
 trap cleanup EXIT
