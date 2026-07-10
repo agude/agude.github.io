@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/plugins/logic/previous_reviews/test_renderer.rb
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/reviews/renderer'
 

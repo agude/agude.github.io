@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/utils/display_authors_util.rb
 require 'cgi'
 require_relative 'author_link_resolver'
 require_relative '../../infrastructure/text_processing_utils'

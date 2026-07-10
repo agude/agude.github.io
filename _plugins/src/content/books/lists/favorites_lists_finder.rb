@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/logic/book_lists/favorites_lists_finder.rb
 require_relative 'shared'
 require_relative '../../../infrastructure/text_processing_utils'
 

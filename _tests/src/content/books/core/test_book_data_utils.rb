@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/plugins/utils/test_book_data_utils.rb
 require_relative '../../../../test_helper'
 
 # Tests for Jekyll::Books::Core::BookDataUtils module

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/book_link_tag.rb
 require 'jekyll'
 require 'liquid'
 require 'cgi' # Keep for QuotedFragment

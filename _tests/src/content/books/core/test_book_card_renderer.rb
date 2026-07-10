@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/plugins/utils/test_book_card_utils.rb
 require_relative '../../../../test_helper'
 # Jekyll::Books::Core::BookCardRenderer, Jekyll::Infrastructure::FrontMatterUtils, Jekyll::Infrastructure::TextProcessingUtils, etc., are loaded by test_helper
 

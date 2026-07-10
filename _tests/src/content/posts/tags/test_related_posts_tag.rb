@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/plugins/test_related_posts_tag.rb
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/posts/tags/related_posts_tag'
 # Components are loaded via main tag file

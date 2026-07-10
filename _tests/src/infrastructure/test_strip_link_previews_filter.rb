@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/plugins/test_strip_link_previews_filter.rb
 require 'test_helper'
 require 'src/infrastructure/strip_link_previews_filter'
 

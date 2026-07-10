@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/utils/card_data_extractor_utils.rb
 require_relative '../../infrastructure/url_utils'
 require_relative '../../infrastructure/plugin_logger_utils'
 

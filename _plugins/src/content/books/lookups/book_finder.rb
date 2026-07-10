@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/logic/card_lookups/book_finder.rb
-
 require 'date'
 
 module Jekyll

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/plugins/utils/json_ld_generators/test_generic_review_generator.rb
 require_relative '../../../test_helper'
 require_relative '../../../../_plugins/src/seo/generators/generic_review_generator'
 

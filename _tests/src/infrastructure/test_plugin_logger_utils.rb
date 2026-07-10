@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/plugins/utils/test_plugin_logger_utils.rb
 require_relative '../../test_helper'
 require 'minitest/mock'
 

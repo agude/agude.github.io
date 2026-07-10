@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/series_text_tag.rb
 require 'jekyll'
 require 'liquid'
 require 'strscan'

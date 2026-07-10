@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/utils/tag_argument_utils.rb
-
 module Jekyll
   module Infrastructure
     # Utility module for parsing and resolving Liquid tag arguments.

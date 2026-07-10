@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/src/content/short_stories/short_story_resolver.rb
 require_relative '../../infrastructure/links/link_resolver_support'
 require_relative '../../infrastructure/typography_utils'
 require_relative '../books/core/book_preview_renderer'

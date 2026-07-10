@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/plugins/utils/test_tag_argument_utils.rb
 require_relative '../../test_helper'
 require 'src/infrastructure/tag_argument_utils' # Require the new util module
 

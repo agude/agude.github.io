@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/plugins/test_front_matter_validator.rb
 require_relative '../../test_helper'
 require_relative '../../../_plugins/src/seo/front_matter_validator'
 require_relative '../../../_plugins/src/infrastructure/front_matter_utils' # Ensure this is loaded

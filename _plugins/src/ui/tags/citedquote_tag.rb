@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/src/ui/tags/citedquote_tag.rb
 require 'jekyll'
 require 'liquid'
 require 'strscan'

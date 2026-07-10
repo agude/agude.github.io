@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/plugins/test_author_link_tag.rb
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/authors/tags/author_link_tag' # Load the tag
 

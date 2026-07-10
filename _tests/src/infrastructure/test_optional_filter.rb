@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/plugins/test_optional_filter.rb
 require 'test_helper'
 require 'src/infrastructure/optional_filter'
 

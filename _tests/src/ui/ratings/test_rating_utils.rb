@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/plugins/utils/test_rating_utils.rb
 require_relative '../../../test_helper'
 
 # Tests for Jekyll::UI::Ratings::RatingUtils module.

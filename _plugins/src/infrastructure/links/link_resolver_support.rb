@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/src/infrastructure/links/link_resolver_support.rb
 require 'jekyll'
 require 'cgi'
 require_relative 'link_helper_utils'

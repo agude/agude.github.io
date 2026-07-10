@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/utils/json_ld_utils.rb
 require_relative '../infrastructure/text_processing_utils' # For cleaning/truncating text
 require_relative '../infrastructure/url_utils' # For absolute URLs
 

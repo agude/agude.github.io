@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/utils/short_story_title_util.rb
 require_relative '../../infrastructure/typography_utils'
 require_relative '../../infrastructure/text_processing_utils'
 

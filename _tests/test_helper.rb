@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/test_helper.rb
-
 # --- SimpleCov Setup ---
 # This must be the VERY FIRST thing in the file to ensure it tracks all loaded code.
 require 'simplecov'

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/plugins/logic/card_lookups/test_article_finder.rb
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/posts/lookups/article_finder'
 

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/src/content/series/series_link_resolver.rb
 require_relative '../../infrastructure/links/link_resolver_support'
 
 module Jekyll

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/src/content/posts/article_card_renderer.rb
 require 'cgi'
 require_relative '../../infrastructure/plugin_logger_utils'
 require_relative '../../infrastructure/typography_utils'

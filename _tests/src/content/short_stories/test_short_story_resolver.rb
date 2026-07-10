@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/src/content/short_stories/test_short_story_resolver.rb
 require_relative '../../../test_helper'
 
 # Tests for Jekyll::ShortStories::ShortStoryResolver class.

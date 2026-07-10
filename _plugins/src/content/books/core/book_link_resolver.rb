@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/src/content/books/core/book_link_resolver.rb
 require 'date'
 require_relative '../../../infrastructure/links/link_resolver_support'
 require_relative '../../../infrastructure/typography_utils'

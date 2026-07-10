@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/src/content/authors/test_author_link_resolver.rb
 require_relative '../../../test_helper'
 
 # Tests for Jekyll::Authors::AuthorLinkResolver.

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/src/content/books/core/book_preview_renderer.rb
 require 'cgi'
 require_relative '../../../infrastructure/typography_utils'
 require_relative '../../../infrastructure/text_processing_utils'

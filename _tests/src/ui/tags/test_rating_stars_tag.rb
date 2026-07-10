@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/plugins/test_rating_stars_tag.rb
 require_relative '../../../test_helper'
 require_relative '../../../../_plugins/src/ui/tags/rating_stars_tag'
 

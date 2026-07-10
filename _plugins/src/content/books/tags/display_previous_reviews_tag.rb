@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/display_previous_reviews_tag.rb
 require 'jekyll'
 require 'liquid'
 require_relative '../reviews/finder'

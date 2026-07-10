@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/units_tag.rb
 require 'jekyll'
 require 'liquid'
 require 'strscan' # For parsing arguments

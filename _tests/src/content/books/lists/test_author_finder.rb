@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/plugins/logic/book_lists/test_author_finder.rb
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/lists/author_finder'
 

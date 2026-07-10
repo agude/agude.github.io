@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/plugins/test_json_ld_injector.rb
 require_relative '../../test_helper'
 require_relative '../../../_plugins/src/seo/json_ld_injector'
 require 'json'

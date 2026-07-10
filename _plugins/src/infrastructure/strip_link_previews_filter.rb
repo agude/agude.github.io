@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/src/infrastructure/strip_link_previews_filter.rb
 require 'jekyll'
 require 'liquid'
 require_relative 'text_processing_utils'

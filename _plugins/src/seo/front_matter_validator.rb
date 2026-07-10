@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/front_matter_validator.rb
 require 'jekyll'
 # Assuming Jekyll::Infrastructure::FrontMatterUtils is in _plugins/utils/ and will be loaded by Jekyll.
 # If you get NameError for Jekyll::Infrastructure::FrontMatterUtils, uncomment:
