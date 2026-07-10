@@ -57,3 +57,6 @@ Jekyll-based static site (alexgude.com) running in Docker.
     `Jekyll::Errors::FatalException` to stop the build. A broken build is
     always better than silently wrong output — wrong output ships to
     production and is discovered much later.
+6.  **Skill doc sync:** When you change plugin architecture, CI workflow,
+    hooks, or the markdown-output pipeline, update the matching file in
+    `.claude/skills/jekyll-site-dev/references/`.
