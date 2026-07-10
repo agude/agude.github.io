@@ -115,7 +115,7 @@ module Jekyll
 
           escaped_image = CGI.escapeHTML(@image.to_s)
           escaped_title = CGI.escapeHTML(@canonical_title.to_s)
-          "<img class=\"book-link-preview-cover\" src=\"#{escaped_image}\" alt=\"Cover of #{escaped_title}\" />"
+          "<img class=\"book-link-preview-cover\" src=\"#{escaped_image}\" alt=\"Cover of #{escaped_title}\" loading=\"lazy\" decoding=\"async\" />"
         end
 
         def author_html

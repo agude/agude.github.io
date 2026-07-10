@@ -20,8 +20,8 @@
 // The cover, author, rating, series, and lede spans are all optional.
 @use "variables" as *;
 
-// Hidden by default. Browsers do not fetch cover images until the
-// preview is actually shown.
+// Hidden by default. Cover images use loading="lazy", so browsers
+// skip fetching them until the preview intersects the viewport.
 .book-link-preview {
   display: none;
 }
