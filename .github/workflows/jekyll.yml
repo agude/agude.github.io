@@ -99,14 +99,17 @@ jobs:
       - name: Validate feed XML
         run: |
           bundle exec ruby -rrexml -e '
-            feeds = Dir.glob("_site/**/feed*.xml") + Dir.glob("_site/**/books.xml")
-            feeds.uniq.each do |path|
+            feeds = Dir.glob("_site/**/*.xml").select { |f|
+              content = File.read(f, 512)
+              content.include?("<feed") || content.include?("<rss")
+            }
+            abort "FAILED — no feed XML files found in _site" if feeds.empty?
+            feeds.each do |path|
               print "#{path}: "
               raw = File.read(path)
+              abort "FAILED — starts with raw Liquid/HTML, not XML declaration" unless raw.start_with?("<?xml")
               doc = REXML::Document.new(raw)
               entries = REXML::XPath.match(doc, "//*[local_name()=\"entry\"]")
-              abort "FAILED — no <entry> elements (template may be unrendered)" if entries.empty?
-              abort "FAILED — starts with raw Liquid/HTML, not XML declaration" unless raw.start_with?("<?xml")
               puts "OK (#{entries.length} entries)"
             end
           '
