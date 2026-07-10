@@ -15,8 +15,8 @@ POST-RENDER (:site, :post_render)  [markdown_output_assembler.rb]
   │    Header (post/book/generic) + Body + Footer (related content)
   │    → MarkdownWhitespaceNormalizer → GeneratedStaticFile (.md)
   ▼
-LLMS.TXT (:site, :post_render)  [llms_txt_generator.rb]
-     Indexes all .md files → /llms.txt with absolute URLs
+LLMS.TXT (Liquid tag in /llms.txt page)  [tags/llms_txt_index_tag.rb]
+     {% llms_txt_index %} iterates eligible items → sectioned index
 ```
 
 ## Key Files
@@ -30,7 +30,7 @@ been relocated to their respective domains.
 | `content/markdown_output/markdown_output_assembler.rb`   | Post-render hook; assembles header + body + footer into `.md` files                                                   |
 | `ui/cards/markdown_card_utils.rb`                        | Formats card data hashes as Markdown list items (`- [Title](url) by Author --- stars`)                                |
 | `infrastructure/links/markdown_link_formatter.rb`        | Formats resolved link data as `[text](url)` for link tags                                                             |
-| `content/markdown_output/llms_txt_generator.rb`          | Generates `/llms.txt` index grouped by Blog Posts, Book Reviews, Optional                                             |
+| `content/markdown_output/tags/llms_txt_index_tag.rb`     | Liquid tag (`{% llms_txt_index %}`) used by `/llms.txt` page to generate the sectioned index                          |
 
 ## Render Mode Pattern
 
