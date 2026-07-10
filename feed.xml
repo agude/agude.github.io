@@ -1,4 +1,10 @@
-<!--
+---
+layout: null
+sitemap: false
+collection: posts
+---
+<?xml version="1.0" encoding="utf-8"?>
+{% comment %}
   Custom override of jekyll-feed's bundled template (jekyll-feed v0.17.0,
   lib/jekyll-feed/feed.xml — https://github.com/jekyll/jekyll-feed/blob/v0.17.0/lib/jekyll-feed/feed.xml).
 
@@ -10,8 +16,7 @@
   strip_link_previews_filter.rb) before being emitted, so hidden book-link
   hover-preview markup (see BookPreviewRenderer) never leaks into feed
   readers as visible inline text.
--->
-<?xml version="1.0" encoding="utf-8"?>
+{% endcomment %}
 {% if page.xsl %}
   <?xml-stylesheet type="text/xml" href="{{ '/feed.xslt.xml' | absolute_url }}"?>
 {% endif %}
