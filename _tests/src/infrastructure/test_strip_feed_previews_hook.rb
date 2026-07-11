@@ -33,9 +33,9 @@ class TestStripFeedPreviewsHook < Minitest::Test
     assert_nil page.output
   end
 
-  private
-
   FakePage = Struct.new(:output_ext, :output)
+
+  private
 
   def build_page(ext, output)
     FakePage.new(ext, output)

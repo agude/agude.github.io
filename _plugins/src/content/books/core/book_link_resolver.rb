@@ -9,7 +9,7 @@ module Jekyll
   module Books
     module Core
       # Helper class to handle the complexity of resolving a book link
-      class BookLinkResolver
+      class BookLinkResolver # rubocop:disable Metrics/ClassLength
         include Jekyll::Infrastructure::Links::LinkResolverSupport
 
         Typography = Jekyll::Infrastructure::TypographyUtils
