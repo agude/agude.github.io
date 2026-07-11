@@ -34,17 +34,19 @@
 // pointer (mouse/trackpad). Touch devices never get it, since there is
 // no hover state to trigger it and no way to dismiss it.
 @media (hover: hover) and (pointer: fine) {
-  // Delay hiding by 200ms so the pointer can cross the gap to the
-  // ::before bridge. When hover re-engages, the delay is overridden to
-  // 0s so the card appears instantly.
+  // Hover intent: the reveal is delayed 250ms so cards do not strobe
+  // as the pointer crosses links mid-scroll; leaving before the delay
+  // elapses cancels the reveal. Hiding is instant (the base state has
+  // no delay) — the ::before bridge keeps :hover alive while the
+  // pointer travels from the link text to the card.
   .book-link-preview {
-    transition: display 0s 200ms allow-discrete;
+    transition: display 0s allow-discrete;
   }
 
   a:hover > .book-link-preview,
   a:focus-visible > .book-link-preview {
     display: flow-root;
-    transition-delay: 0s;
+    transition-delay: 250ms;
   }
 }
 
