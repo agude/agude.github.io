@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/utils/rating_utils.rb
 require 'jekyll' # For potential future Jekyll context, though not directly used by this method
 require 'cgi'    # For CGI.escapeHTML if it were needed (not in current stars logic)
 

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/plugins/test_display_books_by_author_tag.rb
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/tags/display_books_by_author_tag'
 # BookListUtils, Jekyll::Infrastructure::FrontMatterUtils, etc., are loaded by test_helper

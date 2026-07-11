@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/plugins/test_render_book_card_tag.rb
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/tags/render_book_card_tag' # Load the tag
 

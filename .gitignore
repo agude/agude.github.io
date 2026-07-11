@@ -24,7 +24,6 @@ _site
 .prettier-image.stamp
 
 # Ruby
-Gemfile.lock
 .bundle
 vendor
 

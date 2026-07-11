@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/src/content/books/core/test_book_link_resolver.rb
 require_relative '../../../../test_helper'
 
 # Tests for Jekyll::Books::Core::BookLinkResolver.

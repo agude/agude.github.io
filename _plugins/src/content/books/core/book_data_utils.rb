@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/utils/book_data_utils.rb
 module Jekyll
   module Books
     module Core

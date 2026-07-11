@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/src/content/short_stories/short_story_resolver.rb
 require_relative '../../infrastructure/links/link_resolver_support'
 require_relative '../../infrastructure/typography_utils'
 require_relative '../books/core/book_preview_renderer'
@@ -31,6 +30,7 @@ module Jekyll
         @title_input = title_raw.to_s.strip
         @book_filter = book_title_raw.to_s.strip if book_title_raw
         @norm_title = Text.normalize_title(@title_input)
+        @log_output = ''
 
         if @norm_title.empty?
           @log_output = log_failure(

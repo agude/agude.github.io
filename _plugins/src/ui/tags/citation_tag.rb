@@ -39,7 +39,6 @@
 #   access_date=""        Date when an online resource was last accessed or verified (e.g., "January 15, 2023").
 # %}
 
-# _plugins/citation_tag.rb
 require 'jekyll'
 require 'liquid'
 require 'strscan' # StringScanner is appropriate for this parsing task

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/logic/book_lists/renderers/for_series_renderer.rb
 require_relative '../../core/book_card_renderer'
 
 module Jekyll

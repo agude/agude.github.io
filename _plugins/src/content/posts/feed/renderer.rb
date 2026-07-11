@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/logic/front_page_feed/renderer.rb
 require_relative '../article_card_renderer'
 require_relative '../../books/core/book_card_renderer'
 require_relative '../../../infrastructure/plugin_logger_utils'

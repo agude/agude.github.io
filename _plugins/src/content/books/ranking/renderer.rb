@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/logic/ranked_by_backlinks/renderer.rb
 require_relative '../core/book_link_resolver'
 
 module Jekyll

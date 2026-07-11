@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/display_awards_page_tag.rb
 require 'jekyll'
 require 'liquid'
 require 'cgi'

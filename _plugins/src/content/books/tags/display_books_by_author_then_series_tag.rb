@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/display_books_by_author_then_series_tag.rb
 require 'jekyll'
 require 'liquid'
 require_relative '../lists/all_books_by_author_finder'

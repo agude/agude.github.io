@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/utils/citation_utils.rb
 require 'cgi'
 require_relative '../../infrastructure/text_processing_utils'
 

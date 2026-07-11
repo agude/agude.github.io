@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/plugins/utils/post_list_utils/test_post_list_utils.rb
 require_relative '../../../test_helper'
 # Jekyll::Posts::PostListUtils is loaded by test_helper
 

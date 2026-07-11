@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/logic/ranked_by_backlinks/finder.rb
 require_relative '../../../infrastructure/plugin_logger_utils'
 
 module Jekyll

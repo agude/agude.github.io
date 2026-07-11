@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/utils/book_list_renderer_utils.rb
 require 'cgi'
 require_relative '../../series/series_link_resolver'
 require_relative '../core/book_card_renderer'

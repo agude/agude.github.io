@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/related_posts_tag.rb
 require 'jekyll'
 require 'liquid'
 require 'cgi'

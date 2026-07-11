@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/logic/book_lists/all_books_by_author_finder.rb
 require_relative 'shared'
 require_relative '../../../infrastructure/text_processing_utils'
 require_relative '../../../infrastructure/front_matter_utils'

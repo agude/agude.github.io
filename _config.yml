@@ -174,7 +174,7 @@ exclude:
     - Rakefile
     - _coverage
     - _scripts
-    - redirects.json
+    - redirect.json
     - vendor
     - .claude
 
@@ -183,7 +183,7 @@ redirect_from:
 
 feed:
   disable_in_development: false
-  post_limit: 100
+  posts_limit: 100
   collections:
     - books
 

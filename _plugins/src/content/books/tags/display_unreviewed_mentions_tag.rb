@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/display_unreviewed_mentions_tag.rb
 require 'jekyll'
 require 'liquid'
 require_relative '../../../infrastructure/plugin_logger_utils'

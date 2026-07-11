@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/plugins/test_link_cache_generator.rb
 require_relative '../../test_helper'
 require_relative '../../../_plugins/src/infrastructure/link_cache_generator'
 

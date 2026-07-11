@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/plugins/utils/test_article_card_utils.rb
 require_relative '../../../test_helper'
 # Jekyll::Posts::ArticleCardRenderer, Jekyll::Infrastructure::TypographyUtils, etc., are loaded by test_helper
 

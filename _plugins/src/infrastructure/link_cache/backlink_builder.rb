@@ -94,7 +94,6 @@ module Jekyll
             @direct_links = []
             @prose_vars = []
             @seen_captures = {}
-            @capture_occurrence_counts = Hash.new(0)
           end
 
           def handle_capture(node, _ctx)
@@ -130,18 +129,7 @@ module Jekyll
           private
 
           def update_capture_tracking(var_name)
-            occurrence = @capture_occurrence_counts[var_name]
-            @capture_occurrence_counts[var_name] += 1
-            cap_idx = @capture_defs.length
-
-            count = 0
-            @capture_defs.each_with_index do |cd, idx|
-              next unless cd[:var_name] == var_name
-
-              count += 1 if count < occurrence
-              @seen_captures[var_name] = idx if count == occurrence
-            end
-            @seen_captures[var_name] = cap_idx
+            @seen_captures[var_name] = @capture_defs.length
           end
         end
 

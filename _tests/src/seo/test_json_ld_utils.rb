@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/plugins/utils/test_json_ld_utils.rb
 require_relative '../../test_helper'
 # Jekyll::SEO::JsonLdUtils is loaded via test_helper (assuming you'll add it there)
 

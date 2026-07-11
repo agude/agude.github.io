@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/utils/series_text_utils.rb
-
 module Jekyll
   module Series
     # Utility module for detecting and formatting book series text.

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/link_cache_generator.rb
 require 'jekyll'
 require_relative 'link_cache/cache_builder'
 require_relative 'link_cache/cache_maps'

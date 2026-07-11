@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/plugins/utils/test_feed_utils.rb
 require_relative '../../../test_helper'
 # Jekyll::Posts::FeedUtils is loaded by test_helper
 

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/logic/book_lists/by_year_finder.rb
 require_relative 'shared'
 
 module Jekyll

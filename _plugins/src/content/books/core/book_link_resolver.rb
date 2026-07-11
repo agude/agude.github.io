@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/src/content/books/core/book_link_resolver.rb
 require 'date'
 require_relative '../../../infrastructure/links/link_resolver_support'
 require_relative '../../../infrastructure/typography_utils'
@@ -10,7 +9,7 @@ module Jekyll
   module Books
     module Core
       # Helper class to handle the complexity of resolving a book link
-      class BookLinkResolver
+      class BookLinkResolver # rubocop:disable Metrics/ClassLength
         include Jekyll::Infrastructure::Links::LinkResolverSupport
 
         Typography = Jekyll::Infrastructure::TypographyUtils
@@ -68,6 +67,7 @@ module Jekyll
           @norm_title = Text.normalize_title(@title)
           @date_filter = normalize_date_filter(date_filter)
           @cite = cite
+          @log_output = ''
         end
 
         def empty_title_result

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/optional_filter.rb
 require 'jekyll'
 require 'liquid'
 

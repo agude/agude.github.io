@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/utils/front_matter_utils.rb
-
 module Jekyll
   module Infrastructure
     # Utility module for processing and normalizing front matter values.

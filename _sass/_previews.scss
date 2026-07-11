@@ -20,8 +20,8 @@
 // The cover, author, rating, series, and lede spans are all optional.
 @use "variables" as *;
 
-// Hidden by default. Browsers do not fetch cover images until the
-// preview is actually shown.
+// Hidden by default. Cover images use loading="lazy", so browsers
+// skip fetching them until the preview intersects the viewport.
 .book-link-preview {
   display: none;
 }
@@ -34,9 +34,19 @@
 // pointer (mouse/trackpad). Touch devices never get it, since there is
 // no hover state to trigger it and no way to dismiss it.
 @media (hover: hover) and (pointer: fine) {
+  // Hover intent: the reveal is delayed 250ms so cards do not strobe
+  // as the pointer crosses links mid-scroll; leaving before the delay
+  // elapses cancels the reveal. Hiding is instant (the base state has
+  // no delay) — the ::before bridge keeps :hover alive while the
+  // pointer travels from the link text to the card.
+  .book-link-preview {
+    transition: display 0s allow-discrete;
+  }
+
   a:hover > .book-link-preview,
   a:focus-visible > .book-link-preview {
-    display: block;
+    display: flow-root;
+    transition-delay: 250ms;
   }
 }
 
@@ -50,11 +60,22 @@
   max-width: calc(100% - 2rem);
   margin-inline: auto;
 
-  background-color: white;
-  border: 1px solid #e5e5e5;
+  background-color: $body-bg;
+  border: 1px solid $border-color;
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   padding: 0.75em;
+
+  // Invisible bridge above the card so the pointer can travel from the
+  // link text to the card without losing :hover on the parent <a>.
+  &::before {
+    content: "";
+    position: absolute;
+    top: -0.3em;
+    left: 0;
+    right: 0;
+    height: 0.3em;
+  }
 
   // Reset styling inherited from the enclosing link so the preview
   // reads like a small, independent card rather than a hyperlink.
@@ -62,8 +83,8 @@
   white-space: normal;
   text-align: left;
 
-  // Contain floats.
-  overflow: hidden;
+  // Floats contained by flow-root (set in the hover rule above);
+  // overflow must stay visible so the ::before bridge is not clipped.
 }
 
 img.book-link-preview-cover {

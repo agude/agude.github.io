@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _plugins/src/content/books/core/book_preview_renderer.rb
 require 'cgi'
 require_relative '../../../infrastructure/typography_utils'
 require_relative '../../../infrastructure/text_processing_utils'
@@ -98,10 +97,10 @@ module Jekyll
 
         # @return [String] The single-line preview HTML.
         def render
-          '<!--book-preview--><span class="book-link-preview" aria-hidden="true" hidden>' \
+          "#{Text::PREVIEW_OPEN}<span class=\"book-link-preview\" aria-hidden=\"true\" hidden>" \
             "#{cover_html}<span class=\"book-link-preview-text\">" \
             "<span class=\"book-link-preview-title\">#{title_html}</span>" \
-            "#{author_html}#{stars_html}#{series_html}</span>#{lede_html}</span><!--/book-preview-->"
+            "#{author_html}#{stars_html}#{series_html}</span>#{lede_html}</span>#{Text::PREVIEW_CLOSE}"
         end
 
         private
@@ -115,7 +114,8 @@ module Jekyll
 
           escaped_image = CGI.escapeHTML(@image.to_s)
           escaped_title = CGI.escapeHTML(@canonical_title.to_s)
-          "<img class=\"book-link-preview-cover\" src=\"#{escaped_image}\" alt=\"Cover of #{escaped_title}\" />"
+          %(<img class="book-link-preview-cover" src="#{escaped_image}" ) +
+            %(alt="Cover of #{escaped_title}" loading="lazy" decoding="async" />)
         end
 
         def author_html

@@ -14,15 +14,13 @@ permissions:
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
   # Test job - Runs on EVERY branch
   test:
     runs-on: ubuntu-latest
+    concurrency:
+      group: test-${{ github.ref }}
+      cancel-in-progress: true
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -98,6 +96,25 @@ jobs:
           fi
           echo "All HTML structure checks passed."
 
+      - name: Validate feed XML
+        run: |
+          bundle exec ruby -rrexml -e '
+            feeds = Dir.glob("_site/**/*.xml").select { |f|
+              content = File.read(f, 512)
+              content.include?("<feed") || content.include?("<rss")
+            }
+            abort "FAILED — no feed XML files found in _site" if feeds.empty?
+            feeds.each do |path|
+              print "#{path}: "
+              raw = File.read(path)
+              abort "FAILED — starts with raw Liquid/HTML, not XML declaration" unless raw.start_with?("<?xml")
+              doc = REXML::Document.new(raw)
+              entries = REXML::XPath.match(doc, "//*[local-name()=\"entry\"]")
+              abort "FAILED — feed contains no entries" if entries.empty?
+              puts "OK (#{entries.length} entries)"
+            end
+          '
+
       - name: Check for broken links
         run: bundle exec ruby _bin/check_links.rb
 
@@ -108,6 +125,9 @@ jobs:
 
   # Deployment job
   deploy:
+    concurrency:
+      group: "pages"
+      cancel-in-progress: false
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

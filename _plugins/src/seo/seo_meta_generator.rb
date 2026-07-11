@@ -39,6 +39,7 @@ module Jekyll
           'og_title' => build_title,
           'og_type' => og_type,
           'image' => absolute_image_url,
+          'image_alt' => image_alt_text,
           'og_site_name' => site_title,
           'og_locale' => locale,
           'description' => description,
@@ -188,6 +189,13 @@ module Jekyll
 
       def default_image
         @config['logo'] || @config.dig('defaults', 'image')
+      end
+
+      def image_alt_text
+        return nil unless absolute_image_url
+
+        image = @data['image']
+        image['alt'] if image.is_a?(Hash)
       end
 
       # --- URLs ---

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/src/infrastructure/links/test_link_resolver_support.rb
 require_relative '../../../test_helper'
 
 # A minimal test resolver that includes LinkResolverSupport to verify

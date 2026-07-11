@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# _tests/plugins/test_display_tag_renderable.rb
 require_relative '../../../test_helper'
 require_relative '../../../../_plugins/src/ui/tags/display_tag_renderable'
 
