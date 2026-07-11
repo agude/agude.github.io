@@ -103,6 +103,29 @@ Resolvers include this module and define their own `resolve` / `resolve_data`
 methods. There are no separate `*_link_util.rb` wrappers — resolvers contain
 all logic directly.
 
+## LinkResolverSkeleton Mixin
+
+Template-method skeleton on top of `LinkResolverSupport`
+(`_plugins/src/infrastructure/links/link_resolver_skeleton.rb`), used by
+`AuthorLinkResolver` and `SeriesLinkResolver`. It owns the common flow:
+no-site guard → normalize input → empty-input log + result → cache lookup
+(with not-found log) → display-text precedence (override > canonical >
+input) → frozen result hash → `render_html_from_data`. Per-resolve state
+(`@log_output`, `@override`, `@link`) is reset structurally at the start of
+each resolve, so reused instances cannot leak state.
+
+Subclasses keep their public `resolve_data` signature, call
+`resolve_link_data(input, override, link:)`, and declare hooks:
+`cache_section`, `tag_type`, `entity_name`, `empty_input_status`,
+`empty_input_reason`, `empty_input_key`, `not_found_key`,
+`wrap_element(text)`; optional overrides: `blank_extra_fields` /
+`found_extra_fields` (extra result keys, e.g. `possessive`),
+`determine_display_text`, `link_content`, `no_site_html`.
+
+`BookLinkResolver` and `ShortStoryResolver` keep their own logic
+(disambiguation, previews, mention tracking) on plain
+`LinkResolverSupport`.
+
 ## Error Logging
 
 Use `PluginLoggerUtils.log_liquid_failure` for non-fatal issues:
