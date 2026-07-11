@@ -25,7 +25,7 @@ class TestSkillDocsPaths < Minitest::Test
     seo
   ].freeze
 
-  PATH_REGEX = /`([^`]+\.\w+)`/.freeze
+  PATH_REGEX = /`([^`]+\.\w+)`/
 
   def test_all_backtick_paths_exist
     missing = []

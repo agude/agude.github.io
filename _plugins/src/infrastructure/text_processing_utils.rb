@@ -8,7 +8,7 @@ module Jekyll
     module TextProcessingUtils
       PREVIEW_OPEN = '<!--book-preview-->'
       PREVIEW_CLOSE = '<!--/book-preview-->'
-      PREVIEW_STRIP_REGEX = %r{#{Regexp.escape(PREVIEW_OPEN)}.*?#{Regexp.escape(PREVIEW_CLOSE)}}m
+      PREVIEW_STRIP_REGEX = /#{Regexp.escape(PREVIEW_OPEN)}.*?#{Regexp.escape(PREVIEW_CLOSE)}/m
 
       # Cleans HTML content to plain text, normalizes whitespace.
       # Removes script and style tag contents.
