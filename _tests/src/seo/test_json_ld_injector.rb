@@ -191,14 +191,16 @@ class TestJsonLdInjectorInjection < TestJsonLdInjectorBase
 
   private
 
-  def stub_with_active_generator(active_generator, active_hash, &block)
+  def stub_with_active_generator(active_generator, active_hash, &)
     Jekyll::SEO::Generators::BlogPostingLdGenerator.stub :generate_hash, stub_value_for(Jekyll::SEO::Generators::BlogPostingLdGenerator, active_generator, active_hash) do
       Jekyll::SEO::Generators::BookReviewLdGenerator.stub :generate_hash, stub_value_for(Jekyll::SEO::Generators::BookReviewLdGenerator, active_generator, active_hash) do
         Jekyll::SEO::Generators::GenericReviewLdGenerator.stub :generate_hash,
                                                                stub_value_for(Jekyll::SEO::Generators::GenericReviewLdGenerator, active_generator, active_hash) do
-          Jekyll::SEO::Generators::AuthorProfileLdGenerator.stub :generate_hash,
-                                                                 stub_value_for(Jekyll::SEO::Generators::AuthorProfileLdGenerator, active_generator, active_hash),
-                                                                 &block
+          Jekyll::SEO::Generators::AuthorProfileLdGenerator.stub(
+            :generate_hash,
+            stub_value_for(Jekyll::SEO::Generators::AuthorProfileLdGenerator, active_generator, active_hash),
+            &
+          )
         end
       end
     end
@@ -313,15 +315,17 @@ class TestJsonLdInjectorSkip < TestJsonLdInjectorBase
 
   private
 
-  def stub_all_generators_to_flunk(&block)
+  def stub_all_generators_to_flunk(&)
     Jekyll::SEO::Generators::BlogPostingLdGenerator.stub :generate_hash, ->(*) { flunk 'BlogPosting generator should not be called' } do
       Jekyll::SEO::Generators::BookReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'BookReview generator should not be called' } do
         Jekyll::SEO::Generators::GenericReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'GenericReview generator should not be called' } do
-          Jekyll::SEO::Generators::AuthorProfileLdGenerator.stub :generate_hash,
-                                                                 lambda { |*|
-                                                                   flunk 'AuthorProfile generator should not be called'
-                                                                 },
-                                                                 &block
+          Jekyll::SEO::Generators::AuthorProfileLdGenerator.stub(
+            :generate_hash,
+            lambda { |*|
+              flunk 'AuthorProfile generator should not be called'
+            },
+            &
+          )
         end
       end
     end
@@ -394,15 +398,17 @@ class TestJsonLdInjectorNonDocuments < TestJsonLdInjectorBase
 
   private
 
-  def stub_all_generators_to_flunk(&block)
+  def stub_all_generators_to_flunk(&)
     Jekyll::SEO::Generators::BlogPostingLdGenerator.stub :generate_hash, ->(*) { flunk 'BlogPosting generator should not be called' } do
       Jekyll::SEO::Generators::BookReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'BookReview generator should not be called' } do
         Jekyll::SEO::Generators::GenericReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'GenericReview generator should not be called' } do
-          Jekyll::SEO::Generators::AuthorProfileLdGenerator.stub :generate_hash,
-                                                                 lambda { |*|
-                                                                   flunk 'AuthorProfile generator should not be called'
-                                                                 },
-                                                                 &block
+          Jekyll::SEO::Generators::AuthorProfileLdGenerator.stub(
+            :generate_hash,
+            lambda { |*|
+              flunk 'AuthorProfile generator should not be called'
+            },
+            &
+          )
         end
       end
     end

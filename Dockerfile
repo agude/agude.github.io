@@ -1,7 +1,7 @@
 # Dockerfile
 
 # Define build argument for Ruby version, default matches .ruby-version
-ARG RUBY_VERSION=3.2
+ARG RUBY_VERSION=3.4
 # Use the specific version provided by the build argument
 FROM ruby:${RUBY_VERSION}
 

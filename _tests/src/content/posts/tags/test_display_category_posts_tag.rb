@@ -206,9 +206,9 @@ class TestDisplayCategoryPostsTag < Minitest::Test
     )
   end
 
-  def stub_data_and_cards(mock_result, &block)
+  def stub_data_and_cards(mock_result, &)
     stub_cards do
-      Jekyll::Posts::PostListUtils.stub(:get_posts_by_category, ->(_args) { mock_result }, &block)
+      Jekyll::Posts::PostListUtils.stub(:get_posts_by_category, ->(_args) { mock_result }, &)
     end
   end
 

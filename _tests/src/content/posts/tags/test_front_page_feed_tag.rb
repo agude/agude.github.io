@@ -222,7 +222,7 @@ class TestFrontPageFeedTag < Minitest::Test
     )
   end
 
-  def stub_cards(&block)
+  def stub_cards(&)
     Jekyll::Posts::ArticleCardRenderer.stub(
       :render,
       ->(post, _context) { "[article:#{post.data['title']}]" },
@@ -230,14 +230,14 @@ class TestFrontPageFeedTag < Minitest::Test
       Jekyll::Books::Core::BookCardRenderer.stub(
         :render,
         ->(book, _context) { "[book:#{book.data['title']}]" },
-        &block
+        &
       )
     end
   end
 
-  def stub_feed_and_cards(feed_items, &block)
+  def stub_feed_and_cards(feed_items, &)
     stub_cards do
-      Jekyll::Posts::FeedUtils.stub(:get_combined_feed_items, ->(_args) { feed_items }, &block)
+      Jekyll::Posts::FeedUtils.stub(:get_combined_feed_items, ->(_args) { feed_items }, &)
     end
   end
 end
