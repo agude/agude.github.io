@@ -125,4 +125,9 @@ class TestDisplayTagRenderable < Minitest::Test
     assert_nil @obj.resolve_filter_value('nil_var', context)
     assert_equal '   ', @obj.resolve_filter_value('blank_var', context)
   end
+
+  def test_resolve_filter_value_passes_false_through_unstringified
+    context = create_context({ 'false_var' => false }, {})
+    assert_equal false, @obj.resolve_filter_value('false_var', context)
+  end
 end

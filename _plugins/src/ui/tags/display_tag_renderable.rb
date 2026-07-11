@@ -50,7 +50,8 @@ module Jekyll
 
       def resolve_filter_value(markup, context)
         value = TagArgs.resolve_value(markup, context)
-        return value unless value && !value.to_s.strip.empty?
+        return value unless value
+        return value if value.to_s.strip.empty?
 
         value.to_s
       end

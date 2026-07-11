@@ -36,6 +36,9 @@ module Jekyll
       # - markdown_italic?(data)      -> italicize Markdown text (default: false)
       # - markdown_result(data, context) -> override the whole Markdown branch
       class LinkTagBase < Liquid::Tag
+        # These aliases are part of the subclass API: hook implementations
+        # (e.g. a custom markdown_result) reference them unqualified via the
+        # ancestor chain instead of re-aliasing per tag.
         QuotedFragment = Liquid::QuotedFragment
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         MdLink = Jekyll::Infrastructure::Links::MarkdownLinkFormatter
@@ -154,7 +157,7 @@ module Jekyll
         end
 
         def scan_value_option?(scanner, name)
-          return false unless scanner.scan(/#{name}\s*=\s*(#{QuotedFragment})/)
+          return false unless scanner.scan(/#{Regexp.escape(name.to_s)}\s*=\s*(#{QuotedFragment})/)
 
           # Take the first occurrence if the option is repeated.
           @option_markup[name] ||= scanner[1]
@@ -162,7 +165,7 @@ module Jekyll
         end
 
         def scan_flag_option?(scanner, name)
-          return false unless scanner.scan(/#{name}(?!\S)/)
+          return false unless scanner.scan(/#{Regexp.escape(name.to_s)}(?!\S)/)
 
           @flags[name] = true
           true

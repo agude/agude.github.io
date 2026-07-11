@@ -26,7 +26,6 @@ module Jekyll
             subject_value(context),
             option_value(:link_text, context),
             option_value(:author, context),
-            nil, # date_filter: not exposed as a tag argument
           ]
           [positional, { cite: option_enabled?(:cite, context) }]
         end
