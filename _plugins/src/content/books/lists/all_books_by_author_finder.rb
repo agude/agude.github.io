@@ -71,13 +71,10 @@ module Jekyll
         def generate_all_authors_log(data)
           return String.new unless data.empty?
 
-          Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
-            context: @context,
+          log_no_results(
             tag_type: 'ALL_BOOKS_BY_AUTHOR_DISPLAY',
             reason: 'No published books with valid author names found.',
-            identifiers: {},
-            level: :info,
-          ).dup
+          )
         end
       end
     end

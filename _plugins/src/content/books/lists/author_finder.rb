@@ -58,30 +58,22 @@ module Jekyll
         end
 
         def generate_author_log(books)
-          return log_empty_author_name if @author_name_filter.nil? || @author_name_filter.to_s.strip.empty?
-          return log_no_books_for_author if books.empty?
+          if @author_name_filter.nil? || @author_name_filter.to_s.strip.empty?
+            return log_filter_warning(
+              tag_type: 'BOOK_LIST_AUTHOR_DISPLAY',
+              reason: 'Author name filter was empty or nil when fetching data.',
+              identifiers: { AuthorFilterInput: @author_name_filter || 'N/A' },
+            )
+          end
+          if books.empty?
+            return log_no_results(
+              tag_type: 'BOOK_LIST_AUTHOR_DISPLAY',
+              reason: 'No books found for the specified author.',
+              identifiers: { AuthorFilter: @author_name_filter },
+            )
+          end
 
           String.new
-        end
-
-        def log_empty_author_name
-          Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
-            context: @context,
-            tag_type: 'BOOK_LIST_AUTHOR_DISPLAY',
-            reason: 'Author name filter was empty or nil when fetching data.',
-            identifiers: { AuthorFilterInput: @author_name_filter || 'N/A' },
-            level: :warn,
-          ).dup
-        end
-
-        def log_no_books_for_author
-          Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
-            context: @context,
-            tag_type: 'BOOK_LIST_AUTHOR_DISPLAY',
-            reason: 'No books found for the specified author.',
-            identifiers: { AuthorFilter: @author_name_filter },
-            level: :info,
-          ).dup
         end
       end
     end

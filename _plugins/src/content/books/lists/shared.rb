@@ -97,6 +97,9 @@ module Jekyll
         end
 
         # Logging
+        #
+        # PluginLoggerUtils.log_liquid_failure always returns a new mutable
+        # string, so no defensive copies are needed before appending.
         def return_error(reason, identifiers:, structure: false, key: nil, tag_type: 'BOOK_LIST_UTIL')
           log = Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
             context: @context,
@@ -105,7 +108,6 @@ module Jekyll
             identifiers: identifiers,
             level: :error,
           )
-          log = log.dup
           return { standalone_books: [], series_groups: [], log_messages: log } if structure
 
           { key || :books => [], log_messages: log }
@@ -115,7 +117,27 @@ module Jekyll
           log = Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
             context: @context, tag_type: tag_type, reason: reason, identifiers: {}, level: :info,
           )
-          { key => [], log_messages: log.dup }
+          { key => [], log_messages: log }
+        end
+
+        def log_filter_warning(tag_type:, reason:, identifiers:)
+          Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+            context: @context,
+            tag_type: tag_type,
+            reason: reason,
+            identifiers: identifiers,
+            level: :warn,
+          )
+        end
+
+        def log_no_results(tag_type:, reason:, identifiers: {})
+          Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+            context: @context,
+            tag_type: tag_type,
+            reason: reason,
+            identifiers: identifiers,
+            level: :info,
+          )
         end
       end
     end

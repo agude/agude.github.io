@@ -52,30 +52,22 @@ module Jekyll
         end
 
         def generate_series_log(books, series_name)
-          return log_empty_series_name(series_name) if series_name.nil? || series_name.to_s.strip.empty?
-          return log_no_books_in_series(series_name) if books.empty?
+          if series_name.nil? || series_name.to_s.strip.empty?
+            return log_filter_warning(
+              tag_type: 'BOOK_LIST_SERIES_DISPLAY',
+              reason: 'Series name filter was empty or nil.',
+              identifiers: { SeriesFilterInput: series_name || 'N/A' },
+            )
+          end
+          if books.empty?
+            return log_no_results(
+              tag_type: 'BOOK_LIST_SERIES_DISPLAY',
+              reason: 'No books found for the specified series.',
+              identifiers: { SeriesFilter: series_name },
+            )
+          end
 
           String.new
-        end
-
-        def log_empty_series_name(series_name)
-          Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
-            context: @context,
-            tag_type: 'BOOK_LIST_SERIES_DISPLAY',
-            reason: 'Series name filter was empty or nil.',
-            identifiers: { SeriesFilterInput: series_name || 'N/A' },
-            level: :warn,
-          ).dup
-        end
-
-        def log_no_books_in_series(series_name)
-          Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
-            context: @context,
-            tag_type: 'BOOK_LIST_SERIES_DISPLAY',
-            reason: 'No books found for the specified series.',
-            identifiers: { SeriesFilter: series_name },
-            level: :info,
-          ).dup
         end
       end
     end

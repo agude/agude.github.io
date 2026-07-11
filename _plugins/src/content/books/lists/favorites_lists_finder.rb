@@ -71,13 +71,10 @@ module Jekyll
         def generate_favorites_log(data)
           return String.new unless data.empty?
 
-          Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
-            context: @context,
+          log_no_results(
             tag_type: 'BOOK_LIST_FAVORITES',
             reason: "No posts with 'is_favorites_list' front matter found.",
-            identifiers: {},
-            level: :info,
-          ).dup
+          )
         end
       end
     end
