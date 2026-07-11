@@ -31,16 +31,6 @@ module Jekyll
           books.reject { |book| book.data['canonical_url']&.start_with?('/') }
         end
 
-        # Author Helpers
-        def get_canonical_author(name, author_cache)
-          return nil if name.nil? || name.to_s.strip.empty?
-
-          stripped = name.to_s.strip
-          normalized = Jekyll::Infrastructure::TextProcessingUtils.normalize_title(stripped)
-          data = author_cache[normalized]
-          data ? data['title'] : stripped
-        end
-
         # Structuring and Sorting
         def structure_books_for_display(books_to_process)
           standalone, series_books = partition_books(books_to_process)

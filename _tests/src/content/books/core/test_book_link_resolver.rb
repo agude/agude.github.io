@@ -790,23 +790,6 @@ class TestBookLinkResolver < Minitest::Test
     assert_equal '/books/canonical.html', data[:url]
   end
 
-  def test_get_canonical_author_returns_nil_for_empty_name
-    # Tests line 180: `return nil if name.to_s.strip.empty?`
-    resolver = Jekyll::Books::Core::BookLinkResolver.new(@ctx)
-
-    # Call private method directly with empty string
-    result = resolver.send(:get_canonical_author, '', {})
-    assert_nil result
-
-    # Call with whitespace-only string
-    result = resolver.send(:get_canonical_author, '   ', {})
-    assert_nil result
-
-    # Call with nil
-    result = resolver.send(:get_canonical_author, nil, {})
-    assert_nil result
-  end
-
   # --- HTML Element Builder Tests ---
 
   def test_build_book_cite_element

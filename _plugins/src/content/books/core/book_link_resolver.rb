@@ -3,16 +3,18 @@
 require 'date'
 require_relative '../../../infrastructure/links/link_resolver_support'
 require_relative '../../../infrastructure/typography_utils'
+require_relative '../../../infrastructure/link_cache/author_lookup'
 require_relative 'book_preview_renderer'
 
 module Jekyll
   module Books
     module Core
       # Helper class to handle the complexity of resolving a book link
-      class BookLinkResolver # rubocop:disable Metrics/ClassLength
+      class BookLinkResolver
         include Jekyll::Infrastructure::Links::LinkResolverSupport
 
         Typography = Jekyll::Infrastructure::TypographyUtils
+        AuthorLookup = Jekyll::Infrastructure::LinkCache::AuthorLookup
         PreviewRenderer = Jekyll::Books::Core::BookPreviewRenderer
         private_constant :Typography, :PreviewRenderer
 
@@ -272,11 +274,11 @@ module Jekyll
 
         def filter_by_author(candidates, author_filter)
           ac = @site.data.dig('link_cache', 'authors') || {}
-          target = get_canonical_author(author_filter, ac)
+          target = AuthorLookup.canonical_author(author_filter, ac)
 
           found = candidates.find do |book|
             book['authors'].any? do |auth|
-              bc = get_canonical_author(auth, ac)
+              bc = AuthorLookup.canonical_author(auth, ac)
               bc && target && bc.casecmp(target).zero?
             end
           end
@@ -284,13 +286,6 @@ module Jekyll
           return log_author_mismatch(author_filter) unless found
 
           found
-        end
-
-        def get_canonical_author(name, cache)
-          return nil if name.to_s.strip.empty?
-
-          norm = Text.normalize_title(name.to_s.strip)
-          cache[norm] ? cache[norm]['title'] : name.to_s.strip
         end
 
         def log_author_mismatch(author_filter)

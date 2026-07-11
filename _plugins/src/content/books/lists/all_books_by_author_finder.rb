@@ -3,6 +3,7 @@
 require_relative 'shared'
 require_relative '../../../infrastructure/text_processing_utils'
 require_relative '../../../infrastructure/front_matter_utils'
+require_relative '../../../infrastructure/link_cache/author_lookup'
 
 module Jekyll
   module Books
@@ -48,7 +49,7 @@ module Jekyll
         def add_book_to_author_map(book, author_cache, books_map)
           authors = book.data['book_authors']
           Jekyll::Infrastructure::FrontMatterUtils.get_list_from_string_or_array(authors).each do |name|
-            canonical = get_canonical_author(name, author_cache)
+            canonical = Jekyll::Infrastructure::LinkCache::AuthorLookup.canonical_author(name, author_cache)
             next unless canonical
 
             books_map[canonical] ||= []
