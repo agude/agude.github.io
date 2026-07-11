@@ -34,10 +34,17 @@
 // pointer (mouse/trackpad). Touch devices never get it, since there is
 // no hover state to trigger it and no way to dismiss it.
 @media (hover: hover) and (pointer: fine) {
+  // Delay hiding by 200ms so the pointer can cross the gap to the
+  // ::before bridge. When hover re-engages, the delay is overridden to
+  // 0s so the card appears instantly.
+  .book-link-preview {
+    transition: display 0s 200ms allow-discrete;
+  }
+
   a:hover > .book-link-preview,
   a:focus-visible > .book-link-preview {
-    display: block;
-    transition: display 0s 200ms allow-discrete;
+    display: flow-root;
+    transition-delay: 0s;
   }
 }
 
@@ -74,8 +81,8 @@
   white-space: normal;
   text-align: left;
 
-  // Contain floats.
-  overflow: hidden;
+  // Floats contained by flow-root (set in the hover rule above);
+  // overflow must stay visible so the ::before bridge is not clipped.
 }
 
 img.book-link-preview-cover {
