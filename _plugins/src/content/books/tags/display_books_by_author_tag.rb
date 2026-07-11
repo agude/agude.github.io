@@ -4,8 +4,6 @@ require 'jekyll'
 require 'liquid'
 require_relative '../lists/author_finder'
 require_relative '../lists/book_list_renderer_utils'
-require_relative '../../../infrastructure/tag_argument_utils'
-require_relative '../../../ui/cards/markdown_card_utils'
 require_relative '../../../ui/tags/display_tag_renderable'
 
 module Jekyll
@@ -19,11 +17,12 @@ module Jekyll
       #   {% display_books_by_author "Ursula K. Le Guin" %}
       #   {% display_books_by_author page.author %}
       class DisplayBooksByAuthorTag < Liquid::Tag
+        include Jekyll::UI::DisplayTagRenderable
+
         # Aliases for readability
-        TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         Finder = Jekyll::Books::Lists::AuthorFinder
         Renderer = Jekyll::Books::Lists::BookListRendererUtils
-        private_constant :TagArgs, :Finder, :Renderer
+        private_constant :Finder, :Renderer
 
         def initialize(tag_name, markup, tokens)
           super
@@ -34,58 +33,33 @@ module Jekyll
                 "Syntax Error in 'display_books_by_author': Author name (string literal or variable) is required."
         end
 
-        def render(context)
-          BooksByAuthorRenderer.new(context, @author_name_markup).render
+        private
+
+        def finder_for(context)
+          Finder.new(
+            site: context.registers[:site],
+            author_name_filter: resolve_filter_value(@author_name_markup, context),
+            context: context,
+          )
         end
 
-        # Helper class to handle rendering logic
-        class BooksByAuthorRenderer
-          include Jekyll::UI::DisplayTagRenderable
+        def renderer_for(context, data)
+          Renderer.render_book_groups_html(data, context)
+        end
 
-          def initialize(context, author_name_markup)
-            @context = context
-            @site = context.registers[:site]
-            @author_name_markup = author_name_markup
+        def render_markdown(data)
+          lines = []
+          standalone = data[:standalone_books] || []
+          series_groups = data[:series_groups] || []
+          unless standalone.empty?
+            lines << '## Standalone'
+            standalone.each { |book| lines << MdCards.render_book_card_md(MdCards.book_doc_to_card_data(book)) }
           end
-
-          def render
-            author_name_input = TagArgs.resolve_value(@author_name_markup, @context)
-
-            # Convert to string if not nil, otherwise pass nil to let AuthorFinder handle logging
-            author_filter = if author_name_input && !author_name_input.to_s.strip.empty?
-                              author_name_input.to_s
-                            else
-                              author_name_input
-                            end
-
-            finder = Finder.new(
-              site: @site,
-              author_name_filter: author_filter,
-              context: @context,
-            )
-            data = finder.find
-
-            render_display_tag(@context, data) do |_d|
-              Renderer.render_book_groups_html(data, @context)
-            end
+          series_groups.each do |group|
+            lines << "## #{group[:name]}"
+            group[:books].each { |book| lines << MdCards.render_book_card_md(MdCards.book_doc_to_card_data(book)) }
           end
-
-          private
-
-          def render_markdown(data)
-            lines = []
-            standalone = data[:standalone_books] || []
-            series_groups = data[:series_groups] || []
-            unless standalone.empty?
-              lines << '## Standalone'
-              standalone.each { |book| lines << MdCards.render_book_card_md(MdCards.book_doc_to_card_data(book)) }
-            end
-            series_groups.each do |group|
-              lines << "## #{group[:name]}"
-              group[:books].each { |book| lines << MdCards.render_book_card_md(MdCards.book_doc_to_card_data(book)) }
-            end
-            lines.join("\n")
-          end
+          lines.join("\n")
         end
       end
       Liquid::Template.register_tag('display_books_by_author', Jekyll::Books::Tags::DisplayBooksByAuthorTag)

@@ -9,14 +9,43 @@ class TestRenderable
 
   attr_reader :markdown_data
 
-  # Expose the private method for testing
-  public :render_display_tag
+  # Expose the private methods for testing
+  public :render_display_tag, :resolve_filter_value
 
   private
 
   def render_markdown(data)
     @markdown_data = data
     "markdown:#{data[:title]}"
+  end
+end
+
+# A finder-backed tag body exercising the mixin's render flow.
+class TestFinderRenderable
+  include Jekyll::UI::DisplayTagRenderable
+
+  FakeFinder = Struct.new(:data) do
+    def find
+      data
+    end
+  end
+
+  def initialize(data)
+    @data = data
+  end
+
+  private
+
+  def finder_for(_context)
+    FakeFinder.new(@data)
+  end
+
+  def renderer_for(_context, data)
+    "<div>#{data[:items].size}</div>"
+  end
+
+  def render_markdown(data)
+    "markdown items:#{data[:items].size}"
   end
 end
 
@@ -65,5 +94,35 @@ class TestDisplayTagRenderable < Minitest::Test
 
   def test_md_cards_constant_is_available_in_mixin
     assert Jekyll::UI::DisplayTagRenderable.const_defined?(:MdCards, false)
+  end
+
+  # --- render (finder_for / renderer_for hooks) ---
+
+  def test_render_finds_and_renders_html_with_log_messages
+    context = create_context({}, {})
+    tag = TestFinderRenderable.new({ items: [1, 2, 3], log_messages: '<!-- log -->' })
+
+    assert_equal '<!-- log --><div>3</div>', tag.render(context)
+  end
+
+  def test_render_delegates_to_render_markdown_in_markdown_mode
+    context = create_context({}, { render_mode: :markdown })
+    tag = TestFinderRenderable.new({ items: [1, 2] })
+
+    assert_equal 'markdown items:2', tag.render(context)
+  end
+
+  # --- resolve_filter_value ---
+
+  def test_resolve_filter_value_stringifies_non_blank_values
+    context = create_context({ 'num_var' => 42 }, {})
+    assert_equal 'Jane Doe', @obj.resolve_filter_value("'Jane Doe'", context)
+    assert_equal '42', @obj.resolve_filter_value('num_var', context)
+  end
+
+  def test_resolve_filter_value_passes_nil_and_blank_through
+    context = create_context({ 'blank_var' => '   ', 'nil_var' => nil }, {})
+    assert_nil @obj.resolve_filter_value('nil_var', context)
+    assert_equal '   ', @obj.resolve_filter_value('blank_var', context)
   end
 end

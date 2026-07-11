@@ -58,26 +58,42 @@ end
 ```
 
 **Display tags** use the `DisplayTagRenderable` mixin
-(`_plugins/src/ui/tags/display_tag_renderable.rb`):
+(`_plugins/src/ui/tags/display_tag_renderable.rb`). Tags whose flow is
+"build finder → find → render" (e.g. `display_books_by_author`,
+`display_books_for_series`) rely on the mixin's `render(context)` and only
+define hooks:
 
 ```ruby
 include Jekyll::UI::DisplayTagRenderable
 
-def render(context)
-  data = finder.find
-  render_display_tag(context, data) do |d|
-    SomeRenderer.new(context, d).render
-  end
+private
+
+def finder_for(context)
+  Finder.new(
+    site: context.registers[:site],
+    author_name_filter: resolve_filter_value(@author_name_markup, context),
+    context: context,
+  )
 end
 
-# The including class must define this:
+def renderer_for(context, data)
+  Renderer.new(context, data).render
+end
+
 def render_markdown(data)
   # Return Markdown string using MdCards helpers
 end
 ```
 
-The mixin calls `render_markdown(data)` in markdown mode, or yields for HTML.
-It also exposes the `MdCards` constant (`Jekyll::UI::Cards::MarkdownCardUtils`).
+`resolve_filter_value` resolves a tag argument and stringifies non-blank
+values, passing nil/blank through so the finder logs the empty-filter
+failure itself.
+
+Tags with extra pre/post logic define their own `render` and call
+`render_display_tag(context, data)` directly — it calls
+`render_markdown(data)` in markdown mode, or yields for HTML (prepending
+`data[:log_messages]`). The mixin also exposes the `MdCards` constant
+(`Jekyll::UI::Cards::MarkdownCardUtils`).
 
 ## Finder / Renderer Separation
 

@@ -4,7 +4,6 @@ require 'jekyll'
 require 'liquid'
 require_relative '../lists/series_finder'
 require_relative '../lists/renderers/for_series_renderer'
-require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../../../ui/cards/markdown_card_utils'
 require_relative '../../../infrastructure/text_processing_utils'
 require_relative '../../../ui/tags/display_tag_renderable'
@@ -23,10 +22,10 @@ module Jekyll
         include Jekyll::UI::DisplayTagRenderable
 
         # Aliases for readability
-        TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         Finder = Jekyll::Books::Lists::SeriesFinder
         Renderer = Jekyll::Books::Lists::Renderers::ForSeriesRenderer
-        private_constant :TagArgs, :Finder, :Renderer
+        MdText = Jekyll::Infrastructure::TextProcessingUtils
+        private_constant :Finder, :Renderer, :MdText
 
         def initialize(tag_name, markup, tokens)
           super
@@ -37,31 +36,19 @@ module Jekyll
                 "Syntax Error in 'display_books_for_series': Series name (string literal or variable) is required."
         end
 
-        MdText = Jekyll::Infrastructure::TextProcessingUtils
-        private_constant :MdText
+        private
 
-        def render(context)
-          series_name_input = TagArgs.resolve_value(@series_name_markup, context)
-
-          series_filter = if series_name_input && !series_name_input.to_s.strip.empty?
-                            series_name_input.to_s
-                          else
-                            series_name_input
-                          end
-
-          finder = Finder.new(
+        def finder_for(context)
+          Finder.new(
             site: context.registers[:site],
-            series_name_filter: series_filter,
+            series_name_filter: resolve_filter_value(@series_name_markup, context),
             context: context,
           )
-          data = finder.find
-
-          render_display_tag(context, data) do |d|
-            Renderer.new(context, d).render
-          end
         end
 
-        private
+        def renderer_for(context, data)
+          Renderer.new(context, data).render
+        end
 
         def render_markdown(data)
           books = data[:books] || []
