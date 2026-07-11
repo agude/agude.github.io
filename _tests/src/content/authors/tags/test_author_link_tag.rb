@@ -52,13 +52,11 @@ class TestAuthorLinkTag < Minitest::Test
     assert_match 'Could not find author name', err.message
   end
 
-  # This test is changed: The tag should parse '' successfully.
-  # The resolver will handle the empty resolved name.
-  def test_render_author_name_empty_string_literal_passes_empty_to_util
-    _output, captured_args = parse_and_capture_args("''")
-    assert_equal '', captured_args[:name], "Tag should resolve '' to an empty string for the resolver"
-    assert_nil captured_args[:link_text_override]
-    assert_equal false, captured_args[:possessive]
+  def test_syntax_error_empty_quoted_name
+    err = assert_raises Liquid::SyntaxError do
+      Liquid::Template.parse("{% author_link '' %}")
+    end
+    assert_match 'Author name value is missing or empty', err.message
   end
 
   def test_syntax_error_unknown_argument

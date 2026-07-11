@@ -2,116 +2,31 @@
 
 require 'jekyll'
 require 'liquid'
-require 'strscan'
 require_relative '../series_link_resolver'
-require_relative '../../../infrastructure/tag_argument_utils'
-require_relative '../../../infrastructure/links/markdown_link_formatter'
-require_relative '../../../infrastructure/links/link_helper_utils'
+require_relative '../../../infrastructure/links/link_tag_base'
 
-# Renders a link to a book series page.
-#
-# Creates an HTML link to the series page if one exists, otherwise
-# renders plain text.
-#
-# Usage in Liquid templates:
-#   {% series_link "The Lord of the Rings" %}
 module Jekyll
-  #   {% series_link page.series link_text="the series" %}
   module Series
     module Tags
       # Liquid tag for rendering a link to a book series page.
-      # Creates an HTML link if the series page exists, otherwise renders plain text.
-      class SeriesLinkTag < Liquid::Tag
-        # Aliases for readability
-        TagArgs = Jekyll::Infrastructure::TagArgumentUtils
-        Resolver = Jekyll::Series::SeriesLinkResolver
-        MdLink = Jekyll::Infrastructure::Links::MarkdownLinkFormatter
-        LinkHelper = Jekyll::Infrastructure::Links::LinkHelperUtils
-        private_constant :TagArgs, :Resolver, :MdLink, :LinkHelper
-
-        QuotedFragment = Liquid::QuotedFragment
-
-        def initialize(tag_name, markup, tokens)
-          super
-          @raw_markup = markup
-          @title_markup = nil
-          @link_text_markup = nil
-
-          parse_arguments(markup)
-        end
-
-        # Renders the series link HTML (or Markdown in markdown mode)
-        def render(context)
-          series_title = TagArgs.resolve_value(@title_markup, context)
-          link_text_override = resolve_link_text(context)
-          resolver = Resolver.new(context)
-
-          if context.registers[:render_mode] == :markdown
-            data = resolver.resolve_data(series_title, link_text_override)
-            MdLink.format_link(data, italic: true, self_link: LinkHelper.self_link?(context, data[:url]))
-          else
-            resolver.resolve(series_title, link_text_override)
-          end
-        end
+      # Creates an HTML link if the series page exists, otherwise renders
+      # plain text.
+      #
+      # Usage: {% series_link "The Lord of the Rings" %}
+      #        {% series_link page.series link_text="the series" %}
+      class SeriesLinkTag < Jekyll::Infrastructure::Links::LinkTagBase
+        self.subject = 'series title'
+        self.resolver_class = Jekyll::Series::SeriesLinkResolver
+        self.option_spec = { link_text: :value }
 
         private
 
-        def parse_arguments(markup)
-          scanner = StringScanner.new(markup.strip)
-          parse_title(scanner)
-          parse_optional_link_text(scanner)
-          validate_title
+        def resolver_arguments(context)
+          [[subject_value(context), option_value(:link_text, context)], {}]
         end
 
-        def parse_title(scanner)
-          if scanner.scan(QuotedFragment) || scanner.scan(/\S+/)
-            @title_markup = scanner.matched
-          else
-            raise Liquid::SyntaxError,
-                  "Syntax Error in 'series_link': " \
-                  "Could not find series title in '#{@raw_markup}'"
-          end
-        end
-
-        def parse_optional_link_text(scanner)
-          until scanner.eos?
-            scanner.skip(/\s+/)
-            break if scanner.eos?
-
-            parse_link_text_argument(scanner)
-          end
-        end
-
-        def parse_link_text_argument(scanner)
-          if scanner.scan(/link_text\s*=\s*(#{QuotedFragment})/)
-            @link_text_markup ||= scanner[1]
-          else
-            unknown_arg = scanner.scan(/\S+/)
-            raise Liquid::SyntaxError,
-                  "Syntax Error in 'series_link': " \
-                  "Unknown argument '#{unknown_arg}' in '#{@raw_markup}'"
-          end
-        end
-
-        def validate_title
-          raise_empty_title if @title_markup.nil? || @title_markup.strip.empty?
-
-          m = @title_markup.match(/\A(['"])(.*)\1\z/m)
-          return unless m
-
-          raise_empty_title if m[2].strip.empty?
-        end
-
-        def raise_empty_title
-          raise Liquid::SyntaxError,
-                "Syntax Error in 'series_link': " \
-                "Title value is missing or empty in '#{@raw_markup}'"
-        end
-
-        def resolve_link_text(context)
-          return nil unless @link_text_markup
-
-          TagArgs.resolve_value(@link_text_markup, context)
+        def markdown_italic?(_data)
+          true
         end
       end
     end

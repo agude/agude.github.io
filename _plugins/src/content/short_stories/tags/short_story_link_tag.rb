@@ -2,99 +2,30 @@
 
 require 'jekyll'
 require 'liquid'
-require 'strscan'
 require_relative '../short_story_resolver'
-require_relative '../../../infrastructure/tag_argument_utils'
-require_relative '../../../infrastructure/links/markdown_link_formatter'
-require_relative '../../../infrastructure/links/link_helper_utils'
+require_relative '../../../infrastructure/links/link_tag_base'
 
-# Liquid Tag for creating a link to a short story.
-# Handles disambiguation for stories that appear in multiple books.
-#
-# Usage:
-#   {% short_story_link "Story Title" %}
-#   {% short_story_link "Duplicate Story" from_book="Anthology Name" %}
 module Jekyll
   module ShortStories
     module Tags
       # Liquid tag for creating links to short stories.
       # Handles disambiguation for stories that appear in multiple books.
-      class ShortStoryLinkTag < Liquid::Tag
-        # Aliases for readability
-        TagArgs = Jekyll::Infrastructure::TagArgumentUtils
-        Resolver = Jekyll::ShortStories::ShortStoryResolver
-        MdLink = Jekyll::Infrastructure::Links::MarkdownLinkFormatter
-        LinkHelper = Jekyll::Infrastructure::Links::LinkHelperUtils
-        private_constant :TagArgs, :Resolver, :MdLink, :LinkHelper
-
-        QuotedFragment = Liquid::QuotedFragment
-
-        def initialize(tag_name, markup, tokens)
-          super
-          @raw_markup = markup
-          @title_markup = nil
-          @from_book_markup = nil
-
-          parse_markup(markup)
-        end
-
-        def render(context)
-          # Resolve arguments from markup
-          story_title = TagArgs.resolve_value(@title_markup, context)
-          from_book_title = if @from_book_markup
-                              TagArgs.resolve_value(
-                                @from_book_markup, context,
-                              )
-                            end
-
-          resolver = Resolver.new(context)
-
-          if context.registers[:render_mode] == :markdown
-            data = resolver.resolve_data(story_title, from_book_title)
-            MdLink.format_link(data, italic: true, self_link: LinkHelper.self_link?(context, data[:url]))
-          else
-            resolver.resolve(story_title, from_book_title)
-          end
-        end
+      #
+      # Usage: {% short_story_link "Story Title" %}
+      #        {% short_story_link "Duplicate Story" from_book="Anthology Name" %}
+      class ShortStoryLinkTag < Jekyll::Infrastructure::Links::LinkTagBase
+        self.subject = 'story title'
+        self.resolver_class = Jekyll::ShortStories::ShortStoryResolver
+        self.option_spec = { from_book: :value }
 
         private
 
-        def parse_markup(markup)
-          scanner = StringScanner.new(markup.strip)
-          scan_title(scanner)
-          scan_optional_arguments(scanner)
-          validate_title
+        def resolver_arguments(context)
+          [[subject_value(context), option_value(:from_book, context)], {}]
         end
 
-        def scan_title(scanner)
-          # 1. Extract the Title (first argument)
-          unless scanner.scan(QuotedFragment) || scanner.scan(/\S+/)
-            raise Liquid::SyntaxError,
-                  "Syntax Error in 'short_story_link': Could not find story title in '#{@raw_markup}'"
-          end
-
-          @title_markup = scanner.matched
-        end
-
-        def scan_optional_arguments(scanner)
-          # 2. Scan for optional `from_book` argument
-          scanner.skip(/\s*/)
-          return if scanner.eos?
-
-          if scanner.scan(/from_book\s*=\s*(#{QuotedFragment})/)
-            @from_book_markup = scanner[1]
-          else
-            unknown_arg = scanner.scan(/\S+/)
-            raise Liquid::SyntaxError,
-                  "Syntax Error in 'short_story_link': Unknown argument '#{unknown_arg}' in '#{@raw_markup}'"
-          end
-        end
-
-        def validate_title
-          return if @title_markup && !@title_markup.strip.empty?
-
-          raise Liquid::SyntaxError,
-                "Syntax Error in 'short_story_link': Title value is missing or empty in '#{@raw_markup}'"
+        def markdown_italic?(_data)
+          true
         end
       end
     end

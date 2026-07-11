@@ -53,6 +53,13 @@ class TestShortStoryLinkTag < Minitest::Test
     assert_match "Unknown argument 'bad_arg='test''", err.message
   end
 
+  def test_syntax_error_empty_quoted_title
+    err = assert_raises Liquid::SyntaxError do
+      Liquid::Template.parse("{% short_story_link '' %}")
+    end
+    assert_match 'Story title value is missing or empty', err.message
+  end
+
   # --- Argument Parsing and Delegation Tests ---
   def test_render_with_literal_title_only
     _output, captured_args = parse_and_capture_args("'A Good Story'")

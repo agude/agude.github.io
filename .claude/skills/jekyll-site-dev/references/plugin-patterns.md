@@ -5,22 +5,43 @@
 Tags parse arguments in `initialize` and delegate in `render`. They do not
 contain business logic.
 
-```ruby
-class BookLinkTag < Liquid::Tag
-  def initialize(tag_name, markup, tokens)
-    super
-    # Parse markup into instance variables
-  end
+**Link tags** (`book_link`, `author_link`, `series_link`,
+`short_story_link`) subclass `LinkTagBase`
+(`_plugins/src/infrastructure/links/link_tag_base.rb`) and declare their
+grammar instead of hand-rolling a parser:
 
-  def render(context)
-    # Resolve arguments via TagArgumentUtils
-    # Branch on render_mode
-    # Delegate to a Resolver (HTML) or MarkdownLinkFormatter (Markdown)
+```ruby
+class BookLinkTag < Jekyll::Infrastructure::Links::LinkTagBase
+  self.subject = 'book title'          # noun used in error messages
+  self.resolver_class = Jekyll::Books::Core::BookLinkResolver
+  self.option_spec = { link_text: :value, author: :value, cite: :value }
+
+  private
+
+  # Required hook: [positional_args, keyword_args] for the resolver's
+  # resolve / resolve_data pair.
+  def resolver_arguments(context)
+    [[subject_value(context), option_value(:link_text, context)], {}]
   end
 end
 ```
 
-Key file: `_plugins/src/content/books/tags/book_link_tag.rb`
+The base class parses a positional subject (quoted string or variable)
+followed by keyword options in any order (`:value` options take
+`name=<quoted or variable>`; `:flag` options are bare words), raises
+`Liquid::SyntaxError` for unknown arguments and missing/empty subjects,
+and branches on `render_mode` (`resolver.resolve` for HTML,
+`resolver.resolve_data` + `MarkdownLinkFormatter` for Markdown).
+Optional hooks: `markdown_italic?(data)` and `markdown_result(data,
+context)`. Helpers: `subject_value`, `option_value`, `flag?`,
+`option_enabled?` (true unless the option resolves to `'false'`/`false`).
+
+A new link tag is its option table plus `resolver_arguments`
+(~25 lines); add it to the `LinkTagBase` allowlist comment in
+`_tests/src/content/markdown_output/test_render_mode_coverage.rb`.
+
+Key files: `_plugins/src/infrastructure/links/link_tag_base.rb`,
+`_plugins/src/content/books/tags/book_link_tag.rb`
 
 ## Render Mode Branching
 
