@@ -637,22 +637,22 @@ class TestBookCardRenderer < Minitest::Test
     }
   end
 
-  def stub_rendering_dependencies(base_data, title, description, &block)
+  def stub_rendering_dependencies(base_data, title, description, &)
     Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_base_data, base_data do
       Jekyll::Infrastructure::TypographyUtils.stub :prepare_display_title, title do
-        Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_description_html, description, &block
+        Jekyll::UI::Cards::CardDataExtractorUtils.stub(:extract_description_html, description, &)
       end
     end
   end
 
-  def capture_card_data(&block)
+  def capture_card_data(&)
     captured_card_data = nil
     Jekyll::UI::Cards::CardRendererUtils.stub :render_card,
                                               lambda { |context:, card_data:|
                                                 captured_card_data = card_data
                                                 'mocked_card'
                                               } do
-      Jekyll.stub :logger, @silent_logger_stub, &block
+      Jekyll.stub(:logger, @silent_logger_stub, &)
     end
     captured_card_data
   end

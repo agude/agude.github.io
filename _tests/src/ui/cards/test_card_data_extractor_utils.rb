@@ -261,9 +261,9 @@ class TestCardDataExtractorUtils < Minitest::Test
     )
   end
 
-  def extract_base_data_with_silent_logger(item, context, **options)
+  def extract_base_data_with_silent_logger(item, context, **)
     Jekyll.stub :logger, @silent_logger_stub do
-      Jekyll::UI::Cards::CardDataExtractorUtils.extract_base_data(item, context, **options)
+      Jekyll::UI::Cards::CardDataExtractorUtils.extract_base_data(item, context, **)
     end
   end
 
