@@ -15,6 +15,9 @@ module Jekyll
       class AllBooksByAuthorFinder
         include Jekyll::Books::Lists::Shared
 
+        AuthorLookup = Jekyll::Infrastructure::LinkCache::AuthorLookup
+        private_constant :AuthorLookup
+
         def initialize(site:, context:)
           @site = site
           @context = context
@@ -49,7 +52,7 @@ module Jekyll
         def add_book_to_author_map(book, author_cache, books_map)
           authors = book.data['book_authors']
           Jekyll::Infrastructure::FrontMatterUtils.get_list_from_string_or_array(authors).each do |name|
-            canonical = Jekyll::Infrastructure::LinkCache::AuthorLookup.canonical_author(name, author_cache)
+            canonical = AuthorLookup.canonical_author(name, author_cache)
             next unless canonical
 
             books_map[canonical] ||= []

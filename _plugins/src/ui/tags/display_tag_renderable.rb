@@ -39,6 +39,21 @@ module Jekyll
 
       private
 
+      # --- Hooks (defaults raise so a missing implementation fails with
+      # a named contract error, matching LinkTagBase) ---
+
+      def finder_for(_context)
+        raise NotImplementedError, "#{self.class} must implement finder_for"
+      end
+
+      def renderer_for(_context, _data)
+        raise NotImplementedError, "#{self.class} must implement renderer_for"
+      end
+
+      def render_markdown(_data)
+        raise NotImplementedError, "#{self.class} must implement render_markdown"
+      end
+
       def render_display_tag(context, data)
         if context.registers[:render_mode] == :markdown
           render_markdown(data)

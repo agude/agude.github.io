@@ -126,17 +126,20 @@ Template-method skeleton on top of `LinkResolverSupport`
 `AuthorLinkResolver` and `SeriesLinkResolver`. It owns the common flow:
 no-site guard → normalize input → empty-input log + result → cache lookup
 (with not-found log) → display-text precedence (override > canonical >
-input) → frozen result hash → `render_html_from_data`. Per-resolve state
-(`@log_output`, `@override`, `@link`) is reset structurally at the start of
-each resolve, so reused instances cannot leak state.
+input) → frozen result hash → `render_html_from_data`. Skeleton-owned
+per-resolve state (`@log_output`, `@override`, `@link`, `@input`) is reset
+at the start of each resolve; subclass per-resolve state (e.g.
+`@possessive`) is not, so it must be assigned unconditionally in
+`resolve_data` before delegating or it leaks between resolves.
 
 Subclasses keep their public `resolve_data` signature, call
-`resolve_link_data(input, override, link:)`, and declare hooks:
+`resolve_link_data(input, override, link:)`, and declare their scalar
+configuration as class-level attributes (mirroring `LinkTagBase`):
 `cache_section`, `tag_type`, `entity_name`, `empty_input_status`,
-`empty_input_reason`, `empty_input_key`, `not_found_key`,
-`wrap_element(text)`; optional overrides: `blank_extra_fields` /
-`found_extra_fields` (extra result keys, e.g. `possessive`),
-`determine_display_text`, `link_content`, `no_site_html`.
+`empty_input_reason`, `empty_input_key`, `not_found_key`. One method hook
+is required — `wrap_element(text)` — with optional overrides:
+`blank_extra_fields` / `found_extra_fields` (extra result keys, e.g.
+`possessive`), `determine_display_text`, `link_content`, `no_site_html`.
 
 `BookLinkResolver` and `ShortStoryResolver` keep their own logic
 (disambiguation, previews, mention tracking) on plain

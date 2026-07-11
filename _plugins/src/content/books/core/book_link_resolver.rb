@@ -16,7 +16,7 @@ module Jekyll
         Typography = Jekyll::Infrastructure::TypographyUtils
         AuthorLookup = Jekyll::Infrastructure::LinkCache::AuthorLookup
         PreviewRenderer = Jekyll::Books::Core::BookPreviewRenderer
-        private_constant :Typography, :PreviewRenderer
+        private_constant :Typography, :AuthorLookup, :PreviewRenderer
 
         # Renders the book link/cite HTML directly from title and URL data.
         # Used when the book data is already known (e.g., from backlinks).

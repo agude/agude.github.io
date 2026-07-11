@@ -15,6 +15,9 @@ module Jekyll
       class AuthorFinder
         include Jekyll::Books::Lists::Shared
 
+        AuthorLookup = Jekyll::Infrastructure::LinkCache::AuthorLookup
+        private_constant :AuthorLookup
+
         def initialize(site:, author_name_filter:, context:)
           @site = site
           @author_name_filter = author_name_filter
@@ -42,10 +45,7 @@ module Jekyll
 
           link_cache = @site.data['link_cache'] || {}
           author_cache = link_cache['authors'] || {}
-          canonical_filter = Jekyll::Infrastructure::LinkCache::AuthorLookup.canonical_author(
-            @author_name_filter,
-            author_cache,
-          )
+          canonical_filter = AuthorLookup.canonical_author(@author_name_filter, author_cache)
           all_books = all_published_books(include_archived: false)
 
           all_books.select do |book|
@@ -56,7 +56,7 @@ module Jekyll
         def book_matches_author?(book, canonical_filter, author_cache)
           authors = Jekyll::Infrastructure::FrontMatterUtils.get_list_from_string_or_array(book.data['book_authors'])
           authors.any? do |name|
-            c_name = Jekyll::Infrastructure::LinkCache::AuthorLookup.canonical_author(name, author_cache)
+            c_name = AuthorLookup.canonical_author(name, author_cache)
             c_name && canonical_filter && c_name.casecmp(canonical_filter).zero?
           end
         end

@@ -112,6 +112,38 @@ class TestDisplayTagRenderable < Minitest::Test
     assert_equal 'markdown items:2', tag.render(context)
   end
 
+  # --- Hook defaults (contract errors) ---
+
+  def test_render_raises_named_error_when_finder_for_missing
+    bare = Class.new { include Jekyll::UI::DisplayTagRenderable }.new
+
+    err = assert_raises(NotImplementedError) { bare.render(create_context({}, {})) }
+    assert_match 'must implement finder_for', err.message
+  end
+
+  def test_render_raises_named_error_when_renderer_for_missing
+    klass = Class.new do
+      include Jekyll::UI::DisplayTagRenderable
+
+      private
+
+      def finder_for(_context)
+        TestFinderRenderable::FakeFinder.new({})
+      end
+    end
+
+    err = assert_raises(NotImplementedError) { klass.new.render(create_context({}, {})) }
+    assert_match 'must implement renderer_for', err.message
+  end
+
+  def test_render_markdown_default_raises_named_error
+    bare = Class.new { include Jekyll::UI::DisplayTagRenderable }.new
+    context = create_context({}, { render_mode: :markdown })
+
+    err = assert_raises(NotImplementedError) { bare.send(:render_display_tag, context, {}) }
+    assert_match 'must implement render_markdown', err.message
+  end
+
   # --- resolve_filter_value ---
 
   def test_resolve_filter_value_stringifies_non_blank_values

@@ -30,9 +30,11 @@ module Jekyll
           [positional, { link: option_enabled?(:link, context) }]
         end
 
+        # link=false needs no handling here: the resolver already returns
+        # url: nil for it, and the formatter renders nil-url data as plain
+        # text. Only the possessive suffix is author-specific.
         def markdown_result(data, context)
-          no_link = !option_enabled?(:link, context) || LinkHelper.self_link?(context, data[:url])
-          result = MdLink.format_link(data, self_link: no_link)
+          result = super
           data[:possessive] ? "#{result}'s" : result
         end
       end

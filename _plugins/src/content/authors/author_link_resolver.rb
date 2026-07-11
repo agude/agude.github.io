@@ -8,6 +8,16 @@ module Jekyll
     class AuthorLinkResolver
       include Jekyll::Infrastructure::Links::LinkResolverSkeleton
 
+      self.cache_section = 'authors'
+      self.tag_type = 'RENDER_AUTHOR_LINK'
+      self.entity_name = 'author'
+      self.empty_input_status = :empty_name
+      self.empty_input_reason = 'Input author name resolved to empty after normalization.'
+      self.empty_input_key = :NameInput
+      self.not_found_key = :Name
+
+      # @possessive is per-resolve state, so it must be assigned
+      # unconditionally before delegating (see LinkResolverSkeleton).
       def resolve_data(name_raw, override, possessive, link: true)
         @possessive = possessive
         resolve_link_data(name_raw, override, link: link)
@@ -16,34 +26,6 @@ module Jekyll
       private
 
       # --- LinkResolverSkeleton hooks ---
-
-      def cache_section
-        'authors'
-      end
-
-      def tag_type
-        'RENDER_AUTHOR_LINK'
-      end
-
-      def entity_name
-        'author'
-      end
-
-      def empty_input_status
-        :empty_name
-      end
-
-      def empty_input_reason
-        'Input author name resolved to empty after normalization.'
-      end
-
-      def empty_input_key
-        :NameInput
-      end
-
-      def not_found_key
-        :Name
-      end
 
       def blank_extra_fields
         { possessive: nil }

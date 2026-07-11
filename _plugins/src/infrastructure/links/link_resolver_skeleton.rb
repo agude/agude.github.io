@@ -14,26 +14,31 @@ module Jekyll
       # (override > canonical > input) -> frozen result hash. `resolve`
       # renders that hash as HTML via `render_html_from_data`.
       #
-      # Per-resolve state (@log_output, @override, @link) is reset
-      # structurally at the start of every `resolve_link_data` call, so a
-      # reused resolver instance can never leak log output or an override
-      # from a previous resolve.
+      # Skeleton-owned per-resolve state (@log_output, @override, @link,
+      # @input) is reset at the start of every `resolve_link_data` call.
+      # Subclass per-resolve state (e.g. @possessive) is NOT reset here:
+      # it must be assigned unconditionally in `resolve_data` before
+      # delegating, or a reused instance leaks the previous resolve's value.
       #
       # Subclasses keep their public `resolve_data` signature and call
       # `resolve_link_data(input, override, link:)` after storing any
       # tag-specific state.
       #
-      # Required hooks:
-      # - cache_section       -> link-cache section name ('authors')
-      # - tag_type            -> logger tag ('RENDER_AUTHOR_LINK')
-      # - entity_name         -> noun for the not-found log ('author')
-      # - empty_input_status  -> status symbol for empty input (:empty_name)
-      # - empty_input_reason  -> log reason for empty input
-      # - empty_input_key     -> log identifier key for empty input (:NameInput)
-      # - not_found_key       -> log identifier key for cache misses (:Name)
+      # Configuration is declared with class-level attributes, mirroring
+      # LinkTagBase:
+      #
+      #   class SeriesLinkResolver
+      #     include Jekyll::Infrastructure::Links::LinkResolverSkeleton
+      #
+      #     self.cache_section = 'series'
+      #     self.tag_type = 'RENDER_SERIES_LINK'
+      #     ...
+      #   end
+      #
+      # Required method hook:
       # - wrap_element(text)  -> the escaped inner HTML element (a <span>)
       #
-      # Optional hooks:
+      # Optional method hooks:
       # - blank_extra_fields  -> extra result fields for no-site/empty results
       # - found_extra_fields  -> extra result fields for found/not-found results
       # - determine_display_text(entry, norm_input) -> display-text precedence
@@ -41,6 +46,28 @@ module Jekyll
       # - no_site_html(data)  -> HTML for the no-site fallback
       module LinkResolverSkeleton
         include LinkResolverSupport
+
+        # Declarative per-class configuration.
+        module ClassMethods
+          # Link-cache section name ('authors').
+          attr_accessor :cache_section
+          # Logger tag ('RENDER_AUTHOR_LINK').
+          attr_accessor :tag_type
+          # Noun for the not-found log ('author').
+          attr_accessor :entity_name
+          # Status symbol for empty input (:empty_name).
+          attr_accessor :empty_input_status
+          # Log reason for empty input.
+          attr_accessor :empty_input_reason
+          # Log identifier key for empty input (:NameInput).
+          attr_accessor :empty_input_key
+          # Log identifier key for cache misses (:Name).
+          attr_accessor :not_found_key
+        end
+
+        def self.included(base)
+          base.extend(ClassMethods)
+        end
 
         def resolve(...)
           render_html_from_data(resolve_data(...))
@@ -73,21 +100,21 @@ module Jekyll
 
         def empty_input_result(input_raw)
           @log_output = log_failure(
-            tag_type: tag_type,
-            reason: empty_input_reason,
-            identifiers: { empty_input_key => input_raw || 'nil' },
+            tag_type: self.class.tag_type,
+            reason: self.class.empty_input_reason,
+            identifiers: { self.class.empty_input_key => input_raw || 'nil' },
             level: :warn,
           )
-          blank_result(empty_input_status)
+          blank_result(self.class.empty_input_status)
         end
 
         def find_entry(norm_input)
-          entry = find_in_cache(cache_section, norm_input)
+          entry = find_in_cache(self.class.cache_section, norm_input)
           unless entry
             @log_output = log_failure(
-              tag_type: tag_type,
-              reason: "Could not find #{entity_name} page in cache.",
-              identifiers: { not_found_key => @input.strip },
+              tag_type: self.class.tag_type,
+              reason: "Could not find #{self.class.entity_name} page in cache.",
+              identifiers: { self.class.not_found_key => @input.strip },
               level: :info,
             )
           end
@@ -127,7 +154,7 @@ module Jekyll
           case data[:status]
           when :no_site
             no_site_html(data)
-          when empty_input_status
+          when self.class.empty_input_status
             @log_output
           when :found, :not_found
             generate_html(data)

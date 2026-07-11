@@ -8,6 +8,14 @@ module Jekyll
     class SeriesLinkResolver
       include Jekyll::Infrastructure::Links::LinkResolverSkeleton
 
+      self.cache_section = 'series'
+      self.tag_type = 'RENDER_SERIES_LINK'
+      self.entity_name = 'series'
+      self.empty_input_status = :empty_title
+      self.empty_input_reason = 'Input title resolved to empty after normalization.'
+      self.empty_input_key = :TitleInput
+      self.not_found_key = :Series
+
       def resolve_data(title_raw, override_raw, link: true)
         resolve_link_data(title_raw, override_raw, link: link)
       end
@@ -15,34 +23,6 @@ module Jekyll
       private
 
       # --- LinkResolverSkeleton hooks ---
-
-      def cache_section
-        'series'
-      end
-
-      def tag_type
-        'RENDER_SERIES_LINK'
-      end
-
-      def entity_name
-        'series'
-      end
-
-      def empty_input_status
-        :empty_title
-      end
-
-      def empty_input_reason
-        'Input title resolved to empty after normalization.'
-      end
-
-      def empty_input_key
-        :TitleInput
-      end
-
-      def not_found_key
-        :Series
-      end
 
       def wrap_element(display_text)
         "<span class=\"book-series\">#{CGI.escapeHTML(display_text)}</span>"

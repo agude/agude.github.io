@@ -13,19 +13,19 @@ class TestLinkResolverSkeleton < Minitest::Test
   class WidgetResolver
     include Jekyll::Infrastructure::Links::LinkResolverSkeleton
 
+    self.cache_section = 'widgets'
+    self.tag_type = 'RENDER_WIDGET_LINK'
+    self.entity_name = 'widget'
+    self.empty_input_status = :empty_title
+    self.empty_input_reason = 'Input title resolved to empty after normalization.'
+    self.empty_input_key = :TitleInput
+    self.not_found_key = :Widget
+
     def resolve_data(title_raw, override_raw, link: true)
       resolve_link_data(title_raw, override_raw, link: link)
     end
 
     private
-
-    def cache_section = 'widgets'
-    def tag_type = 'RENDER_WIDGET_LINK'
-    def entity_name = 'widget'
-    def empty_input_status = :empty_title
-    def empty_input_reason = 'Input title resolved to empty after normalization.'
-    def empty_input_key = :TitleInput
-    def not_found_key = :Widget
 
     def wrap_element(display_text)
       "<span class=\"widget\">#{CGI.escapeHTML(display_text)}</span>"
