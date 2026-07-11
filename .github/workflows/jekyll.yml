@@ -109,7 +109,8 @@ jobs:
               raw = File.read(path)
               abort "FAILED — starts with raw Liquid/HTML, not XML declaration" unless raw.start_with?("<?xml")
               doc = REXML::Document.new(raw)
-              entries = REXML::XPath.match(doc, "//*[local_name()=\"entry\"]")
+              entries = REXML::XPath.match(doc, "//*[local-name()=\"entry\"]")
+              abort "FAILED — feed contains no entries" if entries.empty?
               puts "OK (#{entries.length} entries)"
             end
           '
