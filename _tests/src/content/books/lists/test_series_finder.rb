@@ -135,6 +135,32 @@ class TestBookListSeriesFinder < Minitest::Test
     end
   end
 
+  def test_find_matches_series_despite_internal_whitespace
+    # A YAML folded scalar in front matter can leave a newline inside the
+    # series name; filtering must use the same normalize_title as the link
+    # cache so such a series is still found.
+    folded = create_doc(
+      {
+        'title' => 'Folded Book',
+        'series' => "Series\nFolded",
+        'book_number' => 1,
+        'published' => true,
+        'date' => Time.now,
+      },
+      '/folded.html',
+    )
+    site = create_site({}, { 'books' => [folded] })
+    context = create_context(
+      {},
+      { site: site, page: create_doc({ 'path' => 'p.html' }, '/p.html') },
+    )
+
+    data = get_series_data('Series Folded', site, context)
+
+    assert_equal 1, data[:books].size
+    assert_equal 'Folded Book', data[:books].first.data['title']
+  end
+
   def test_find_returns_books_sorted_numerically_with_floats
     data = get_series_data('Series One')
     assert_equal 'Series One', data[:series_name]

@@ -36,9 +36,14 @@ module Jekyll
         def filter_series_books(all_books, series_name)
           return [] if series_name.nil? || series_name.to_s.strip.empty?
 
-          normalized = series_name.to_s.strip.downcase
-          all_books.select { |book| book.data['series']&.strip&.downcase == normalized }
-                   .sort_by { |book| series_sort_key(book) }
+          # normalize_title also collapses internal whitespace/newlines, so
+          # YAML folded scalars in front matter match single-line filters —
+          # the same normalization the link cache and resolvers use.
+          normalized = Jekyll::Infrastructure::TextProcessingUtils.normalize_title(series_name)
+          matches = all_books.select do |book|
+            Jekyll::Infrastructure::TextProcessingUtils.normalize_title(book.data['series'].to_s) == normalized
+          end
+          matches.sort_by { |book| series_sort_key(book) }
         end
 
         def series_sort_key(book)
