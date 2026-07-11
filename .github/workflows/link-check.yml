@@ -1,0 +1,89 @@
+# Monthly external-link check.
+#
+# The per-push CI (jekyll.yml) checks internal links only via
+# _bin/check_links.rb; this workflow covers external link rot, which is
+# too slow and too flaky to gate every push on. It builds the site,
+# runs lychee against the rendered HTML (excluding our own domain), and
+# opens a new GitHub issue with the report when broken links are found.
+#
+# 403/429 responses (and LinkedIn's proprietary 999) are accepted as
+# "alive": bot-walled sites (DOI resolvers, Medium, news sites) return
+# them to any checker, and a 403 can't distinguish a bot-wall from real
+# rot anyway. The genuine rot signal is 404/410/5xx/timeouts/TLS
+# failures. Verified 2026-07 by retesting every 403 with a browser
+# user-agent: all resolved to live publisher pages before refusing the
+# bot. Add a .lycheeignore file at the repo root if specific URLs ever
+# need excluding. The .lycheecache means a URL verified good is not
+# re-checked for 30 days, so transient failures do not repeat month to
+# month.
+name: External Link Check
+
+on:
+  schedule:
+    # 08:14 UTC on the 3rd of each month. Odd minute to avoid the
+    # top-of-hour scheduled-workflow congestion on GitHub's runners.
+    - cron: "14 8 3 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  link-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          cache-version: 0
+
+      - name: Build with Jekyll
+        run: bundle exec jekyll build
+        env:
+          JEKYLL_ENV: production
+
+      - name: Restore lychee cache
+        uses: actions/cache@v4
+        with:
+          path: .lycheecache
+          key: cache-lychee-${{ github.sha }}
+          restore-keys: cache-lychee-
+
+      - name: Check external links
+        id: lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --no-progress
+            --include-mail
+            --cache
+            --max-cache-age 30d
+            --root-dir "${{ github.workspace }}/_site"
+            --exclude '^https?://(www\.)?alexgude\.com'
+            --accept '200..=299, 403, 429, 999'
+            --max-concurrency 32
+            --timeout 20
+            --max-retries 2
+            '_site/**/*.html'
+          fail: false
+
+      - name: Get report month
+        if: steps.lychee.outputs.exit_code != 0
+        id: date
+        run: echo "month=$(date -u +%Y-%m)" >> "$GITHUB_OUTPUT"
+
+      - name: Open issue with report
+        if: steps.lychee.outputs.exit_code != 0
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: "Broken external links — ${{ steps.date.outputs.month }}"
+          content-filepath: ./lychee/out.md
+
+      - name: Fail run if links are broken
+        if: steps.lychee.outputs.exit_code != 0
+        run: exit 1
