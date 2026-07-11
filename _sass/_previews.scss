@@ -132,10 +132,7 @@ img.book-link-preview-cover {
 }
 
 .book-link-preview-lede {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 5;
-  overflow: hidden;
+  display: block;
   font-style: normal;
   font-size: $small-font-size;
   color: $body-color;
