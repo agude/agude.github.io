@@ -188,10 +188,15 @@ require 'src/content/posts/related/renderer'
 
 # --- Mock Objects ---
 
-# Simple mock for Jekyll documents (Posts, Pages, Collection Items)
 unless defined?(MockDocument)
+  # Simple mock for Jekyll documents (Posts, Pages, Collection Items).
   MockDocument = Struct.new(:data, :url, :content, :date, :site, :collection, :relative_path, :path) do
     # Provides hash-like access to document attributes and front matter.
+    #
+    # @gotcha Real `Jekyll::Document#['url']` reads `data['url']` (nil), not
+    #   `doc.url` — but this mock's `[]` special-cases `'url'` to return the
+    #   `url` field, masking that bug. Use `RealDocLike` (see
+    #   test_markdown_output_assembler.rb) in tests that must catch it.
     def [](key)
       key_s = key.to_s
       lookup_special_key(key_s) || lookup_data_key(key_s, key)
@@ -461,6 +466,10 @@ def create_mock_converter(config)
   end.new(config)
 end
 
+# @gotcha `create_site` calls this automatically. All resolvers and most
+#   finders depend on `site.data['link_cache']` being populated. If you
+#   build a MockSite manually without `create_site`, call this yourself or
+#   tests will fail with nil cache errors.
 def generate_link_cache(site)
   Jekyll.stub :logger, silent_logger do
     Jekyll::Infrastructure::LinkCacheGenerator.new.generate(site)

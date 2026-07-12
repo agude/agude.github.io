@@ -38,6 +38,13 @@ module Jekyll
     # opt out with `markdown_output: false` in front matter.
     #
     # @pipeline markdown output: pre-render -> post-render assembly -> llms.txt
+    # @gotcha `Document#to_liquid` returns a live `DocumentDrop` (delegates
+    #   `[]` to `data`), but `Page#to_liquid` returns a plain `Hash`
+    #   (snapshot at call time). Jekyll's `Renderer#run` calls `to_liquid`
+    #   via `assign_pages!` *before* the `:pre_render` hook fires, so data
+    #   set in the `:pages` hook below is visible to Documents but not
+    #   Pages unless also injected into `payload['page']` directly (see the
+    #   `:pages` hook's `markdown_alternate_href` assignment).
     module MarkdownBodyHook
       # Layout-driven pages keep their display tags in the layout template,
       # not in page.content. We append the relevant snippet so the markdown
@@ -61,6 +68,14 @@ module Jekyll
         "#{body}\n\n#{snippet}"
       end
 
+      # @gotcha Uses `Liquid::Template.parse()` directly (not
+      #   `site.liquid_renderer`) because Jekyll caches templates by
+      #   filename and `render()` mutates `@registers` with `merge!()`.
+      #   Using the site renderer would leak `render_mode: :markdown` into
+      #   the HTML pass ("cache pollution").
+      # @gotcha `render_mode` must always be defined in the Liquid payload
+      #   (set to `'html'` by default in the pre-render hooks below) —
+      #   strict Liquid variable mode raises if it's ever missing.
       def self.render_markdown_body(content, site, payload)
         # Parse a standalone template instead of using site.liquid_renderer.
         # Jekyll 4 caches templates by filename via ||=, and Liquid's render

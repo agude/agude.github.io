@@ -221,6 +221,12 @@ module Jekyll
       # Build a page-data hash compatible with Finder prerequisite checks.
       # Finders expect page['url'], page['title'], etc. via hash access,
       # but Jekyll::Document stores url as a method, not in data[].
+      #
+      # @gotcha `Jekyll::Document#['url']` reads `data['url']` (nil), not
+      #   `doc.url`. When passing documents to Finders outside Liquid
+      #   context, merge url into data as done here. `MockDocument` masks
+      #   this with special `['url']` handling; use `RealDocLike` in tests
+      #   to catch regressions.
       def self.page_data_for(item)
         item.data.merge('url' => item.url)
       end

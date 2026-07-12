@@ -48,6 +48,9 @@ in that area.
   vs RealDocLike, factory methods, common test patterns. Read when writing
   or debugging tests.
 
-- **[Gotchas](references/gotchas.md)** — Non-obvious behaviors that cause
-  subtle bugs (Document URL access, Page payload snapshot, cache pollution,
-  canonical URL filtering). Read when debugging unexpected behavior.
+- **Gotchas** — Non-obvious behaviors that cause subtle bugs live as
+  `@gotcha`-tagged docstrings next to the code they warn about:
+  `make doc-index QUERY='has_tag?(:gotcha)'` lists all of them (Document
+  URL access, page payload snapshot, cache pollution, canonical URL
+  filtering, generate_link_cache in tests, ...). Read when debugging
+  unexpected behavior.

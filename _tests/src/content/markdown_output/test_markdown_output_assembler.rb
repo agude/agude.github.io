@@ -5,6 +5,11 @@ require_relative '../../../test_helper'
 # Wrapper that mimics real Jekyll::Document behavior: doc['url'] returns
 # data['url'] (nil) instead of MockDocument's special url field. This
 # catches bugs where code assumes page['url'] works on raw documents.
+#
+# @gotcha `MockDocument` masks the real `doc['url']` behavior with special
+#   handling (see `MockDocument#[]` in test_helper.rb). Use `RealDocLike`
+#   when testing code that operates on documents outside Liquid context
+#   (e.g. assemblers, generators) to catch `doc['url']` regressions.
 class RealDocLike
   attr_reader :data, :url
 
