@@ -4,5 +4,4 @@
 --tag validator:"Validates"
 --tag pipeline:"Pipeline"
 _plugins/src/**/*.rb
-_tests/test_helper.rb
-_tests/src/content/markdown_output/test_markdown_output_assembler.rb
+_tests/**/*.rb
