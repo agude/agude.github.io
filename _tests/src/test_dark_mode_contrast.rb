@@ -4,15 +4,19 @@ require_relative '../test_helper'
 
 # Parses the light and dark :root custom-property blocks in
 # _sass/_variables.scss and checks WCAG AA contrast (>=4.5:1) for the pairs
-# that carry body text: --body-color/--body-bg, --muted-color/--body-bg,
-# and --code-color/--code-bg.
+# that carry text: body, muted, code, heading, emphasis (strong/thead/
+# post-title), abbr, and blockquote foregrounds against their backgrounds.
 #
-# The dark palette (added for dark mode) must pass all three. Two light-mode
-# pairs are pre-existing site colors that already fall short of full AA
-# (--muted-color ~3.7:1, --code-color ~3.9:1) — untouched by dark-mode work
-# and out of scope to change here. Those two are pinned to their current
-# ratio as a regression guard instead of the full AA bar, so the test still
-# documents the gap without blocking the build on a pre-existing issue.
+# The dark palette (added for dark mode) must pass all pairs. Three
+# light-mode pairs are pre-existing site colors that already fall short of
+# full AA (--muted-color ~3.7:1, --code-color ~3.9:1, --blockquote-color
+# ~4.3:1) — untouched by dark-mode work and out of scope to change here.
+# Those are pinned to their current ratio as a regression guard instead of
+# the full AA bar, so the test still documents the gap without blocking the
+# build on a pre-existing issue.
+#
+# --disabled-color is intentionally excluded: it styles inactive nav
+# letters, a disabled affordance WCAG exempts from contrast minimums.
 class TestDarkModeContrast < Minitest::Test
   VARIABLES_PATH = File.expand_path('../../_sass/_variables.scss', __dir__)
 
@@ -22,6 +26,10 @@ class TestDarkModeContrast < Minitest::Test
     %w[--body-color --body-bg],
     %w[--muted-color --body-bg],
     %w[--code-color --code-bg],
+    %w[--heading-color --body-bg],
+    %w[--emphasis-color --body-bg],
+    %w[--abbr-color --body-bg],
+    %w[--blockquote-color --body-bg],
   ].freeze
 
   # [mode, fg, bg] => minimum acceptable ratio. Absent from this map means
@@ -29,6 +37,7 @@ class TestDarkModeContrast < Minitest::Test
   KNOWN_GAPS = {
     %w[light --muted-color --body-bg] => 3.6,
     %w[light --code-color --code-bg] => 3.9,
+    %w[light --blockquote-color --body-bg] => 4.2,
   }.freeze
 
   # Sass interpolation (`#{...}`) can contain its own braces, so a naive

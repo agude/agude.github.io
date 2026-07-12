@@ -40,10 +40,23 @@ $sidebar-color-value: hsl(214, 52%, 42%) !default;
   // Hover-preview card surface. Same as --body-bg in light mode; dark mode
   // lifts it above the page instead of relying on the box-shadow.
   --card-bg: white;
+  // Foreground accents that sit darker than body text in light mode and
+  // must flip lighter than body text in dark mode.
+  --heading-color: #313131;
+  // Shared by strong, thead/tfoot, and .page-title/.post-title.
+  --emphasis-color: #303030;
+  --abbr-color: #555555;
+  --blockquote-color: #7a7a7a;
+  // Inactive alpha-nav letters: intentionally low-contrast (disabled
+  // affordance), so excluded from the contrast test.
+  --disabled-color: #cccccc;
+  // <hr> top line; its bottom "emboss" edge uses --body-bg so it stays
+  // invisible against the page in both schemes.
+  --hr-color: #eeeeee;
 }
 
 // AA-checked starting points, not final taste — see
-// _tests/src/dark_mode/test_dark_mode_contrast.rb for the pairs it enforces.
+// _tests/src/test_dark_mode_contrast.rb for the pairs it enforces.
 @media (prefers-color-scheme: dark) {
   :root {
     --body-bg: hsl(214, 15%, 12%);
@@ -54,6 +67,12 @@ $sidebar-color-value: hsl(214, 52%, 42%) !default;
     --code-bg: hsl(214, 12%, 17%);
     --hairline-color: hsl(214, 10%, 26%);
     --card-bg: hsl(214, 15%, 18%);
+    --heading-color: hsl(0, 0%, 88%);
+    --emphasis-color: hsl(0, 0%, 86%);
+    --abbr-color: hsl(0, 0%, 65%);
+    --blockquote-color: hsl(0, 0%, 62%);
+    --disabled-color: hsl(214, 8%, 38%);
+    --hr-color: hsl(214, 10%, 26%);
     // --sidebar-color is unchanged: already dark, and it's the one token
     // driven by site.theme_color rather than a literal here.
   }

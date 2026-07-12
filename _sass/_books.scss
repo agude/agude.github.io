@@ -52,7 +52,9 @@ a.book-nav-item {
   padding: 0.35em 1em;
   background: transparent;
   color: $body-color;
-  border: 1px solid #e0e0e0;
+  // Was #e0e0e0; unified onto the shared hairline token (5/255 lighter in
+  // light mode, imperceptible) so it flips correctly on dark.
+  border: 1px solid var(--hairline-color);
   border-radius: 20px;
   transition: all 0.15s;
 
@@ -150,7 +152,7 @@ a.book-nav-item {
 
   // Specific style for inactive letters (spans)
   span {
-    color: #cccccc;
+    color: var(--disabled-color);
     cursor: default;
   }
 
