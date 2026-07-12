@@ -95,10 +95,11 @@ class TestBookLinkTag < Minitest::Test
     assert_match 'Could not find book title', err.message
   end
 
-  def test_render_book_title_empty_string_literal_passes_empty_to_util
-    _output, captured_args = parse_and_capture_args("''")
-    assert_equal '', captured_args[:title], "Tag should resolve '' to an empty string for the utility"
-    assert_nil captured_args[:link_text_override]
+  def test_syntax_error_empty_quoted_title
+    err = assert_raises Liquid::SyntaxError do
+      Liquid::Template.parse("{% book_link '' %}")
+    end
+    assert_match 'Book title value is missing or empty', err.message
   end
 
   def test_syntax_error_unknown_argument

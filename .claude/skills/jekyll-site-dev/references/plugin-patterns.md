@@ -5,22 +5,43 @@
 Tags parse arguments in `initialize` and delegate in `render`. They do not
 contain business logic.
 
-```ruby
-class BookLinkTag < Liquid::Tag
-  def initialize(tag_name, markup, tokens)
-    super
-    # Parse markup into instance variables
-  end
+**Link tags** (`book_link`, `author_link`, `series_link`,
+`short_story_link`) subclass `LinkTagBase`
+(`_plugins/src/infrastructure/links/link_tag_base.rb`) and declare their
+grammar instead of hand-rolling a parser:
 
-  def render(context)
-    # Resolve arguments via TagArgumentUtils
-    # Branch on render_mode
-    # Delegate to a Resolver (HTML) or MarkdownLinkFormatter (Markdown)
+```ruby
+class BookLinkTag < Jekyll::Infrastructure::Links::LinkTagBase
+  self.subject = 'book title'          # noun used in error messages
+  self.resolver_class = Jekyll::Books::Core::BookLinkResolver
+  self.option_spec = { link_text: :value, author: :value, cite: :value }
+
+  private
+
+  # Required hook: [positional_args, keyword_args] for the resolver's
+  # resolve / resolve_data pair.
+  def resolver_arguments(context)
+    [[subject_value(context), option_value(:link_text, context)], {}]
   end
 end
 ```
 
-Key file: `_plugins/src/content/books/tags/book_link_tag.rb`
+The base class parses a positional subject (quoted string or variable)
+followed by keyword options in any order (`:value` options take
+`name=<quoted or variable>`; `:flag` options are bare words), raises
+`Liquid::SyntaxError` for unknown arguments and missing/empty subjects,
+and branches on `render_mode` (`resolver.resolve` for HTML,
+`resolver.resolve_data` + `MarkdownLinkFormatter` for Markdown).
+Optional hooks: `markdown_italic?(data)` and `markdown_result(data,
+context)`. Helpers: `subject_value`, `option_value`, `flag?`,
+`option_enabled?` (true unless the option resolves to `'false'`/`false`).
+
+A new link tag is its option table plus `resolver_arguments`
+(~25 lines); add it to the `LinkTagBase` allowlist comment in
+`_tests/src/content/markdown_output/test_render_mode_coverage.rb`.
+
+Key files: `_plugins/src/infrastructure/links/link_tag_base.rb`,
+`_plugins/src/content/books/tags/book_link_tag.rb`
 
 ## Render Mode Branching
 
@@ -37,26 +58,42 @@ end
 ```
 
 **Display tags** use the `DisplayTagRenderable` mixin
-(`_plugins/src/ui/tags/display_tag_renderable.rb`):
+(`_plugins/src/ui/tags/display_tag_renderable.rb`). Tags whose flow is
+"build finder → find → render" (e.g. `display_books_by_author`,
+`display_books_for_series`) rely on the mixin's `render(context)` and only
+define hooks:
 
 ```ruby
 include Jekyll::UI::DisplayTagRenderable
 
-def render(context)
-  data = finder.find
-  render_display_tag(context, data) do |d|
-    SomeRenderer.new(context, d).render
-  end
+private
+
+def finder_for(context)
+  Finder.new(
+    site: context.registers[:site],
+    author_name_filter: resolve_filter_value(@author_name_markup, context),
+    context: context,
+  )
 end
 
-# The including class must define this:
+def renderer_for(context, data)
+  Renderer.new(context, data).render
+end
+
 def render_markdown(data)
   # Return Markdown string using MdCards helpers
 end
 ```
 
-The mixin calls `render_markdown(data)` in markdown mode, or yields for HTML.
-It also exposes the `MdCards` constant (`Jekyll::UI::Cards::MarkdownCardUtils`).
+`resolve_filter_value` resolves a tag argument and stringifies non-blank
+values, passing nil/blank through so the finder logs the empty-filter
+failure itself.
+
+Tags with extra pre/post logic define their own `render` and call
+`render_display_tag(context, data)` directly — it calls
+`render_markdown(data)` in markdown mode, or yields for HTML (prepending
+`data[:log_messages]`). The mixin also exposes the `MdCards` constant
+(`Jekyll::UI::Cards::MarkdownCardUtils`).
 
 ## Finder / Renderer Separation
 
@@ -81,6 +118,32 @@ Provides:
 Resolvers include this module and define their own `resolve` / `resolve_data`
 methods. There are no separate `*_link_util.rb` wrappers — resolvers contain
 all logic directly.
+
+## LinkResolverSkeleton Mixin
+
+Template-method skeleton on top of `LinkResolverSupport`
+(`_plugins/src/infrastructure/links/link_resolver_skeleton.rb`), used by
+`AuthorLinkResolver` and `SeriesLinkResolver`. It owns the common flow:
+no-site guard → normalize input → empty-input log + result → cache lookup
+(with not-found log) → display-text precedence (override > canonical >
+input) → frozen result hash → `render_html_from_data`. Skeleton-owned
+per-resolve state (`@log_output`, `@override`, `@link`, `@input`) is reset
+at the start of each resolve; subclass per-resolve state (e.g.
+`@possessive`) is not, so it must be assigned unconditionally in
+`resolve_data` before delegating or it leaks between resolves.
+
+Subclasses keep their public `resolve_data` signature, call
+`resolve_link_data(input, override, link:)`, and declare their scalar
+configuration as class-level attributes (mirroring `LinkTagBase`):
+`cache_section`, `tag_type`, `entity_name`, `empty_input_status`,
+`empty_input_reason`, `empty_input_key`, `not_found_key`. One method hook
+is required — `wrap_element(text)` — with optional overrides:
+`blank_extra_fields` / `found_extra_fields` (extra result keys, e.g.
+`possessive`), `determine_display_text`, `link_content`, `no_site_html`.
+
+`BookLinkResolver` and `ShortStoryResolver` keep their own logic
+(disambiguation, previews, mention tracking) on plain
+`LinkResolverSupport`.
 
 ## Error Logging
 

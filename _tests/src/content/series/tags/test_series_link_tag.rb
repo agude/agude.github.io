@@ -50,21 +50,21 @@ class TestSeriesLinkTag < Minitest::Test
     err = assert_raises Liquid::SyntaxError do
       Liquid::Template.parse("{% series_link '' %}")
     end
-    assert_match 'Title value is missing or empty', err.message
+    assert_match 'Series title value is missing or empty', err.message
   end
 
   def test_syntax_error_empty_double_quoted_title
     err = assert_raises Liquid::SyntaxError do
       Liquid::Template.parse('{% series_link "" %}')
     end
-    assert_match 'Title value is missing or empty', err.message
+    assert_match 'Series title value is missing or empty', err.message
   end
 
   def test_syntax_error_whitespace_only_quoted_title
     err = assert_raises Liquid::SyntaxError do
       Liquid::Template.parse("{% series_link '   ' %}")
     end
-    assert_match 'Title value is missing or empty', err.message
+    assert_match 'Series title value is missing or empty', err.message
   end
 
   def test_syntax_error_unknown_argument

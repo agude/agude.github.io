@@ -19,11 +19,12 @@ module Jekyll
       # Centralized logging for Liquid tags/filters.
       # Handles console logging (respecting site.config['plugin_log_level'])
       # and HTML comment logging (for non-production environments).
+      # @return [String] always a new, mutable string; callers may append.
       def self.log_liquid_failure(context:, tag_type:, reason:, identifiers: {}, level: DEFAULT_MESSAGE_LEVEL_SYMBOL)
         site = extract_site(context)
 
         return handle_missing_config(tag_type, level, reason) unless site_config_valid?(site)
-        return '' unless logging_enabled?(site, tag_type)
+        return +'' unless logging_enabled?(site, tag_type)
 
         message = construct_log_message(context, tag_type, reason, identifiers, level)
         log_to_console(site, level, message)
@@ -51,7 +52,7 @@ module Jekyll
           else
             warn msg
           end
-          ''
+          +''
         end
 
         def logging_enabled?(site, tag_type)
@@ -113,7 +114,7 @@ module Jekyll
           env = site.config['environment'] || 'development'
           is_prod = env.to_s.casecmp('production').zero?
 
-          is_prod ? '' : "<!-- #{message} -->"
+          is_prod ? +'' : "<!-- #{message} -->"
         end
       end
     end

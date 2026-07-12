@@ -36,9 +36,14 @@ module Jekyll
         def filter_series_books(all_books, series_name)
           return [] if series_name.nil? || series_name.to_s.strip.empty?
 
-          normalized = series_name.to_s.strip.downcase
-          all_books.select { |book| book.data['series']&.strip&.downcase == normalized }
-                   .sort_by { |book| series_sort_key(book) }
+          # normalize_title also collapses internal whitespace/newlines, so
+          # YAML folded scalars in front matter match single-line filters —
+          # the same normalization the link cache and resolvers use.
+          normalized = Jekyll::Infrastructure::TextProcessingUtils.normalize_title(series_name)
+          matches = all_books.select do |book|
+            Jekyll::Infrastructure::TextProcessingUtils.normalize_title(book.data['series'].to_s) == normalized
+          end
+          matches.sort_by { |book| series_sort_key(book) }
         end
 
         def series_sort_key(book)
@@ -52,30 +57,22 @@ module Jekyll
         end
 
         def generate_series_log(books, series_name)
-          return log_empty_series_name(series_name) if series_name.nil? || series_name.to_s.strip.empty?
-          return log_no_books_in_series(series_name) if books.empty?
+          if series_name.nil? || series_name.to_s.strip.empty?
+            return log_filter_warning(
+              tag_type: 'BOOK_LIST_SERIES_DISPLAY',
+              reason: 'Series name filter was empty or nil.',
+              identifiers: { SeriesFilterInput: series_name || 'N/A' },
+            )
+          end
+          if books.empty?
+            return log_no_results(
+              tag_type: 'BOOK_LIST_SERIES_DISPLAY',
+              reason: 'No books found for the specified series.',
+              identifiers: { SeriesFilter: series_name },
+            )
+          end
 
           String.new
-        end
-
-        def log_empty_series_name(series_name)
-          Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
-            context: @context,
-            tag_type: 'BOOK_LIST_SERIES_DISPLAY',
-            reason: 'Series name filter was empty or nil.',
-            identifiers: { SeriesFilterInput: series_name || 'N/A' },
-            level: :warn,
-          ).dup
-        end
-
-        def log_no_books_in_series(series_name)
-          Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
-            context: @context,
-            tag_type: 'BOOK_LIST_SERIES_DISPLAY',
-            reason: 'No books found for the specified series.',
-            identifiers: { SeriesFilter: series_name },
-            level: :info,
-          ).dup
         end
       end
     end

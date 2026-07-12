@@ -39,9 +39,10 @@ module Jekyll
         private
 
         def group_books_by_year(books)
-          sorted = books.sort_by do |book|
-            book.date.is_a?(Time) ? book.date : Time.now
-          end.reverse
+          # Jekyll guarantees doc.date is a Time (strict_front_matter would
+          # have failed the build otherwise), so sort on it directly; a
+          # non-Time date should crash, not silently sort as "now".
+          sorted = books.sort_by(&:date).reverse
 
           grouped = sorted.group_by { |book| book.date.year.to_s }
 

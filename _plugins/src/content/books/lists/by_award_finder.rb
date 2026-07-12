@@ -109,13 +109,10 @@ module Jekyll
         def generate_awards_log(data)
           return String.new unless data.empty?
 
-          Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
-            context: @context,
+          log_no_results(
             tag_type: 'ALL_BOOKS_BY_AWARD_DISPLAY',
             reason: 'No books with awards found.',
-            identifiers: {},
-            level: :info,
-          ).dup
+          )
         end
       end
     end

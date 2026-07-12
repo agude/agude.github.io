@@ -2,127 +2,40 @@
 
 require 'jekyll'
 require 'liquid'
-require 'cgi' # For HTML escaping
-require 'strscan' # For flexible argument parsing
-
-require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../author_link_resolver'
-require_relative '../../../infrastructure/links/markdown_link_formatter'
-require_relative '../../../infrastructure/links/link_helper_utils'
+require_relative '../../../infrastructure/links/link_tag_base'
 
 module Jekyll
   module Authors
     module Tags
       # Liquid tag for creating links to author pages.
-      # Supports optional display text override and possessive suffix.
-      # Usage: {% author_link "Name" [link_text="Display Text"] [possessive] %}
+      # Supports optional display text override, link toggle, and possessive
+      # suffix. Arguments can be in flexible order after the name.
+      #
+      # Usage: {% author_link "Name" [link_text="Display Text"] [link=false] [possessive] %}
       #        {% author_link variable [link_text=var2] [possessive] %}
-      #        {% author_link "Name" [possessive] [link_text="Display Text"] %}
-      class AuthorLinkTag < Liquid::Tag
-        # Keep QuotedFragment handy for parsing values
-        QuotedFragment = Liquid::QuotedFragment
-        # Aliases for readability
-        TagArgs = Jekyll::Infrastructure::TagArgumentUtils
-        Resolver = Jekyll::Authors::AuthorLinkResolver
-        MdLink = Jekyll::Infrastructure::Links::MarkdownLinkFormatter
-        LinkHelper = Jekyll::Infrastructure::Links::LinkHelperUtils
-        private_constant :TagArgs, :Resolver, :MdLink, :LinkHelper
-
-        def initialize(tag_name, markup, tokens)
-          super
-          @tag_name = tag_name
-          @raw_markup = markup # Store original for potential error messages
-          @name_markup = nil
-          @link_text_markup = nil
-          @link_markup = nil
-          @possessive_flag = false
-
-          parse_arguments(markup)
-        end
-
-        # Renders the author link HTML (or Markdown in markdown mode)
-        def render(context)
-          # Resolve the potentially variable markup into actual strings
-          author_name = TagArgs.resolve_value(@name_markup, context)
-          link_text_override = (TagArgs.resolve_value(@link_text_markup, context) if @link_text_markup)
-
-          link_arg = link_enabled?(context)
-          resolver = Resolver.new(context)
-
-          if context.registers[:render_mode] == :markdown
-            data = resolver.resolve_data(
-              author_name, link_text_override, @possessive_flag, link: link_arg,
-            )
-            no_link = !link_arg || LinkHelper.self_link?(context, data[:url])
-            result = MdLink.format_link(data, self_link: no_link)
-            data[:possessive] ? "#{result}'s" : result
-          else
-            resolver.resolve(
-              author_name, link_text_override, @possessive_flag, link: link_arg,
-            )
-          end
-        end
+      class AuthorLinkTag < Jekyll::Infrastructure::Links::LinkTagBase
+        self.subject = 'author name'
+        self.resolver_class = Jekyll::Authors::AuthorLinkResolver
+        self.option_spec = { link_text: :value, link: :value, possessive: :flag }
 
         private
 
-        def parse_arguments(markup)
-          scanner = StringScanner.new(markup.strip)
-
-          parse_name(scanner)
-          parse_options(scanner)
-          validate_name
+        def resolver_arguments(context)
+          positional = [
+            subject_value(context),
+            option_value(:link_text, context),
+            flag?(:possessive),
+          ]
+          [positional, { link: option_enabled?(:link, context) }]
         end
 
-        def parse_name(scanner)
-          # 1. Extract the Name (first argument, must be quoted or a variable)
-          unless scanner.scan(QuotedFragment) || scanner.scan(/\S+/)
-            raise Liquid::SyntaxError, "Syntax Error in 'author_link': Could not find author name in '#{@raw_markup}'"
-          end
-
-          @name_markup = scanner.matched
-        end
-
-        def parse_options(scanner)
-          # 2. Scan the rest of the string for optional arguments (link_text, possessive)
-          until scanner.eos?
-            scanner.skip(/\s+/) # Consume leading whitespace before the next argument
-            break if scanner.eos? # Stop if only whitespace remained
-
-            if scanner.scan(/link_text\s*=\s*(#{QuotedFragment})/)
-              # scanner[1] contains the captured quoted fragment (the value)
-              # Prevent overwriting if it appears multiple times (take the first one)
-              @link_text_markup ||= scanner[1]
-            elsif scanner.scan(/link\s*=\s*(#{QuotedFragment})/)
-              @link_markup ||= scanner[1]
-            elsif scanner.scan(/possessive(?!\S)/) # Ensure 'possessive' is a whole word
-              @possessive_flag = true
-            else
-              handle_unknown_argument(scanner)
-            end
-          end
-        end
-
-        def handle_unknown_argument(scanner)
-          # Found an unrecognized argument
-          unknown_arg = scanner.scan(/\S+/) # Capture the unknown part
-          # Raise an error to break the build
-          raise Liquid::SyntaxError,
-                "Syntax Error in 'author_link': Unknown argument '#{unknown_arg}' in '#{@raw_markup}'"
-        end
-
-        # Returns true unless link= is explicitly set to 'false'
-        def link_enabled?(context)
-          return true unless @link_markup
-
-          value = TagArgs.resolve_value(@link_markup, context)
-          value.to_s.downcase != 'false'
-        end
-
-        def validate_name
-          return if @name_markup && !@name_markup.strip.empty?
-
-          raise Liquid::SyntaxError,
-                "Syntax Error in 'author_link': Author name value is missing or empty in '#{@raw_markup}'"
+        # link=false needs no handling here: the resolver already returns
+        # url: nil for it, and the formatter renders nil-url data as plain
+        # text. Only the possessive suffix is author-specific.
+        def markdown_result(data, context)
+          result = super
+          data[:possessive] ? "#{result}'s" : result
         end
       end
     end

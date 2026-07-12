@@ -377,3 +377,29 @@ class TestPluginLoggerUtilsIdentifiersAndEscaping < TestPluginLoggerUtilsBase
     refute_match(%r{<b>bold</b>}, html_output)
   end
 end
+
+# Tests for the mutable-return contract: log_liquid_failure always
+# returns a new, mutable string so callers may append without .dup.
+class TestPluginLoggerUtilsMutableReturn < TestPluginLoggerUtilsBase
+  def test_returns_mutable_string_when_logging_enabled
+    ctx = create_test_context('plugin_logging' => { 'MUTABLE_TAG' => true })
+    result = call_log_liquid_failure(ctx, tag_type: 'MUTABLE_TAG', reason: 'Reason.', level: :info)
+    assert_match(/MUTABLE_TAG/, result)
+    refute_predicate result, :frozen?
+  end
+
+  def test_returns_mutable_string_when_logging_disabled_for_tag
+    ctx = create_test_context('plugin_logging' => { 'MUTABLE_TAG' => false })
+    result = call_log_liquid_failure(ctx, tag_type: 'MUTABLE_TAG', reason: 'Reason.')
+    assert_equal '', result
+    refute_predicate result, :frozen?
+  end
+
+  def test_returns_mutable_string_when_site_config_missing
+    result = ::Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+      context: nil, tag_type: 'MUTABLE_TAG', reason: 'Reason.',
+    )
+    assert_equal '', result
+    refute_predicate result, :frozen?
+  end
+end

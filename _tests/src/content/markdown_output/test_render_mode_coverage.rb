@@ -38,6 +38,13 @@ class TestRenderModeCoverage < Minitest::Test
       'game_title_tag.rb',
       'movie_title_tag.rb',
       'tv_show_title_tag.rb',
+
+      # --- Link tags: render_mode handled by base class
+      # LinkTagBase (infrastructure/links/link_tag_base.rb). ---
+      'author_link_tag.rb',
+      'book_link_tag.rb',
+      'series_link_tag.rb',
+      'short_story_link_tag.rb',
     ],
   ).freeze
 
