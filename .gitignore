@@ -10,6 +10,10 @@ visual_book_ranker.html
 # Code Coverage
 _coverage
 
+# YARD registry and generated HTML docs
+.yardoc
+/doc
+
 # LLM stuff
 _prompts
 _plans

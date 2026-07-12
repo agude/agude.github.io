@@ -16,7 +16,7 @@ module Jekyll
       self.empty_input_key = :NameInput
       self.not_found_key = :Name
 
-      # @possessive is per-resolve state, so it must be assigned
+      # The possessive flag is per-resolve state, so it must be assigned
       # unconditionally before delegating (see LinkResolverSkeleton).
       def resolve_data(name_raw, override, possessive, link: true)
         @possessive = possessive

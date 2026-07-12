@@ -29,4 +29,5 @@ group :development, :test do
   gem 'rubocop', '~> 1.88'   # For Ruby linting
   gem 'simplecov', '~> 0.22' # For code coverage
   gem 'simplecov-json', '~> 0.2.3' # For generating JSON coverage reports
+  gem 'yard', '~> 0.9'       # For querying/displaying code-resident docs
 end

@@ -36,7 +36,7 @@ TEST ?= $(shell find _tests -type f -name 'test_*.rb' -not -name 'test_helper.rb
 .PHONY: serve build test test-scripts lint clean debug scripts
 
 # Tier 2: Command variants
-.PHONY: serve-drafts serve-profile test-cov test-summary lint-fix check-links check-liquid
+.PHONY: serve-drafts serve-profile test-cov test-summary lint-fix check-links check-liquid doc-index doc-show
 
 # Tier 3: Domain operations
 .PHONY: image-build image-rebuild deps-lock hooks-install prettier-image-build prettier-image-rebuild format-md prettier
@@ -215,6 +215,20 @@ check-links: build
 check-liquid: image-build
 	@echo "Checking all documents for strict Liquid compliance..."
 	@$(DOCKER_RUN) bundle exec ruby _bin/check_strict.rb
+
+# Query YARD for code objects carrying a doc tag (default: all tagged objects).
+# Rebuilds the .yardoc registry each time; cheap (seconds) at this codebase's size.
+#   make doc-index
+#   make doc-index QUERY='has_tag?(:gotcha)'
+QUERY ?= has_tag?(:pattern) || has_tag?(:gotcha) || has_tag?(:validator) || has_tag?(:pipeline)
+doc-index: image-build
+	@$(DOCKER_RUN) bundle exec yard list --query '$(QUERY)'
+
+# Print the full YARD docstring for one code object.
+#   make doc-show OBJ=Jekyll::Books::Core::BookLinkResolver
+#   make doc-show OBJ='Jekyll::Books::Core::BookLinkResolver#resolve'
+doc-show: image-build
+	@$(DOCKER_RUN) bundle exec yard display $(OBJ)
 
 # Install the custom pre-commit hook that runs formatters inside Docker.
 # This target must be run on the HOST machine.

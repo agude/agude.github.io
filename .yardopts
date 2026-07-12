@@ -1,0 +1,6 @@
+--no-private
+--tag gotcha:"Gotcha"
+--tag pattern:"Pattern"
+--tag validator:"Validates"
+--tag pipeline:"Pipeline"
+_plugins/src/**/*.rb
