@@ -22,10 +22,10 @@
   grid-gap: 1em;
   align-items: start;
   padding: 1.25em 0;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid var(--hairline-color);
 
   &:first-child {
-    border-top: 1px solid #e5e5e5;
+    border-top: 1px solid var(--hairline-color);
   }
 }
 

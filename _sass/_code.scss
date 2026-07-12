@@ -11,7 +11,7 @@ code {
   padding: 0.25em 0.5em;
   font-size: $code-inline-font-size;
   color: $code-color;
-  background-color: #f9f9f9;
+  background-color: var(--code-bg);
   border-radius: 3px;
 }
 
@@ -34,7 +34,7 @@ pre code {
   padding: 0.2rem;
   margin-bottom: 1rem;
   line-height: 1.12;
-  background-color: #f9f9f9;
+  background-color: var(--code-bg);
   border-radius: 0.25rem;
 
   pre {

@@ -26,8 +26,8 @@
   grid-template-columns: min-content 1fr;
   justify-content: center;
   align-items: center;
-  background-color: #f9f9f9;
-  border: 0.15em solid #e5e5e5;
+  background-color: var(--code-bg);
+  border: 0.15em solid var(--hairline-color);
   border-radius: 5px;
   padding: 0.25em;
   margin-top: 0.25em;

@@ -3,9 +3,10 @@
 
 @charset "utf-8";
 
-/* Must load variables first! Overrides $sidebar-color with site.theme_color
-   (_config.yml) so the accent color has one source of truth. */
-@use "variables" as * with ($sidebar-color: {{ site.theme_color }});
+/* Must load variables first! Overrides $sidebar-color-value with
+   site.theme_color (_config.yml) so the accent color has one source of
+   truth; :root then bakes it into --sidebar-color. */
+@use "variables" as * with ($sidebar-color-value: {{ site.theme_color }});
 
 /* Import partials from `site.sass_dir` */
 @use "fonts";
