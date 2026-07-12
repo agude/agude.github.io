@@ -13,6 +13,9 @@ module Jekyll
       # MarkdownCardUtils so formatting stays consistent site-wide.
       #
       # Usage: {% llms_txt_index %}
+      #
+      # @see Jekyll::MarkdownOutput::MarkdownBodyHook for the pipeline this
+      #   tag is the final stage of.
       class LlmsTxtIndexTag < Liquid::Tag
         Hook = Jekyll::MarkdownOutput::MarkdownBodyHook
         MdCards = Jekyll::UI::Cards::MarkdownCardUtils

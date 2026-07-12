@@ -18,6 +18,8 @@ module Jekyll
     # Assembles final .md files from markdown_body data set by the
     # :pre_render hooks. Runs as a :site, :post_render hook after all
     # documents and pages have been rendered.
+    #
+    # @see MarkdownBodyHook for the full pipeline data flow.
     module MarkdownOutputAssembler
       Normalizer = Jekyll::Infrastructure::MarkdownWhitespaceNormalizer
       Text = Jekyll::Infrastructure::TextProcessingUtils

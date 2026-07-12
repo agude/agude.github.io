@@ -8,6 +8,36 @@ module Jekyll
     # Provides methods for the :pre_render hooks that re-render each
     # document/page body through Liquid with render_mode: :markdown.
     # The result is stored in data['markdown_body'] for the assembler.
+    #
+    # Entry point for the markdown output pipeline, which generates a clean
+    # `.md` twin of every eligible page plus a `/llms.txt` index.
+    #
+    # Data flow:
+    #
+    #   PRE-RENDER (:documents/:pages, :pre_render)  [this file]
+    #     - Eligibility check -> standalone Liquid::Template.parse()
+    #     - render_mode: :markdown -> tags emit Markdown instead of HTML
+    #     - Stores data['markdown_body'] + data['markdown_alternate_href']
+    #
+    #   POST-RENDER (:site, :post_render)  [markdown_output_assembler.rb]
+    #     - For each item with markdown_body: header (post/book/generic) +
+    #       body + footer (related content)
+    #       -> MarkdownWhitespaceNormalizer -> GeneratedStaticFile (.md)
+    #
+    #   LLMS.TXT (Liquid tag on the /llms.txt page)  [tags/llms_txt_index_tag.rb]
+    #     - {% llms_txt_index %} iterates eligible items -> sectioned index
+    #
+    # Tags branch HTML vs. Markdown output on `context.registers[:render_mode]`
+    # (see `Jekyll::Infrastructure::Links::LinkTagBase` and
+    # `Jekyll::UI::DisplayTagRenderable` for the two implementing patterns).
+    # Formatting for Markdown output lives in
+    # `Jekyll::UI::Cards::MarkdownCardUtils` (cards) and
+    # `Jekyll::Infrastructure::Links::MarkdownLinkFormatter` (links).
+    #
+    # Controlled by `enable_markdown_output` (default: true); documents/pages
+    # opt out with `markdown_output: false` in front matter.
+    #
+    # @pipeline markdown output: pre-render -> post-render assembly -> llms.txt
     module MarkdownBodyHook
       # Layout-driven pages keep their display tags in the layout template,
       # not in page.content. We append the relevant snippet so the markdown

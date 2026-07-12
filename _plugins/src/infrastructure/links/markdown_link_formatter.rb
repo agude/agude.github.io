@@ -6,6 +6,9 @@ module Jekyll
   module Infrastructure
     module Links
       # Formats a resolved link data hash as a Markdown link.
+      #
+      # @see Jekyll::MarkdownOutput::MarkdownBodyHook for the pipeline this
+      #   formatting serves.
       module MarkdownLinkFormatter
         MdText = Jekyll::Infrastructure::TextProcessingUtils
 

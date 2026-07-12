@@ -8,6 +8,9 @@ module Jekyll
     module Cards
       # Converts card data hashes (from BookCardRenderer.extract_data and
       # ArticleCardRenderer.extract_data) into Markdown list items.
+      #
+      # @see Jekyll::MarkdownOutput::MarkdownBodyHook for the pipeline this
+      #   formatting serves.
       module MarkdownCardUtils
         Text = Jekyll::Infrastructure::TextProcessingUtils
 

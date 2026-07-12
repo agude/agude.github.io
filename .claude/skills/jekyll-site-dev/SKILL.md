@@ -25,9 +25,12 @@ in that area.
   adding a validator, debugging a `FatalException`, or understanding why a
   build failed.
 
-- **[Markdown Output Pipeline](references/markdown-output.md)** — Generates
-  `.md` files and `/llms.txt` from every page. Read when modifying
-  `render_mode` behavior, markdown output assembly, or the llms.txt index.
+- **Markdown Output Pipeline** — Generates `.md` files and `/llms.txt` from
+  every page. The full data flow (pre-render -> post-render assembly ->
+  llms.txt) lives in the `@pipeline`-tagged docstring on the entry point:
+  `make doc-show OBJ=Jekyll::MarkdownOutput::MarkdownBodyHook`. Read when
+  modifying `render_mode` behavior, markdown output assembly, or the
+  llms.txt index.
 
 - **[Book Families & `canonical_url`](references/book-families.md)** —
   Re-review workflow and canonical URL rules. Read when adding or modifying
