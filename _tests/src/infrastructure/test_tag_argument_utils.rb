@@ -78,4 +78,35 @@ class TestTagArgumentUtils < Minitest::Test
     assert_nil Jekyll::Infrastructure::TagArgumentUtils.resolve_value('a.b.c.d', ctx)
     assert_nil Jekyll::Infrastructure::TagArgumentUtils.resolve_value('a.x.c', ctx)
   end
+
+  # --- resolve_boolean ---
+
+  def test_resolve_boolean_nil_markup_returns_default
+    ctx = create_context
+    assert_equal true, Jekyll::Infrastructure::TagArgumentUtils.resolve_boolean(nil, ctx)
+    assert_equal false, Jekyll::Infrastructure::TagArgumentUtils.resolve_boolean(nil, ctx, default: false)
+  end
+
+  def test_resolve_boolean_quoted_false_returns_false
+    ctx = create_context
+    assert_equal false, Jekyll::Infrastructure::TagArgumentUtils.resolve_boolean('"false"', ctx)
+    assert_equal false, Jekyll::Infrastructure::TagArgumentUtils.resolve_boolean('"FALSE"', ctx)
+    assert_equal false, Jekyll::Infrastructure::TagArgumentUtils.resolve_boolean('"False"', ctx)
+  end
+
+  def test_resolve_boolean_quoted_true_returns_true
+    ctx = create_context
+    assert_equal true, Jekyll::Infrastructure::TagArgumentUtils.resolve_boolean('"true"', ctx)
+    assert_equal true, Jekyll::Infrastructure::TagArgumentUtils.resolve_boolean('"anything"', ctx)
+  end
+
+  def test_resolve_boolean_variable_false
+    ctx = create_context({ 'flag' => false })
+    assert_equal false, Jekyll::Infrastructure::TagArgumentUtils.resolve_boolean('flag', ctx)
+  end
+
+  def test_resolve_boolean_variable_true
+    ctx = create_context({ 'flag' => true })
+    assert_equal true, Jekyll::Infrastructure::TagArgumentUtils.resolve_boolean('flag', ctx)
+  end
 end
