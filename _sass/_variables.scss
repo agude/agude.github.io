@@ -17,6 +17,10 @@ $root-line-height: 1.5;
 $sidebar-color-value: hsl(214, 52%, 42%) !default;
 
 :root {
+  // Opt into the browser's native light/dark UI (scrollbars, form
+  // controls) matching whichever palette below is active.
+  color-scheme: light dark;
+
   --body-bg: white;
   --body-color: hsl(0, 0%, 32%);
   // Was `color.adjust($body-color, $lightness: 20%)`; Sass color functions
@@ -25,12 +29,34 @@ $sidebar-color-value: hsl(214, 52%, 42%) !default;
   --border-color: hsl(0, 0%, 90%);
   --code-color: hsl(354, 42%, 56%);
   --sidebar-color: #{$sidebar-color-value};
+  // Sidebar is a fixed-dark surface in both color schemes, so the button
+  // colors that live only inside it don't need a dark override.
   --share-button-color: hsl(0, 0%, 13%);
   --share-hover-color: hsl(0, 0%, 53%);
   // Shared light neutral surface (code blocks, linktree items).
   --code-bg: #f9f9f9;
   // Shared light hairline border (cards, abbreviations, blockquotes, linktree).
   --hairline-color: #e5e5e5;
+  // Hover-preview card surface. Same as --body-bg in light mode; dark mode
+  // lifts it above the page instead of relying on the box-shadow.
+  --card-bg: white;
+}
+
+// AA-checked starting points, not final taste — see
+// _tests/src/dark_mode/test_dark_mode_contrast.rb for the pairs it enforces.
+@media (prefers-color-scheme: dark) {
+  :root {
+    --body-bg: hsl(214, 15%, 12%);
+    --body-color: hsl(0, 0%, 78%);
+    --muted-color: hsl(0, 0%, 60%);
+    --border-color: hsl(214, 10%, 26%);
+    --code-color: hsl(354, 55%, 70%);
+    --code-bg: hsl(214, 12%, 17%);
+    --hairline-color: hsl(214, 10%, 26%);
+    --card-bg: hsl(214, 15%, 18%);
+    // --sidebar-color is unchanged: already dark, and it's the one token
+    // driven by site.theme_color rather than a literal here.
+  }
 }
 
 $body-bg:            var(--body-bg);

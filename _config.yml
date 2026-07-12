@@ -92,6 +92,10 @@ logo: /files/headshot.jpg
 # head.html's theme-color meta tag, site.webmanifest, and (via Sass module
 # config in assets/css/main.scss) $sidebar-color in _sass/_variables.scss.
 theme_color: "hsl(214, 52%, 42%)"
+# Dark-mode counterpart, consumed only by head.html's second theme-color
+# meta tag. Matches --body-bg's dark value in _sass/_variables.scss;
+# site.webmanifest cannot media-switch, so it keeps the light value.
+theme_color_dark: "hsl(214, 15%, 12%)"
 
 # URL
 url: https://alexgude.com
