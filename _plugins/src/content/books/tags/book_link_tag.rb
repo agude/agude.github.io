@@ -14,6 +14,9 @@ module Jekyll
       #
       # Usage: {% book_link "Title" [link_text="Display Text"] [author="Author Name"] [cite=false] %}
       #        {% book_link variable [link_text=var2] [author=var3] %}
+      #
+      # @see Jekyll::Infrastructure::Links::LinkTagBase for the shared tag
+      #   structure pattern this is the canonical example of.
       class BookLinkTag < Jekyll::Infrastructure::Links::LinkTagBase
         self.subject = 'book title'
         self.resolver_class = Jekyll::Books::Core::BookLinkResolver

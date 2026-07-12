@@ -20,6 +20,13 @@ module Jekyll
       # Handles console logging (respecting site.config['plugin_log_level'])
       # and HTML comment logging (for non-production environments).
       # @return [String] always a new, mutable string; callers may append.
+      #
+      # @pattern Use for non-fatal issues (e.g. a link that failed to
+      #   resolve). Returns an HTML comment visible in page source for
+      #   debugging, and respects per-tag `plugin_logging` config and site
+      #   `plugin_log_level`. For fatal invariant violations, raise
+      #   `Jekyll::Errors::FatalException` instead (see `@validator`-tagged
+      #   classes).
       def self.log_liquid_failure(context:, tag_type:, reason:, identifiers: {}, level: DEFAULT_MESSAGE_LEVEL_SYMBOL)
         site = extract_site(context)
 

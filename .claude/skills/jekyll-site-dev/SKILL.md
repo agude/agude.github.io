@@ -42,9 +42,13 @@ in that area.
   Liquid tag usage, linking conventions. Read when writing or editing blog
   posts or book reviews.
 
-- **[Plugin Patterns](references/plugin-patterns.md)** — Tag structure,
-  render mode branching, Finder/Renderer separation, LinkResolverSupport,
-  error logging. Read when creating or modifying plugins.
+- **Plugin Patterns** — Tag structure, render mode branching,
+  Finder/Renderer separation, LinkResolverSupport, error logging are
+  `@pattern`-tagged docstrings on the canonical exemplar for each:
+  `make doc-index QUERY='has_tag?(:pattern)'` lists all five
+  (LinkTagBase, DisplayTagRenderable, LinkResolverSupport,
+  LinkResolverSkeleton, PluginLoggerUtils.log_liquid_failure). Read when
+  creating or modifying plugins.
 
 - **Testing** — test structure/naming, the test_helper.rb API
   (MockDocument, MockSite, factory methods), common test patterns, and

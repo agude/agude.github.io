@@ -44,6 +44,16 @@ module Jekyll
       # - determine_display_text(entry, norm_input) -> display-text precedence
       # - link_content(data)  -> inner HTML placed inside the link
       # - no_site_html(data)  -> HTML for the no-site fallback
+      #
+      # `BookLinkResolver` and `ShortStoryResolver` stay on plain
+      # `LinkResolverSupport` rather than this skeleton — both diverge at
+      # step two (multi-candidate lookup, disambiguation, previews, mention
+      # tracking), which would add extension points to a skeleton whose
+      # value is a small, closed surface. Revisit only for a third *simple*
+      # link entity.
+      #
+      # @pattern Template-method skeleton on top of LinkResolverSupport,
+      #   used by AuthorLinkResolver and SeriesLinkResolver.
       module LinkResolverSkeleton
         include LinkResolverSupport
 

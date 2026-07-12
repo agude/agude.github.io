@@ -25,6 +25,30 @@ module Jekyll
     #
     # Also exposes the `MdCards` constant so including classes don't need
     # their own alias.
+    #
+    # Tags with extra pre/post logic define their own `render` and call
+    # `render_display_tag(context, data)` directly instead of relying on
+    # the finder/renderer hooks above.
+    #
+    # Simple tags with no finder (e.g. a single conditional) branch inline
+    # instead of using this mixin:
+    #
+    #   if context.registers[:render_mode] == :markdown
+    #     "_#{text}_"
+    #   else
+    #     "<cite class=\"#{css}\">#{text}</cite>"
+    #   end
+    #
+    # @pattern Render mode branching: tags check
+    #   `context.registers[:render_mode]` to emit HTML or Markdown. Finders
+    #   (extract/structure data, no HTML) and Renderers (data hash -> HTML,
+    #   no data fetching) stay separate so each is independently testable;
+    #   this mixin is the shared "build finder -> find -> render" flow for
+    #   display tags built that way.
+    #
+    # Dependencies are aliased as private constants (`MdCards`, `TagArgs`
+    # above) to avoid polluting the including class's namespace — the same
+    # convention `LinkTagBase` and its subclasses use.
     module DisplayTagRenderable
       MdCards = Jekyll::UI::Cards::MarkdownCardUtils
       TagArgs = Jekyll::Infrastructure::TagArgumentUtils

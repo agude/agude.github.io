@@ -12,6 +12,11 @@ module Jekyll
       # Shared plumbing for link resolvers. Provides initialization, cache
       # lookup, link wrapping, and logging helpers. Each resolver keeps its
       # own `resolve`, `resolve_data`, and rendering logic.
+      #
+      # @pattern Resolvers include this module directly rather than going
+      #   through a separate `*_link_util.rb` wrapper — all resolution logic
+      #   lives on the resolver. `LinkResolverSkeleton` builds a full
+      #   template-method flow on top for the simple (author/series) case.
       module LinkResolverSupport
         LinkHelper = Jekyll::Infrastructure::Links::LinkHelperUtils
         Logger = Jekyll::Infrastructure::PluginLoggerUtils

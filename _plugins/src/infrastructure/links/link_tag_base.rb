@@ -35,6 +35,18 @@ module Jekyll
       # - resolver_arguments(context) -> [positional_args, keyword_args] (required)
       # - markdown_italic?(data)      -> italicize Markdown text (default: false)
       # - markdown_result(data, context) -> override the whole Markdown branch
+      #
+      # Helpers available to subclasses: subject_value, option_value, flag?,
+      # option_enabled? (true unless the option resolves to 'false'/false).
+      #
+      # A new link tag is its option table plus resolver_arguments (~25
+      # lines); add it to the LinkTagBase allowlist comment in
+      # _tests/src/content/markdown_output/test_render_mode_coverage.rb.
+      #
+      # @pattern Tag structure: thin wrapper + delegate. Tags parse
+      #   arguments in `initialize` and delegate in `render`; they hold no
+      #   business logic. See `Jekyll::Books::Tags::BookLinkTag` for a
+      #   concrete subclass.
       class LinkTagBase < Liquid::Tag
         # These aliases are part of the subclass API: hook implementations
         # (e.g. a custom markdown_result) reference them unqualified via the
