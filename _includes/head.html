@@ -4,7 +4,7 @@
   <!-- Enable responsiveness on mobile devices-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Theme Color for webbrowsers -->
+  <!-- Theme Color for webbrowsers. Keep in sync with $sidebar-color in _sass/_variables.scss. -->
   <meta name="theme-color" content="hsl(214, 52%, 42%)">
 
   <!-- CSS -->
@@ -12,8 +12,10 @@
   <link rel="stylesheet" href="/assets/css/main.css" type="text/css">
 
   <!-- Icons -->
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ site.baseurl }}/public/apple-touch-icon-144-precomposed.png">
-  <link rel="shortcut icon" href="{{ site.baseurl }}/public/favicon.ico">
+  <link rel="icon" href="{{ site.baseurl }}/public/favicon.ico" sizes="any">
+  <link rel="icon" href="{{ site.baseurl }}/public/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ site.baseurl }}/public/apple-touch-icon.png">
+  <link rel="manifest" href="{{ site.baseurl }}/public/site.webmanifest">
 
   <!-- Age rating -->
   <meta name="rating" content="General">
