@@ -264,6 +264,24 @@ class TestShortStoryResolver < Minitest::Test
     refute_match(/book-preview/, output, 'Same-page anchor links should not include a preview')
   end
 
+  # --- Reuse safety: @ambiguous must not leak between resolves ---
+
+  def test_reused_instance_does_not_leak_ambiguous_status
+    Jekyll.stub :logger, @silent_logger_stub do
+      resolver = Jekyll::ShortStories::ShortStoryResolver.new(@context)
+
+      first = resolver.resolve_data('Duplicate Story', nil)
+      assert_equal :ambiguous, first[:status]
+
+      second = resolver.resolve_data('NonExistent Story', nil)
+      assert_equal(
+        :not_found,
+        second[:status],
+        'a merely-missing resolve after an ambiguous one must not return :ambiguous',
+      )
+    end
+  end
+
   private
 
   # Creates mock short story cache data

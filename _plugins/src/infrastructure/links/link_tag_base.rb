@@ -111,13 +111,8 @@ module Jekyll
           @flags.fetch(name, false)
         end
 
-        # Returns true unless the option resolves to the string 'false'
-        # (case-insensitive) or the boolean false. Absent options are true.
         def option_enabled?(name, context)
-          markup = @option_markup[name]
-          return true unless markup
-
-          TagArgs.resolve_value(markup, context).to_s.downcase != 'false'
+          TagArgs.resolve_boolean(@option_markup[name], context)
         end
 
         # --- Parsing ---

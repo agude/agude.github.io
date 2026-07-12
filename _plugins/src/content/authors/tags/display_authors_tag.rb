@@ -112,13 +112,7 @@ module Jekyll
         end
 
         def linked?(context)
-          return true unless @options_markup.key?(:linked)
-
-          val = TagArgs.resolve_value(@options_markup[:linked], context)
-          return true if val.nil?
-
-          val_str = val.to_s.downcase
-          !(val_str == 'false' || val == false)
+          TagArgs.resolve_boolean(@options_markup[:linked], context)
         end
 
         def resolve_etal_after_option(context)

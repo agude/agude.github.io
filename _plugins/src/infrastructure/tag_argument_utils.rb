@@ -31,6 +31,14 @@ module Jekyll
         end
       end
 
+      # True unless the resolved value is the string 'false' (case-insensitive).
+      # Nil markup (option absent) returns +default+.
+      def self.resolve_boolean(markup, context, default: true)
+        return default unless markup
+
+        resolve_value(markup, context).to_s.downcase != 'false'
+      end
+
       def self.quoted?(markup)
         (markup.start_with?('"') && markup.end_with?('"')) ||
           (markup.start_with?("'") && markup.end_with?("'"))

@@ -27,6 +27,7 @@ module Jekyll
       def resolve_data(title_raw, book_title_raw)
         return { status: :no_site, url: nil, display_text: title_raw.to_s }.freeze unless @site
 
+        @ambiguous = false
         @title_input = title_raw.to_s.strip
         @book_filter = book_title_raw.to_s.strip if book_title_raw
         @norm_title = Text.normalize_title(@title_input)

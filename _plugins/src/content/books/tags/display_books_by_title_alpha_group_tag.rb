@@ -29,19 +29,18 @@ module Jekyll
           raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': This tag does not accept any arguments."
         end
 
-        def render(context)
-          finder = Jekyll::Books::Lists::ByTitleAlphaFinder.new(
+        private
+
+        def finder_for(context)
+          Jekyll::Books::Lists::ByTitleAlphaFinder.new(
             site: context.registers[:site],
             context: context,
           )
-          data = finder.find
-
-          render_display_tag(context, data) do |d|
-            Jekyll::Books::Lists::Renderers::ByTitleAlphaRenderer.new(context, d).render
-          end
         end
 
-        private
+        def renderer_for(context, data)
+          Jekyll::Books::Lists::Renderers::ByTitleAlphaRenderer.new(context, data).render
+        end
 
         def render_markdown(data)
           groups = data[:alpha_groups] || []

@@ -24,24 +24,23 @@ module Jekyll
 
         def initialize(tag_name, markup, tokens)
           super
-          # No arguments to parse for this tag.
           return if markup.strip.empty?
 
           raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': This tag does not accept any arguments."
         end
 
-        def render(context)
-          finder = Jekyll::Books::Lists::AllBooksByAuthorFinder.new(
-            site: context.registers[:site], context: context,
-          )
-          data = finder.find
+        private
 
-          render_display_tag(context, data) do |d|
-            Jekyll::Books::Lists::Renderers::ByAuthorThenSeriesRenderer.new(context, d).render
-          end
+        def finder_for(context)
+          Jekyll::Books::Lists::AllBooksByAuthorFinder.new(
+            site: context.registers[:site],
+            context: context,
+          )
         end
 
-        private
+        def renderer_for(context, data)
+          Jekyll::Books::Lists::Renderers::ByAuthorThenSeriesRenderer.new(context, data).render
+        end
 
         def render_markdown(data)
           authors = data[:authors_data] || []
@@ -50,15 +49,7 @@ module Jekyll
           lines = []
           authors.each do |author|
             lines << "## #{author[:author_name]}"
-            standalone = author[:standalone_books] || []
-            unless standalone.empty?
-              lines << '### Standalone'
-              standalone.each { |book| lines << MdCards.render_book_card_md(MdCards.book_doc_to_card_data(book)) }
-            end
-            (author[:series_groups] || []).each do |group|
-              lines << "### #{group[:name]}"
-              group[:books].each { |book| lines << MdCards.render_book_card_md(MdCards.book_doc_to_card_data(book)) }
-            end
+            lines.concat(MdCards.render_book_groups_md(author, heading_level: 3))
           end
           lines.join("\n")
         end

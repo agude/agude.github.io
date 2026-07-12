@@ -92,12 +92,8 @@ module Jekyll
           @link_markup = scanner[1]
         end
 
-        # Returns true unless link= is explicitly set to 'false'.
         def link_enabled?(context)
-          return true unless @link_markup
-
-          value = TagArgs.resolve_value(@link_markup, context)
-          value.to_s.downcase != 'false'
+          TagArgs.resolve_boolean(@link_markup, context)
         end
 
         def validate_no_extra_arguments(scanner)
