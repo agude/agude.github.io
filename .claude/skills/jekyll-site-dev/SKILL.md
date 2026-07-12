@@ -44,9 +44,12 @@ in that area.
   render mode branching, Finder/Renderer separation, LinkResolverSupport,
   error logging. Read when creating or modifying plugins.
 
-- **[Testing](references/testing.md)** — test_helper.rb API, MockDocument
-  vs RealDocLike, factory methods, common test patterns. Read when writing
-  or debugging tests.
+- **Testing** — test structure/naming, the test_helper.rb API
+  (MockDocument, MockSite, factory methods), common test patterns, and
+  SimpleCov behavior are documented in a header comment at the top of
+  `_tests/test_helper.rb`, plus per-method docstrings
+  (`make doc-show OBJ=#create_site`, etc.). Read when writing or debugging
+  tests.
 
 - **Gotchas** — Non-obvious behaviors that cause subtle bugs live as
   `@gotcha`-tagged docstrings next to the code they warn about:

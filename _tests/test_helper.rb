@@ -1,5 +1,63 @@
 # frozen_string_literal: true
 
+# Shared test helper, required by every test under _tests/. Provides mock
+# Jekyll objects (MockDocument, MockSite, MockCollection), factory methods
+# (create_context, create_site, create_doc — see their docstrings via
+# `make doc-show OBJ=<method>`), and SimpleCov setup.
+#
+# --- Structure ---
+#
+# Tests mirror _plugins/src/ exactly:
+#   _plugins/src/content/books/lists/by_year_finder.rb
+#   _tests/src/content/books/lists/test_by_year_finder.rb
+# Naming: test_{plugin_name}.rb. Multi-file matches are allowed
+# (test_user.rb and test_user_integration.rb both match user.rb).
+#
+# Run tests: `make test` (all) or `make test TEST=_tests/src/path/to/test.rb`.
+#
+# --- Common test patterns ---
+#
+# Stub-and-capture for tags — mock the resolver to capture arguments the
+# tag passes it:
+#
+#   mock_resolver = Minitest::Mock.new
+#   mock_resolver.expect(:resolve, '<a>link</a>') do |title, link_text, author, date, cite:|
+#     captured = { title: title, cite: cite }
+#     true
+#   end
+#   ResolverClass.stub :new, mock_resolver do
+#     output = Liquid::Template.parse("{% some_tag 'Title' %}").render!(context)
+#     mock_resolver.verify
+#   end
+#
+# Finder + Renderer orchestration — stub both, verify the tag wires them
+# together:
+#
+#   mock_finder = Minitest::Mock.new
+#   mock_finder.expect :find, { year_groups: [...], log_messages: '' }
+#   mock_renderer = Minitest::Mock.new
+#   mock_renderer.expect :render, '<h1>HTML</h1>'
+#   FinderClass.stub :new, ->(_) { mock_finder } do
+#     RendererClass.stub :new, ->(ctx, data) { mock_renderer } do
+#       output = Liquid::Template.parse('{% display_tag %}').render!(context)
+#     end
+#   end
+#
+# Render mode testing — create a context with render_mode: :markdown and
+# assert no HTML in output:
+#
+#   md_context = create_context({}, { site: site, page: doc, render_mode: :markdown })
+#   output = Liquid::Template.parse('{% display_tag %}').render!(md_context)
+#   assert_match(/^## /, output)
+#   refute_match(/<div/, output)
+#
+# --- SimpleCov ---
+#
+# Threshold: 95% line + branch coverage, output to _coverage/. Running a
+# single test file with `make test TEST=...` may exit with code 2 because
+# the threshold isn't met when only one file's coverage is measured — this
+# is expected and harmless.
+
 # --- SimpleCov Setup ---
 # This must be the VERY FIRST thing in the file to ensure it tracks all loaded code.
 require 'simplecov'
@@ -337,6 +395,15 @@ def create_context(scopes = {}, registers = {})
   Liquid::Context.new(scopes, {}, registers)
 end
 
+# Builds a MockSite with a default test config and an auto-generated
+# link_cache (see generate_link_cache).
+#
+# @param config_overrides [Hash] merged over the default test site config
+# @param collections_data [Hash] collection label => array of doc data hashes
+# @param pages_data [Array] page data hashes
+# @param posts_data [Array] post data hashes
+# @param categories_data [Hash] category name => array of docs
+# @return [MockSite]
 def create_site(config_overrides = {}, collections_data = {}, pages_data = [],
                 posts_data = [], categories_data = {})
   base_config = build_test_site_config(config_overrides)
@@ -360,6 +427,17 @@ def create_site(config_overrides = {}, collections_data = {}, pages_data = [],
   site
 end
 
+# Builds a MockDocument with sensible defaults for front matter, URL,
+# content, and date.
+#
+# @param data_overrides [Hash] front matter fields merged over the defaults
+# @param url [String]
+# @param content_attr_val [String] the mock's `content`
+# @param date_str_param [String, nil] parsed into the mock's `date`; falls
+#   back to the front matter `date` field, then the current time
+# @param collection [MockCollection, nil] set to make `is_a?(Jekyll::Document)`
+#   true; leave nil to mock a Page
+# @return [MockDocument]
 def create_doc(data_overrides = {}, url = '/test-doc.html', content_attr_val = 'Test content attribute.',
                date_str_param = nil, collection = nil)
   string_keyed_data_overrides = data_overrides.transform_keys(&:to_s)
