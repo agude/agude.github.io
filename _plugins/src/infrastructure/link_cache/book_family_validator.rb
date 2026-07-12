@@ -7,6 +7,9 @@ module Jekyll
       # matter. A canonical page is one that other books reference via their
       # canonical_url field. If the target itself also has canonical_url,
       # find_candidates will reject it and book_link resolution silently breaks.
+      #
+      # @validator Book referenced as a canonical target by another book also
+      #   has `canonical_url` set (copy-paste error).
       class BookFamilyValidator
         def initialize(site)
           @site = site

@@ -11,6 +11,9 @@ module Jekyll
       #
       # This is a lightweight error collector used by FavoritesManager during its scan.
       # Accumulates all violations and raises a single comprehensive error at the end.
+      #
+      # @validator `book_card_lookup` in favorites posts missing `date=` param
+      #   or date mismatch.
       class FavoritesValidator
         DATE_PARAM_REGEX = /date\s*=/
 

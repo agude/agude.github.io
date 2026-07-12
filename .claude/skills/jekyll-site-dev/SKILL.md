@@ -18,9 +18,12 @@ in that area.
 - **[CI/CD & Hooks](references/ci-cd-hooks.md)** — GitHub Actions pipeline,
   pre-commit hook behavior. Read when modifying CI workflows or commit hooks.
 
-- **[Build Validators](references/build-validators.md)** — Validators that
-  break the build on data errors. Read when adding a validator, debugging a
-  `FatalException`, or understanding why a build failed.
+- **Build Validators** — Validators that break the build on data errors are
+  tagged `@validator` in their class docstring. List them:
+  `make doc-index QUERY='has_tag?(:validator)'`. Read the docstring
+  (`make doc-show OBJ=Jekyll::...`) for what each one catches. Read when
+  adding a validator, debugging a `FatalException`, or understanding why a
+  build failed.
 
 - **[Markdown Output Pipeline](references/markdown-output.md)** — Generates
   `.md` files and `/llms.txt` from every page. Read when modifying

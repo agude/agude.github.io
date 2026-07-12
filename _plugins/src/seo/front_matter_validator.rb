@@ -13,6 +13,8 @@ module Jekyll
     #
     # Ensures that collections and layouts have all required front matter
     # fields defined before rendering, raising fatal errors for missing fields.
+    #
+    # @validator Missing required front matter fields for a collection.
     module FrontMatterValidator
       # Default configuration
       DEFAULT_REQUIRED_FIELDS_CONFIG = {

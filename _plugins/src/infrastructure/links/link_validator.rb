@@ -7,6 +7,9 @@ module Jekyll
       #
       # Ensures all links to books, authors, and series use custom Liquid tags
       # rather than raw links, raising fatal errors if violations are found.
+      #
+      # @validator Raw Markdown/HTML links to items that should use custom
+      #   tags.
       class LinkValidator
         def initialize(site, maps)
           @site = site
