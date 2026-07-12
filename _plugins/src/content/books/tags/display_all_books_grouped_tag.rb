@@ -27,17 +27,18 @@ module Jekyll
                 "Syntax Error in 'display_all_books_grouped': This tag does not accept any arguments."
         end
 
-        def render(context)
-          site = context.registers[:site]
-          finder = Jekyll::Books::Lists::AllBooksFinder.new(site: site, context: context)
-          data = finder.find
+        private
 
-          render_display_tag(context, data) do |_d|
-            Jekyll::Books::Lists::BookListRendererUtils.render_book_groups_html(data, context, generate_nav: true)
-          end
+        def finder_for(context)
+          Jekyll::Books::Lists::AllBooksFinder.new(
+            site: context.registers[:site],
+            context: context,
+          )
         end
 
-        private
+        def renderer_for(context, data)
+          Jekyll::Books::Lists::BookListRendererUtils.render_book_groups_html(data, context, generate_nav: true)
+        end
 
         def render_markdown(data)
           lines = []
