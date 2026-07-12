@@ -138,4 +138,16 @@ class TestLinkResolverSkeleton < Minitest::Test
     assert_equal 'The Override', shared.resolve_data('My Widget', 'The Override')[:display_text]
     assert_equal 'My Widget', shared.resolve_data('My Widget', nil)[:display_text]
   end
+
+  # --- Unknown status raises ---
+
+  def test_render_html_from_data_raises_on_unknown_status
+    r = resolver
+    bogus_data = { status: :bogus, url: nil, display_text: 'x' }.freeze
+
+    error = assert_raises(Jekyll::Errors::FatalException) do
+      r.send(:render_html_from_data, bogus_data)
+    end
+    assert_match(/unrecognized status :bogus/, error.message)
+  end
 end

@@ -158,6 +158,9 @@ module Jekyll
             @log_output
           when :found, :not_found
             generate_html(data)
+          else
+            raise Jekyll::Errors::FatalException,
+                  "#{self.class.name}#render_html_from_data: unrecognized status #{data[:status].inspect}"
           end
         end
 
