@@ -151,6 +151,9 @@ scripts:
 	@uv run _scripts/list_scripts.py
 
 # Run Minitest tests located in _tests/ inside the Docker container.
+# Note: `make test TEST=...` for a subset of files may exit 2 even when
+# every test passes — SimpleCov's 95% threshold (test_helper.rb) isn't met
+# when only some files' coverage is measured. Expected and harmless.
 test: image-build # Depends on the Docker image being built/up-to-date
 	@echo "Running tests..."
 	@# Check if the TEST variable is empty.

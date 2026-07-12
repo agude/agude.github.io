@@ -1,4 +1,17 @@
 # .github/workflows/jekyll.yml
+#
+# Runs on every push to every branch:
+#   1. `bundle exec rubocop` (lint).
+#   2. Ruby tests (`load` every _tests/**/test_*.rb).
+#   3. Python script tests in _scripts/ (setup-python + `uv run pytest`).
+#   4. `_bin/check_strict.rb` (strict Liquid variables).
+#   5. Build, HTML structure validation, feed XML validation, broken-link
+#      check (only the `test` job's steps run on every branch; `build` and
+#      `deploy` below only run for main via the `needs:`/`if:` chain).
+#
+# Test-job concurrency is per-ref and cancels stale runs
+# (`test-${{ github.ref }}`); the deploy job's `group: pages` lock is scoped
+# to deployment only so it can't starve test runs on other branches.
 name: Test and Deploy Jekyll site to Pages
 
 on:

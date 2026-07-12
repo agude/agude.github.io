@@ -15,8 +15,10 @@ in that area.
 
 ## References
 
-- **[CI/CD & Hooks](references/ci-cd-hooks.md)** — GitHub Actions pipeline,
-  pre-commit hook behavior. Read when modifying CI workflows or commit hooks.
+- **CI/CD & Hooks** — GitHub Actions pipeline stages are a header comment
+  in `.github/workflows/jekyll.yml`; pre-commit hook stages (and the
+  `git stash --keep-index` mechanism) are a header comment in
+  `_bin/pre-commit.sh`. Read when modifying CI workflows or commit hooks.
 
 - **Build Validators** — Validators that break the build on data errors are
   tagged `@validator` in their class docstring. List them:
