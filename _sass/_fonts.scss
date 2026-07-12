@@ -1,0 +1,18 @@
+// Self-hosted Ubuntu Mono (latin subset), replacing the Google Fonts CDN
+// call. Files live in /assets/fonts/; paths below are relative to the
+// compiled /assets/css/main.css.
+@font-face {
+  font-family: "Ubuntu Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/ubuntu-mono-v19-latin-regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Ubuntu Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/ubuntu-mono-v19-latin-700.woff2") format("woff2");
+}

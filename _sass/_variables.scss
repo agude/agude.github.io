@@ -13,7 +13,9 @@ $muted-color:        color.adjust($body-color, $lightness: 20%);
 $border-color:       hsl(  0,  0%, 90%);
 $code-color:         hsl(354, 42%, 56%);
 //$link-color:         hsl(205, 69%, 49%);
-$sidebar-color:      hsl(214, 52%, 42%);
+// Default only; main.scss overrides this from site.theme_color (_config.yml)
+// via `@use ... with`, so the two never drift.
+$sidebar-color:      hsl(214, 52%, 42%) !default;
 $share-button-color: hsl(  0,  0%, 13%);
 $share-hover-color:  hsl(  0,  0%, 53%);
 

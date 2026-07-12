@@ -88,6 +88,11 @@ tagline: "Data Scientist"
 description: "Technology, data science, machine learning, and more!"
 logo: /files/headshot.jpg
 
+# Single source of truth for the site's accent/theme color. Consumed by
+# head.html's theme-color meta tag, site.webmanifest, and (via Sass module
+# config in assets/css/main.scss) $sidebar-color in _sass/_variables.scss.
+theme_color: "hsl(214, 52%, 42%)"
+
 # URL
 url: https://alexgude.com
 baseurl: ""

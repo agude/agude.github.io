@@ -5,22 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Theme Color for webbrowsers -->
-  <meta name="theme-color" content="hsl(214, 52%, 42%)">
+  <meta name="theme-color" content="{{ site.theme_color }}">
 
   <!-- CSS -->
-  {% comment %} <!-- Remove the old font call, PT Sans is being replaced -->
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i|Ubuntu+Mono&display=swap"
-        type="text/css" />
-  {% endcomment %}
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Ubuntu+Mono&display=swap"
-        type="text/css" />
+  <!-- Ubuntu Mono is self-hosted via _sass/_fonts.scss; no third-party font request. -->
   <link rel="stylesheet" href="/assets/css/main.css" type="text/css">
 
   <!-- Icons -->
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ site.baseurl }}/public/apple-touch-icon-144-precomposed.png">
-  <link rel="shortcut icon" href="{{ site.baseurl }}/public/favicon.ico">
+  <link rel="icon" href="{{ site.baseurl }}/public/favicon.ico" sizes="any">
+  <link rel="icon" href="{{ site.baseurl }}/public/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ site.baseurl }}/public/apple-touch-icon.png">
+  <link rel="manifest" href="{{ site.baseurl }}/public/site.webmanifest">
 
   <!-- Age rating -->
   <meta name="rating" content="General">
