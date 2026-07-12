@@ -300,4 +300,35 @@ class TestMarkdownCardUtils < Minitest::Test
     card = Jekyll::UI::Cards::MarkdownCardUtils.book_doc_to_card_data(doc)
     assert_equal 'A review of Dune', card[:description]
   end
+
+  # --- render_book_groups_md ---
+
+  def test_render_book_groups_md_standalone_and_series
+    standalone = [create_doc({ 'title' => 'Solo', 'book_authors' => ['A'], 'rating' => 3 }, '/books/solo/')]
+    series_books = [create_doc({ 'title' => 'Book 1', 'book_authors' => ['B'], 'rating' => 4 }, '/books/b1/')]
+    data = { standalone_books: standalone, series_groups: [{ name: 'Epic Series', books: series_books }] }
+
+    lines = Jekyll::UI::Cards::MarkdownCardUtils.render_book_groups_md(data, heading_level: 2)
+
+    assert_equal '## Standalone', lines[0]
+    assert_match(/Solo/, lines[1])
+    assert_equal '## Epic Series', lines[2]
+    assert_match(/Book 1/, lines[3])
+  end
+
+  def test_render_book_groups_md_empty_data
+    lines = Jekyll::UI::Cards::MarkdownCardUtils.render_book_groups_md({}, heading_level: 3)
+    assert_equal [], lines
+  end
+
+  def test_render_book_groups_md_only_series
+    series_books = [create_doc({ 'title' => 'Entry', 'book_authors' => ['C'], 'rating' => 5 }, '/books/e/')]
+    data = { standalone_books: [], series_groups: [{ name: 'Trilogy', books: series_books }] }
+
+    lines = Jekyll::UI::Cards::MarkdownCardUtils.render_book_groups_md(data, heading_level: 3)
+
+    assert_equal '### Trilogy', lines[0]
+    assert_match(/Entry/, lines[1])
+    assert_equal 2, lines.length
+  end
 end

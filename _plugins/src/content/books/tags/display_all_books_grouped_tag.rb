@@ -41,21 +41,7 @@ module Jekyll
         end
 
         def render_markdown(data)
-          lines = []
-          standalone = data[:standalone_books] || []
-          unless standalone.empty?
-            lines << '## Standalone'
-            standalone.each do |book|
-              lines << MdCards.render_book_card_md(MdCards.book_doc_to_card_data(book))
-            end
-          end
-          (data[:series_groups] || []).each do |group|
-            lines << "## #{group[:name]}"
-            group[:books].each do |book|
-              lines << MdCards.render_book_card_md(MdCards.book_doc_to_card_data(book))
-            end
-          end
-          lines.join("\n")
+          MdCards.render_book_groups_md(data, heading_level: 2).join("\n")
         end
       end
       Liquid::Template.register_tag('display_all_books_grouped', Jekyll::Books::Tags::DisplayAllBooksGroupedTag)

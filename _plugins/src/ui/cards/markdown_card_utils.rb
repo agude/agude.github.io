@@ -64,6 +64,21 @@ module Jekyll
           line += ": #{data[:description]}" if data[:description]
           line
         end
+
+        def self.render_book_groups_md(data, heading_level:)
+          prefix = '#' * heading_level
+          lines = []
+          standalone = data[:standalone_books] || []
+          unless standalone.empty?
+            lines << "#{prefix} Standalone"
+            standalone.each { |book| lines << render_book_card_md(book_doc_to_card_data(book)) }
+          end
+          (data[:series_groups] || []).each do |group|
+            lines << "#{prefix} #{group[:name]}"
+            group[:books].each { |book| lines << render_book_card_md(book_doc_to_card_data(book)) }
+          end
+          lines
+        end
       end
     end
   end

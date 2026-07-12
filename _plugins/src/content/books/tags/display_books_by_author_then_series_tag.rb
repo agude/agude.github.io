@@ -49,15 +49,7 @@ module Jekyll
           lines = []
           authors.each do |author|
             lines << "## #{author[:author_name]}"
-            standalone = author[:standalone_books] || []
-            unless standalone.empty?
-              lines << '### Standalone'
-              standalone.each { |book| lines << MdCards.render_book_card_md(MdCards.book_doc_to_card_data(book)) }
-            end
-            (author[:series_groups] || []).each do |group|
-              lines << "### #{group[:name]}"
-              group[:books].each { |book| lines << MdCards.render_book_card_md(MdCards.book_doc_to_card_data(book)) }
-            end
+            lines.concat(MdCards.render_book_groups_md(author, heading_level: 3))
           end
           lines.join("\n")
         end
