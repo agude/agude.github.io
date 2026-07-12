@@ -65,7 +65,6 @@ display_limits:
 # Dependencies
 plugins:
     - jekyll-feed
-    - jekyll-paginate
     - jekyll-redirect-from
     - jekyll-sitemap
 
@@ -95,9 +94,6 @@ baseurl: ""
 name: "AlexGude.com"
 
 # Blog
-# Note: jekyll-paginate is deprecated in Jekyll 4. Consider migrating to jekyll-paginate-v2.
-paginate: 10
-paginate_path: "/blog/page:num/"
 permalink: /blog/:slug/
 
 # Social links for SEO
