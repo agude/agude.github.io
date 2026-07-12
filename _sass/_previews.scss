@@ -60,7 +60,9 @@
   max-width: calc(100% - 2rem);
   margin-inline: auto;
 
-  background-color: $body-bg;
+  // A dedicated token, not $body-bg: dark mode lifts the card above the
+  // page with a lighter surface instead of relying on the box-shadow.
+  background-color: var(--card-bg);
   border: 1px solid $border-color;
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);

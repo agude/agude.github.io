@@ -4,8 +4,11 @@
   <!-- Enable responsiveness on mobile devices-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Theme Color for webbrowsers -->
-  <meta name="theme-color" content="{{ site.theme_color }}">
+  <!-- Theme Color for webbrowsers. Two tags so the browser chrome
+       follows prefers-color-scheme; site.webmanifest can't media-switch,
+       so it keeps the light value. -->
+  <meta name="theme-color" content="{{ site.theme_color }}" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="{{ site.theme_color_dark }}" media="(prefers-color-scheme: dark)">
 
   <!-- CSS -->
   <!-- Ubuntu Mono is self-hosted via _sass/_fonts.scss; no third-party font request. -->

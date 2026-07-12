@@ -1,5 +1,3 @@
-@use "sass:color";
-
 $root-font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
 $code-font-family: "Ubuntu Mono", Menlo, Monaco, Consolas, "Lucida Console", monospace;
 $site-title-font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
@@ -7,17 +5,88 @@ $headline-font-family: Georgia, "Times New Roman", Times, serif;
 
 $root-line-height: 1.5;
 
-$body-bg:            white;
-$body-color:         hsl(  0,  0%, 32%);
-$muted-color:        color.adjust($body-color, $lightness: 20%);
-$border-color:       hsl(  0,  0%, 90%);
-$code-color:         hsl(354, 42%, 56%);
+// Color tokens live on :root as CSS custom properties so a
+// `prefers-color-scheme: dark` media query (in main.scss) can swap them at
+// paint time. The Sass variables below all resolve to `var(--…)`, so every
+// partial that already references e.g. `$body-color` keeps working
+// unchanged and picks up dark mode for free.
+//
+// $sidebar-color-value is the one exception: main.scss's `@use ... with`
+// injects `site.theme_color` (_config.yml) into it, so :root can bake the
+// configured accent color into --sidebar-color without drift.
+$sidebar-color-value: hsl(214, 52%, 42%) !default;
+
+:root {
+  // Opt into the browser's native light/dark UI (scrollbars, form
+  // controls) matching whichever palette below is active.
+  color-scheme: light dark;
+
+  --body-bg: white;
+  --body-color: hsl(0, 0%, 32%);
+  // Was `color.adjust($body-color, $lightness: 20%)`; Sass color functions
+  // can't operate on a var(), so the result is materialized directly.
+  --muted-color: hsl(0, 0%, 52%);
+  --border-color: hsl(0, 0%, 90%);
+  --code-color: hsl(354, 42%, 56%);
+  --sidebar-color: #{$sidebar-color-value};
+  // Sidebar is a fixed-dark surface in both color schemes, so the button
+  // colors that live only inside it don't need a dark override.
+  --share-button-color: hsl(0, 0%, 13%);
+  --share-hover-color: hsl(0, 0%, 53%);
+  // Shared light neutral surface (code blocks, linktree items).
+  --code-bg: #f9f9f9;
+  // Shared light hairline border (cards, abbreviations, blockquotes, linktree).
+  --hairline-color: #e5e5e5;
+  // Hover-preview card surface. Same as --body-bg in light mode; dark mode
+  // lifts it above the page instead of relying on the box-shadow.
+  --card-bg: white;
+  // Foreground accents that sit darker than body text in light mode and
+  // must flip lighter than body text in dark mode.
+  --heading-color: #313131;
+  // Shared by strong, thead/tfoot, and .page-title/.post-title.
+  --emphasis-color: #303030;
+  --abbr-color: #555555;
+  --blockquote-color: #7a7a7a;
+  // Inactive alpha-nav letters: intentionally low-contrast (disabled
+  // affordance), so excluded from the contrast test.
+  --disabled-color: #cccccc;
+  // <hr> top line; its bottom "emboss" edge uses --body-bg so it stays
+  // invisible against the page in both schemes.
+  --hr-color: #eeeeee;
+}
+
+// AA-checked starting points, not final taste — see
+// _tests/src/test_dark_mode_contrast.rb for the pairs it enforces.
+@media (prefers-color-scheme: dark) {
+  :root {
+    --body-bg: hsl(214, 15%, 12%);
+    --body-color: hsl(0, 0%, 78%);
+    --muted-color: hsl(0, 0%, 60%);
+    --border-color: hsl(214, 10%, 26%);
+    --code-color: hsl(354, 55%, 70%);
+    --code-bg: hsl(214, 12%, 17%);
+    --hairline-color: hsl(214, 10%, 26%);
+    --card-bg: hsl(214, 15%, 18%);
+    --heading-color: hsl(0, 0%, 88%);
+    --emphasis-color: hsl(0, 0%, 86%);
+    --abbr-color: hsl(0, 0%, 65%);
+    --blockquote-color: hsl(0, 0%, 62%);
+    --disabled-color: hsl(214, 8%, 38%);
+    --hr-color: hsl(214, 10%, 26%);
+    // --sidebar-color is unchanged: already dark, and it's the one token
+    // driven by site.theme_color rather than a literal here.
+  }
+}
+
+$body-bg:            var(--body-bg);
+$body-color:         var(--body-color);
+$muted-color:        var(--muted-color);
+$border-color:       var(--border-color);
+$code-color:         var(--code-color);
 //$link-color:         hsl(205, 69%, 49%);
-// Default only; main.scss overrides this from site.theme_color (_config.yml)
-// via `@use ... with`, so the two never drift.
-$sidebar-color:      hsl(214, 52%, 42%) !default;
-$share-button-color: hsl(  0,  0%, 13%);
-$share-hover-color:  hsl(  0,  0%, 53%);
+$sidebar-color:      var(--sidebar-color);
+$share-button-color: var(--share-button-color);
+$share-hover-color:  var(--share-hover-color);
 
 
 // Font sizes
