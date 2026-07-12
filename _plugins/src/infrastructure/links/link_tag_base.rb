@@ -43,6 +43,19 @@ module Jekyll
       # lines); add it to the LinkTagBase allowlist comment in
       # _tests/src/content/markdown_output/test_render_mode_coverage.rb.
       #
+      # Testing: stub the resolver to capture the arguments a tag passes it,
+      # rather than exercising the real resolver/cache:
+      #
+      #   mock_resolver = Minitest::Mock.new
+      #   mock_resolver.expect(:resolve, '<a>link</a>') do |title, link_text, author, date, cite:|
+      #     captured = { title: title, cite: cite }
+      #     true
+      #   end
+      #   ResolverClass.stub :new, mock_resolver do
+      #     output = Liquid::Template.parse("{% some_tag 'Title' %}").render!(context)
+      #     mock_resolver.verify
+      #   end
+      #
       # @pattern Tag structure: thin wrapper + delegate. Tags parse
       #   arguments in `initialize` and delegate in `render`; they hold no
       #   business logic. See `Jekyll::Books::Tags::BookLinkTag` for a

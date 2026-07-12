@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 # Shared test helper, required by every test under _tests/. Provides mock
-# Jekyll objects (MockDocument, MockSite, MockCollection), factory methods
+# Jekyll objects (MockDocument, MockSite, MockCollection) and factory methods
 # (create_context, create_site, create_doc — see their docstrings via
-# `make doc-show OBJ=<method>`), and SimpleCov setup.
-#
-# --- Structure ---
+# `make doc-show OBJ=<method>`).
 #
 # Tests mirror _plugins/src/ exactly:
 #   _plugins/src/content/books/lists/by_year_finder.rb
@@ -15,48 +13,15 @@
 #
 # Run tests: `make test` (all) or `make test TEST=_tests/src/path/to/test.rb`.
 #
-# --- Common test patterns ---
+# SimpleCov: 95% line + branch coverage threshold, output to _coverage/.
+# Running a single test file with `make test TEST=...` may exit with code 2
+# because the threshold isn't met when only one file's coverage is
+# measured — this is expected and harmless.
 #
-# Stub-and-capture for tags — mock the resolver to capture arguments the
-# tag passes it:
-#
-#   mock_resolver = Minitest::Mock.new
-#   mock_resolver.expect(:resolve, '<a>link</a>') do |title, link_text, author, date, cite:|
-#     captured = { title: title, cite: cite }
-#     true
-#   end
-#   ResolverClass.stub :new, mock_resolver do
-#     output = Liquid::Template.parse("{% some_tag 'Title' %}").render!(context)
-#     mock_resolver.verify
-#   end
-#
-# Finder + Renderer orchestration — stub both, verify the tag wires them
-# together:
-#
-#   mock_finder = Minitest::Mock.new
-#   mock_finder.expect :find, { year_groups: [...], log_messages: '' }
-#   mock_renderer = Minitest::Mock.new
-#   mock_renderer.expect :render, '<h1>HTML</h1>'
-#   FinderClass.stub :new, ->(_) { mock_finder } do
-#     RendererClass.stub :new, ->(ctx, data) { mock_renderer } do
-#       output = Liquid::Template.parse('{% display_tag %}').render!(context)
-#     end
-#   end
-#
-# Render mode testing — create a context with render_mode: :markdown and
-# assert no HTML in output:
-#
-#   md_context = create_context({}, { site: site, page: doc, render_mode: :markdown })
-#   output = Liquid::Template.parse('{% display_tag %}').render!(md_context)
-#   assert_match(/^## /, output)
-#   refute_match(/<div/, output)
-#
-# --- SimpleCov ---
-#
-# Threshold: 95% line + branch coverage, output to _coverage/. Running a
-# single test file with `make test TEST=...` may exit with code 2 because
-# the threshold isn't met when only one file's coverage is measured — this
-# is expected and harmless.
+# For common test patterns (stub-and-capture, Finder+Renderer orchestration,
+# render mode testing), see the @pattern docstrings on
+# Jekyll::Infrastructure::Links::LinkTagBase and Jekyll::UI::DisplayTagRenderable
+# — the patterns mirror the production code they test.
 
 # --- SimpleCov Setup ---
 # This must be the VERY FIRST thing in the file to ensure it tracks all loaded code.

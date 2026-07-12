@@ -49,6 +49,27 @@ module Jekyll
     # Dependencies are aliased as private constants (`MdCards`, `TagArgs`
     # above) to avoid polluting the including class's namespace — the same
     # convention `LinkTagBase` and its subclasses use.
+    #
+    # Testing: stub both finder and renderer to verify the tag wires them
+    # together, without exercising either's real logic:
+    #
+    #   mock_finder = Minitest::Mock.new
+    #   mock_finder.expect :find, { year_groups: [...], log_messages: '' }
+    #   mock_renderer = Minitest::Mock.new
+    #   mock_renderer.expect :render, '<h1>HTML</h1>'
+    #   FinderClass.stub :new, ->(_) { mock_finder } do
+    #     RendererClass.stub :new, ->(ctx, data) { mock_renderer } do
+    #       output = Liquid::Template.parse('{% display_tag %}').render!(context)
+    #     end
+    #   end
+    #
+    # Testing render_mode: :markdown — create a context with that render
+    # register set and assert no HTML in the output:
+    #
+    #   md_context = create_context({}, { site: site, page: doc, render_mode: :markdown })
+    #   output = Liquid::Template.parse('{% display_tag %}').render!(md_context)
+    #   assert_match(/^## /, output)
+    #   refute_match(/<div/, output)
     module DisplayTagRenderable
       MdCards = Jekyll::UI::Cards::MarkdownCardUtils
       TagArgs = Jekyll::Infrastructure::TagArgumentUtils
