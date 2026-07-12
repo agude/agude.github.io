@@ -15,9 +15,10 @@ this file — proximity is what keeps it from going stale. Look things up in
 three tiers:
 
 1. **This file** — stable overview, rarely changes.
-2. **`make doc-index QUERY='has_tag?(:<tag>)'`** — lists every code object
-   carrying a doc tag (`@validator`, `@pipeline`, `@pattern`, `@gotcha`).
-   Run with no `QUERY` to list everything tagged.
+2. **`make doc-index`** — lists every code object carrying one of the
+   custom doc tags declared in `.yardopts` (`@validator`, `@pipeline`,
+   `@pattern`, `@gotcha`). Narrow it with
+   `make doc-index QUERY='has_tag?(:<tag>)'`.
 3. **`make doc-show OBJ=<full::constant::path>`** — prints that object's
    full docstring. A top-level method is `OBJ='#method_name'`; an instance
    method is `OBJ='Some::Class#method'`. Reading the file at the path the

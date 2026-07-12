@@ -219,11 +219,14 @@ check-liquid: image-build
 	@echo "Checking all documents for strict Liquid compliance..."
 	@$(DOCKER_RUN) bundle exec ruby _bin/check_strict.rb
 
-# Query YARD for code objects carrying a doc tag (default: all tagged objects).
+# Query YARD for code objects carrying a doc tag (default: any custom tag
+# declared in .yardopts — derived from it directly so a new --tag entry
+# doesn't need a matching Makefile edit).
 # Rebuilds the .yardoc registry each time; cheap (seconds) at this codebase's size.
 #   make doc-index
 #   make doc-index QUERY='has_tag?(:gotcha)'
-QUERY ?= has_tag?(:pattern) || has_tag?(:gotcha) || has_tag?(:validator) || has_tag?(:pipeline)
+CUSTOM_TAG_QUERY := $(shell grep '^--tag ' .yardopts | sed -E 's/^--tag ([a-zA-Z_]+):.*/has_tag?(:\1)/' | paste -sd '|' - | sed 's/|/ || /g')
+QUERY ?= $(CUSTOM_TAG_QUERY)
 doc-index: image-build
 	@$(DOCKER_RUN) bundle exec yard list --query '$(QUERY)'
 
