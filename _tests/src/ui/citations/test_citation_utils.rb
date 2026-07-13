@@ -442,6 +442,7 @@ class TestCitationUtilsFormatText < Minitest::Test
   end
 end
 
+# Tests for et al. markdown conversion to abbr tags
 class TestCitationUtilsEtAlConversion < TestCitationUtilsBase
   def test_markdown_underscored_et_al_with_period
     params = { author_last: 'Doe', author_first: 'J, _et al._' }
