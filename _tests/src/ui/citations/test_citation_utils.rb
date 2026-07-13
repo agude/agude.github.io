@@ -161,7 +161,7 @@ class TestCitationUtilsFullCitations < TestCitationUtilsBase
       url: 'http://webwriter.blog/thoughts',
       date: 'January 1, 2024',
     }
-    expected_inner = "WebWriter, W. <a href=\"http://webwriter.blog/thoughts\">" \
+    expected_inner = 'WebWriter, W. <a href="http://webwriter.blog/thoughts">' \
                      "#{LQ}My Thoughts on the Web#{RQ}</a> <cite>Personal Blog</cite>. January 1, 2024."
     expected = "<span markdown=\"0\" class=\"citation\">#{expected_inner}</span>"
     assert_equal expected, format_citation(params)
@@ -443,7 +443,6 @@ class TestCitationUtilsFormatText < Minitest::Test
 end
 
 class TestCitationUtilsEtAlConversion < TestCitationUtilsBase
-
   def test_markdown_underscored_et_al_with_period
     params = { author_last: 'Doe', author_first: 'J, _et al._' }
     expected = '<span markdown="0" class="citation">Doe, J, <abbr class="etal">et al.</abbr></span>'

@@ -142,6 +142,7 @@ module Jekyll
 
         def self._render_inline(text)
           return nil unless _present?(text)
+
           html = Kramdown::Document.new(text.to_s, input: 'kramdown').to_html
           html = html.gsub(%r{\A<p>(.*)</p>\s*\z}m, '\1').strip
           html = html.gsub(%r{<em>(et\s+al\.?)</em>}, '\1')

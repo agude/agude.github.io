@@ -45,7 +45,6 @@ $sidebar-color-value: hsl(214, 52%, 42%) !default;
   --heading-color: #313131;
   // Shared by strong, thead/tfoot, and .page-title/.post-title.
   --emphasis-color: #303030;
-  --abbr-color: #555555;
   --blockquote-color: #7a7a7a;
   // Inactive alpha-nav letters: intentionally low-contrast (disabled
   // affordance), so excluded from the contrast test.
@@ -69,7 +68,6 @@ $sidebar-color-value: hsl(214, 52%, 42%) !default;
     --card-bg: hsl(214, 15%, 18%);
     --heading-color: hsl(0, 0%, 88%);
     --emphasis-color: hsl(0, 0%, 86%);
-    --abbr-color: hsl(0, 0%, 65%);
     --blockquote-color: hsl(0, 0%, 62%);
     --disabled-color: hsl(214, 8%, 38%);
     --hr-color: hsl(214, 10%, 26%);
@@ -107,7 +105,6 @@ $h5-font-size: 1rem;
 $h6-font-size: 1rem;
 
 // Set font sizes of some special elements
-$abbr-font-size: 0.85rem;
 $card-font-size: 0.85rem;
 $code-block-font-size: 0.80rem;
 $code-inline-font-size: 0.85em;  // em because we embed it in other things, like tables
