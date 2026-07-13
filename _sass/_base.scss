@@ -228,15 +228,7 @@ hr {
 
 // Abbreviations
 abbr {
-  font-size: $abbr-font-size;
-  font-weight: bold;
-  color: var(--abbr-color);
-  text-transform: uppercase;
-
-  &[title] {
-    cursor: help;
-    border-bottom: 1px dotted var(--hairline-color);
-  }
+  text-decoration: none;
 }
 
 // Blockquotes

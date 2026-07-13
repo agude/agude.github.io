@@ -28,7 +28,6 @@ class TestDarkModeContrast < Minitest::Test
     %w[--code-color --code-bg],
     %w[--heading-color --body-bg],
     %w[--emphasis-color --body-bg],
-    %w[--abbr-color --body-bg],
     %w[--blockquote-color --body-bg],
   ].freeze
 

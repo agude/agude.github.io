@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'cgi'
+require 'kramdown'
 require_relative '../../infrastructure/text_processing_utils'
 
 module Jekyll
@@ -19,6 +20,8 @@ module Jekyll
         def self.format_citation_text(params, site = nil)
           html = format_citation_html(params, site)
           text = html.gsub(%r{<cite>([^<]+)</cite>}, '*\1*')
+          text = text.gsub(%r{<strong>([^<]+)</strong>}, '**\1**')
+          text = text.gsub(%r{<em>([^<]+)</em>}, '_\1_')
           text = text.gsub(%r{<a href="([^"]+)">([^<]+)</a>}, '[\2](\1)')
           Jekyll::Infrastructure::TextProcessingUtils.strip_tags(text)
         end
@@ -37,8 +40,9 @@ module Jekyll
 
           # Join active parts with ". " and add a single trailing period for the entire citation.
           final_citation_string = "#{active_parts.join('. ')}."
+          final_citation_string = final_citation_string.gsub("#{ETAL_ABBR}.", ETAL_ABBR)
 
-          "<span class=\"citation\">#{final_citation_string}</span>"
+          "<span markdown=\"0\" class=\"citation\">#{final_citation_string}</span>"
         end
 
         def self._build_generators(params)
@@ -134,6 +138,17 @@ module Jekyll
           CGI.escapeHTML(str.to_s)
         end
 
+        ETAL_ABBR = '<abbr class="etal">et al.</abbr>'
+
+        def self._render_inline(text)
+          return nil unless _present?(text)
+
+          html = Kramdown::Document.new(text.to_s, input: 'kramdown').to_html
+          html = html.gsub(%r{\A<p>(.*)</p>\s*\z}m, '\1').strip
+          html = html.gsub(%r{<em>(et\s+al\.?)</em>}, '\1')
+          html.gsub(/\bet\s+al\b\.?/, ETAL_ABBR)
+        end
+
         # --- Independent Part Generators ---
 
         def self._generate_author_part(last:, first:, handle:)
@@ -145,8 +160,8 @@ module Jekyll
         end
 
         def self._build_author_with_last_name(last, first, handle)
-          parts = [_escape_html(last)]
-          parts << _escape_html(first) if _present?(first)
+          parts = [_render_inline(last)]
+          parts << _render_inline(first) if _present?(first)
           main = parts.join(', ')
           main += " (#{_escape_html(handle)})" if _present?(handle)
           _present?(main) ? main : nil
@@ -156,11 +171,11 @@ module Jekyll
         def self._generate_work_and_container_part(work:, container:, url:)
           elements = []
           if _present?(work)
-            fmt = _present?(container) ? "\"#{_escape_html(work)}\"" : "<cite>#{_escape_html(work)}</cite>"
+            fmt = _present?(container) ? "“#{_render_inline(work)}”" : "<cite>#{_render_inline(work)}</cite>"
             fmt = "<a href=\"#{url}\">#{fmt}</a>" if _present?(url)
             elements << fmt
           end
-          elements << "<cite>#{_escape_html(container)}</cite>" if _present?(container)
+          elements << "<cite>#{_render_inline(container)}</cite>" if _present?(container)
           return nil if elements.empty?
 
           elements.join(' ')
@@ -169,7 +184,7 @@ module Jekyll
         def self._generate_editor_part(editor:)
           return nil unless _present?(editor)
 
-          "Edited by #{_escape_html(editor)}"
+          "Edited by #{_render_inline(editor)}"
         end
 
         def self._generate_edition_part(edition:)
