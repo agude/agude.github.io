@@ -184,6 +184,16 @@ class TestBookPreviewRenderer < Minitest::Test
     refute_includes result, 'book-link-preview-lede'
   end
 
+  def test_lede_newlines_collapsed_to_keep_output_single_line
+    # Excerpt HTML carries hard-wrapped source newlines. The single-line
+    # contract is load-bearing: a newline inside a kramdown footnote
+    # definition ends the definition mid-span and mangles the page.
+    lede   = "by <span class=\"author-name\">Iain M. Banks</span>,\nis the fourth novel."
+    result = build(lede_html: lede).render
+    refute_includes result, "\n"
+    assert_includes result, 'Banks</span>, is the fourth novel.'
+  end
+
   def test_lede_preserves_inline_html
     result = build(lede_html: 'Features <cite class="book-title">Dune</cite> references.').render
     assert_includes result, '<cite class="book-title">Dune</cite>'

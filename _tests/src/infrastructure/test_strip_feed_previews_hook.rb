@@ -3,15 +3,35 @@
 require 'test_helper'
 require 'src/infrastructure/strip_feed_previews_hook'
 
-# Tests for the :pages :post_render hook that strips book-link
-# hover-preview markup from feed XML output.
+# Tests for the :pages :post_render hook that strips book-link and
+# footnote hover-preview markup from feed XML output.
+#
+# Fixtures use realistic flush markup (markers directly between tags) —
+# PreviewIntegrityValidator also runs on :post_render and rejects markers
+# abutting text.
 class TestStripFeedPreviewsHook < Minitest::Test
-  PREVIEW_HTML = 'Before<!--book-preview--><span class="book-link-preview">text</span><!--/book-preview-->After'
+  PREVIEW_HTML =
+    '<p>Before <a href="/books/x/"><cite class="book-title">X</cite>' \
+    '<!--book-preview--><span class="book-link-preview">text</span><!--/book-preview-->' \
+    '</a> After</p>'
+  STRIPPED_HTML = '<p>Before <a href="/books/x/"><cite class="book-title">X</cite></a> After</p>'
+
+  FOOTNOTE_HTML =
+    '<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a>' \
+    '<!--footnote-preview--><span class="footnote-preview">note</span><!--/footnote-preview-->' \
+    '</sup>'
+  STRIPPED_FOOTNOTE_HTML = '<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>'
 
   def test_strips_previews_from_xml_page
     page = build_page('.xml', PREVIEW_HTML)
     run_hook(page)
-    assert_equal 'BeforeAfter', page.output
+    assert_equal STRIPPED_HTML, page.output
+  end
+
+  def test_strips_footnote_previews_from_xml_page
+    page = build_page('.xml', FOOTNOTE_HTML)
+    run_hook(page)
+    assert_equal STRIPPED_FOOTNOTE_HTML, page.output
   end
 
   def test_skips_html_pages

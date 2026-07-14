@@ -1,5 +1,5 @@
 // _previews.scss
-// CSS-only hover-preview cards for cross-page book links.
+// CSS-only hover-preview cards for book links and footnote references.
 //
 // Contract (emitted by the book link renderer):
 //
@@ -164,6 +164,212 @@ img.book-link-preview-cover {
 
 @media print {
   .book-link-preview {
+    display: none !important;
+  }
+}
+
+// ── Footnote hover previews ───────────────────────────────────────────────────
+//
+// Contract (injected by FootnotePreviewInjector into kramdown output):
+//
+//   <sup id="fnref:label">
+//     <a href="#fn:label" class="footnote">N</a>
+//     <span class="footnote-preview" aria-hidden="true" hidden>
+//       <span class="footnote-preview-body">
+//         <span class="fnp fnp-figure cited-quote">…</span>
+//       </span>
+//     </span>
+//   </sup>
+//
+// The preview lives inside a <p>, so it contains only phrasing content:
+// block elements from the footnote body arrive as <span class="fnp
+// fnp-<tag>"> and the rules below rebuild their block layout. (Real
+// <figure>/<blockquote> tags here would make the HTML5 parser split the
+// paragraph and eject the preview content — the injector guarantees none
+// survive.)
+
+.footnote-preview {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  // Hover intent in both directions. Reveal waits 250ms so cards do not
+  // strobe as the pointer crosses references mid-scroll. Hide waits 400ms
+  // so an indirect pointer path from the reference to the card (diagonal,
+  // across surrounding text) does not dismiss it: the card stays displayed
+  // through the grace period, and reaching it restores :hover on the
+  // enclosing <sup> (the card is its child), cancelling the hide.
+  .footnote-preview {
+    transition: display 0s 400ms allow-discrete;
+  }
+
+  // :focus-within covers keyboard users: the reference <a> is inside the
+  // <sup>, so tabbing to it reveals the preview.
+  sup[id^="fnref:"]:hover > .footnote-preview,
+  sup[id^="fnref:"]:focus-within > .footnote-preview {
+    display: flow-root;
+    transition-delay: 250ms;
+  }
+}
+
+.footnote-preview {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  width: 20em;
+  max-width: calc(100% - 2rem);
+  margin-inline: auto;
+
+  // The outer span is a transparent hover zone; the visible card chrome
+  // lives on .footnote-preview-body. The padding replaces the books'
+  // ::before bridge: the pointer can travel from the reference into the
+  // card without a dead gap, on both sides — flip-block places the card
+  // ABOVE the reference, where a top-only bridge would not help.
+  padding-block: 0.3em;
+
+  // Reset inline-context styling inherited from the enclosing <sup>.
+  font-style: normal;
+  font-size: $footnote-font-size;
+  font-weight: normal;
+  white-space: normal;
+  text-align: left;
+  color: $body-color;
+  text-decoration: none;
+  line-height: 1.4;
+  vertical-align: baseline;
+
+  // The visible card. Long footnotes (sectioned spoiler notes) would
+  // otherwise overflow the viewport in both directions — the anchor
+  // fallbacks only flip, they never shrink — so scroll inside the card.
+  .footnote-preview-body {
+    display: block;
+    background-color: var(--card-bg);
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    padding: 0.75em;
+    max-height: min(60vh, 24em);
+    overflow-y: auto;
+  }
+
+  // Block elements from the footnote body, span-ified by the injector.
+  .fnp {
+    display: block;
+  }
+
+  .fnp-blockquote {
+    margin: 0 0 0.4em 0;
+    padding-left: 0.6em;
+    border-left: 2px solid $border-color;
+    font-style: italic;
+  }
+
+  .fnp-figcaption {
+    font-size: $small-font-size;
+    color: $muted-color;
+  }
+
+  .fnp-p {
+    margin: 0 0 0.3em 0;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  // Headings inside footnotes (e.g. sectioned spoiler notes) render as
+  // bold block labels; the card is too small for a real heading scale.
+  .fnp-h1,
+  .fnp-h2,
+  .fnp-h3,
+  .fnp-h4,
+  .fnp-h5,
+  .fnp-h6 {
+    font-weight: bold;
+    margin: 0 0 0.3em 0;
+  }
+
+  // The injector preserves whitespace inside <pre>-derived spans; restore
+  // pre formatting that the span rename discarded. The dark box, padding,
+  // and syntax colors come from the .highlight classes, which survive the
+  // span rename — so no background here, just the pre semantics plus the
+  // same inline-code neutralization _code.scss applies via `pre code`
+  // (which no longer matches a span).
+  .fnp-pre {
+    margin: 0;
+    font-size: $small-font-size;
+    white-space: pre;
+    overflow-x: auto;
+
+    code {
+      padding: 0;
+      font-size: inherit;
+      color: inherit;
+      background-color: transparent;
+    }
+  }
+
+  // Tighten .highlight's 1rem page rhythm to the card's rhythm.
+  .fnp-div.highlight {
+    margin-bottom: 0.4em;
+  }
+
+  // Lists: rebuild markers on the span-ified items. Ordered lists number
+  // via a counter since the <ol> semantics were flattened away.
+  .fnp-li {
+    display: list-item;
+    list-style: disc inside;
+    margin-left: 0.6em;
+  }
+
+  .fnp-ol {
+    counter-reset: fnp-list;
+
+    > .fnp-li {
+      list-style: none inside;
+      counter-increment: fnp-list;
+
+      // ::before, not ::marker: `content` on ::marker is the weakest link
+      // in WebKit; a counter in ::before renders everywhere.
+      &::before {
+        content: counter(fnp-list) ". ";
+      }
+    }
+  }
+}
+
+@media (min-width: $sidebar-appear-breakpoint) {
+  @supports (anchor-name: --a) {
+    // Anchor names are per-footnote inline styles emitted by the injector
+    // (anchor-name on the <sup>, position-anchor on the card): a shared
+    // stylesheet name resolves to the LAST element in the document
+    // carrying it, anchoring every card to the final footnote ref on the
+    // page. Static (not :hover-scoped) so the card stays anchored through
+    // the hide grace period.
+    .footnote-preview {
+      position: fixed;
+      inset: auto;
+      // No extra offset: the hover zone's own padding provides the 0.3em
+      // visual gap, and it stays hoverable.
+      top: anchor(bottom);
+      left: anchor(left);
+      margin: 0;
+      // Adaptive width: short notes hug their content, long notes grow to
+      // the cap instead of wrapping a fixed 20em column. Only safe in the
+      // anchored mode, where the card's left edge tracks the reference —
+      // in the centered fallback a narrow card could drift away from the
+      // reference and break pointer travel.
+      width: fit-content;
+      min-width: 14em;
+      max-width: min(30em, calc(100vw - 2rem));
+      position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline;
+    }
+  }
+}
+
+@media print {
+  .footnote-preview {
     display: none !important;
   }
 }

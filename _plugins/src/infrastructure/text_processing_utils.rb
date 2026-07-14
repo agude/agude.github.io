@@ -10,6 +10,11 @@ module Jekyll
       PREVIEW_CLOSE = '<!--/book-preview-->'
       PREVIEW_STRIP_REGEX = /#{Regexp.escape(PREVIEW_OPEN)}.*?#{Regexp.escape(PREVIEW_CLOSE)}/m
 
+      FOOTNOTE_PREVIEW_OPEN = '<!--footnote-preview-->'
+      FOOTNOTE_PREVIEW_CLOSE = '<!--/footnote-preview-->'
+      FOOTNOTE_PREVIEW_STRIP_REGEX =
+        /#{Regexp.escape(FOOTNOTE_PREVIEW_OPEN)}.*?#{Regexp.escape(FOOTNOTE_PREVIEW_CLOSE)}/m
+
       # Cleans HTML content to plain text, normalizes whitespace.
       # Removes script and style tag contents.
       # @param html_content [String] The HTML string to clean.
@@ -109,10 +114,11 @@ module Jekyll
       end
 
       # Strip all HTML tags and decode entities, returning plain text.
-      # Book-link hover-preview markup is removed first (see strip_link_previews)
-      # so its text content (title/author/stars) never leaks into plain-text output.
+      # Both book-link and footnote hover-preview markup are removed first so
+      # hidden preview text never leaks into plain-text output.
       def self.strip_tags(html)
-        Nokogiri::HTML.fragment(strip_link_previews(html)).text
+        cleaned = strip_link_previews(strip_footnote_previews(html))
+        Nokogiri::HTML.fragment(cleaned).text
       end
 
       # Removes book-link hover-preview markup (see BookPreviewRenderer), including
@@ -124,6 +130,15 @@ module Jekyll
       # @return [String] The HTML string with preview spans removed.
       def self.strip_link_previews(html)
         html.to_s.gsub(PREVIEW_STRIP_REGEX, '')
+      end
+
+      # Removes footnote hover-preview markup (see FootnotePreviewInjector),
+      # including its text content, from an HTML string.
+      #
+      # @param html [String, nil] The HTML string to clean.
+      # @return [String] The HTML string with footnote preview spans removed.
+      def self.strip_footnote_previews(html)
+        html.to_s.gsub(FOOTNOTE_PREVIEW_STRIP_REGEX, '')
       end
 
       # Removes <a> tags from HTML while preserving their inner content.

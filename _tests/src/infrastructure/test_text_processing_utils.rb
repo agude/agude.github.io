@@ -292,6 +292,15 @@ class TestTextProcessingUtils < Minitest::Test
     assert_equal 'Dune', Jekyll::Infrastructure::TextProcessingUtils.strip_tags(html)
   end
 
+  def test_strip_tags_removes_footnote_preview_markup
+    html = '<span class="footnote-ref"><sup><a href="#fn:1">1</a></sup>' \
+           '<!--footnote-preview--><span class="footnote-preview">Hidden note.</span><!--/footnote-preview-->' \
+           '</span> body text'
+    result = Jekyll::Infrastructure::TextProcessingUtils.strip_tags(html)
+    refute_includes result, 'Hidden note.'
+    assert_includes result, 'body text'
+  end
+
   # --- Tests for strip_link_previews ---
 
   def test_strip_link_previews_removes_preview_span_and_content
@@ -315,6 +324,32 @@ class TestTextProcessingUtils < Minitest::Test
 
   def test_strip_link_previews_empty_input
     assert_equal '', Jekyll::Infrastructure::TextProcessingUtils.strip_link_previews('')
+  end
+
+  # --- Tests for strip_footnote_previews ---
+
+  def test_strip_footnote_previews_removes_preview_content
+    html = 'Before<!--footnote-preview--><span class="footnote-preview">Note.</span><!--/footnote-preview-->After'
+    assert_equal 'BeforeAfter', Jekyll::Infrastructure::TextProcessingUtils.strip_footnote_previews(html)
+  end
+
+  def test_strip_footnote_previews_handles_nested_spans
+    html = 'X<!--footnote-preview--><span class="footnote-preview"><cite>Title</cite> text</span><!--/footnote-preview-->Y'
+    assert_equal 'XY', Jekyll::Infrastructure::TextProcessingUtils.strip_footnote_previews(html)
+  end
+
+  def test_strip_footnote_previews_removes_multiple_occurrences
+    html = 'A<!--footnote-preview-->one<!--/footnote-preview-->B<!--footnote-preview-->two<!--/footnote-preview-->C'
+    assert_equal 'ABC', Jekyll::Infrastructure::TextProcessingUtils.strip_footnote_previews(html)
+  end
+
+  def test_strip_footnote_previews_no_markers_passthrough
+    html = '<p>Plain content.</p>'
+    assert_equal html, Jekyll::Infrastructure::TextProcessingUtils.strip_footnote_previews(html)
+  end
+
+  def test_strip_footnote_previews_nil_input
+    assert_equal '', Jekyll::Infrastructure::TextProcessingUtils.strip_footnote_previews(nil)
   end
 
   # --- Tests for strip_links ---
