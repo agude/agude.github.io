@@ -145,7 +145,10 @@ module Jekyll
         def lede_html
           return '' if @lede_html.to_s.strip.empty?
 
-          "<span class=\"book-link-preview-lede\">#{@lede_html}</span>"
+          # Collapse the excerpt's hard-wrapped newlines — the single-line
+          # contract (see class docs) is load-bearing; kramdown splits on them.
+          collapsed = @lede_html.to_s.gsub(/\s+/, ' ').strip
+          "<span class=\"book-link-preview-lede\">#{collapsed}</span>"
         end
 
         def log_rating_error(error)
