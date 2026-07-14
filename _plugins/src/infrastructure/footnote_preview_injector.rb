@@ -82,7 +82,10 @@ module Jekyll
           # non-greedy </sup> match on a second pass).
           next "#{sup_open}#{sup_close}" if sup_open.include?(Text::FOOTNOTE_PREVIEW_OPEN)
 
-          content = footnote_map[id]
+          # Repeat references to the same footnote are named fnref:label:N
+          # by kramdown while the body stays fn:label — fall back to the
+          # suffix-stripped label so every ref gets the preview.
+          content = footnote_map[id] || footnote_map[id.sub(/:\d+\z/, '')]
           next "#{sup_open}#{sup_close}" if content.nil? || content.empty?
 
           # Each ref/preview pair gets a unique inline anchor name: a shared

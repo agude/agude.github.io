@@ -236,6 +236,24 @@ class TestFootnotePreviewInjector < Minitest::Test
     assert_includes result, 'Second note.'
   end
 
+  def test_inject_covers_repeat_references
+    # kramdown names the second ref to the same footnote fnref:label:1;
+    # it must get the same preview as the first, with a distinct anchor.
+    html = <<~HTML
+      <sup id="fnref:x"><a href="#fn:x" class="footnote">1</a></sup>
+      <sup id="fnref:x:1"><a href="#fn:x" class="footnote">1</a></sup>
+      <div class="footnotes"><ol>
+        <li id="fn:x"><p>Shared note.</p> <a class="reversefootnote">&#8617;</a></li>
+      </ol></div>
+    HTML
+    result = Injector.inject(html)
+    assert_equal 2, result.scan('class="footnote-preview"').length
+    # Two preview copies plus the original footnote body.
+    assert_equal 3, result.scan('Shared note.').length
+    assert_includes result, 'anchor-name:--fnref-x"'
+    assert_includes result, 'anchor-name:--fnref-x-1"'
+  end
+
   def test_inject_does_not_affect_other_sup_elements
     html = <<~HTML
       <p>Math: x<sup>2</sup></p>
