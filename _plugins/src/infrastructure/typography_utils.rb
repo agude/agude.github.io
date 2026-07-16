@@ -6,8 +6,14 @@ module Jekyll
   module Infrastructure
     # Utility module for applying typographic transformations to text.
     module TypographyUtils
+      # Named HTML entities that prepare_display_title explicitly restores after
+      # HTML-escaping, making them safe to use in front matter titles.
+      # FrontMatterValidator references this same list as its allowlist, so
+      # adding an entity here automatically allows it in both places.
+      ALLOWED_TITLE_ENTITIES = %w[nbsp].freeze
+
       # Applies manual "SmartyPants"-like transformations, minimal HTML escaping,
-      # and allows <br> tags through. NO Kramdown involved.
+      # and allows <br> tags and ALLOWED_TITLE_ENTITIES through. NO Kramdown involved.
       # @param title [String, nil] The title string to prepare.
       # @return [String] The prepared title string, safe for HTML content.
       # Renamed from _prepare_display_title
@@ -17,7 +23,7 @@ module Jekyll
         text = title.to_s
         escaped_text = _escape_html(text)
         _apply_typography(escaped_text)
-        _restore_br_tags(escaped_text)
+        _restore_escaped_markup(escaped_text)
         escaped_text
       end
 
@@ -83,13 +89,15 @@ module Jekyll
         text.gsub!("'", "\u2019")                                   # Remaining apostrophes
       end
 
-      # Restores <br> tags that were escaped earlier.
+      # Restores <br> tags and ALLOWED_TITLE_ENTITIES that were escaped by
+      # _escape_html, so they pass through to the rendered HTML intact.
       #
       # @param text [String] The text to transform (modified in place).
-      def self._restore_br_tags(text)
+      def self._restore_escaped_markup(text)
         text.gsub!('&lt;br&gt;', '<br>')
         text.gsub!('&lt;br/&gt;', '<br>')
         text.gsub!('&lt;br /&gt;', '<br>')
+        ALLOWED_TITLE_ENTITIES.each { |e| text.gsub!("&amp;#{e};", "&#{e};") }
       end
     end
   end

@@ -3,6 +3,7 @@
 require_relative '../../test_helper'
 require_relative '../../../_plugins/src/seo/front_matter_validator'
 require_relative '../../../_plugins/src/infrastructure/front_matter_utils' # Ensure this is loaded
+require_relative '../../../_plugins/src/infrastructure/typography_utils'
 
 # Tests for Jekyll::SEO::FrontMatterValidator module.
 #
@@ -185,6 +186,93 @@ class TestFrontMatterValidator < Minitest::Test
       assert_match 'book_authors', err.message
       assert_match 'book_number', err.message
       refute_match 'rating', err.message # Ensure rating is NOT listed as missing
+    end
+  end
+
+  # --- Tests for title entity validation ---
+  def test_title_without_entities_passes
+    with_validator_config({ @post_collection_label => @required_for_posts }) do
+      doc = create_doc(
+        { 'title' => 'A Perfectly Normal Title', 'date' => Time.now, 'path' => 'no-entity.html' },
+        '/no-entity.html',
+        'content',
+        nil,
+        MockCollection.new(nil, @post_collection_label),
+      )
+      Jekyll.stub :logger, @silent_logger_stub do
+        assert_nil Jekyll::SEO::FrontMatterValidator.validate_document(doc)
+      end
+    end
+  end
+
+  def test_title_with_nbsp_entity_passes
+    with_validator_config({ @post_collection_label => @required_for_posts }) do
+      doc = create_doc(
+        { 'title' => 'Clever(ly&nbsp;Terrible)', 'date' => Time.now, 'path' => 'nbsp-title.html' },
+        '/nbsp-title.html',
+        'content',
+        nil,
+        MockCollection.new(nil, @post_collection_label),
+      )
+      Jekyll.stub :logger, @silent_logger_stub do
+        assert_nil Jekyll::SEO::FrontMatterValidator.validate_document(doc)
+      end
+    end
+  end
+
+  def test_title_with_mdash_entity_raises_error
+    with_validator_config({ @post_collection_label => @required_for_posts }) do
+      doc = create_doc(
+        { 'title' => 'A&mdash;B', 'date' => Time.now, 'path' => 'mdash-title.html' },
+        '/mdash-title.html',
+        'content',
+        nil,
+        MockCollection.new(nil, @post_collection_label),
+      )
+      err = nil
+      Jekyll.stub :logger, @silent_logger_stub do
+        err = assert_raises Jekyll::Errors::FatalException do
+          Jekyll::SEO::FrontMatterValidator.validate_document(doc)
+        end
+      end
+      assert_match '&mdash;', err.message
+      assert_match 'double-escaped', err.message
+      assert_match "'mdash-title.html'", err.message
+    end
+  end
+
+  def test_title_with_multiple_bad_entities_lists_all
+    with_validator_config({ @post_collection_label => @required_for_posts }) do
+      doc = create_doc(
+        { 'title' => 'A&mdash;B&ndash;C', 'date' => Time.now, 'path' => 'multi-entity.html' },
+        '/multi-entity.html',
+        'content',
+        nil,
+        MockCollection.new(nil, @post_collection_label),
+      )
+      err = nil
+      Jekyll.stub :logger, @silent_logger_stub do
+        err = assert_raises Jekyll::Errors::FatalException do
+          Jekyll::SEO::FrontMatterValidator.validate_document(doc)
+        end
+      end
+      assert_match '&mdash;', err.message
+      assert_match '&ndash;', err.message
+    end
+  end
+
+  def test_title_with_plain_ampersand_passes
+    with_validator_config({ @post_collection_label => @required_for_posts }) do
+      doc = create_doc(
+        { 'title' => 'A & B', 'date' => Time.now, 'path' => 'ampersand-title.html' },
+        '/ampersand-title.html',
+        'content',
+        nil,
+        MockCollection.new(nil, @post_collection_label),
+      )
+      Jekyll.stub :logger, @silent_logger_stub do
+        assert_nil Jekyll::SEO::FrontMatterValidator.validate_document(doc)
+      end
     end
   end
 

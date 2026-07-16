@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'jekyll'
+require_relative '../infrastructure/typography_utils'
 # Assuming Jekyll::Infrastructure::FrontMatterUtils is in _plugins/utils/ and will be loaded by Jekyll.
 # If you get NameError for Jekyll::Infrastructure::FrontMatterUtils, uncomment:
 # require_relative './utils/front_matter_utils'
@@ -59,6 +60,7 @@ module Jekyll
         end
 
         report_missing_fields(doc, doc_type_log, missing_fields)
+        validate_title_entities(doc)
       end
 
       # --- Private Helper Methods ---
@@ -108,6 +110,31 @@ module Jekyll
         id = doc.data['path'] || doc.url || doc.relative_path || 'unknown path'
         msg = "#{doc_type_log} '#{id}' is missing or has empty required front matter fields: " \
               "#{missing_fields.join(', ')}."
+        Jekyll.logger.error 'FrontMatter Error:', msg
+        raise Jekyll::Errors::FatalException, msg
+      end
+
+      # Scans the title field for HTML named entities that prepare_display_title
+      # does not restore after HTML-escaping, which causes them to render as
+      # literal text (e.g. &mdash; displays as "&mdash;").
+      # Numeric entities (&#8212; / &#x2014;) are out of scope — nobody writes
+      # them in YAML front matter in practice.
+      # Note: this check is gated on config_key, so unconfigured collections are
+      # not scanned (same gap as the required-field check above it).
+      def self.validate_title_entities(doc)
+        title = doc.data['title']
+        return unless title.is_a?(String)
+
+        allowed = Jekyll::Infrastructure::TypographyUtils::ALLOWED_TITLE_ENTITIES
+        violations = title.scan(/&([a-zA-Z][a-zA-Z0-9]*);/).flatten
+                          .reject { |e| allowed.include?(e) }
+        return if violations.empty?
+
+        id = doc.data['path'] || doc.url || doc.relative_path || 'unknown path'
+        entity_list = violations.map { |e| "&#{e};" }.join(', ')
+        msg = "Title in '#{id}' contains HTML entities that will be double-escaped and " \
+              "rendered as literal text: #{entity_list}. Use the character directly or a " \
+              "typography shorthand (e.g. '---' for em dash, '--' for en dash)."
         Jekyll.logger.error 'FrontMatter Error:', msg
         raise Jekyll::Errors::FatalException, msg
       end

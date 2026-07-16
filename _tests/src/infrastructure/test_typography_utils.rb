@@ -23,6 +23,11 @@ class TestTypographyUtils < Minitest::Test
     assert_equal 'Quotes ‘ “ remain', Jekyll::Infrastructure::TypographyUtils.prepare_display_title("Quotes ' \" remain")
   end
 
+  def test_prepare_display_title_nbsp
+    assert_equal 'Clever(ly&nbsp;Terrible)', Jekyll::Infrastructure::TypographyUtils.prepare_display_title('Clever(ly&nbsp;Terrible)')
+    assert_equal 'A&nbsp;B', Jekyll::Infrastructure::TypographyUtils.prepare_display_title('A&nbsp;B')
+  end
+
   def test_prepare_display_title_br_tags
     assert_equal 'Line 1<br>Line 2', Jekyll::Infrastructure::TypographyUtils.prepare_display_title('Line 1<br>Line 2')
     assert_equal 'Line 1<br>Line 2', Jekyll::Infrastructure::TypographyUtils.prepare_display_title('Line 1<br />Line 2')
