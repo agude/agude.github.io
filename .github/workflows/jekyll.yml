@@ -35,8 +35,18 @@ on:
   # Runs on pushes to ANY branch
   push:
 
-  # Allows you to run this workflow manually from the Actions tab
+  # Allows you to run this workflow manually from the Actions tab.
+  # skip_publish is the emergency escape hatch: main deploys are otherwise
+  # hard-coupled to bsky.social uptime because the publish step gates the
+  # deploy. A manual dispatch with skip_publish=true ships the site without
+  # touching the PDS (the deploy then carries stale/absent document link
+  # tags until the next normal main run).
   workflow_dispatch:
+    inputs:
+      skip_publish:
+        description: "Skip the AT Protocol publish step (PDS outage escape hatch)"
+        type: boolean
+        default: false
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -139,7 +149,7 @@ jobs:
         run: bundle exec ruby _bin/check_links.rb
 
       - name: Publish standard.site records
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && inputs.skip_publish != true
         working-directory: _scripts
         run: uv run python atproto/publish.py publish --posts-dir ../_posts --books-dir ../_books --data-out ../_data/standard_site.json
         env:

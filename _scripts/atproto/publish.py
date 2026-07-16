@@ -31,6 +31,7 @@ import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
 from typing import Any, Callable
 
 import requests
@@ -44,11 +45,14 @@ PDS_URL = "https://bsky.social"
 HTTP_TIMEOUT = 30  # seconds; a hung PDS must not stall the deploy job
 READ_RETRIES = 3  # idempotent reads retry on transient failures; writes don't
 
+# Must match the `timezone:` key in _config.yml: Jekyll's future-post
+# cutoff uses the site timezone, and using UTC here would let an evening
+# build see "tomorrow's" post as publishable while Jekyll skips it.
+SITE_TZ = ZoneInfo("America/Los_Angeles")
+
 
 class PublishError(Exception):
     """Fatal pipeline error; main() converts it to a message and exit 1."""
-SITE_URL = "https://alexgude.com"
-
 _CONFIG_FILE = Path(__file__).parent.parent.parent / "_config.yml"
 
 POST_FILENAME_RE = re.compile(r"^(\d{4}-\d{2}-\d{2})-(.+)\.md$")
@@ -119,8 +123,10 @@ def parse_post(path: Path) -> dict | None:
     """
     Parse a post file and return managed record fields, or None to skip.
 
-    Skips drafts (published: false or draft: true) and files that don't
-    match YYYY-MM-DD-slug.md. Raises yaml.YAMLError on broken front matter
+    Skips unpublished files (published: false — real drafts live in
+    _drafts/, which is never scanned; a draft: key in _posts/ is NOT
+    honored by Jekyll, so honoring it here would desync the record set
+    from the built site) and files that don't match YYYY-MM-DD-slug.md. Raises yaml.YAMLError on broken front matter
     and ValueError on slug/permalink overrides (Jekyll would serve the page
     somewhere other than the derived path, so the record would point at a
     404 — callers must fail, not warn). A present-but-unusable 'date' key
@@ -134,7 +140,7 @@ def parse_post(path: Path) -> dict | None:
 
     fm = _extract_frontmatter_strict(path.read_text(encoding="utf-8"))
 
-    if fm.get("published") is False or fm.get("draft") is True:
+    if fm.get("published") is False:
         return None
 
     _reject_permalink_overrides(fm)
@@ -155,7 +161,7 @@ def parse_post(path: Path) -> dict | None:
     # yet; publishing a record for it would fail the site cross-check. The
     # reverse sweep picks it up once its date arrives and it is built.
     published_at = record.get("publishedAt", "")
-    if published_at[:10] > datetime.now(timezone.utc).strftime("%Y-%m-%d"):
+    if published_at[:10] > datetime.now(SITE_TZ).strftime("%Y-%m-%d"):
         return None
 
     if "description" in fm and fm["description"] is not None:
@@ -226,7 +232,7 @@ def parse_book(path: Path, books_dir: Path) -> dict | None:
     """
     fm = _extract_frontmatter_strict(path.read_text(encoding="utf-8"))
 
-    if fm.get("published") is False or fm.get("draft") is True:
+    if fm.get("published") is False:
         return None
 
     # Re-read reviews (nested under _books/<book>/) carry canonical_url
@@ -623,6 +629,11 @@ def sync_documents(
         else:
             rkey, cid, remote_rec = remote[path_key]
             if _records_differ(local_rec, remote_rec):
+                if not cid:
+                    raise PublishError(
+                        f"listRecords returned no cid for {path_key!r}; "
+                        "refusing a non-atomic overwrite"
+                    )
                 merged = dict(remote_rec)
                 for key in MANAGED_FIELDS:
                     if key in local_rec:
@@ -636,7 +647,7 @@ def sync_documents(
                     print(f"[dry-run] Would update: {path_key}")
                 else:
                     client.put_record(
-                        "site.standard.document", rkey, merged, swap_cid=cid or None
+                        "site.standard.document", rkey, merged, swap_cid=cid
                     )
                     print(f"Updated: {path_key}")
                 updated += 1
@@ -653,10 +664,15 @@ def sync_documents(
                 print(f"::warning title=AT Protocol orphan record::{msg}")
             orphaned += 1
 
-    # --- Write data file ---
-    output = {path_key: data_map[path_key] for path_key in sorted(local) if path_key in data_map}
-    data_out.parent.mkdir(parents=True, exist_ok=True)
-    data_out.write_text(json.dumps(output, indent=2) + "\n", encoding="utf-8")
+    # --- Write data file (never on dry runs: the map would be missing
+    # every would-be-created record, and a stale partial file changes the
+    # next local build) ---
+    if dry_run:
+        print(f"[dry-run] Would write {len(data_map)} entries to {data_out}")
+    else:
+        output = {path_key: data_map[path_key] for path_key in sorted(local) if path_key in data_map}
+        data_out.parent.mkdir(parents=True, exist_ok=True)
+        data_out.write_text(json.dumps(output, indent=2) + "\n", encoding="utf-8")
 
     print(
         f"created={created} updated={updated} unchanged={unchanged} orphaned={orphaned}"

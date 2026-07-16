@@ -578,6 +578,55 @@ passes once fixed; `validate` runs green against the real `_posts/`.
   per-file error; the DID pattern accepts `did:web`; a missing swept
   section directory fails the reverse sweep.
 
+### 6.8 Fifth-review hardening (implemented)
+
+- **Future-post cutoff uses the site timezone** (`America/Los_Angeles`,
+  matching `_config.yml` `timezone:`), not UTC. Between 17:00 PT and
+  midnight, UTC has already rolled to "tomorrow," so a UTC cutoff let a
+  next-day post pass `parse_post` while Jekyll (which uses site time
+  for `future: false`) skipped building it — failing every branch's
+  cross-check all evening.
+- **`--dry-run` no longer writes the data file** (it would be missing
+  every would-be-created record; a stale partial file changes the next
+  local build).
+- **`draft: true` is no longer honored**: Jekyll ignores the key
+  outside `_drafts/` and builds the page, so skipping the record
+  desynced the record set from the built site and failed the reverse
+  sweep with a misleading message. `published: false` (a real Jekyll
+  key) still skips.
+- **A missing `cid` from `listRecords` is a hard error** instead of a
+  silent downgrade to a non-atomic overwrite.
+- **PDS-outage escape hatch**: `workflow_dispatch` with
+  `skip_publish=true` ships the site without touching the PDS. Main
+  deploys are otherwise gated on bsky.social being up — an accepted
+  coupling, now with a manual override for emergencies.
+- Dead `SITE_URL` constant removed (publication url comes from
+  `_config.yml`).
+
+### Manual recovery: duplicate remote records for one path
+
+`sync_documents` aborts if two remote records claim the same `path`,
+and `delete-orphans` cannot help (both match a local path, so neither
+is an orphan). This state can only arise from a manual `publish` racing
+CI (the concurrency group serializes CI against itself). To recover,
+delete the _newer_ record by rkey (the error message prints both):
+
+```
+curl -X POST "https://bsky.social/xrpc/com.atproto.repo.deleteRecord" \
+  -H "Authorization: Bearer $(curl -s -X POST \
+    https://bsky.social/xrpc/com.atproto.server.createSession \
+    -H 'Content-Type: application/json' \
+    -d '{"identifier":"alexgude.com","password":"'"$BSKY_APP_PASSWORD"'"}' \
+    | jq -r .accessJwt)" \
+  -H "Content-Type: application/json" \
+  -d '{"repo":"did:plc:y5qiqqtzjmlwggzuttldivxq",
+       "collection":"site.standard.document","rkey":"<NEWER_RKEY>"}'
+```
+
+Prefer the newer rkey because the older record may carry manual fields
+(`bskyPostRef`) worth keeping; the next publish reconciles the
+survivor's managed fields anyway.
+
 ## Phase 7 — Book reviews (implemented)
 
 `_books/` (125 canonical reviews) is published alongside `_posts/` via

@@ -184,10 +184,13 @@ class TestParsePost:
         f.write_text("---\ntitle: Post\npublished: false\n---\n")
         assert parse_post(f) is None
 
-    def test_draft_skipped_draft_true(self, tmp_path: Path) -> None:
+    def test_draft_key_not_honored(self, tmp_path: Path) -> None:
+        # Jekyll ignores a draft: key outside _drafts/ and builds the page;
+        # skipping here would desync the record set from the built site and
+        # fail the reverse sweep with a misleading message.
         f = tmp_path / "2025-01-01-post.md"
         f.write_text("---\ntitle: Post\ndraft: true\n---\n")
-        assert parse_post(f) is None
+        assert parse_post(f) is not None
 
     def test_non_matching_filename_skipped(self, tmp_path: Path) -> None:
         f = tmp_path / "about.md"
@@ -330,7 +333,7 @@ class TestSyncPostsDecisions:
             "publishedAt": "2025-01-01T00:00:00Z",
         }
         transport.push({
-            "records": [{"uri": DOC_URI, "value": remote_rec}],
+            "records": [{"uri": DOC_URI, "cid": "cid1", "value": remote_rec}],
         })
         transport.push({})  # putRecord response
 
@@ -359,7 +362,7 @@ class TestSyncPostsUpdate:
             "publishedAt": "2025-01-01T00:00:00Z",
             "bskyPostRef": "at://some/post/ref",  # unmanaged
         }
-        transport.push({"records": [{"uri": DOC_URI, "value": remote_rec}]})
+        transport.push({"records": [{"uri": DOC_URI, "cid": "cid1", "value": remote_rec}]})
         transport.push({})  # putRecord
 
         sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
@@ -380,7 +383,7 @@ class TestSyncPostsUpdate:
             "title": "Original",
             "publishedAt": "2025-01-01T00:00:00Z",
         }
-        transport.push({"records": [{"uri": DOC_URI, "value": remote_rec}]})
+        transport.push({"records": [{"uri": DOC_URI, "cid": "cid1", "value": remote_rec}]})
         transport.push({})
 
         sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
@@ -453,7 +456,7 @@ class TestDataFile:
         assert "/blog/alpha/" in result
         assert result["/blog/alpha/"] == "at://did:plc:test123/site.standard.document/newrkey"
 
-    def test_dry_run_writes_existing_records_only(self, tmp_path: Path) -> None:
+    def test_dry_run_writes_no_data_file(self, tmp_path: Path) -> None:
         (tmp_path / "2025-01-01-existing.md").write_text("---\ntitle: Existing\n---\n")
         (tmp_path / "2025-01-02-new.md").write_text("---\ntitle: New\n---\n")
 
@@ -471,9 +474,9 @@ class TestDataFile:
         data_out = tmp_path / "out.json"
         sync_documents(client, tmp_path, data_out, PUB_URI, TEST_CONFIG, dry_run=True)
 
-        result = json.loads(data_out.read_text())
-        assert "/blog/existing/" in result
-        assert "/blog/new/" not in result
+        # A dry-run map would be missing every would-be-created record; a
+        # stale partial file must not overwrite the real one.
+        assert not data_out.exists()
 
     def test_data_file_sorted_by_path(self, tmp_path: Path) -> None:
         (tmp_path / "2025-01-01-zzz.md").write_text("---\ntitle: Z\n---\n")
@@ -764,7 +767,7 @@ class TestValidatePosts:
         validate_documents(tmp_path)
         assert "alpha" in capsys.readouterr().err
 
-    def test_draft_does_not_create_duplicate(self, tmp_path: Path) -> None:
+    def test_unpublished_does_not_create_duplicate(self, tmp_path: Path) -> None:
         self._post(tmp_path, "2025-01-01-alpha.md", "---\ntitle: Alpha\npublished: false\n---\n")
         self._post(tmp_path, "2025-06-15-alpha.md", "---\ntitle: Alpha\n---\n")
         assert validate_documents(tmp_path) is True
@@ -789,8 +792,8 @@ class TestValidatePosts:
         self._post(tmp_path, "2025-01-01-draft.md", "---\ntitle: ''\npublished: false\n---\n")
         assert validate_documents(tmp_path) is True
 
-    def test_draft_true_skips_title_check(self, tmp_path: Path) -> None:
-        self._post(tmp_path, "2025-01-01-draft.md", "---\ntitle: ''\ndraft: true\n---\n")
+    def test_published_false_book_skips_title_check(self, tmp_path: Path) -> None:
+        self._post(tmp_path, "2025-01-01-draft.md", "---\ntitle: ''\npublished: false\n---\n")
         assert validate_documents(tmp_path) is True
 
     # --- Multiple errors all reported ---
@@ -936,7 +939,7 @@ class TestParseBook:
         assert rec is not None
         assert rec["tags"] == ["book-reviews"]
 
-    def test_draft_skipped(self, tmp_path: Path) -> None:
+    def test_unpublished_skipped(self, tmp_path: Path) -> None:
         f = tmp_path / "book.md"
         f.write_text("---\ntitle: Book\ndate: 2025-01-01\npublished: false\n---\n")
         assert parse_book(f, tmp_path) is None
@@ -978,9 +981,9 @@ class TestValidateBooks:
         (books / "book.md").write_text("---\ntitle: [unclosed\n---\n")
         assert validate_documents(posts, books_dir=books) is False
 
-    def test_draft_book_skipped(self, tmp_path: Path) -> None:
+    def test_unpublished_book_skipped(self, tmp_path: Path) -> None:
         posts, books = self._dirs(tmp_path)
-        (books / "book.md").write_text("---\ndraft: true\n---\n")
+        (books / "book.md").write_text("---\npublished: false\n---\n")
         assert validate_documents(posts, books_dir=books) is True
 
     def test_no_books_dir_posts_only(self, tmp_path: Path) -> None:
@@ -1590,3 +1593,51 @@ class TestMissingSweepSection:
         (site / "blog").mkdir(parents=True)  # books section missing
         assert validate_documents(posts, site_dir=site) is False
         assert "missing from built site" in capsys.readouterr().err
+
+
+# ---------------------------------------------------------------------------
+# Fifth review: site-timezone cutoff, missing cid
+# ---------------------------------------------------------------------------
+
+
+class TestSiteTimezoneCutoff:
+    def test_cutoff_uses_site_timezone(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+        # 2025-06-02T02:00 UTC is still 2025-06-01 19:00 in Los Angeles: a
+        # post dated 06-02 is "future" to Jekyll and must be skipped even
+        # though UTC has already rolled over.
+        import datetime as dt
+
+        real_datetime = publish.datetime
+
+        class FrozenDatetime(dt.datetime):
+            @classmethod
+            def now(cls, tz=None):
+                return real_datetime(2025, 6, 2, 2, 0, 0, tzinfo=dt.timezone.utc).astimezone(tz)
+
+        monkeypatch.setattr(publish, "datetime", FrozenDatetime)
+        f = tmp_path / "2025-06-02-tomorrow.md"
+        f.write_text("---\ntitle: T\n---\n")
+        assert parse_post(f) is None
+
+        g = tmp_path / "2025-06-01-today.md"
+        g.write_text("---\ntitle: T\n---\n")
+        assert parse_post(g) is not None
+
+
+class TestMissingCid:
+    def test_update_without_cid_refuses(self, tmp_path: Path) -> None:
+        (tmp_path / "2025-01-01-alpha.md").write_text("---\ntitle: New\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        remote_rec = {
+            "$type": "site.standard.document",
+            "site": PUB_URI,
+            "path": "/blog/alpha/",
+            "title": "Old",
+            "publishedAt": "2025-01-01T00:00:00Z",
+        }
+        transport.push({"records": [{"uri": DOC_URI, "value": remote_rec}]})  # no cid
+
+        with pytest.raises(publish.PublishError) as exc_info:
+            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
+        assert "non-atomic" in str(exc_info.value)
