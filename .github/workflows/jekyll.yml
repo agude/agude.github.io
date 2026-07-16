@@ -5,7 +5,9 @@
 #   2. Ruby tests (`load` every _tests/**/test_*.rb).
 #   3. Python script tests in _scripts/ (setup-python + `uv run pytest`).
 #   4. `_bin/check_strict.rb` (strict Liquid variables).
-#   5. Build, HTML structure validation, feed XML validation, broken-link
+#   5. `atproto/publish.py validate` — parses every post for AT Protocol
+#      compatibility; no credentials or network required; runs on every branch.
+#   6. Build, HTML structure validation, feed XML validation, broken-link
 #      check (only the `test` job's steps run on every branch; `build` and
 #      `deploy` below only run for main via the `needs:`/`if:` chain).
 #
@@ -69,6 +71,10 @@ jobs:
       - name: Run script tests
         working-directory: _scripts
         run: uv run pytest
+
+      - name: Validate posts for AT Protocol publish
+        working-directory: _scripts
+        run: uv run python atproto/publish.py validate --posts-dir ../_posts
 
       - name: Check for strict Liquid errors
         run: bundle exec ruby _bin/check_strict.rb
