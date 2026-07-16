@@ -1,6 +1,6 @@
 # Bluesky / standard.site Integration Plan
 
-**Status:** Phase 1 ✓ | Phase 2 ✓ | Phase 3 (manual) | Phase 4 ✓ | Phase 5 (post-deploy)
+**Status:** Phase 1 ✓ | Phase 2 ✓ | Phase 3 (manual) | Phase 4 ✓ | Phase 5 (post-deploy) | Phase 6 ✓
 
 Implementation plan for publishing this site's posts to the AT Protocol
 using the [standard.site](https://standard.site) lexicons, so links to
@@ -375,6 +375,66 @@ Notes:
 4. Share a post URL in a Bluesky post and confirm the enhanced card
    (publication + author metadata) renders. Cards may lag a few minutes
    after first verification.
+
+## Phase 6 (optional) — Branch-side publish validation
+
+Motivation: branches never run the publish step, so a post that the
+publish script can't handle only fails at merge time, blocking the
+`main` deploy instead of failing the PR. A network-free `validate`
+subcommand closes that gap by running the parsing half of `publish` on
+every branch.
+
+### 6.1 `validate` subcommand
+
+Add to `_scripts/atproto/publish.py`:
+
+```
+uv run python atproto/publish.py validate --posts-dir ../_posts
+```
+
+- Requires **no env vars, no config, no network** — it must never touch
+  `AtprotoClient` and must run identically on forks.
+- Runs the same `parse_post` path as `publish` over every
+  `YYYY-MM-DD-*.md` file and collects errors instead of records:
+  - front matter that fails to parse as YAML (note: `parse_post`
+    currently swallows `yaml.YAMLError` and returns `{}` — validate
+    must surface it as an error, not inherit the silent fallback);
+  - missing or empty `title` (the lexicon requires it; `publish` would
+    currently create a record with `"title": ""`);
+  - a `publishedAt` that cannot be derived;
+  - **duplicate `path` across local posts** (two posts whose filenames
+    share a slug on different dates collide on `/blog/<slug>/`;
+    `sync_posts` currently last-one-wins silently — validate must catch
+    it);
+  - warn (not error) on explicit `slug:`/`permalink:` front matter,
+    same as `publish`.
+- Print every problem with its filename; exit 1 if any errors, 0
+  otherwise (warnings don't fail).
+
+### 6.2 CI wiring
+
+Add to the **`test` job** (which runs on every branch), after "Run
+script tests":
+
+```yaml
+      - name: Validate posts for AT Protocol publish
+        working-directory: _scripts
+        run: uv run python atproto/publish.py validate --posts-dir ../_posts
+```
+
+No `if:` gate and no secrets — that is the point. Update the workflow
+header comment (repo rule 6).
+
+### 6.3 Tests
+
+Extend `_scripts/tests/test_atproto_publish.py`: valid posts pass;
+each error class above fails with the offending filename in the
+output; slug/permalink override warns but exits 0; no HTTP calls occur
+(the mock transport must stay unused).
+
+**Acceptance:** a branch with a post containing broken front matter
+fails the `test` job with a message naming the file; the same tree
+passes once fixed; `validate` runs green against the real `_posts/`.
 
 ## Future work (explicitly out of scope for v1)
 
