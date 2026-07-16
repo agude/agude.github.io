@@ -8,24 +8,23 @@
 #   5. `atproto/publish.py validate` — parses every post and book review
 #      for AT Protocol compatibility; no credentials or network required;
 #      runs on every branch.
-#   6. Build, then `atproto/publish.py validate --site-dir` cross-checks
-#      every derived AT record path against the built _site/ (catches any
-#      divergence between script path derivation and Jekyll permalinks),
-#      then HTML structure validation, feed XML validation, broken-link
-#      check. (Only the `test` job's steps run on every branch; `build`
-#      runs everywhere too but `deploy` only runs for main via the
-#      `needs:`/`if:` chain.)
+#   6. Build, then four site gates on every branch: the AT-path cross-check
+#      (validate --site-dir, both directions), HTML structure
+#      (_bin/check_html_structure.sh), feed XML (_bin/check_feeds.rb), and
+#      broken links (_bin/check_links.rb). (Only the `test` job's steps run
+#      on every branch; `build` runs everywhere too but `deploy` only runs
+#      for main via the `needs:`/`if:` chain.)
 #
 # Main-only steps in the build job (gated on github.ref == refs/heads/main),
 # ordered so PDS records — an external, not-automatically-reversible
-# system — are only written after the site cross-check passes:
-#   6. `uv run python atproto/publish.py publish` — syncs _posts/ and
-#      _books/ to PDS site.standard.document records and writes
-#      _data/standard_site.json; then a second Jekyll build embeds the
-#      per-document link tags. Requires BSKY_APP_PASSWORD repo secret.
-#      If this step fails, the build fails and nothing deploys. Exception:
-#      while _config.yml standard_site.publication_uri is empty (Phase 3
-#      of bluesky.md not done), the step is a clean no-op needing no secret.
+# system — are only written after ALL site gates pass:
+#   7. `uv run python atproto/publish.py publish` — syncs _posts/ and
+#      _books/ (and the publication record from _config.yml) to the PDS
+#      and writes _data/standard_site.json. Requires the BSKY_APP_PASSWORD
+#      repo secret and a non-empty standard_site.publication_uri (an empty
+#      value is a hard failure — repo rule 5).
+#   8. A second Jekyll build embeds the per-document link tags, then all
+#      four gates re-run against the artifact that actually deploys.
 #
 # Test-job concurrency is per-ref and cancels stale runs
 # (`test-${{ github.ref }}`); the deploy job's `group: pages` lock is scoped
@@ -121,13 +120,23 @@ jobs:
         env:
           JEKYLL_ENV: production
 
-      # Must pass BEFORE the publish step below may write records to the
-      # PDS: records are an external, not-automatically-reversible system.
-      # Superset of the test job's credential-free validate step (keep the
-      # two invocations' flags in sync).
+      # All four site gates must pass BEFORE the publish step below may
+      # write records to the PDS: records are an external,
+      # not-automatically-reversible system. The cross-check is a superset
+      # of the test job's credential-free validate step (keep the two
+      # invocations' flags in sync).
       - name: Cross-check AT record paths against built site
         working-directory: _scripts
         run: uv run python atproto/publish.py validate --posts-dir ../_posts --books-dir ../_books --site-dir ../_site
+
+      - name: Validate HTML structure
+        run: ./_bin/check_html_structure.sh
+
+      - name: Validate feed XML
+        run: bundle exec ruby _bin/check_feeds.rb
+
+      - name: Check for broken links
+        run: bundle exec ruby _bin/check_links.rb
 
       - name: Publish standard.site records
         if: github.ref == 'refs/heads/main'
@@ -138,55 +147,21 @@ jobs:
           BSKY_APP_PASSWORD: ${{ secrets.BSKY_APP_PASSWORD }}
 
       # The first build ran without _data/standard_site.json (publish had
-      # not run yet), so main rebuilds to embed the per-document link tags.
+      # not run yet), so main rebuilds to embed the per-document link tags,
+      # then re-runs every site gate against the artifact that deploys.
       - name: Rebuild with document link tags
         if: github.ref == 'refs/heads/main'
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
 
-      - name: Validate HTML structure
+      - name: Re-check final artifact
+        if: github.ref == 'refs/heads/main'
         run: |
-          echo "Checking for missing DOCTYPE declarations..."
-          missing_doctype=$(find _site -name '*.html' -exec sh -c 'head -1 "$1" | grep -qv "^<!DOCTYPE" && echo "$1"' _ {} \;)
-          if [ -n "$missing_doctype" ]; then
-            echo "ERROR: The following files are missing <!DOCTYPE html>:"
-            echo "$missing_doctype"
-            echo "This usually indicates a broken layout chain or corrupted front matter."
-            exit 1
-          fi
-          echo "Checking for raw front matter in output..."
-          # Only check for --- at the START of files (actual unprocessed front matter)
-          # Ignore --- inside code blocks (legitimate content like Jekyll tutorials)
-          raw_frontmatter=$(find _site -name '*.html' -exec sh -c 'head -1 "$1" | grep -q "^---$" && echo "$1"' _ {} \;)
-          if [ -n "$raw_frontmatter" ]; then
-            echo "ERROR: Raw front matter delimiters found at start of HTML files:"
-            echo "$raw_frontmatter"
-            exit 1
-          fi
-          echo "All HTML structure checks passed."
-
-      - name: Validate feed XML
-        run: |
-          bundle exec ruby -rrexml -e '
-            feeds = Dir.glob("_site/**/*.xml").select { |f|
-              content = File.read(f, 512)
-              content.include?("<feed") || content.include?("<rss")
-            }
-            abort "FAILED — no feed XML files found in _site" if feeds.empty?
-            feeds.each do |path|
-              print "#{path}: "
-              raw = File.read(path)
-              abort "FAILED — starts with raw Liquid/HTML, not XML declaration" unless raw.start_with?("<?xml")
-              doc = REXML::Document.new(raw)
-              entries = REXML::XPath.match(doc, "//*[local-name()=\"entry\"]")
-              abort "FAILED — feed contains no entries" if entries.empty?
-              puts "OK (#{entries.length} entries)"
-            end
-          '
-
-      - name: Check for broken links
-        run: bundle exec ruby _bin/check_links.rb
+          (cd _scripts && uv run python atproto/publish.py validate --posts-dir ../_posts --books-dir ../_books --site-dir ../_site)
+          ./_bin/check_html_structure.sh
+          bundle exec ruby _bin/check_feeds.rb
+          bundle exec ruby _bin/check_links.rb
 
       - name: Upload artifact
         # Only upload if we are on main (where deployment happens)

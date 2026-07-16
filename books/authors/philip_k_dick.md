@@ -5,7 +5,7 @@ pen_names:
   - Richard Phillipps
   - Jack Dowland
 description: >
-    Alex Gude's reviews of books written by Philip K. Dick.
+  Alex Gude's reviews of books written by Philip K. Dick.
 same_as_urls:
   - "https://www.wikidata.org/wiki/Q171091"
   - "https://en.wikipedia.org/wiki/Philip_K._Dick"

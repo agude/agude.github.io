@@ -55,12 +55,13 @@ rendering it. (jekyll-feed correctly skips generating its own feed because a
 file exists at that path — so the broken copy wins.)
 
 **Second, masked bug in the same file:** the explanatory HTML comment sits
-*before* the `<?xml version="1.0"?>` declaration. Even once rendered, the
+_before_ the `<?xml version="1.0"?>` declaration. Even once rendered, the
 output would not be well-formed XML (declaration must be the first bytes).
 Verified: `xml.etree` rejects the current output; strict feed readers will
 too.
 
 **Fix:**
+
 1. Add empty front matter (`---`/`---`) at the top of `feed.xml`.
 2. Convert the HTML comment to a `{% comment %}` block (renders to nothing)
    or move it below the XML declaration.
@@ -87,13 +88,14 @@ books. The main feed will hit the same 10-of-105 cap once 1.1 is fixed.
 
 The whole point of the `feed.xml` override was to pipe content through
 `strip_link_previews` so hidden preview markup doesn't appear as inline text
-in feed readers. But the override only covers the *main* feed; the books
+in feed readers. But the override only covers the _main_ feed; the books
 collection feed is generated from jekyll-feed's bundled template.
 
 **Verified live:** `/feed/books.xml` currently contains 170
 `book-preview` fragments.
 
 **Fix options (pick one):**
+
 - Provide an override at `feed/books.xml` too (same template, with front
   matter — see 1.1), or
 - Strip previews globally in a `post_render`/generator hook so no template
@@ -123,13 +125,14 @@ from production builds entirely (e.g. move to `_drafts/` or gate on
 ### 2.1 Workflow-level concurrency group can silently skip branch tests — [DONE]
 
 `.github/workflows/jekyll.yml` sets `concurrency: group: "pages"` for the
-*entire workflow*, on *every push to every branch*, with
+_entire workflow_, on _every push to every branch_, with
 `cancel-in-progress: false`. GitHub keeps at most one **pending** run per
 group: push branch A (run queues behind an in-progress main deploy), then
 push branch B — A's queued run is superseded and **branch A is never
 tested**. It also needlessly serializes all test runs behind deploys.
 
 **Fix:** scope the shared lock to deployment only:
+
 - Remove the workflow-level `concurrency`, and
 - Add `concurrency: { group: pages, cancel-in-progress: false }` to the
   `deploy` (or `build`+`deploy`) job only; optionally give test runs
@@ -137,7 +140,7 @@ tested**. It also needlessly serializes all test runs behind deploys.
 
 ### 2.2 Pre-commit hook silently stages unstaged changes — [DONE: stash --keep-index approach]
 
-`_bin/pre-commit.sh` runs the formatters, then `git add`s each *file* that
+`_bin/pre-commit.sh` runs the formatters, then `git add`s each _file_ that
 had anything staged. If you partially staged a file (`git add -p`), the hook
 stages your leftover hunks and they ride into the commit unreviewed. This
 applies to all three stages (RuboCop, Prettier, Ruff).
@@ -145,7 +148,7 @@ applies to all three stages (RuboCop, Prettier, Ruff).
 **Fix:** either fail-don't-fix in the hook (report offenses, exit 1, let the
 user re-stage), or stash unstaged changes around the hook
 (`git stash -k` … pop), or only re-add when `git diff --name-only` shows the
-formatter actually changed the file *and* the file had no unstaged diff
+formatter actually changed the file _and_ the file had no unstaged diff
 beforehand. Minor related nits: `xargs` breaks on filenames with spaces;
 the stray `"$@"` in the RuboCop invocation passes hook args into rubocop.
 
@@ -155,7 +158,7 @@ the stray `"$@"` in the RuboCop invocation passes hook args into rubocop.
 link rot is invisible. With ~10 years of posts this is guaranteed to be
 accumulating.
 
-**Fix:** add a *scheduled* (e.g. monthly `schedule:` workflow, not per-push)
+**Fix:** add a _scheduled_ (e.g. monthly `schedule:` workflow, not per-push)
 external-link check — html-proofer with external checks + cache
 (`:cache: { :timeframe: '30d' }`) or lychee — that opens an issue on
 failure. Keep the per-push check internal-only as it is now.
@@ -217,6 +220,7 @@ generation.
 ### 4.1 Ruby 3.2 is EOL (since 2026-03-31) — [DONE: 3.4.10; no Gemfile changes needed, only lint autocorrections]
 
 `.ruby-version` pins 3.2; no more security patches. Upgrade to 3.4:
+
 - `.ruby-version` (Makefile and `ruby/setup-ruby` both derive from it —
   single-point change), Dockerfile `ARG RUBY_VERSION` default.
 - Expect minor fallout: bundled-gem warnings (you already carry `logger`;
@@ -311,7 +315,7 @@ Two commits, `make test` + `make lint` green after each.
   CSS custom properties declared on `:root`; keep the Sass variables
   pointing at `var(--…)` so partials don't change.
 - Gotcha: `$muted-color` is `color.adjust($body-color, $lightness:
-  20%)` — Sass can't adjust a `var()`. Materialize it as its own
+20%)` — Sass can't adjust a `var()`. Materialize it as its own
   custom property (light value: `hsl(0, 0%, 52%)`). No other partial
   applies Sass color functions to these tokens (verified by grep).
 - `$sidebar-color` is Liquid-injected from `site.theme_color` via
@@ -334,15 +338,15 @@ Two commits, `make test` + `make lint` green after each.
   custom properties. Starting values (AA-checked starting points, not
   final taste — user will nudge later; do not iterate on aesthetics):
 
-  | Token | Light | Dark |
-  |---|---|---|
-  | `--body-bg` | `white` | `hsl(214, 15%, 12%)` |
-  | `--body-color` | `hsl(0, 0%, 32%)` | `hsl(0, 0%, 78%)` |
-  | `--muted-color` | `hsl(0, 0%, 52%)` | `hsl(0, 0%, 60%)` |
-  | `--border-color` | `hsl(0, 0%, 90%)` | `hsl(214, 10%, 26%)` |
-  | `--code-color` | `hsl(354, 42%, 56%)` | `hsl(354, 55%, 70%)` |
-  | `--code-bg` | `#f9f9f9` | `hsl(214, 12%, 17%)` |
-  | `--sidebar-color` | `site.theme_color` | unchanged (already dark) |
+  | Token             | Light                | Dark                     |
+  | ----------------- | -------------------- | ------------------------ |
+  | `--body-bg`       | `white`              | `hsl(214, 15%, 12%)`     |
+  | `--body-color`    | `hsl(0, 0%, 32%)`    | `hsl(0, 0%, 78%)`        |
+  | `--muted-color`   | `hsl(0, 0%, 52%)`    | `hsl(0, 0%, 60%)`        |
+  | `--border-color`  | `hsl(0, 0%, 90%)`    | `hsl(214, 10%, 26%)`     |
+  | `--code-color`    | `hsl(354, 42%, 56%)` | `hsl(354, 55%, 70%)`     |
+  | `--code-bg`       | `#f9f9f9`            | `hsl(214, 12%, 17%)`     |
+  | `--sidebar-color` | `site.theme_color`   | unchanged (already dark) |
 
 - Syntax highlighting: do not hand-derive. Generate a tested dark
   theme with `$(DOCKER_RUN) bundle exec rougify style github.dark`
@@ -350,7 +354,7 @@ Two commits, `make test` + `make lint` green after each.
   media query; it must override every light rule incl. `.hll` and the
   error/deleted background colors.
 - Hover-preview cards (`_previews.scss`): elevated surfaces on dark
-  get a *lighter* background than the page, not shadows — point the
+  get a _lighter_ background than the page, not shadows — point the
   card bg at a token and give it a dark value ~4–6% lighter than
   `--body-bg`.
 - `theme-color` meta: add `theme_color_dark` to `_config.yml` (use the
@@ -392,7 +396,7 @@ Low priority — inputs are your own kramdown output.
 ## 5. Housekeeping
 
 - [DONE] **`Gemfile.lock` is in `.gitignore` but tracked** (added before the ignore
-  rule). It *must* stay committed — the Dockerfile COPYs it, bundler runs
+  rule). It _must_ stay committed — the Dockerfile COPYs it, bundler runs
   frozen, and CI `bundler-cache: true` requires it. Remove the `.gitignore`
   entry; it currently just hides lockfile drift from `git status` tooling
   that respects ignores.
@@ -445,7 +449,7 @@ end
 
 Each tag shrinks to its option spec plus a small adapter. Estimated ~490 →
 ~200 lines, and the accumulated behavioral drift between the four parsers
-disappears (e.g. `series_link` rejects an empty *quoted* title, `book_link`
+disappears (e.g. `series_link` rejects an empty _quoted_ title, `book_link`
 accepts one; only `author_link`/`series_text` support `link=false`; error
 message wording varies). A fifth link type becomes a 15-line file.
 
@@ -525,7 +529,7 @@ formatting.
 
 ### 6.7 Delete stale path-comment headers — [DONE]
 
-Many files carry a first-line comment with a *pre-reorganization* path:
+Many files carry a first-line comment with a _pre-reorganization_ path:
 `book_link_tag.rb` says `# _plugins/book_link_tag.rb`, `by_year_finder.rb`
 says `# _plugins/logic/book_lists/by_year_finder.rb`,
 `ranking/renderer.rb` says `# _plugins/logic/ranked_by_backlinks/renderer.rb`.
@@ -561,7 +565,7 @@ one commit per numbered item, `make test` + `make lint` green each.
   `find_entry` seam, an `:ambiguous` render status, and preview
   injection — three new extension points on an abstraction whose
   recent improvement was shrinking its surface. Revisit only if a
-  third *simple* link entity (publisher, translator…) ever appears.
+  third _simple_ link entity (publisher, translator…) ever appears.
 
 **Correctness items (do these first):**
 
@@ -613,7 +617,7 @@ one commit per numbered item, `make test` + `make lint` green each.
    (`!(val_str == 'false' || val == false)`). Add
    `TagArgumentUtils.resolve_boolean(markup, context, default: true)`
    with the LinkTagBase semantics (resolve → `to_s.downcase !=
-   'false'`) and use it at all three sites. Known behavior change to
+'false'`) and use it at all three sites. Known behavior change to
    call out in the commit message: `display_authors_tag` currently
    only treats lowercase `'false'` as false; unified semantics make
    `'FALSE'`/`'False'` false too.
@@ -634,9 +638,10 @@ Five repo skills: `jekyll-site-dev`, `plugin-navigator`, `stub-book`,
 `captures`, `copyedit`. State of each:
 
 **Healthy / verified:**
+
 - `plugin-navigator` — all four scripts run clean; `coverage-stats` reports
   141/141 plugin↔test pairing, `orphan-tests` finds none. Because the
-  scripts *derive* answers from the filesystem, they can't go stale.
+  scripts _derive_ answers from the filesystem, they can't go stale.
 - `stub-book` — `scripts/stub_book.py` is a symlink into
   `_scripts/skills/stub_book.py`, so there's a single source of truth and
   the script is covered by `make test-scripts`. Good pattern. (Stray
@@ -648,6 +653,7 @@ Five repo skills: `jekyll-site-dev`, `plugin-navigator`, `stub-book`,
   `book-families.md`.
 
 **Stale — fix:** — [DONE: both docs updated; existence test added (mechanism 1); AGENTS.md sync rule added (mechanism 2). §7.1 not done.]
+
 - `references/markdown-output.md` points to
   `content/markdown_output/llms_txt_generator.rb`, which no longer exists —
   the llms.txt stage is now `tags/llms_txt_index_tag.rb` (a Liquid tag used
@@ -673,7 +679,7 @@ were written). Three mechanisms, cheap to expensive:
    each exists (searching the known roots). It would have caught the
    `llms_txt_generator.rb` staleness the day the file was renamed. Fits
    naturally next to the existing meta-tests (the coverage cross-check
-   test in `_tests/` is the same spirit). It can't catch *semantic* drift
+   test in `_tests/` is the same spirit). It can't catch _semantic_ drift
    (ci-cd-hooks.md's missing steps), but it catches the most common kind.
 2. **A sync rule where the agent reads it.** Add one line to `AGENTS.md`:
    "When you change plugin architecture, CI workflow, hooks, or the
@@ -686,12 +692,12 @@ were written). Three mechanisms, cheap to expensive:
    rot are scripts (`plugin-navigator`) and pattern explanations
    (`gotchas.md` — behaviors change rarely). Where a doc lists an
    inventory, ask if a script or a `grep` recipe could replace the list;
-   keep prose for the *why* and the invariants.
+   keep prose for the _why_ and the invariants.
 
 ### 7.1 Design: code-resident skill docs (docs live in the code, skills become shims)
 
 The strongest version of "derivation over description": move file-anchored
-doc content *into the source files it describes*, and turn the skill into a
+doc content _into the source files it describes_, and turn the skill into a
 thin index plus extraction scripts. The edit that changes the code then
 contains the doc block in the same diff — proximity is the sync mechanism.
 
@@ -699,11 +705,11 @@ contains the doc block in the same diff — proximity is the sync mechanism.
 three tiers, each derived at read time from structure conventions — nothing
 is compiled, so nothing drifts:
 
-| Tier | KB mechanism | Cost |
-| --- | --- | --- |
-| 0. Index, always in context | session hook injects file paths + H1 titles only | ~KBs |
-| 1. Outline, on demand | `toc` numbers H2/H3 headings per file | one tool call |
-| 2. Content, on demand | `section --file F --number N` streams one section | just that section |
+| Tier                        | KB mechanism                                      | Cost              |
+| --------------------------- | ------------------------------------------------- | ----------------- |
+| 0. Index, always in context | session hook injects file paths + H1 titles only  | ~KBs              |
+| 1. Outline, on demand       | `toc` numbers H2/H3 headings per file             | one tool call     |
+| 2. Content, on demand       | `section --file F --number N` streams one section | just that section |
 
 The addressable unit is "H2 section in a markdown file." For code-resident
 docs, **don't invent a marker syntax — the doc machinery already exists per
@@ -725,11 +731,11 @@ codebase writes YARD; it just never runs it. YARD adds what the invented
   (or `Class#method`) prints the docstring with Parameters/Returns
   formatted.
 
-*Verified in this repo's Docker image:* `gem install yard`, a `.yardopts`
+_Verified in this repo's Docker image:_ `gem install yard`, a `.yardopts`
 with two custom tags, `yard doc -n` to build the registry, then both the
 tag query and `yard display` work as described. One caveat found: the
 default text template renders the docstring body and standard tags but not
-custom-tag *content* — so use the tag as a categorical marker (`@gotcha`)
+custom-tag _content_ — so use the tag as a categorical marker (`@gotcha`)
 and put the prose in the docstring body. For an agent the query result's
 `file:line` is arguably better than extraction anyway: Read that location
 and you see doc and code together.
@@ -745,7 +751,7 @@ block, and plugin-navigator follows the same convention.
 
 The skill maps onto the same tiers with near-zero custom code:
 
-- **Tier 0 — SKILL.md** stays tiny and *stable*: subsystem overview, the
+- **Tier 0 — SKILL.md** stays tiny and _stable_: subsystem overview, the
   three commands above, and the few truly cross-cutting narratives.
 - **Tier 1 — index:** `yard list --query …` (wrapped in a `make`
   target or a two-line skill script so the Docker invocation is canned),
@@ -773,7 +779,7 @@ forces its doc into the diff where the reviewer sees it.
 
 **Extract-on-demand beats compile-to-skill.** Compiling docstrings into
 `references/*.md` creates a second artifact: stale between compile runs,
-and editable by mistake (the wrong copy *will* get edited). Read-time
+and editable by mistake (the wrong copy _will_ get edited). Read-time
 context cost is identical — either way the agent reads one section on
 demand. The only genuinely context-expensive variant is inlining compiled
 content into SKILL.md itself; never do that. The repo already runs the
@@ -782,20 +788,20 @@ derives its listing from Python module docstrings via AST.
 
 **What moves into code** (with its natural home):
 
-| Current doc | New home |
-| --- | --- |
-| `build-validators.md` table | `@validator`-tagged docstring on each validator class; `yard list --query 'has_tag?(:validator)'` reproduces the table |
-| `markdown-output.md` key-files table | class docstring in each pipeline file |
-| `markdown-output.md` data-flow diagram | `@pipeline`-tagged docstring on the entry-point class in `markdown_body_hook.rb` (the subsystem's entry point hosts the overview) |
-| `gotchas.md` entries | `@gotcha`-tagged docstring next to the code it warns about (cache pollution → `markdown_body_hook.rb`; canonical-URL filtering → `book_link_resolver.rb`; `generate_link_cache` in tests → `test_helper.rb`) |
-| `testing.md` API guide | header docs in `test_helper.rb` — it *is* the API being documented |
-| `ci-cd-hooks.md` | comment blocks in `jekyll.yml` and `pre-commit.sh` (YAML has no doc tooling; header-comment convention like the shell scripts) |
-| `plugin-patterns.md` | `@pattern`-tagged docstrings in the canonical exemplar files it already points at (`book_link_tag.rb`, `display_tag_renderable.rb`) |
+| Current doc                            | New home                                                                                                                                                                                                     |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `build-validators.md` table            | `@validator`-tagged docstring on each validator class; `yard list --query 'has_tag?(:validator)'` reproduces the table                                                                                       |
+| `markdown-output.md` key-files table   | class docstring in each pipeline file                                                                                                                                                                        |
+| `markdown-output.md` data-flow diagram | `@pipeline`-tagged docstring on the entry-point class in `markdown_body_hook.rb` (the subsystem's entry point hosts the overview)                                                                            |
+| `gotchas.md` entries                   | `@gotcha`-tagged docstring next to the code it warns about (cache pollution → `markdown_body_hook.rb`; canonical-URL filtering → `book_link_resolver.rb`; `generate_link_cache` in tests → `test_helper.rb`) |
+| `testing.md` API guide                 | header docs in `test_helper.rb` — it _is_ the API being documented                                                                                                                                           |
+| `ci-cd-hooks.md`                       | comment blocks in `jekyll.yml` and `pre-commit.sh` (YAML has no doc tooling; header-comment convention like the shell scripts)                                                                               |
+| `plugin-patterns.md`                   | `@pattern`-tagged docstrings in the canonical exemplar files it already points at (`book_link_tag.rb`, `display_tag_renderable.rb`)                                                                          |
 
-**What stays in the skill** (the honest limit): rules about *content*, not
+**What stays in the skill** (the honest limit): rules about _content_, not
 code. `content-authoring.md` (excerpt rules, when to use which tag) and
 `book-families.md` (re-review workflow) describe authoring policy with no
-single code home — though where a rule has an *enforcement site*, the doc
+single code home — though where a rule has an _enforcement site_, the doc
 belongs there (the "never raw-link books" rule can live on `LinkValidator`,
 whose error message is what an author actually encounters). What remains in
 `.claude/skills` markdown after migration is small, slow-changing policy
@@ -810,7 +816,7 @@ lines, cached in `.yardoc`); source files carry more comment prose (same
 total volume, relocated); no single rendered doc page to browse on GitHub
 (acceptable — the audience is the agent, and the tag queries are the
 browse view; `yard doc` can emit HTML any time if a human wants it);
-semantic drift *within* a docstring is still possible — proximity is the
+semantic drift _within_ a docstring is still possible — proximity is the
 mitigation, which is the premise of the whole design.
 
 ---

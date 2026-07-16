@@ -42,11 +42,17 @@ class MockResponse:
 
 
 class MockTransport:
-    """Records calls and returns pre-queued responses in FIFO order."""
+    """
+    Records calls and returns pre-queued responses in FIFO order. URLs
+    matching a key in `routes` return that fixed response instead of
+    consuming the queue (used for the publication getRecord check that
+    runs before every sync).
+    """
 
     def __init__(self) -> None:
         self._queue: list[MockResponse] = []
         self.calls: list[tuple] = []
+        self.routes: dict[str, MockResponse] = {}
 
     def push(self, data: dict | None = None, status_code: int = 200) -> None:
         self._queue.append(MockResponse(data, status_code))
@@ -55,22 +61,50 @@ class MockTransport:
         assert self._queue, "MockTransport response queue is empty"
         return self._queue.pop(0)
 
+    def _route_for(self, url: str) -> MockResponse | None:
+        for key, resp in self.routes.items():
+            if key in url:
+                return resp
+        return None
+
     def post(self, url: str, json: dict | None = None, headers: dict | None = None, timeout: float | None = None) -> MockResponse:
         self.calls.append(("POST", url, json))
-        return self._pop()
+        return self._route_for(url) or self._pop()
 
     def get(self, url: str, params: dict | None = None, headers: dict | None = None, timeout: float | None = None) -> MockResponse:
         self.calls.append(("GET", url, params))
-        return self._pop()
+        return self._route_for(url) or self._pop()
 
 
 LOGIN_RESPONSE = {"did": "did:plc:test123", "accessJwt": "token-abc"}
 PUB_URI = "at://did:plc:test123/site.standard.publication/rkeypub"
 DOC_URI = "at://did:plc:test123/site.standard.document/rkeydoc1"
 
+# Config whose desired publication record matches PUB_RECORD_RESPONSE, so
+# sync tests trigger no publication update unless they want one.
+TEST_CONFIG = {
+    "title": "Test Site",
+    "description": "Test description",
+    "url": "https://example.com",
+    "standard_site": {"publication_uri": PUB_URI},
+}
+PUB_RECORD_RESPONSE = {
+    "uri": PUB_URI,
+    "cid": "pubcid1",
+    "value": {
+        "$type": "site.standard.publication",
+        "url": "https://example.com",
+        "name": "Test Site",
+        "description": "Test description",
+        "preferences": {"showInDiscover": True},
+    },
+}
+
 
 def make_client(transport: MockTransport) -> AtprotoClient:
     transport.push(LOGIN_RESPONSE)
+    # Every sync/delete-orphans run verifies the publication record first.
+    transport.routes["getRecord"] = MockResponse(PUB_RECORD_RESPONSE)
     return AtprotoClient("https://bsky.social", "handle.bsky.social", "password", _session=transport)
 
 
@@ -259,7 +293,7 @@ class TestSyncPostsDecisions:
         transport.push({"records": []})  # listRecords
         transport.push({"uri": DOC_URI})  # createRecord
 
-        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
+        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
 
         post_calls = [c for c in transport.calls if "createRecord" in c[1]]
         assert len(post_calls) == 1
@@ -279,7 +313,7 @@ class TestSyncPostsDecisions:
             "records": [{"uri": DOC_URI, "value": remote_rec}],
         })
 
-        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
+        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
 
         create_or_put = [c for c in transport.calls if "createRecord" in c[1] or "putRecord" in c[1]]
         assert len(create_or_put) == 0
@@ -300,7 +334,7 @@ class TestSyncPostsDecisions:
         })
         transport.push({})  # putRecord response
 
-        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
+        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
 
         put_calls = [c for c in transport.calls if "putRecord" in c[1]]
         assert len(put_calls) == 1
@@ -328,7 +362,7 @@ class TestSyncPostsUpdate:
         transport.push({"records": [{"uri": DOC_URI, "value": remote_rec}]})
         transport.push({})  # putRecord
 
-        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
+        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
 
         put_call = next(c for c in transport.calls if "putRecord" in c[1])
         sent_record = put_call[2]["record"]
@@ -349,7 +383,7 @@ class TestSyncPostsUpdate:
         transport.push({"records": [{"uri": DOC_URI, "value": remote_rec}]})
         transport.push({})
 
-        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
+        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
 
         put_call = next(c for c in transport.calls if "putRecord" in c[1])
         sent_record = put_call[2]["record"]
@@ -371,9 +405,8 @@ class TestDuplicateRemotePath:
         ]
         transport.push({"records": dupe_records})
 
-        with pytest.raises(SystemExit) as exc_info:
-            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
-        assert exc_info.value.code == 1
+        with pytest.raises(publish.PublishError) as exc_info:
+            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
 
 
 # ---------------------------------------------------------------------------
@@ -389,7 +422,7 @@ class TestOrphanRecord:
             "records": [{"uri": DOC_URI, "value": {"site": PUB_URI, "path": "/blog/gone/"}}],
         })
 
-        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
+        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
 
         stderr = capsys.readouterr().err
         assert "orphan" in stderr.lower()
@@ -414,7 +447,7 @@ class TestDataFile:
         transport.push({"uri": "at://did:plc:test123/site.standard.document/newrkey"})
 
         data_out = tmp_path / "out.json"
-        sync_documents(client, tmp_path, data_out, PUB_URI)
+        sync_documents(client, tmp_path, data_out, PUB_URI, TEST_CONFIG)
 
         result = json.loads(data_out.read_text())
         assert "/blog/alpha/" in result
@@ -436,7 +469,7 @@ class TestDataFile:
         transport.push({"records": [{"uri": DOC_URI, "value": existing_rec}]})
 
         data_out = tmp_path / "out.json"
-        sync_documents(client, tmp_path, data_out, PUB_URI, dry_run=True)
+        sync_documents(client, tmp_path, data_out, PUB_URI, TEST_CONFIG, dry_run=True)
 
         result = json.loads(data_out.read_text())
         assert "/blog/existing/" in result
@@ -452,7 +485,7 @@ class TestDataFile:
         transport.push({"uri": "at://did:plc:test123/site.standard.document/rk2"})
 
         data_out = tmp_path / "out.json"
-        sync_documents(client, tmp_path, data_out, PUB_URI)
+        sync_documents(client, tmp_path, data_out, PUB_URI, TEST_CONFIG)
 
         keys = list(json.loads(data_out.read_text()).keys())
         assert keys == sorted(keys)
@@ -466,15 +499,13 @@ class TestDataFile:
 class TestEnvVars:
     def test_missing_bsky_handle_exits(self, monkeypatch: pytest.MonkeyPatch) -> None:
         monkeypatch.delenv("BSKY_HANDLE", raising=False)
-        with pytest.raises(SystemExit) as exc_info:
+        with pytest.raises(publish.PublishError) as exc_info:
             _get_env("BSKY_HANDLE")
-        assert exc_info.value.code == 1
 
     def test_missing_bsky_app_password_exits(self, monkeypatch: pytest.MonkeyPatch) -> None:
         monkeypatch.delenv("BSKY_APP_PASSWORD", raising=False)
-        with pytest.raises(SystemExit) as exc_info:
+        with pytest.raises(publish.PublishError) as exc_info:
             _get_env("BSKY_APP_PASSWORD")
-        assert exc_info.value.code == 1
 
     def test_present_env_var_returns_value(self, monkeypatch: pytest.MonkeyPatch) -> None:
         monkeypatch.setenv("BSKY_HANDLE", "alexgude.com")
@@ -488,24 +519,37 @@ class TestEnvVars:
 
 class TestInitPublication:
     def test_creates_publication_record(self, tmp_path: Path) -> None:
-        config = {}
+        config = {"title": "T", "description": "D", "url": "https://example.com"}
         transport = MockTransport()
         client = make_client(transport)
-        transport.push({"uri": PUB_URI})
+        transport.push({"records": []})  # no existing publication on PDS
+        transport.push({"uri": PUB_URI})  # createRecord
 
         init_publication(client, config)
 
         create_calls = [c for c in transport.calls if "createRecord" in c[1]]
         assert len(create_calls) == 1
+        assert create_calls[0][2]["record"]["name"] == "T"
+
+    def test_refuses_if_pds_already_has_publication(self, tmp_path: Path) -> None:
+        config = {"title": "T", "description": "D", "url": "https://example.com"}
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push({"records": [{"uri": PUB_URI, "value": {}}]})
+
+        with pytest.raises(publish.PublishError) as exc_info:
+            init_publication(client, config)
+        assert "already exist on the PDS" in str(exc_info.value)
+        create_calls = [c for c in transport.calls if "createRecord" in c[1]]
+        assert len(create_calls) == 0
 
     def test_refuses_if_uri_already_set(self, tmp_path: Path) -> None:
         config = {"standard_site": {"publication_uri": PUB_URI}}
         transport = MockTransport()
         client = make_client(transport)
 
-        with pytest.raises(SystemExit) as exc_info:
+        with pytest.raises(publish.PublishError) as exc_info:
             init_publication(client, config)
-        assert exc_info.value.code == 1
 
 
 # ---------------------------------------------------------------------------
@@ -536,9 +580,8 @@ class TestPublicationUriGuards:
     def test_sync_documents_requires_publication_uri(self, tmp_path: Path) -> None:
         transport = MockTransport()
         client = make_client(transport)
-        with pytest.raises(SystemExit) as exc_info:
-            sync_documents(client, tmp_path, tmp_path / "out.json", "")
-        assert exc_info.value.code == 1
+        with pytest.raises(publish.PublishError) as exc_info:
+            sync_documents(client, tmp_path, tmp_path / "out.json", "", TEST_CONFIG)
 
     def test_created_records_include_site(self, tmp_path: Path) -> None:
         (tmp_path / "2025-01-01-alpha.md").write_text("---\ntitle: Alpha\n---\n")
@@ -547,7 +590,7 @@ class TestPublicationUriGuards:
         transport.push({"records": []})
         transport.push({"uri": DOC_URI})
 
-        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
+        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
 
         create_call = next(c for c in transport.calls if "createRecord" in c[1])
         assert create_call[2]["record"]["site"] == PUB_URI
@@ -564,31 +607,30 @@ class TestPublicationUriGuards:
         transport.push({"records": [{"uri": DOC_URI, "value": other}]})
         transport.push({"uri": DOC_URI.replace("rkeydoc1", "rkeydoc2")})
 
-        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
+        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
 
         create_calls = [c for c in transport.calls if "createRecord" in c[1]]
         assert len(create_calls) == 1
         assert "orphan" not in capsys.readouterr().err.lower()
 
-    def test_main_publish_skips_cleanly_when_unconfigured(
+    def test_main_publish_fails_hard_when_unconfigured(
         self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys
     ) -> None:
-        # Pre-Phase-3 rollout safety: no config → no credentials needed,
-        # empty data file written, exit 0.
+        # The URI is committed; a blank value means a broken config and
+        # must fail the build, not silently un-publish everything.
         monkeypatch.setattr(publish, "load_config", lambda: {})
-        monkeypatch.delenv("BSKY_HANDLE", raising=False)
-        monkeypatch.delenv("BSKY_APP_PASSWORD", raising=False)
         data_out = tmp_path / "out.json"
-
         books = tmp_path / "books"
         books.mkdir()
-        publish.main(
-            ["publish", "--posts-dir", str(tmp_path), "--books-dir", str(books),
-             "--data-out", str(data_out)]
-        )
 
-        assert json.loads(data_out.read_text()) == {}
-        assert "skipping publish" in capsys.readouterr().err
+        with pytest.raises(SystemExit) as exc_info:
+            publish.main(
+                ["publish", "--posts-dir", str(tmp_path), "--books-dir", str(books),
+                 "--data-out", str(data_out)]
+            )
+        assert exc_info.value.code == 1
+        assert "publication_uri" in capsys.readouterr().err
+        assert not data_out.exists()
 
 
 # ---------------------------------------------------------------------------
@@ -799,7 +841,6 @@ class TestValidateViaCLI:
                 "validate", "--posts-dir", str(tmp_path),
                 "--books-dir", str(self._books(tmp_path)),
             ])
-        assert exc_info.value.code == 1
 
 # ---------------------------------------------------------------------------
 # sync_documents local-post guards (defense in depth alongside validate)
@@ -812,18 +853,17 @@ class TestSyncPostsLocalGuards:
         transport = MockTransport()
         client = make_client(transport)
 
-        with pytest.raises(SystemExit) as exc_info:
-            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
-        assert exc_info.value.code == 1
+        with pytest.raises(publish.PublishError) as exc_info:
+            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
 
     def test_missing_title_exits(self, tmp_path: Path, capsys) -> None:
         (tmp_path / "2025-01-01-alpha.md").write_text("---\nlayout: post\n---\n")
         transport = MockTransport()
         client = make_client(transport)
 
-        with pytest.raises(SystemExit):
-            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
-        assert "2025-01-01-alpha.md" in capsys.readouterr().err
+        with pytest.raises(publish.PublishError) as exc_info:
+            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
+        assert "2025-01-01-alpha.md" in str(exc_info.value)
 
     def test_duplicate_local_path_exits(self, tmp_path: Path, capsys) -> None:
         (tmp_path / "2025-01-01-alpha.md").write_text("---\ntitle: One\n---\n")
@@ -831,12 +871,11 @@ class TestSyncPostsLocalGuards:
         transport = MockTransport()
         client = make_client(transport)
 
-        with pytest.raises(SystemExit) as exc_info:
-            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
-        assert exc_info.value.code == 1
-        err = capsys.readouterr().err
-        assert "2025-01-01-alpha.md" in err
-        assert "2025-06-15-alpha.md" in err
+        with pytest.raises(publish.PublishError) as exc_info:
+            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
+        msg = str(exc_info.value)
+        assert "2025-01-01-alpha.md" in msg
+        assert "2025-06-15-alpha.md" in msg
 
 
 # ---------------------------------------------------------------------------
@@ -966,7 +1005,7 @@ class TestSyncBooks:
         transport.push({"uri": "at://did:plc:test123/site.standard.document/rk2"})
 
         data_out = tmp_path / "out.json"
-        sync_documents(client, posts, data_out, PUB_URI, books_dir=books)
+        sync_documents(client, posts, data_out, PUB_URI, TEST_CONFIG, books_dir=books)
 
         result = json.loads(data_out.read_text())
         assert "/blog/alpha/" in result
@@ -988,9 +1027,8 @@ class TestSyncBooks:
         transport = MockTransport()
         client = make_client(transport)
 
-        with pytest.raises(SystemExit) as exc_info:
-            sync_documents(client, posts, tmp_path / "out.json", PUB_URI, books_dir=books)
-        assert exc_info.value.code == 1
+        with pytest.raises(publish.PublishError) as exc_info:
+            sync_documents(client, posts, tmp_path / "out.json", PUB_URI, TEST_CONFIG, books_dir=books)
 
 # ---------------------------------------------------------------------------
 # Review fixes: bad post dates, override errors, unicode slugs, site-dir
@@ -1015,9 +1053,8 @@ class TestBadPostDate:
         (tmp_path / "2025-01-01-post.md").write_text("---\ntitle: Post\ndate: soon\n---\n")
         transport = MockTransport()
         client = make_client(transport)
-        with pytest.raises(SystemExit) as exc_info:
-            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
-        assert exc_info.value.code == 1
+        with pytest.raises(publish.PublishError) as exc_info:
+            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
 
 
 class TestOverridesRaise:
@@ -1037,18 +1074,17 @@ class TestOverridesRaise:
         (tmp_path / "2025-01-01-post.md").write_text("---\ntitle: Post\nslug: c\n---\n")
         transport = MockTransport()
         client = make_client(transport)
-        with pytest.raises(SystemExit) as exc_info:
-            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
-        assert exc_info.value.code == 1
-        assert "2025-01-01-post.md" in capsys.readouterr().err
+        with pytest.raises(publish.PublishError) as exc_info:
+            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
+        assert "2025-01-01-post.md" in str(exc_info.value)
 
     def test_sync_reports_real_yaml_error(self, tmp_path: Path, capsys) -> None:
         # Broken YAML used to be swallowed and misdiagnosed as a title error.
         (tmp_path / "2025-01-01-post.md").write_text("---\ntitle: [unclosed\n---\n")
         transport = MockTransport()
         client = make_client(transport)
-        with pytest.raises(SystemExit):
-            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
+        with pytest.raises(publish.PublishError):
+            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
         err = capsys.readouterr().err
         assert "title'" not in err  # not the misleading empty-title message
 
@@ -1064,7 +1100,8 @@ class TestSlugifyUnicode:
 class TestSiteDirCrossCheck:
     def _site_with(self, tmp_path: Path, *paths: str) -> Path:
         site = tmp_path / "_site"
-        site.mkdir(exist_ok=True)
+        (site / "blog").mkdir(parents=True, exist_ok=True)
+        (site / "books").mkdir(parents=True, exist_ok=True)
         for rel in paths:
             d = site / rel.strip("/")
             d.mkdir(parents=True)
@@ -1187,14 +1224,15 @@ class TestMissingDirs:
     def test_sync_exits_on_missing_posts_dir(self, tmp_path: Path) -> None:
         transport = MockTransport()
         client = make_client(transport)
-        with pytest.raises(SystemExit) as exc_info:
-            sync_documents(client, tmp_path / "nope", tmp_path / "out.json", PUB_URI)
-        assert exc_info.value.code == 1
+        with pytest.raises(publish.PublishError) as exc_info:
+            sync_documents(client, tmp_path / "nope", tmp_path / "out.json", PUB_URI, TEST_CONFIG)
 
 
 class TestReverseSweep:
     def _site(self, tmp_path: Path, pages: dict[str, str]) -> Path:
         site = tmp_path / "_site"
+        (site / "blog").mkdir(parents=True, exist_ok=True)
+        (site / "books").mkdir(parents=True, exist_ok=True)
         for rel, content in pages.items():
             d = site / rel.strip("/")
             d.mkdir(parents=True)
@@ -1316,10 +1354,9 @@ class TestDeleteOrphansBlastRadius:
         transport = MockTransport()
         client = make_client(transport)
 
-        with pytest.raises(SystemExit) as exc_info:
+        with pytest.raises(publish.PublishError) as exc_info:
             publish.delete_orphans(client, posts, books, PUB_URI, confirmed=True)
-        assert exc_info.value.code == 1
-        assert "refusing" in capsys.readouterr().err
+        assert "refusing" in str(exc_info.value)
         delete_calls = [c for c in transport.calls if "deleteRecord" in c[1]]
         assert len(delete_calls) == 0
 
@@ -1357,3 +1394,199 @@ class TestHttpTimeouts:
         client.put_record("site.standard.document", "rk", {})
         transport.push({})
         client.delete_record("site.standard.document", "rk")
+
+# ---------------------------------------------------------------------------
+# Fourth review: verification, CAS, retries, future posts, publication sync
+# ---------------------------------------------------------------------------
+
+
+class TestFutureDatedPosts:
+    def test_future_post_skipped(self, tmp_path: Path) -> None:
+        # Jekyll builds with future: false; a record for an unbuilt page
+        # would fail the forward cross-check on every branch.
+        f = tmp_path / "2099-01-01-scheduled.md"
+        f.write_text("---\ntitle: Later\n---\n")
+        assert parse_post(f) is None
+
+    def test_past_post_kept(self, tmp_path: Path) -> None:
+        f = tmp_path / "2020-01-01-old.md"
+        f.write_text("---\ntitle: Old\n---\n")
+        assert parse_post(f) is not None
+
+    def test_future_front_matter_date_skipped(self, tmp_path: Path) -> None:
+        f = tmp_path / "2020-01-01-old.md"
+        f.write_text("---\ntitle: Old\ndate: 2099-06-01\n---\n")
+        assert parse_post(f) is None
+
+
+class TestPublicationVerification:
+    def test_wrong_did_rejected(self, tmp_path: Path) -> None:
+        (tmp_path / "2025-01-01-a.md").write_text("---\ntitle: A\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        alien = "at://did:plc:someoneelse/site.standard.publication/rk"
+
+        with pytest.raises(publish.PublishError) as exc_info:
+            sync_documents(client, tmp_path, tmp_path / "out.json", alien, TEST_CONFIG)
+        assert "authenticated as" in str(exc_info.value)
+
+    def test_missing_publication_record_rejected(self, tmp_path: Path) -> None:
+        (tmp_path / "2025-01-01-a.md").write_text("---\ntitle: A\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.routes["getRecord"] = MockResponse(
+            {"error": "RecordNotFound", "message": "nope"}, status_code=400
+        )
+
+        with pytest.raises(publish.PublishError) as exc_info:
+            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
+        assert "does not exist on the PDS" in str(exc_info.value)
+
+    def test_verification_happens_before_any_write(self, tmp_path: Path) -> None:
+        (tmp_path / "2025-01-01-a.md").write_text("---\ntitle: A\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.routes["getRecord"] = MockResponse(
+            {"error": "RecordNotFound", "message": "nope"}, status_code=400
+        )
+
+        with pytest.raises(publish.PublishError):
+            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
+        writes = [c for c in transport.calls if "createRecord" in c[1] or "putRecord" in c[1]]
+        assert writes == []
+
+
+class TestPublicationRecordSync:
+    def test_drifted_publication_updated_with_swap(self, tmp_path: Path) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+        stale = dict(PUB_RECORD_RESPONSE["value"], name="Old Name", extraField="keep me")
+        transport.routes["getRecord"] = MockResponse(
+            {"uri": PUB_URI, "cid": "oldcid", "value": stale}
+        )
+        transport.push({})  # putRecord (publication)
+        transport.push({"records": []})  # listRecords (documents)
+
+        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
+
+        put_calls = [c for c in transport.calls if "putRecord" in c[1]]
+        assert len(put_calls) == 1
+        body = put_calls[0][2]
+        assert body["collection"] == "site.standard.publication"
+        assert body["swapRecord"] == "oldcid"
+        assert body["record"]["name"] == "Test Site"
+        assert body["record"]["extraField"] == "keep me"  # unmanaged preserved
+
+    def test_matching_publication_not_touched(self, tmp_path: Path) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push({"records": []})
+
+        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
+
+        put_calls = [c for c in transport.calls if "putRecord" in c[1]]
+        assert put_calls == []
+
+
+class TestDocumentUpdateCAS:
+    def test_update_passes_swap_cid(self, tmp_path: Path) -> None:
+        (tmp_path / "2025-01-01-alpha.md").write_text("---\ntitle: New\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        remote_rec = {
+            "$type": "site.standard.document",
+            "site": PUB_URI,
+            "path": "/blog/alpha/",
+            "title": "Old",
+            "publishedAt": "2025-01-01T00:00:00Z",
+        }
+        transport.push({"records": [{"uri": DOC_URI, "cid": "doccid7", "value": remote_rec}]})
+        transport.push({})  # putRecord
+
+        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
+
+        put_call = next(c for c in transport.calls if "putRecord" in c[1])
+        assert put_call[2]["swapRecord"] == "doccid7"
+
+
+class TestRetries:
+    class FlakyTransport(MockTransport):
+        """First N calls to a URL substring raise ConnectionError."""
+
+        def __init__(self, flaky_url: str, failures: int) -> None:
+            super().__init__()
+            self._flaky_url = flaky_url
+            self._failures = failures
+
+        def _maybe_fail(self, url: str) -> None:
+            import requests as _requests
+            if self._flaky_url in url and self._failures > 0:
+                self._failures -= 1
+                raise _requests.ConnectionError("transient")
+
+        def post(self, url, json=None, headers=None, timeout=None):
+            self._maybe_fail(url)
+            return super().post(url, json=json, headers=headers)
+
+        def get(self, url, params=None, headers=None, timeout=None):
+            self._maybe_fail(url)
+            return super().get(url, params=params, headers=headers)
+
+    def test_login_retries_transient_failure(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        monkeypatch.setattr(publish.time, "sleep", lambda s: None)
+        transport = self.FlakyTransport("createSession", failures=2)
+        transport.push(LOGIN_RESPONSE)
+        client = AtprotoClient("https://bsky.social", "h", "p", _session=transport)
+        assert client.did == "did:plc:test123"
+
+    def test_login_gives_up_after_retries(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        import requests as _requests
+        monkeypatch.setattr(publish.time, "sleep", lambda s: None)
+        transport = self.FlakyTransport("createSession", failures=99)
+        with pytest.raises(_requests.ConnectionError):
+            AtprotoClient("https://bsky.social", "h", "p", _session=transport)
+
+    def test_list_records_retries(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        monkeypatch.setattr(publish.time, "sleep", lambda s: None)
+        transport = self.FlakyTransport("listRecords", failures=1)
+        transport.push(LOGIN_RESPONSE)
+        client = AtprotoClient("https://bsky.social", "h", "p", _session=transport)
+        transport.push({"records": []})
+        assert client.list_records("site.standard.document") == []
+
+
+class TestOrphanAnnotations:
+    def test_github_actions_warning_annotation(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys
+    ) -> None:
+        monkeypatch.setenv("GITHUB_ACTIONS", "true")
+        (tmp_path / "2025-01-01-keep.md").write_text("---\ntitle: K\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        keep = {"$type": "site.standard.document", "site": PUB_URI,
+                "path": "/blog/keep/", "title": "K", "publishedAt": "2025-01-01T00:00:00Z"}
+        gone = {"site": PUB_URI, "path": "/blog/gone/"}
+        transport.push({"records": [
+            {"uri": DOC_URI, "cid": "c1", "value": keep},
+            {"uri": DOC_URI.replace("rkeydoc1", "rkeydoc2"), "cid": "c2", "value": gone},
+        ]})
+
+        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
+
+        assert "::warning" in capsys.readouterr().out
+
+
+class TestFrontmatterDelimiterLines:
+    def test_triple_dash_inside_value_not_a_delimiter(self) -> None:
+        text = '---\ntitle: "a --- b"\n---\nBody'
+        assert _extract_frontmatter_strict(text) == {"title": "a --- b"}
+
+
+class TestMissingSweepSection:
+    def test_missing_section_dir_is_error(self, tmp_path: Path, capsys) -> None:
+        posts = tmp_path / "posts"
+        posts.mkdir()
+        site = tmp_path / "_site"
+        (site / "blog").mkdir(parents=True)  # books section missing
+        assert validate_documents(posts, site_dir=site) is False
+        assert "missing from built site" in capsys.readouterr().err

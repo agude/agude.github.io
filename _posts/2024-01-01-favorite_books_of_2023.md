@@ -40,7 +40,7 @@ plot moving quickly in this thought-provoking sci-fi novel. My favorite book
 of the year!
 
 {% if render_mode != 'markdown' %}<ul class="card-grid">{% endif %}
-  {% book_card_lookup title="Blindsight" date="2023-11-01" %}
+{% book_card_lookup title="Blindsight" date="2023-11-01" %}
 {% if render_mode != 'markdown' %}</ul>{% endif %}
 
 ## <span class="book-series">The Chronicle of the Fallers</span> by <span class="author-name">Peter F. Hamilton</span>
@@ -53,8 +53,8 @@ citizens with special knowledge as _"Outside Context Problems"_, pulling the
 stories into science fiction territory.
 
 {% if render_mode != 'markdown' %}<ul class="card-grid">{% endif %}
-  {% book_card_lookup title="The Abyss Beyond Dreams" date="2023-12-08" %}
-  {% book_card_lookup title="Night Without Stars" date="2023-12-15" %}
+{% book_card_lookup title="The Abyss Beyond Dreams" date="2023-12-08" %}
+{% book_card_lookup title="Night Without Stars" date="2023-12-15" %}
 {% if render_mode != 'markdown' %}</ul>{% endif %}
 
 ## <cite class="book-title">The Fall of Hyperion</cite> by <span class="author-name">Dan Simmons</span>
@@ -67,7 +67,7 @@ breakaway-but-helpful AI, and different factions of scheming AI who either
 want to eradicate the humans or uplift them.
 
 {% if render_mode != 'markdown' %}<ul class="card-grid">{% endif %}
-  {% book_card_lookup title="The Fall of Hyperion" date="2023-10-27" %}
+{% book_card_lookup title="The Fall of Hyperion" date="2023-10-27" %}
 {% if render_mode != 'markdown' %}</ul>{% endif %}
 
 ## <span class="book-series">The Commonwealth Saga</span> by <span class="author-name">Peter F. Hamilton</span>
@@ -75,8 +75,8 @@ want to eradicate the humans or uplift them.
 Epic space opera with a massive cast of characters and incredible pacing.
 
 {% if render_mode != 'markdown' %}<ul class="card-grid">{% endif %}
-  {% book_card_lookup title="Pandora's Star" date="2023-08-23" %}
-  {% book_card_lookup title="Judas Unchained" date="2023-09-03" %}
+{% book_card_lookup title="Pandora's Star" date="2023-08-23" %}
+{% book_card_lookup title="Judas Unchained" date="2023-09-03" %}
 {% if render_mode != 'markdown' %}</ul>{% endif %}
 
 ## <cite class="book-title">Serpent Valley</cite> by <span class="author-name">Scott Warren</span>
@@ -87,5 +87,5 @@ quick, fun, nostalgic read. The third book, <cite class="book-title">Serpent
 Valley</cite>, exemplifies the series.
 
 {% if render_mode != 'markdown' %}<ul class="card-grid">{% endif %}
-  {% book_card_lookup title="Serpent Valley" date="2023-11-30" %}
+{% book_card_lookup title="Serpent Valley" date="2023-11-30" %}
 {% if render_mode != 'markdown' %}</ul>{% endif %}
