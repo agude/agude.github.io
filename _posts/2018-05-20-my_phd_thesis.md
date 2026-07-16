@@ -261,11 +261,12 @@ chasing down a subject cared about by only a handful of people. That is part of
 the reason I wanted to write this post, in the hope that more than a handful of
 people would read it, and learn about what I did.
 
-_[CERN]: European Organization for Nuclear Research
-_[CMS]: Compact Muon Solenoid
-_[QCD]: Quantum Chromodynamics
-_[LHC]: Large Hadron Collider
-_[MC]: Monte Carlo
-_[ATLAS]: A Toroidal LHC Apparatus
-_[ALICE]: A Large Ion Collider Experiment
-_[LHCb]: LHC Beauty
+<!-- prettier-ignore -->
+*[CERN]: European Organization for Nuclear Research
+*[CMS]: Compact Muon Solenoid
+*[QCD]: Quantum Chromodynamics
+*[LHC]: Large Hadron Collider
+*[MC]: Monte Carlo
+*[ATLAS]: A Toroidal LHC Apparatus
+*[ALICE]: A Large Ion Collider Experiment
+*[LHCb]: LHC Beauty
