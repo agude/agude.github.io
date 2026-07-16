@@ -42,6 +42,18 @@
         title="Markdown version">
   {% endif %}
 
+  {% comment %} standard.site (AT Protocol) verification links {% endcomment %}
+  {% assign ss_config = site | optional: 'standard_site' %}
+  {% assign ss_publication_uri = ss_config | optional: 'publication_uri' %}
+  {% if ss_publication_uri and ss_publication_uri != "" %}
+  <link rel="site.standard.publication" href="{{ ss_publication_uri }}">
+  {% endif %}
+  {% assign ss_data = site.data | optional: 'standard_site' %}
+  {% assign ss_document_uri = ss_data | optional: page.url %}
+  {% if ss_document_uri %}
+  <link rel="site.standard.document" href="{{ ss_document_uri }}">
+  {% endif %}
+
   <!-- JSON-LD Structured Data -->
   {%- comment -%} Look up generated script in site data hash {%- endcomment -%}
   {%- assign data = site | optional: 'data' -%}

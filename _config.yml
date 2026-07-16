@@ -167,6 +167,7 @@ compress_html:
 exclude:
     - .venv/
     - AGENTS.md
+    - bluesky.md
     - CLAUDE.md
     - CNAME
     - Dockerfile
@@ -193,3 +194,6 @@ feed:
     - books
 
 timezone: America/Los_Angeles
+
+standard_site:
+  publication_uri: "" # at://did:plc:.../site.standard.publication/<rkey>

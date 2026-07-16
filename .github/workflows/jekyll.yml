@@ -5,9 +5,19 @@
 #   2. Ruby tests (`load` every _tests/**/test_*.rb).
 #   3. Python script tests in _scripts/ (setup-python + `uv run pytest`).
 #   4. `_bin/check_strict.rb` (strict Liquid variables).
-#   5. Build, HTML structure validation, feed XML validation, broken-link
+#   5. `atproto/publish.py validate` — parses every post for AT Protocol
+#      compatibility; no credentials or network required; runs on every branch.
+#   6. Build, HTML structure validation, feed XML validation, broken-link
 #      check (only the `test` job's steps run on every branch; `build` and
 #      `deploy` below only run for main via the `needs:`/`if:` chain).
+#
+# Main-only steps in the build job (gated on github.ref == refs/heads/main):
+#   6. `uv run python atproto/publish.py publish` — syncs _posts/ to PDS
+#      site.standard.document records and writes _data/standard_site.json
+#      before Jekyll builds. Requires BSKY_APP_PASSWORD repo secret.
+#      If this step fails, the build fails and nothing deploys. Exception:
+#      while _config.yml standard_site.publication_uri is empty (Phase 3
+#      of bluesky.md not done), the step is a clean no-op needing no secret.
 #
 # Test-job concurrency is per-ref and cancels stale runs
 # (`test-${{ github.ref }}`); the deploy job's `group: pages` lock is scoped
@@ -62,6 +72,10 @@ jobs:
         working-directory: _scripts
         run: uv run pytest
 
+      - name: Validate posts for AT Protocol publish
+        working-directory: _scripts
+        run: uv run python atproto/publish.py validate --posts-dir ../_posts
+
       - name: Check for strict Liquid errors
         run: bundle exec ruby _bin/check_strict.rb
 
@@ -69,6 +83,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     needs: test
+    # Serialize builds per ref (no cancellation): overlapping main builds
+    # would race the publish step's listRecords→createRecord cycle and
+    # could create duplicate PDS records for the same post path.
+    concurrency:
+      group: build-${{ github.ref }}
+      cancel-in-progress: false
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -82,6 +102,18 @@ jobs:
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v6
+
+      - name: Install uv
+        if: github.ref == 'refs/heads/main'
+        uses: astral-sh/setup-uv@v7
+
+      - name: Publish standard.site records
+        if: github.ref == 'refs/heads/main'
+        working-directory: _scripts
+        run: uv run python atproto/publish.py publish --posts-dir ../_posts --data-out ../_data/standard_site.json
+        env:
+          BSKY_HANDLE: alexgude.com
+          BSKY_APP_PASSWORD: ${{ secrets.BSKY_APP_PASSWORD }}
 
       - name: Build with Jekyll
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"

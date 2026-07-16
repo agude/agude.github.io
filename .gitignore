@@ -24,6 +24,9 @@ _site
 .jekyll-metadata
 .jekyll-cache
 
+# CI-generated data files
+_data/standard_site.json
+
 # Make stamp files
 .prettier-image.stamp
 
