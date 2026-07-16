@@ -1,6 +1,10 @@
 # Bluesky / standard.site Integration Plan
 
-**Status:** Phases 1–4 ✓ | Phase 5 (post-deploy) | Phases 6–7 ✓ — awaiting merge of `standard-site-config`
+**Status: LIVE (2026-07-16).** All phases complete. 230 document
+records (105 posts + 125 book reviews) on the PDS, verification tags
+and `.well-known` file serving in production, post-deploy smoke test
+green. Remaining manual checks: site-validator.fly.dev and an
+enhanced-card eyeball on Bluesky.
 
 Implementation plan for publishing this site's posts to the AT Protocol
 using the [standard.site](https://standard.site) lexicons, so links to
