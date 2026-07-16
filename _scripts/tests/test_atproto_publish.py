@@ -81,12 +81,14 @@ def make_client(transport: MockTransport) -> AtprotoClient:
 
 
 class TestParsePost:
-    def test_slug_with_underscores_preserved(self, tmp_path: Path) -> None:
+    def test_slug_underscores_become_hyphens(self, tmp_path: Path) -> None:
+        # Jekyll's :slug token slugifies the filename: favorite_books_of_2025
+        # is served at /blog/favorite-books-of-2025/.
         f = tmp_path / "2025-01-04-favorite_books_of_2025.md"
         f.write_text("---\ntitle: My Post\n---\nContent")
         rec = parse_post(f)
         assert rec is not None
-        assert rec["path"] == "/blog/favorite_books_of_2025/"
+        assert rec["path"] == "/blog/favorite-books-of-2025/"
 
     def test_date_from_filename(self, tmp_path: Path) -> None:
         f = tmp_path / "2025-06-15-some_post.md"
@@ -815,3 +817,29 @@ class TestSyncPostsLocalGuards:
         err = capsys.readouterr().err
         assert "2025-01-01-alpha.md" in err
         assert "2025-06-15-alpha.md" in err
+
+
+# ---------------------------------------------------------------------------
+# _slugify (must match Jekyll's :slug permalink token)
+# ---------------------------------------------------------------------------
+
+
+class TestSlugify:
+    def test_underscores_become_hyphens(self) -> None:
+        assert publish._slugify("favorite_books_of_2025") == "favorite-books-of-2025"
+
+    def test_plain_slug_unchanged(self) -> None:
+        assert publish._slugify("some-post") == "some-post"
+
+    def test_lowercases(self) -> None:
+        assert publish._slugify("Some_Post") == "some-post"
+
+    def test_collapses_runs_and_strips_edges(self) -> None:
+        assert publish._slugify("_a__weird..slug_") == "a-weird-slug"
+
+    def test_validate_uses_slugified_path_for_duplicates(self, tmp_path: Path) -> None:
+        # Same slug after slugification must collide even if raw names differ.
+        (tmp_path / "2025-01-01-a_post.md").write_text("---\ntitle: One\n---\n")
+        (tmp_path / "2025-06-15-a-post.md").write_text("---\ntitle: Two\n---\n")
+        from publish import validate_posts
+        assert validate_posts(tmp_path) is False

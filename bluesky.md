@@ -73,7 +73,7 @@ include must degrade to emitting no document link tags. That is correct
 behavior: verification tags only matter on production.
 
 Idempotency: the script matches remote records to local posts by the
-record's `path` field (e.g. `/blog/favorite_books_of_2025/`). A post
+record's `path` field (e.g. `/blog/favorite-books-of-2025/`). A post
 with a matching remote record and identical managed fields is skipped;
 changed fields trigger a `putRecord` reusing the same rkey.
 
@@ -220,10 +220,12 @@ the first two `---` lines, `yaml.safe_load` it) and derive:
 Details:
 
 - **path**: the site permalink is `/blog/:slug/`; slug is the filename
-  after the date prefix, underscores preserved
-  (`2026-01-04-favorite_books_of_2025.md` → `/blog/favorite_books_of_2025/`).
-  If front matter contains an explicit `slug:` or `permalink:` key, use
-  it; log a warning so mismatches are visible.
+  after the date prefix, **slugified the way Jekyll does it** —
+  lowercase, runs of non-alphanumerics collapse to a single hyphen,
+  edges stripped (`2026-01-04-favorite_books_of_2025.md` →
+  `/blog/favorite-books-of-2025/`; underscores become hyphens). If
+  front matter contains an explicit `slug:` or `permalink:` key, log a
+  warning so mismatches are visible.
 - **publishedAt**: date from the filename unless front matter has
   `date:` (which overrides, matching Jekyll). Midnight UTC is fine.
 - **description** / **tags**: omit the key entirely when the front

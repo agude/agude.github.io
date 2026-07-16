@@ -68,6 +68,15 @@ def get_publication_uri(config: dict) -> str:
 # ---------------------------------------------------------------------------
 
 
+def _slugify(name_slug: str) -> str:
+    """
+    Replicate Jekyll's default slugify for the permalink :slug token:
+    lowercase, runs of non-alphanumerics become a single hyphen, and
+    leading/trailing hyphens are stripped (underscores become hyphens).
+    """
+    return re.sub(r"[^a-z0-9]+", "-", name_slug.lower()).strip("-")
+
+
 def parse_post(path: Path) -> dict | None:
     """
     Parse a post file and return managed record fields, or None to skip.
@@ -94,7 +103,7 @@ def parse_post(path: Path) -> dict | None:
             file=sys.stderr,
         )
 
-    path_str = f"/blog/{slug}/"
+    path_str = f"/blog/{_slugify(slug)}/"
 
     if "date" in fm and fm["date"] is not None:
         pub_date = _to_publish_date(fm["date"])
@@ -401,7 +410,7 @@ def validate_posts(posts_dir: Path) -> bool:
             continue
 
         slug = m.group(2)
-        path_str = f"/blog/{slug}/"
+        path_str = f"/blog/{_slugify(slug)}/"
 
         text = post_file.read_text(encoding="utf-8")
         try:
