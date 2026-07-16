@@ -42,3 +42,23 @@ Simple formatting tags for non-book creative works. Emit
 
 Accepts quoted strings or Liquid variables (`{% game_title page.title %}`).
 Base class: `ui/tags/cite_title_tag.rb`.
+
+## Kramdown Abbreviations Need Prettier Protection
+
+Kramdown abbreviation definitions (`*[CERN]: European Organization...`)
+are not CommonMark, and Prettier rewrites `*[` to `_[`, which kramdown
+does not recognize — every `<abbr>` silently disappears and the
+definitions render as literal text. Both `make format-md` and the
+pre-commit hook run Prettier, so any abbreviation block **must** be
+preceded by `<!-- prettier-ignore -->`:
+
+```markdown
+<!-- prettier-ignore -->
+*[CERN]: European Organization for Nuclear Research
+*[CMS]: Compact Muon Solenoid
+```
+
+The comment protects one contiguous block (a single CommonMark node).
+Keep all definitions together with no blank lines between them; a
+second block separated by a blank line needs its own comment. The only
+current use is `_posts/2018-05-20-my_phd_thesis.md`.
