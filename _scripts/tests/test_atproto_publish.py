@@ -19,9 +19,10 @@ from publish import (
     get_publication_uri,
     init_publication,
     load_config,
+    parse_book,
     parse_post,
-    sync_posts,
-    validate_posts,
+    sync_documents,
+    validate_documents,
 )
 
 
@@ -243,7 +244,7 @@ class TestListRecordsPagination:
 
 
 # ---------------------------------------------------------------------------
-# sync_posts: create / update / skip decisions
+# sync_documents: create / update / skip decisions
 # ---------------------------------------------------------------------------
 
 
@@ -260,7 +261,7 @@ class TestSyncPostsDecisions:
         transport.push({"records": []})  # listRecords
         transport.push({"uri": DOC_URI})  # createRecord
 
-        sync_posts(client, tmp_path, tmp_path / "out.json", PUB_URI)
+        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
 
         post_calls = [c for c in transport.calls if "createRecord" in c[1]]
         assert len(post_calls) == 1
@@ -280,7 +281,7 @@ class TestSyncPostsDecisions:
             "records": [{"uri": DOC_URI, "value": remote_rec}],
         })
 
-        sync_posts(client, tmp_path, tmp_path / "out.json", PUB_URI)
+        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
 
         create_or_put = [c for c in transport.calls if "createRecord" in c[1] or "putRecord" in c[1]]
         assert len(create_or_put) == 0
@@ -301,14 +302,14 @@ class TestSyncPostsDecisions:
         })
         transport.push({})  # putRecord response
 
-        sync_posts(client, tmp_path, tmp_path / "out.json", PUB_URI)
+        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
 
         put_calls = [c for c in transport.calls if "putRecord" in c[1]]
         assert len(put_calls) == 1
 
 
 # ---------------------------------------------------------------------------
-# sync_posts: update preserves unmanaged fields and sets updatedAt
+# sync_documents: update preserves unmanaged fields and sets updatedAt
 # ---------------------------------------------------------------------------
 
 
@@ -329,7 +330,7 @@ class TestSyncPostsUpdate:
         transport.push({"records": [{"uri": DOC_URI, "value": remote_rec}]})
         transport.push({})  # putRecord
 
-        sync_posts(client, tmp_path, tmp_path / "out.json", PUB_URI)
+        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
 
         put_call = next(c for c in transport.calls if "putRecord" in c[1])
         sent_record = put_call[2]["record"]
@@ -350,7 +351,7 @@ class TestSyncPostsUpdate:
         transport.push({"records": [{"uri": DOC_URI, "value": remote_rec}]})
         transport.push({})
 
-        sync_posts(client, tmp_path, tmp_path / "out.json", PUB_URI)
+        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
 
         put_call = next(c for c in transport.calls if "putRecord" in c[1])
         sent_record = put_call[2]["record"]
@@ -358,7 +359,7 @@ class TestSyncPostsUpdate:
 
 
 # ---------------------------------------------------------------------------
-# sync_posts: duplicate remote path aborts
+# sync_documents: duplicate remote path aborts
 # ---------------------------------------------------------------------------
 
 
@@ -373,12 +374,12 @@ class TestDuplicateRemotePath:
         transport.push({"records": dupe_records})
 
         with pytest.raises(SystemExit) as exc_info:
-            sync_posts(client, tmp_path, tmp_path / "out.json", PUB_URI)
+            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
         assert exc_info.value.code == 1
 
 
 # ---------------------------------------------------------------------------
-# sync_posts: orphan remote record warns, is not deleted
+# sync_documents: orphan remote record warns, is not deleted
 # ---------------------------------------------------------------------------
 
 
@@ -390,7 +391,7 @@ class TestOrphanRecord:
             "records": [{"uri": DOC_URI, "value": {"site": PUB_URI, "path": "/blog/gone/"}}],
         })
 
-        sync_posts(client, tmp_path, tmp_path / "out.json", PUB_URI)
+        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
 
         stderr = capsys.readouterr().err
         assert "orphan" in stderr.lower()
@@ -401,7 +402,7 @@ class TestOrphanRecord:
 
 
 # ---------------------------------------------------------------------------
-# sync_posts: data file contents
+# sync_documents: data file contents
 # ---------------------------------------------------------------------------
 
 
@@ -415,7 +416,7 @@ class TestDataFile:
         transport.push({"uri": "at://did:plc:test123/site.standard.document/newrkey"})
 
         data_out = tmp_path / "out.json"
-        sync_posts(client, tmp_path, data_out, PUB_URI)
+        sync_documents(client, tmp_path, data_out, PUB_URI)
 
         result = json.loads(data_out.read_text())
         assert "/blog/alpha/" in result
@@ -437,7 +438,7 @@ class TestDataFile:
         transport.push({"records": [{"uri": DOC_URI, "value": existing_rec}]})
 
         data_out = tmp_path / "out.json"
-        sync_posts(client, tmp_path, data_out, PUB_URI, dry_run=True)
+        sync_documents(client, tmp_path, data_out, PUB_URI, dry_run=True)
 
         result = json.loads(data_out.read_text())
         assert "/blog/existing/" in result
@@ -453,7 +454,7 @@ class TestDataFile:
         transport.push({"uri": "at://did:plc:test123/site.standard.document/rk2"})
 
         data_out = tmp_path / "out.json"
-        sync_posts(client, tmp_path, data_out, PUB_URI)
+        sync_documents(client, tmp_path, data_out, PUB_URI)
 
         keys = list(json.loads(data_out.read_text()).keys())
         assert keys == sorted(keys)
@@ -534,11 +535,11 @@ class TestLoadConfig:
 
 
 class TestPublicationUriGuards:
-    def test_sync_posts_requires_publication_uri(self, tmp_path: Path) -> None:
+    def test_sync_documents_requires_publication_uri(self, tmp_path: Path) -> None:
         transport = MockTransport()
         client = make_client(transport)
         with pytest.raises(SystemExit) as exc_info:
-            sync_posts(client, tmp_path, tmp_path / "out.json", "")
+            sync_documents(client, tmp_path, tmp_path / "out.json", "")
         assert exc_info.value.code == 1
 
     def test_created_records_include_site(self, tmp_path: Path) -> None:
@@ -548,7 +549,7 @@ class TestPublicationUriGuards:
         transport.push({"records": []})
         transport.push({"uri": DOC_URI})
 
-        sync_posts(client, tmp_path, tmp_path / "out.json", PUB_URI)
+        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
 
         create_call = next(c for c in transport.calls if "createRecord" in c[1])
         assert create_call[2]["record"]["site"] == PUB_URI
@@ -565,7 +566,7 @@ class TestPublicationUriGuards:
         transport.push({"records": [{"uri": DOC_URI, "value": other}]})
         transport.push({"uri": DOC_URI.replace("rkeydoc1", "rkeydoc2")})
 
-        sync_posts(client, tmp_path, tmp_path / "out.json", PUB_URI)
+        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
 
         create_calls = [c for c in transport.calls if "createRecord" in c[1]]
         assert len(create_calls) == 1
@@ -581,8 +582,11 @@ class TestPublicationUriGuards:
         monkeypatch.delenv("BSKY_APP_PASSWORD", raising=False)
         data_out = tmp_path / "out.json"
 
+        books = tmp_path / "books"
+        books.mkdir()
         publish.main(
-            ["publish", "--posts-dir", str(tmp_path), "--data-out", str(data_out)]
+            ["publish", "--posts-dir", str(tmp_path), "--books-dir", str(books),
+             "--data-out", str(data_out)]
         )
 
         assert json.loads(data_out.read_text()) == {}
@@ -631,7 +635,7 @@ class TestExtractFrontmatterStrict:
 
 
 # ---------------------------------------------------------------------------
-# validate_posts
+# validate_documents
 # ---------------------------------------------------------------------------
 
 
@@ -643,111 +647,113 @@ class TestValidatePosts:
 
     def test_valid_post_passes(self, tmp_path: Path) -> None:
         self._post(tmp_path, "2025-01-01-valid.md", "---\ntitle: Valid Post\n---\nContent")
-        assert validate_posts(tmp_path) is True
+        assert validate_documents(tmp_path) is True
 
     def test_empty_directory_passes(self, tmp_path: Path) -> None:
-        assert validate_posts(tmp_path) is True
+        assert validate_documents(tmp_path) is True
 
     def test_non_post_files_ignored(self, tmp_path: Path) -> None:
         self._post(tmp_path, "about.md", "---\ntitle: ''\n---\n")
-        assert validate_posts(tmp_path) is True
+        assert validate_documents(tmp_path) is True
 
     # --- YAML errors ---
 
     def test_invalid_yaml_fails(self, tmp_path: Path, capsys) -> None:
         self._post(tmp_path, "2025-01-01-bad.md", "---\n: bad: yaml: [\n---\nContent")
-        assert validate_posts(tmp_path) is False
+        assert validate_documents(tmp_path) is False
 
     def test_invalid_yaml_names_file(self, tmp_path: Path, capsys) -> None:
         self._post(tmp_path, "2025-01-01-bad.md", "---\n: bad: yaml: [\n---\nContent")
-        validate_posts(tmp_path)
+        validate_documents(tmp_path)
         assert "2025-01-01-bad.md" in capsys.readouterr().err
 
     # --- Missing / empty title ---
 
     def test_missing_title_fails(self, tmp_path: Path) -> None:
         self._post(tmp_path, "2025-01-01-no-title.md", "---\ndescription: No title\n---\n")
-        assert validate_posts(tmp_path) is False
+        assert validate_documents(tmp_path) is False
 
     def test_missing_title_names_file(self, tmp_path: Path, capsys) -> None:
         self._post(tmp_path, "2025-01-01-no-title.md", "---\ndescription: No title\n---\n")
-        validate_posts(tmp_path)
+        validate_documents(tmp_path)
         assert "2025-01-01-no-title.md" in capsys.readouterr().err
 
     def test_empty_string_title_fails(self, tmp_path: Path) -> None:
         self._post(tmp_path, "2025-01-01-empty.md", "---\ntitle: ''\n---\n")
-        assert validate_posts(tmp_path) is False
+        assert validate_documents(tmp_path) is False
 
     def test_whitespace_only_title_fails(self, tmp_path: Path) -> None:
         self._post(tmp_path, "2025-01-01-spaces.md", "---\ntitle: '   '\n---\n")
-        assert validate_posts(tmp_path) is False
+        assert validate_documents(tmp_path) is False
 
     # --- Underivable date ---
 
     def test_non_date_string_fails(self, tmp_path: Path) -> None:
         self._post(tmp_path, "2025-01-01-bad-date.md", "---\ntitle: Post\ndate: 'not a date'\n---\n")
-        assert validate_posts(tmp_path) is False
+        assert validate_documents(tmp_path) is False
 
     def test_non_date_string_names_file(self, tmp_path: Path, capsys) -> None:
         self._post(tmp_path, "2025-01-01-bad-date.md", "---\ntitle: Post\ndate: 'not a date'\n---\n")
-        validate_posts(tmp_path)
+        validate_documents(tmp_path)
         assert "2025-01-01-bad-date.md" in capsys.readouterr().err
 
     def test_null_date_passes(self, tmp_path: Path) -> None:
         self._post(tmp_path, "2025-01-01-null-date.md", "---\ntitle: Post\ndate:\n---\n")
-        assert validate_posts(tmp_path) is True
+        assert validate_documents(tmp_path) is True
 
     def test_date_object_passes(self, tmp_path: Path) -> None:
         # YAML parses bare 2025-01-01 as a datetime.date object
         self._post(tmp_path, "2025-01-01-real-date.md", "---\ntitle: Post\ndate: 2025-01-01\n---\n")
-        assert validate_posts(tmp_path) is True
+        assert validate_documents(tmp_path) is True
 
     # --- Duplicate path ---
 
     def test_duplicate_path_fails(self, tmp_path: Path) -> None:
         self._post(tmp_path, "2025-01-01-alpha.md", "---\ntitle: Alpha 1\n---\n")
         self._post(tmp_path, "2025-06-15-alpha.md", "---\ntitle: Alpha 2\n---\n")
-        assert validate_posts(tmp_path) is False
+        assert validate_documents(tmp_path) is False
 
     def test_duplicate_path_names_file(self, tmp_path: Path, capsys) -> None:
         self._post(tmp_path, "2025-01-01-alpha.md", "---\ntitle: Alpha 1\n---\n")
         self._post(tmp_path, "2025-06-15-alpha.md", "---\ntitle: Alpha 2\n---\n")
-        validate_posts(tmp_path)
+        validate_documents(tmp_path)
         assert "alpha" in capsys.readouterr().err
 
     def test_draft_does_not_create_duplicate(self, tmp_path: Path) -> None:
         self._post(tmp_path, "2025-01-01-alpha.md", "---\ntitle: Alpha\npublished: false\n---\n")
         self._post(tmp_path, "2025-06-15-alpha.md", "---\ntitle: Alpha\n---\n")
-        assert validate_posts(tmp_path) is True
+        assert validate_documents(tmp_path) is True
 
-    # --- slug / permalink warnings ---
+    # --- slug / permalink overrides are hard errors ---
+    # Jekyll honors slug:/permalink:, so the page would be served away from
+    # the derived path and the AT record would point at a 404.
 
-    def test_slug_warns_exits_zero(self, tmp_path: Path, capsys) -> None:
+    def test_slug_override_fails(self, tmp_path: Path, capsys) -> None:
         self._post(tmp_path, "2025-01-01-post.md", "---\ntitle: Post\nslug: custom\n---\n")
-        assert validate_posts(tmp_path) is True
-        assert "WARNING" in capsys.readouterr().err.upper()
+        assert validate_documents(tmp_path) is False
+        assert "slug/permalink" in capsys.readouterr().err
 
-    def test_permalink_warns_exits_zero(self, tmp_path: Path, capsys) -> None:
+    def test_permalink_override_fails(self, tmp_path: Path, capsys) -> None:
         self._post(tmp_path, "2025-01-01-post.md", "---\ntitle: Post\npermalink: /custom/\n---\n")
-        assert validate_posts(tmp_path) is True
-        assert "WARNING" in capsys.readouterr().err.upper()
+        assert validate_documents(tmp_path) is False
+        assert "2025-01-01-post.md" in capsys.readouterr().err
 
     # --- Draft skipping ---
 
     def test_published_false_skips_title_check(self, tmp_path: Path) -> None:
         self._post(tmp_path, "2025-01-01-draft.md", "---\ntitle: ''\npublished: false\n---\n")
-        assert validate_posts(tmp_path) is True
+        assert validate_documents(tmp_path) is True
 
     def test_draft_true_skips_title_check(self, tmp_path: Path) -> None:
         self._post(tmp_path, "2025-01-01-draft.md", "---\ntitle: ''\ndraft: true\n---\n")
-        assert validate_posts(tmp_path) is True
+        assert validate_documents(tmp_path) is True
 
     # --- Multiple errors all reported ---
 
     def test_multiple_errors_all_reported(self, tmp_path: Path, capsys) -> None:
         self._post(tmp_path, "2025-01-01-a.md", "---\ntitle: ''\n---\n")
         self._post(tmp_path, "2025-01-02-b.md", "---\ntitle: ''\n---\n")
-        validate_posts(tmp_path)
+        validate_documents(tmp_path)
         err = capsys.readouterr().err
         assert "2025-01-01-a.md" in err
         assert "2025-01-02-b.md" in err
@@ -755,10 +761,10 @@ class TestValidatePosts:
     # --- No HTTP calls ---
 
     def test_no_http_transport_needed(self, tmp_path: Path) -> None:
-        # validate_posts takes only a Path — no AtprotoClient is created.
+        # validate_documents takes only a Path — no AtprotoClient is created.
         # If it tried to make HTTP calls, requests would error without mocking.
         self._post(tmp_path, "2025-01-01-post.md", "---\ntitle: Post\n---\n")
-        assert validate_posts(tmp_path) is True
+        assert validate_documents(tmp_path) is True
 
 
 # ---------------------------------------------------------------------------
@@ -782,7 +788,7 @@ class TestValidateViaCLI:
         assert exc_info.value.code == 1
 
 # ---------------------------------------------------------------------------
-# sync_posts local-post guards (defense in depth alongside validate)
+# sync_documents local-post guards (defense in depth alongside validate)
 # ---------------------------------------------------------------------------
 
 
@@ -793,7 +799,7 @@ class TestSyncPostsLocalGuards:
         client = make_client(transport)
 
         with pytest.raises(SystemExit) as exc_info:
-            sync_posts(client, tmp_path, tmp_path / "out.json", PUB_URI)
+            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
         assert exc_info.value.code == 1
 
     def test_missing_title_exits(self, tmp_path: Path, capsys) -> None:
@@ -802,7 +808,7 @@ class TestSyncPostsLocalGuards:
         client = make_client(transport)
 
         with pytest.raises(SystemExit):
-            sync_posts(client, tmp_path, tmp_path / "out.json", PUB_URI)
+            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
         assert "2025-01-01-alpha.md" in capsys.readouterr().err
 
     def test_duplicate_local_path_exits(self, tmp_path: Path, capsys) -> None:
@@ -812,7 +818,7 @@ class TestSyncPostsLocalGuards:
         client = make_client(transport)
 
         with pytest.raises(SystemExit) as exc_info:
-            sync_posts(client, tmp_path, tmp_path / "out.json", PUB_URI)
+            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
         assert exc_info.value.code == 1
         err = capsys.readouterr().err
         assert "2025-01-01-alpha.md" in err
@@ -841,15 +847,11 @@ class TestSlugify:
         # Same slug after slugification must collide even if raw names differ.
         (tmp_path / "2025-01-01-a_post.md").write_text("---\ntitle: One\n---\n")
         (tmp_path / "2025-06-15-a-post.md").write_text("---\ntitle: Two\n---\n")
-        from publish import validate_posts
-        assert validate_posts(tmp_path) is False
+        assert validate_documents(tmp_path) is False
 
 # ---------------------------------------------------------------------------
 # Book reviews (_books/ collection)
 # ---------------------------------------------------------------------------
-
-from publish import parse_book, validate_posts  # noqa: E402
-
 
 class TestParseBook:
     def test_path_keeps_underscores(self, tmp_path: Path) -> None:
@@ -905,33 +907,33 @@ class TestValidateBooks:
     def test_valid_book_passes(self, tmp_path: Path) -> None:
         posts, books = self._dirs(tmp_path)
         (books / "book.md").write_text("---\ntitle: Book\ndate: 2025-01-01\n---\n")
-        assert validate_posts(posts, books_dir=books) is True
+        assert validate_documents(posts, books_dir=books) is True
 
     def test_missing_date_fails(self, tmp_path: Path, capsys) -> None:
         posts, books = self._dirs(tmp_path)
         (books / "book.md").write_text("---\ntitle: Book\n---\n")
-        assert validate_posts(posts, books_dir=books) is False
+        assert validate_documents(posts, books_dir=books) is False
         assert "book.md" in capsys.readouterr().err
 
     def test_missing_title_fails(self, tmp_path: Path) -> None:
         posts, books = self._dirs(tmp_path)
         (books / "book.md").write_text("---\ndate: 2025-01-01\n---\n")
-        assert validate_posts(posts, books_dir=books) is False
+        assert validate_documents(posts, books_dir=books) is False
 
     def test_invalid_yaml_fails(self, tmp_path: Path) -> None:
         posts, books = self._dirs(tmp_path)
         (books / "book.md").write_text("---\ntitle: [unclosed\n---\n")
-        assert validate_posts(posts, books_dir=books) is False
+        assert validate_documents(posts, books_dir=books) is False
 
     def test_draft_book_skipped(self, tmp_path: Path) -> None:
         posts, books = self._dirs(tmp_path)
         (books / "book.md").write_text("---\ndraft: true\n---\n")
-        assert validate_posts(posts, books_dir=books) is True
+        assert validate_documents(posts, books_dir=books) is True
 
     def test_no_books_dir_posts_only(self, tmp_path: Path) -> None:
         posts, _ = self._dirs(tmp_path)
         (posts / "2025-01-01-a.md").write_text("---\ntitle: A\n---\n")
-        assert validate_posts(posts) is True
+        assert validate_documents(posts) is True
 
 
 class TestSyncBooks:
@@ -950,7 +952,7 @@ class TestSyncBooks:
         transport.push({"uri": "at://did:plc:test123/site.standard.document/rk2"})
 
         data_out = tmp_path / "out.json"
-        sync_posts(client, posts, data_out, PUB_URI, books_dir=books)
+        sync_documents(client, posts, data_out, PUB_URI, books_dir=books)
 
         result = json.loads(data_out.read_text())
         assert "/blog/alpha/" in result
@@ -973,5 +975,108 @@ class TestSyncBooks:
         client = make_client(transport)
 
         with pytest.raises(SystemExit) as exc_info:
-            sync_posts(client, posts, tmp_path / "out.json", PUB_URI, books_dir=books)
+            sync_documents(client, posts, tmp_path / "out.json", PUB_URI, books_dir=books)
         assert exc_info.value.code == 1
+
+# ---------------------------------------------------------------------------
+# Review fixes: bad post dates, override errors, unicode slugs, site-dir
+# ---------------------------------------------------------------------------
+
+
+class TestBadPostDate:
+    def test_parse_post_omits_underivable_published_at(self, tmp_path: Path) -> None:
+        # 'date: soon' used to yield publishedAt "soonT00:00:00Z".
+        f = tmp_path / "2025-01-01-post.md"
+        f.write_text("---\ntitle: Post\ndate: soon\n---\n")
+        rec = parse_post(f)
+        assert rec is not None
+        assert "publishedAt" not in rec
+
+    def test_validate_flags_underivable_post_date(self, tmp_path: Path, capsys) -> None:
+        (tmp_path / "2025-01-01-post.md").write_text("---\ntitle: Post\ndate: soon\n---\n")
+        assert validate_documents(tmp_path) is False
+        assert "publishedAt" in capsys.readouterr().err
+
+    def test_sync_exits_on_underivable_post_date(self, tmp_path: Path) -> None:
+        (tmp_path / "2025-01-01-post.md").write_text("---\ntitle: Post\ndate: soon\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        with pytest.raises(SystemExit) as exc_info:
+            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
+        assert exc_info.value.code == 1
+
+
+class TestOverridesRaise:
+    def test_parse_post_raises_on_slug(self, tmp_path: Path) -> None:
+        f = tmp_path / "2025-01-01-post.md"
+        f.write_text("---\ntitle: Post\nslug: custom\n---\n")
+        with pytest.raises(ValueError):
+            parse_post(f)
+
+    def test_parse_book_raises_on_permalink(self, tmp_path: Path) -> None:
+        f = tmp_path / "book.md"
+        f.write_text("---\ntitle: Book\ndate: 2025-01-01\npermalink: /x/\n---\n")
+        with pytest.raises(ValueError):
+            parse_book(f)
+
+    def test_sync_exits_on_slug_override(self, tmp_path: Path, capsys) -> None:
+        (tmp_path / "2025-01-01-post.md").write_text("---\ntitle: Post\nslug: c\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        with pytest.raises(SystemExit) as exc_info:
+            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
+        assert exc_info.value.code == 1
+        assert "2025-01-01-post.md" in capsys.readouterr().err
+
+    def test_sync_reports_real_yaml_error(self, tmp_path: Path, capsys) -> None:
+        # Broken YAML used to be swallowed and misdiagnosed as a title error.
+        (tmp_path / "2025-01-01-post.md").write_text("---\ntitle: [unclosed\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        with pytest.raises(SystemExit):
+            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI)
+        err = capsys.readouterr().err
+        assert "title'" not in err  # not the misleading empty-title message
+
+
+class TestSlugifyUnicode:
+    def test_unicode_letters_kept(self) -> None:
+        assert publish._slugify("café_review") == "café-review"
+
+    def test_leading_trailing_stripped(self) -> None:
+        assert publish._slugify("__post__") == "post"
+
+
+class TestSiteDirCrossCheck:
+    def _site_with(self, tmp_path: Path, *paths: str) -> Path:
+        site = tmp_path / "_site"
+        for rel in paths:
+            d = site / rel.strip("/")
+            d.mkdir(parents=True)
+            (d / "index.html").write_text("<!DOCTYPE html>")
+        return site
+
+    def test_built_paths_pass(self, tmp_path: Path) -> None:
+        posts = tmp_path / "posts"
+        posts.mkdir()
+        (posts / "2025-01-01-my_post.md").write_text("---\ntitle: P\n---\n")
+        site = self._site_with(tmp_path, "/blog/my-post/")
+        assert validate_documents(posts, site_dir=site) is True
+
+    def test_missing_built_path_fails(self, tmp_path: Path, capsys) -> None:
+        posts = tmp_path / "posts"
+        posts.mkdir()
+        (posts / "2025-01-01-my_post.md").write_text("---\ntitle: P\n---\n")
+        site = self._site_with(tmp_path)  # empty _site
+        assert validate_documents(posts, site_dir=site) is False
+        assert "not found in built site" in capsys.readouterr().err
+
+    def test_books_checked_too(self, tmp_path: Path, capsys) -> None:
+        posts = tmp_path / "posts"
+        books = tmp_path / "books"
+        posts.mkdir()
+        books.mkdir()
+        (books / "some_book.md").write_text("---\ntitle: B\ndate: 2025-01-01\n---\n")
+        site = self._site_with(tmp_path, "/blog/x/")  # book path missing
+        assert validate_documents(posts, books_dir=books, site_dir=site) is False
+        assert "/books/some_book/" in capsys.readouterr().err

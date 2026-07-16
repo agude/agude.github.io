@@ -25,7 +25,7 @@ import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 import requests
 import yaml
@@ -74,11 +74,24 @@ def get_publication_uri(config: dict) -> str:
 
 def _slugify(name_slug: str) -> str:
     """
-    Replicate Jekyll's default slugify for the permalink :slug token:
+    Approximate Jekyll's default slugify for the permalink :slug token:
     lowercase, runs of non-alphanumerics become a single hyphen, and
     leading/trailing hyphens are stripped (underscores become hyphens).
+    Unicode letters/digits are kept via str.isalnum(); the CI cross-check
+    (validate --site-dir) verifies every derived path against the real
+    build, so any residual divergence from Jekyll fails loudly there.
     """
-    return re.sub(r"[^a-z0-9]+", "-", name_slug.lower()).strip("-")
+    out: list[str] = []
+    pending_hyphen = False
+    for ch in name_slug.lower():
+        if ch.isalnum():
+            if pending_hyphen and out:
+                out.append("-")
+            out.append(ch)
+            pending_hyphen = False
+        else:
+            pending_hyphen = True
+    return "".join(out)
 
 
 def parse_post(path: Path) -> dict | None:
@@ -86,7 +99,11 @@ def parse_post(path: Path) -> dict | None:
     Parse a post file and return managed record fields, or None to skip.
 
     Skips drafts (published: false or draft: true) and files that don't
-    match YYYY-MM-DD-slug.md.
+    match YYYY-MM-DD-slug.md. Raises yaml.YAMLError on broken front matter
+    and ValueError on slug/permalink overrides (Jekyll would serve the page
+    somewhere other than the derived path, so the record would point at a
+    404 — callers must fail, not warn). A present-but-unusable 'date' key
+    omits publishedAt so callers fail loudly rather than shipping garbage.
     """
     m = POST_FILENAME_RE.match(path.name)
     if not m:
@@ -94,32 +111,24 @@ def parse_post(path: Path) -> dict | None:
 
     date_str, slug = m.group(1), m.group(2)
 
-    text = path.read_text(encoding="utf-8")
-    fm = _extract_frontmatter(text)
+    fm = _extract_frontmatter_strict(path.read_text(encoding="utf-8"))
 
     if fm.get("published") is False or fm.get("draft") is True:
         return None
 
-    if "slug" in fm or "permalink" in fm:
-        print(
-            f"WARNING: {path.name} has explicit slug/permalink front matter; "
-            "using filename-derived slug for AT record path",
-            file=sys.stderr,
-        )
-
-    path_str = f"/blog/{_slugify(slug)}/"
-
-    if "date" in fm and fm["date"] is not None:
-        pub_date = _to_publish_date(fm["date"])
-    else:
-        pub_date = f"{date_str}T00:00:00Z"
+    _reject_permalink_overrides(fm)
 
     record: dict[str, Any] = {
         "$type": "site.standard.document",
-        "path": path_str,
+        "path": f"/blog/{_slugify(slug)}/",
         "title": str(fm.get("title", "")),
-        "publishedAt": pub_date,
     }
+
+    if "date" in fm and fm["date"] is not None:
+        if _can_derive_date(fm["date"]):
+            record["publishedAt"] = _to_publish_date(fm["date"])
+    else:
+        record["publishedAt"] = f"{date_str}T00:00:00Z"
 
     if "description" in fm and fm["description"] is not None:
         record["description"] = str(fm["description"]).strip()
@@ -133,20 +142,17 @@ def parse_post(path: Path) -> dict | None:
     return record
 
 
-def _extract_frontmatter(text: str) -> dict:
-    if not text.startswith("---"):
-        return {}
-    parts = text.split("---", 2)
-    if len(parts) < 3:
-        return {}
-    try:
-        return yaml.safe_load(parts[1]) or {}
-    except yaml.YAMLError:
-        return {}
+def _reject_permalink_overrides(fm: dict) -> None:
+    if "slug" in fm or "permalink" in fm:
+        raise ValueError(
+            "explicit slug/permalink front matter is not supported: Jekyll "
+            "would serve the page away from the filename-derived path, so "
+            "the AT record would point at a 404"
+        )
 
 
 def _extract_frontmatter_strict(text: str) -> dict:
-    """Like _extract_frontmatter but raises yaml.YAMLError on bad YAML."""
+    """Extract front matter; raises yaml.YAMLError on bad YAML."""
     if not text.startswith("---"):
         return {}
     parts = text.split("---", 2)
@@ -176,20 +182,15 @@ def parse_book(path: Path) -> dict | None:
     permalink is /books/:path/, which keeps the filename stem verbatim
     (unlike posts' :slug, which slugifies). publishedAt comes from the
     required 'date' front matter; when it can't be derived the key is left
-    out so callers can fail loudly.
+    out so callers can fail loudly. Raises like parse_post (yaml.YAMLError,
+    ValueError on slug/permalink overrides).
     """
-    text = path.read_text(encoding="utf-8")
-    fm = _extract_frontmatter(text)
+    fm = _extract_frontmatter_strict(path.read_text(encoding="utf-8"))
 
     if fm.get("published") is False or fm.get("draft") is True:
         return None
 
-    if "slug" in fm or "permalink" in fm:
-        print(
-            f"WARNING: {path.name} has explicit slug/permalink front matter; "
-            "using filename-derived stem for AT record path",
-            file=sys.stderr,
-        )
+    _reject_permalink_overrides(fm)
 
     record: dict[str, Any] = {
         "$type": "site.standard.document",
@@ -311,33 +312,44 @@ def _records_differ(local: dict, remote: dict) -> bool:
     return _managed_subset(local) != _managed_subset(remote)
 
 
-def sync_posts(
+def _document_sources(
+    posts_dir: Path, books_dir: Path | None
+) -> list[tuple[Path, Callable[[Path], dict | None]]]:
+    sources: list[tuple[Path, Callable[[Path], dict | None]]] = [
+        (posts_dir, parse_post)
+    ]
+    if books_dir is not None:
+        sources.append((books_dir, parse_book))
+    return sources
+
+
+def sync_documents(
     client: AtprotoClient,
     posts_dir: Path,
     data_out: Path,
     publication_uri: str,
-    dry_run: bool = False,
     books_dir: Path | None = None,
+    dry_run: bool = False,
 ) -> None:
     """Sync local posts (and books) to PDS document records; write data file."""
 
     if not publication_uri:
         # site is a required document field, and an empty value here would
         # also make the merge loop strip site from existing remote records.
-        print("ERROR: sync_posts requires a publication_uri", file=sys.stderr)
+        print("ERROR: sync_documents requires a publication_uri", file=sys.stderr)
         sys.exit(1)
-
-    sources: list[tuple[Path, Any]] = [(posts_dir, parse_post)]
-    if books_dir is not None:
-        sources.append((books_dir, parse_book))
 
     # --- Collect local documents ---
     # Defense in depth alongside the validate subcommand: never sync a
     # record that violates the lexicon or silently shadows another page.
     local: dict[str, tuple[Path, dict]] = {}
-    for src_dir, parser in sources:
+    for src_dir, parser in _document_sources(posts_dir, books_dir):
         for post_file in sorted(src_dir.glob("*.md")):
-            rec = parser(post_file)
+            try:
+                rec = parser(post_file)
+            except (yaml.YAMLError, ValueError) as exc:
+                print(f"ERROR: {post_file.name}: {exc}", file=sys.stderr)
+                sys.exit(1)
             if rec is None:
                 continue
             if not rec["title"].strip():
@@ -348,8 +360,8 @@ def sync_posts(
                 sys.exit(1)
             if not rec.get("publishedAt"):
                 print(
-                    f"ERROR: {post_file.name}: cannot derive publishedAt "
-                    "(books require a 'date' front matter key)",
+                    f"ERROR: {post_file.name}: cannot derive publishedAt from "
+                    "the 'date' front matter or filename",
                     file=sys.stderr,
                 )
                 sys.exit(1)
@@ -446,118 +458,79 @@ def sync_posts(
 # ---------------------------------------------------------------------------
 
 
-def validate_posts(posts_dir: Path, books_dir: Path | None = None) -> bool:
+def validate_documents(
+    posts_dir: Path,
+    books_dir: Path | None = None,
+    site_dir: Path | None = None,
+) -> bool:
     """
     Validate all posts (and books) for AT Protocol compatibility.
 
-    Requires no credentials, config, or network access. Returns True if all
-    publishable documents are valid; False if any errors were found. Warnings
-    (slug/permalink overrides) do not affect the return value.
+    Requires no credentials, config, or network access. Runs the same
+    parsers as publish so the CI gate cannot drift from the gated
+    behavior, and checks the returned records. With site_dir, also
+    cross-checks every derived record path against the built site
+    (…/index.html must exist) so path derivation is verified against
+    Jekyll's real output on every run.
+
+    Returns True if all publishable documents are valid.
     """
     errors = 0
     seen_paths: dict[str, Path] = {}
 
-    def _common_checks(doc_file: Path, path_str: str, fm: dict) -> int:
-        """Checks shared by posts and books; returns the error count."""
-        found = 0
-
-        if path_str in seen_paths:
-            print(
-                f"ERROR: {doc_file.name}: duplicate path {path_str!r} "
-                f"(also claimed by {seen_paths[path_str].name})",
-                file=sys.stderr,
-            )
-            found += 1
-        else:
-            seen_paths[path_str] = doc_file
-
-        if "slug" in fm or "permalink" in fm:
-            print(
-                f"WARNING: {doc_file.name}: has explicit slug/permalink; "
-                "filename-derived AT record path will be used",
-                file=sys.stderr,
-            )
-
-        title = str(fm.get("title") or "").strip()
-        if not title:
-            print(
-                f"ERROR: {doc_file.name}: missing or empty 'title'",
-                file=sys.stderr,
-            )
-            found += 1
-
-        return found
-
-    for post_file in sorted(posts_dir.glob("*.md")):
-        m = POST_FILENAME_RE.match(post_file.name)
-        if not m:
-            continue
-
-        slug = m.group(2)
-        path_str = f"/blog/{_slugify(slug)}/"
-
-        text = post_file.read_text(encoding="utf-8")
-        try:
-            fm = _extract_frontmatter_strict(text)
-        except yaml.YAMLError as exc:
-            print(
-                f"ERROR: {post_file.name}: invalid YAML front matter: {exc}",
-                file=sys.stderr,
-            )
-            errors += 1
-            continue
-
-        if fm.get("published") is False or fm.get("draft") is True:
-            continue
-
-        errors += _common_checks(post_file, path_str, fm)
-
-        # Posts fall back to the filename date, so 'date' is optional but
-        # must be usable when present.
-        if "date" in fm and fm["date"] is not None:
-            if not _can_derive_date(fm["date"]):
+    for src_dir, parser in _document_sources(posts_dir, books_dir):
+        for doc_file in sorted(src_dir.glob("*.md")):
+            try:
+                rec = parser(doc_file)
+            except yaml.YAMLError as exc:
                 print(
-                    f"ERROR: {post_file.name}: cannot derive publishedAt from "
-                    f"'date' value {fm['date']!r}",
+                    f"ERROR: {doc_file.name}: invalid YAML front matter: {exc}",
+                    file=sys.stderr,
+                )
+                errors += 1
+                continue
+            except ValueError as exc:
+                print(f"ERROR: {doc_file.name}: {exc}", file=sys.stderr)
+                errors += 1
+                continue
+            if rec is None:
+                continue
+
+            path_str = rec["path"]
+            if path_str in seen_paths:
+                print(
+                    f"ERROR: {doc_file.name}: duplicate path {path_str!r} "
+                    f"(also claimed by {seen_paths[path_str].name})",
+                    file=sys.stderr,
+                )
+                errors += 1
+            else:
+                seen_paths[path_str] = doc_file
+
+            if not rec["title"].strip():
+                print(
+                    f"ERROR: {doc_file.name}: missing or empty 'title'",
                     file=sys.stderr,
                 )
                 errors += 1
 
-    book_files = sorted(books_dir.glob("*.md")) if books_dir is not None else []
-    for book_file in book_files:
-        path_str = f"/books/{book_file.stem}/"
+            if not rec.get("publishedAt"):
+                print(
+                    f"ERROR: {doc_file.name}: cannot derive publishedAt from "
+                    "the 'date' front matter or filename",
+                    file=sys.stderr,
+                )
+                errors += 1
 
-        text = book_file.read_text(encoding="utf-8")
-        try:
-            fm = _extract_frontmatter_strict(text)
-        except yaml.YAMLError as exc:
-            print(
-                f"ERROR: {book_file.name}: invalid YAML front matter: {exc}",
-                file=sys.stderr,
-            )
-            errors += 1
-            continue
-
-        if fm.get("published") is False or fm.get("draft") is True:
-            continue
-
-        errors += _common_checks(book_file, path_str, fm)
-
-        # Books have no filename date to fall back to: 'date' is required.
-        if "date" not in fm or fm["date"] is None:
-            print(
-                f"ERROR: {book_file.name}: missing 'date' front matter "
-                "(required for publishedAt)",
-                file=sys.stderr,
-            )
-            errors += 1
-        elif not _can_derive_date(fm["date"]):
-            print(
-                f"ERROR: {book_file.name}: cannot derive publishedAt from "
-                f"'date' value {fm['date']!r}",
-                file=sys.stderr,
-            )
-            errors += 1
+            if site_dir is not None:
+                built = site_dir / path_str.strip("/") / "index.html"
+                if not built.is_file():
+                    print(
+                        f"ERROR: {doc_file.name}: derived path {path_str!r} "
+                        f"not found in built site ({built})",
+                        file=sys.stderr,
+                    )
+                    errors += 1
 
     return errors == 0
 
@@ -599,7 +572,7 @@ def main(argv: list[str] | None = None) -> None:
 
     pub_p = sub.add_parser("publish", help="Sync posts to PDS document records")
     pub_p.add_argument("--posts-dir", required=True, type=Path)
-    pub_p.add_argument("--books-dir", type=Path, default=None)
+    pub_p.add_argument("--books-dir", required=True, type=Path)
     pub_p.add_argument("--data-out", required=True, type=Path)
     pub_p.add_argument("--dry-run", action="store_true")
 
@@ -611,12 +584,16 @@ def main(argv: list[str] | None = None) -> None:
     )
     val_p.add_argument("--posts-dir", required=True, type=Path)
     val_p.add_argument("--books-dir", type=Path, default=None)
+    val_p.add_argument("--site-dir", type=Path, default=None)
 
     args = parser.parse_args(argv)
 
     # validate needs no credentials or config — dispatch before either check.
     if args.cmd == "validate":
-        if not validate_posts(args.posts_dir, books_dir=args.books_dir):
+        ok = validate_documents(
+            args.posts_dir, books_dir=args.books_dir, site_dir=args.site_dir
+        )
+        if not ok:
             sys.exit(1)
         return
 
@@ -641,13 +618,13 @@ def main(argv: list[str] | None = None) -> None:
     client = AtprotoClient(PDS_URL, handle, password)
 
     if args.cmd == "publish":
-        sync_posts(
+        sync_documents(
             client,
             args.posts_dir,
             args.data_out,
             publication_uri,
-            dry_run=args.dry_run,
             books_dir=args.books_dir,
+            dry_run=args.dry_run,
         )
     elif args.cmd == "init-publication":
         init_publication(client, config)
