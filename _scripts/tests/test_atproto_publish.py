@@ -2,7 +2,6 @@
 
 import json
 import sys
-from datetime import date, datetime
 from pathlib import Path
 
 import pytest
@@ -66,7 +65,6 @@ class MockTransport:
 
 
 LOGIN_RESPONSE = {"did": "did:plc:test123", "accessJwt": "token-abc"}
-VALID_URI = "at://did:plc:test123/site.standard.publication/3mpwdqt4xn42j"
 PUB_URI = "at://did:plc:test123/site.standard.publication/rkeypub"
 DOC_URI = "at://did:plc:test123/site.standard.document/rkeydoc1"
 
@@ -626,12 +624,17 @@ class TestExtractFrontmatterStrict:
         assert result == {"title": "Hello"}
 
     def test_invalid_yaml_raises(self) -> None:
-        import yaml as yaml_mod
-        with pytest.raises(yaml_mod.YAMLError):
+        with pytest.raises(yaml.YAMLError):
             _extract_frontmatter_strict("---\n: bad: yaml: [\n---\n")
 
     def test_no_frontmatter_returns_empty(self) -> None:
         assert _extract_frontmatter_strict("No front matter") == {}
+
+    def test_non_mapping_frontmatter_raises(self) -> None:
+        # A bare string between the fences is not a mapping; used to
+        # AttributeError deep in the parser instead of a per-file error.
+        with pytest.raises(ValueError):
+            _extract_frontmatter_strict("---\njust a string\n---\n")
 
 
 # ---------------------------------------------------------------------------
@@ -773,18 +776,29 @@ class TestValidatePosts:
 
 
 class TestValidateViaCLI:
+    def _books(self, tmp_path: Path) -> Path:
+        books = tmp_path / "books"
+        books.mkdir(exist_ok=True)
+        return books
+
     def test_valid_posts_exit_zero(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         (tmp_path / "2025-01-01-good.md").write_text("---\ntitle: Good\n---\n")
         monkeypatch.delenv("BSKY_HANDLE", raising=False)
         monkeypatch.delenv("BSKY_APP_PASSWORD", raising=False)
-        publish.main(["validate", "--posts-dir", str(tmp_path)])
+        publish.main([
+                "validate", "--posts-dir", str(tmp_path),
+                "--books-dir", str(self._books(tmp_path)),
+            ])
 
     def test_invalid_post_exits_one(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         (tmp_path / "2025-01-01-bad.md").write_text("---\ntitle: ''\n---\n")
         monkeypatch.delenv("BSKY_HANDLE", raising=False)
         monkeypatch.delenv("BSKY_APP_PASSWORD", raising=False)
         with pytest.raises(SystemExit) as exc_info:
-            publish.main(["validate", "--posts-dir", str(tmp_path)])
+            publish.main([
+                "validate", "--posts-dir", str(tmp_path),
+                "--books-dir", str(self._books(tmp_path)),
+            ])
         assert exc_info.value.code == 1
 
 # ---------------------------------------------------------------------------
@@ -1050,6 +1064,7 @@ class TestSlugifyUnicode:
 class TestSiteDirCrossCheck:
     def _site_with(self, tmp_path: Path, *paths: str) -> Path:
         site = tmp_path / "_site"
+        site.mkdir(exist_ok=True)
         for rel in paths:
             d = site / rel.strip("/")
             d.mkdir(parents=True)
@@ -1080,3 +1095,198 @@ class TestSiteDirCrossCheck:
         site = self._site_with(tmp_path, "/blog/x/")  # book path missing
         assert validate_documents(posts, books_dir=books, site_dir=site) is False
         assert "/books/some_book/" in capsys.readouterr().err
+
+# ---------------------------------------------------------------------------
+# Second review: re-reviews, null titles, missing dirs, reverse sweep,
+# delete-orphans
+# ---------------------------------------------------------------------------
+
+
+class TestReReviewSkip:
+    def test_canonical_url_book_skipped(self, tmp_path: Path) -> None:
+        f = tmp_path / "review-2023-10-17.md"
+        f.write_text(
+            "---\ntitle: Hyperion\ndate: 2023-10-17\ncanonical_url: /books/hyperion/\n---\n"
+        )
+        assert parse_book(f) is None
+
+    def test_nested_re_review_found_but_skipped(self, tmp_path: Path) -> None:
+        # Recursion must see subdirectory files; canonical_url then skips them.
+        posts = tmp_path / "posts"
+        books = tmp_path / "books"
+        posts.mkdir()
+        (books / "hyperion").mkdir(parents=True)
+        (books / "hyperion.md").write_text("---\ntitle: Hyperion\ndate: 2023-01-01\n---\n")
+        (books / "hyperion" / "review-2023-10-17.md").write_text(
+            "---\ntitle: Hyperion\ndate: 2023-10-17\ncanonical_url: /books/hyperion/\n---\n"
+        )
+        results = list(publish._collect_documents(posts, books))
+        assert len(results) == 1
+        assert results[0][1]["path"] == "/books/hyperion/"
+
+    def test_nested_review_without_canonical_url_gets_record(self, tmp_path: Path) -> None:
+        # If a nested file is NOT marked canonical-elsewhere it must be
+        # published, not silently dropped by a non-recursive glob.
+        posts = tmp_path / "posts"
+        books = tmp_path / "books"
+        posts.mkdir()
+        (books / "sub").mkdir(parents=True)
+        (books / "sub" / "real_review.md").write_text("---\ntitle: R\ndate: 2025-01-01\n---\n")
+        results = list(publish._collect_documents(posts, books))
+        assert len(results) == 1
+        assert results[0][1]["path"] == "/books/real_review/"
+
+    def test_underscore_template_dirs_ignored(self, tmp_path: Path) -> None:
+        posts = tmp_path / "posts"
+        books = tmp_path / "books"
+        posts.mkdir()
+        (books / "_templates").mkdir(parents=True)
+        (books / "_templates" / "tintin.md").write_text("---\ntitle: T\n---\n")
+        assert list(publish._collect_documents(posts, books)) == []
+
+
+class TestNullTitle:
+    def test_post_null_title_is_empty_not_none_string(self, tmp_path: Path) -> None:
+        # 'title:' with no value parses to None; str(None) is 'None' which
+        # slipped past the empty-title guard.
+        f = tmp_path / "2025-01-01-post.md"
+        f.write_text("---\ntitle:\n---\n")
+        rec = parse_post(f)
+        assert rec is not None
+        assert rec["title"] == ""
+
+    def test_book_null_title_fails_validate(self, tmp_path: Path) -> None:
+        posts = tmp_path / "posts"
+        books = tmp_path / "books"
+        posts.mkdir()
+        books.mkdir()
+        (books / "book.md").write_text("---\ntitle:\ndate: 2025-01-01\n---\n")
+        assert validate_documents(posts, books_dir=books) is False
+
+
+class TestMissingDirs:
+    def test_validate_fails_on_missing_posts_dir(self, tmp_path: Path, capsys) -> None:
+        assert validate_documents(tmp_path / "nope") is False
+        assert "does not exist" in capsys.readouterr().err
+
+    def test_validate_fails_on_missing_books_dir(self, tmp_path: Path) -> None:
+        posts = tmp_path / "posts"
+        posts.mkdir()
+        assert validate_documents(posts, books_dir=tmp_path / "nope") is False
+
+    def test_validate_fails_on_missing_site_dir(self, tmp_path: Path) -> None:
+        posts = tmp_path / "posts"
+        posts.mkdir()
+        assert validate_documents(posts, site_dir=tmp_path / "nope") is False
+
+    def test_sync_exits_on_missing_posts_dir(self, tmp_path: Path) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+        with pytest.raises(SystemExit) as exc_info:
+            sync_documents(client, tmp_path / "nope", tmp_path / "out.json", PUB_URI)
+        assert exc_info.value.code == 1
+
+
+class TestReverseSweep:
+    def _site(self, tmp_path: Path, pages: dict[str, str]) -> Path:
+        site = tmp_path / "_site"
+        for rel, content in pages.items():
+            d = site / rel.strip("/")
+            d.mkdir(parents=True)
+            (d / "index.html").write_text(content)
+        return site
+
+    def test_built_page_without_record_fails(self, tmp_path: Path, capsys) -> None:
+        posts = tmp_path / "posts"
+        posts.mkdir()
+        site = self._site(tmp_path, {"/blog/orphan-page/": "<!DOCTYPE html>"})
+        assert validate_documents(posts, site_dir=site) is False
+        assert "has no AT record" in capsys.readouterr().err
+
+    def test_redirect_stub_skipped(self, tmp_path: Path) -> None:
+        posts = tmp_path / "posts"
+        posts.mkdir()
+        stub = '<!DOCTYPE html><meta http-equiv="refresh" content="0; url=/blog/new/">'
+        site = self._site(tmp_path, {"/blog/old-slug/": stub})
+        assert validate_documents(posts, site_dir=site) is True
+
+    def test_pagination_and_listing_pages_skipped(self, tmp_path: Path) -> None:
+        posts = tmp_path / "posts"
+        posts.mkdir()
+        site = self._site(
+            tmp_path,
+            {
+                "/blog/page2/": "<!DOCTYPE html>",
+                "/books/by-author/": "<!DOCTYPE html>",
+                "/books/authors/": "<!DOCTYPE html>",
+            },
+        )
+        assert validate_documents(posts, site_dir=site) is True
+
+    def test_matched_page_passes(self, tmp_path: Path) -> None:
+        posts = tmp_path / "posts"
+        posts.mkdir()
+        (posts / "2025-01-01-my_post.md").write_text("---\ntitle: P\n---\n")
+        site = self._site(tmp_path, {"/blog/my-post/": "<!DOCTYPE html>"})
+        assert validate_documents(posts, site_dir=site) is True
+
+
+class TestDeleteOrphans:
+    def _dirs(self, tmp_path: Path) -> tuple[Path, Path]:
+        posts = tmp_path / "posts"
+        books = tmp_path / "books"
+        posts.mkdir()
+        books.mkdir()
+        return posts, books
+
+    def test_lists_without_deleting_by_default(self, tmp_path: Path, capsys) -> None:
+        posts, books = self._dirs(tmp_path)
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push({
+            "records": [{"uri": DOC_URI, "value": {"site": PUB_URI, "path": "/blog/gone/"}}],
+        })
+
+        publish.delete_orphans(client, posts, books, PUB_URI, confirmed=False)
+
+        assert "Re-run with --yes" in capsys.readouterr().out
+        delete_calls = [c for c in transport.calls if "deleteRecord" in c[1]]
+        assert len(delete_calls) == 0
+
+    def test_deletes_with_yes(self, tmp_path: Path) -> None:
+        posts, books = self._dirs(tmp_path)
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push({
+            "records": [{"uri": DOC_URI, "value": {"site": PUB_URI, "path": "/blog/gone/"}}],
+        })
+        transport.push({})  # deleteRecord response
+
+        publish.delete_orphans(client, posts, books, PUB_URI, confirmed=True)
+
+        delete_calls = [c for c in transport.calls if "deleteRecord" in c[1]]
+        assert len(delete_calls) == 1
+        assert delete_calls[0][2]["rkey"] == "rkeydoc1"
+
+    def test_non_orphans_untouched(self, tmp_path: Path, capsys) -> None:
+        posts, books = self._dirs(tmp_path)
+        (posts / "2025-01-01-alpha.md").write_text("---\ntitle: Alpha\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        remote = {"site": PUB_URI, "path": "/blog/alpha/", "$type": "site.standard.document"}
+        transport.push({"records": [{"uri": DOC_URI, "value": remote}]})
+
+        publish.delete_orphans(client, posts, books, PUB_URI, confirmed=True)
+
+        assert "No orphan records found" in capsys.readouterr().out
+
+    def test_other_publication_records_ignored(self, tmp_path: Path, capsys) -> None:
+        posts, books = self._dirs(tmp_path)
+        transport = MockTransport()
+        client = make_client(transport)
+        other = {"site": "at://did:plc:other/site.standard.publication/x", "path": "/blog/x/"}
+        transport.push({"records": [{"uri": DOC_URI, "value": other}]})
+
+        publish.delete_orphans(client, posts, books, PUB_URI, confirmed=True)
+
+        assert "No orphan records found" in capsys.readouterr().out

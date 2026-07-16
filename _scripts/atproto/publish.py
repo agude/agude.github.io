@@ -3,9 +3,13 @@
 Sync blog posts and book reviews to AT Protocol via standard.site lexicons.
 
 Subcommands
-  publish          Sync _posts/ (and _books/ when --books-dir is given) to
-                   PDS document records; write _data/standard_site.json.
-  validate         Check posts/books parse cleanly (no network, no creds).
+  publish          Sync _posts/ and _books/ to PDS document records; write
+                   _data/standard_site.json.
+  validate         Check posts/books parse cleanly (no network, no creds);
+                   with --site-dir, cross-check derived paths against the
+                   built site in both directions.
+  delete-orphans   List (and with --yes, delete) remote records that match
+                   no local document. Manual use only — never run in CI.
   init-publication Create the site.standard.publication record (one-time setup).
 
 Run from _scripts/:
@@ -121,7 +125,7 @@ def parse_post(path: Path) -> dict | None:
     record: dict[str, Any] = {
         "$type": "site.standard.document",
         "path": f"/blog/{_slugify(slug)}/",
-        "title": str(fm.get("title", "")),
+        "title": str(fm.get("title") or ""),
     }
 
     if "date" in fm and fm["date"] is not None:
@@ -152,13 +156,21 @@ def _reject_permalink_overrides(fm: dict) -> None:
 
 
 def _extract_frontmatter_strict(text: str) -> dict:
-    """Extract front matter; raises yaml.YAMLError on bad YAML."""
+    """
+    Extract front matter; raises yaml.YAMLError on bad YAML and ValueError
+    when the front matter parses to something other than a mapping.
+    """
     if not text.startswith("---"):
         return {}
     parts = text.split("---", 2)
     if len(parts) < 3:
         return {}
-    return yaml.safe_load(parts[1]) or {}
+    fm = yaml.safe_load(parts[1]) or {}
+    if not isinstance(fm, dict):
+        raise ValueError(
+            f"front matter is not a YAML mapping (got {type(fm).__name__})"
+        )
+    return fm
 
 
 def _can_derive_date(date_val: Any) -> bool:
@@ -182,12 +194,19 @@ def parse_book(path: Path) -> dict | None:
     permalink is /books/:path/, which keeps the filename stem verbatim
     (unlike posts' :slug, which slugifies). publishedAt comes from the
     required 'date' front matter; when it can't be derived the key is left
-    out so callers can fail loudly. Raises like parse_post (yaml.YAMLError,
-    ValueError on slug/permalink overrides).
+    out so callers can fail loudly. Re-read reviews (canonical_url front
+    matter) are skipped: the canonical page owns the record. Raises like
+    parse_post (yaml.YAMLError, ValueError on slug/permalink overrides).
     """
     fm = _extract_frontmatter_strict(path.read_text(encoding="utf-8"))
 
     if fm.get("published") is False or fm.get("draft") is True:
+        return None
+
+    # Re-read reviews (nested under _books/<book>/) carry canonical_url
+    # pointing at the canonical review page; they are built and served but
+    # deliberately get no AT record — the canonical page is the document.
+    if fm.get("canonical_url"):
         return None
 
     _reject_permalink_overrides(fm)
@@ -195,7 +214,7 @@ def parse_book(path: Path) -> dict | None:
     record: dict[str, Any] = {
         "$type": "site.standard.document",
         "path": f"/books/{path.stem}/",
-        "title": str(fm.get("title", "")),
+        "title": str(fm.get("title") or ""),
         "tags": ["book-reviews"],
     }
 
@@ -274,6 +293,15 @@ class AtprotoClient:
         _check(resp)
         return resp.json()["uri"]
 
+    def delete_record(self, collection: str, rkey: str) -> None:
+        """Delete a record. Only used by the manual delete-orphans command."""
+        resp = self._http.post(
+            f"{self._pds}/xrpc/com.atproto.repo.deleteRecord",
+            json={"repo": self.did, "collection": collection, "rkey": rkey},
+            headers=self._auth(),
+        )
+        _check(resp)
+
     def put_record(self, collection: str, rkey: str, record: dict) -> None:
         """Overwrite an existing record."""
         resp = self._http.post(
@@ -323,6 +351,67 @@ def _document_sources(
     return sources
 
 
+def _source_files(src_dir: Path) -> list[Path]:
+    """
+    All candidate markdown files under src_dir, recursively, mirroring
+    Jekyll: directories starting with '_' (templates) are not read.
+    """
+    return sorted(
+        f
+        for f in src_dir.rglob("*.md")
+        if not any(part.startswith("_") for part in f.relative_to(src_dir).parts[:-1])
+    )
+
+
+def _require_dir(path: Path | None, label: str) -> bool:
+    """True if path is None or an existing directory; error otherwise."""
+    if path is None or path.is_dir():
+        return True
+    print(f"ERROR: {label} does not exist: {path}", file=sys.stderr)
+    return False
+
+
+def _collect_documents(posts_dir: Path, books_dir: Path | None):
+    """
+    Yield (doc_file, record_or_None, errors) for every candidate file.
+
+    Single source of truth for the per-document rules shared by publish
+    and validate: parse failures, empty titles, underivable publishedAt,
+    and duplicate paths all surface here. record is None when the file is
+    skipped (draft, re-review, non-post filename) or failed to parse.
+    """
+    seen_paths: dict[str, Path] = {}
+    for src_dir, parser in _document_sources(posts_dir, books_dir):
+        for doc_file in _source_files(src_dir):
+            try:
+                rec = parser(doc_file)
+            except yaml.YAMLError as exc:
+                yield doc_file, None, [f"invalid YAML front matter: {exc}"]
+                continue
+            except ValueError as exc:
+                yield doc_file, None, [str(exc)]
+                continue
+            if rec is None:
+                continue
+
+            errors: list[str] = []
+            if not rec["title"].strip():
+                errors.append("missing or empty 'title'")
+            if not rec.get("publishedAt"):
+                errors.append(
+                    "cannot derive publishedAt from the 'date' front matter "
+                    "or filename"
+                )
+            if rec["path"] in seen_paths:
+                errors.append(
+                    f"duplicate path {rec['path']!r} "
+                    f"(also claimed by {seen_paths[rec['path']].name})"
+                )
+            else:
+                seen_paths[rec["path"]] = doc_file
+            yield doc_file, rec, errors
+
+
 def sync_documents(
     client: AtprotoClient,
     posts_dir: Path,
@@ -339,41 +428,21 @@ def sync_documents(
         print("ERROR: sync_documents requires a publication_uri", file=sys.stderr)
         sys.exit(1)
 
+    if not (_require_dir(posts_dir, "posts dir") and _require_dir(books_dir, "books dir")):
+        sys.exit(1)
+
     # --- Collect local documents ---
-    # Defense in depth alongside the validate subcommand: never sync a
-    # record that violates the lexicon or silently shadows another page.
+    # Shares _collect_documents with validate so the CI gate and the
+    # publisher cannot drift; any per-document error aborts the sync.
     local: dict[str, tuple[Path, dict]] = {}
-    for src_dir, parser in _document_sources(posts_dir, books_dir):
-        for post_file in sorted(src_dir.glob("*.md")):
-            try:
-                rec = parser(post_file)
-            except (yaml.YAMLError, ValueError) as exc:
-                print(f"ERROR: {post_file.name}: {exc}", file=sys.stderr)
-                sys.exit(1)
-            if rec is None:
-                continue
-            if not rec["title"].strip():
-                print(
-                    f"ERROR: {post_file.name}: missing or empty 'title'",
-                    file=sys.stderr,
-                )
-                sys.exit(1)
-            if not rec.get("publishedAt"):
-                print(
-                    f"ERROR: {post_file.name}: cannot derive publishedAt from "
-                    "the 'date' front matter or filename",
-                    file=sys.stderr,
-                )
-                sys.exit(1)
-            if rec["path"] in local:
-                print(
-                    f"ERROR: duplicate local path {rec['path']!r}: "
-                    f"{local[rec['path']][0].name} and {post_file.name}",
-                    file=sys.stderr,
-                )
-                sys.exit(1)
-            rec["site"] = publication_uri
-            local[rec["path"]] = (post_file, rec)
+    for doc_file, rec, errors in _collect_documents(posts_dir, books_dir):
+        if errors:
+            for msg in errors:
+                print(f"ERROR: {doc_file.name}: {msg}", file=sys.stderr)
+            sys.exit(1)
+        assert rec is not None
+        rec["site"] = publication_uri
+        local[rec["path"]] = (doc_file, rec)
 
     # --- Fetch remote records ---
     # Only records belonging to our publication are managed; documents other
@@ -458,6 +527,41 @@ def sync_documents(
 # ---------------------------------------------------------------------------
 
 
+# Depth-1 pages under these _site sections that are not documents: blog
+# pagination, and the books listing/index pages. Redirect stubs (renamed
+# slugs) are detected by content, not name.
+SITE_SWEEP_SKIP = {
+    "blog": re.compile(r"^page\d+$"),
+    "books": re.compile(r"^(authors|by-[a-z-]+|covers)$"),
+}
+
+
+def _reverse_sweep_errors(site_dir: Path, record_paths: set[str]) -> list[str]:
+    """
+    The other direction of the site cross-check: every depth-1 built page
+    under /blog/ and /books/ must have an AT record, unless it is a known
+    listing/pagination page or a redirect stub. Catches documents that the
+    source globs silently miss (the failure mode of an accidental skip).
+    """
+    errors: list[str] = []
+    for section, skip_re in SITE_SWEEP_SKIP.items():
+        for index_file in sorted((site_dir / section).glob("*/index.html")):
+            name = index_file.parent.name
+            if skip_re.match(name):
+                continue
+            head = index_file.read_text(encoding="utf-8", errors="replace")[:600]
+            if 'http-equiv="refresh"' in head:
+                continue
+            path_str = f"/{section}/{name}/"
+            if path_str not in record_paths:
+                errors.append(
+                    f"built page {path_str} has no AT record — if intentional, "
+                    "add it to SITE_SWEEP_SKIP; otherwise a source file is "
+                    "being missed"
+                )
+    return errors
+
+
 def validate_documents(
     posts_dir: Path,
     books_dir: Path | None = None,
@@ -467,72 +571,97 @@ def validate_documents(
     Validate all posts (and books) for AT Protocol compatibility.
 
     Requires no credentials, config, or network access. Runs the same
-    parsers as publish so the CI gate cannot drift from the gated
-    behavior, and checks the returned records. With site_dir, also
-    cross-checks every derived record path against the built site
-    (…/index.html must exist) so path derivation is verified against
-    Jekyll's real output on every run.
+    _collect_documents pipeline as publish so the CI gate cannot drift
+    from the gated behavior. With site_dir, additionally cross-checks in
+    both directions: every derived record path must exist in the built
+    site, and every built document page must map to a record.
 
     Returns True if all publishable documents are valid.
     """
-    errors = 0
-    seen_paths: dict[str, Path] = {}
+    if not (
+        _require_dir(posts_dir, "posts dir")
+        and _require_dir(books_dir, "books dir")
+        and _require_dir(site_dir, "site dir")
+    ):
+        return False
 
-    for src_dir, parser in _document_sources(posts_dir, books_dir):
-        for doc_file in sorted(src_dir.glob("*.md")):
-            try:
-                rec = parser(doc_file)
-            except yaml.YAMLError as exc:
+    error_count = 0
+    record_paths: set[str] = set()
+
+    for doc_file, rec, errors in _collect_documents(posts_dir, books_dir):
+        for msg in errors:
+            print(f"ERROR: {doc_file.name}: {msg}", file=sys.stderr)
+            error_count += 1
+        if rec is None:
+            continue
+        record_paths.add(rec["path"])
+
+        if site_dir is not None:
+            built = site_dir / rec["path"].strip("/") / "index.html"
+            if not built.is_file():
                 print(
-                    f"ERROR: {doc_file.name}: invalid YAML front matter: {exc}",
+                    f"ERROR: {doc_file.name}: derived path {rec['path']!r} "
+                    f"not found in built site ({built})",
                     file=sys.stderr,
                 )
-                errors += 1
-                continue
-            except ValueError as exc:
-                print(f"ERROR: {doc_file.name}: {exc}", file=sys.stderr)
-                errors += 1
-                continue
-            if rec is None:
-                continue
+                error_count += 1
 
-            path_str = rec["path"]
-            if path_str in seen_paths:
-                print(
-                    f"ERROR: {doc_file.name}: duplicate path {path_str!r} "
-                    f"(also claimed by {seen_paths[path_str].name})",
-                    file=sys.stderr,
-                )
-                errors += 1
-            else:
-                seen_paths[path_str] = doc_file
+    if site_dir is not None:
+        for msg in _reverse_sweep_errors(site_dir, record_paths):
+            print(f"ERROR: {msg}", file=sys.stderr)
+            error_count += 1
 
-            if not rec["title"].strip():
-                print(
-                    f"ERROR: {doc_file.name}: missing or empty 'title'",
-                    file=sys.stderr,
-                )
-                errors += 1
+    return error_count == 0
 
-            if not rec.get("publishedAt"):
-                print(
-                    f"ERROR: {doc_file.name}: cannot derive publishedAt from "
-                    "the 'date' front matter or filename",
-                    file=sys.stderr,
-                )
-                errors += 1
 
-            if site_dir is not None:
-                built = site_dir / path_str.strip("/") / "index.html"
-                if not built.is_file():
-                    print(
-                        f"ERROR: {doc_file.name}: derived path {path_str!r} "
-                        f"not found in built site ({built})",
-                        file=sys.stderr,
-                    )
-                    errors += 1
+def delete_orphans(
+    client: AtprotoClient,
+    posts_dir: Path,
+    books_dir: Path,
+    publication_uri: str,
+    confirmed: bool = False,
+) -> None:
+    """
+    Manual cleanup for remote records that match no local document (e.g.
+    after a bad publish or a deleted post). Lists orphans; deletes them
+    only when confirmed. Never run in CI — deletion is a human decision.
+    """
+    if not publication_uri:
+        print("ERROR: delete-orphans requires a publication_uri", file=sys.stderr)
+        sys.exit(1)
+    if not (_require_dir(posts_dir, "posts dir") and _require_dir(books_dir, "books dir")):
+        sys.exit(1)
 
-    return errors == 0
+    local_paths: set[str] = set()
+    for doc_file, rec, errors in _collect_documents(posts_dir, books_dir):
+        if errors:
+            for msg in errors:
+                print(f"ERROR: {doc_file.name}: {msg}", file=sys.stderr)
+            sys.exit(1)
+        assert rec is not None
+        local_paths.add(rec["path"])
+
+    orphans: list[tuple[str, str]] = []  # (path, rkey)
+    for item in client.list_records("site.standard.document"):
+        value = item["value"]
+        if value.get("site") != publication_uri:
+            continue
+        if value.get("path", "") not in local_paths:
+            orphans.append((value.get("path", "<no path>"), _extract_rkey(item["uri"])))
+
+    if not orphans:
+        print("No orphan records found.")
+        return
+
+    for path_str, rkey in orphans:
+        if confirmed:
+            client.delete_record("site.standard.document", rkey)
+            print(f"Deleted orphan: {path_str} (rkey {rkey})")
+        else:
+            print(f"Orphan: {path_str} (rkey {rkey})")
+
+    if not confirmed:
+        print(f"{len(orphans)} orphan(s) found. Re-run with --yes to delete.")
 
 
 # ---------------------------------------------------------------------------
@@ -570,7 +699,9 @@ def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="cmd", required=True)
 
-    pub_p = sub.add_parser("publish", help="Sync posts to PDS document records")
+    pub_p = sub.add_parser(
+        "publish", help="Sync posts and books to PDS document records"
+    )
     pub_p.add_argument("--posts-dir", required=True, type=Path)
     pub_p.add_argument("--books-dir", required=True, type=Path)
     pub_p.add_argument("--data-out", required=True, type=Path)
@@ -580,11 +711,20 @@ def main(argv: list[str] | None = None) -> None:
 
     val_p = sub.add_parser(
         "validate",
-        help="Validate posts for AT Protocol compatibility (no network, no credentials)",
+        help="Validate posts and books for AT Protocol compatibility "
+        "(no network, no credentials)",
     )
     val_p.add_argument("--posts-dir", required=True, type=Path)
-    val_p.add_argument("--books-dir", type=Path, default=None)
+    val_p.add_argument("--books-dir", required=True, type=Path)
     val_p.add_argument("--site-dir", type=Path, default=None)
+
+    del_p = sub.add_parser(
+        "delete-orphans",
+        help="List/delete remote records with no local document (manual only)",
+    )
+    del_p.add_argument("--posts-dir", required=True, type=Path)
+    del_p.add_argument("--books-dir", required=True, type=Path)
+    del_p.add_argument("--yes", action="store_true", help="Actually delete")
 
     args = parser.parse_args(argv)
 
@@ -625,6 +765,14 @@ def main(argv: list[str] | None = None) -> None:
             publication_uri,
             books_dir=args.books_dir,
             dry_run=args.dry_run,
+        )
+    elif args.cmd == "delete-orphans":
+        delete_orphans(
+            client,
+            args.posts_dir,
+            args.books_dir,
+            publication_uri,
+            confirmed=args.yes,
         )
     elif args.cmd == "init-publication":
         init_publication(client, config)

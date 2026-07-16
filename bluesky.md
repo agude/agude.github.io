@@ -474,9 +474,37 @@ passes once fixed; `validate` runs green against the real `_posts/`.
   `date:` omits the key and sync fails loudly, instead of shipping
   `"soonT00:00:00Z"`).
 
+### 6.5 Second-review hardening (implemented)
+
+- **Sources are collected recursively**, mirroring Jekyll: `_source_files`
+  walks subdirectories but skips `_`-prefixed dirs (`_books/_templates/`).
+  Re-read reviews nested under `_books/<book>/` are therefore *seen*, and
+  skipped by an explicit rule: any book with `canonical_url` front matter
+  gets no record — the canonical review page owns the document. (They
+  were previously invisible to a non-recursive glob — an accident, now a
+  documented decision.)
+- **The site cross-check is two-way**: besides derived-path → built-page,
+  a reverse sweep checks every depth-1 `index.html` under `/blog/` and
+  `/books/` maps to a record, skipping pagination/listing pages (the
+  `SITE_SWEEP_SKIP` patterns) and redirect stubs (detected by
+  `http-equiv="refresh"` content). A built document silently missing a
+  record now fails CI.
+- **Missing directories are errors**: a typo'd `--posts-dir` used to
+  glob nothing and exit green; both validate and sync now fail.
+- **`delete-orphans` subcommand** (manual only, never CI): lists remote
+  records matching no local document; deletes only with `--yes`. This is
+  the recovery path if bad-path records ever land on the PDS — note the
+  main-branch ordering is publish → build → cross-check, so a divergence
+  caught by the cross-check has already written records.
+- A null `title:` no longer stringifies to `"None"` (slipping past the
+  empty-title guard), and non-mapping front matter is a per-file error
+  instead of a traceback.
+- Per-document rules live in one place (`_collect_documents`), shared
+  verbatim by publish and validate.
+
 ## Phase 7 — Book reviews (implemented)
 
-`_books/` (129 reviews) is published alongside `_posts/` via
+`_books/` (125 canonical reviews) is published alongside `_posts/` via
 `--books-dir` on both `publish` and `validate` (wired in CI). Books
 differ from posts in four ways the code encodes:
 
@@ -484,7 +512,7 @@ differ from posts in four ways the code encodes:
   the filename stem **verbatim** (`a_canticle_for_leibowitz.md` →
   `/books/a_canticle_for_leibowitz/`) — no slugification, unlike
   posts' `:slug` token. Verified against a production build of all
-  129 reviews.
+  125 reviews.
 - **publishedAt**: no date-prefixed filename to fall back to, so the
   `date:` front matter key is **required** (validate errors and
   sync exits when missing or underivable).
