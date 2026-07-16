@@ -1641,3 +1641,51 @@ class TestMissingCid:
         with pytest.raises(publish.PublishError) as exc_info:
             sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
         assert "non-atomic" in str(exc_info.value)
+
+# ---------------------------------------------------------------------------
+# Well-known file check in validate --site-dir
+# ---------------------------------------------------------------------------
+
+
+class TestWellKnownInSite:
+    def _site(self, tmp_path: Path) -> tuple[Path, Path]:
+        posts = tmp_path / "posts"
+        posts.mkdir()
+        site = tmp_path / "_site"
+        (site / "blog").mkdir(parents=True)
+        (site / "books").mkdir(parents=True)
+        return posts, site
+
+    def test_missing_well_known_fails(self, tmp_path: Path, capsys) -> None:
+        posts, site = self._site(tmp_path)
+        ok = validate_documents(posts, site_dir=site, expected_publication_uri=PUB_URI)
+        assert ok is False
+        assert "missing" in capsys.readouterr().err
+
+    def test_wrong_content_fails(self, tmp_path: Path, capsys) -> None:
+        posts, site = self._site(tmp_path)
+        wk = site / ".well-known"
+        wk.mkdir()
+        (wk / "site.standard.publication").write_text("at://did:plc:wrong/x/y")
+        ok = validate_documents(posts, site_dir=site, expected_publication_uri=PUB_URI)
+        assert ok is False
+        assert "does not match" in capsys.readouterr().err
+
+    def test_trailing_newline_fails(self, tmp_path: Path) -> None:
+        # Verifiers compare exactly; a newline is a mismatch.
+        posts, site = self._site(tmp_path)
+        wk = site / ".well-known"
+        wk.mkdir()
+        (wk / "site.standard.publication").write_text(PUB_URI + "\n")
+        assert validate_documents(posts, site_dir=site, expected_publication_uri=PUB_URI) is False
+
+    def test_exact_content_passes(self, tmp_path: Path) -> None:
+        posts, site = self._site(tmp_path)
+        wk = site / ".well-known"
+        wk.mkdir()
+        (wk / "site.standard.publication").write_text(PUB_URI)
+        assert validate_documents(posts, site_dir=site, expected_publication_uri=PUB_URI) is True
+
+    def test_no_expected_uri_skips_check(self, tmp_path: Path) -> None:
+        posts, site = self._site(tmp_path)
+        assert validate_documents(posts, site_dir=site) is True

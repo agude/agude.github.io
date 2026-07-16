@@ -389,11 +389,15 @@ exercised the unconfigured code. Before merging `standard-site-config`:
 
 1. After the first `main` deploy:
    `curl https://alexgude.com/.well-known/site.standard.publication`
-   → exactly the publication AT-URI. This is also the first proof that
-   GitHub Pages serves this repo's `.well-known/` path at all — Pages
-   generally does, but it has never been verified here; if it 404s
-   while `_site/` contains the file, that is a Pages serving issue,
-   not a build issue.
+   → exactly the publication AT-URI. **This check caught a real bug on
+   the first deploy**: `actions/upload-pages-artifact` excludes
+   dot-prefixed entries from its tar by default, so `.well-known` was
+   built and green through every gate, then silently dropped at
+   packaging. Fixed with `include-hidden-files: true` on the upload
+   step; a post-deploy smoke test in the deploy job now curls the live
+   URL and compares content (with retries for CDN propagation), and
+   `validate --site-dir` checks the file exists in `_site/` with exact
+   content.
 2. `curl -s https://alexgude.com/blog/<recent-slug>/ | grep site.standard`
    → both link tags present.
 3. Run the ecosystem validator at <https://site-validator.fly.dev>

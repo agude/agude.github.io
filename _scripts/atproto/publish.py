@@ -732,6 +732,7 @@ def validate_documents(
     posts_dir: Path,
     books_dir: Path | None = None,
     site_dir: Path | None = None,
+    expected_publication_uri: str = "",
 ) -> bool:
     """
     Validate all posts (and books) for AT Protocol compatibility.
@@ -776,6 +777,24 @@ def validate_documents(
         for msg in _reverse_sweep_errors(site_dir, record_paths):
             print(f"ERROR: {msg}", file=sys.stderr)
             error_count += 1
+
+        # The built site must carry the verification file with the exact
+        # configured URI (no trailing newline — verifiers compare exactly).
+        if expected_publication_uri:
+            wk = site_dir / ".well-known" / "site.standard.publication"
+            if not wk.is_file():
+                print(
+                    f"ERROR: built site is missing {wk}",
+                    file=sys.stderr,
+                )
+                error_count += 1
+            elif wk.read_text(encoding="utf-8") != expected_publication_uri:
+                print(
+                    f"ERROR: {wk} content does not match "
+                    "standard_site.publication_uri",
+                    file=sys.stderr,
+                )
+                error_count += 1
 
     return error_count == 0
 
@@ -921,10 +940,14 @@ def _dispatch(argv: list[str] | None = None) -> None:
 
     args = parser.parse_args(argv)
 
-    # validate needs no credentials or config — dispatch before either check.
+    # validate needs no credentials or network; it reads only local files
+    # (including _config.yml for the expected publication URI).
     if args.cmd == "validate":
         ok = validate_documents(
-            args.posts_dir, books_dir=args.books_dir, site_dir=args.site_dir
+            args.posts_dir,
+            books_dir=args.books_dir,
+            site_dir=args.site_dir,
+            expected_publication_uri=get_publication_uri(load_config()),
         )
         if not ok:
             sys.exit(1)

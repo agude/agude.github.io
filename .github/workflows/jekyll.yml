@@ -174,9 +174,15 @@ jobs:
           bundle exec ruby _bin/check_links.rb
 
       - name: Upload artifact
-        # Only upload if we are on main (where deployment happens)
+        # Only upload if we are on main (where deployment happens).
+        # include-hidden-files is required: the action's tar excludes
+        # dot-prefixed entries by default, which silently dropped
+        # .well-known/site.standard.publication from the first deploy
+        # while every _site-level gate stayed green.
         if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v5
+        with:
+          include-hidden-files: true
 
   # Deployment job
   deploy:
@@ -191,6 +197,24 @@ jobs:
     # This matches the condition above, ensuring we only try to deploy if we uploaded
     if: github.ref == 'refs/heads/main'
     steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+
+      # Artifact-side proof that dot-path files actually deployed; the
+      # build gates can only see _site/, not what the packaging step kept.
+      - name: Smoke-test deployed .well-known
+        run: |
+          expected=$(grep -A2 '^standard_site:' _config.yml | grep publication_uri | sed 's/.*"\(at:[^"]*\)".*/\1/')
+          echo "Expecting: $expected"
+          for i in 1 2 3 4 5; do
+            got=$(curl -fsS "${{ steps.deployment.outputs.page_url }}.well-known/site.standard.publication" || true)
+            [ "$got" = "$expected" ] && echo "OK" && exit 0
+            echo "attempt $i: got '$got'; retrying in 15s (CDN propagation)"
+            sleep 15
+          done
+          echo "ERROR: deployed .well-known does not serve the publication URI"
+          exit 1
