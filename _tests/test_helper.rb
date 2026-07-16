@@ -113,6 +113,7 @@ require 'src/ui/tags/units_tag'
 require 'src/infrastructure/environment_setter'
 require 'src/seo/front_matter_validator'
 require 'src/seo/json_ld_injector'
+require 'src/seo/standard_site_well_known_generator'
 require 'src/infrastructure/link_cache_generator'
 require 'src/infrastructure/optional_filter'
 
