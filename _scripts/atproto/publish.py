@@ -39,6 +39,7 @@ import yaml
 # ---------------------------------------------------------------------------
 
 PDS_URL = "https://bsky.social"
+HTTP_TIMEOUT = 30  # seconds; a hung PDS must not stall the deploy job
 SITE_URL = "https://alexgude.com"
 
 _CONFIG_FILE = Path(__file__).parent.parent.parent / "_config.yml"
@@ -186,7 +187,7 @@ def _to_publish_date(date_val: Any) -> str:
     return f"{str(date_val)[:10]}T00:00:00Z"
 
 
-def parse_book(path: Path) -> dict | None:
+def parse_book(path: Path, books_dir: Path) -> dict | None:
     """
     Parse a book review file and return managed record fields, or None to skip.
 
@@ -208,6 +209,17 @@ def parse_book(path: Path) -> dict | None:
     # deliberately get no AT record — the canonical page is the document.
     if fm.get("canonical_url"):
         return None
+
+    # Jekyll's /books/:path/ permalink includes subdirectories, so a nested
+    # file would be served at /books/<sub>/<stem>/ while this parser derives
+    # /books/<stem>/. Site convention says nested files are re-read reviews;
+    # one without canonical_url is an anomaly we refuse to guess about.
+    if len(path.relative_to(books_dir).parts) > 1:
+        raise ValueError(
+            "nested book review lacks canonical_url front matter — nested "
+            "files are re-read reviews; add canonical_url or move the file "
+            "to the top of _books/"
+        )
 
     _reject_permalink_overrides(fm)
 
@@ -249,6 +261,7 @@ class AtprotoClient:
         resp = self._http.post(
             f"{self._pds}/xrpc/com.atproto.server.createSession",
             json={"identifier": handle, "password": password},
+            timeout=HTTP_TIMEOUT,
         )
         _check(resp)
         data = resp.json()
@@ -274,6 +287,7 @@ class AtprotoClient:
                 f"{self._pds}/xrpc/com.atproto.repo.listRecords",
                 params=params,
                 headers=self._auth(),
+                timeout=HTTP_TIMEOUT,
             )
             _check(resp)
             data = resp.json()
@@ -289,6 +303,7 @@ class AtprotoClient:
             f"{self._pds}/xrpc/com.atproto.repo.createRecord",
             json={"repo": self.did, "collection": collection, "record": record},
             headers=self._auth(),
+            timeout=HTTP_TIMEOUT,
         )
         _check(resp)
         return resp.json()["uri"]
@@ -299,6 +314,7 @@ class AtprotoClient:
             f"{self._pds}/xrpc/com.atproto.repo.deleteRecord",
             json={"repo": self.did, "collection": collection, "rkey": rkey},
             headers=self._auth(),
+            timeout=HTTP_TIMEOUT,
         )
         _check(resp)
 
@@ -313,6 +329,7 @@ class AtprotoClient:
                 "record": record,
             },
             headers=self._auth(),
+            timeout=HTTP_TIMEOUT,
         )
         _check(resp)
 
@@ -347,7 +364,8 @@ def _document_sources(
         (posts_dir, parse_post)
     ]
     if books_dir is not None:
-        sources.append((books_dir, parse_book))
+        bd = books_dir
+        sources.append((bd, lambda f: parse_book(f, bd)))
     return sources
 
 
@@ -356,11 +374,14 @@ def _source_files(src_dir: Path) -> list[Path]:
     All candidate markdown files under src_dir, recursively, mirroring
     Jekyll: directories starting with '_' (templates) are not read.
     """
-    return sorted(
-        f
-        for f in src_dir.rglob("*.md")
-        if not any(part.startswith("_") for part in f.relative_to(src_dir).parts[:-1])
-    )
+    def included(f: Path) -> bool:
+        rel = f.relative_to(src_dir)
+        if any(part.startswith("_") for part in rel.parts[:-1]):
+            return False
+        # Jekyll's EntryFilter also skips special/backup files.
+        return not (rel.name.startswith(("_", ".", "#")) or rel.name.endswith("~"))
+
+    return sorted(f for f in src_dir.rglob("*.md") if included(f))
 
 
 def _require_dir(path: Path | None, label: str) -> bool:
@@ -527,12 +548,15 @@ def sync_documents(
 # ---------------------------------------------------------------------------
 
 
-# Depth-1 pages under these _site sections that are not documents: blog
-# pagination, and the books listing/index pages. Redirect stubs (renamed
-# slugs) are detected by content, not name.
-SITE_SWEEP_SKIP = {
+# Sections of _site the reverse sweep covers. The keys are load-bearing:
+# removing one stops sweeping that section entirely. Each value matches the
+# depth-1 pages that are deliberately not documents — blog pagination and
+# the enumerated books listing pages (enumerated, not patterned, so a real
+# review named like a listing page cannot be silently exempted). Redirect
+# stubs (renamed slugs) are detected by content, not name.
+SWEPT_SECTIONS = {
     "blog": re.compile(r"^page\d+$"),
-    "books": re.compile(r"^(authors|by-[a-z-]+|covers)$"),
+    "books": re.compile(r"^(authors|by-author|by-award|by-rating|by-series|by-title|covers)$"),
 }
 
 
@@ -544,7 +568,7 @@ def _reverse_sweep_errors(site_dir: Path, record_paths: set[str]) -> list[str]:
     source globs silently miss (the failure mode of an accidental skip).
     """
     errors: list[str] = []
-    for section, skip_re in SITE_SWEEP_SKIP.items():
+    for section, skip_re in SWEPT_SECTIONS.items():
         for index_file in sorted((site_dir / section).glob("*/index.html")):
             name = index_file.parent.name
             if skip_re.match(name):
@@ -556,7 +580,7 @@ def _reverse_sweep_errors(site_dir: Path, record_paths: set[str]) -> list[str]:
             if path_str not in record_paths:
                 errors.append(
                     f"built page {path_str} has no AT record — if intentional, "
-                    "add it to SITE_SWEEP_SKIP; otherwise a source file is "
+                    "add it to SWEPT_SECTIONS; otherwise a source file is "
                     "being missed"
                 )
     return errors
@@ -640,6 +664,17 @@ def delete_orphans(
             sys.exit(1)
         assert rec is not None
         local_paths.add(rec["path"])
+
+    if not local_paths:
+        # An existing-but-wrong --posts-dir would classify every remote
+        # record as an orphan; never treat an empty local corpus as license
+        # to delete everything.
+        print(
+            "ERROR: no local documents found — refusing to treat every "
+            "remote record as an orphan (check --posts-dir/--books-dir)",
+            file=sys.stderr,
+        )
+        sys.exit(1)
 
     orphans: list[tuple[str, str]] = []  # (path, rkey)
     for item in client.list_records("site.standard.document"):

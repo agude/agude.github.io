@@ -16,11 +16,13 @@
 #      runs everywhere too but `deploy` only runs for main via the
 #      `needs:`/`if:` chain.)
 #
-# Main-only steps in the build job (gated on github.ref == refs/heads/main):
+# Main-only steps in the build job (gated on github.ref == refs/heads/main),
+# ordered so PDS records — an external, not-automatically-reversible
+# system — are only written after the site cross-check passes:
 #   6. `uv run python atproto/publish.py publish` — syncs _posts/ and
 #      _books/ to PDS site.standard.document records and writes
-#      _data/standard_site.json before Jekyll builds. Requires
-#      BSKY_APP_PASSWORD repo secret.
+#      _data/standard_site.json; then a second Jekyll build embeds the
+#      per-document link tags. Requires BSKY_APP_PASSWORD repo secret.
 #      If this step fails, the build fails and nothing deploys. Exception:
 #      while _config.yml standard_site.publication_uri is empty (Phase 3
 #      of bluesky.md not done), the step is a clean no-op needing no secret.
@@ -78,6 +80,8 @@ jobs:
         working-directory: _scripts
         run: uv run pytest
 
+      # Fast, credential-free subset of the build job's --site-dir
+      # cross-check (keep the two invocations' flags in sync).
       - name: Validate posts for AT Protocol publish
         working-directory: _scripts
         run: uv run python atproto/publish.py validate --posts-dir ../_posts --books-dir ../_books
@@ -112,6 +116,19 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v7
 
+      - name: Build with Jekyll
+        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        env:
+          JEKYLL_ENV: production
+
+      # Must pass BEFORE the publish step below may write records to the
+      # PDS: records are an external, not-automatically-reversible system.
+      # Superset of the test job's credential-free validate step (keep the
+      # two invocations' flags in sync).
+      - name: Cross-check AT record paths against built site
+        working-directory: _scripts
+        run: uv run python atproto/publish.py validate --posts-dir ../_posts --books-dir ../_books --site-dir ../_site
+
       - name: Publish standard.site records
         if: github.ref == 'refs/heads/main'
         working-directory: _scripts
@@ -120,14 +137,13 @@ jobs:
           BSKY_HANDLE: alexgude.com
           BSKY_APP_PASSWORD: ${{ secrets.BSKY_APP_PASSWORD }}
 
-      - name: Build with Jekyll
+      # The first build ran without _data/standard_site.json (publish had
+      # not run yet), so main rebuilds to embed the per-document link tags.
+      - name: Rebuild with document link tags
+        if: github.ref == 'refs/heads/main'
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
-
-      - name: Cross-check AT record paths against built site
-        working-directory: _scripts
-        run: uv run python atproto/publish.py validate --posts-dir ../_posts --books-dir ../_books --site-dir ../_site
 
       - name: Validate HTML structure
         run: |

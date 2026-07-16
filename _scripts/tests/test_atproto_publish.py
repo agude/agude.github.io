@@ -55,11 +55,11 @@ class MockTransport:
         assert self._queue, "MockTransport response queue is empty"
         return self._queue.pop(0)
 
-    def post(self, url: str, json: dict | None = None, headers: dict | None = None) -> MockResponse:
+    def post(self, url: str, json: dict | None = None, headers: dict | None = None, timeout: float | None = None) -> MockResponse:
         self.calls.append(("POST", url, json))
         return self._pop()
 
-    def get(self, url: str, params: dict | None = None, headers: dict | None = None) -> MockResponse:
+    def get(self, url: str, params: dict | None = None, headers: dict | None = None, timeout: float | None = None) -> MockResponse:
         self.calls.append(("GET", url, params))
         return self._pop()
 
@@ -872,40 +872,40 @@ class TestParseBook:
         # Collection :path permalinks keep the stem verbatim, unlike :slug.
         f = tmp_path / "a_canticle_for_leibowitz.md"
         f.write_text("---\ntitle: A Canticle for Leibowitz\ndate: 2025-11-16 08:35:33 -0800\n---\n")
-        rec = parse_book(f)
+        rec = parse_book(f, tmp_path)
         assert rec is not None
         assert rec["path"] == "/books/a_canticle_for_leibowitz/"
 
     def test_published_at_from_date(self, tmp_path: Path) -> None:
         f = tmp_path / "book.md"
         f.write_text("---\ntitle: Book\ndate: 2025-11-16 08:35:33 -0800\n---\n")
-        rec = parse_book(f)
+        rec = parse_book(f, tmp_path)
         assert rec is not None
         assert rec["publishedAt"] == "2025-11-16T00:00:00Z"
 
     def test_missing_date_omits_published_at(self, tmp_path: Path) -> None:
         f = tmp_path / "book.md"
         f.write_text("---\ntitle: Book\n---\n")
-        rec = parse_book(f)
+        rec = parse_book(f, tmp_path)
         assert rec is not None
         assert "publishedAt" not in rec
 
     def test_fixed_book_reviews_tag(self, tmp_path: Path) -> None:
         f = tmp_path / "book.md"
         f.write_text("---\ntitle: Book\ndate: 2025-01-01\n---\n")
-        rec = parse_book(f)
+        rec = parse_book(f, tmp_path)
         assert rec is not None
         assert rec["tags"] == ["book-reviews"]
 
     def test_draft_skipped(self, tmp_path: Path) -> None:
         f = tmp_path / "book.md"
         f.write_text("---\ntitle: Book\ndate: 2025-01-01\npublished: false\n---\n")
-        assert parse_book(f) is None
+        assert parse_book(f, tmp_path) is None
 
     def test_no_description_key(self, tmp_path: Path) -> None:
         f = tmp_path / "book.md"
         f.write_text("---\ntitle: Book\ndate: 2025-01-01\n---\n")
-        rec = parse_book(f)
+        rec = parse_book(f, tmp_path)
         assert rec is not None
         assert "description" not in rec
 
@@ -1031,7 +1031,7 @@ class TestOverridesRaise:
         f = tmp_path / "book.md"
         f.write_text("---\ntitle: Book\ndate: 2025-01-01\npermalink: /x/\n---\n")
         with pytest.raises(ValueError):
-            parse_book(f)
+            parse_book(f, tmp_path)
 
     def test_sync_exits_on_slug_override(self, tmp_path: Path, capsys) -> None:
         (tmp_path / "2025-01-01-post.md").write_text("---\ntitle: Post\nslug: c\n---\n")
@@ -1108,7 +1108,7 @@ class TestReReviewSkip:
         f.write_text(
             "---\ntitle: Hyperion\ndate: 2023-10-17\ncanonical_url: /books/hyperion/\n---\n"
         )
-        assert parse_book(f) is None
+        assert parse_book(f, tmp_path) is None
 
     def test_nested_re_review_found_but_skipped(self, tmp_path: Path) -> None:
         # Recursion must see subdirectory files; canonical_url then skips them.
@@ -1124,9 +1124,12 @@ class TestReReviewSkip:
         assert len(results) == 1
         assert results[0][1]["path"] == "/books/hyperion/"
 
-    def test_nested_review_without_canonical_url_gets_record(self, tmp_path: Path) -> None:
-        # If a nested file is NOT marked canonical-elsewhere it must be
-        # published, not silently dropped by a non-recursive glob.
+    def test_nested_review_without_canonical_url_is_error(self, tmp_path: Path) -> None:
+        # Jekyll's /books/:path/ permalink would serve a nested file at
+        # /books/sub/real_review/, not the stem-derived /books/real_review/.
+        # Site convention says nested = re-read review; a nested file
+        # without canonical_url is an anomaly the pipeline must not guess
+        # a path for.
         posts = tmp_path / "posts"
         books = tmp_path / "books"
         posts.mkdir()
@@ -1134,7 +1137,9 @@ class TestReReviewSkip:
         (books / "sub" / "real_review.md").write_text("---\ntitle: R\ndate: 2025-01-01\n---\n")
         results = list(publish._collect_documents(posts, books))
         assert len(results) == 1
-        assert results[0][1]["path"] == "/books/real_review/"
+        doc_file, rec, errors = results[0]
+        assert rec is None
+        assert any("canonical_url" in e for e in errors)
 
     def test_underscore_template_dirs_ignored(self, tmp_path: Path) -> None:
         posts = tmp_path / "posts"
@@ -1241,6 +1246,7 @@ class TestDeleteOrphans:
 
     def test_lists_without_deleting_by_default(self, tmp_path: Path, capsys) -> None:
         posts, books = self._dirs(tmp_path)
+        (posts / "2025-01-01-keep.md").write_text("---\ntitle: Keep\n---\n")
         transport = MockTransport()
         client = make_client(transport)
         transport.push({
@@ -1255,6 +1261,7 @@ class TestDeleteOrphans:
 
     def test_deletes_with_yes(self, tmp_path: Path) -> None:
         posts, books = self._dirs(tmp_path)
+        (posts / "2025-01-01-keep.md").write_text("---\ntitle: Keep\n---\n")
         transport = MockTransport()
         client = make_client(transport)
         transport.push({
@@ -1282,6 +1289,7 @@ class TestDeleteOrphans:
 
     def test_other_publication_records_ignored(self, tmp_path: Path, capsys) -> None:
         posts, books = self._dirs(tmp_path)
+        (posts / "2025-01-01-keep.md").write_text("---\ntitle: Keep\n---\n")
         transport = MockTransport()
         client = make_client(transport)
         other = {"site": "at://did:plc:other/site.standard.publication/x", "path": "/blog/x/"}
@@ -1290,3 +1298,62 @@ class TestDeleteOrphans:
         publish.delete_orphans(client, posts, books, PUB_URI, confirmed=True)
 
         assert "No orphan records found" in capsys.readouterr().out
+
+
+# ---------------------------------------------------------------------------
+# Third review: blast-radius guard, file-prefix filter, timeouts
+# ---------------------------------------------------------------------------
+
+
+class TestDeleteOrphansBlastRadius:
+    def test_refuses_when_no_local_documents(self, tmp_path: Path, capsys) -> None:
+        # An existing-but-wrong --posts-dir must never classify the whole
+        # remote corpus as orphans.
+        posts = tmp_path / "posts"
+        books = tmp_path / "books"
+        posts.mkdir()
+        books.mkdir()
+        transport = MockTransport()
+        client = make_client(transport)
+
+        with pytest.raises(SystemExit) as exc_info:
+            publish.delete_orphans(client, posts, books, PUB_URI, confirmed=True)
+        assert exc_info.value.code == 1
+        assert "refusing" in capsys.readouterr().err
+        delete_calls = [c for c in transport.calls if "deleteRecord" in c[1]]
+        assert len(delete_calls) == 0
+
+
+class TestSourceFileFilter:
+    def test_special_prefix_files_skipped(self, tmp_path: Path) -> None:
+        # Jekyll's EntryFilter skips _/./# prefixed and ~ suffixed entries.
+        (tmp_path / "_scratch.md").write_text("---\ntitle: X\n---\n")
+        (tmp_path / ".hidden.md").write_text("---\ntitle: X\n---\n")
+        (tmp_path / "#draft.md").write_text("---\ntitle: X\n---\n")
+        (tmp_path / "real.md").write_text("---\ntitle: X\n---\n")
+        names = [f.name for f in publish._source_files(tmp_path)]
+        assert names == ["real.md"]
+
+
+class TestHttpTimeouts:
+    def test_all_client_calls_pass_timeout(self) -> None:
+        class TimeoutAssertingTransport(MockTransport):
+            def post(self, url, json=None, headers=None, timeout=None):
+                assert timeout is not None, f"no timeout on POST {url}"
+                return super().post(url, json=json, headers=headers)
+
+            def get(self, url, params=None, headers=None, timeout=None):
+                assert timeout is not None, f"no timeout on GET {url}"
+                return super().get(url, params=params, headers=headers)
+
+        transport = TimeoutAssertingTransport()
+        transport.push(LOGIN_RESPONSE)
+        client = AtprotoClient("https://bsky.social", "h", "p", _session=transport)
+        transport.push({"records": []})
+        client.list_records("site.standard.document")
+        transport.push({"uri": DOC_URI})
+        client.create_record("site.standard.document", {})
+        transport.push({})
+        client.put_record("site.standard.document", "rk", {})
+        transport.push({})
+        client.delete_record("site.standard.document", "rk")

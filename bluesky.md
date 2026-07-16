@@ -53,18 +53,23 @@ The site proves ownership with two static artifacts:
 **The PDS is the state store.** No AT-URIs are committed to the repo, no
 `[skip ci]` commit-back loop, and the workflow keeps `contents: read`.
 
-On every push to `main`, a publish step runs *before* `jekyll build`:
+The build job orders steps so PDS records — an external,
+not-automatically-reversible system — are only written after the site
+cross-check passes:
 
 ```
-┌─ CI build job (main only) ─────────────────────────────────────┐
-│ 1. publish script:                                             │
+┌─ CI build job ─────────────────────────────────────────────────┐
+│ 1. jekyll build (no data file yet; every branch)               │
+│ 2. validate --site-dir: two-way path cross-check (every branch)│
+│ ── main only from here ──                                      │
+│ 3. publish script:                                             │
 │    createSession ─► listRecords (our site.standard.document)   │
-│    ─► diff against _posts/ ─► createRecord new / putRecord     │
-│    changed ─► write _data/standard_site.json (url → AT-URI)    │
-│ 2. jekyll build:                                               │
+│    ─► diff against _posts/ + _books/ ─► createRecord new /     │
+│    putRecord changed ─► write _data/standard_site.json         │
+│ 4. jekyll rebuild:                                             │
 │    head.html reads site.data.standard_site ─► emits link tags  │
 │    plugin emits .well-known/site.standard.publication          │
-│ 3. deploy as usual                                             │
+│ 5. deploy as usual                                             │
 └────────────────────────────────────────────────────────────────┘
 ```
 
@@ -465,9 +470,10 @@ passes once fixed; `validate` runs green against the real `_posts/`.
   CI build job runs this after `jekyll build` on **every branch**,
   turning "script path derivation matches Jekyll" into a per-run
   verified invariant instead of a belief.
-- `--books-dir` is **required** for `publish` (dropping it would
-  silently orphan all book records and strip their verification tags).
-  It stays optional for `validate` and at the function level.
+- `--books-dir` is **required** for both `publish` and `validate` at
+  the CLI (dropping it would silently orphan all book records and strip
+  their verification tags); it is optional only at the function level,
+  for tests.
 - The books collection permalink is pinned in `_config.yml`
   (`permalink: /books/:path/`) instead of resting on Jekyll defaults.
 - `parse_post` gates `publishedAt` on date derivability (a bad
@@ -492,15 +498,33 @@ passes once fixed; `validate` runs green against the real `_posts/`.
 - **Missing directories are errors**: a typo'd `--posts-dir` used to
   glob nothing and exit green; both validate and sync now fail.
 - **`delete-orphans` subcommand** (manual only, never CI): lists remote
-  records matching no local document; deletes only with `--yes`. This is
-  the recovery path if bad-path records ever land on the PDS — note the
-  main-branch ordering is publish → build → cross-check, so a divergence
-  caught by the cross-check has already written records.
+  records matching no local document; deletes only with `--yes`, and
+  refuses to run when zero local documents were collected (a wrong
+  `--posts-dir` must never classify the whole remote corpus as orphans).
 - A null `title:` no longer stringifies to `"None"` (slipping past the
   empty-title guard), and non-mapping front matter is a per-file error
   instead of a traceback.
 - Per-document rules live in one place (`_collect_documents`), shared
   verbatim by publish and validate.
+
+### 6.6 Third-review hardening (implemented)
+
+- **Publish only runs after the cross-check** (see the architecture
+  diagram): main builds once without the data file, cross-checks both
+  directions, and only then publishes and rebuilds with link tags. Bad
+  path derivation can no longer write records before being caught.
+- **Nested book files without `canonical_url` are a hard error**:
+  Jekyll's `/books/:path/` permalink includes subdirectories, so the
+  stem-derived path would be wrong. Site convention is nested =
+  re-read review; the pipeline refuses to guess.
+- `_source_files` also skips `_`/`.`/`#`-prefixed and `~`-suffixed
+  *files*, matching Jekyll's EntryFilter (not just `_`-prefixed dirs).
+- Every HTTP call carries a 30s timeout; a hung PDS fails the deploy
+  instead of stalling it for the 6-hour job limit.
+- The books sweep-skip names are enumerated, not patterned, so a real
+  review named like a listing page cannot be silently exempted; the
+  constant is `SWEPT_SECTIONS` because its keys define which sections
+  get swept at all.
 
 ## Phase 7 — Book reviews (implemented)
 
