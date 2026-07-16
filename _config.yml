@@ -196,4 +196,4 @@ feed:
 timezone: America/Los_Angeles
 
 standard_site:
-  publication_uri: "" # at://did:plc:.../site.standard.publication/<rkey>
+  publication_uri: "at://did:plc:y5qiqqtzjmlwggzuttldivxq/site.standard.publication/3mqrj32i3mm2t"
