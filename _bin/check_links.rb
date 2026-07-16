@@ -8,6 +8,10 @@ options = {
   ignore_urls: [
     %r{/livereload.js},
     /^http/, # Regex to ignore all http/https links (external)
+    # AT Protocol URIs in standard.site verification link tags; not
+    # fetchable URLs, and their validity is enforced by the plugin's
+    # URI pattern check and the atproto publish pipeline.
+    %r{\Aat://},
   ],
 
   # v5 requires explicitly listing checks if you want to limit them.

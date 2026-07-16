@@ -4,7 +4,7 @@ title: Ray Bradbury
 pen_names:
   - William Elliot
 description: >
-    Alex Gude's reviews of books written by Ray Bradbury.
+  Alex Gude's reviews of books written by Ray Bradbury.
 same_as_urls:
   - "https://www.wikidata.org/wiki/Q40640"
   - "https://en.wikipedia.org/wiki/Ray_Bradbury"

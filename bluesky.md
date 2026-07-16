@@ -1,6 +1,6 @@
 # Bluesky / standard.site Integration Plan
 
-**Status:** Phase 1 ✓ | Phase 2 ✓ | Phase 3 (manual) | Phase 4 ✓ | Phase 5 (post-deploy) | Phase 6 ✓
+**Status:** Phases 1–4 ✓ | Phase 5 (post-deploy) | Phases 6–7 ✓ — awaiting merge of `standard-site-config`
 
 Implementation plan for publishing this site's posts to the AT Protocol
 using the [standard.site](https://standard.site) lexicons, so links to
@@ -53,18 +53,23 @@ The site proves ownership with two static artifacts:
 **The PDS is the state store.** No AT-URIs are committed to the repo, no
 `[skip ci]` commit-back loop, and the workflow keeps `contents: read`.
 
-On every push to `main`, a publish step runs *before* `jekyll build`:
+The build job orders steps so PDS records — an external,
+not-automatically-reversible system — are only written after the site
+cross-check passes:
 
 ```
-┌─ CI build job (main only) ─────────────────────────────────────┐
-│ 1. publish script:                                             │
+┌─ CI build job ─────────────────────────────────────────────────┐
+│ 1. jekyll build (no data file yet; every branch)               │
+│ 2. validate --site-dir: two-way path cross-check (every branch)│
+│ ── main only from here ──                                      │
+│ 3. publish script:                                             │
 │    createSession ─► listRecords (our site.standard.document)   │
-│    ─► diff against _posts/ ─► createRecord new / putRecord     │
-│    changed ─► write _data/standard_site.json (url → AT-URI)    │
-│ 2. jekyll build:                                               │
+│    ─► diff against _posts/ + _books/ ─► createRecord new /     │
+│    putRecord changed ─► write _data/standard_site.json         │
+│ 4. jekyll rebuild:                                             │
 │    head.html reads site.data.standard_site ─► emits link tags  │
 │    plugin emits .well-known/site.standard.publication          │
-│ 3. deploy as usual                                             │
+│ 5. deploy as usual                                             │
 └────────────────────────────────────────────────────────────────┘
 ```
 
@@ -73,7 +78,7 @@ include must degrade to emitting no document link tags. That is correct
 behavior: verification tags only matter on production.
 
 Idempotency: the script matches remote records to local posts by the
-record's `path` field (e.g. `/blog/favorite_books_of_2025/`). A post
+record's `path` field (e.g. `/blog/favorite-books-of-2025/`). A post
 with a matching remote record and identical managed fields is skipped;
 changed fields trigger a `putRecord` reusing the same rkey.
 
@@ -179,13 +184,14 @@ Env vars (both required): `BSKY_HANDLE` (`alexgude.com`),
 "https://bsky.social"`, `SITE_URL = "https://alexgude.com"`,
 `PUBLICATION_URI` read from `_config.yml` (parse with `yaml.safe_load`).
 
-**Rollout safety:** when `standard_site.publication_uri` is empty
-(the pre-Phase-3 state), `publish` prints a notice, writes an empty
-`{}` data file, and exits 0 — *before* requiring the env vars — so the
-code can merge to `main` without blocking deploys. Once the config is
-set, missing credentials become a hard failure. `sync_posts` itself
-refuses to run without a publication URI: `site` is a required document
-field, and an empty value would otherwise strip `site` from existing
+**Hard config requirement:** `standard_site.publication_uri` is
+committed, so an empty value means a broken config. `publish` fails
+hard on it (the original pre-Phase-3 "skip cleanly" grace path was
+removed once the URI landed: silently un-publishing everything while
+CI stays green violates repo rule 5), and the Ruby well-known
+generator likewise raises instead of skipping. `sync_documents` also
+refuses an empty URI at the function level: `site` is a required
+document field, and an empty value would strip `site` from existing
 remote records via the managed-field merge.
 
 ### 2.2 XRPC calls
@@ -193,12 +199,12 @@ remote records via the managed-field merge.
 All are JSON over HTTPS; raise and exit non-zero on any non-2xx
 response (print the response body — PDS errors are descriptive).
 
-| Call | Method/endpoint | Notes |
-| --- | --- | --- |
-| Login | `POST {PDS_URL}/xrpc/com.atproto.server.createSession` | body `{"identifier": handle, "password": app_password}`; response has `accessJwt` (use as `Authorization: Bearer ...`) and `did` |
-| List | `GET {PDS_URL}/xrpc/com.atproto.repo.listRecords?repo={did}&collection=site.standard.document&limit=100` | paginate: pass returned `cursor` back until absent |
-| Create | `POST {PDS_URL}/xrpc/com.atproto.repo.createRecord` | body `{"repo": did, "collection": "site.standard.document", "record": {...}}` — PDS assigns the TID rkey; response has `uri` |
-| Update | `POST {PDS_URL}/xrpc/com.atproto.repo.putRecord` | body `{"repo": did, "collection": "site.standard.document", "rkey": rkey, "record": {...}}` |
+| Call   | Method/endpoint                                                                                          | Notes                                                                                                                            |
+| ------ | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| Login  | `POST {PDS_URL}/xrpc/com.atproto.server.createSession`                                                   | body `{"identifier": handle, "password": app_password}`; response has `accessJwt` (use as `Authorization: Bearer ...`) and `did` |
+| List   | `GET {PDS_URL}/xrpc/com.atproto.repo.listRecords?repo={did}&collection=site.standard.document&limit=100` | paginate: pass returned `cursor` back until absent                                                                               |
+| Create | `POST {PDS_URL}/xrpc/com.atproto.repo.createRecord`                                                      | body `{"repo": did, "collection": "site.standard.document", "record": {...}}` — PDS assigns the TID rkey; response has `uri`     |
+| Update | `POST {PDS_URL}/xrpc/com.atproto.repo.putRecord`                                                         | body `{"repo": did, "collection": "site.standard.document", "rkey": rkey, "record": {...}}`                                      |
 
 ### 2.3 Building the desired record for a post
 
@@ -220,10 +226,14 @@ the first two `---` lines, `yaml.safe_load` it) and derive:
 Details:
 
 - **path**: the site permalink is `/blog/:slug/`; slug is the filename
-  after the date prefix, underscores preserved
-  (`2026-01-04-favorite_books_of_2025.md` → `/blog/favorite_books_of_2025/`).
-  If front matter contains an explicit `slug:` or `permalink:` key, use
-  it; log a warning so mismatches are visible.
+  after the date prefix, **slugified the way Jekyll does it** —
+  lowercase, runs of non-alphanumerics collapse to a single hyphen,
+  edges stripped (`2026-01-04-favorite_books_of_2025.md` →
+  `/blog/favorite-books-of-2025/`; underscores become hyphens). If
+  front matter contains an explicit `slug:` or `permalink:` key, both
+  publish and validate **fail** — Jekyll honors those keys, so the page
+  would be served away from the derived path and the record would point
+  at a 404.
 - **publishedAt**: date from the filename unless front matter has
   `date:` (which overrides, matching Jekyll). Midnight UTC is fine.
 - **description** / **tags**: omit the key entirely when the front
@@ -328,17 +338,17 @@ In `.github/workflows/jekyll.yml`, `build` job, insert **before** the
 "Build with Jekyll" step (after "Setup Pages"):
 
 ```yaml
-      - name: Install uv
-        if: github.ref == 'refs/heads/main'
-        uses: astral-sh/setup-uv@v7
+- name: Install uv
+  if: github.ref == 'refs/heads/main'
+  uses: astral-sh/setup-uv@v7
 
-      - name: Publish standard.site records
-        if: github.ref == 'refs/heads/main'
-        working-directory: _scripts
-        run: uv run python atproto/publish.py publish --posts-dir ../_posts --data-out ../_data/standard_site.json
-        env:
-          BSKY_HANDLE: alexgude.com
-          BSKY_APP_PASSWORD: ${{ secrets.BSKY_APP_PASSWORD }}
+- name: Publish standard.site records
+  if: github.ref == 'refs/heads/main'
+  working-directory: _scripts
+  run: uv run python atproto/publish.py publish --posts-dir ../_posts --data-out ../_data/standard_site.json
+  env:
+    BSKY_HANDLE: alexgude.com
+    BSKY_APP_PASSWORD: ${{ secrets.BSKY_APP_PASSWORD }}
 ```
 
 The `build` job must also get a per-ref concurrency group with
@@ -353,9 +363,9 @@ Notes:
   `main`, so PR builds never need the secret and never mutate the PDS.
 - If the publish step fails, the build fails and nothing deploys.
   Intentional (repo rule 5): a half-published state should be loud.
-  Exception: while `publication_uri` is unset, the step is a clean
-  no-op (see §2.1 rollout safety) so this code can merge before
-  Phase 3.
+  (An earlier revision allowed a clean no-op while `publication_uri`
+  was unset; that grace path was removed once the URI was committed —
+  see §2.1.)
 - Update the workflow's header comment (lines 1–14) to mention the new
   step, and update
   `.claude/skills/jekyll-site-dev/references/` (repo rule 6: CI changes
@@ -363,11 +373,27 @@ Notes:
   workflow header comment itself, so keeping that comment current
   satisfies the rule).
 
+## Pre-merge checklist (first production run)
+
+Nothing on this path has ever run in production: main has only ever
+exercised the unconfigured code. Before merging `standard-site-config`:
+
+1. From `_scripts/` with `BSKY_HANDLE`/`BSKY_APP_PASSWORD` exported:
+   `uv run python atproto/publish.py publish --posts-dir ../_posts
+--books-dir ../_books --data-out /tmp/out.json --dry-run`
+   Expect: ~230 creates, 0 updates, 0 orphans, and no publication
+   update (the record was just created from the same config values).
+2. Confirm the `BSKY_APP_PASSWORD` repo secret exists.
+
 ## Phase 5 — Verify
 
 1. After the first `main` deploy:
    `curl https://alexgude.com/.well-known/site.standard.publication`
-   → exactly the publication AT-URI.
+   → exactly the publication AT-URI. This is also the first proof that
+   GitHub Pages serves this repo's `.well-known/` path at all — Pages
+   generally does, but it has never been verified here; if it 404s
+   while `_site/` contains the file, that is a Pages serving issue,
+   not a build issue.
 2. `curl -s https://alexgude.com/blog/<recent-slug>/ | grep site.standard`
    → both link tags present.
 3. Run the ecosystem validator at <https://site-validator.fly.dev>
@@ -404,10 +430,10 @@ uv run python atproto/publish.py validate --posts-dir ../_posts
   - a `publishedAt` that cannot be derived;
   - **duplicate `path` across local posts** (two posts whose filenames
     share a slug on different dates collide on `/blog/<slug>/`;
-    `sync_posts` currently last-one-wins silently — validate must catch
-    it);
-  - warn (not error) on explicit `slug:`/`permalink:` front matter,
-    same as `publish`.
+    `sync_documents` also fails on this);
+  - **error** on explicit `slug:`/`permalink:` front matter (Jekyll
+    honors those keys, so the record path would 404 — both publish and
+    validate reject them).
 - Print every problem with its filename; exit 1 if any errors, 0
   otherwise (warnings don't fail).
 
@@ -417,9 +443,9 @@ Add to the **`test` job** (which runs on every branch), after "Run
 script tests":
 
 ```yaml
-      - name: Validate posts for AT Protocol publish
-        working-directory: _scripts
-        run: uv run python atproto/publish.py validate --posts-dir ../_posts
+- name: Validate posts for AT Protocol publish
+  working-directory: _scripts
+  run: uv run python atproto/publish.py validate --posts-dir ../_posts
 ```
 
 No `if:` gate and no secrets — that is the point. Update the workflow
@@ -429,7 +455,7 @@ header comment (repo rule 6).
 
 Extend `_scripts/tests/test_atproto_publish.py`: valid posts pass;
 each error class above fails with the offending filename in the
-output; slug/permalink override warns but exits 0; no HTTP calls occur
+output; slug/permalink overrides are errors; no HTTP calls occur
 (the mock transport must stay unused).
 
 **Acceptance:** a branch with a post containing broken front matter
@@ -447,10 +473,177 @@ passes once fixed; `validate` runs green against the real `_posts/`.
   publish step, or accepting raw-markdown-with-Liquid as input).
 - **`coverImage`**: `com.atproto.repo.uploadBlob`, ≤1MB (compress to
   ~900KB WebP; posts already have `image:` front matter).
-- **Book reviews**: extend the script to `_books/` (129 documents;
-  permalink structure differs).
 - **Automated announcement posts** from CI (decided against for now:
   low posting volume, manual announcements preferred).
+
+### 6.4 Post-review hardening (implemented)
+
+- `validate` runs the **same parsers as publish** (`parse_post` /
+  `parse_book` raise on broken YAML and slug/permalink overrides) and
+  checks the returned records, so the CI gate cannot drift from the
+  behavior it gates.
+- `validate --site-dir ../_site` cross-checks every derived record
+  path against the built site (`<path>/index.html` must exist). The
+  CI build job runs this after `jekyll build` on **every branch**,
+  turning "script path derivation matches Jekyll" into a per-run
+  verified invariant instead of a belief.
+- `--books-dir` is **required** for both `publish` and `validate` at
+  the CLI (dropping it would silently orphan all book records and strip
+  their verification tags); it is optional only at the function level,
+  for tests.
+- The books collection permalink is pinned in `_config.yml`
+  (`permalink: /books/:path/`) instead of resting on Jekyll defaults.
+- `parse_post` gates `publishedAt` on date derivability (a bad
+  `date:` omits the key and sync fails loudly, instead of shipping
+  `"soonT00:00:00Z"`).
+
+### 6.5 Second-review hardening (implemented)
+
+- **Sources are collected recursively**, mirroring Jekyll: `_source_files`
+  walks subdirectories but skips `_`-prefixed dirs (`_books/_templates/`).
+  Re-read reviews nested under `_books/<book>/` are therefore _seen_, and
+  skipped by an explicit rule: any book with `canonical_url` front matter
+  gets no record — the canonical review page owns the document. (They
+  were previously invisible to a non-recursive glob — an accident, now a
+  documented decision.)
+- **The site cross-check is two-way**: besides derived-path → built-page,
+  a reverse sweep checks every depth-1 `index.html` under `/blog/` and
+  `/books/` maps to a record, skipping pagination/listing pages (the
+  `SWEPT_SECTIONS` patterns, renamed in §6.6) and redirect stubs (detected by
+  `http-equiv="refresh"` content). A built document silently missing a
+  record now fails CI.
+- **Missing directories are errors**: a typo'd `--posts-dir` used to
+  glob nothing and exit green; both validate and sync now fail.
+- **`delete-orphans` subcommand** (manual only, never CI): lists remote
+  records matching no local document; deletes only with `--yes`, and
+  refuses to run when zero local documents were collected (a wrong
+  `--posts-dir` must never classify the whole remote corpus as orphans).
+- A null `title:` no longer stringifies to `"None"` (slipping past the
+  empty-title guard), and non-mapping front matter is a per-file error
+  instead of a traceback.
+- Per-document rules live in one place (`_collect_documents`), shared
+  verbatim by publish and validate.
+
+### 6.6 Third-review hardening (implemented)
+
+- **Publish only runs after the cross-check** (see the architecture
+  diagram): main builds once without the data file, cross-checks both
+  directions, and only then publishes and rebuilds with link tags. Bad
+  path derivation can no longer write records before being caught.
+- **Nested book files without `canonical_url` are a hard error**:
+  Jekyll's `/books/:path/` permalink includes subdirectories, so the
+  stem-derived path would be wrong. Site convention is nested =
+  re-read review; the pipeline refuses to guess.
+- `_source_files` also skips `_`/`.`/`#`-prefixed and `~`-suffixed
+  _files_, matching Jekyll's EntryFilter (not just `_`-prefixed dirs).
+- Every HTTP call carries a 30s timeout; a hung PDS fails the deploy
+  instead of stalling it for the 6-hour job limit.
+- The books sweep-skip names are enumerated, not patterned, so a real
+  review named like a listing page cannot be silently exempted; the
+  constant is `SWEPT_SECTIONS` because its keys define which sections
+  get swept at all.
+
+### 6.7 Fourth-review hardening (implemented)
+
+- **Empty `publication_uri` is fatal everywhere** (see §2.1): publish
+  raises, the Ruby generator raises. The grace path is gone.
+- **The publication URI is verified before any sync**: it must parse,
+  its DID must equal the session DID, and `getRecord` must find it on
+  the PDS. A wrong-but-well-formed URI (paste typo, stale backup)
+  previously hid every remote record and caused a full duplicate
+  backfill that `delete-orphans` could not even see.
+- **All four site gates run before publish** (cross-check, HTML
+  structure, feeds, links — the latter three extracted to
+  `_bin/check_html_structure.sh` and `_bin/check_feeds.rb`), and main
+  re-runs all four against the rebuilt final artifact.
+- **Future-dated posts are skipped** like Jekyll's `future: false`,
+  so a scheduled post no longer fails the cross-check on every branch.
+- **Concurrent-writer safety**: document and publication updates pass
+  `swapRecord` (compare-and-swap on the read CID), so another
+  standard.site client editing a record mid-sync causes a loud
+  failure instead of a silent clobber.
+- **The publication record is synced from `_config.yml`** (title →
+  name, description, url) on every publish, ending the drift between
+  `init-publication`'s one-shot values and the config.
+  `init-publication` also refuses to run if the PDS already has a
+  publication record (double-run guard is no longer local-only).
+- **Transient-failure retries** (3 attempts, backoff) on the
+  idempotent calls only (`createSession`, `listRecords`, `getRecord`);
+  writes stay one-shot so a timeout cannot double-create.
+- **Orphans emit `::warning::` annotations** in GitHub Actions so they
+  surface on the run summary instead of only in green-run logs.
+- Library code raises `PublishError` instead of calling `sys.exit`
+  (converted at the CLI boundary); front matter splits on delimiter
+  lines, not the `---` substring; non-mapping front matter is a
+  per-file error; the DID pattern accepts `did:web`; a missing swept
+  section directory fails the reverse sweep.
+
+### 6.8 Fifth-review hardening (implemented)
+
+- **Future-post cutoff uses the site timezone** (`America/Los_Angeles`,
+  matching `_config.yml` `timezone:`), not UTC. Between 17:00 PT and
+  midnight, UTC has already rolled to "tomorrow," so a UTC cutoff let a
+  next-day post pass `parse_post` while Jekyll (which uses site time
+  for `future: false`) skipped building it — failing every branch's
+  cross-check all evening.
+- **`--dry-run` no longer writes the data file** (it would be missing
+  every would-be-created record; a stale partial file changes the next
+  local build).
+- **`draft: true` is no longer honored**: Jekyll ignores the key
+  outside `_drafts/` and builds the page, so skipping the record
+  desynced the record set from the built site and failed the reverse
+  sweep with a misleading message. `published: false` (a real Jekyll
+  key) still skips.
+- **A missing `cid` from `listRecords` is a hard error** instead of a
+  silent downgrade to a non-atomic overwrite.
+- **PDS-outage escape hatch**: `workflow_dispatch` with
+  `skip_publish=true` ships the site without touching the PDS. Main
+  deploys are otherwise gated on bsky.social being up — an accepted
+  coupling, now with a manual override for emergencies.
+- Dead `SITE_URL` constant removed (publication url comes from
+  `_config.yml`).
+
+### Manual recovery: duplicate remote records for one path
+
+`sync_documents` aborts if two remote records claim the same `path`,
+and `delete-orphans` cannot help (both match a local path, so neither
+is an orphan). This state can only arise from a manual `publish` racing
+CI (the concurrency group serializes CI against itself). To recover,
+delete the _newer_ record by rkey (the error message prints both):
+
+```
+curl -X POST "https://bsky.social/xrpc/com.atproto.repo.deleteRecord" \
+  -H "Authorization: Bearer $(curl -s -X POST \
+    https://bsky.social/xrpc/com.atproto.server.createSession \
+    -H 'Content-Type: application/json' \
+    -d '{"identifier":"alexgude.com","password":"'"$BSKY_APP_PASSWORD"'"}' \
+    | jq -r .accessJwt)" \
+  -H "Content-Type: application/json" \
+  -d '{"repo":"did:plc:y5qiqqtzjmlwggzuttldivxq",
+       "collection":"site.standard.document","rkey":"<NEWER_RKEY>"}'
+```
+
+Prefer the newer rkey because the older record may carry manual fields
+(`bskyPostRef`) worth keeping; the next publish reconciles the
+survivor's managed fields anyway.
+
+## Phase 7 — Book reviews (implemented)
+
+`_books/` (125 canonical reviews) is published alongside `_posts/` via
+`--books-dir` on both `publish` and `validate` (wired in CI). Books
+differ from posts in four ways the code encodes:
+
+- **path**: the collection permalink is `/books/:path/`, which keeps
+  the filename stem **verbatim** (`a_canticle_for_leibowitz.md` →
+  `/books/a_canticle_for_leibowitz/`) — no slugification, unlike
+  posts' `:slug` token. Verified against a production build of all
+  125 reviews.
+- **publishedAt**: no date-prefixed filename to fall back to, so the
+  `date:` front matter key is **required** (validate errors and
+  sync exits when missing or underivable).
+- **description**: book front matter has none; the field is omitted.
+- **tags**: fixed `["book-reviews"]`, matching the category the
+  favorites posts use.
 
 ## Reference
 

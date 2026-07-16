@@ -15,48 +15,44 @@ class TestStandardSiteWellKnownGenerator < Minitest::Test
     create_site('standard_site' => { 'publication_uri' => uri })
   end
 
-  # --- Missing / empty config ---
+  # --- Missing / empty config is fatal ---
+  # The URI is committed in _config.yml; a blank value means a broken
+  # config, and skipping would silently un-verify the site (repo rule 5).
 
-  def test_missing_standard_site_key_skips_generation
+  def test_missing_standard_site_key_raises_fatal_exception
     site = create_site
     Jekyll.stub :logger, silent_logger do
-      @generator.generate(site)
+      err = assert_raises Jekyll::Errors::FatalException do
+        @generator.generate(site)
+      end
+      assert_match 'missing or empty', err.message
     end
-    assert_empty site.static_files
   end
 
-  def test_empty_publication_uri_skips_generation
+  def test_empty_publication_uri_raises_fatal_exception
     site = site_with_uri('')
     Jekyll.stub :logger, silent_logger do
-      @generator.generate(site)
+      assert_raises Jekyll::Errors::FatalException do
+        @generator.generate(site)
+      end
     end
-    assert_empty site.static_files
   end
 
-  def test_nil_publication_uri_skips_generation
+  def test_nil_publication_uri_raises_fatal_exception
     site = site_with_uri(nil)
+    Jekyll.stub :logger, silent_logger do
+      assert_raises Jekyll::Errors::FatalException do
+        @generator.generate(site)
+      end
+    end
+  end
+
+  def test_did_web_uri_is_accepted
+    site = site_with_uri('at://did:web:alexgude.com/site.standard.publication/3mpwdqt4xn42j')
     Jekyll.stub :logger, silent_logger do
       @generator.generate(site)
     end
-    assert_empty site.static_files
-  end
-
-  def test_missing_config_logs_warning
-    site = create_site
-    warned = false
-    warn_logger = Object.new.tap do |l|
-      def l.info(_topic, _msg = nil); end
-
-      def l.error(_topic, _msg = nil); end
-
-      def l.debug(_topic, _msg = nil); end
-
-      l.define_singleton_method(:warn) { |_topic, _msg = nil| warned = true }
-    end
-    Jekyll.stub :logger, warn_logger do
-      @generator.generate(site)
-    end
-    assert warned, 'expected a warning to be logged when publication_uri is absent'
+    assert_equal 1, site.static_files.length
   end
 
   # --- Malformed URI ---

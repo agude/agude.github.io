@@ -118,6 +118,10 @@ social:
 collections:
     books:
         output: true
+        # Pin explicitly: the AT Protocol publish script derives record
+        # paths as /books/<filename-stem>/ and the CI site cross-check
+        # enforces the match. Do not change without updating _scripts/atproto/.
+        permalink: /books/:path/
 
 defaults:
   # Default image and Twitter card for pages
@@ -196,4 +200,4 @@ feed:
 timezone: America/Los_Angeles
 
 standard_site:
-  publication_uri: "" # at://did:plc:.../site.standard.publication/<rkey>
+  publication_uri: "at://did:plc:y5qiqqtzjmlwggzuttldivxq/site.standard.publication/3mqrj32i3mm2t"

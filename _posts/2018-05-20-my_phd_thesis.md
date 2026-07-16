@@ -261,6 +261,7 @@ chasing down a subject cared about by only a handful of people. That is part of
 the reason I wanted to write this post, in the hope that more than a handful of
 people would read it, and learn about what I did.
 
+<!-- prettier-ignore -->
 *[CERN]: European Organization for Nuclear Research
 *[CMS]: Compact Muon Solenoid
 *[QCD]: Quantum Chromodynamics
