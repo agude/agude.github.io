@@ -255,7 +255,7 @@ class TestSyncPostsDecisions:
         transport.push({"records": []})  # listRecords
         transport.push({"uri": DOC_URI})  # createRecord
 
-        sync_posts(client, tmp_path, tmp_path / "out.json")
+        sync_posts(client, tmp_path, tmp_path / "out.json", PUB_URI)
 
         post_calls = [c for c in transport.calls if "createRecord" in c[1]]
         assert len(post_calls) == 1
@@ -266,6 +266,7 @@ class TestSyncPostsDecisions:
         client = make_client(transport)
         remote_rec = {
             "$type": "site.standard.document",
+            "site": PUB_URI,
             "path": "/blog/alpha/",
             "title": "Alpha",
             "publishedAt": "2025-01-01T00:00:00Z",
@@ -274,7 +275,7 @@ class TestSyncPostsDecisions:
             "records": [{"uri": DOC_URI, "value": remote_rec}],
         })
 
-        sync_posts(client, tmp_path, tmp_path / "out.json")
+        sync_posts(client, tmp_path, tmp_path / "out.json", PUB_URI)
 
         create_or_put = [c for c in transport.calls if "createRecord" in c[1] or "putRecord" in c[1]]
         assert len(create_or_put) == 0
@@ -285,6 +286,7 @@ class TestSyncPostsDecisions:
         client = make_client(transport)
         remote_rec = {
             "$type": "site.standard.document",
+            "site": PUB_URI,
             "path": "/blog/alpha/",
             "title": "Old Title",
             "publishedAt": "2025-01-01T00:00:00Z",
@@ -294,7 +296,7 @@ class TestSyncPostsDecisions:
         })
         transport.push({})  # putRecord response
 
-        sync_posts(client, tmp_path, tmp_path / "out.json")
+        sync_posts(client, tmp_path, tmp_path / "out.json", PUB_URI)
 
         put_calls = [c for c in transport.calls if "putRecord" in c[1]]
         assert len(put_calls) == 1
@@ -313,6 +315,7 @@ class TestSyncPostsUpdate:
         client = make_client(transport)
         remote_rec = {
             "$type": "site.standard.document",
+            "site": PUB_URI,
             "path": "/blog/alpha/",
             "title": "Old Title",
             "publishedAt": "2025-01-01T00:00:00Z",
@@ -321,7 +324,7 @@ class TestSyncPostsUpdate:
         transport.push({"records": [{"uri": DOC_URI, "value": remote_rec}]})
         transport.push({})  # putRecord
 
-        sync_posts(client, tmp_path, tmp_path / "out.json")
+        sync_posts(client, tmp_path, tmp_path / "out.json", PUB_URI)
 
         put_call = next(c for c in transport.calls if "putRecord" in c[1])
         sent_record = put_call[2]["record"]
@@ -334,6 +337,7 @@ class TestSyncPostsUpdate:
         client = make_client(transport)
         remote_rec = {
             "$type": "site.standard.document",
+            "site": PUB_URI,
             "path": "/blog/alpha/",
             "title": "Original",
             "publishedAt": "2025-01-01T00:00:00Z",
@@ -341,7 +345,7 @@ class TestSyncPostsUpdate:
         transport.push({"records": [{"uri": DOC_URI, "value": remote_rec}]})
         transport.push({})
 
-        sync_posts(client, tmp_path, tmp_path / "out.json")
+        sync_posts(client, tmp_path, tmp_path / "out.json", PUB_URI)
 
         put_call = next(c for c in transport.calls if "putRecord" in c[1])
         sent_record = put_call[2]["record"]
@@ -358,13 +362,13 @@ class TestDuplicateRemotePath:
         transport = MockTransport()
         client = make_client(transport)
         dupe_records = [
-            {"uri": DOC_URI, "value": {"path": "/blog/alpha/"}},
-            {"uri": DOC_URI.replace("rkeydoc1", "rkeydoc2"), "value": {"path": "/blog/alpha/"}},
+            {"uri": DOC_URI, "value": {"site": PUB_URI, "path": "/blog/alpha/"}},
+            {"uri": DOC_URI.replace("rkeydoc1", "rkeydoc2"), "value": {"site": PUB_URI, "path": "/blog/alpha/"}},
         ]
         transport.push({"records": dupe_records})
 
         with pytest.raises(SystemExit) as exc_info:
-            sync_posts(client, tmp_path, tmp_path / "out.json")
+            sync_posts(client, tmp_path, tmp_path / "out.json", PUB_URI)
         assert exc_info.value.code == 1
 
 
@@ -378,10 +382,10 @@ class TestOrphanRecord:
         transport = MockTransport()
         client = make_client(transport)
         transport.push({
-            "records": [{"uri": DOC_URI, "value": {"path": "/blog/gone/"}}],
+            "records": [{"uri": DOC_URI, "value": {"site": PUB_URI, "path": "/blog/gone/"}}],
         })
 
-        sync_posts(client, tmp_path, tmp_path / "out.json")
+        sync_posts(client, tmp_path, tmp_path / "out.json", PUB_URI)
 
         stderr = capsys.readouterr().err
         assert "orphan" in stderr.lower()
@@ -406,7 +410,7 @@ class TestDataFile:
         transport.push({"uri": "at://did:plc:test123/site.standard.document/newrkey"})
 
         data_out = tmp_path / "out.json"
-        sync_posts(client, tmp_path, data_out)
+        sync_posts(client, tmp_path, data_out, PUB_URI)
 
         result = json.loads(data_out.read_text())
         assert "/blog/alpha/" in result
@@ -420,6 +424,7 @@ class TestDataFile:
         client = make_client(transport)
         existing_rec = {
             "$type": "site.standard.document",
+            "site": PUB_URI,
             "path": "/blog/existing/",
             "title": "Existing",
             "publishedAt": "2025-01-01T00:00:00Z",
@@ -427,7 +432,7 @@ class TestDataFile:
         transport.push({"records": [{"uri": DOC_URI, "value": existing_rec}]})
 
         data_out = tmp_path / "out.json"
-        sync_posts(client, tmp_path, data_out, dry_run=True)
+        sync_posts(client, tmp_path, data_out, PUB_URI, dry_run=True)
 
         result = json.loads(data_out.read_text())
         assert "/blog/existing/" in result
@@ -443,7 +448,7 @@ class TestDataFile:
         transport.push({"uri": "at://did:plc:test123/site.standard.document/rk2"})
 
         data_out = tmp_path / "out.json"
-        sync_posts(client, tmp_path, data_out)
+        sync_posts(client, tmp_path, data_out, PUB_URI)
 
         keys = list(json.loads(data_out.read_text()).keys())
         assert keys == sorted(keys)
@@ -517,3 +522,63 @@ class TestLoadConfig:
 
     def test_missing_key_returns_empty_string(self) -> None:
         assert get_publication_uri({}) == ""
+
+# ---------------------------------------------------------------------------
+# publication_uri guards and scoping
+# ---------------------------------------------------------------------------
+
+
+class TestPublicationUriGuards:
+    def test_sync_posts_requires_publication_uri(self, tmp_path: Path) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+        with pytest.raises(SystemExit) as exc_info:
+            sync_posts(client, tmp_path, tmp_path / "out.json", "")
+        assert exc_info.value.code == 1
+
+    def test_created_records_include_site(self, tmp_path: Path) -> None:
+        (tmp_path / "2025-01-01-alpha.md").write_text("---\ntitle: Alpha\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push({"records": []})
+        transport.push({"uri": DOC_URI})
+
+        sync_posts(client, tmp_path, tmp_path / "out.json", PUB_URI)
+
+        create_call = next(c for c in transport.calls if "createRecord" in c[1])
+        assert create_call[2]["record"]["site"] == PUB_URI
+
+    def test_records_from_other_publications_ignored(
+        self, tmp_path: Path, capsys
+    ) -> None:
+        # A Leaflet/pckt document sharing our collection must not collide
+        # with our paths, trip duplicate detection, or count as an orphan.
+        (tmp_path / "2025-01-01-alpha.md").write_text("---\ntitle: Alpha\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        other = {"site": "at://did:plc:other/site.standard.publication/x", "path": "/blog/alpha/"}
+        transport.push({"records": [{"uri": DOC_URI, "value": other}]})
+        transport.push({"uri": DOC_URI.replace("rkeydoc1", "rkeydoc2")})
+
+        sync_posts(client, tmp_path, tmp_path / "out.json", PUB_URI)
+
+        create_calls = [c for c in transport.calls if "createRecord" in c[1]]
+        assert len(create_calls) == 1
+        assert "orphan" not in capsys.readouterr().err.lower()
+
+    def test_main_publish_skips_cleanly_when_unconfigured(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys
+    ) -> None:
+        # Pre-Phase-3 rollout safety: no config → no credentials needed,
+        # empty data file written, exit 0.
+        monkeypatch.setattr(publish, "load_config", lambda: {})
+        monkeypatch.delenv("BSKY_HANDLE", raising=False)
+        monkeypatch.delenv("BSKY_APP_PASSWORD", raising=False)
+        data_out = tmp_path / "out.json"
+
+        publish.main(
+            ["publish", "--posts-dir", str(tmp_path), "--data-out", str(data_out)]
+        )
+
+        assert json.loads(data_out.read_text()) == {}
+        assert "skipping publish" in capsys.readouterr().err

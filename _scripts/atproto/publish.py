@@ -249,10 +249,16 @@ def sync_posts(
     client: AtprotoClient,
     posts_dir: Path,
     data_out: Path,
+    publication_uri: str,
     dry_run: bool = False,
-    publication_uri: str = "",
 ) -> None:
     """Sync local posts to PDS document records and write the data file."""
+
+    if not publication_uri:
+        # site is a required document field, and an empty value here would
+        # also make the merge loop strip site from existing remote records.
+        print("ERROR: sync_posts requires a publication_uri", file=sys.stderr)
+        sys.exit(1)
 
     # --- Collect local posts ---
     local: dict[str, tuple[Path, dict]] = {}
@@ -260,15 +266,18 @@ def sync_posts(
         rec = parse_post(post_file)
         if rec is None:
             continue
-        if publication_uri:
-            rec["site"] = publication_uri
+        rec["site"] = publication_uri
         local[rec["path"]] = (post_file, rec)
 
     # --- Fetch remote records ---
+    # Only records belonging to our publication are managed; documents other
+    # apps (Leaflet, pckt, ...) may create in this collection are ignored.
     remote: dict[str, tuple[str, dict]] = {}  # path → (rkey, record_value)
     for item in client.list_records("site.standard.document"):
         uri: str = item["uri"]
         value: dict = item["value"]
+        if value.get("site") != publication_uri:
+            continue
         path_key: str = value.get("path", "")
         if path_key in remote:
             existing_uri, _ = remote[path_key]
@@ -382,9 +391,24 @@ def main(argv: list[str] | None = None) -> None:
 
     args = parser.parse_args(argv)
 
+    config = load_config()
+    publication_uri = get_publication_uri(config)
+
+    # Pre-Phase-3 state: no publication record configured yet. Skip cleanly
+    # (before requiring credentials) so merging the code doesn't block
+    # deploys; write an empty data file so the Jekyll build stays consistent.
+    if args.cmd == "publish" and not publication_uri:
+        print(
+            "standard_site.publication_uri not configured; skipping publish "
+            "(see bluesky.md Phase 3)",
+            file=sys.stderr,
+        )
+        args.data_out.parent.mkdir(parents=True, exist_ok=True)
+        args.data_out.write_text("{}\n", encoding="utf-8")
+        return
+
     handle = _get_env("BSKY_HANDLE")
     password = _get_env("BSKY_APP_PASSWORD")
-    config = load_config()
     client = AtprotoClient(PDS_URL, handle, password)
 
     if args.cmd == "publish":
@@ -392,8 +416,8 @@ def main(argv: list[str] | None = None) -> None:
             client,
             args.posts_dir,
             args.data_out,
+            publication_uri,
             dry_run=args.dry_run,
-            publication_uri=get_publication_uri(config),
         )
     elif args.cmd == "init-publication":
         init_publication(client, config)

@@ -179,6 +179,15 @@ Env vars (both required): `BSKY_HANDLE` (`alexgude.com`),
 "https://bsky.social"`, `SITE_URL = "https://alexgude.com"`,
 `PUBLICATION_URI` read from `_config.yml` (parse with `yaml.safe_load`).
 
+**Rollout safety:** when `standard_site.publication_uri` is empty
+(the pre-Phase-3 state), `publish` prints a notice, writes an empty
+`{}` data file, and exits 0 — *before* requiring the env vars — so the
+code can merge to `main` without blocking deploys. Once the config is
+set, missing credentials become a hard failure. `sync_posts` itself
+refuses to run without a publication URI: `site` is a required document
+field, and an empty value would otherwise strip `site` from existing
+remote records via the managed-field merge.
+
 ### 2.2 XRPC calls
 
 All are JSON over HTTPS; raise and exit non-zero on any non-2xx
@@ -224,9 +233,12 @@ Details:
 
 ### 2.4 Diff and write logic
 
-1. Fetch all remote documents; build `{record.path: (rkey, record)}`.
-   If two remote records share a `path`, abort with an error listing
-   both AT-URIs (duplicates must be cleaned up by hand — never guess).
+1. Fetch all remote documents; **keep only records whose `site` equals
+   our publication URI** (other apps — Leaflet, pckt — may write to the
+   same collection and must be ignored, not treated as duplicates or
+   orphans). Build `{record.path: (rkey, record)}`. If two remaining
+   records share a `path`, abort with an error listing both AT-URIs
+   (duplicates must be cleaned up by hand — never guess).
 2. For each local post:
    - **No remote match** → `createRecord`.
    - **Match, managed fields equal** → skip. Managed fields are exactly
@@ -329,16 +341,27 @@ In `.github/workflows/jekyll.yml`, `build` job, insert **before** the
           BSKY_APP_PASSWORD: ${{ secrets.BSKY_APP_PASSWORD }}
 ```
 
+The `build` job must also get a per-ref concurrency group with
+`cancel-in-progress: false`: overlapping `main` builds would race the
+publish step's listRecords→createRecord cycle and could create
+duplicate PDS records for the same path (which then hard-fails every
+later build until cleaned up by hand).
+
 Notes:
 
 - The `build` job runs on every branch but this step is gated to
   `main`, so PR builds never need the secret and never mutate the PDS.
 - If the publish step fails, the build fails and nothing deploys.
   Intentional (repo rule 5): a half-published state should be loud.
+  Exception: while `publication_uri` is unset, the step is a clean
+  no-op (see §2.1 rollout safety) so this code can merge before
+  Phase 3.
 - Update the workflow's header comment (lines 1–14) to mention the new
   step, and update
   `.claude/skills/jekyll-site-dev/references/` (repo rule 6: CI changes
-  must be mirrored in the skill docs).
+  must be mirrored in the skill docs — for CI, the skill points at the
+  workflow header comment itself, so keeping that comment current
+  satisfies the rule).
 
 ## Phase 5 — Verify
 
