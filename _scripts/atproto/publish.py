@@ -1,15 +1,19 @@
 #!/usr/bin/env python3
 """
-Sync blog posts to AT Protocol via standard.site lexicons.
+Sync blog posts and book reviews to AT Protocol via standard.site lexicons.
 
 Subcommands
-  publish          Sync _posts/ to PDS document records; write _data/standard_site.json.
+  publish          Sync _posts/ (and _books/ when --books-dir is given) to
+                   PDS document records; write _data/standard_site.json.
+  validate         Check posts/books parse cleanly (no network, no creds).
   init-publication Create the site.standard.publication record (one-time setup).
 
 Run from _scripts/:
   uv run python atproto/publish.py publish \\
-      --posts-dir ../_posts \\
+      --posts-dir ../_posts --books-dir ../_books \\
       --data-out ../_data/standard_site.json [--dry-run]
+
+  uv run python atproto/publish.py validate --posts-dir ../_posts --books-dir ../_books
 
   uv run python atproto/publish.py init-publication
 """
@@ -164,6 +168,42 @@ def _to_publish_date(date_val: Any) -> str:
     return f"{str(date_val)[:10]}T00:00:00Z"
 
 
+def parse_book(path: Path) -> dict | None:
+    """
+    Parse a book review file and return managed record fields, or None to skip.
+
+    Books live in _books/ with no date-prefixed filename; the collection
+    permalink is /books/:path/, which keeps the filename stem verbatim
+    (unlike posts' :slug, which slugifies). publishedAt comes from the
+    required 'date' front matter; when it can't be derived the key is left
+    out so callers can fail loudly.
+    """
+    text = path.read_text(encoding="utf-8")
+    fm = _extract_frontmatter(text)
+
+    if fm.get("published") is False or fm.get("draft") is True:
+        return None
+
+    if "slug" in fm or "permalink" in fm:
+        print(
+            f"WARNING: {path.name} has explicit slug/permalink front matter; "
+            "using filename-derived stem for AT record path",
+            file=sys.stderr,
+        )
+
+    record: dict[str, Any] = {
+        "$type": "site.standard.document",
+        "path": f"/books/{path.stem}/",
+        "title": str(fm.get("title", "")),
+        "tags": ["book-reviews"],
+    }
+
+    if "date" in fm and fm["date"] is not None and _can_derive_date(fm["date"]):
+        record["publishedAt"] = _to_publish_date(fm["date"])
+
+    return record
+
+
 # ---------------------------------------------------------------------------
 # AT Protocol client
 # ---------------------------------------------------------------------------
@@ -277,8 +317,9 @@ def sync_posts(
     data_out: Path,
     publication_uri: str,
     dry_run: bool = False,
+    books_dir: Path | None = None,
 ) -> None:
-    """Sync local posts to PDS document records and write the data file."""
+    """Sync local posts (and books) to PDS document records; write data file."""
 
     if not publication_uri:
         # site is a required document field, and an empty value here would
@@ -286,29 +327,41 @@ def sync_posts(
         print("ERROR: sync_posts requires a publication_uri", file=sys.stderr)
         sys.exit(1)
 
-    # --- Collect local posts ---
+    sources: list[tuple[Path, Any]] = [(posts_dir, parse_post)]
+    if books_dir is not None:
+        sources.append((books_dir, parse_book))
+
+    # --- Collect local documents ---
     # Defense in depth alongside the validate subcommand: never sync a
-    # record that violates the lexicon or silently shadows another post.
+    # record that violates the lexicon or silently shadows another page.
     local: dict[str, tuple[Path, dict]] = {}
-    for post_file in sorted(posts_dir.glob("*.md")):
-        rec = parse_post(post_file)
-        if rec is None:
-            continue
-        if not rec["title"].strip():
-            print(
-                f"ERROR: {post_file.name}: missing or empty 'title'",
-                file=sys.stderr,
-            )
-            sys.exit(1)
-        if rec["path"] in local:
-            print(
-                f"ERROR: duplicate local path {rec['path']!r}: "
-                f"{local[rec['path']][0].name} and {post_file.name}",
-                file=sys.stderr,
-            )
-            sys.exit(1)
-        rec["site"] = publication_uri
-        local[rec["path"]] = (post_file, rec)
+    for src_dir, parser in sources:
+        for post_file in sorted(src_dir.glob("*.md")):
+            rec = parser(post_file)
+            if rec is None:
+                continue
+            if not rec["title"].strip():
+                print(
+                    f"ERROR: {post_file.name}: missing or empty 'title'",
+                    file=sys.stderr,
+                )
+                sys.exit(1)
+            if not rec.get("publishedAt"):
+                print(
+                    f"ERROR: {post_file.name}: cannot derive publishedAt "
+                    "(books require a 'date' front matter key)",
+                    file=sys.stderr,
+                )
+                sys.exit(1)
+            if rec["path"] in local:
+                print(
+                    f"ERROR: duplicate local path {rec['path']!r}: "
+                    f"{local[rec['path']][0].name} and {post_file.name}",
+                    file=sys.stderr,
+                )
+                sys.exit(1)
+            rec["site"] = publication_uri
+            local[rec["path"]] = (post_file, rec)
 
     # --- Fetch remote records ---
     # Only records belonging to our publication are managed; documents other
@@ -393,16 +446,47 @@ def sync_posts(
 # ---------------------------------------------------------------------------
 
 
-def validate_posts(posts_dir: Path) -> bool:
+def validate_posts(posts_dir: Path, books_dir: Path | None = None) -> bool:
     """
-    Validate all posts for AT Protocol compatibility.
+    Validate all posts (and books) for AT Protocol compatibility.
 
     Requires no credentials, config, or network access. Returns True if all
-    publishable posts are valid; False if any errors were found. Warnings
+    publishable documents are valid; False if any errors were found. Warnings
     (slug/permalink overrides) do not affect the return value.
     """
     errors = 0
     seen_paths: dict[str, Path] = {}
+
+    def _common_checks(doc_file: Path, path_str: str, fm: dict) -> int:
+        """Checks shared by posts and books; returns the error count."""
+        found = 0
+
+        if path_str in seen_paths:
+            print(
+                f"ERROR: {doc_file.name}: duplicate path {path_str!r} "
+                f"(also claimed by {seen_paths[path_str].name})",
+                file=sys.stderr,
+            )
+            found += 1
+        else:
+            seen_paths[path_str] = doc_file
+
+        if "slug" in fm or "permalink" in fm:
+            print(
+                f"WARNING: {doc_file.name}: has explicit slug/permalink; "
+                "filename-derived AT record path will be used",
+                file=sys.stderr,
+            )
+
+        title = str(fm.get("title") or "").strip()
+        if not title:
+            print(
+                f"ERROR: {doc_file.name}: missing or empty 'title'",
+                file=sys.stderr,
+            )
+            found += 1
+
+        return found
 
     for post_file in sorted(posts_dir.glob("*.md")):
         m = POST_FILENAME_RE.match(post_file.name)
@@ -426,31 +510,10 @@ def validate_posts(posts_dir: Path) -> bool:
         if fm.get("published") is False or fm.get("draft") is True:
             continue
 
-        if path_str in seen_paths:
-            print(
-                f"ERROR: {post_file.name}: duplicate path {path_str!r} "
-                f"(also claimed by {seen_paths[path_str].name})",
-                file=sys.stderr,
-            )
-            errors += 1
-        else:
-            seen_paths[path_str] = post_file
+        errors += _common_checks(post_file, path_str, fm)
 
-        if "slug" in fm or "permalink" in fm:
-            print(
-                f"WARNING: {post_file.name}: has explicit slug/permalink; "
-                "filename slug will be used for AT record path",
-                file=sys.stderr,
-            )
-
-        title = str(fm.get("title") or "").strip()
-        if not title:
-            print(
-                f"ERROR: {post_file.name}: missing or empty 'title'",
-                file=sys.stderr,
-            )
-            errors += 1
-
+        # Posts fall back to the filename date, so 'date' is optional but
+        # must be usable when present.
         if "date" in fm and fm["date"] is not None:
             if not _can_derive_date(fm["date"]):
                 print(
@@ -459,6 +522,42 @@ def validate_posts(posts_dir: Path) -> bool:
                     file=sys.stderr,
                 )
                 errors += 1
+
+    book_files = sorted(books_dir.glob("*.md")) if books_dir is not None else []
+    for book_file in book_files:
+        path_str = f"/books/{book_file.stem}/"
+
+        text = book_file.read_text(encoding="utf-8")
+        try:
+            fm = _extract_frontmatter_strict(text)
+        except yaml.YAMLError as exc:
+            print(
+                f"ERROR: {book_file.name}: invalid YAML front matter: {exc}",
+                file=sys.stderr,
+            )
+            errors += 1
+            continue
+
+        if fm.get("published") is False or fm.get("draft") is True:
+            continue
+
+        errors += _common_checks(book_file, path_str, fm)
+
+        # Books have no filename date to fall back to: 'date' is required.
+        if "date" not in fm or fm["date"] is None:
+            print(
+                f"ERROR: {book_file.name}: missing 'date' front matter "
+                "(required for publishedAt)",
+                file=sys.stderr,
+            )
+            errors += 1
+        elif not _can_derive_date(fm["date"]):
+            print(
+                f"ERROR: {book_file.name}: cannot derive publishedAt from "
+                f"'date' value {fm['date']!r}",
+                file=sys.stderr,
+            )
+            errors += 1
 
     return errors == 0
 
@@ -500,6 +599,7 @@ def main(argv: list[str] | None = None) -> None:
 
     pub_p = sub.add_parser("publish", help="Sync posts to PDS document records")
     pub_p.add_argument("--posts-dir", required=True, type=Path)
+    pub_p.add_argument("--books-dir", type=Path, default=None)
     pub_p.add_argument("--data-out", required=True, type=Path)
     pub_p.add_argument("--dry-run", action="store_true")
 
@@ -510,12 +610,13 @@ def main(argv: list[str] | None = None) -> None:
         help="Validate posts for AT Protocol compatibility (no network, no credentials)",
     )
     val_p.add_argument("--posts-dir", required=True, type=Path)
+    val_p.add_argument("--books-dir", type=Path, default=None)
 
     args = parser.parse_args(argv)
 
     # validate needs no credentials or config — dispatch before either check.
     if args.cmd == "validate":
-        if not validate_posts(args.posts_dir):
+        if not validate_posts(args.posts_dir, books_dir=args.books_dir):
             sys.exit(1)
         return
 
@@ -546,6 +647,7 @@ def main(argv: list[str] | None = None) -> None:
             args.data_out,
             publication_uri,
             dry_run=args.dry_run,
+            books_dir=args.books_dir,
         )
     elif args.cmd == "init-publication":
         init_publication(client, config)

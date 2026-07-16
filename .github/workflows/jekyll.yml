@@ -5,16 +5,18 @@
 #   2. Ruby tests (`load` every _tests/**/test_*.rb).
 #   3. Python script tests in _scripts/ (setup-python + `uv run pytest`).
 #   4. `_bin/check_strict.rb` (strict Liquid variables).
-#   5. `atproto/publish.py validate` — parses every post for AT Protocol
-#      compatibility; no credentials or network required; runs on every branch.
+#   5. `atproto/publish.py validate` — parses every post and book review
+#      for AT Protocol compatibility; no credentials or network required;
+#      runs on every branch.
 #   6. Build, HTML structure validation, feed XML validation, broken-link
 #      check (only the `test` job's steps run on every branch; `build` and
 #      `deploy` below only run for main via the `needs:`/`if:` chain).
 #
 # Main-only steps in the build job (gated on github.ref == refs/heads/main):
-#   6. `uv run python atproto/publish.py publish` — syncs _posts/ to PDS
-#      site.standard.document records and writes _data/standard_site.json
-#      before Jekyll builds. Requires BSKY_APP_PASSWORD repo secret.
+#   6. `uv run python atproto/publish.py publish` — syncs _posts/ and
+#      _books/ to PDS site.standard.document records and writes
+#      _data/standard_site.json before Jekyll builds. Requires
+#      BSKY_APP_PASSWORD repo secret.
 #      If this step fails, the build fails and nothing deploys. Exception:
 #      while _config.yml standard_site.publication_uri is empty (Phase 3
 #      of bluesky.md not done), the step is a clean no-op needing no secret.
@@ -74,7 +76,7 @@ jobs:
 
       - name: Validate posts for AT Protocol publish
         working-directory: _scripts
-        run: uv run python atproto/publish.py validate --posts-dir ../_posts
+        run: uv run python atproto/publish.py validate --posts-dir ../_posts --books-dir ../_books
 
       - name: Check for strict Liquid errors
         run: bundle exec ruby _bin/check_strict.rb
@@ -110,7 +112,7 @@ jobs:
       - name: Publish standard.site records
         if: github.ref == 'refs/heads/main'
         working-directory: _scripts
-        run: uv run python atproto/publish.py publish --posts-dir ../_posts --data-out ../_data/standard_site.json
+        run: uv run python atproto/publish.py publish --posts-dir ../_posts --books-dir ../_books --data-out ../_data/standard_site.json
         env:
           BSKY_HANDLE: alexgude.com
           BSKY_APP_PASSWORD: ${{ secrets.BSKY_APP_PASSWORD }}

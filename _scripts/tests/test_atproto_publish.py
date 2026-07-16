@@ -843,3 +843,135 @@ class TestSlugify:
         (tmp_path / "2025-06-15-a-post.md").write_text("---\ntitle: Two\n---\n")
         from publish import validate_posts
         assert validate_posts(tmp_path) is False
+
+# ---------------------------------------------------------------------------
+# Book reviews (_books/ collection)
+# ---------------------------------------------------------------------------
+
+from publish import parse_book, validate_posts  # noqa: E402
+
+
+class TestParseBook:
+    def test_path_keeps_underscores(self, tmp_path: Path) -> None:
+        # Collection :path permalinks keep the stem verbatim, unlike :slug.
+        f = tmp_path / "a_canticle_for_leibowitz.md"
+        f.write_text("---\ntitle: A Canticle for Leibowitz\ndate: 2025-11-16 08:35:33 -0800\n---\n")
+        rec = parse_book(f)
+        assert rec is not None
+        assert rec["path"] == "/books/a_canticle_for_leibowitz/"
+
+    def test_published_at_from_date(self, tmp_path: Path) -> None:
+        f = tmp_path / "book.md"
+        f.write_text("---\ntitle: Book\ndate: 2025-11-16 08:35:33 -0800\n---\n")
+        rec = parse_book(f)
+        assert rec is not None
+        assert rec["publishedAt"] == "2025-11-16T00:00:00Z"
+
+    def test_missing_date_omits_published_at(self, tmp_path: Path) -> None:
+        f = tmp_path / "book.md"
+        f.write_text("---\ntitle: Book\n---\n")
+        rec = parse_book(f)
+        assert rec is not None
+        assert "publishedAt" not in rec
+
+    def test_fixed_book_reviews_tag(self, tmp_path: Path) -> None:
+        f = tmp_path / "book.md"
+        f.write_text("---\ntitle: Book\ndate: 2025-01-01\n---\n")
+        rec = parse_book(f)
+        assert rec is not None
+        assert rec["tags"] == ["book-reviews"]
+
+    def test_draft_skipped(self, tmp_path: Path) -> None:
+        f = tmp_path / "book.md"
+        f.write_text("---\ntitle: Book\ndate: 2025-01-01\npublished: false\n---\n")
+        assert parse_book(f) is None
+
+    def test_no_description_key(self, tmp_path: Path) -> None:
+        f = tmp_path / "book.md"
+        f.write_text("---\ntitle: Book\ndate: 2025-01-01\n---\n")
+        rec = parse_book(f)
+        assert rec is not None
+        assert "description" not in rec
+
+
+class TestValidateBooks:
+    def _dirs(self, tmp_path: Path) -> tuple[Path, Path]:
+        posts = tmp_path / "posts"
+        books = tmp_path / "books"
+        posts.mkdir()
+        books.mkdir()
+        return posts, books
+
+    def test_valid_book_passes(self, tmp_path: Path) -> None:
+        posts, books = self._dirs(tmp_path)
+        (books / "book.md").write_text("---\ntitle: Book\ndate: 2025-01-01\n---\n")
+        assert validate_posts(posts, books_dir=books) is True
+
+    def test_missing_date_fails(self, tmp_path: Path, capsys) -> None:
+        posts, books = self._dirs(tmp_path)
+        (books / "book.md").write_text("---\ntitle: Book\n---\n")
+        assert validate_posts(posts, books_dir=books) is False
+        assert "book.md" in capsys.readouterr().err
+
+    def test_missing_title_fails(self, tmp_path: Path) -> None:
+        posts, books = self._dirs(tmp_path)
+        (books / "book.md").write_text("---\ndate: 2025-01-01\n---\n")
+        assert validate_posts(posts, books_dir=books) is False
+
+    def test_invalid_yaml_fails(self, tmp_path: Path) -> None:
+        posts, books = self._dirs(tmp_path)
+        (books / "book.md").write_text("---\ntitle: [unclosed\n---\n")
+        assert validate_posts(posts, books_dir=books) is False
+
+    def test_draft_book_skipped(self, tmp_path: Path) -> None:
+        posts, books = self._dirs(tmp_path)
+        (books / "book.md").write_text("---\ndraft: true\n---\n")
+        assert validate_posts(posts, books_dir=books) is True
+
+    def test_no_books_dir_posts_only(self, tmp_path: Path) -> None:
+        posts, _ = self._dirs(tmp_path)
+        (posts / "2025-01-01-a.md").write_text("---\ntitle: A\n---\n")
+        assert validate_posts(posts) is True
+
+
+class TestSyncBooks:
+    def test_books_synced_alongside_posts(self, tmp_path: Path) -> None:
+        posts = tmp_path / "posts"
+        books = tmp_path / "books"
+        posts.mkdir()
+        books.mkdir()
+        (posts / "2025-01-01-alpha.md").write_text("---\ntitle: Alpha\n---\n")
+        (books / "some_book.md").write_text("---\ntitle: Book\ndate: 2025-02-02\n---\n")
+
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push({"records": []})
+        transport.push({"uri": "at://did:plc:test123/site.standard.document/rk1"})
+        transport.push({"uri": "at://did:plc:test123/site.standard.document/rk2"})
+
+        data_out = tmp_path / "out.json"
+        sync_posts(client, posts, data_out, PUB_URI, books_dir=books)
+
+        result = json.loads(data_out.read_text())
+        assert "/blog/alpha/" in result
+        assert "/books/some_book/" in result
+
+        create_calls = [c for c in transport.calls if "createRecord" in c[1]]
+        assert len(create_calls) == 2
+        book_rec = create_calls[1][2]["record"]
+        assert book_rec["site"] == PUB_URI
+        assert book_rec["tags"] == ["book-reviews"]
+
+    def test_book_without_date_exits(self, tmp_path: Path) -> None:
+        posts = tmp_path / "posts"
+        books = tmp_path / "books"
+        posts.mkdir()
+        books.mkdir()
+        (books / "book.md").write_text("---\ntitle: Book\n---\n")
+
+        transport = MockTransport()
+        client = make_client(transport)
+
+        with pytest.raises(SystemExit) as exc_info:
+            sync_posts(client, posts, tmp_path / "out.json", PUB_URI, books_dir=books)
+        assert exc_info.value.code == 1

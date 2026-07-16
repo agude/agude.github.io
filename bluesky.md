@@ -1,6 +1,6 @@
 # Bluesky / standard.site Integration Plan
 
-**Status:** Phase 1 ✓ | Phase 2 ✓ | Phase 3 (manual) | Phase 4 ✓ | Phase 5 (post-deploy) | Phase 6 ✓
+**Status:** Phase 1 ✓ | Phase 2 ✓ | Phase 3 (manual) | Phase 4 ✓ | Phase 5 (post-deploy) | Phase 6 ✓ | Phase 7 (books) ✓
 
 Implementation plan for publishing this site's posts to the AT Protocol
 using the [standard.site](https://standard.site) lexicons, so links to
@@ -449,10 +449,26 @@ passes once fixed; `validate` runs green against the real `_posts/`.
   publish step, or accepting raw-markdown-with-Liquid as input).
 - **`coverImage`**: `com.atproto.repo.uploadBlob`, ≤1MB (compress to
   ~900KB WebP; posts already have `image:` front matter).
-- **Book reviews**: extend the script to `_books/` (129 documents;
-  permalink structure differs).
 - **Automated announcement posts** from CI (decided against for now:
   low posting volume, manual announcements preferred).
+
+## Phase 7 — Book reviews (implemented)
+
+`_books/` (129 reviews) is published alongside `_posts/` via
+`--books-dir` on both `publish` and `validate` (wired in CI). Books
+differ from posts in four ways the code encodes:
+
+- **path**: the collection permalink is `/books/:path/`, which keeps
+  the filename stem **verbatim** (`a_canticle_for_leibowitz.md` →
+  `/books/a_canticle_for_leibowitz/`) — no slugification, unlike
+  posts' `:slug` token. Verified against a production build of all
+  129 reviews.
+- **publishedAt**: no date-prefixed filename to fall back to, so the
+  `date:` front matter key is **required** (validate errors and
+  sync exits when missing or underivable).
+- **description**: book front matter has none; the field is omitted.
+- **tags**: fixed `["book-reviews"]`, matching the category the
+  favorites posts use.
 
 ## Reference
 
