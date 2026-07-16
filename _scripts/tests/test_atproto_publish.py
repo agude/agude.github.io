@@ -11,6 +11,8 @@ import yaml
 import publish
 from publish import (
     AtprotoClient,
+    _can_derive_date,
+    _extract_frontmatter_strict,
     _extract_rkey,
     _get_env,
     _records_differ,
@@ -19,6 +21,7 @@ from publish import (
     load_config,
     parse_post,
     sync_posts,
+    validate_posts,
 )
 
 
@@ -582,3 +585,196 @@ class TestPublicationUriGuards:
 
         assert json.loads(data_out.read_text()) == {}
         assert "skipping publish" in capsys.readouterr().err
+
+
+# ---------------------------------------------------------------------------
+# validate subcommand helpers
+# ---------------------------------------------------------------------------
+
+
+class TestCanDeriveDate:
+    def test_date_object_passes(self) -> None:
+        from datetime import date as date_type
+        assert _can_derive_date(date_type(2025, 1, 1)) is True
+
+    def test_datetime_object_passes(self) -> None:
+        from datetime import datetime as dt_type
+        assert _can_derive_date(dt_type(2025, 1, 1, 0, 0)) is True
+
+    def test_iso_string_passes(self) -> None:
+        assert _can_derive_date("2025-01-01") is True
+
+    def test_non_date_string_fails(self) -> None:
+        assert _can_derive_date("not a date") is False
+
+    def test_integer_fails(self) -> None:
+        assert _can_derive_date(2025) is False
+
+    def test_year_month_only_fails(self) -> None:
+        assert _can_derive_date("2025-01") is False
+
+
+class TestExtractFrontmatterStrict:
+    def test_valid_yaml_returns_dict(self, tmp_path: Path) -> None:
+        result = _extract_frontmatter_strict("---\ntitle: Hello\n---\nBody")
+        assert result == {"title": "Hello"}
+
+    def test_invalid_yaml_raises(self) -> None:
+        import yaml as yaml_mod
+        with pytest.raises(yaml_mod.YAMLError):
+            _extract_frontmatter_strict("---\n: bad: yaml: [\n---\n")
+
+    def test_no_frontmatter_returns_empty(self) -> None:
+        assert _extract_frontmatter_strict("No front matter") == {}
+
+
+# ---------------------------------------------------------------------------
+# validate_posts
+# ---------------------------------------------------------------------------
+
+
+class TestValidatePosts:
+    def _post(self, tmp_path: Path, name: str, content: str) -> Path:
+        f = tmp_path / name
+        f.write_text(content)
+        return f
+
+    def test_valid_post_passes(self, tmp_path: Path) -> None:
+        self._post(tmp_path, "2025-01-01-valid.md", "---\ntitle: Valid Post\n---\nContent")
+        assert validate_posts(tmp_path) is True
+
+    def test_empty_directory_passes(self, tmp_path: Path) -> None:
+        assert validate_posts(tmp_path) is True
+
+    def test_non_post_files_ignored(self, tmp_path: Path) -> None:
+        self._post(tmp_path, "about.md", "---\ntitle: ''\n---\n")
+        assert validate_posts(tmp_path) is True
+
+    # --- YAML errors ---
+
+    def test_invalid_yaml_fails(self, tmp_path: Path, capsys) -> None:
+        self._post(tmp_path, "2025-01-01-bad.md", "---\n: bad: yaml: [\n---\nContent")
+        assert validate_posts(tmp_path) is False
+
+    def test_invalid_yaml_names_file(self, tmp_path: Path, capsys) -> None:
+        self._post(tmp_path, "2025-01-01-bad.md", "---\n: bad: yaml: [\n---\nContent")
+        validate_posts(tmp_path)
+        assert "2025-01-01-bad.md" in capsys.readouterr().err
+
+    # --- Missing / empty title ---
+
+    def test_missing_title_fails(self, tmp_path: Path) -> None:
+        self._post(tmp_path, "2025-01-01-no-title.md", "---\ndescription: No title\n---\n")
+        assert validate_posts(tmp_path) is False
+
+    def test_missing_title_names_file(self, tmp_path: Path, capsys) -> None:
+        self._post(tmp_path, "2025-01-01-no-title.md", "---\ndescription: No title\n---\n")
+        validate_posts(tmp_path)
+        assert "2025-01-01-no-title.md" in capsys.readouterr().err
+
+    def test_empty_string_title_fails(self, tmp_path: Path) -> None:
+        self._post(tmp_path, "2025-01-01-empty.md", "---\ntitle: ''\n---\n")
+        assert validate_posts(tmp_path) is False
+
+    def test_whitespace_only_title_fails(self, tmp_path: Path) -> None:
+        self._post(tmp_path, "2025-01-01-spaces.md", "---\ntitle: '   '\n---\n")
+        assert validate_posts(tmp_path) is False
+
+    # --- Underivable date ---
+
+    def test_non_date_string_fails(self, tmp_path: Path) -> None:
+        self._post(tmp_path, "2025-01-01-bad-date.md", "---\ntitle: Post\ndate: 'not a date'\n---\n")
+        assert validate_posts(tmp_path) is False
+
+    def test_non_date_string_names_file(self, tmp_path: Path, capsys) -> None:
+        self._post(tmp_path, "2025-01-01-bad-date.md", "---\ntitle: Post\ndate: 'not a date'\n---\n")
+        validate_posts(tmp_path)
+        assert "2025-01-01-bad-date.md" in capsys.readouterr().err
+
+    def test_null_date_passes(self, tmp_path: Path) -> None:
+        self._post(tmp_path, "2025-01-01-null-date.md", "---\ntitle: Post\ndate:\n---\n")
+        assert validate_posts(tmp_path) is True
+
+    def test_date_object_passes(self, tmp_path: Path) -> None:
+        # YAML parses bare 2025-01-01 as a datetime.date object
+        self._post(tmp_path, "2025-01-01-real-date.md", "---\ntitle: Post\ndate: 2025-01-01\n---\n")
+        assert validate_posts(tmp_path) is True
+
+    # --- Duplicate path ---
+
+    def test_duplicate_path_fails(self, tmp_path: Path) -> None:
+        self._post(tmp_path, "2025-01-01-alpha.md", "---\ntitle: Alpha 1\n---\n")
+        self._post(tmp_path, "2025-06-15-alpha.md", "---\ntitle: Alpha 2\n---\n")
+        assert validate_posts(tmp_path) is False
+
+    def test_duplicate_path_names_file(self, tmp_path: Path, capsys) -> None:
+        self._post(tmp_path, "2025-01-01-alpha.md", "---\ntitle: Alpha 1\n---\n")
+        self._post(tmp_path, "2025-06-15-alpha.md", "---\ntitle: Alpha 2\n---\n")
+        validate_posts(tmp_path)
+        assert "alpha" in capsys.readouterr().err
+
+    def test_draft_does_not_create_duplicate(self, tmp_path: Path) -> None:
+        self._post(tmp_path, "2025-01-01-alpha.md", "---\ntitle: Alpha\npublished: false\n---\n")
+        self._post(tmp_path, "2025-06-15-alpha.md", "---\ntitle: Alpha\n---\n")
+        assert validate_posts(tmp_path) is True
+
+    # --- slug / permalink warnings ---
+
+    def test_slug_warns_exits_zero(self, tmp_path: Path, capsys) -> None:
+        self._post(tmp_path, "2025-01-01-post.md", "---\ntitle: Post\nslug: custom\n---\n")
+        assert validate_posts(tmp_path) is True
+        assert "WARNING" in capsys.readouterr().err.upper()
+
+    def test_permalink_warns_exits_zero(self, tmp_path: Path, capsys) -> None:
+        self._post(tmp_path, "2025-01-01-post.md", "---\ntitle: Post\npermalink: /custom/\n---\n")
+        assert validate_posts(tmp_path) is True
+        assert "WARNING" in capsys.readouterr().err.upper()
+
+    # --- Draft skipping ---
+
+    def test_published_false_skips_title_check(self, tmp_path: Path) -> None:
+        self._post(tmp_path, "2025-01-01-draft.md", "---\ntitle: ''\npublished: false\n---\n")
+        assert validate_posts(tmp_path) is True
+
+    def test_draft_true_skips_title_check(self, tmp_path: Path) -> None:
+        self._post(tmp_path, "2025-01-01-draft.md", "---\ntitle: ''\ndraft: true\n---\n")
+        assert validate_posts(tmp_path) is True
+
+    # --- Multiple errors all reported ---
+
+    def test_multiple_errors_all_reported(self, tmp_path: Path, capsys) -> None:
+        self._post(tmp_path, "2025-01-01-a.md", "---\ntitle: ''\n---\n")
+        self._post(tmp_path, "2025-01-02-b.md", "---\ntitle: ''\n---\n")
+        validate_posts(tmp_path)
+        err = capsys.readouterr().err
+        assert "2025-01-01-a.md" in err
+        assert "2025-01-02-b.md" in err
+
+    # --- No HTTP calls ---
+
+    def test_no_http_transport_needed(self, tmp_path: Path) -> None:
+        # validate_posts takes only a Path — no AtprotoClient is created.
+        # If it tried to make HTTP calls, requests would error without mocking.
+        self._post(tmp_path, "2025-01-01-post.md", "---\ntitle: Post\n---\n")
+        assert validate_posts(tmp_path) is True
+
+
+# ---------------------------------------------------------------------------
+# validate via main() CLI — no credentials required
+# ---------------------------------------------------------------------------
+
+
+class TestValidateViaCLI:
+    def test_valid_posts_exit_zero(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+        (tmp_path / "2025-01-01-good.md").write_text("---\ntitle: Good\n---\n")
+        monkeypatch.delenv("BSKY_HANDLE", raising=False)
+        monkeypatch.delenv("BSKY_APP_PASSWORD", raising=False)
+        publish.main(["validate", "--posts-dir", str(tmp_path)])
+
+    def test_invalid_post_exits_one(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+        (tmp_path / "2025-01-01-bad.md").write_text("---\ntitle: ''\n---\n")
+        monkeypatch.delenv("BSKY_HANDLE", raising=False)
+        monkeypatch.delenv("BSKY_APP_PASSWORD", raising=False)
+        with pytest.raises(SystemExit) as exc_info:
+            publish.main(["validate", "--posts-dir", str(tmp_path)])
+        assert exc_info.value.code == 1

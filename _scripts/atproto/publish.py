@@ -132,6 +132,23 @@ def _extract_frontmatter(text: str) -> dict:
         return {}
 
 
+def _extract_frontmatter_strict(text: str) -> dict:
+    """Like _extract_frontmatter but raises yaml.YAMLError on bad YAML."""
+    if not text.startswith("---"):
+        return {}
+    parts = text.split("---", 2)
+    if len(parts) < 3:
+        return {}
+    return yaml.safe_load(parts[1]) or {}
+
+
+def _can_derive_date(date_val: Any) -> bool:
+    """Return True if date_val can produce a valid YYYY-MM-DD publishedAt."""
+    if hasattr(date_val, "strftime"):
+        return True
+    return bool(re.match(r"^\d{4}-\d{2}-\d{2}", str(date_val)))
+
+
 def _to_publish_date(date_val: Any) -> str:
     if hasattr(date_val, "strftime"):
         return date_val.strftime("%Y-%m-%dT00:00:00Z")
@@ -348,6 +365,81 @@ def sync_posts(
 
 
 # ---------------------------------------------------------------------------
+# validate subcommand
+# ---------------------------------------------------------------------------
+
+
+def validate_posts(posts_dir: Path) -> bool:
+    """
+    Validate all posts for AT Protocol compatibility.
+
+    Requires no credentials, config, or network access. Returns True if all
+    publishable posts are valid; False if any errors were found. Warnings
+    (slug/permalink overrides) do not affect the return value.
+    """
+    errors = 0
+    seen_paths: dict[str, Path] = {}
+
+    for post_file in sorted(posts_dir.glob("*.md")):
+        m = POST_FILENAME_RE.match(post_file.name)
+        if not m:
+            continue
+
+        slug = m.group(2)
+        path_str = f"/blog/{slug}/"
+
+        text = post_file.read_text(encoding="utf-8")
+        try:
+            fm = _extract_frontmatter_strict(text)
+        except yaml.YAMLError as exc:
+            print(
+                f"ERROR: {post_file.name}: invalid YAML front matter: {exc}",
+                file=sys.stderr,
+            )
+            errors += 1
+            continue
+
+        if fm.get("published") is False or fm.get("draft") is True:
+            continue
+
+        if path_str in seen_paths:
+            print(
+                f"ERROR: {post_file.name}: duplicate path {path_str!r} "
+                f"(also claimed by {seen_paths[path_str].name})",
+                file=sys.stderr,
+            )
+            errors += 1
+        else:
+            seen_paths[path_str] = post_file
+
+        if "slug" in fm or "permalink" in fm:
+            print(
+                f"WARNING: {post_file.name}: has explicit slug/permalink; "
+                "filename slug will be used for AT record path",
+                file=sys.stderr,
+            )
+
+        title = str(fm.get("title") or "").strip()
+        if not title:
+            print(
+                f"ERROR: {post_file.name}: missing or empty 'title'",
+                file=sys.stderr,
+            )
+            errors += 1
+
+        if "date" in fm and fm["date"] is not None:
+            if not _can_derive_date(fm["date"]):
+                print(
+                    f"ERROR: {post_file.name}: cannot derive publishedAt from "
+                    f"'date' value {fm['date']!r}",
+                    file=sys.stderr,
+                )
+                errors += 1
+
+    return errors == 0
+
+
+# ---------------------------------------------------------------------------
 # init-publication subcommand
 # ---------------------------------------------------------------------------
 
@@ -389,7 +481,19 @@ def main(argv: list[str] | None = None) -> None:
 
     sub.add_parser("init-publication", help="Create publication record (one-time)")
 
+    val_p = sub.add_parser(
+        "validate",
+        help="Validate posts for AT Protocol compatibility (no network, no credentials)",
+    )
+    val_p.add_argument("--posts-dir", required=True, type=Path)
+
     args = parser.parse_args(argv)
+
+    # validate needs no credentials or config — dispatch before either check.
+    if args.cmd == "validate":
+        if not validate_posts(args.posts_dir):
+            sys.exit(1)
+        return
 
     config = load_config()
     publication_uri = get_publication_uri(config)
