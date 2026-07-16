@@ -183,7 +183,7 @@ Env vars (both required): `BSKY_HANDLE` (`alexgude.com`),
 (the pre-Phase-3 state), `publish` prints a notice, writes an empty
 `{}` data file, and exits 0 — *before* requiring the env vars — so the
 code can merge to `main` without blocking deploys. Once the config is
-set, missing credentials become a hard failure. `sync_posts` itself
+set, missing credentials become a hard failure. `sync_documents` itself
 refuses to run without a publication URI: `site` is a required document
 field, and an empty value would otherwise strip `site` from existing
 remote records via the managed-field merge.
@@ -224,8 +224,10 @@ Details:
   lowercase, runs of non-alphanumerics collapse to a single hyphen,
   edges stripped (`2026-01-04-favorite_books_of_2025.md` →
   `/blog/favorite-books-of-2025/`; underscores become hyphens). If
-  front matter contains an explicit `slug:` or `permalink:` key, log a
-  warning so mismatches are visible.
+  front matter contains an explicit `slug:` or `permalink:` key, both
+  publish and validate **fail** — Jekyll honors those keys, so the page
+  would be served away from the derived path and the record would point
+  at a 404.
 - **publishedAt**: date from the filename unless front matter has
   `date:` (which overrides, matching Jekyll). Midnight UTC is fine.
 - **description** / **tags**: omit the key entirely when the front
@@ -406,10 +408,10 @@ uv run python atproto/publish.py validate --posts-dir ../_posts
   - a `publishedAt` that cannot be derived;
   - **duplicate `path` across local posts** (two posts whose filenames
     share a slug on different dates collide on `/blog/<slug>/`;
-    `sync_posts` currently last-one-wins silently — validate must catch
-    it);
-  - warn (not error) on explicit `slug:`/`permalink:` front matter,
-    same as `publish`.
+    `sync_documents` also fails on this);
+  - **error** on explicit `slug:`/`permalink:` front matter (Jekyll
+    honors those keys, so the record path would 404 — both publish and
+    validate reject them).
 - Print every problem with its filename; exit 1 if any errors, 0
   otherwise (warnings don't fail).
 
@@ -431,7 +433,7 @@ header comment (repo rule 6).
 
 Extend `_scripts/tests/test_atproto_publish.py`: valid posts pass;
 each error class above fails with the offending filename in the
-output; slug/permalink override warns but exits 0; no HTTP calls occur
+output; slug/permalink overrides are errors; no HTTP calls occur
 (the mock transport must stay unused).
 
 **Acceptance:** a branch with a post containing broken front matter
@@ -451,6 +453,26 @@ passes once fixed; `validate` runs green against the real `_posts/`.
   ~900KB WebP; posts already have `image:` front matter).
 - **Automated announcement posts** from CI (decided against for now:
   low posting volume, manual announcements preferred).
+
+### 6.4 Post-review hardening (implemented)
+
+- `validate` runs the **same parsers as publish** (`parse_post` /
+  `parse_book` raise on broken YAML and slug/permalink overrides) and
+  checks the returned records, so the CI gate cannot drift from the
+  behavior it gates.
+- `validate --site-dir ../_site` cross-checks every derived record
+  path against the built site (`<path>/index.html` must exist). The
+  CI build job runs this after `jekyll build` on **every branch**,
+  turning "script path derivation matches Jekyll" into a per-run
+  verified invariant instead of a belief.
+- `--books-dir` is **required** for `publish` (dropping it would
+  silently orphan all book records and strip their verification tags).
+  It stays optional for `validate` and at the function level.
+- The books collection permalink is pinned in `_config.yml`
+  (`permalink: /books/:path/`) instead of resting on Jekyll defaults.
+- `parse_post` gates `publishedAt` on date derivability (a bad
+  `date:` omits the key and sync fails loudly, instead of shipping
+  `"soonT00:00:00Z"`).
 
 ## Phase 7 — Book reviews (implemented)
 

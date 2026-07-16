@@ -8,9 +8,13 @@
 #   5. `atproto/publish.py validate` — parses every post and book review
 #      for AT Protocol compatibility; no credentials or network required;
 #      runs on every branch.
-#   6. Build, HTML structure validation, feed XML validation, broken-link
-#      check (only the `test` job's steps run on every branch; `build` and
-#      `deploy` below only run for main via the `needs:`/`if:` chain).
+#   6. Build, then `atproto/publish.py validate --site-dir` cross-checks
+#      every derived AT record path against the built _site/ (catches any
+#      divergence between script path derivation and Jekyll permalinks),
+#      then HTML structure validation, feed XML validation, broken-link
+#      check. (Only the `test` job's steps run on every branch; `build`
+#      runs everywhere too but `deploy` only runs for main via the
+#      `needs:`/`if:` chain.)
 #
 # Main-only steps in the build job (gated on github.ref == refs/heads/main):
 #   6. `uv run python atproto/publish.py publish` — syncs _posts/ and
@@ -106,7 +110,6 @@ jobs:
         uses: actions/configure-pages@v6
 
       - name: Install uv
-        if: github.ref == 'refs/heads/main'
         uses: astral-sh/setup-uv@v7
 
       - name: Publish standard.site records
@@ -121,6 +124,10 @@ jobs:
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
+
+      - name: Cross-check AT record paths against built site
+        working-directory: _scripts
+        run: uv run python atproto/publish.py validate --posts-dir ../_posts --books-dir ../_books --site-dir ../_site
 
       - name: Validate HTML structure
         run: |
