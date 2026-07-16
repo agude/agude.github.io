@@ -278,11 +278,26 @@ def sync_posts(
         sys.exit(1)
 
     # --- Collect local posts ---
+    # Defense in depth alongside the validate subcommand: never sync a
+    # record that violates the lexicon or silently shadows another post.
     local: dict[str, tuple[Path, dict]] = {}
     for post_file in sorted(posts_dir.glob("*.md")):
         rec = parse_post(post_file)
         if rec is None:
             continue
+        if not rec["title"].strip():
+            print(
+                f"ERROR: {post_file.name}: missing or empty 'title'",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+        if rec["path"] in local:
+            print(
+                f"ERROR: duplicate local path {rec['path']!r}: "
+                f"{local[rec['path']][0].name} and {post_file.name}",
+                file=sys.stderr,
+            )
+            sys.exit(1)
         rec["site"] = publication_uri
         local[rec["path"]] = (post_file, rec)
 

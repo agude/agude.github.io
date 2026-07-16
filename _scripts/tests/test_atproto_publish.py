@@ -778,3 +778,40 @@ class TestValidateViaCLI:
         with pytest.raises(SystemExit) as exc_info:
             publish.main(["validate", "--posts-dir", str(tmp_path)])
         assert exc_info.value.code == 1
+
+# ---------------------------------------------------------------------------
+# sync_posts local-post guards (defense in depth alongside validate)
+# ---------------------------------------------------------------------------
+
+
+class TestSyncPostsLocalGuards:
+    def test_empty_title_exits(self, tmp_path: Path) -> None:
+        (tmp_path / "2025-01-01-alpha.md").write_text("---\ntitle: ''\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+
+        with pytest.raises(SystemExit) as exc_info:
+            sync_posts(client, tmp_path, tmp_path / "out.json", PUB_URI)
+        assert exc_info.value.code == 1
+
+    def test_missing_title_exits(self, tmp_path: Path, capsys) -> None:
+        (tmp_path / "2025-01-01-alpha.md").write_text("---\nlayout: post\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+
+        with pytest.raises(SystemExit):
+            sync_posts(client, tmp_path, tmp_path / "out.json", PUB_URI)
+        assert "2025-01-01-alpha.md" in capsys.readouterr().err
+
+    def test_duplicate_local_path_exits(self, tmp_path: Path, capsys) -> None:
+        (tmp_path / "2025-01-01-alpha.md").write_text("---\ntitle: One\n---\n")
+        (tmp_path / "2025-06-15-alpha.md").write_text("---\ntitle: Two\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+
+        with pytest.raises(SystemExit) as exc_info:
+            sync_posts(client, tmp_path, tmp_path / "out.json", PUB_URI)
+        assert exc_info.value.code == 1
+        err = capsys.readouterr().err
+        assert "2025-01-01-alpha.md" in err
+        assert "2025-06-15-alpha.md" in err
