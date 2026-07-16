@@ -45,11 +45,11 @@ class TestStandardSiteWellKnownGenerator < Minitest::Test
     site = create_site
     warned = false
     warn_logger = Object.new.tap do |l|
-      def l.info(_t, _m = nil); end
+      def l.info(_topic, _msg = nil); end
 
-      def l.error(_t, _m = nil); end
+      def l.error(_topic, _msg = nil); end
 
-      def l.debug(_t, _m = nil); end
+      def l.debug(_topic, _msg = nil); end
 
       l.define_singleton_method(:warn) { |_topic, _msg = nil| warned = true }
     end

@@ -33,7 +33,7 @@ module Jekyll
         end
 
         site.static_files << Jekyll::Infrastructure::GeneratedStaticFile.new(
-          site, '.well-known', 'site.standard.publication', uri
+          site, '.well-known', 'site.standard.publication', uri,
         )
       end
     end
