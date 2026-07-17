@@ -53,6 +53,11 @@ Jekyll-based static site (alexgude.com) running in Docker.
   `.claude/skills/jekyll-site-dev/references/atproto-standard-site.md`.
 - **Tests:** `_tests/` (Mirrors `_plugins/src/` structure).
 
+## Git Conventions
+
+- **`book-*` branches are active.** They mark books the owner is currently
+  reading; never delete them during housekeeping.
+
 ## Development Rules
 
 1.  **Separation of Concerns:**
