@@ -24,7 +24,7 @@ discovery problems in a number of large organizations. [Anna's post][anna]
 gives a great overview of recommenders which you should check out if you
 haven't already.
 
-[anna]: https://gab41.lab41.org/recommending-recommendation-systems-cc39ace3f5c1#.li0lnmqi8
+[anna]: https://medium.com/gab41/recommending-recommendation-systems-cc39ace3f5c1
 
 The ideal way to tackle this problem would be to go to each organization, find
 the data they have, and use it to build a recommender system. But this isn't

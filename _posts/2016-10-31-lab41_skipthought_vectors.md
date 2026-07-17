@@ -165,4 +165,4 @@ detection, but incredibly slow. Running skip-thought vectors on a corpus of
 about 20,000 documents took many hours, whereas simpler (and as effective)
 methods took seconds or minutes.
 
-[pythia]: https://gab41.lab41.org/tell-me-something-i-dont-know-detecting-novelty-and-redundancy-with-natural-language-processing-818124e4013c#.6xf8nejr9
+[pythia]: https://medium.com/gab41/tell-me-something-i-dont-know-detecting-novelty-and-redundancy-with-natural-language-processing-818124e4013c

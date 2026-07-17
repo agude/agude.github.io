@@ -24,7 +24,7 @@ simple collaborative filtering algorithms. However, if we learned more about
 the properties of the various items, we could use more sophisticated
 algorithms.
 
-[anna]: https://gab41.lab41.org/recommending-recommendation-systems-cc39ace3f5c1#.li0lnmqi8
+[anna]: https://medium.com/gab41/recommending-recommendation-systems-cc39ace3f5c1
 
 For some items---for example, movies---it is relatively easy to imagine what
 sort of properties are relevant in order to make recommendations: genre,
@@ -50,8 +50,8 @@ language datasets. In this post, I will give a brief overview of how Word2Vec
 works; for a more complete summary see [Karl's post on Anything2Vec][a2v] and
 [this paper by Goldberg and Levy][paper].
 
-[chinese]: https://gab41.lab41.org/can-word-vectors-help-predict-whether-your-chinese-tweet-gets-censored-711e7682d12f#.jckj1z8q1
-[a2v]: https://gab41.lab41.org/anything2vec-e99ec0dc186#.cdtxo834y
+[chinese]: https://medium.com/gab41/can-word-vectors-help-predict-whether-your-chinese-tweet-gets-censored-711e7682d12f
+[a2v]: https://medium.com/gab41/anything2vec-e99ec0dc186
 [paper]: https://arxiv.org/abs/1402.3722
 
 Word2Vec embeds words into an n-dimensional vector space such that words that
@@ -256,8 +256,8 @@ corpus at least 25 times, so we only cover the most common functions, methods,
 and libraries. The user coverage decreases, but not as significantly---most
 users, it seems, use at least a few of the most common functions.
 
-[tps]: https://gab41.lab41.org/tps-report-for-recommender-systems-yeah-that-would-be-great-3beb26ab9fe0#.o2frg2eat
-[metrics]: https://gab41.lab41.org/recommender-systems-its-not-all-about-the-accuracy-562c7dceeaff#.n291twu23
+[tps]: https://medium.com/gab41/tps-report-for-recommender-systems-yeah-that-would-be-great-3beb26ab9fe0
+[metrics]: https://medium.com/gab41/recommender-systems-its-not-all-about-the-accuracy-562c7dceeaff
 [mllib_collab]: https://spark.apache.org/docs/latest/mllib-collaborative-filtering.html
 
 The low item coverage is a particularly challenging issue. We set the

@@ -128,7 +128,7 @@ improving network training like [batch normalization][bn][^ioffe]. All in all,
 stochastic depth is an essentially free improvement when training a deep
 network. I look forward to giving it a shot in my next model!
 
-[bn]: https://gab41.lab41.org/batch-normalization-what-the-hey-d480039a9e3b
+[bn]: https://medium.com/gab41/batch-normalization-what-the-hey-d480039a9e3b
 
 [^ioffe]:
     {% citation
