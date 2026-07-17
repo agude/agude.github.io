@@ -4,8 +4,9 @@ description: >
   Development reference for the alexgude.com Jekyll site. Use when modifying
   plugins in _plugins/, writing or editing content in _posts/ or _books/,
   working with the markdown output pipeline, book families, build validators,
-  CI/CD configuration, or content authoring conventions (excerpts, Liquid
-  tags, linking).
+  CI/CD configuration, the AT Protocol / standard.site / Bluesky publishing
+  pipeline (_scripts/atproto/), or content authoring conventions (excerpts,
+  Liquid tags, linking).
 ---
 
 # Jekyll Site Development Reference
@@ -73,5 +74,13 @@ plain skill markdown:
   book reviews, especially re-reviews.
 
 - **[Content Authoring](references/content-authoring.md)** — Excerpt rules,
-  Liquid tag usage, linking conventions. Read when writing or editing blog
-  posts or book reviews.
+  Liquid tag usage, linking conventions, front-matter rules enforced by the
+  AT Protocol pipeline. Read when writing or editing blog posts or book
+  reviews.
+
+- **[AT Protocol / standard.site](references/atproto-standard-site.md)** —
+  How the site publishes to Bluesky's network: the domain-as-handle DNS
+  wiring, the publish script, well-known generator, link tags, CI flow,
+  and the operational runbook (orphans, outages, secret rotation). Read
+  when touching `_scripts/atproto/`, the standard.site plugin, or the
+  publish steps in CI. Full design history: `bluesky.md` at the repo root.

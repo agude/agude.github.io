@@ -30,7 +30,7 @@ Jekyll-based static site (alexgude.com) running in Docker.
     `MarkdownLinkFormatter`.
   - `ui/`: Generic components (Cards, Ratings, Citations,
     `MarkdownCardUtils`).
-  - `seo/`: Two parallel subsystems both read by `_includes/head.html`:
+  - `seo/`: Three subsystems all read by (or emitting for) `_includes/head.html`:
     - `JsonLdInjector` populates `site.data['generated_json_ld_scripts']`
       with `<script type="application/ld+json">` tags. Layout-keyed
       dispatch via `LAYOUT_GENERATORS`; unknown layout raises.
@@ -40,7 +40,17 @@ Jekyll-based static site (alexgude.com) running in Docker.
       article classification (`ARTICLE_LAYOUTS`). The cross-check test
       `test_every_known_layout_has_article_classification` enforces that
       every layout in `LAYOUT_GENERATORS` is explicitly classified.
+    - `StandardSiteWellKnownGenerator` emits
+      `.well-known/site.standard.publication` for AT Protocol / Bluesky
+      verification; head.html renders the matching link tags from
+      `standard_site.publication_uri` (config) and
+      `_data/standard_site.json` (CI-generated). See the skill reference
+      `atproto-standard-site.md` and `bluesky.md`.
   - `content/`: Domain logic (Books, Posts, Authors, Series, **Markdown Output**).
+- **AT Protocol publish:** `_scripts/atproto/publish.py` syncs posts and
+  book reviews to `site.standard.document` records in CI (main only); the
+  PDS is the state store. Operational runbook:
+  `.claude/skills/jekyll-site-dev/references/atproto-standard-site.md`.
 - **Tests:** `_tests/` (Mirrors `_plugins/src/` structure).
 
 ## Development Rules

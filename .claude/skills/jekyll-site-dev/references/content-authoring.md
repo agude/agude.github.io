@@ -62,3 +62,25 @@ The comment protects one contiguous block (a single CommonMark node).
 Keep all definitions together with no blank lines between them; a
 second block separated by a blank line needs its own comment. The only
 current use is `_posts/2018-05-20-my_phd_thesis.md`.
+
+## Front Matter Rules for AT Protocol Records
+
+Every post and book review gets a `site.standard.document` record on
+the AT Protocol (see
+[AT Protocol / standard.site](atproto-standard-site.md)). CI enforces
+these at validate time — violations fail the build:
+
+- `title:` is required and must be non-empty (a bare `title:` parses
+  to null and is rejected).
+- `slug:` and `permalink:` front matter are **forbidden** on posts and
+  books: Jekyll would serve the page away from the filename-derived
+  path, leaving the AT record pointing at a 404.
+- Books require a `date:` key (posts fall back to the filename date).
+- `published: false` skips the page and its record. A `draft:` key is
+  **not** honored (Jekyll ignores it outside `_drafts/`).
+- Future-dated posts are skipped (matching Jekyll's `future: false`)
+  and picked up automatically once their date arrives.
+- A book with `canonical_url:` (re-read reviews) gets **no** record —
+  the canonical review page owns the document.
+- Post `categories:` become record tags; books get a fixed
+  `book-reviews` tag.
