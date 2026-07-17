@@ -1,11 +1,11 @@
 ---
-date: 2026-07-02
+date: 2026-07-16
 title: Mona Lisa Overdrive
 book_authors: William Gibson
 series: Sprawl
 book_number: 3
 is_anthology: false
-rating: null
+rating: 5
 image: /books/covers/mona_lisa_overdrive.jpg
 wikidata_qid: Q663215
 isbn: 978-0-553-05250-3
