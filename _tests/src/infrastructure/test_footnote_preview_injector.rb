@@ -106,6 +106,23 @@ class TestFootnotePreviewInjector < Minitest::Test
     refute_match(/<(?:figure|blockquote|figcaption|p)\b/, preview)
   end
 
+  def test_inject_figure_nested_in_paragraph
+    # kramdown wraps cited-quote figures in a surrounding <p>. The HTML5
+    # parser auto-closes the <p> before <figure> (per spec), ejecting it
+    # as a sibling. flatten_blocks converts the resulting empty <p> tags
+    # to empty fnp-p spans (harmless — they render nothing). Verify the
+    # preview preserves all content regardless of the parse-tree shape.
+    body = '<p><figure class="cited-quote">' \
+           '<blockquote><p>The quote text.</p></blockquote>' \
+           '<figcaption>—<span class="citation">Author.</span></figcaption>' \
+           '</figure></p>'
+    result  = Injector.inject(footnote_html(id: 'note', footnote_body: body))
+    preview = extract_preview(result).to_s
+    refute_match(/<(?:figure|blockquote|figcaption|p)\b/, preview)
+    assert_includes preview, 'The quote text.'
+    assert_includes preview, 'Author.'
+  end
+
   def test_inject_citedquote_full_fidelity
     # The real citedquote structure: figure > blockquote + figcaption,
     # where figcaption holds span.citation with <cite> and <a>. Existing

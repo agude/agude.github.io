@@ -120,7 +120,7 @@ module Jekyll
       end
 
       def decode_html_entities(text)
-        Nokogiri::HTML.fragment(text.to_s).text
+        Nokogiri::HTML5.fragment(text.to_s).text
       end
 
       def site_title
@@ -168,7 +168,7 @@ module Jekyll
 
       def strip_html(text)
         cleaned = Infrastructure::TextProcessingUtils.strip_link_previews(text)
-        Nokogiri::HTML.fragment(cleaned).text.gsub(/\s+/, ' ').strip
+        Nokogiri::HTML5.fragment(cleaned).text.gsub(/\s+/, ' ').strip
       end
 
       # --- Image ---

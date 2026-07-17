@@ -22,7 +22,7 @@ module Jekyll
       def self.clean_text_from_html(html_content)
         return '' if html_content.nil? || html_content.strip.empty?
 
-        doc = Nokogiri::HTML(html_content.to_s)
+        doc = Nokogiri::HTML5(html_content.to_s)
         doc.xpath('//script | //style').remove # Remove script and style elements
         doc.text.gsub(/\s+/, ' ').strip # Get text from remaining, normalize whitespace
       end
@@ -118,7 +118,7 @@ module Jekyll
       # hidden preview text never leaks into plain-text output.
       def self.strip_tags(html)
         cleaned = strip_link_previews(strip_footnote_previews(html))
-        Nokogiri::HTML.fragment(cleaned).text
+        Nokogiri::HTML5.fragment(cleaned).text
       end
 
       # Removes book-link hover-preview markup (see BookPreviewRenderer), including
