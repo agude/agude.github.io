@@ -12,10 +12,12 @@
 # rot anyway. The genuine rot signal is 404/410/5xx/timeouts/TLS
 # failures. Verified 2026-07 by retesting every 403 with a browser
 # user-agent: all resolved to live publisher pages before refusing the
-# bot. Add a .lycheeignore file at the repo root if specific URLs ever
-# need excluding. The .lycheecache means a URL verified good is not
-# re-checked for 30 days, so transient failures do not repeat month to
-# month.
+# bot. The .lycheecache means a URL verified good is not re-checked for
+# 30 days, so transient failures do not repeat month to month.
+#
+# at:// URIs (standard.site link tags) cause lychee parse errors
+# because the scheme is not HTTP. Lychee has no way to suppress
+# pre-parse failures, so the report is filtered after the run.
 name: External Link Check
 
 on:
@@ -72,18 +74,28 @@ jobs:
             '_site/**/*.html'
           fail: false
 
-      - name: Get report month
+      - name: Filter at:// parse errors from report
         if: steps.lychee.outputs.exit_code != 0
+        run: |
+          grep -v "Cannot parse 'at://" ./lychee/out.md > ./lychee/filtered.md || true
+          if grep -qE '^\[ERROR\]|^\[TIMEOUT\]|^\[[0-9]{3}\]' ./lychee/filtered.md; then
+            echo "has_errors=true" >> "$GITHUB_OUTPUT"
+          fi
+          mv ./lychee/filtered.md ./lychee/out.md
+        id: filter
+
+      - name: Get report month
+        if: steps.filter.outputs.has_errors == 'true'
         id: date
         run: echo "month=$(date -u +%Y-%m)" >> "$GITHUB_OUTPUT"
 
       - name: Open issue with report
-        if: steps.lychee.outputs.exit_code != 0
+        if: steps.filter.outputs.has_errors == 'true'
         uses: peter-evans/create-issue-from-file@v5
         with:
           title: "Broken external links — ${{ steps.date.outputs.month }}"
           content-filepath: ./lychee/out.md
 
       - name: Fail run if links are broken
-        if: steps.lychee.outputs.exit_code != 0
+        if: steps.filter.outputs.has_errors == 'true'
         run: exit 1
