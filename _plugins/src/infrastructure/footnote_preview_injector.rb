@@ -42,7 +42,7 @@ module Jekyll
     # to strip the preview when reusing rendered HTML (feeds, plain-text, etc).
     #
     # The full HTML string is never round-tripped through Nokogiri to avoid
-    # DOCTYPE mangling: Nokogiri::HTML is used read-only for extraction;
+    # DOCTYPE mangling: Nokogiri::HTML5 is used read-only for extraction;
     # injection uses targeted string replacement on the original string.
     module FootnotePreviewInjector
       Text = Jekyll::Infrastructure::TextProcessingUtils
@@ -68,7 +68,7 @@ module Jekyll
       def self.inject(html)
         return html unless html.include?('class="footnote"')
 
-        doc = Nokogiri::HTML(html)
+        doc = Nokogiri::HTML5(html)
         footnote_map = build_footnote_map(doc)
         return html if footnote_map.empty?
 
