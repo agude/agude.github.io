@@ -116,8 +116,8 @@ second lowest for SVHN. They also test using a very deep network (1202 layers)
 on CIFAR-10 and find that it produces an even better result, the first time a
 1000+ layer network has been shown to further reduce the error on CIFAR-10.
 
-[cifar10]: https://www.cs.toronto.edu/~kriz/learning-features-2009-TR.pdf
-[cifar100]: https://www.cs.toronto.edu/~kriz/learning-features-2009-TR.pdf
+[cifar10]: https://cave.cs.toronto.edu/kriz/learning-features-2009-TR.pdf
+[cifar100]: https://cave.cs.toronto.edu/kriz/learning-features-2009-TR.pdf
 [svhn]: http://ufldl.stanford.edu/housenumbers/nips2011_housenumbers.pdf
 
 The main idea behind stochastic depth is relatively simple, remove some layers
@@ -128,7 +128,7 @@ improving network training like [batch normalization][bn][^ioffe]. All in all,
 stochastic depth is an essentially free improvement when training a deep
 network. I look forward to giving it a shot in my next model!
 
-[bn]: https://gab41.lab41.org/batch-normalization-what-the-hey-d480039a9e3b
+[bn]: https://medium.com/gab41/batch-normalization-what-the-hey-d480039a9e3b
 
 [^ioffe]:
     {% citation

@@ -26,6 +26,7 @@ _site
 
 # CI-generated data files
 _data/standard_site.json
+.lycheecache
 
 # Make stamp files
 .prettier-image.stamp

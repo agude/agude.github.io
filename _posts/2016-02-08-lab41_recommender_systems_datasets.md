@@ -24,7 +24,7 @@ discovery problems in a number of large organizations. [Anna's post][anna]
 gives a great overview of recommenders which you should check out if you
 haven't already.
 
-[anna]: https://gab41.lab41.org/recommending-recommendation-systems-cc39ace3f5c1#.li0lnmqi8
+[anna]: https://medium.com/gab41/recommending-recommendation-systems-cc39ace3f5c1
 
 The ideal way to tackle this problem would be to go to each organization, find
 the data they have, and use it to build a recommender system. But this isn't
@@ -115,7 +115,7 @@ histogram:
 
 The dataset is [available here][jester].
 
-[jester]: http://eigentaste.berkeley.edu/dataset/
+[jester]: https://goldberg.berkeley.edu/jester-data/
 
 ### Book-Crossings
 
@@ -130,7 +130,7 @@ dense dataset that has explicit ratings.
 The dataset is [available here][bc_data].
 
 [bc]: http://www.bookcrossing.com/
-[bc_data]: http://www2.informatik.uni-freiburg.de/~cziegler/BX/
+[bc_data]: https://grouplens.org/datasets/book-crossing/
 
 ### Last.fm
 

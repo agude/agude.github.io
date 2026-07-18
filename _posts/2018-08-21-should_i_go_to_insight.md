@@ -22,7 +22,7 @@ categories:
 I have added a note to the section [Insight is _Free_, but
 **EXPENSIVE**][free].
 
-[funding]: https://insightfellows.com/financing
+[funding]: https://web.archive.org/web/20240901135520/https://insightfellows.com/financing
 [free]: #insight-is-free-but-expensive
 
 {% capture file_dir %}/files/insight/{% endcapture %}
@@ -44,7 +44,7 @@ often: "I'm trying to get a job in data science; should I attend
 
 [neha]: https://twitter.com/nerdneha
 [advice]: https://twitter.com/math_rachel/status/822958139343446016
-[insight]: https://www.insightdatascience.com/
+[insight]: https://web.archive.org/web/20200129121516/https://www.insightdatascience.com/
 
 I'm qualified to answer this question because during the summer of 2015 I was
 an Insight Fellow in the data science track (DS-SV-2015B). That, of course, is
@@ -209,7 +209,7 @@ months with one or two of my friends taking more than four months. I've known
 Fellows in other sessions who spent six months interviewing before receiving
 an offer.
 
-[faq]: https://www.insightdatascience.com/faq
+[faq]: https://web.archive.org/web/20191215174644/https://www.insightdatascience.com/faq
 
 ### You Need to Know How To Code
 
@@ -221,7 +221,7 @@ especially true for machine learning positions, which have interviews that
 more closely follow the "standard" developer interview pattern of writing code
 on the whiteboard over and over and over again.
 
-[prepare]: https://blog.insightdatascience.com/preparing-for-the-transition-to-data-science-e9194c90b42c
+[prepare]: https://medium.com/insight-data-science/preparing-for-the-transition-to-data-science-e9194c90b42c
 [fizz]: https://imranontech.com/2007/01/24/using-fizzbuzz-to-find-developers-who-grok-coding/
 
 ## Final Thoughts

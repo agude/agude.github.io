@@ -23,7 +23,7 @@ parties after---and [when motorcycles crash][mc_switrs]---during the summer
 when it's good riding weather. Today I want to look at something a little
 closer to my heart: **bicycles**.
 
-[switrs]: http://iswitrs.chp.ca.gov/Reports/jsp/userLogin.jsp
+[switrs]: https://www.chp.ca.gov/programs-services/services-information/switrs-statewide-integrated-traffic-records-system/
 
 [car_switrs]: {% post_url 2016-12-02-switrs_crashes_by_date %}
 [mc_switrs]: {% post_url 2017-02-21-switrs_motorcycle_crashes_by_date %}

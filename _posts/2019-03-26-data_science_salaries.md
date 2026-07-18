@@ -31,7 +31,7 @@ however I want.
 
 [indeed]: https://www.indeed.com/salaries/Data-Scientist-Salaries,-Mountain-View-CA
 [glassdoor]: https://www.glassdoor.com/Salaries/san-jose-data-scientist-salary-SRCH_IL.0,8_IM761_KO9,23.htm
-[insight]: https://www.insightdatascience.com
+[insight]: https://web.archive.org/web/20200129121516/https://www.insightdatascience.com/
 [levels]: https://levels.fyi
 
 The data is available [here][data]. The notebook with all the code is

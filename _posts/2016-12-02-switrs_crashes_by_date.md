@@ -24,7 +24,7 @@ and how for every traffic collision in California. Today, with the assistance
 of my [SWITRS-to-SQLite script][s2s] ([discussed previously][lastpost]), I'm
 going to look at when car crashes happen, and specifically on what dates.
 
-[switrs]: http://iswitrs.chp.ca.gov/Reports/jsp/userLogin.jsp
+[switrs]: https://www.chp.ca.gov/programs-services/services-information/switrs-statewide-integrated-traffic-records-system/
 [s2s]: https://github.com/agude/SWITRS-to-SQLite
 
 [lastpost]: {% post_url 2016-11-01-switrs_to_sqlite %}

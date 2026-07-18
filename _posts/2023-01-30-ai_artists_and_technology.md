@@ -159,8 +159,8 @@ painter][painter].[^hans_art] I too wanted to make art, but I did not have
 their skill with a brush so I picked up a camera instead.
 
 [hans_gude]: https://en.wikipedia.org/wiki/Hans_Gude
-[hans_gude_2]: https://www.hfgudeart.com/about2
-[painter]: https://www.hfgudeart.com/
+[hans_gude_2]: https://hans-f-gude-art.github.io/website/about
+[painter]: https://hans-f-gude-art.github.io/website/
 
 [^hans_art]:
     My father somewhat rejected the title of "artist", although in later life

@@ -19,7 +19,7 @@ The State of California maintains a database of traffic collisions called the
 [Statewide Integrated Traffic Records System (SWITRS)][switrs]. I have made
 extensive use of the data, including:
 
-[switrs]: http://iswitrs.chp.ca.gov/Reports/jsp/userLogin.jsp
+[switrs]: https://www.chp.ca.gov/programs-services/services-information/switrs-statewide-integrated-traffic-records-system/
 
 - Finding out when [automobiles][car], [motorcycles][moto], and
   [bicycles][bike] crash.

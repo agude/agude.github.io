@@ -107,7 +107,7 @@ plots attempt to avoid obscuring points by calculating non-overlapping
 positions instead of adding random jitter. This sort of gives them the appearance
 of a swarm of bees, or perhaps a honeycomb.
 
-[swarm]: http://www.cbs.dtu.dk/~eklund/beeswarm/
+[swarm]: https://cran.r-project.org/package=beeswarm
 
 Swarm plots share many of the same advantages of strip plots, but without as
 much clutter to hide their salient features. Unfortunately, spreading out the
