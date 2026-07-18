@@ -99,19 +99,39 @@ subtly different: {{ neuromancer }} is about bad-asses in space; {{ count_zero
 for immortality at Villa Straylight; Bobby, Angela, and the newly released Loa
 in the Matrix.
 
-Each books asks a different question: {{ neuromancer }}: what do you lose when
-you become more than human. It is about the body: Case hates his, Molly has
+Each book asks a different question. {{ neuromancer }}: what do you lose when
+you become more than human? It is about the body: Case hates his, Molly has
 transformed hers, Linda loses hers but is saved within the Neuromancer AI. {{
-count_zero }}: what does inhuman power looks like from below. It asks how
+count_zero }}: what does inhuman power look like from below? It asks how
 humans understand transhuman beings; its answer is "religion". {{ this_book
-}}: what remains of you when your humanity is gone. It is the synthesis of the
+}}: what remains of you when your humanity is gone? It is the synthesis of the
 other two: it is about memory, or, fitting with the religious parallels, soul.
 
-This theme start in {{ neuromancer }} with Dixie Flatline, the mindstate of a
-dead hacker's stored in ROM, and with the Tessier and her Neuromancer AI which
-was designed to store human consciousnesses. In {{ this_book }}, memory is
+This theme starts in {{ neuromancer }} with Dixie Flatline, the mindstate of a
+dead hacker stored in ROM, and with Tessier-Ashpool's Neuromancer AI which was
+designed to store human consciousnesses. In {{ this_book }}, memory is
 everywhere. The Finn is now a construct like Flatline, but mixed with the
 religion of {{ count_zero }}: the locals treat him as an oracle and leave
 Vodou offerings. Slick, the ex-con, has short term memory loss inflicted on
 him as part of his punishment. The Yakuza keep their former bosses'
-consciousnesses in cubes to ask questions of.
+consciousnesses in cubes to ask questions of. Kumi's ghost boy has had his
+memory altered, adding in parts he'll need to keep her safe. And finally, The
+Count, Angela, and 3Jane are using the Aleph---a computer that contains a
+simulation of the entire world, based on {{ borgess_lastname }} {{ the_aleph
+}}---to "catch their souls" and store them.
+
+Complementing the theme of memory is _[Gomi][gomi]_, which is how Kumi refers
+to all the antiques, knickknacks, and other pieces of the past that litter
+England. These are the memory of the real world. Tokyo is built on layers and
+layers of _gomi_. The New Jersey Solitude, where Slick's factory is, is
+literally a toxic dump; Slick takes pieces of that _gomi_ and makes kinetic
+sculptures that help him retain his memory. London is a sunsetting empire
+clinging to its past through objects. In {{ neuromancer }}, Tessier-Ashpool
+hoards that past, cutting it to pieces and filling it away in Straylight
+without reason; in {{ count_zero }} the box-maker robot sorts through the
+refuse and creates art; in {{ this_book }} 3Jane has gone from physical to
+virtual: cramming the entire world into the Aleph.
+
+[gomi]: https://en.wiktionary.org/wiki/%E3%82%B4%E3%83%9F
+
+### Influences
