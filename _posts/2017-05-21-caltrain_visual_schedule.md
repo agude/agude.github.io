@@ -53,11 +53,11 @@ developer site][dev].
 
 [paper]: https://dx.doi.org/10.1080/09332480.2013.772394
 [boston]: https://mbtaviz.github.io/
-[bart]: http://www.drones.com/bart.html
-[caltrain_vis]: http://vis.berkeley.edu/courses/cs294-10-sp10/wiki/index.php/A4-PaulIvanov
+[bart]: https://web.archive.org/web/20220402191513/http://www.drones.com/bart.html
+[caltrain_vis]: https://web.archive.org/web/20180827045956/http://vis.berkeley.edu/courses/cs294-10-sp10/wiki/index.php/A4-PaulIvanov
 [caltrain_vis2]: https://mbostock.github.io/protovis/ex/caltrain-full.html
 [caltrain_vis3]: https://www.davidstarke.com/projects/caltrain/
-[caltrain_vis4]: https://www.svds.com/wp-content/uploads/2016/05/DataEDGE_2016.pdf#page=14
+[caltrain_vis4]: https://web.archive.org/web/20260716165216/https://www.svds.com/wp-content/uploads/2016/05/DataEDGE_2016.pdf#page=14
 [caltrain]: https://en.wikipedia.org/wiki/Caltrain
 
 [notebook]: {{ file_dir }}/{{ notebook_uri }}

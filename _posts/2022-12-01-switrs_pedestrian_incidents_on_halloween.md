@@ -64,7 +64,7 @@ because the database dump comes from mid-2021, and so that year is incomplete.
 Halloween deadly, it is commuters. The best way to explore this point is to
 look at when in the day crashes happen:
 
-[aw_curbed]: https://archive.curbed.com/2019/10/25/20927701/halloween-safety-pedestrian-deaths-kids
+[aw_curbed]: https://web.archive.org/web/20201010053605/https://www.curbed.com/2019/10/25/20927701/halloween-safety-pedestrian-deaths-kids
 
 [^aw_quote]:
     {% citedquote
@@ -74,7 +74,7 @@ look at when in the day crashes happen:
       container_title="Curbed"
       publisher="Vox Media"
       date="October 25, 2019"
-      url="https://archive.curbed.com/2019/10/25/20927701/halloween-safety-pedestrian-deaths-kids"
+      url="https://web.archive.org/web/20201010053605/https://www.curbed.com/2019/10/25/20927701/halloween-safety-pedestrian-deaths-kids"
     %}
     But when the commuting drivers are removed from the equation, deaths
     seem to go down. A study by AutoInsurance.org used FARS data to compare

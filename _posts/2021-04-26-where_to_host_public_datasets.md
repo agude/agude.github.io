@@ -21,7 +21,7 @@ columns of the [California Statewide Integrated Traffic Records System
 and fix it][s2s]. I wanted other people to be able to make use of the data
 without going through the same hassle, so I released the scripts.
 
-[switrs]: http://iswitrs.chp.ca.gov/Reports/jsp/userLogin.jsp
+[switrs]: https://www.chp.ca.gov/programs-services/services-information/switrs-statewide-integrated-traffic-records-system/
 
 [s2s]: {% post_url 2016-11-01-switrs_to_sqlite %}
 

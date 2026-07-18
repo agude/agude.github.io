@@ -90,7 +90,7 @@ for the stage and knocked [Miguel Ángel López][lopez] out of the top three
 overall.
 
 [hincapie]: https://en.wikipedia.org/wiki/George_Hincapie
-[themove]: https://wedu.team/themove/2020-tour-de-france-stage-20
+[themove]: https://web.archive.org/web/20230315051620/https://wedu.team/themove/2020-tour-de-france-stage-20
 [planche]: https://en.wikipedia.org/wiki/La_Planche_des_Belles_Filles
 [porte]: https://en.wikipedia.org/wiki/Richie_Porte
 [lopez]: https://en.wikipedia.org/wiki/Miguel_%C3%81ngel_L%C3%B3pez_(cyclist)

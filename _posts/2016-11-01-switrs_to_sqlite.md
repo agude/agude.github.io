@@ -23,7 +23,7 @@ traffic collision that has been reported in the state---the time of the crash,
 the location, the vehicles involved, and the reason for the crash. Even
 better, it is [publicly available][data]!
 
-[switrs]: http://iswitrs.chp.ca.gov/Reports/jsp/userLogin.jsp
+[switrs]: https://www.chp.ca.gov/programs-services/services-information/switrs-statewide-integrated-traffic-records-system/
 [data]: https://github.com/agude/SWITRS-to-SQLite/blob/master/requesting_data.md
 
 Unfortunately, the data is delivered as a set of large [CSV files][csv].

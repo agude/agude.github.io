@@ -21,7 +21,7 @@ Data Science salaries a little with the same [Insight data][insight] I used
 
 [pay_gap]: https://en.wikipedia.org/wiki/Gender_pay_gap
 [women_in_tech]: https://qz.com/work/1287881/how-technology-companies-alienate-women-during-recruitment/
-[insight]: https://www.insightdatascience.com
+[insight]: https://web.archive.org/web/20200129121516/https://www.insightdatascience.com/
 
 [last_time]: {% post_url 2019-03-26-data_science_salaries %}
 
@@ -32,7 +32,7 @@ scientists younger than 30, women earned slightly more, but in the 30--35 age
 group men earned more.
 
 [florian]: https://flolytic.com/
-[kaggle_survey]: https://flolytic.com/blog/gender-pay-gap-among-data-scientists-on-kaggle
+[kaggle_survey]: https://web.archive.org/web/20190825075155/https://flolytic.com/blog/gender-pay-gap-among-data-scientists-on-kaggle
 
 My data is much smaller, but better curated. However, it has some biases in
 that it is collected from Insight alumni who are mostly:

@@ -65,7 +65,7 @@ science team at [Intuit][intuit]. Failing to get into graduate school in 2008
 was crushing at the time, but it taught me that everyone falls, and sometimes
 they just need a bit of a hand to get back up and on their way.
 
-[insight]: https://www.insightdatascience.com
+[insight]: https://web.archive.org/web/20200129121516/https://www.insightdatascience.com/
 [lab41]: https://www.lab41.org
 [paper]: https://www.dropbox.com/s/q2bquqawpg8htgc/0956.pdf?dl=1
 [arxiv]: https://arxiv.org/abs/1611.06962

@@ -167,7 +167,7 @@ decision to not extend an offer was fair.
 
 [^ab]: The role was a little heavier on [the "analytics" side of data science than the "building" side][ab] which I prefer.
 
-[ab]: https://www.dezyre.com/article/type-a-data-scientist-vs-type-b-data-scientist/194
+[ab]: https://www.projectpro.io/article/type-a-data-scientist-vs-type-b-data-scientist/194
 
 I generally do not apply to work for startups, for a variety of reasons both
 personal and [financial][sense].[^sense] However, I agreed to interview at

@@ -27,7 +27,7 @@ father rode motorcycles for years (he only recently stopped) and we wanted to
 better understand what sort of risks that brought.
 
 [lastpost]: {% post_url 2016-12-02-switrs_crashes_by_date %}
-[switrs]: http://iswitrs.chp.ca.gov/Reports/jsp/userLogin.jsp
+[switrs]: https://www.chp.ca.gov/programs-services/services-information/switrs-statewide-integrated-traffic-records-system/
 
 I expected the crash trend for motorcycles to match the one I found when
 [looking at cars][lastpost]. There I found that commute crashes accounted for

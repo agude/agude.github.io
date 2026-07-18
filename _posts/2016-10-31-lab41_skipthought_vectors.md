@@ -26,7 +26,7 @@ sentences.
 
 [rn]: {% post_url 2016-09-08-lab41_resnet %}
 [arxiv]: https://arxiv.org/abs/1506.06726
-[kiros]: http://www.cs.toronto.edu/~rkiros/
+[kiros]: https://scholar.google.com/citations?user=W8zwlYQAAAAJ&hl=en
 [w2v]: {% post_url 2016-03-09-lab41_python2vec %}#word-embeddings
 
 [^kiros]:

@@ -36,7 +36,7 @@ physics professor had long since been abandoned. I never even applied for a
 [postdoc position][postdoc], which would have been the next step in the
 process.[^pd]
 
-[insight]: https://www.insightdatascience.com
+[insight]: https://web.archive.org/web/20200129121516/https://www.insightdatascience.com/
 
 [should_i_go_insight]: {% post_url 2018-08-21-should_i_go_to_insight %}
 [postdoc]: https://en.wikipedia.org/wiki/Postdoctoral_researcher

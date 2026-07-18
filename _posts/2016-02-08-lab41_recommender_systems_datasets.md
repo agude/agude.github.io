@@ -115,7 +115,7 @@ histogram:
 
 The dataset is [available here][jester].
 
-[jester]: http://eigentaste.berkeley.edu/dataset/
+[jester]: https://goldberg.berkeley.edu/jester-data/
 
 ### Book-Crossings
 
@@ -130,7 +130,7 @@ dense dataset that has explicit ratings.
 The dataset is [available here][bc_data].
 
 [bc]: http://www.bookcrossing.com/
-[bc_data]: http://www2.informatik.uni-freiburg.de/~cziegler/BX/
+[bc_data]: https://grouplens.org/datasets/book-crossing/
 
 ### Last.fm
 
