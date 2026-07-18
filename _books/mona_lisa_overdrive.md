@@ -20,7 +20,8 @@ same_as_urls:
   - "https://www.google.com/search?kgmid=/m/01z43p"
 ---
 
-{% book_link page.title %}, by {% author_link page.book_authors link=false %}, is the third book in {% series_text page.series link=false %}.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the third book in {% series_text page.series link=false %}.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
@@ -34,6 +35,7 @@ same_as_urls:
 {% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
 
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
+{% capture this_series_cap %}The {% series_link page.series %}{% endcapture %}
 
 {% capture neuromancer %}{% book_link "Neuromancer" %}{% endcapture %}
 {% capture count_zero %}{% book_link "Count Zero" %}{% endcapture %}
@@ -86,3 +88,30 @@ same_as_urls:
 
 {% capture the_matrix %}{% movie_title "The Matrix" %}{% endcapture %}
 {% capture colossus %}{% movie_title "Colossus: The Forbin Project" %}{% endcapture %}
+
+### What Remains
+
+The first two books of {{ this_series }} felt cohesive: they're both thrillers
+about surviving in a post-human world of AI and mega-corporations. But each is
+subtly different: {{ neuromancer }} is about bad-asses in space; {{ count_zero
+}} is about more normal people encountering the seemingly divine. {{ this_book
+}} brings the two plots together---3Jane and Tessier-Ashpool in their quest
+for immortality at Villa Straylight; Bobby, Angela, and the newly released Loa
+in the Matrix.
+
+Each books asks a different question: {{ neuromancer }}: what do you lose when
+you become more than human. It is about the body: Case hates his, Molly has
+transformed hers, Linda loses hers but is saved within the Neuromancer AI. {{
+count_zero }}: what does inhuman power looks like from below. It asks how
+humans understand transhuman beings; its answer is "religion". {{ this_book
+}}: what remains of you when your humanity is gone. It is the synthesis of the
+other two: it is about memory, or, fitting with the religious parallels, soul.
+
+This theme start in {{ neuromancer }} with Dixie Flatline, the mindstate of a
+dead hacker's stored in ROM, and with the Tessier and her Neuromancer AI which
+was designed to store human consciousnesses. In {{ this_book }}, memory is
+everywhere. The Finn is now a construct like Flatline, but mixed with the
+religion of {{ count_zero }}: the locals treat him as an oracle and leave
+Vodou offerings. Slick, the ex-con, has short term memory loss inflicted on
+him as part of his punishment. The Yakuza keep their former bosses'
+consciousnesses in cubes to ask questions of.
