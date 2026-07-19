@@ -57,6 +57,7 @@ cyberspace, and maybe a human soul.
 {% capture rajaniemi_lastname %}{% author_link "Hannu Rajaniemi" link_text="Rajaniemi" %}{% endcapture %}
 {% capture rajaniemis_lastname %}{% author_link "Hannu Rajaniemi" link_text="Rajaniemi" possessive %}{% endcapture %}
 {% capture the_quantum_thief %}{% book_link "The Quantum Thief" %}{% endcapture %}
+{% capture jean_le_flambeur %}{% series_link "Jean le Flambeur" %}{% endcapture %}
 
 {% capture keatss %}{% author_link "John Keats" possessive %}{% endcapture %}
 {% capture keats_lastname %}{% author_link "Keats" %}{% endcapture %}
@@ -187,22 +188,20 @@ virtual: cramming the entire world into the Aleph.
 
 ### Influences
 
-Other writers have explored the separation of body and mind, and which part is
-really you.
-
-In {{ simmonss_lastname }} {{ hyperion }}, the Keats cybrid dies
-into life as a virtual construct, and is seen as a continuation of the same
-being.
-
-In {{ strosss_lastname }} {{ accelerando }}, copies are made, propagate, and
-merge forming new beings.
-
-In {{ taylors_lastname }} {{ bobiverse }}, a copy is you, but it will soon
-diverge.
-
-In {{ bankss_lastname }} {{ surface_detail }}, there is a dark inversion of
-the Aleph, where souls are store to be tortured, and in {{ look_to_windward }}
-your soul can be saved at the moment of death by saving it to a computer.
+Throughout {{this_series }}, {{ the_authors_lastname }} has explored the
+separation of the body and mind, and which part---if any---is really you. In
+his work we see copies that are---Bobby and Angela in the Aleph, Linda in
+Neuromancer---and aren't, that are tools made of souls---Flatline, Finn, the
+Yakuza cubes. The difference is that in the Aleph Bobby can remember, the
+tools have no continuity. That's a question that's common in sci-fi: {{
+banks_lastname }} handles it in {{ surface_detail }} and {{ look_to_windward
+}}, where computers record souls to torture them or to save them. In {{
+simmonss_lastname }} {{ hyperion }}, the cybrid Keats dies and becomes fully
+virtual. In {{ strosss_lastname }} {{ accelerando }} and {{
+rajaniemis_lastname }} {{ jean_le_flambeur }}, minds are copied, split,
+merged. In {{ taylors_lastname }} {{ bobiverse }}, a copy is you for the
+moment but becomes its own thing. And {{ qntm }} shows the possible horrors of
+putting a mind in a computer in {{ lena }} and {{ driver }}.
 
 {{ this_book }} reminded me of many other works. The way history has a
 physicality in layers of _gomi_ is similar to how the weight of history is
