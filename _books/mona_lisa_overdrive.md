@@ -110,7 +110,7 @@ a post-human world of AI and mega-corporations, but each is subtly different:
 {{ neuromancer }} is about bad-asses in space; {{ count_zero }} is about
 normal people encountering the seemingly divine. I wasn't sure what {{
 this_book }} would be. It could have been a third variation. Instead it ties
-both together, capping off their plots and storylines.
+both together, capping off their storylines.
 
 Bobby is the clearest example. In {{ count_zero }} he's the anti-Case---a teen
 playing at being a cowboy, nearly killed on his first run. But by {{ this_book
@@ -118,7 +118,7 @@ playing at being a cowboy, nearly killed on his first run. But by {{ this_book
 behind in a coma. Molly returns from {{ neuromancer }} and {{ burning_chrome
 }}, the same no-nonsense street samurai. Angela, whose modified brain was a
 key plot point in {{ count_zero }}, is now the world's biggest simstim star.
-And there's Slick, a new character but familiar archetype, an artist
+And there's Slick, a new character but a familiar archetype: an artist
 assembling junk into memory-preserving robots in the wastelands of New Jersey.
 {{ the_author }} brings these four threads together, and in doing so answers a
 question the trilogy set up from the beginning.
@@ -139,44 +139,44 @@ dead hacker stored in ROM, and with Tessier-Ashpool's Neuromancer AI, which
 was designed to store human consciousnesses. In {{ this_book }}, memory is
 everywhere. The Finn is now a construct like Flatline, but mixed with the
 religion of {{ count_zero }}: the locals treat him as an oracle and leave
-Vodou offerings. Slick, the ex-con, has short-term memory loss inflicted on
-him as part of his punishment. The Yakuza keep their former bosses'
-consciousnesses in cubes to ask questions of. Kumiko's ghost boy has had his
-memory altered, adding in parts he'll need to keep her safe. And finally, The
-Count, Angela, and 3Jane are using the Aleph---a computer that contains a
-simulation of the entire world, based on {{ borgess_lastname }} {{ the_aleph
-}}---to "catch their souls" and store them.
+Vodou offerings. Slick has short-term memory loss imposed as part of his
+punishment. The Yakuza keep their former bosses' consciousnesses in cubes to
+consult. Kumiko's ghost boy has had his memory altered, with parts added that
+he'll need to keep her safe. And finally, The Count, Angela, and 3Jane are
+using the Aleph---a computer that contains a simulation of the entire world,
+based on {{ borgess_lastname }} {{ the_aleph }}---to "catch their souls" and
+store them.
 
 Complementing the theme of memory is _[gomi][gomi]_, which is how Kumiko
 refers to all the antiques, knickknacks, and other pieces of the past that
 litter England. These are the memory of the real world. Tokyo is built on
 layers and layers of _gomi_. The New Jersey Solitude, where Slick's factory
-is, is literally a toxic dump; Slick takes pieces of that _gomi_ and makes
-kinetic sculptures that help him retain his memory. London is a sunsetting
-empire clinging to its past through objects. In {{ neuromancer }},
-Tessier-Ashpool hoards that past, cutting it to pieces and filing it away in
-Straylight without reason; in {{ count_zero }} the box-maker robot sorts
-through the refuse and creates art; in {{ this_book }} 3Jane has gone from
-physical to virtual: cramming the entire world into the Aleph.
+is, is a toxic dump; Slick takes pieces of that _gomi_ and makes kinetic
+sculptures that help him retain his memory. London is a sunsetting empire
+clinging to its past through objects. In {{ neuromancer }}, Tessier-Ashpool
+hoards that past, cutting it to pieces and filing it away in Straylight
+without reason; in {{ count_zero }} the box-maker robot sorts through the
+refuse and creates art; in {{ this_book }} 3Jane has gone from physical to
+virtual: cramming the entire world into the Aleph.
 
 [gomi]: https://en.wiktionary.org/wiki/%E3%82%B4%E3%83%9F
 
 ### Influences
 
-{{ this_book }} reminded me of some other works. The way history has a
+{{ this_book }} reminded me of many other works. The way history has a
 physicality in layers of _gomi_ is similar to how the weight of history is
 represented by the pale in {{ disco_elysium }}, although the pale erases while
-_gomi_ builds. The Aleph is like an inversion of {{ the_matrix }}---the entire
-world virtualized, but for Case it's an escape instead of the prison it is for
-Neo. The way the combined Neuromancer+Wintermute AI woke up and then
-immediately discovered there is another matrix is like Colossus waking up and
-discovering the Soviet AI Guardian in {{ colossus }} (based on {{
-joness_lastname }} {{ colossus_book }}). 3Jane's scheme executing autonomously
-after her death is like the self-directed corporations from {{
-strosss_lastname }} {{ accelerando }}. The Gentleman Loser bar where hackers
-hang out reminds me of the Black Sun in {{ stephensons_lastname }} {{
-snow_crash }}. Angela's mind containing two personalities is like Susan Bates
-with her three personalities in {{ wattss_lastname }} {{ blindsight }}. The
-modular buildings where Mona gets her surgery are like the stacks in {{
-clines_lastname }} {{ ready_player_one }}. The jive handsigns are similar to
-the pronoun waves in {{ an_alexs_lastname }} {{ a_mote_in_shadow }}.
+_gomi_ builds. The Aleph is like an inversion of {{ the_matrix }}: the entire
+world virtualized, but for Bobby it's an escape instead of the prison it is
+for Neo. The combined Neuromancer+Wintermute AI waking up and immediately
+discovering another matrix is like Colossus discovering the Soviet AI Guardian
+in {{ colossus }} (based on {{ joness_lastname }} {{ colossus_book }}).
+3Jane's scheme executing autonomously after her death is like the
+self-directed corporations in {{ strosss_lastname }} {{ accelerando }}. The
+Gentleman Loser bar where hackers hang out reminds me of the Black Sun in {{
+stephensons_lastname }} {{ snow_crash }}. Angela's mind containing two
+personalities is like Susan Bates with her three personalities in {{
+wattss_lastname }} {{ blindsight }}. The modular buildings where Mona gets her
+surgery are like the stacks in {{ clines_lastname }} {{ ready_player_one }}.
+The jive handsigns are similar to the pronoun waves in {{ an_alexs_lastname }}
+{{ a_mote_in_shadow }}.
