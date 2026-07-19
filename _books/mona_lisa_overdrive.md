@@ -52,6 +52,12 @@ cyberspace, and maybe a human soul.
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
 {% capture the_fall_of_hyperion %}{% book_link "The Fall of Hyperion" %}{% endcapture %}
 
+{% capture keatss %}{% author_link "John Keats" possessive %}{% endcapture %}
+{% capture keats_lastname %}{% author_link "Keats" %}{% endcapture %}
+{% capture keatss_lastname %}{% author_link "Keats" possessive %}{% endcapture %}
+{% capture poem %}{% book_link "The Fall of Hyperion: A Dream" %}{% endcapture %}
+{% capture hyperion_keats %}{% book_link "Hyperion" author="John Keats" %}{% endcapture %}
+
 {% capture borges %}{% author_link "Jorge Luis Borges" %}{% endcapture %}
 {% capture borgess %}{% author_link "Jorge Luis Borges" possessive %}{% endcapture %}
 {% capture borges_lastname %}{% author_link "Jorge Luis Borges" link_text="Borges" %}{% endcapture %}
@@ -91,7 +97,13 @@ cyberspace, and maybe a human soul.
 {% capture disco_elysium %}{% book_link "Disco Elysium" %}{% endcapture %}
 
 {% capture the_matrix %}{% movie_title "The Matrix" %}{% endcapture %}
+
 {% capture colossus %}{% movie_title "Colossus: The Forbin Project" %}{% endcapture %}
+{% capture jones %}{% author_link "D. F. Jones" %}{% endcapture %}
+{% capture joness %}{% author_link "D. F. Jones" possessive %}{% endcapture %}
+{% capture jones_lastname %}{% author_link "D. F. Jones" link_text="Jones" %}{% endcapture %}
+{% capture joness_lastname %}{% author_link "D. F. Jones" link_text="Jones" possessive %}{% endcapture %}
+{% capture colossus_book %}{% book_link "Colossus" %}{% endcapture %}
 
 The first two books of {{ this_series }} are both thrillers about surviving in
 a post-human world of AI and mega-corporations, but each is subtly different:
@@ -150,3 +162,21 @@ virtual: cramming the entire world into the Aleph.
 [gomi]: https://en.wiktionary.org/wiki/%E3%82%B4%E3%83%9F
 
 ### Influences
+
+This book remained me of some other works. The way history has a physicality
+in layers of _gomi_ is similar to how the weight of history is represented by
+the pale in {{ disco_elysium }}, although the pale erases while _gomi_ builds.
+The Aleph is like an inversion of {{ the_matrix }}, it the entire world
+vitalized, but for Case it is an escape instead of the prison it is for Neo.
+The way the combined Neuromancer+Wintermute AI woke up and then immediately
+discovered there is another matrix is like Colossus waking up an discovering
+the Soviet AI Guardian in {{ colossus }} (based on {{ joness_lastname }} {{
+colossus_book }}). 3Janes scheme executing autonomously after her death is
+like the self-directed corporations from {{ strosss_lastname }} {{ accelerando
+}}. The Gentleman Loser bar where hackers hangout reminds me of the Black Sun
+in {{ stephensons_lastname }} {{ snow_crash }}. Angela's mind containing two
+personalities is like Susan Bates with her three personalities in {{
+wattss_lastname }} {{ blindsight }}. The modular buildings where Mona gets her
+surgery are like the stacks in {{ clines_lastname }} {{ ready_player_one }}.
+The jive handsigns are similar to the pronoun waves in {{ an_alexs_lastname }}
+{{ a_mote_in_shadow }}.
