@@ -23,6 +23,7 @@ ranked_list:
   - The Hydrogen Sonata
   - Neuromancer
   - Count Zero
+  - Mona Lisa Overdrive
   - The Colonel
   - The Fall of Hyperion
   - The Triumphant
