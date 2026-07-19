@@ -141,16 +141,17 @@ normal people encountering the seemingly divine. I wasn't sure what {{
 this_book }} would be. It could have been a third variation. Instead, it ties
 both together, capping off their storylines.
 
-Bobby is the clearest example. In {{ count_zero }} he's the anti-Case---a teen
-playing at being a cowboy, nearly killed on his first run. But by {{ this_book
-}}, he becomes what Case always wanted: a mind fully in cyberspace, body left
-behind in a coma. Molly returns from {{ neuromancer }} and {{ johnny_mnemonic
-}}, the same no-nonsense street samurai. Angela, whose modified brain was a
-key plot point in {{ count_zero }}, is now the world's biggest simstim star.
-And there's Slick, a new character but a familiar archetype: an artist
-assembling junk into memory-preserving robots in the wastelands of New Jersey.
-{{ the_author }} brings these four threads together, and in doing so answers a
-question the trilogy set up from the beginning.
+Bobby bridges the two most clearly. In {{ count_zero }} he's the anti-Case---a
+teen playing at being a cowboy, nearly killed on his first run. But by {{
+this_book }}, he becomes a mind fully in cyberspace, body left behind in a
+coma: exactly where Case was headed in the first book. Molly returns from {{
+neuromancer }} and {{ johnny_mnemonic }}, the same no-nonsense street samurai.
+Angela, whose modified brain was a key plot point in {{ count_zero }}, is now
+the world's biggest simstim star. And there's Slick, a new character but a
+familiar archetype: an artist assembling junk into memory-preserving robots in
+the wastelands of New Jersey. {{ the_authors_lastname }} brings these four
+threads together, and in doing so answers a question the trilogy set up from
+the beginning.
 
 ### What Remains
 
@@ -159,8 +160,8 @@ what do you lose when you become more than human? It's about the body: Case
 hates his, Molly has transformed hers, Linda loses hers but is saved within
 the Neuromancer AI. {{ count_zero }}: what does inhuman power look like from
 below? It asks how humans understand transhuman beings; its answer is
-"religion". {{ this_book }}: what remains of you when your humanity is gone?
-It synthesizes the other two: it's about memory, or, fitting with the
+"religion". {{ this_book }}: what remains of you when your body is left
+behind? It synthesizes the other two: it's about memory, or, fitting with the
 religious parallels, soul.
 
 This theme starts in {{ neuromancer }} with Dixie Flatline, the mindstate of a
@@ -177,16 +178,15 @@ based on {{ borgess_lastname }} {{ the_aleph }}---to "catch their souls" and
 store them.
 
 Complementing the theme of memory is _[gomi][gomi_link]_, which is how Kumiko
-refers to all the antiques, knickknacks, and other pieces of the past that
-litter England. These are the memory of the real world. Tokyo is built on
-layers and layers of _gomi_. Slick's factory sits in the New Jersey Solitude,
-a toxic dump; he takes pieces of that _gomi_ and makes kinetic sculptures that
-help him retain his memory. London is a sunsetting empire clinging to its past
-through objects. To Kumiko it's an entire city of _gomi_. In {{ neuromancer
-}}, Tessier-Ashpool hoards that past, cutting it to pieces and filing it away
-in Straylight without reason; in {{ count_zero }} the box-maker robot sorts
-through the refuse and creates art; in {{ this_book }} 3Jane has gone from
-physical to virtual: cramming the entire world into the Aleph.
+refers to all the antiques, knickknacks, and clutter that litter England, a
+sunsetting empire clinging to its past through objects. These are the memory
+of the real world. Tokyo is built on layers and layers of _gomi_. Slick's
+factory sits in the New Jersey Solitude, a toxic dump; he takes pieces of that
+_gomi_ and makes kinetic sculptures that help him retain his memory. In {{
+neuromancer }}, Tessier-Ashpool hoards that past, cutting it to pieces and
+filing it away in Straylight without reason; in {{ count_zero }} the box-maker
+robot sorts through the refuse and creates art; in {{ this_book }} 3Jane has
+gone from physical to virtual: cramming the entire world into the Aleph.
 
 [gomi_link]: https://en.wiktionary.org/wiki/%E3%82%B4%E3%83%9F
 
@@ -220,16 +220,16 @@ self-directed corporations in {{ strosss_lastname }} {{ accelerando }}.
 
 The details are familiar too: the Gentleman Loser bar where hackers hang out
 reminds me of the Black Sun in {{ stephensons_lastname }} {{ snow_crash }}.
-Angela's mind containing two personalities is like Susan Bates with her three
-personalities in {{ wattss_lastname }} {{ blindsight }}. The modular buildings
-where Mona gets her surgery are reminiscent of the stacks in {{
-clines_lastname }} {{ ready_player_one }}. The jive hand signs are similar to
-the pronoun waves in {{ an_alexs_lastname }} {{ a_mote_in_shadow }}.
+Angela's mind containing 2 personalities is like Susan Bates with her 3 in {{
+wattss_lastname }} {{ blindsight }}. The modular buildings where Mona gets her
+surgery are reminiscent of the stacks in {{ clines_lastname }} {{
+ready_player_one }}. The jive hand signs are similar to the pronoun waves in
+{{ an_alexs_lastname }} {{ a_mote_in_shadow }}.
 
-{{ the_author }} does an amazing thing with {{ this_series }}: he makes each
-book original, but still clearly part of a greater whole. Each one asks a
-different question about power, the body, and the mind. I originally picked up
-{{ neuromancer }} in order to better understand {{ snow_crash }}, but I didn't
-expect to find a new favorite author. I'm looking forward to more of his work,
-starting with {{ burning_chrome_collection }}, the short story collection
-where {{ series }} began.
+{{ the_authors_lastname }} does an amazing thing with {{ this_series }}: he
+makes each book original, but still clearly part of a greater whole. Each one
+asks a different question about power, the body, and the mind. I originally
+picked up {{ neuromancer }} in order to better understand {{ snow_crash }},
+but I didn't expect to find a new favorite author. I'm looking forward to
+reading more of his work, starting with {{ burning_chrome_collection }}, the
+short story collection where {{ series }} began.
