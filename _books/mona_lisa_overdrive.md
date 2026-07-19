@@ -39,10 +39,14 @@ cyberspace, and maybe a human soul.
 
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 {% capture this_series_cap %}The {% series_link page.series %}{% endcapture %}
+{% capture series %}{% series_link page.series %}{% endcapture %}
 
-{% capture burning_chrome %}{% book_link "Burning Chrome" %}{% endcapture %}
 {% capture neuromancer %}{% book_link "Neuromancer" %}{% endcapture %}
 {% capture count_zero %}{% book_link "Count Zero" %}{% endcapture %}
+{% capture burning_chrome_collection %}{% book_link "Burning Chrome" %}{% endcapture %}
+{% capture johnny_mnemonic %}{% short_story_link "Johnny Mnemonic" %}{% endcapture %}
+{% capture new_rose_hotel %}{% short_story_link "New Rose Hotel" %}{% endcapture %}
+{% capture burning_chrome_story %}{% short_story_link "Burning Chrome" %}{% endcapture %}
 
 {% capture simmons %}{% author_link "Dan Simmons" %}{% endcapture %}
 {% capture simmonss %}{% author_link "Dan Simmons" possessive %}{% endcapture %}
@@ -140,7 +144,7 @@ both together, capping off their storylines.
 Bobby is the clearest example. In {{ count_zero }} he's the anti-Case---a teen
 playing at being a cowboy, nearly killed on his first run. But by {{ this_book
 }}, he becomes what Case always wanted: a mind fully in cyberspace, body left
-behind in a coma. Molly returns from {{ neuromancer }} and {{ burning_chrome
+behind in a coma. Molly returns from {{ neuromancer }} and {{ johnny_mnemonic
 }}, the same no-nonsense street samurai. Angela, whose modified brain was a
 key plot point in {{ count_zero }}, is now the world's biggest simstim star.
 And there's Slick, a new character but a familiar archetype: an artist
@@ -156,7 +160,7 @@ hates his, Molly has transformed hers, Linda loses hers but is saved within
 the Neuromancer AI. {{ count_zero }}: what does inhuman power look like from
 below? It asks how humans understand transhuman beings; its answer is
 "religion". {{ this_book }}: what remains of you when your humanity is gone?
-It's the synthesis of the other two: it's about memory, or, fitting with the
+It synthesizes the other two: it's about memory, or, fitting with the
 religious parallels, soul.
 
 This theme starts in {{ neuromancer }} with Dixie Flatline, the mindstate of a
@@ -172,36 +176,36 @@ using the Aleph---a computer that contains a simulation of the entire world,
 based on {{ borgess_lastname }} {{ the_aleph }}---to "catch their souls" and
 store them.
 
-Complementing the theme of memory is _[gomi][gomi]_, which is how Kumiko
+Complementing the theme of memory is _[gomi][gomi_link]_, which is how Kumiko
 refers to all the antiques, knickknacks, and other pieces of the past that
 litter England. These are the memory of the real world. Tokyo is built on
-layers and layers of _gomi_. The New Jersey Solitude, where Slick's factory
-is, is a toxic dump; Slick takes pieces of that _gomi_ and makes kinetic
-sculptures that help him retain his memory. London is a sunsetting empire
-clinging to its past through objects. In {{ neuromancer }}, Tessier-Ashpool
-hoards that past, cutting it to pieces and filing it away in Straylight
-without reason; in {{ count_zero }} the box-maker robot sorts through the
-refuse and creates art; in {{ this_book }} 3Jane has gone from physical to
-virtual: cramming the entire world into the Aleph.
+layers and layers of _gomi_. Slick's factory sits in the New Jersey Solitude,
+a toxic dump; he takes pieces of that _gomi_ and makes kinetic sculptures that
+help him retain his memory. London is a sunsetting empire clinging to its past
+through objects. To Kumiko it's an entire city of _gomi_. In {{ neuromancer
+}}, Tessier-Ashpool hoards that past, cutting it to pieces and filing it away
+in Straylight without reason; in {{ count_zero }} the box-maker robot sorts
+through the refuse and creates art; in {{ this_book }} 3Jane has gone from
+physical to virtual: cramming the entire world into the Aleph.
 
 [gomi]: https://en.wiktionary.org/wiki/%E3%82%B4%E3%83%9F
 
 ### Influences
 
-Throughout {{this_series }}, {{ the_authors_lastname }} has explored the
-separation of the body and mind, and which part---if any---is really you. In
-his work we see copies that are---Bobby and Angela in the Aleph, Linda in
-Neuromancer---and aren't, that are tools made of souls---Flatline, Finn, the
-Yakuza cubes. The difference is that in the Aleph Bobby can remember, the
-tools have no continuity. That's a question that's common in sci-fi: {{
-banks_lastname }} handles it in {{ surface_detail }} and {{ look_to_windward
-}}, where computers record souls to torture them or to save them. In {{
-simmonss_lastname }} {{ hyperion }}, the cybrid Keats dies and becomes fully
-virtual. In {{ strosss_lastname }} {{ accelerando }} and {{
-rajaniemis_lastname }} {{ jean_le_flambeur }}, minds are copied, split,
-merged. In {{ taylors_lastname }} {{ bobiverse }}, a copy is you for the
-moment but becomes its own thing. And {{ qntm }} shows the possible horrors of
-putting a mind in a computer in {{ lena }} and {{ driver }}.
+Throughout {{ this_series }}, {{ the_authors_lastname }} has explored the
+separation of body and mind, and which part---if any---is really you. In his
+work, some copies are real---Bobby and Angela in the Aleph, Linda in
+Neuromancer---while others are tools made of souls: Flatline, the Finn, the
+Yakuza cubes. The difference is memory. Bobby can remember; the tools have no
+continuity. That question is common in sci-fi: {{ banks_lastname }} handles it
+in {{ surface_detail }} and {{ look_to_windward }}, where computers record
+souls to torture them or to save them. In {{ simmonss_lastname }} {{ hyperion
+}}, the cybrid Keats dies and becomes fully virtual. In {{ strosss_lastname }}
+{{ accelerando }} and {{ rajaniemis_lastname }} {{ jean_le_flambeur }}, minds
+are copied, split, merged. In {{ taylors_lastname }} {{ bobiverse }}, a copy
+is you for the moment but becomes its own thing. And {{ qntm }} shows the
+possible horrors of putting a mind in a computer in {{ lena }} and {{ driver
+}}.
 
 {{ this_book }} reminded me of many other works. The Aleph is like an
 inversion of {{ the_matrix }}: the entire world virtualized, but for Bobby
@@ -222,4 +226,10 @@ where Mona gets her surgery are reminiscent of the stacks in {{
 clines_lastname }} {{ ready_player_one }}. The jive handsigns are similar to
 the pronoun waves in {{ an_alexs_lastname }} {{ a_mote_in_shadow }}.
 
-{{ this_series }}
+{{ the_author }} does an amazing thing with {{ this_series }}: he makes each
+book original, but still clearly part of a greater whole. Each one asks a
+different question about power, the body, and the mind. I originally picked up
+{{ neuromancer }} in order to better understand {{ snow_crash }}, but I didn't
+expect to find a new favorite author. I'm looking forward to more of his work,
+starting with {{ burning_chrome_collection }}, the short story collection
+where {{ series }} began.
