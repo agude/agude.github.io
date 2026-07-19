@@ -37,6 +37,7 @@ is the third book in {% series_text page.series link=false %}.
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 {% capture this_series_cap %}The {% series_link page.series %}{% endcapture %}
 
+{% capture burning_chrome %}{% book_link "Burning Chrome" %}{% endcapture %}
 {% capture neuromancer %}{% book_link "Neuromancer" %}{% endcapture %}
 {% capture count_zero %}{% book_link "Count Zero" %}{% endcapture %}
 
@@ -89,23 +90,34 @@ is the third book in {% series_text page.series link=false %}.
 {% capture the_matrix %}{% movie_title "The Matrix" %}{% endcapture %}
 {% capture colossus %}{% movie_title "Colossus: The Forbin Project" %}{% endcapture %}
 
+The first two books of {{ this_series }} are both thrillers about surviving in
+a post-human world of AI and mega-corporations, but each is subtly different:
+{{ neuromancer }} is about bad-asses in space; {{ count_zero }} is about
+normal people encountering the seemingly divine. I wasn't sure what {{
+this_book }} would be. It could have been a third variation. Instead it ties
+both together, capping off their plots and storylines.
+
+Bobby is the clearest example. In {{ count_zero }} he's the anti-Case---a teen
+playing at being a cowboy, nearly killed on his first run. But by {{ this_book
+}}, he becomes what Case always wanted: a mind fully in cyberspace, body left
+behind in a coma. Molly returns from {{ neuromancer }} and {{ burning_chrome
+}}, the same no nonsense street samurai. Angela, whose modified brain was a
+key plot point in {{ count_zero }}, is now the world biggest simstim star. And
+there's Slick, a new character but familiar archetype, an artist assembling
+junk into memory preserving robots in the wastelands of New Jersey. {{
+the_author }} brings these four threads together, and in doing so answers a
+question the trilogy set up since the beginning.
+
 ### What Remains
 
-The first two books of {{ this_series }} felt cohesive: they're both thrillers
-about surviving in a post-human world of AI and mega-corporations. But each is
-subtly different: {{ neuromancer }} is about bad-asses in space; {{ count_zero
-}} is about more normal people encountering the seemingly divine. {{ this_book
-}} brings the two plots together---3Jane and Tessier-Ashpool in their quest
-for immortality at Villa Straylight; Bobby, Angela, and the newly released Loa
-in the Matrix.
-
-Each book asks a different question. {{ neuromancer }}: what do you lose when
-you become more than human? It is about the body: Case hates his, Molly has
-transformed hers, Linda loses hers but is saved within the Neuromancer AI. {{
-count_zero }}: what does inhuman power look like from below? It asks how
-humans understand transhuman beings; its answer is "religion". {{ this_book
-}}: what remains of you when your humanity is gone? It is the synthesis of the
-other two: it is about memory, or, fitting with the religious parallels, soul.
+Each book in {{ this_series }} asks a different question. {{ neuromancer }}:
+what do you lose when you become more than human? It is about the body: Case
+hates his, Molly has transformed hers, Linda loses hers but is saved within
+the Neuromancer AI. {{ count_zero }}: what does inhuman power look like from
+below? It asks how humans understand transhuman beings; its answer is
+"religion". {{ this_book }}: what remains of you when your humanity is gone?
+It is the synthesis of the other two: it is about memory, or, fitting with the
+religious parallels, soul.
 
 This theme starts in {{ neuromancer }} with Dixie Flatline, the mindstate of a
 dead hacker stored in ROM, and with Tessier-Ashpool's Neuromancer AI which was
