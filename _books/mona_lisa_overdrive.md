@@ -21,7 +21,10 @@ same_as_urls:
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the third book in {% series_text page.series link=false %}.
+is the third and final book in {% series_text page.series link=false %}. It
+brings together characters from both previous books---Molly, Angela, Bobby,
+and the ghost of 3Jane---around a device that can hold the entirety of
+cyberspace, and maybe a human soul.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
