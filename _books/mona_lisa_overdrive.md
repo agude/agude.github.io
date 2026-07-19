@@ -52,6 +52,12 @@ cyberspace, and maybe a human soul.
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
 {% capture the_fall_of_hyperion %}{% book_link "The Fall of Hyperion" %}{% endcapture %}
 
+{% capture rajaniemi %}{% author_link "Hannu Rajaniemi" %}{% endcapture %}
+{% capture rajaniemis %}{% author_link "Hannu Rajaniemi" possessive %}{% endcapture %}
+{% capture rajaniemi_lastname %}{% author_link "Hannu Rajaniemi" link_text="Rajaniemi" %}{% endcapture %}
+{% capture rajaniemis_lastname %}{% author_link "Hannu Rajaniemi" link_text="Rajaniemi" possessive %}{% endcapture %}
+{% capture the_quantum_thief %}{% book_link "The Quantum Thief" %}{% endcapture %}
+
 {% capture keatss %}{% author_link "John Keats" possessive %}{% endcapture %}
 {% capture keats_lastname %}{% author_link "Keats" %}{% endcapture %}
 {% capture keatss_lastname %}{% author_link "Keats" possessive %}{% endcapture %}
@@ -104,6 +110,24 @@ cyberspace, and maybe a human soul.
 {% capture jones_lastname %}{% author_link "D. F. Jones" link_text="Jones" %}{% endcapture %}
 {% capture joness_lastname %}{% author_link "D. F. Jones" link_text="Jones" possessive %}{% endcapture %}
 {% capture colossus_book %}{% book_link "Colossus" %}{% endcapture %}
+
+{% capture taylor %}{% author_link "Dennis E. Taylor" %}{% endcapture %}
+{% capture taylors %}{% author_link "Dennis E. Taylor" possessive %}{% endcapture %}
+{% capture taylor_lastname %}{% author_link "Dennis E. Taylor" link_text="Taylor" %}{% endcapture %}
+{% capture taylors_lastname %}{% author_link "Dennis E. Taylor" link_text="Taylor" possessive %}{% endcapture %}
+{% capture bobiverse %}{% series_link "Bobiverse" %}{% endcapture %}
+
+{% capture qntm %}{% author_link "qntm" %}{% endcapture %}
+{% capture qntms %}{% author_link "qntm" possessive %}{% endcapture %}
+{% capture lena %}{% short_story_link "Lena" %}{% endcapture %}
+{% capture driver %}{% short_story_link "Driver" %}{% endcapture %}
+
+{% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
+{% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
+{% capture banks_lastname %}{% author_link "Iain M. Banks" link_text="Banks" %}{% endcapture %}
+{% capture bankss_lastname %}{% author_link "Iain M. Banks" link_text="Banks" possessive %}{% endcapture %}
+{% capture surface_detail %}{% book_link "Surface Detail" %}{% endcapture %}
+{% capture look_to_windward %}{% book_link "Look to Windward" %}{% endcapture %}
 
 The first two books of {{ this_series }} are both thrillers about surviving in
 a post-human world of AI and mega-corporations, but each is subtly different:
@@ -163,6 +187,23 @@ virtual: cramming the entire world into the Aleph.
 
 ### Influences
 
+Other writers have explored the separation of body and mind, and which part is
+really you.
+
+In {{ simmonss_lastname }} {{ hyperion }}, the Keats cybrid dies
+into life as a virtual construct, and is seen as a continuation of the same
+being.
+
+In {{ strosss_lastname }} {{ accelerando }}, copies are made, propagate, and
+merge forming new beings.
+
+In {{ taylors_lastname }} {{ bobiverse }}, a copy is you, but it will soon
+diverge.
+
+In {{ bankss_lastname }} {{ surface_detail }}, there is a dark inversion of
+the Aleph, where souls are store to be tortured, and in {{ look_to_windward }}
+your soul can be saved at the moment of death by saving it to a computer.
+
 {{ this_book }} reminded me of many other works. The way history has a
 physicality in layers of _gomi_ is similar to how the weight of history is
 represented by the pale in {{ disco_elysium }}, although the pale erases while
@@ -180,3 +221,5 @@ wattss_lastname }} {{ blindsight }}. The modular buildings where Mona gets her
 surgery are like the stacks in {{ clines_lastname }} {{ ready_player_one }}.
 The jive handsigns are similar to the pronoun waves in {{ an_alexs_lastname }}
 {{ a_mote_in_shadow }}.
+
+{{ this_series }}
