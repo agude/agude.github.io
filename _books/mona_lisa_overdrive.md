@@ -116,67 +116,67 @@ Bobby is the clearest example. In {{ count_zero }} he's the anti-Case---a teen
 playing at being a cowboy, nearly killed on his first run. But by {{ this_book
 }}, he becomes what Case always wanted: a mind fully in cyberspace, body left
 behind in a coma. Molly returns from {{ neuromancer }} and {{ burning_chrome
-}}, the same no nonsense street samurai. Angela, whose modified brain was a
-key plot point in {{ count_zero }}, is now the world biggest simstim star. And
-there's Slick, a new character but familiar archetype, an artist assembling
-junk into memory preserving robots in the wastelands of New Jersey. {{
-the_author }} brings these four threads together, and in doing so answers a
-question the trilogy set up since the beginning.
+}}, the same no-nonsense street samurai. Angela, whose modified brain was a
+key plot point in {{ count_zero }}, is now the world's biggest simstim star.
+And there's Slick, a new character but familiar archetype, an artist
+assembling junk into memory-preserving robots in the wastelands of New Jersey.
+{{ the_author }} brings these four threads together, and in doing so answers a
+question the trilogy set up from the beginning.
 
 ### What Remains
 
 Each book in {{ this_series }} asks a different question. {{ neuromancer }}:
-what do you lose when you become more than human? It is about the body: Case
+what do you lose when you become more than human? It's about the body: Case
 hates his, Molly has transformed hers, Linda loses hers but is saved within
 the Neuromancer AI. {{ count_zero }}: what does inhuman power look like from
 below? It asks how humans understand transhuman beings; its answer is
 "religion". {{ this_book }}: what remains of you when your humanity is gone?
-It is the synthesis of the other two: it is about memory, or, fitting with the
+It's the synthesis of the other two: it's about memory, or, fitting with the
 religious parallels, soul.
 
 This theme starts in {{ neuromancer }} with Dixie Flatline, the mindstate of a
-dead hacker stored in ROM, and with Tessier-Ashpool's Neuromancer AI which was
-designed to store human consciousnesses. In {{ this_book }}, memory is
+dead hacker stored in ROM, and with Tessier-Ashpool's Neuromancer AI, which
+was designed to store human consciousnesses. In {{ this_book }}, memory is
 everywhere. The Finn is now a construct like Flatline, but mixed with the
 religion of {{ count_zero }}: the locals treat him as an oracle and leave
-Vodou offerings. Slick, the ex-con, has short term memory loss inflicted on
+Vodou offerings. Slick, the ex-con, has short-term memory loss inflicted on
 him as part of his punishment. The Yakuza keep their former bosses'
-consciousnesses in cubes to ask questions of. Kumi's ghost boy has had his
+consciousnesses in cubes to ask questions of. Kumiko's ghost boy has had his
 memory altered, adding in parts he'll need to keep her safe. And finally, The
 Count, Angela, and 3Jane are using the Aleph---a computer that contains a
 simulation of the entire world, based on {{ borgess_lastname }} {{ the_aleph
 }}---to "catch their souls" and store them.
 
-Complementing the theme of memory is _[Gomi][gomi]_, which is how Kumi refers
-to all the antiques, knickknacks, and other pieces of the past that litter
-England. These are the memory of the real world. Tokyo is built on layers and
-layers of _gomi_. The New Jersey Solitude, where Slick's factory is, is
-literally a toxic dump; Slick takes pieces of that _gomi_ and makes kinetic
-sculptures that help him retain his memory. London is a sunsetting empire
-clinging to its past through objects. In {{ neuromancer }}, Tessier-Ashpool
-hoards that past, cutting it to pieces and filling it away in Straylight
-without reason; in {{ count_zero }} the box-maker robot sorts through the
-refuse and creates art; in {{ this_book }} 3Jane has gone from physical to
-virtual: cramming the entire world into the Aleph.
+Complementing the theme of memory is _[gomi][gomi]_, which is how Kumiko
+refers to all the antiques, knickknacks, and other pieces of the past that
+litter England. These are the memory of the real world. Tokyo is built on
+layers and layers of _gomi_. The New Jersey Solitude, where Slick's factory
+is, is literally a toxic dump; Slick takes pieces of that _gomi_ and makes
+kinetic sculptures that help him retain his memory. London is a sunsetting
+empire clinging to its past through objects. In {{ neuromancer }},
+Tessier-Ashpool hoards that past, cutting it to pieces and filing it away in
+Straylight without reason; in {{ count_zero }} the box-maker robot sorts
+through the refuse and creates art; in {{ this_book }} 3Jane has gone from
+physical to virtual: cramming the entire world into the Aleph.
 
 [gomi]: https://en.wiktionary.org/wiki/%E3%82%B4%E3%83%9F
 
 ### Influences
 
-This book remained me of some other works. The way history has a physicality
-in layers of _gomi_ is similar to how the weight of history is represented by
-the pale in {{ disco_elysium }}, although the pale erases while _gomi_ builds.
-The Aleph is like an inversion of {{ the_matrix }}, it the entire world
-vitalized, but for Case it is an escape instead of the prison it is for Neo.
-The way the combined Neuromancer+Wintermute AI woke up and then immediately
-discovered there is another matrix is like Colossus waking up an discovering
-the Soviet AI Guardian in {{ colossus }} (based on {{ joness_lastname }} {{
-colossus_book }}). 3Janes scheme executing autonomously after her death is
-like the self-directed corporations from {{ strosss_lastname }} {{ accelerando
-}}. The Gentleman Loser bar where hackers hangout reminds me of the Black Sun
-in {{ stephensons_lastname }} {{ snow_crash }}. Angela's mind containing two
-personalities is like Susan Bates with her three personalities in {{
-wattss_lastname }} {{ blindsight }}. The modular buildings where Mona gets her
-surgery are like the stacks in {{ clines_lastname }} {{ ready_player_one }}.
-The jive handsigns are similar to the pronoun waves in {{ an_alexs_lastname }}
-{{ a_mote_in_shadow }}.
+{{ this_book }} reminded me of some other works. The way history has a
+physicality in layers of _gomi_ is similar to how the weight of history is
+represented by the pale in {{ disco_elysium }}, although the pale erases while
+_gomi_ builds. The Aleph is like an inversion of {{ the_matrix }}---the entire
+world virtualized, but for Case it's an escape instead of the prison it is for
+Neo. The way the combined Neuromancer+Wintermute AI woke up and then
+immediately discovered there is another matrix is like Colossus waking up and
+discovering the Soviet AI Guardian in {{ colossus }} (based on {{
+joness_lastname }} {{ colossus_book }}). 3Jane's scheme executing autonomously
+after her death is like the self-directed corporations from {{
+strosss_lastname }} {{ accelerando }}. The Gentleman Loser bar where hackers
+hang out reminds me of the Black Sun in {{ stephensons_lastname }} {{
+snow_crash }}. Angela's mind containing two personalities is like Susan Bates
+with her three personalities in {{ wattss_lastname }} {{ blindsight }}. The
+modular buildings where Mona gets her surgery are like the stacks in {{
+clines_lastname }} {{ ready_player_one }}. The jive handsigns are similar to
+the pronoun waves in {{ an_alexs_lastname }} {{ a_mote_in_shadow }}.
