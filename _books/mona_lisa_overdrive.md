@@ -203,22 +203,23 @@ merged. In {{ taylors_lastname }} {{ bobiverse }}, a copy is you for the
 moment but becomes its own thing. And {{ qntm }} shows the possible horrors of
 putting a mind in a computer in {{ lena }} and {{ driver }}.
 
-{{ this_book }} reminded me of many other works. The way history has a
-physicality in layers of _gomi_ is similar to how the weight of history is
+{{ this_book }} reminded me of many other works. The Aleph is like an
+inversion of {{ the_matrix }}: the entire world virtualized, but for Bobby
+it's an escape instead of the prison it is for Neo. The way history has a
+physicality in layers of gomi is similar to how the weight of history is
 represented by the pale in {{ disco_elysium }}, although the pale erases while
-_gomi_ builds. The Aleph is like an inversion of {{ the_matrix }}: the entire
-world virtualized, but for Bobby it's an escape instead of the prison it is
-for Neo. The combined Neuromancer+Wintermute AI waking up and immediately
+gomi builds. The combined Neuromancer+Wintermute AI waking up and immediately
 discovering another matrix is like Colossus discovering the Soviet AI Guardian
 in {{ colossus }} (based on {{ joness_lastname }} {{ colossus_book }}).
 3Jane's scheme executing autonomously after her death is like the
-self-directed corporations in {{ strosss_lastname }} {{ accelerando }}. The
-Gentleman Loser bar where hackers hang out reminds me of the Black Sun in {{
-stephensons_lastname }} {{ snow_crash }}. Angela's mind containing two
-personalities is like Susan Bates with her three personalities in {{
-wattss_lastname }} {{ blindsight }}. The modular buildings where Mona gets her
-surgery are like the stacks in {{ clines_lastname }} {{ ready_player_one }}.
-The jive handsigns are similar to the pronoun waves in {{ an_alexs_lastname }}
-{{ a_mote_in_shadow }}.
+self-directed corporations in {{ strosss_lastname }} {{ accelerando }}.
+
+The details are familiar too: the Gentleman Loser bar where hackers hang out
+reminds me of the Black Sun in {{ stephensons_lastname }} {{ snow_crash }}.
+Angela's mind containing two personalities is like Susan Bates with her three
+personalities in {{ wattss_lastname }} {{ blindsight }}. The modular buildings
+where Mona gets her surgery are reminiscent of the stacks in {{
+clines_lastname }} {{ ready_player_one }}. The jive handsigns are similar to
+the pronoun waves in {{ an_alexs_lastname }} {{ a_mote_in_shadow }}.
 
 {{ this_series }}
