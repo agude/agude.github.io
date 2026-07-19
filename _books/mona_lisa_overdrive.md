@@ -138,7 +138,7 @@ The first two books of {{ this_series }} are both thrillers about surviving in
 a post-human world of AI and mega-corporations, but each is subtly different:
 {{ neuromancer }} is about bad-asses in space; {{ count_zero }} is about
 normal people encountering the seemingly divine. I wasn't sure what {{
-this_book }} would be. It could have been a third variation. Instead it ties
+this_book }} would be. It could have been a third variation. Instead, it ties
 both together, capping off their storylines.
 
 Bobby is the clearest example. In {{ count_zero }} he's the anti-Case---a teen
@@ -188,7 +188,7 @@ in Straylight without reason; in {{ count_zero }} the box-maker robot sorts
 through the refuse and creates art; in {{ this_book }} 3Jane has gone from
 physical to virtual: cramming the entire world into the Aleph.
 
-[gomi]: https://en.wiktionary.org/wiki/%E3%82%B4%E3%83%9F
+[gomi_link]: https://en.wiktionary.org/wiki/%E3%82%B4%E3%83%9F
 
 ### Influences
 
@@ -223,7 +223,7 @@ reminds me of the Black Sun in {{ stephensons_lastname }} {{ snow_crash }}.
 Angela's mind containing two personalities is like Susan Bates with her three
 personalities in {{ wattss_lastname }} {{ blindsight }}. The modular buildings
 where Mona gets her surgery are reminiscent of the stacks in {{
-clines_lastname }} {{ ready_player_one }}. The jive handsigns are similar to
+clines_lastname }} {{ ready_player_one }}. The jive hand signs are similar to
 the pronoun waves in {{ an_alexs_lastname }} {{ a_mote_in_shadow }}.
 
 {{ the_author }} does an amazing thing with {{ this_series }}: he makes each
