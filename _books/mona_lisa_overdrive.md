@@ -31,7 +31,7 @@ cyberspace, and maybe a human soul.
 {% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text=author_last_name_text %}{% endcapture %}
 
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
-{% capture series %}{% series_link page.series %}{% endcapture %}
+{% capture series %}the {% series_link page.series %}{% endcapture %}
 
 {% capture neuromancer %}{% book_link "Neuromancer" %}{% endcapture %}
 {% capture count_zero %}{% book_link "Count Zero" %}{% endcapture %}
