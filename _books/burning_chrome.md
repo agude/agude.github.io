@@ -1,5 +1,5 @@
 ---
-date: 2026-07-16
+date: 2026-07-24 13:48:00 -0700
 title: Burning Chrome
 book_authors:
   - William Gibson
@@ -108,6 +108,11 @@ page.book_authors[0] link=false %}.
 {% capture a_colder_war %}{% book_link "A Colder War" %}{% endcapture %}
 {% capture accelerando %}{% book_link "Accelerando" %}{% endcapture %}
 
+{% capture the_state_of_the_art %}{% book_link "The State of the Art" %}{% endcapture %}
+{% capture cleaning_up %}{% short_story_link "Cleaning Up" %}{% endcapture %}
+
+{% capture lena %}{% short_story_link "Lena" %}{% endcapture %}
+
 ### {% short_story_title "Johnny Mnemonic" %}
 
 {% rating_stars 4 %}
@@ -142,14 +147,14 @@ Co-written with {{ sterling }}.
 
 ### {% short_story_title "The Winter Market" %}
 
-{% rating_stars null %}
+{% rating_stars 4 %}
 
 ### {% short_story_title "Dogfight" %}
 
-{% rating_stars null %}
+{% rating_stars 3 %}
 
 Co-written with {{ swanwick }}.
 
 ### {% short_story_title "Burning Chrome" %}
 
-{% rating_stars null %}
+{% rating_stars 4 %}
