@@ -54,6 +54,7 @@ ranked_list:
   - Dragon's Egg
   - Wild Seed
   - The Unconquerable
+  - Burning Chrome
   - The Short Victorious War
   - Pandora's Star
   - Judas Unchained

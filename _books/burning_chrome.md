@@ -6,10 +6,10 @@ book_authors:
   - John Shirley
   - Bruce Sterling
   - Michael Swanwick
-series: null
-book_number: 1
+series: Sprawl
+book_number: 0
 is_anthology: true
-rating: null
+rating: 4
 image: /books/covers/burning_chrome.jpg
 wikidata_qid: Q1068344
 isbn: 978-0-87795-780-5
