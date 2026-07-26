@@ -41,6 +41,17 @@ page.book_authors[0] link=false %}.
 {% capture sterling %}{% author_link page.book_authors[2] %}{% endcapture %}
 {% capture swanwick %}{% author_link page.book_authors[3] %}{% endcapture %}
 
+{% capture johnny_mnemonic %}{% short_story_link "Johnny Mnemonic" %}{% endcapture %}
+{% capture the_gernsback_continuum %}{% short_story_link "The Gernsback Continuum" %}{% endcapture %}
+{% capture fragments_of_a_hologram_rose %}{% short_story_link "Fragments of a Hologram Rose" %}{% endcapture %}
+{% capture the_belonging_kind %}{% short_story_link "The Belonging Kind" %}{% endcapture %}
+{% capture hinterlands %}{% short_story_link "Hinterlands" %}{% endcapture %}
+{% capture red_star_winter_orbit %}{% short_story_link "Red Star, Winter Orbit" %}{% endcapture %}
+{% capture new_rose_hotel %}{% short_story_link "New Rose Hotel" %}{% endcapture %}
+{% capture the_winter_market %}{% short_story_link "The Winter Market" %}{% endcapture %}
+{% capture dogfight %}{% short_story_link "Dogfight" %}{% endcapture %}
+{% capture burning_chrome %}{% short_story_link "Burning Chrome" %}{% endcapture %}
+
 {% capture sprawl %}{% series_link "Sprawl" %}{% endcapture %}
 {% capture neuromancer %}{% book_link "Neuromancer" %}{% endcapture %}
 {% capture count_zero %}{% book_link "Count Zero" %}{% endcapture %}
@@ -92,8 +103,8 @@ page.book_authors[0] link=false %}.
 
 {% capture arkady_strugatsky %}{% author_link "Arkady Strugatsky" %}{% endcapture %}
 {% capture boris_strugatsky %}{% author_link "Boris Strugatsky" %}{% endcapture %}
-{% capture arkady_and_boris %}{% author_link "Arkady Strugatsky" %} and {% author_link "Boris Strugatsky" %}{% endcapture %}
-{% capture arkady_and_boriss %}{% author_link "Arkady Strugatsky" %} and {% author_link "Boris Strugatsky" possessive %}{% endcapture %}
+{% capture arkady_and_boris_strugatsky %}{% author_link "Arkady Strugatsky" link_text="Arkady" %} and {% author_link "Boris Strugatsky" %}{% endcapture %}
+{% capture arkady_and_boris_strugatskys %}{% author_link "Arkady Strugatsky" link_text="Arkady" %} and {% author_link "Boris Strugatsky" possessive %}{% endcapture %}
 {% capture roadside_picnic %}{% book_link "Roadside Picnic" %}{% endcapture %}
 
 {% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
@@ -112,6 +123,16 @@ page.book_authors[0] link=false %}.
 {% capture cleaning_up %}{% short_story_link "Cleaning Up" %}{% endcapture %}
 
 {% capture lena %}{% short_story_link "Lena" %}{% endcapture %}
+
+{% capture watts %}{% author_link "Peter Watts" %}{% endcapture %}
+{% capture wattss %}{% author_link "Peter Watts" possessive %}{% endcapture %}
+{% capture watts_lastname %}{% author_link "Peter Watts" link_text="Watts" %}{% endcapture %}
+{% capture wattss_lastname %}{% author_link "Peter Watts" link_text="Watts" possessive %}{% endcapture %}
+{% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
+{% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}
+{% capture firefall %}{% series_link "Firefall" %}{% endcapture %}
+
+{{ this_book }} 
 
 ### {% short_story_title "Johnny Mnemonic" %}
 
@@ -134,6 +155,19 @@ Co-written with {{ shirley }}.
 ### {% short_story_title "Hinterlands" %}
 
 {% rating_stars 5 %}
+
+{{ hinterlands }} is the best story in {{ this_book }}. It perfectly balances
+the sense of wonder and dread I love in science fiction. It's about surrogates
+at a space station. Their job is to rendezvous with astronauts returning
+through the wormhole, most of whom kill themselves immediately, but some of
+whom share transformative knowledge before their insanity gets to them.
+
+<!-- Themes, etc. --> Cosmic horror, rejection, sacrifice.
+
+Only a few other books have balanced wonder and dread in the way this story
+does: {{ arkady_and_boris_strugatskys }} {{ roadside_picnic }}, of course,
+which this story is influenced by; {{ strosss_lastname }} {{ a_colder_war }};
+{{ wattss_lastname }} {{ firefall }}.
 
 ### {% short_story_title "Red Star, Winter Orbit" %}
 
