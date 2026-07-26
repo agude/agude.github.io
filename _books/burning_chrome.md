@@ -142,6 +142,15 @@ page.book_authors[0] link=false %}.
 
 {% rating_stars 3 %}
 
+{{ the_authors_lastname }} doesn't write horror, but much of what he writes is
+horrifying.
+
+<!-- Needs polish -->The way he throws in worldbuilding---puppet shops, fast
+growing customer tailored cancers---but makes them an almost mundane part of
+the world adds to it. Mostly his work examines the implications of the future,
+but {{ the_gernsback_continuum }} instead looks backwards, at a present shaped
+by 1930s retrofuturism nostalgia.
+
 ### {% short_story_title "Fragments of a Hologram Rose" %}
 
 {% rating_stars 3 %}
