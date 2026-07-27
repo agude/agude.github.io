@@ -52,7 +52,9 @@ page.book_authors[0] link=false %}.
 {% capture dogfight %}{% short_story_link "Dogfight" %}{% endcapture %}
 {% capture burning_chrome %}{% short_story_link "Burning Chrome" %}{% endcapture %}
 
+{% capture this_series %}{% series_text page.series %}{% endcapture %}
 {% capture sprawl %}{% series_link "Sprawl" %}{% endcapture %}
+{% capture sprawl_trilogy %}the {% series_link page.series %} trilogy{% endcapture %}
 {% capture neuromancer %}{% book_link "Neuromancer" %}{% endcapture %}
 {% capture count_zero %}{% book_link "Count Zero" %}{% endcapture %}
 {% capture mona_lisa_overdrive %}{% book_link "Mona Lisa Overdrive" %}{% endcapture %}
@@ -132,7 +134,19 @@ page.book_authors[0] link=false %}.
 {% capture echopraxia %}{% book_link "Echopraxia" %}{% endcapture %}
 {% capture firefall %}{% series_link "Firefall" %}{% endcapture %}
 
-{{ this_book }} 
+{{ this_book }} was published after {{ neuromancer }} and {{ count_zero }},
+but most of the stories were written before, and it shows two ways:
+
+First, the prose in the {{ sprawl_trilogy }} is light, sparse, almost poetic.
+{{ the_authors_lastname }} doesn't tell you everything, he gives you just
+enough words to give you the impression and trusts your mind to fill in the
+rest. These early works are much heavier, the prose slower, the descriptions
+longer.
+
+Second, many of the ideas and themes {{ the_authors_lastname }} expands in his
+novels were first tested out in these short stories. This is clearest in the
+{{ sprawl }} short stories---{{ johnny_mnemonic }}, {{ new_rose_hotel }}, {{
+burning_chrome }}---but almost every story has some piece that was reused.
 
 ### {% short_story_title "Johnny Mnemonic" %}
 
