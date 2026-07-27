@@ -135,18 +135,22 @@ page.book_authors[0] link=false %}.
 {% capture firefall %}{% series_link "Firefall" %}{% endcapture %}
 
 {{ this_book }} was published after {{ neuromancer }} and {{ count_zero }},
-but most of the stories were written before, and it shows two ways:
+but most of the stories were written before, and it shows in two ways:
 
 First, the prose in the {{ sprawl_trilogy }} is light, sparse, almost poetic.
 {{ the_authors_lastname }} doesn't tell you everything, he gives you just
-enough words to give you the impression and trusts your mind to fill in the
-rest. These early works are much heavier, the prose slower, the descriptions
-longer.
+enough to leave an impression and trusts your mind to fill in the rest. These
+early works are much heavier, the prose slower, the descriptions longer, but
+you can see him finding his voice: by {{ new_rose_hotel }} his prose is
+stripped down and lean.
 
 Second, many of the ideas and themes {{ the_authors_lastname }} expands in his
 novels were first tested out in these short stories. This is clearest in the
 {{ sprawl }} short stories---{{ johnny_mnemonic }}, {{ new_rose_hotel }}, {{
 burning_chrome }}---but almost every story has some piece that was reused.
+
+One of the themes through this series of stories that _doesn't make it to the
+novels_.
 
 ### {% short_story_title "Johnny Mnemonic" %}
 
@@ -157,13 +161,18 @@ burning_chrome }}---but almost every story has some piece that was reused.
 {% rating_stars 3 %}
 
 {{ the_authors_lastname }} doesn't write horror, but much of what he writes is
-horrifying.
+horrifying. {{ the_gernsback_continuum }} is an inversion of that in three
+ways. {{ the_authors_lastname }} usually looks at a possible future; here he
+looks back at a future that never arrived. The horror is normally in the
+details---puppet shops, fast-growing custom-tailored cancers---so commonplace
+the prose hardly has time for them. Here absolutely nothing is grim;
+everything is seamless, smooth, fast, interchangeable---that's the threat. And
+the squalor is usually the disease, the thing that's wrong with the world.
+Here it's the cure, with porn, bad television, and the ugly real world the
+only things that can break the spell.
 
-<!-- Needs polish -->The way he throws in worldbuilding---puppet shops, fast
-growing customer tailored cancers---but makes them an almost mundane part of
-the world adds to it. Mostly his work examines the implications of the future,
-but {{ the_gernsback_continuum }} instead looks backwards, at a present shaped
-by 1930s retrofuturism nostalgia.
+But the prose is clunky, the characters don't matter. It's a story all about
+the _idea_ and that's not enough for me.
 
 ### {% short_story_title "Fragments of a Hologram Rose" %}
 
