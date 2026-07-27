@@ -135,7 +135,7 @@ page.book_authors[0] link=false %}.
 {% capture firefall %}{% series_link "Firefall" %}{% endcapture %}
 
 {{ this_book }} was published after {{ neuromancer }} and {{ count_zero }},
-but most of the stories were written before, and it shows in two ways:
+but most of the stories were written before, and it shows in three ways:
 
 First, the prose in the {{ sprawl_trilogy }} is light, sparse, almost poetic.
 {{ the_authors_lastname }} doesn't tell you everything, he gives you just
@@ -149,8 +149,8 @@ novels were first tested out in these short stories. This is clearest in the
 {{ sprawl }} short stories---{{ johnny_mnemonic }}, {{ new_rose_hotel }}, {{
 burning_chrome }}---but almost every story has some piece that was reused.
 
-One of the themes through this series of stories that _doesn't make it to the
-novels_.
+Third, one of the themes through this series of stories that _doesn't make it
+to the novels_.
 
 ### {% short_story_title "Johnny Mnemonic" %}
 
