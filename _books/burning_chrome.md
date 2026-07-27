@@ -180,9 +180,8 @@ the _idea_ and that's not enough for me.
 
 ### {% short_story_title "The Belonging Kind" %}
 
+<div class="written-by">by {{ the_author_link }} and {{ shirley }}</div>
 {% rating_stars 2 %}
-
-Co-written with {{ shirley }}.
 
 ### {% short_story_title "Hinterlands" %}
 
@@ -203,9 +202,8 @@ which this story is influenced by; {{ strosss_lastname }} {{ a_colder_war }};
 
 ### {% short_story_title "Red Star, Winter Orbit" %}
 
+<div class="written-by">by {{ the_author_link }} and {{ sterling }}</div>
 {% rating_stars 3 %}
-
-Co-written with {{ sterling }}.
 
 ### {% short_story_title "New Rose Hotel" %}
 
@@ -217,9 +215,8 @@ Co-written with {{ sterling }}.
 
 ### {% short_story_title "Dogfight" %}
 
+<div class="written-by">by {{ the_author_link }} and {{ swanwick }}</div>
 {% rating_stars 3 %}
-
-Co-written with {{ swanwick }}.
 
 ### {% short_story_title "Burning Chrome" %}
 
