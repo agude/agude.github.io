@@ -44,24 +44,29 @@ def slugify(title: str) -> str:
     # Normalize unicode and replace non-letter/digit with underscore
     slug = unicodedata.normalize("NFC", slug)
     slug = re.sub(r"[^\w]+", "_", slug, flags=re.UNICODE)
-    slug = slug.strip("_")
-    return slug
+    return slug.strip("_")
 
 
 def ordinal(n: int) -> str:
     """Return ordinal string for a number (1st, 2nd, 3rd, etc.)."""
-    if 11 <= n % 100 <= 13:
-        suffix = "th"
-    else:
-        suffix = {1: "st", 2: "nd", 3: "rd"}.get(n % 10, "th")
+    # 11th/12th/13th break the digit rule.
+    suffix = "th" if 11 <= n % 100 <= 13 else {1: "st", 2: "nd", 3: "rd"}.get(n % 10, "th")
     return f"{n}{suffix}"
 
 
 def number_word(n: int) -> str:
     """Return word for numbers 1-10, digits otherwise."""
     words = {
-        1: "first", 2: "second", 3: "third", 4: "fourth", 5: "fifth",
-        6: "sixth", 7: "seventh", 8: "eighth", 9: "ninth", 10: "tenth",
+        1: "first",
+        2: "second",
+        3: "third",
+        4: "fourth",
+        5: "fifth",
+        6: "sixth",
+        7: "seventh",
+        8: "eighth",
+        9: "ninth",
+        10: "tenth",
     }
     return words.get(n, ordinal(n))
 
@@ -106,10 +111,8 @@ def build_opening(
     if series:
         if book_number > 1:
             return f"{base}, is the {number_word(book_number)} book in {{% series_text page.series link=false %}}."
-        else:
-            return f"{base}, is the first book in {{% series_text page.series link=false %}}."
-    else:
-        return f"{base}, is a standalone novel."
+        return f"{base}, is the first book in {{% series_text page.series link=false %}}."
+    return f"{base}, is a standalone novel."
 
 
 def build_template(

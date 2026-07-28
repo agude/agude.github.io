@@ -7,9 +7,9 @@
 Example: _books/some_book.md
 """
 
+import glob
 import sys
 import textwrap
-import glob
 from pathlib import Path
 
 
@@ -25,7 +25,7 @@ def format_first_paragraph(filepath):
         return
 
     try:
-        with open(filepath, "r", encoding="utf-8") as f:
+        with Path(filepath).open(encoding="utf-8") as f:
             lines = f.readlines()
     except Exception as e:
         print(f"Error reading {filepath}: {e}", file=sys.stderr)
@@ -78,7 +78,7 @@ def format_first_paragraph(filepath):
 
     # Write the modified content back out over the original file
     try:
-        with open(filepath, "w", encoding="utf-8") as f:
+        with Path(filepath).open("w", encoding="utf-8") as f:
             f.writelines(out_lines)
     except Exception as e:
         print(f"Error writing to {filepath}: {e}", file=sys.stderr)

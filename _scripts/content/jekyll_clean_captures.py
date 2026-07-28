@@ -10,8 +10,8 @@ Example: _posts/some_post.md --dry-run
 import argparse
 import re
 import sys
-from pathlib import Path
 from glob import glob
+from pathlib import Path
 
 
 def find_unused_captures(content):
@@ -30,7 +30,7 @@ def find_unused_captures(content):
     captures = list(capture_regex.finditer(content))
     unused = []
 
-    for i, match in enumerate(captures):
+    for match in captures:
         variable_name = match.group(2)
 
         # To check for usage, we search the entire document *except* for the
@@ -42,9 +42,7 @@ def find_unused_captures(content):
         # Check for usage as a tag parameter value: tag arg=my_variable
         param_regex = re.compile(r"=\s*" + re.escape(variable_name) + r"(?:\s|%)")
 
-        if not output_regex.search(search_content) and not param_regex.search(
-            search_content
-        ):
+        if not output_regex.search(search_content) and not param_regex.search(search_content):
             unused.append((variable_name, match))
 
     return unused
@@ -72,9 +70,7 @@ def process_file(file_path, dry_run=True):
             start_line = content.count("\n", 0, match.start()) + 1
             end_line = content.count("\n", 0, match.end()) + 1
             line_info = (
-                f"line {start_line}"
-                if start_line == end_line
-                else f"lines {start_line}-{end_line}"
+                f"line {start_line}" if start_line == end_line else f"lines {start_line}-{end_line}"
             )
             print(f"  - Unused variable '{var}' (on {line_info})")
             lines_to_remove.append(match.group(1))

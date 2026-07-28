@@ -1,13 +1,11 @@
 """Tests for atproto/publish.py — all HTTP calls are mocked; no network access."""
 
 import json
-import sys
 from pathlib import Path
 
+import publish
 import pytest
 import yaml
-
-import publish
 from publish import (
     AtprotoClient,
     _can_derive_date,
@@ -23,7 +21,6 @@ from publish import (
     sync_documents,
     validate_documents,
 )
-
 
 # ---------------------------------------------------------------------------
 # Mock transport
@@ -67,11 +64,23 @@ class MockTransport:
                 return resp
         return None
 
-    def post(self, url: str, json: dict | None = None, headers: dict | None = None, timeout: float | None = None) -> MockResponse:
+    def post(
+        self,
+        url: str,
+        json: dict | None = None,
+        headers: dict | None = None,
+        timeout: float | None = None,
+    ) -> MockResponse:
         self.calls.append(("POST", url, json))
         return self._route_for(url) or self._pop()
 
-    def get(self, url: str, params: dict | None = None, headers: dict | None = None, timeout: float | None = None) -> MockResponse:
+    def get(
+        self,
+        url: str,
+        params: dict | None = None,
+        headers: dict | None = None,
+        timeout: float | None = None,
+    ) -> MockResponse:
         self.calls.append(("GET", url, params))
         return self._route_for(url) or self._pop()
 
@@ -105,7 +114,9 @@ def make_client(transport: MockTransport) -> AtprotoClient:
     transport.push(LOGIN_RESPONSE)
     # Every sync/delete-orphans run verifies the publication record first.
     transport.routes["getRecord"] = MockResponse(PUB_RECORD_RESPONSE)
-    return AtprotoClient("https://bsky.social", "handle.bsky.social", "password", _session=transport)
+    return AtprotoClient(
+        "https://bsky.social", "handle.bsky.social", "password", _session=transport
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -212,7 +223,10 @@ class TestParsePost:
 
 class TestExtractRkey:
     def test_extracts_last_path_segment(self) -> None:
-        assert _extract_rkey("at://did:plc:abc/site.standard.document/3mpwdqt4xn42j") == "3mpwdqt4xn42j"
+        assert (
+            _extract_rkey("at://did:plc:abc/site.standard.document/3mpwdqt4xn42j")
+            == "3mpwdqt4xn42j"
+        )
 
     def test_handles_trailing_slash(self) -> None:
         assert _extract_rkey("at://did:plc:abc/site.standard.document/rkey1/") == "rkey1"
@@ -255,11 +269,18 @@ class TestListRecordsPagination:
         client = make_client(transport)
 
         page1 = {
-            "records": [{"uri": DOC_URI, "value": {"path": "/blog/a/", "$type": "site.standard.document"}}],
+            "records": [
+                {"uri": DOC_URI, "value": {"path": "/blog/a/", "$type": "site.standard.document"}}
+            ],
             "cursor": "cursor1",
         }
         page2 = {
-            "records": [{"uri": DOC_URI.replace("rkeydoc1", "rkeydoc2"), "value": {"path": "/blog/b/", "$type": "site.standard.document"}}],
+            "records": [
+                {
+                    "uri": DOC_URI.replace("rkeydoc1", "rkeydoc2"),
+                    "value": {"path": "/blog/b/", "$type": "site.standard.document"},
+                }
+            ],
         }
         transport.push(page1)
         transport.push(page2)
@@ -312,13 +333,17 @@ class TestSyncPostsDecisions:
             "title": "Alpha",
             "publishedAt": "2025-01-01T00:00:00Z",
         }
-        transport.push({
-            "records": [{"uri": DOC_URI, "value": remote_rec}],
-        })
+        transport.push(
+            {
+                "records": [{"uri": DOC_URI, "value": remote_rec}],
+            }
+        )
 
         sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
 
-        create_or_put = [c for c in transport.calls if "createRecord" in c[1] or "putRecord" in c[1]]
+        create_or_put = [
+            c for c in transport.calls if "createRecord" in c[1] or "putRecord" in c[1]
+        ]
         assert len(create_or_put) == 0
 
     def test_changed_title_triggers_update(self, tmp_path: Path) -> None:
@@ -332,9 +357,11 @@ class TestSyncPostsDecisions:
             "title": "Old Title",
             "publishedAt": "2025-01-01T00:00:00Z",
         }
-        transport.push({
-            "records": [{"uri": DOC_URI, "cid": "cid1", "value": remote_rec}],
-        })
+        transport.push(
+            {
+                "records": [{"uri": DOC_URI, "cid": "cid1", "value": remote_rec}],
+            }
+        )
         transport.push({})  # putRecord response
 
         sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
@@ -404,11 +431,14 @@ class TestDuplicateRemotePath:
         client = make_client(transport)
         dupe_records = [
             {"uri": DOC_URI, "value": {"site": PUB_URI, "path": "/blog/alpha/"}},
-            {"uri": DOC_URI.replace("rkeydoc1", "rkeydoc2"), "value": {"site": PUB_URI, "path": "/blog/alpha/"}},
+            {
+                "uri": DOC_URI.replace("rkeydoc1", "rkeydoc2"),
+                "value": {"site": PUB_URI, "path": "/blog/alpha/"},
+            },
         ]
         transport.push({"records": dupe_records})
 
-        with pytest.raises(publish.PublishError) as exc_info:
+        with pytest.raises(publish.PublishError):
             sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
 
 
@@ -421,9 +451,11 @@ class TestOrphanRecord:
     def test_orphan_warns_not_deleted(self, tmp_path: Path, capsys) -> None:
         transport = MockTransport()
         client = make_client(transport)
-        transport.push({
-            "records": [{"uri": DOC_URI, "value": {"site": PUB_URI, "path": "/blog/gone/"}}],
-        })
+        transport.push(
+            {
+                "records": [{"uri": DOC_URI, "value": {"site": PUB_URI, "path": "/blog/gone/"}}],
+            }
+        )
 
         sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
 
@@ -502,12 +534,12 @@ class TestDataFile:
 class TestEnvVars:
     def test_missing_bsky_handle_exits(self, monkeypatch: pytest.MonkeyPatch) -> None:
         monkeypatch.delenv("BSKY_HANDLE", raising=False)
-        with pytest.raises(publish.PublishError) as exc_info:
+        with pytest.raises(publish.PublishError):
             _get_env("BSKY_HANDLE")
 
     def test_missing_bsky_app_password_exits(self, monkeypatch: pytest.MonkeyPatch) -> None:
         monkeypatch.delenv("BSKY_APP_PASSWORD", raising=False)
-        with pytest.raises(publish.PublishError) as exc_info:
+        with pytest.raises(publish.PublishError):
             _get_env("BSKY_APP_PASSWORD")
 
     def test_present_env_var_returns_value(self, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -551,7 +583,7 @@ class TestInitPublication:
         transport = MockTransport()
         client = make_client(transport)
 
-        with pytest.raises(publish.PublishError) as exc_info:
+        with pytest.raises(publish.PublishError):
             init_publication(client, config)
 
 
@@ -574,6 +606,7 @@ class TestLoadConfig:
     def test_missing_key_returns_empty_string(self) -> None:
         assert get_publication_uri({}) == ""
 
+
 # ---------------------------------------------------------------------------
 # publication_uri guards and scoping
 # ---------------------------------------------------------------------------
@@ -583,7 +616,7 @@ class TestPublicationUriGuards:
     def test_sync_documents_requires_publication_uri(self, tmp_path: Path) -> None:
         transport = MockTransport()
         client = make_client(transport)
-        with pytest.raises(publish.PublishError) as exc_info:
+        with pytest.raises(publish.PublishError):
             sync_documents(client, tmp_path, tmp_path / "out.json", "", TEST_CONFIG)
 
     def test_created_records_include_site(self, tmp_path: Path) -> None:
@@ -598,9 +631,7 @@ class TestPublicationUriGuards:
         create_call = next(c for c in transport.calls if "createRecord" in c[1])
         assert create_call[2]["record"]["site"] == PUB_URI
 
-    def test_records_from_other_publications_ignored(
-        self, tmp_path: Path, capsys
-    ) -> None:
+    def test_records_from_other_publications_ignored(self, tmp_path: Path, capsys) -> None:
         # A Leaflet/pckt document sharing our collection must not collide
         # with our paths, trip duplicate detection, or count as an orphan.
         (tmp_path / "2025-01-01-alpha.md").write_text("---\ntitle: Alpha\n---\n")
@@ -628,8 +659,15 @@ class TestPublicationUriGuards:
 
         with pytest.raises(SystemExit) as exc_info:
             publish.main(
-                ["publish", "--posts-dir", str(tmp_path), "--books-dir", str(books),
-                 "--data-out", str(data_out)]
+                [
+                    "publish",
+                    "--posts-dir",
+                    str(tmp_path),
+                    "--books-dir",
+                    str(books),
+                    "--data-out",
+                    str(data_out),
+                ]
             )
         assert exc_info.value.code == 1
         assert "publication_uri" in capsys.readouterr().err
@@ -644,10 +682,12 @@ class TestPublicationUriGuards:
 class TestCanDeriveDate:
     def test_date_object_passes(self) -> None:
         from datetime import date as date_type
+
         assert _can_derive_date(date_type(2025, 1, 1)) is True
 
     def test_datetime_object_passes(self) -> None:
         from datetime import datetime as dt_type
+
         assert _can_derive_date(dt_type(2025, 1, 1, 0, 0)) is True
 
     def test_iso_string_passes(self) -> None:
@@ -737,11 +777,15 @@ class TestValidatePosts:
     # --- Underivable date ---
 
     def test_non_date_string_fails(self, tmp_path: Path) -> None:
-        self._post(tmp_path, "2025-01-01-bad-date.md", "---\ntitle: Post\ndate: 'not a date'\n---\n")
+        self._post(
+            tmp_path, "2025-01-01-bad-date.md", "---\ntitle: Post\ndate: 'not a date'\n---\n"
+        )
         assert validate_documents(tmp_path) is False
 
     def test_non_date_string_names_file(self, tmp_path: Path, capsys) -> None:
-        self._post(tmp_path, "2025-01-01-bad-date.md", "---\ntitle: Post\ndate: 'not a date'\n---\n")
+        self._post(
+            tmp_path, "2025-01-01-bad-date.md", "---\ntitle: Post\ndate: 'not a date'\n---\n"
+        )
         validate_documents(tmp_path)
         assert "2025-01-01-bad-date.md" in capsys.readouterr().err
 
@@ -830,20 +874,31 @@ class TestValidateViaCLI:
         (tmp_path / "2025-01-01-good.md").write_text("---\ntitle: Good\n---\n")
         monkeypatch.delenv("BSKY_HANDLE", raising=False)
         monkeypatch.delenv("BSKY_APP_PASSWORD", raising=False)
-        publish.main([
-                "validate", "--posts-dir", str(tmp_path),
-                "--books-dir", str(self._books(tmp_path)),
-            ])
+        publish.main(
+            [
+                "validate",
+                "--posts-dir",
+                str(tmp_path),
+                "--books-dir",
+                str(self._books(tmp_path)),
+            ]
+        )
 
     def test_invalid_post_exits_one(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         (tmp_path / "2025-01-01-bad.md").write_text("---\ntitle: ''\n---\n")
         monkeypatch.delenv("BSKY_HANDLE", raising=False)
         monkeypatch.delenv("BSKY_APP_PASSWORD", raising=False)
-        with pytest.raises(SystemExit) as exc_info:
-            publish.main([
-                "validate", "--posts-dir", str(tmp_path),
-                "--books-dir", str(self._books(tmp_path)),
-            ])
+        with pytest.raises(SystemExit):
+            publish.main(
+                [
+                    "validate",
+                    "--posts-dir",
+                    str(tmp_path),
+                    "--books-dir",
+                    str(self._books(tmp_path)),
+                ]
+            )
+
 
 # ---------------------------------------------------------------------------
 # sync_documents local-post guards (defense in depth alongside validate)
@@ -856,7 +911,7 @@ class TestSyncPostsLocalGuards:
         transport = MockTransport()
         client = make_client(transport)
 
-        with pytest.raises(publish.PublishError) as exc_info:
+        with pytest.raises(publish.PublishError):
             sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
 
     def test_missing_title_exits(self, tmp_path: Path, capsys) -> None:
@@ -905,9 +960,11 @@ class TestSlugify:
         (tmp_path / "2025-06-15-a-post.md").write_text("---\ntitle: Two\n---\n")
         assert validate_documents(tmp_path) is False
 
+
 # ---------------------------------------------------------------------------
 # Book reviews (_books/ collection)
 # ---------------------------------------------------------------------------
+
 
 class TestParseBook:
     def test_path_keeps_underscores(self, tmp_path: Path) -> None:
@@ -1030,8 +1087,11 @@ class TestSyncBooks:
         transport = MockTransport()
         client = make_client(transport)
 
-        with pytest.raises(publish.PublishError) as exc_info:
-            sync_documents(client, posts, tmp_path / "out.json", PUB_URI, TEST_CONFIG, books_dir=books)
+        with pytest.raises(publish.PublishError):
+            sync_documents(
+                client, posts, tmp_path / "out.json", PUB_URI, TEST_CONFIG, books_dir=books
+            )
+
 
 # ---------------------------------------------------------------------------
 # Review fixes: bad post dates, override errors, unicode slugs, site-dir
@@ -1056,7 +1116,7 @@ class TestBadPostDate:
         (tmp_path / "2025-01-01-post.md").write_text("---\ntitle: Post\ndate: soon\n---\n")
         transport = MockTransport()
         client = make_client(transport)
-        with pytest.raises(publish.PublishError) as exc_info:
+        with pytest.raises(publish.PublishError):
             sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
 
 
@@ -1136,6 +1196,7 @@ class TestSiteDirCrossCheck:
         assert validate_documents(posts, books_dir=books, site_dir=site) is False
         assert "/books/some_book/" in capsys.readouterr().err
 
+
 # ---------------------------------------------------------------------------
 # Second review: re-reviews, null titles, missing dirs, reverse sweep,
 # delete-orphans
@@ -1177,7 +1238,7 @@ class TestReReviewSkip:
         (books / "sub" / "real_review.md").write_text("---\ntitle: R\ndate: 2025-01-01\n---\n")
         results = list(publish._collect_documents(posts, books))
         assert len(results) == 1
-        doc_file, rec, errors = results[0]
+        _doc_file, rec, errors = results[0]
         assert rec is None
         assert any("canonical_url" in e for e in errors)
 
@@ -1227,7 +1288,7 @@ class TestMissingDirs:
     def test_sync_exits_on_missing_posts_dir(self, tmp_path: Path) -> None:
         transport = MockTransport()
         client = make_client(transport)
-        with pytest.raises(publish.PublishError) as exc_info:
+        with pytest.raises(publish.PublishError):
             sync_documents(client, tmp_path / "nope", tmp_path / "out.json", PUB_URI, TEST_CONFIG)
 
 
@@ -1290,9 +1351,11 @@ class TestDeleteOrphans:
         (posts / "2025-01-01-keep.md").write_text("---\ntitle: Keep\n---\n")
         transport = MockTransport()
         client = make_client(transport)
-        transport.push({
-            "records": [{"uri": DOC_URI, "value": {"site": PUB_URI, "path": "/blog/gone/"}}],
-        })
+        transport.push(
+            {
+                "records": [{"uri": DOC_URI, "value": {"site": PUB_URI, "path": "/blog/gone/"}}],
+            }
+        )
 
         publish.delete_orphans(client, posts, books, PUB_URI, confirmed=False)
 
@@ -1305,9 +1368,11 @@ class TestDeleteOrphans:
         (posts / "2025-01-01-keep.md").write_text("---\ntitle: Keep\n---\n")
         transport = MockTransport()
         client = make_client(transport)
-        transport.push({
-            "records": [{"uri": DOC_URI, "value": {"site": PUB_URI, "path": "/blog/gone/"}}],
-        })
+        transport.push(
+            {
+                "records": [{"uri": DOC_URI, "value": {"site": PUB_URI, "path": "/blog/gone/"}}],
+            }
+        )
         transport.push({})  # deleteRecord response
 
         publish.delete_orphans(client, posts, books, PUB_URI, confirmed=True)
@@ -1397,6 +1462,7 @@ class TestHttpTimeouts:
         client.put_record("site.standard.document", "rk", {})
         transport.push({})
         client.delete_record("site.standard.document", "rk")
+
 
 # ---------------------------------------------------------------------------
 # Fourth review: verification, CAS, retries, future posts, publication sync
@@ -1523,6 +1589,7 @@ class TestRetries:
 
         def _maybe_fail(self, url: str) -> None:
             import requests as _requests
+
             if self._flaky_url in url and self._failures > 0:
                 self._failures -= 1
                 raise _requests.ConnectionError("transient")
@@ -1544,6 +1611,7 @@ class TestRetries:
 
     def test_login_gives_up_after_retries(self, monkeypatch: pytest.MonkeyPatch) -> None:
         import requests as _requests
+
         monkeypatch.setattr(publish.time, "sleep", lambda s: None)
         transport = self.FlakyTransport("createSession", failures=99)
         with pytest.raises(_requests.ConnectionError):
@@ -1566,13 +1634,22 @@ class TestOrphanAnnotations:
         (tmp_path / "2025-01-01-keep.md").write_text("---\ntitle: K\n---\n")
         transport = MockTransport()
         client = make_client(transport)
-        keep = {"$type": "site.standard.document", "site": PUB_URI,
-                "path": "/blog/keep/", "title": "K", "publishedAt": "2025-01-01T00:00:00Z"}
+        keep = {
+            "$type": "site.standard.document",
+            "site": PUB_URI,
+            "path": "/blog/keep/",
+            "title": "K",
+            "publishedAt": "2025-01-01T00:00:00Z",
+        }
         gone = {"site": PUB_URI, "path": "/blog/gone/"}
-        transport.push({"records": [
-            {"uri": DOC_URI, "cid": "c1", "value": keep},
-            {"uri": DOC_URI.replace("rkeydoc1", "rkeydoc2"), "cid": "c2", "value": gone},
-        ]})
+        transport.push(
+            {
+                "records": [
+                    {"uri": DOC_URI, "cid": "c1", "value": keep},
+                    {"uri": DOC_URI.replace("rkeydoc1", "rkeydoc2"), "cid": "c2", "value": gone},
+                ]
+            }
+        )
 
         sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
 
@@ -1601,7 +1678,9 @@ class TestMissingSweepSection:
 
 
 class TestSiteTimezoneCutoff:
-    def test_cutoff_uses_site_timezone(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    def test_cutoff_uses_site_timezone(
+        self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+    ) -> None:
         # 2025-06-02T02:00 UTC is still 2025-06-01 19:00 in Los Angeles: a
         # post dated 06-02 is "future" to Jekyll and must be skipped even
         # though UTC has already rolled over.
@@ -1612,7 +1691,7 @@ class TestSiteTimezoneCutoff:
         class FrozenDatetime(dt.datetime):
             @classmethod
             def now(cls, tz=None):
-                return real_datetime(2025, 6, 2, 2, 0, 0, tzinfo=dt.timezone.utc).astimezone(tz)
+                return real_datetime(2025, 6, 2, 2, 0, 0, tzinfo=dt.UTC).astimezone(tz)
 
         monkeypatch.setattr(publish, "datetime", FrozenDatetime)
         f = tmp_path / "2025-06-02-tomorrow.md"
@@ -1641,6 +1720,7 @@ class TestMissingCid:
         with pytest.raises(publish.PublishError) as exc_info:
             sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
         assert "non-atomic" in str(exc_info.value)
+
 
 # ---------------------------------------------------------------------------
 # Well-known file check in validate --site-dir

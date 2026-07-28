@@ -2,8 +2,6 @@
 
 from textwrap import dedent
 
-import pytest
-
 from update_book_metadata import (
     MANAGED_FIELDS,
     _strip_field,
@@ -224,8 +222,7 @@ class TestNeverOverwriteWithNull:
 
         # Should skip awards (would overwrite with null), include isbn
         fields_to_write = [
-            f for f in ["awards", "isbn"]
-            if metadata[f] is not None or f not in existing
+            f for f in ["awards", "isbn"] if metadata[f] is not None or f not in existing
         ]
         assert "awards" not in fields_to_write
         assert "isbn" in fields_to_write
@@ -236,8 +233,7 @@ class TestNeverOverwriteWithNull:
 
         # Both would be candidates (null but not overwriting)
         fields_to_write = [
-            f for f in ["awards", "isbn"]
-            if metadata[f] is not None or f not in existing
+            f for f in ["awards", "isbn"] if metadata[f] is not None or f not in existing
         ]
         # But format_field returns "" for awards=None, so it gets filtered later
         assert "awards" in fields_to_write
@@ -248,8 +244,7 @@ class TestNeverOverwriteWithNull:
         existing = {"awards": "", "isbn": "old-isbn"}
 
         fields_to_write = [
-            f for f in ["awards", "isbn"]
-            if metadata[f] is not None or f not in existing
+            f for f in ["awards", "isbn"] if metadata[f] is not None or f not in existing
         ]
         assert "awards" in fields_to_write
         assert "isbn" in fields_to_write

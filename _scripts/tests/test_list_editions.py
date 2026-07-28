@@ -33,8 +33,9 @@ class TestListEditions:
                 },
             }
         }
-        with patch("list_editions.fetch_entity", return_value=work_entity), patch(
-            "list_editions.api_get", return_value=api_response
+        with (
+            patch("list_editions.fetch_entity", return_value=work_entity),
+            patch("list_editions.api_get", return_value=api_response),
         ):
             result = list_editions("Q0")
 
@@ -60,21 +61,18 @@ class TestListEditions:
             assert result == []
 
     def test_edition_with_no_isbn(self):
-        work_entity = {
-            "claims": {"P747": [{"mainsnak": {"datavalue": {"value": {"id": "Q1"}}}}]}
-        }
+        work_entity = {"claims": {"P747": [{"mainsnak": {"datavalue": {"value": {"id": "Q1"}}}}]}}
         api_response = {
             "entities": {
                 "Q1": {"labels": {}, "claims": {}},
             }
         }
-        with patch("list_editions.fetch_entity", return_value=work_entity), patch(
-            "list_editions.api_get", return_value=api_response
+        with (
+            patch("list_editions.fetch_entity", return_value=work_entity),
+            patch("list_editions.api_get", return_value=api_response),
         ):
             result = list_editions("Q0")
-            assert result == [
-                {"qid": "Q1", "label": "", "isbn": None, "is_english": False}
-            ]
+            assert result == [{"qid": "Q1", "label": "", "isbn": None, "is_english": False}]
 
 
 class TestPickSelectedIsbn:

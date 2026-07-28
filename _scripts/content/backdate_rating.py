@@ -24,7 +24,7 @@ import re
 import subprocess
 import sys
 from datetime import datetime
-
+from pathlib import Path
 
 RATING_RE = re.compile(r"^rating:\s*(.+)$", re.MULTILINE)
 DATE_RE = re.compile(r"^date:\s*(.+)$", re.MULTILINE)
@@ -49,7 +49,7 @@ REPO_ROOT = get_repo_root()
 
 def repo_relative_path(filepath: str) -> str:
     """Convert any path to a repo-relative path for consistent git operations."""
-    abs_path = os.path.abspath(filepath)
+    abs_path = Path(filepath).resolve()
     return os.path.relpath(abs_path, REPO_ROOT)
 
 
@@ -196,7 +196,7 @@ def format_datetime(iso_str: str) -> str:
 
 def update_date(filepath: str, new_date: str, dry_run: bool) -> bool:
     """Update the date field in the file's front matter. Returns True if changed."""
-    with open(filepath, "r") as f:
+    with Path(filepath).open() as f:
         content = f.read()
 
     date_match = DATE_RE.search(content)
@@ -209,15 +209,13 @@ def update_date(filepath: str, new_date: str, dry_run: bool) -> bool:
         print(f"  SKIP (already correct): {filepath}")
         return False
 
-    new_content = (
-        content[: date_match.start(1)] + new_date + content[date_match.end(1) :]
-    )
+    new_content = content[: date_match.start(1)] + new_date + content[date_match.end(1) :]
 
     if dry_run:
         print(f"  DRY RUN: {filepath}")
         print(f"    {old_date} -> {new_date}")
     else:
-        with open(filepath, "w") as f:
+        with Path(filepath).open("w") as f:
             f.write(new_content)
         print(f"  UPDATED: {filepath}")
         print(f"    {old_date} -> {new_date}")
@@ -279,7 +277,7 @@ def main():
 
         # Skip files that already have a full timestamp (not just a bare date)
         if not args.force:
-            with open(filepath, "r") as f:
+            with Path(filepath).open() as f:
                 content = f.read()
             date_match = DATE_RE.search(content)
             if date_match and not BARE_DATE_RE.match(date_match.group(1).strip()):

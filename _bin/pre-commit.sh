@@ -116,10 +116,12 @@ if [ ${#STAGED_PY_FILES[@]} -gt 0 ]; then
   printf '%s\n' "${STAGED_PY_FILES[@]}"
   echo "---"
 
-  ruff check --fix "${STAGED_PY_FILES[@]}"
+  # Ruff lives in the _scripts uv project; --project makes it resolvable from
+  # the repo root, and its pyproject.toml supplies the config for every path.
+  uv run --project _scripts ruff check --fix "${STAGED_PY_FILES[@]}"
   RUFF_CHECK_EXIT=$?
 
-  ruff format "${STAGED_PY_FILES[@]}"
+  uv run --project _scripts ruff format "${STAGED_PY_FILES[@]}"
   RUFF_FORMAT_EXIT=$?
 
   git add -- "${STAGED_PY_FILES[@]}"

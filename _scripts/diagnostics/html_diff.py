@@ -8,13 +8,14 @@
 Example: old/ new/
 """
 
-import os
-import sys
 import argparse
-import fnmatch
 import filecmp
-import tempfile
+import fnmatch
 import shutil
+import sys
+import tempfile
+from pathlib import Path
+
 from bs4 import BeautifulSoup
 from bs4.element import Comment
 
@@ -66,16 +67,15 @@ def normalize_html(content, is_xml=False):
 
 def read_file(path):
     try:
-        with open(path, "r", encoding="utf-8") as f:
-            return f.read()
+        return path.read_text(encoding="utf-8")
     except UnicodeDecodeError:
         return None
 
 
 def files_differ(file_a, file_b):
     """Returns True if files differ semantically, False if they are the same."""
-    is_html = file_a.endswith((".html", ".htm"))
-    is_xml = file_a.endswith(".xml")
+    is_html = file_a.suffix in (".html", ".htm")
+    is_xml = file_a.suffix == ".xml"
 
     content_a = read_file(file_a)
     content_b = read_file(file_b)
@@ -93,10 +93,10 @@ def files_differ(file_a, file_b):
 
 def write_normalized_file(src_path, dest_path):
     """Writes a cleaned version of the file to the destination for external diffing."""
-    is_html = src_path.endswith((".html", ".htm"))
-    is_xml = src_path.endswith(".xml")
+    is_html = src_path.suffix in (".html", ".htm")
+    is_xml = src_path.suffix == ".xml"
 
-    os.makedirs(os.path.dirname(dest_path), exist_ok=True)
+    dest_path.parent.mkdir(parents=True, exist_ok=True)
 
     content = read_file(src_path)
     if content is None:
@@ -104,21 +104,15 @@ def write_normalized_file(src_path, dest_path):
         return
 
     if is_html or is_xml:
-        norm_lines = normalize_html(content, is_xml)
-        with open(dest_path, "w", encoding="utf-8") as f:
-            f.write("\n".join(norm_lines) + "\n")
-    else:
-        with open(dest_path, "w", encoding="utf-8") as f:
-            f.write(content)
+        content = "\n".join(normalize_html(content, is_xml)) + "\n"
+    dest_path.write_text(content, encoding="utf-8")
 
 
 def should_ignore(rel_path):
-    for pattern in IGNORED_FILES:
-        if fnmatch.fnmatch(rel_path, pattern) or fnmatch.fnmatch(
-            os.path.basename(rel_path), pattern
-        ):
-            return True
-    return False
+    return any(
+        fnmatch.fnmatch(str(rel_path), pattern) or fnmatch.fnmatch(rel_path.name, pattern)
+        for pattern in IGNORED_FILES
+    )
 
 
 def compare_directories(dir_a, dir_b):
@@ -128,43 +122,34 @@ def compare_directories(dir_a, dir_b):
     only_in_a = []
     only_in_b = []
 
-    # Walk dir_a
-    for root, _, files in os.walk(dir_a):
-        rel_path = os.path.relpath(root, dir_a)
-        if rel_path.startswith("_site"):
-            continue
+    for path_a in _comparable_files(dir_a):
+        rel_file_path = path_a.relative_to(dir_a)
+        path_b = dir_b / rel_file_path
 
-        for file in files:
-            rel_file_path = os.path.join(rel_path, file)
-            if should_ignore(rel_file_path):
-                continue
+        if not path_b.exists():
+            only_in_a.append(rel_file_path)
+        elif files_differ(path_a, path_b):
+            diffs.append(rel_file_path)
 
-            path_a = os.path.join(root, file)
-            path_b = os.path.normpath(os.path.join(dir_b, rel_path, file))
-
-            if not os.path.exists(path_b):
-                only_in_a.append(rel_file_path)
-                continue
-
-            if files_differ(path_a, path_b):
-                diffs.append(rel_file_path)
-
-    # Walk dir_b for missing files
-    for root, _, files in os.walk(dir_b):
-        rel_path = os.path.relpath(root, dir_b)
-        if rel_path.startswith("_site"):
-            continue
-
-        for file in files:
-            rel_file_path = os.path.join(rel_path, file)
-            if should_ignore(rel_file_path):
-                continue
-
-            path_a = os.path.normpath(os.path.join(dir_a, rel_path, file))
-            if not os.path.exists(path_a):
-                only_in_b.append(rel_file_path)
+    for path_b in _comparable_files(dir_b):
+        rel_file_path = path_b.relative_to(dir_b)
+        if not (dir_a / rel_file_path).exists():
+            only_in_b.append(rel_file_path)
 
     return diffs, only_in_a, only_in_b
+
+
+def _comparable_files(root):
+    """Yield files under root, skipping nested builds and ignored patterns."""
+    for path in root.rglob("*"):
+        if not path.is_file():
+            continue
+        rel_path = path.relative_to(root)
+        if rel_path.parts[0].startswith("_site"):
+            continue
+        if should_ignore(rel_path):
+            continue
+        yield path
 
 
 def main():
@@ -180,11 +165,13 @@ def main():
     )
     args = parser.parse_args()
 
-    if not os.path.isdir(args.dir_a) or not os.path.isdir(args.dir_b):
+    dir_a = Path(args.dir_a)
+    dir_b = Path(args.dir_b)
+    if not dir_a.is_dir() or not dir_b.is_dir():
         print("Error: Both arguments must be valid directories.")
         sys.exit(1)
 
-    diffs, only_a, only_b = compare_directories(args.dir_a, args.dir_b)
+    diffs, only_a, only_b = compare_directories(dir_a, dir_b)
 
     if not diffs and not only_a and not only_b:
         print("✅ No semantic differences found.")
@@ -192,32 +179,28 @@ def main():
 
     # Create Export Directory
     export_base = (
-        args.out_dir if args.out_dir else tempfile.mkdtemp(prefix="jekyll-diff-")
+        Path(args.out_dir) if args.out_dir else Path(tempfile.mkdtemp(prefix="jekyll-diff-"))
     )
-    dir_a_export = os.path.join(export_base, "A")
-    dir_b_export = os.path.join(export_base, "B")
+    dir_a_export = export_base / "A"
+    dir_b_export = export_base / "B"
 
     print(f"📦 Found differences! Exporting normalized files to: {export_base}\n")
 
     # Export ONLY the files that changed or are unique
     for f in diffs + only_a:
-        write_normalized_file(
-            os.path.join(args.dir_a, f), os.path.join(dir_a_export, f)
-        )
+        write_normalized_file(dir_a / f, dir_a_export / f)
     for f in diffs + only_b:
-        write_normalized_file(
-            os.path.join(args.dir_b, f), os.path.join(dir_b_export, f)
-        )
+        write_normalized_file(dir_b / f, dir_b_export / f)
 
     # Print Summary
     if only_a:
-        print(f"Files only in {args.dir_a} ({len(only_a)}):")
+        print(f"Files only in {dir_a} ({len(only_a)}):")
         for f in sorted(only_a)[:10]:
             print(f"  - {f}")
         print("")
 
     if only_b:
-        print(f"Files only in {args.dir_b} ({len(only_b)}):")
+        print(f"Files only in {dir_b} ({len(only_b)}):")
         for f in sorted(only_b)[:10]:
             print(f"  - {f}")
         print("")

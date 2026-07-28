@@ -30,6 +30,7 @@ import argparse
 import logging
 import re
 import sys
+from pathlib import Path
 
 from fetch_book_metadata import BOOK_PROPERTY_MAP
 from wikidata_utils import (
@@ -71,9 +72,7 @@ def search_book_entity(title: str, author: str) -> str:
     # Sort: results whose description mentions the author's surname first.
     author_surname = author.split()[-1].lower() if author else ""
     if author_surname:
-        results.sort(
-            key=lambda r: author_surname not in r.get("description", "").lower()
-        )
+        results.sort(key=lambda r: author_surname not in r.get("description", "").lower())
 
     for i, r in enumerate(results):
         desc = r.get("description", "")
@@ -130,7 +129,7 @@ def parse_file(path: str) -> tuple[str, str, str]:
     Returns the front matter content (between the --- markers, not including
     the markers themselves), the closing --- line, and everything after it.
     """
-    with open(path, encoding="utf-8") as f:
+    with Path(path).open(encoding="utf-8") as f:
         content = f.read()
 
     if not content.startswith("---\n"):
@@ -208,8 +207,13 @@ def fetch_metadata(qid: str) -> dict:
     # sameAs URLs
     urls = extract_same_as_urls(entity, qid, BOOK_PROPERTY_MAP)
 
-    log.debug("Fetched: isbn=%s date=%s awards=%s urls=%d",
-              isbn, date_published, awards, len(urls) if urls else 0)
+    log.debug(
+        "Fetched: isbn=%s date=%s awards=%s urls=%d",
+        isbn,
+        date_published,
+        awards,
+        len(urls) if urls else 0,
+    )
 
     return {
         "wikidata_qid": qid,
@@ -221,9 +225,7 @@ def fetch_metadata(qid: str) -> dict:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(
-        description="Update book front matter with Wikidata metadata."
-    )
+    parser = argparse.ArgumentParser(description="Update book front matter with Wikidata metadata.")
     parser.add_argument("file", help="Path to a _books/*.md file")
     parser.add_argument("--qid", help="Wikidata Q-ID (skips search)")
     parser.add_argument(
@@ -294,10 +296,7 @@ def main() -> None:
     if args.force or only_fields:
         candidates = list(only_fields) if only_fields else list(MANAGED_FIELDS)
         # Never overwrite existing non-null values with null.
-        fields_to_write = [
-            f for f in candidates
-            if metadata[f] is not None or f not in existing
-        ]
+        fields_to_write = [f for f in candidates if metadata[f] is not None or f not in existing]
         # Strip only the fields we're updating.
         for field in fields_to_write:
             if field in existing:
@@ -330,7 +329,7 @@ def main() -> None:
     updated_front_matter = front_matter + "\n".join(new_lines) + "\n"
     output = "---\n" + updated_front_matter + closing + body
 
-    with open(args.file, "w", encoding="utf-8") as f:
+    with Path(args.file).open("w", encoding="utf-8") as f:
         f.write(output)
 
     # Summary.

@@ -29,10 +29,11 @@ import os
 import re
 import sys
 import time
-from datetime import datetime, timezone
+from collections.abc import Callable
+from datetime import UTC, datetime
 from pathlib import Path
+from typing import Any
 from zoneinfo import ZoneInfo
-from typing import Any, Callable
 
 import requests
 import yaml
@@ -53,13 +54,13 @@ SITE_TZ = ZoneInfo("America/Los_Angeles")
 
 class PublishError(Exception):
     """Fatal pipeline error; main() converts it to a message and exit 1."""
+
+
 _CONFIG_FILE = Path(__file__).parent.parent.parent / "_config.yml"
 
 POST_FILENAME_RE = re.compile(r"^(\d{4}-\d{2}-\d{2})-(.+)\.md$")
 
-MANAGED_FIELDS = frozenset(
-    {"$type", "site", "path", "title", "description", "tags", "publishedAt"}
-)
+MANAGED_FIELDS = frozenset({"$type", "site", "path", "title", "description", "tags", "publishedAt"})
 
 # Publication fields the pipeline manages; values come from _config.yml so
 # site metadata has a single home (title → name, description, url).
@@ -78,13 +79,14 @@ def desired_publication_record(config: dict) -> dict[str, Any]:
         "preferences": {"showInDiscover": True},
     }
 
+
 # ---------------------------------------------------------------------------
 # Config helpers
 # ---------------------------------------------------------------------------
 
 
 def load_config(config_path: Path = _CONFIG_FILE) -> dict:
-    with open(config_path, encoding="utf-8") as fh:
+    with config_path.open(encoding="utf-8") as fh:
         return yaml.safe_load(fh) or {}
 
 
@@ -199,9 +201,7 @@ def _extract_frontmatter_strict(text: str) -> dict:
         return {}
     fm = yaml.safe_load(m.group(1)) or {}
     if not isinstance(fm, dict):
-        raise ValueError(
-            f"front matter is not a YAML mapping (got {type(fm).__name__})"
-        )
+        raise ValueError(f"front matter is not a YAML mapping (got {type(fm).__name__})")
     return fm
 
 
@@ -336,7 +336,8 @@ class AtprotoClient:
             if cursor:
                 params["cursor"] = cursor
             resp = self._retry_request(
-                lambda: self._http.get(
+                # Bind params per iteration; the loop rebinds it each page.
+                lambda params=params: self._http.get(
                     f"{self._pds}/xrpc/com.atproto.repo.listRecords",
                     params=params,
                     headers=self._auth(),
@@ -438,14 +439,11 @@ def _verify_publication(client: AtprotoClient, publication_uri: str) -> dict:
     uri_did, rkey = m.group(1), m.group(2)
     if uri_did != client.did:
         raise PublishError(
-            f"publication_uri belongs to {uri_did} but the session is "
-            f"authenticated as {client.did}"
+            f"publication_uri belongs to {uri_did} but the session is authenticated as {client.did}"
         )
     remote = client.get_record(client.did, "site.standard.publication", rkey)
     if remote is None:
-        raise PublishError(
-            f"publication record does not exist on the PDS: {publication_uri}"
-        )
+        raise PublishError(f"publication record does not exist on the PDS: {publication_uri}")
     return remote
 
 
@@ -460,9 +458,7 @@ def _records_differ(local: dict, remote: dict) -> bool:
 def _document_sources(
     posts_dir: Path, books_dir: Path | None
 ) -> list[tuple[Path, Callable[[Path], dict | None]]]:
-    sources: list[tuple[Path, Callable[[Path], dict | None]]] = [
-        (posts_dir, parse_post)
-    ]
+    sources: list[tuple[Path, Callable[[Path], dict | None]]] = [(posts_dir, parse_post)]
     if books_dir is not None:
         bd = books_dir
         sources.append((bd, lambda f: parse_book(f, bd)))
@@ -474,6 +470,7 @@ def _source_files(src_dir: Path) -> list[Path]:
     All candidate markdown files under src_dir, recursively, mirroring
     Jekyll: directories starting with '_' (templates) are not read.
     """
+
     def included(f: Path) -> bool:
         rel = f.relative_to(src_dir)
         if any(part.startswith("_") for part in rel.parts[:-1]):
@@ -519,10 +516,7 @@ def _collect_documents(posts_dir: Path, books_dir: Path | None):
             if not rec["title"].strip():
                 errors.append("missing or empty 'title'")
             if not rec.get("publishedAt"):
-                errors.append(
-                    "cannot derive publishedAt from the 'date' front matter "
-                    "or filename"
-                )
+                errors.append("cannot derive publishedAt from the 'date' front matter or filename")
             if rec["path"] in seen_paths:
                 errors.append(
                     f"duplicate path {rec['path']!r} "
@@ -557,9 +551,7 @@ def sync_documents(
     # --- Keep the publication record itself in sync with _config.yml ---
     desired_pub = desired_publication_record(config)
     remote_pub_value = remote_publication["value"]
-    pub_subset = {
-        k: v for k, v in remote_pub_value.items() if k in PUBLICATION_MANAGED_FIELDS
-    }
+    pub_subset = {k: v for k, v in remote_pub_value.items() if k in PUBLICATION_MANAGED_FIELDS}
     if pub_subset != desired_pub:
         merged_pub = dict(remote_pub_value)
         merged_pub.update(desired_pub)
@@ -580,9 +572,7 @@ def sync_documents(
     local: dict[str, tuple[Path, dict]] = {}
     for doc_file, rec, errors in _collect_documents(posts_dir, books_dir):
         if errors:
-            raise PublishError(
-                "; ".join(f"{doc_file.name}: {msg}" for msg in errors)
-            )
+            raise PublishError("; ".join(f"{doc_file.name}: {msg}" for msg in errors))
         if rec is None:
             raise AssertionError("collector yielded no record and no errors")
         rec["site"] = publication_uri
@@ -610,9 +600,7 @@ def sync_documents(
     data_map: dict[str, str] = {}
     for path_key, (rkey, _, _) in remote.items():
         if path_key in local:
-            data_map[path_key] = (
-                f"at://{client.did}/site.standard.document/{rkey}"
-            )
+            data_map[path_key] = f"at://{client.did}/site.standard.document/{rkey}"
 
     # --- Diff and sync ---
     created = updated = unchanged = orphaned = 0
@@ -640,15 +628,11 @@ def sync_documents(
                         merged[key] = local_rec[key]
                     elif key in merged:
                         del merged[key]
-                merged["updatedAt"] = datetime.now(timezone.utc).strftime(
-                    "%Y-%m-%dT%H:%M:%SZ"
-                )
+                merged["updatedAt"] = datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
                 if dry_run:
                     print(f"[dry-run] Would update: {path_key}")
                 else:
-                    client.put_record(
-                        "site.standard.document", rkey, merged, swap_cid=cid
-                    )
+                    client.put_record("site.standard.document", rkey, merged, swap_cid=cid)
                     print(f"Updated: {path_key}")
                 updated += 1
             else:
@@ -670,13 +654,13 @@ def sync_documents(
     if dry_run:
         print(f"[dry-run] Would write {len(data_map)} entries to {data_out}")
     else:
-        output = {path_key: data_map[path_key] for path_key in sorted(local) if path_key in data_map}
+        output = {
+            path_key: data_map[path_key] for path_key in sorted(local) if path_key in data_map
+        }
         data_out.parent.mkdir(parents=True, exist_ok=True)
         data_out.write_text(json.dumps(output, indent=2) + "\n", encoding="utf-8")
 
-    print(
-        f"created={created} updated={updated} unchanged={unchanged} orphaned={orphaned}"
-    )
+    print(f"created={created} updated={updated} unchanged={unchanged} orphaned={orphaned}")
 
 
 # ---------------------------------------------------------------------------
@@ -790,8 +774,7 @@ def validate_documents(
                 error_count += 1
             elif wk.read_text(encoding="utf-8") != expected_publication_uri:
                 print(
-                    f"ERROR: {wk} content does not match "
-                    "standard_site.publication_uri",
+                    f"ERROR: {wk} content does not match standard_site.publication_uri",
                     file=sys.stderr,
                 )
                 error_count += 1
@@ -821,9 +804,7 @@ def delete_orphans(
     local_paths: set[str] = set()
     for doc_file, rec, errors in _collect_documents(posts_dir, books_dir):
         if errors:
-            raise PublishError(
-                "; ".join(f"{doc_file.name}: {msg}" for msg in errors)
-            )
+            raise PublishError("; ".join(f"{doc_file.name}: {msg}" for msg in errors))
         if rec is None:
             raise AssertionError("collector yielded no record and no errors")
         local_paths.add(rec["path"])
@@ -868,9 +849,7 @@ def delete_orphans(
 def init_publication(client: AtprotoClient, config: dict) -> None:
     existing = get_publication_uri(config)
     if existing:
-        raise PublishError(
-            f"publication_uri is already set in _config.yml: {existing!r}"
-        )
+        raise PublishError(f"publication_uri is already set in _config.yml: {existing!r}")
     # The config guard is local-only; also check the PDS so running twice
     # before committing cannot create two publication records.
     remote_pubs = client.list_records("site.standard.publication")
@@ -880,9 +859,7 @@ def init_publication(client: AtprotoClient, config: dict) -> None:
             f"publication record(s) already exist on the PDS: {uris} — "
             "put the URI in _config.yml instead of creating another"
         )
-    at_uri = client.create_record(
-        "site.standard.publication", desired_publication_record(config)
-    )
+    at_uri = client.create_record("site.standard.publication", desired_publication_record(config))
     print(f"Publication record created: {at_uri}")
     print("Add this URI to _config.yml → standard_site.publication_uri and commit.")
 
@@ -911,9 +888,7 @@ def _dispatch(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="cmd", required=True)
 
-    pub_p = sub.add_parser(
-        "publish", help="Sync posts and books to PDS document records"
-    )
+    pub_p = sub.add_parser("publish", help="Sync posts and books to PDS document records")
     pub_p.add_argument("--posts-dir", required=True, type=Path)
     pub_p.add_argument("--books-dir", required=True, type=Path)
     pub_p.add_argument("--data-out", required=True, type=Path)
@@ -923,8 +898,7 @@ def _dispatch(argv: list[str] | None = None) -> None:
 
     val_p = sub.add_parser(
         "validate",
-        help="Validate posts and books for AT Protocol compatibility "
-        "(no network, no credentials)",
+        help="Validate posts and books for AT Protocol compatibility (no network, no credentials)",
     )
     val_p.add_argument("--posts-dir", required=True, type=Path)
     val_p.add_argument("--books-dir", required=True, type=Path)

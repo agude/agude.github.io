@@ -40,7 +40,7 @@ def _get_session() -> requests.Session:
 
 
 # Characters that require quoting in YAML scalar values.
-_YAML_SPECIAL = set(": # ' \" [ ] { } , & * ? | > ! %".split())
+_YAML_SPECIAL = {":", "#", "'", '"', "[", "]", "{", "}", ",", "&", "*", "?", "|", ">", "!", "%"}
 
 
 def _needs_yaml_quoting(value: str) -> bool:
@@ -197,7 +197,7 @@ def extract_same_as_urls(
 
     # Properties
     claims = entity.get("claims", {})
-    for prop_id, label, template in property_map:
+    for prop_id, _label, template in property_map:
         if prop_id not in claims:
             continue
         # Take only the first claim per property to avoid foreign-language
@@ -224,14 +224,14 @@ AWARD_FAMILIES: dict[str, str] = {
     "Q188914": "hugo",
     "Q194285": "nebula",
     "Q754655": "locus",
-    #"Q594886": "world_fantasy",
-    #"Q787680": "bsfa",
-    #"Q708830": "clarke",
-    #"Q582610": "sturgeon",
-    #"Q1030402": "campbell",
-    #"Q142392": "prometheus",
-    #"Q6418326": "kitschies",
-    #"Q5157154": "compton_crook",
+    # "Q594886": "world_fantasy",
+    # "Q787680": "bsfa",
+    # "Q708830": "clarke",
+    # "Q582610": "sturgeon",
+    # "Q1030402": "campbell",
+    # "Q142392": "prometheus",
+    # "Q6418326": "kitschies",
+    # "Q5157154": "compton_crook",
 }
 
 
@@ -270,9 +270,7 @@ def get_earliest_edition_isbn(work_qid: str) -> str | None:
         )
         for qid in batch:
             entity = data.get("entities", {}).get(qid, {})
-            isbn_list = get_claim_strings(entity, "P212") or get_claim_strings(
-                entity, "P957"
-            )
+            isbn_list = get_claim_strings(entity, "P212") or get_claim_strings(entity, "P957")
             if not isbn_list:
                 continue
             if fallback_isbn is None:
