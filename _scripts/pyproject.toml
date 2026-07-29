@@ -4,7 +4,42 @@ version = "0.0.0"
 requires-python = ">=3.12"
 
 [dependency-groups]
-dev = ["pytest", "pyyaml", "requests", "isbnlib"]
+dev = ["pytest", "pyyaml", "requests", "isbnlib", "ruff>=0.16"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+# The hook lints staged files anywhere in the repo, so the config lives here
+# but must apply to scripts outside _scripts/ too.
+extend-exclude = [
+    "../_site",
+    "../.jekyll-cache",
+    # Frozen notebooks published alongside old posts; not ours to reformat.
+    "../files",
+    # Ruff 0.16 formats Python code fences inside Markdown. Post code blocks
+    # are published prose — Prettier owns .md here.
+    "*.md",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # Pyflakes
+    "I",      # isort
+    "B",      # flake8-bugbear
+    "C4",     # flake8-comprehensions
+    "UP",     # pyupgrade
+    "SIM",    # flake8-simplify
+    "RET",    # flake8-return
+    "RUF",    # Ruff-specific
+    "PTH",    # flake8-use-pathlib
+]
+ignore = [
+    "E501",   # line too long (handled by the formatter)
+    "PTH207", # glob.glob: these CLI scripts expand user-supplied shell
+              # patterns, which Path.glob cannot take
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

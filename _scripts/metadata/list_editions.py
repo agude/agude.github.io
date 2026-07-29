@@ -56,9 +56,7 @@ def list_editions(work_qid: str) -> list[dict]:
         )
         for qid in batch:
             entity = data.get("entities", {}).get(qid, {})
-            isbn_list = get_claim_strings(entity, "P212") or get_claim_strings(
-                entity, "P957"
-            )
+            isbn_list = get_claim_strings(entity, "P212") or get_claim_strings(entity, "P957")
             language_qids = get_claim_entity_ids(entity, "P407")
             editions.append(
                 {

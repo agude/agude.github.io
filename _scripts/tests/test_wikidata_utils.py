@@ -2,8 +2,6 @@
 
 from unittest.mock import patch
 
-import pytest
-
 from wikidata_utils import (
     AWARD_FAMILIES,
     _needs_yaml_quoting,
@@ -101,9 +99,7 @@ class TestGetClaimTime:
     def test_full_date(self):
         entity = {
             "claims": {
-                "P577": [
-                    {"mainsnak": {"datavalue": {"value": {"time": "+1985-06-15T00:00:00Z"}}}}
-                ]
+                "P577": [{"mainsnak": {"datavalue": {"value": {"time": "+1985-06-15T00:00:00Z"}}}}]
             }
         }
         result = get_claim_time(entity, "P577")
@@ -112,9 +108,7 @@ class TestGetClaimTime:
     def test_year_month_only(self):
         entity = {
             "claims": {
-                "P577": [
-                    {"mainsnak": {"datavalue": {"value": {"time": "+1985-06-00T00:00:00Z"}}}}
-                ]
+                "P577": [{"mainsnak": {"datavalue": {"value": {"time": "+1985-06-00T00:00:00Z"}}}}]
             }
         }
         result = get_claim_time(entity, "P577")
@@ -123,9 +117,7 @@ class TestGetClaimTime:
     def test_year_only(self):
         entity = {
             "claims": {
-                "P577": [
-                    {"mainsnak": {"datavalue": {"value": {"time": "+1985-00-00T00:00:00Z"}}}}
-                ]
+                "P577": [{"mainsnak": {"datavalue": {"value": {"time": "+1985-00-00T00:00:00Z"}}}}]
             }
         }
         result = get_claim_time(entity, "P577")
@@ -174,9 +166,7 @@ class TestExtractSameAsUrls:
     def test_applies_property_template(self):
         entity = {
             "sitelinks": {},
-            "claims": {
-                "P123": [{"mainsnak": {"datavalue": {"value": "12345"}}}]
-            },
+            "claims": {"P123": [{"mainsnak": {"datavalue": {"value": "12345"}}}]},
         }
         property_map = [("P123", "Test", "https://example.com/{value}")]
         result = extract_same_as_urls(entity, "Q1", property_map)
@@ -209,9 +199,7 @@ class TestResolveAwardFamily:
     def test_traverses_p361_hierarchy(self):
         # Hugo Award for Best Novel -> Hugo Award
         mock_novel_entity = {
-            "claims": {
-                "P361": [{"mainsnak": {"datavalue": {"value": {"id": "Q188914"}}}}]
-            }
+            "claims": {"P361": [{"mainsnak": {"datavalue": {"value": {"id": "Q188914"}}}}]}
         }
         with patch("wikidata_utils.fetch_entity", return_value=mock_novel_entity):
             result = _resolve_award_family("Q255032")
@@ -220,9 +208,7 @@ class TestResolveAwardFamily:
     def test_traverses_p279_hierarchy(self):
         # Some award -> parent via subclass
         mock_entity = {
-            "claims": {
-                "P279": [{"mainsnak": {"datavalue": {"value": {"id": "Q194285"}}}}]
-            }
+            "claims": {"P279": [{"mainsnak": {"datavalue": {"value": {"id": "Q194285"}}}}]}
         }
         with patch("wikidata_utils.fetch_entity", return_value=mock_entity):
             result = _resolve_award_family("Q999999")
@@ -237,9 +223,7 @@ class TestResolveAwardFamily:
     def test_max_depth_prevents_infinite_loop(self):
         # Each entity points to another unknown entity
         mock_entity = {
-            "claims": {
-                "P361": [{"mainsnak": {"datavalue": {"value": {"id": "Q888888"}}}}]
-            }
+            "claims": {"P361": [{"mainsnak": {"datavalue": {"value": {"id": "Q888888"}}}}]}
         }
         call_count = 0
 
@@ -311,8 +295,7 @@ class TestGetEarliestEditionIsbn:
         return {
             "claims": {
                 "P747": [
-                    {"mainsnak": {"datavalue": {"value": {"id": qid}}}}
-                    for qid in edition_qids
+                    {"mainsnak": {"datavalue": {"value": {"id": qid}}}} for qid in edition_qids
                 ]
             }
         }
@@ -337,8 +320,9 @@ class TestGetEarliestEditionIsbn:
                 },
             }
         }
-        with patch("wikidata_utils.fetch_entity", return_value=work_entity), patch(
-            "wikidata_utils.api_get", return_value=api_response
+        with (
+            patch("wikidata_utils.fetch_entity", return_value=work_entity),
+            patch("wikidata_utils.api_get", return_value=api_response),
         ):
             result = get_earliest_edition_isbn("Q0")
             assert result == "978-0-000-00000-0"
@@ -355,8 +339,9 @@ class TestGetEarliestEditionIsbn:
                 },
             }
         }
-        with patch("wikidata_utils.fetch_entity", return_value=work_entity), patch(
-            "wikidata_utils.api_get", return_value=api_response
+        with (
+            patch("wikidata_utils.fetch_entity", return_value=work_entity),
+            patch("wikidata_utils.api_get", return_value=api_response),
         ):
             result = get_earliest_edition_isbn("Q0")
             assert result == "978-2-000-00000-0"
@@ -372,8 +357,9 @@ class TestGetEarliestEditionIsbn:
                 },
             }
         }
-        with patch("wikidata_utils.fetch_entity", return_value=work_entity), patch(
-            "wikidata_utils.api_get", return_value=api_response
+        with (
+            patch("wikidata_utils.fetch_entity", return_value=work_entity),
+            patch("wikidata_utils.api_get", return_value=api_response),
         ):
             result = get_earliest_edition_isbn("Q0")
             assert result == "978-0-000-00000-0"
@@ -395,8 +381,9 @@ class TestGetEarliestEditionIsbn:
                 },
             }
         }
-        with patch("wikidata_utils.fetch_entity", return_value=work_entity), patch(
-            "wikidata_utils.api_get", return_value=api_response
+        with (
+            patch("wikidata_utils.fetch_entity", return_value=work_entity),
+            patch("wikidata_utils.api_get", return_value=api_response),
         ):
             result = get_earliest_edition_isbn("Q0")
             assert result == "978-0-222-22222-2"
@@ -413,8 +400,9 @@ class TestGetEarliestEditionIsbn:
                 },
             }
         }
-        with patch("wikidata_utils.fetch_entity", return_value=work_entity), patch(
-            "wikidata_utils.api_get", return_value=api_response
+        with (
+            patch("wikidata_utils.fetch_entity", return_value=work_entity),
+            patch("wikidata_utils.api_get", return_value=api_response),
         ):
             result = get_earliest_edition_isbn("Q0")
             assert result == "0-000-00000-0"
@@ -428,7 +416,7 @@ class TestGetEarliestEditionIsbn:
 
 class TestAwardFamiliesMapping:
     def test_all_families_have_valid_qids(self):
-        for qid in AWARD_FAMILIES.keys():
+        for qid in AWARD_FAMILIES:
             assert qid.startswith("Q")
             assert qid[1:].isdigit()
 

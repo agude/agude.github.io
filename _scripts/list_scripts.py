@@ -63,9 +63,7 @@ def main() -> None:
     else:
         bold, dim, cyan, reset = BOLD, DIM, CYAN, RESET
 
-    print(
-        f"{bold}Available scripts{reset} {dim}(run from repo root unless noted){reset}"
-    )
+    print(f"{bold}Available scripts{reset} {dim}(run from repo root unless noted){reset}")
 
     subdirs = sorted(
         p.name

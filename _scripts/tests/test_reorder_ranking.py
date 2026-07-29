@@ -1,7 +1,6 @@
 """Tests for ranking/reorder_ranking.py pure functions."""
 
 import pytest
-
 from reorder_ranking import format_title_for_yaml, parse_ranked_list
 
 

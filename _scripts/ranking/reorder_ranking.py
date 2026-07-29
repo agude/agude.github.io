@@ -48,9 +48,9 @@ def parse_ranked_list(path):
             if stripped.startswith("- "):
                 # Extract title, handling quoted strings
                 title = stripped[2:].strip()
-                if title.startswith('"') and title.endswith('"'):
-                    title = title[1:-1]
-                elif title.startswith("'") and title.endswith("'"):
+                if (title.startswith('"') and title.endswith('"')) or (
+                    title.startswith("'") and title.endswith("'")
+                ):
                     title = title[1:-1]
                 titles.append(title)
             elif stripped == "":
@@ -78,9 +78,9 @@ def find_book_file(title):
         if m:
             file_title = m.group(1).strip()
             # Strip quotes
-            if file_title.startswith('"') and file_title.endswith('"'):
-                file_title = file_title[1:-1]
-            elif file_title.startswith("'") and file_title.endswith("'"):
+            if (file_title.startswith('"') and file_title.endswith('"')) or (
+                file_title.startswith("'") and file_title.endswith("'")
+            ):
                 file_title = file_title[1:-1]
             if file_title.lower() == title.lower():
                 return path
@@ -130,10 +130,9 @@ def rebuild_front_matter(path, new_ranked_list_text):
         if in_list and not list_done:
             if stripped.startswith("- ") or stripped.startswith("#") or stripped == "":
                 continue  # Skip old list content
-            else:
-                in_list = False
-                list_done = True
-                new_lines.append(line)
+            in_list = False
+            list_done = True
+            new_lines.append(line)
         else:
             new_lines.append(line)
 

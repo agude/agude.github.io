@@ -1,7 +1,5 @@
 """Tests for content/make_pages.py pure functions."""
 
-from pathlib import Path
-
 from make_pages import extract_frontmatter, extract_metadata_from_books, normalize_filename
 
 

@@ -7,6 +7,7 @@
 
 import sys
 from pathlib import Path
+
 from bs4 import BeautifulSoup
 
 
@@ -26,7 +27,7 @@ def get_canonical_backlinks(file_path: Path):
     if not file_path.is_file():
         return "FILE_NOT_FOUND"
 
-    with open(file_path, "r", encoding="utf-8") as f:
+    with file_path.open(encoding="utf-8") as f:
         soup = BeautifulSoup(f, "html.parser")
 
     backlinks_aside = soup.find("aside", class_="book-backlinks")
@@ -53,7 +54,7 @@ def main():
     Main function to find all book pages and compare their backlinks sections
     between an 'old' and 'new' directory.
     """
-    base_dir = Path(".")
+    base_dir = Path()
     old_dir = base_dir / "old"
     new_dir = base_dir / "new"
 

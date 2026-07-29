@@ -1,7 +1,5 @@
 """Tests for metadata/format_isbn.py pure functions."""
 
-import pytest
-
 from format_isbn import extract_isbn, format_isbn
 
 

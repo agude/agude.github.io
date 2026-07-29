@@ -33,7 +33,7 @@ DOCKER_RUN := docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) 
 TEST ?= $(shell find _tests -type f -name 'test_*.rb' -not -name 'test_helper.rb')
 
 # Tier 1: Daily drivers
-.PHONY: serve build test test-scripts lint clean debug scripts
+.PHONY: serve build test test-scripts lint lint-scripts format-scripts clean debug scripts
 
 # Tier 2: Command variants
 .PHONY: serve-drafts serve-profile test-cov test-summary lint-fix check-links check-liquid doc-index doc-show
@@ -209,6 +209,20 @@ lint: image-build
 	@echo "Running linter..."
 	@$(DOCKER_RUN) bundle exec rubocop
 
+# Run Ruff (lint + format check) on all Python scripts.
+# Runs from _scripts/ so its pyproject.toml supplies the config and the
+# relative excludes resolve against the repo root.
+lint-scripts:
+	@echo "Running Ruff on Python scripts..."
+	@cd _scripts && uv run ruff check ..
+	@cd _scripts && uv run ruff format --check ..
+
+# Apply Ruff formatting and safe fixes to all Python scripts.
+format-scripts:
+	@echo "Formatting Python scripts with Ruff..."
+	@cd _scripts && uv run ruff format ..
+	@cd _scripts && uv run ruff check --fix ..
+
 # Build the site and check for broken links/HTML issues.
 check-links: build
 	@echo "Checking generated site for broken links and HTML issues..."
@@ -244,7 +258,8 @@ hooks-install: image-build prettier-image-build _bin/pre-commit.sh
 	@cp _bin/pre-commit.sh .git/hooks/pre-commit
 	@chmod +x .git/hooks/pre-commit
 	@echo "Pre-commit hook installed at .git/hooks/pre-commit."
-	@echo "It will run RuboCop on staged .rb files and Prettier on staged .md files."
+	@echo "It will run RuboCop on staged .rb files, Prettier on staged .md files,"
+	@echo "and Ruff on staged .py files."
 
 # Run RuboCop --autocorrect on all Ruby files to establish a clean formatting baseline.
 # This target modifies files on the host via the volume mount.

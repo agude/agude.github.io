@@ -1,6 +1,13 @@
 """Tests for skills/stub_book.py pure functions."""
 
-from stub_book import build_front_matter, build_opening, build_template, number_word, ordinal, slugify
+from stub_book import (
+    build_front_matter,
+    build_opening,
+    build_template,
+    number_word,
+    ordinal,
+    slugify,
+)
 
 
 class TestSlugify:

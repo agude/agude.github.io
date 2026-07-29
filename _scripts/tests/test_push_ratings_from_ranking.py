@@ -8,7 +8,8 @@ from push_ratings_from_ranking import parse_ranked_list_with_tiers
 class TestParseRankedListWithTiers:
     def test_parses_simple_list(self, tmp_path):
         f = tmp_path / "ranking.md"
-        f.write_text(dedent("""\
+        f.write_text(
+            dedent("""\
             ---
             ranked_list:
               # 5 Stars
@@ -17,7 +18,8 @@ class TestParseRankedListWithTiers:
               # 4 Stars
               - Book Three
             ---
-            """))
+            """)
+        )
         result = parse_ranked_list_with_tiers(f)
 
         assert result == [
@@ -28,14 +30,16 @@ class TestParseRankedListWithTiers:
 
     def test_handles_quoted_titles(self, tmp_path):
         f = tmp_path / "ranking.md"
-        f.write_text(dedent("""\
+        f.write_text(
+            dedent("""\
             ---
             ranked_list:
               # 5 Stars
               - "Book: A Story"
               - 'Another Book'
             ---
-            """))
+            """)
+        )
         result = parse_ranked_list_with_tiers(f)
 
         assert result[0] == ("Book: A Story", 5)
@@ -43,7 +47,8 @@ class TestParseRankedListWithTiers:
 
     def test_handles_all_star_tiers(self, tmp_path):
         f = tmp_path / "ranking.md"
-        f.write_text(dedent("""\
+        f.write_text(
+            dedent("""\
             ---
             ranked_list:
               # 5 Stars
@@ -57,7 +62,8 @@ class TestParseRankedListWithTiers:
               # 1 Star
               - One Star Book
             ---
-            """))
+            """)
+        )
         result = parse_ranked_list_with_tiers(f)
 
         assert len(result) == 5
@@ -69,18 +75,21 @@ class TestParseRankedListWithTiers:
 
     def test_empty_list(self, tmp_path):
         f = tmp_path / "ranking.md"
-        f.write_text(dedent("""\
+        f.write_text(
+            dedent("""\
             ---
             ranked_list:
             ---
-            """))
+            """)
+        )
         result = parse_ranked_list_with_tiers(f)
 
         assert result == []
 
     def test_ignores_blank_lines(self, tmp_path):
         f = tmp_path / "ranking.md"
-        f.write_text(dedent("""\
+        f.write_text(
+            dedent("""\
             ---
             ranked_list:
               # 5 Stars
@@ -88,7 +97,8 @@ class TestParseRankedListWithTiers:
 
               - Book Two
             ---
-            """))
+            """)
+        )
         result = parse_ranked_list_with_tiers(f)
 
         assert len(result) == 2

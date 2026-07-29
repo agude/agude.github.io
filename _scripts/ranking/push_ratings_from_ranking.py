@@ -50,9 +50,9 @@ def parse_ranked_list_with_tiers(path):
             if current_stars is None:
                 sys.exit("Found book entry before any # N Stars comment")
             title = stripped[2:].strip()
-            if title.startswith('"') and title.endswith('"'):
-                title = title[1:-1]
-            elif title.startswith("'") and title.endswith("'"):
+            if (title.startswith('"') and title.endswith('"')) or (
+                title.startswith("'") and title.endswith("'")
+            ):
                 title = title[1:-1]
             books.append((title, current_stars))
         elif stripped == "":

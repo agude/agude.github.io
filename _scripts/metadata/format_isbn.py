@@ -122,18 +122,12 @@ def process_file(path: str, dry_run: bool) -> bool:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Format ISBNs in book front matter.")
-    parser.add_argument(
-        "files", nargs="*", help="Paths to _books/*.md files (default: all)"
-    )
-    parser.add_argument(
-        "--dry-run", action="store_true", help="Show changes without writing"
-    )
+    parser.add_argument("files", nargs="*", help="Paths to _books/*.md files (default: all)")
+    parser.add_argument("--dry-run", action="store_true", help="Show changes without writing")
     args = parser.parse_args()
 
     if args.files:
-        paths = sorted(
-            p for pattern in args.files for p in glob.glob(pattern, recursive=True)
-        )
+        paths = sorted(p for pattern in args.files for p in glob.glob(pattern, recursive=True))
     else:
         paths = sorted(glob.glob("_books/**/*.md", recursive=True))
 
