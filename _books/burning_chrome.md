@@ -178,14 +178,17 @@ main characters in the trilogy; Johnny is mentioned as part of her backstory.
 
 This story also introduces the theme that appears again and again in the {{
 sprawl }}: what do you sacrifice and what do you lose when you modify
-yourself. Both Johnny and Molly 
+yourself. Johnny makes a living storing peoples secrets but has no control
+over what is put there. Molly has gained strength, speed, but as we see in {{
+neuromancer }} it comes at a high cost.
 
 {{ johnny_mnemonic }} starts to get at the weirdness of the sprawl. It's not
 all rain-slicked streets and towering zaibatsu and neon lights in cyberspace;
-it's also heroin-addicted uplifted dolphins, ninjas with monomolecular wire in
+it's also heroin-addicted uplifted dolphins (two years before {{
+brins_lastname }} {{ startide_rising }}), ninjas with monomolecular wire in
 their thumbs, and outcasts who implant animal teeth and live up in the rafters
-of the geodesic domes. It's move {{ the_authors_lastname }} learned from {{
-brunners_lastname }} {{ stand_on_zanzibar }}: where the weirdness makes the
+of the geodesic domes. It's something {{ the_authors_lastname }} learned from
+{{ brunners_lastname }} {{ stand_on_zanzibar }}: the weirdness makes the
 future feel more real.
 
 ### {% short_story_title "The Gernsback Continuum" %}
@@ -193,15 +196,15 @@ future feel more real.
 {% rating_stars 3 %}
 
 {{ the_authors_lastname }} doesn't write horror, but much of what he writes is
-horrifying. {{ the_gernsback_continuum }} is an inversion of that in three
-ways. {{ the_authors_lastname }} usually looks at a possible future; here he
-looks back at a future that never arrived. The horror is normally in the
-details---puppet shops, fast-growing custom-tailored cancers---so commonplace
-the prose hardly has time for them. Here absolutely nothing is grim;
-everything is seamless, smooth, fast, interchangeable---that's the threat. And
-the squalor is usually the disease, the thing that's wrong with the world.
-Here it's the cure, with porn, bad television, and the ugly real world the
-only things that can break the spell.
+horrifying. {{ the_gernsback_continuum }} is an inversion of his normal horror
+in three ways. {{ the_authors_lastname }} usually looks at a possible future;
+here he looks back at a future that never arrived. The horror is normally in
+the details---puppet shops, fast-growing custom-tailored cancers---so
+commonplace the prose hardly has time for them. Here absolutely nothing is
+grim; everything is seamless, smooth, fast, interchangeable. And the squalor
+is usually the disease, the thing that's wrong with the world. Here it's the
+cure, with porn, bad television, and the ugly real world the only things that
+can break the spell.
 
 But the prose is clunky, the characters don't matter. It's a story all about
 the _idea_ and that's not enough for me.
@@ -214,6 +217,9 @@ the _idea_ and that's not enough for me.
 
 <div class="written-by">by {{ the_author_link }} and {{ shirley }}</div>
 {% rating_stars 2 %}
+
+A bizarre tale about a species that subsists on alcohol, and uses human form as
+camouflage. The main character is a linguist
 
 ### {% short_story_title "Hinterlands" %}
 
