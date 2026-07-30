@@ -233,17 +233,26 @@ at a space station. Their job is to rendezvous with astronauts returning
 through the wormhole, most of whom kill themselves immediately, but some of
 whom share transformative knowledge before their insanity gets to them.
 
-<!-- Themes, etc. --> Cosmic horror, rejection, sacrifice.
+{{ the_authors_lastname }} beautifully incorporates both the trauma the
+surrogates feel as they have to bond with people who are going to die, and
+also the guilt and loss they feel at having tried to go through the wormhole
+and been rejected, for all surrogates are failed wormhole explorers.
 
 Only a few other books have balanced wonder and dread in the way this story
 does: {{ arkady_and_boris_strugatskys }} {{ roadside_picnic }}, of course,
 which this story is influenced by; {{ strosss_lastname }} {{ a_colder_war }};
-{{ wattss_lastname }} {{ firefall }}.
+{{ wattss_lastname }} {{ firefall }}; {{ disco_elysium }}.
 
 ### {% short_story_title "Red Star, Winter Orbit" %}
 
 <div class="written-by">by {{ the_author_link }} and {{ sterling }}</div>
 {% rating_stars 3 %}
+
+This story takes place on a decaying, soon-to-be-abandoned Soviet space
+station. They won the cold war, went to the Moon, to Mars, and now everything
+is crumbling. It's almost an alternative history of the {{ sprawl }}, where
+instead of Japan winning and the Zaibatsus taking over, the Soviets did and
+then collapsed.
 
 ### {% short_story_title "New Rose Hotel" %}
 
