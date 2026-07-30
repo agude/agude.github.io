@@ -149,8 +149,14 @@ novels were first tested out in these short stories. This is clearest in the
 {{ sprawl }} short stories---{{ johnny_mnemonic }}, {{ new_rose_hotel }}, {{
 burning_chrome }}---but almost every story has some piece that was reused.
 
-Third, one of the themes through this series of stories that _doesn't make it
-to the novels_.
+Third, nearly every story is narrated by a man watching a woman with more
+agency than he has: she drives the action, she gets what she wants, and more
+often than not she leaves the man behind. Johnny is passively dragged along by
+Molly. The narrator recounts how Sandii burned him while he waits to die.
+Casey is left coming to terms with Lise's upload. We only see the women
+through others' eyes. But by the novels, {{ the_authors_lastname }} allows
+them to tell their own stories---Molly, Marly, Angela, Mona, and Kumiko all
+get their own chapters.
 
 ### {% short_story_title "Johnny Mnemonic" %}
 
