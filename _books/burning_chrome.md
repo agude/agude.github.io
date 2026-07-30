@@ -218,8 +218,10 @@ the _idea_ and that's not enough for me.
 <div class="written-by">by {{ the_author_link }} and {{ shirley }}</div>
 {% rating_stars 2 %}
 
-A bizarre tale about a species that subsists on alcohol, and uses human form as
-camouflage. The main character is a linguist
+A bizarre tale about a species that subsists on alcohol and uses human form as
+camouflage. The main character is a linguist who can't make small talk, but
+after becoming obsessed with one of the creatures, becomes one himself and
+starts to blend in. A throw away idea and little else.
 
 ### {% short_story_title "Hinterlands" %}
 
