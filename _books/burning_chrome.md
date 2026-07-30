@@ -162,6 +162,24 @@ get their own chapters.
 
 {% rating_stars 4 %}
 
+{{ johnny_mnemonic }} is an early {{ sprawl }} story featuring Johnny---a man
+able to store proprietary data in his head---and Molly---the street samurai
+from {{ neuromancer }} and {{ mona_lisa_overdrive }}. The Yakuza want Johnny
+dead because his mind contains their stolen data, and Molly is excited about
+the opportunity to test her enhancements against a vat-grown ninja. Unlike
+other stories in this book, this one is a direct prequel. Molly is one of the
+main characters in the trilogy; Johnny is mentioned as part of her backstory.
+
+This story also introduces the theme that appears again and again in the {{
+sprawl }}: what do you sacrifice and what do you lose when you modify
+yourself. Both Johnny and Molly 
+
+{{ johnny_mnemonic }} starts to get at the weirdness of the sprawl. It's not
+all rain-slicked streets and towering zaibatsu and neon lights in cyberspace;
+it's also heroin-addicted uplifted dolphins, ninjas with monomolecular wire in
+their thumbs, and outcasts who implant animal teeth and live up in the rafters
+of the geodesic domes.
+
 ### {% short_story_title "The Gernsback Continuum" %}
 
 {% rating_stars 3 %}
