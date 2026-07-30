@@ -65,6 +65,12 @@ page.book_authors[0] link=false %}.
 {% capture brunners_lastname %}{% author_link "John Brunner" link_text="Brunner" possessive %}{% endcapture %}
 {% capture stand_on_zanzibar %}{% book_link "Stand on Zanzibar" %}{% endcapture %}
 
+{% capture brin %}{% author_link "David Brin" %}{% endcapture %}
+{% capture brins %}{% author_link "David Brin" possessive %}{% endcapture %}
+{% capture brin_lastname %}{% author_link "David Brin" link_text="Brin" %}{% endcapture %}
+{% capture brins_lastname %}{% author_link "David Brin" link_text="Brin" possessive %}{% endcapture %}
+{% capture startide_rising %}{% book_link "Startide Rising" %}{% endcapture %}
+
 {% capture liu_cixin %}{% author_link "Liu Cixin" %}{% endcapture %}
 {% capture liu_cixins %}{% author_link "Liu Cixin" possessive %}{% endcapture %}
 {% capture liu_cixin_lastname %}{% author_link "Liu Cixin" link_text="Liu" %}{% endcapture %}
@@ -178,7 +184,9 @@ yourself. Both Johnny and Molly
 all rain-slicked streets and towering zaibatsu and neon lights in cyberspace;
 it's also heroin-addicted uplifted dolphins, ninjas with monomolecular wire in
 their thumbs, and outcasts who implant animal teeth and live up in the rafters
-of the geodesic domes.
+of the geodesic domes. It's move {{ the_authors_lastname }} learned from {{
+brunners_lastname }} {{ stand_on_zanzibar }}: where the weirdness makes the
+future feel more real.
 
 ### {% short_story_title "The Gernsback Continuum" %}
 
