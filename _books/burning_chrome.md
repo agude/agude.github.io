@@ -213,6 +213,18 @@ the _idea_ and that's not enough for me.
 
 {% rating_stars 3 %}
 
+{{ the_authors_lastname_possessive }} first published story. It's built around
+the idea that a fragment of a hologram gives you the whole picture still. {{
+the_authors_lastname }} gives us fragments of Parker's life, and of his
+ex-girlfriend's via ASP---a precursor idea to simstim---and lets us form the
+picture. This is the exact style I love in the {{ sprawl_trilogy }}, but he
+doesn't quite land it here.
+
+There's a small, throwaway bit about ASP stars becoming more androgynous
+because viewers can't adapt to different-gender recordings. It reminded me of
+{{ falls_lastname }} {{ attack_helicopter }}, where Barb changes her gender to
+fly better.
+
 ### {% short_story_title "The Belonging Kind" %}
 
 <div class="written-by">by {{ the_author_link }} and {{ shirley }}</div>
