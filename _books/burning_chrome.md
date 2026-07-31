@@ -254,6 +254,11 @@ is crumbling. It's almost an alternative history of the {{ sprawl }}, where
 instead of Japan winning and the Zaibatsus taking over, the Soviets did and
 then collapsed.
 
+Reggae shows up briefly in this story, and a few others. {{
+the_authors_lastname }} used Afro-Caribbean culture throughout the {{
+sprawl_trilogy }}: the Rastafarian Zion cluster in {{ neuromancer }} and the
+Haitian Vodou Loa in {{ count_zero }}.
+
 ### {% short_story_title "New Rose Hotel" %}
 
 {% rating_stars 5 %}
