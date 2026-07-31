@@ -55,6 +55,7 @@ the other. LLMs love doubling up adjectives; the author almost never does.
 ## Punctuation & Mechanics
 
 - **Oxford comma**: Always use it
+- **Logical quotation**: Punctuation falls outside closing quotation marks unless it is part of the quoted content.
 - **Em-dashes**: Use sparingly. Do not add unless it significantly improves the prose.
 - **Contractions**: Use naturally (don't, isn't, I've), but don't insert too
   many.
