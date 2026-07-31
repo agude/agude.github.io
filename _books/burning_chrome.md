@@ -180,7 +180,7 @@ main characters in the trilogy; Johnny is mentioned as part of her backstory.
 
 This story also introduces the theme that appears again and again in the {{
 sprawl }}: what do you sacrifice and what do you lose when you modify
-yourself. Johnny makes a living storing peoples secrets but has no control
+yourself. Johnny makes a living storing people's secrets but has no control
 over what is put there. Molly has gained strength, speed, but as we see in {{
 neuromancer }} it comes at a high cost.
 
@@ -235,7 +235,7 @@ fly better.
 A bizarre tale about a species that subsists on alcohol and uses human form as
 camouflage. The main character is a linguist who can't make small talk, but
 after becoming obsessed with one of the creatures, becomes one himself and
-starts to blend in. A throw away idea and little else.
+starts to blend in. A throwaway idea and little else.
 
 ### {% short_story_title "Hinterlands" %}
 
@@ -263,7 +263,7 @@ which this story is influenced by; {{ strosss_lastname }} {{ a_colder_war }};
 {% rating_stars 3 %}
 
 This story takes place on a decaying, soon-to-be-abandoned Soviet space
-station. They won the cold war, went to the Moon, to Mars, and now everything
+station. They won the Cold War, went to the Moon, to Mars, and now everything
 is crumbling. It's almost an alternative history of the {{ sprawl }}, where
 instead of Japan winning and the Zaibatsus taking over, the Soviets did and
 then collapsed.
@@ -283,25 +283,25 @@ Haitian Vodou Loa in {{ count_zero }}.
 
 Another story that reads like something from the {{ sprawl }} but isn't. Casey
 is a stim editor (another simstim precursor) who discovers a disabled artist,
-Lise. People love her work because she's trapped in her body, and its the same
-feelings, but amplified, that the down-and-out populace feels. She uses Casey
-to become a star, giving her the opportunity to upload her mind and escape her
-body. There is an irony there: her body is what made her art, and she casts it
-aside.
+Lise. People love her work because she's trapped in her body, and it's the
+same feelings, but amplified, that the down-and-out populace feels. She uses
+Casey to become a star, giving her the opportunity to upload her mind and
+escape her body. There is an irony there: her body is what made her art, and
+she casts it aside.
 
-This story asks "is the upload still Lise?"; Case doesn't think so, and dreads
-talking to after its happens, fearful she'll convince him otherwise. It's the
-same idea that shows up in {{ sprawl }}---with Dixie Flatline, the Count and
-Angie---and in works like {{ qntms }} {{ lena }}. Rubin, an artist who builds
-things out of _gomi_, is another a prototype: he becomes Slick from {{
-mona_lisa_overdrive }}.
+This story asks "is the upload still Lise?"; Casey doesn't think so, and
+dreads talking to her after it happens, fearful she'll convince him otherwise.
+It's the same idea that shows up in the {{ sprawl }} novels---with Dixie
+Flatline, the Count and Angie---and in works like {{ qntms }} {{ lena }}.
+Rubin, an artist who builds things out of _gomi_, is another prototype: he
+becomes Slick from {{ mona_lisa_overdrive }}.
 
 ### {% short_story_title "Dogfight" %}
 
 <div class="written-by">by {{ the_author_link }} and {{ swanwick }}</div>
 {% rating_stars 3 %}
 
-The third and final collaboration, {{ dogfight }} is about a drifter who
+The third and final collaboration, {{ dogfight }}, is about a drifter who
 cheats his way to winning at video games. In the process he destroys a
 disabled veteran's only source of meaning in life, and ruins his fledgling
 relationship. It's an inversion of the women-with-agency pattern in the rest
