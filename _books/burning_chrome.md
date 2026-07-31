@@ -130,6 +130,8 @@ page.book_authors[0] link=false %}.
 {% capture the_state_of_the_art %}{% book_link "The State of the Art" %}{% endcapture %}
 {% capture cleaning_up %}{% short_story_link "Cleaning Up" %}{% endcapture %}
 
+{% capture qntm %}{% author_link "qntm" %}{% endcapture %}
+{% capture qntms %}{% author_link "qntm" possessive %}{% endcapture %}
 {% capture lena %}{% short_story_link "Lena" %}{% endcapture %}
 
 {% capture watts %}{% author_link "Peter Watts" %}{% endcapture %}
@@ -278,6 +280,23 @@ Haitian Vodou Loa in {{ count_zero }}.
 ### {% short_story_title "The Winter Market" %}
 
 {% rating_stars 4 %}
+
+Another story that reads like something from the {{ sprawl }} but isn't. Casey
+is a stim editor (another simstim precursor) who discovers a disabled artist,
+Lise. People love her work because she's trapped in her body, and its the same
+feelings, but amplified, that the down-and-out populace feels. She uses Casey
+to become a star, giving her the opportunity to upload her mind and escape her
+body. There is an irony there: her body is what made her art, and she casts it
+aside.
+
+This story asks "is the upload still Lise?"; Case doesn't think so, and dreads
+talking to after its happens, fearful she'll convince him otherwise. It's the
+same idea that shows up in {{ sprawl }}---with Dixie Flatline, the Count and
+Angie---and in works like {{ qntms }} {{ lena }}
+
+There are some other {{ sprawl }} precursors in this story as well: Rubin is
+an artist who makes things out of _gomi_, a prototype for Slick from {{
+mona_lisa_overdrive }}. Lise is similar to Angie, a star who uploads.
 
 ### {% short_story_title "Dogfight" %}
 
