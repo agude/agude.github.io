@@ -301,11 +301,11 @@ becomes Slick from {{ mona_lisa_overdrive }}.
 <div class="written-by">by {{ the_author_link }} and {{ swanwick }}</div>
 {% rating_stars 3 %}
 
-The third and final collaboration, {{ dogfight }}, is about a drifter who
-cheats his way to winning at video games. In the process he destroys a
-disabled veteran's only source of meaning in life, and ruins his fledgling
-relationship. It's an inversion of the women-with-agency pattern in the rest
-of {{ this_book }}.
+The third and final collaboration in this collection, {{ dogfight }}, is about
+a drifter who cheats his way to winning at video games. In the process he
+destroys a disabled veteran's only source of meaning in life, and ruins his
+fledgling relationship. It's an inversion of the women-with-agency pattern in
+the rest of {{ this_book }}.
 
 The story isn't based in the {{ sprawl }}, but it reads as another prototype
 with reflex-improving drugged-out fighter pilots, personal holographic
@@ -316,3 +316,15 @@ that involve changing your personality like Slick in {{ mona_lisa_overdrive
 ### {% short_story_title "Burning Chrome" %}
 
 {% rating_stars 4 %}
+
+This story is a straightforward heist: Bobby Quine and Automatic Jack burn
+Chrome, a mob-connected fixer, and redistribute her money. But behind the
+simple story are ideas that would be revisited in the {{ sprawl }} novels:
+it's the first place {{ the_authors_lastname }} describes cyberspace, as a
+neon-lit geometric world you can jack into and steal a billion dollars. Rikki,
+Bobby's muse, needs Zeiss Ikon eyes so she can be a star; she sells her body
+at Chrome's puppet shop in order to fund them. It's the starkest version of
+the trade we've seen in the collection and it presages the trade we learn
+Molly made in {{ neuromancer }}. And this story gives us one of the most
+famous of {{ the_authors_lastname_possessive }} lines: "The street finds its
+own uses for things".
