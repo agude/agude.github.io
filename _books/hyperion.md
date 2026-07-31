@@ -97,7 +97,7 @@ to tell of the impending downfall of man.
 {% capture flowers_for_algernon %}{% book_link "Flowers for Algernon" %}{% endcapture %}
 
 {% capture gibson %}{% author_link "William Gibson" %}{% endcapture %}
-{% capture johnny_mnemonic %}{% book_link "Johnny Mnemonic" %}{% endcapture %}
+{% capture johnny_mnemonic %}{% short_story_link "Johnny Mnemonic" %}{% endcapture %}
 {% capture neuromancer %}{% book_link "Neuromancer" %}{% endcapture %}
 
 {% capture orwells %}{% author_link "George Orwell" possessive %}{% endcapture %}
