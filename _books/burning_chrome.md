@@ -153,9 +153,11 @@ you can see him finding his voice: by {{ new_rose_hotel }} his prose is
 stripped down and lean.
 
 Second, many of the ideas and themes {{ the_authors_lastname }} expands in his
-novels were first tested out in these short stories. This is clearest in the
-{{ sprawl }} short stories---{{ johnny_mnemonic }}, {{ new_rose_hotel }}, {{
-burning_chrome }}---but almost every story has some piece that was reused.
+novels were first tested out in these short stories. Three of them are the
+novels in miniature: {{ burning_chrome }} is {{ neuromancer }}'s heist, {{
+new_rose_hotel }} is {{ count_zero }}'s corporate extraction, and {{
+the_winter_market }} asks the same questions about uploading and identity as
+{{ mona_lisa_overdrive }}.
 
 Third, nearly every story is narrated by a man watching a woman with more
 agency than he has: she drives the action, she gets what she wants, and more
@@ -276,6 +278,8 @@ Haitian Vodou Loa in {{ count_zero }}.
 ### {% short_story_title "New Rose Hotel" %}
 
 {% rating_stars 5 %}
+
+My other favorite story in the collection, {{ new_rose_hotel }}
 
 ### {% short_story_title "The Winter Market" %}
 
