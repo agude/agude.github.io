@@ -273,14 +273,14 @@ Haitian Vodou Loa in {{ count_zero }}.
 {% rating_stars 3 %}
 
 The third and final collaboration, {{ dogfight }} is about a drifter who
-cheats he way to winning at video games. In the process he destroys a disabled
-veteran's only source of meaning in life, and ruins his fledgling
-relationship. It's an inversion of the "women with agency" theme we see
-elsewhere in {{ this_book }}.
+cheats his way to winning at video games. In the process he destroys a
+disabled veteran's only source of meaning in life, and ruins his fledgling
+relationship. It's an inversion of the women-with-agency pattern in the rest
+of {{ this_book }}.
 
 The story isn't based in the {{ sprawl }}, but it reads as another prototype
 with reflex-improving drugged-out fighter pilots, personal holographic
-projections like those used by Rivera in {{ neuromancer }}, and punishments
+projections like those used by Riviera in {{ neuromancer }}, and punishments
 that involve changing your personality like Slick in {{ mona_lisa_overdrive
 }}.
 
