@@ -292,11 +292,9 @@ aside.
 This story asks "is the upload still Lise?"; Case doesn't think so, and dreads
 talking to after its happens, fearful she'll convince him otherwise. It's the
 same idea that shows up in {{ sprawl }}---with Dixie Flatline, the Count and
-Angie---and in works like {{ qntms }} {{ lena }}
-
-There are some other {{ sprawl }} precursors in this story as well: Rubin is
-an artist who makes things out of _gomi_, a prototype for Slick from {{
-mona_lisa_overdrive }}. Lise is similar to Angie, a star who uploads.
+Angie---and in works like {{ qntms }} {{ lena }}. Rubin, an artist who builds
+things out of _gomi_, is another a prototype: he becomes Slick from {{
+mona_lisa_overdrive }}.
 
 ### {% short_story_title "Dogfight" %}
 
