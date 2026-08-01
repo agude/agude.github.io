@@ -279,10 +279,14 @@ Haitian Vodou Loa in {{ count_zero }}.
 
 {% rating_stars 5 %}
 
-{{ new_rose_hotel }} is my other favorite story in the collection. It explores
-an idea that's implicit in the {{ sprawl_trilogy }}: that zaibatsu are a life
-form, and the dominant one on Earth.
-{{ neuromancer }} shows it through Tessier-Ashpool, a 
+{{ new_rose_hotel }} is my other favorite story in the collection. It direct
+explores an idea that's implicit in the {{ sprawl_trilogy }}: that
+corporations are a life form, that they are artificial intelligences.
+That's a particularly interesting idea now as we debate if LLMs are _real AI_,
+overlooking the fact that we've had artificial intelligences for centuries.
+It's an idea we've seen in {{ strosss_lastname }} {{ accelerando }}, although
+he makes it much more explicit by stating that corporations evolved out of
+humanity.
 
 ### {% short_story_title "The Winter Market" %}
 
