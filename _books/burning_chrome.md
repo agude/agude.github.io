@@ -279,7 +279,10 @@ Haitian Vodou Loa in {{ count_zero }}.
 
 {% rating_stars 5 %}
 
-My other favorite story in the collection, {{ new_rose_hotel }}
+{{ new_rose_hotel }} is my other favorite story in the collection. It explores
+an idea that's implicit in the {{ sprawl_trilogy }}: that zaibatsu are a life
+form, and the dominant one on Earth.
+{{ neuromancer }} shows it through Tessier-Ashpool, a 
 
 ### {% short_story_title "The Winter Market" %}
 
