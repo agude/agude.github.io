@@ -22,7 +22,6 @@ GEM
       fiber-local (~> 1.1)
       json
     csv (3.3.5)
-    docile (1.4.1)
     drb (2.2.3)
     em-websocket (0.5.3)
       eventmachine (>= 0.12.9)
@@ -228,15 +227,10 @@ GEM
       google-protobuf (~> 4.31)
     sass-embedded (1.101.0-x86_64-linux-musl)
       google-protobuf (~> 4.31)
-    simplecov (0.22.0)
-      docile (~> 1.1)
-      simplecov-html (~> 0.11)
-      simplecov_json_formatter (~> 0.1)
-    simplecov-html (0.13.2)
+    simplecov (1.0.3)
     simplecov-json (0.2.3)
       json
       simplecov
-    simplecov_json_formatter (0.1.4)
     terminal-table (3.0.2)
       unicode-display_width (>= 1.1.1, < 3)
     traces (0.18.2)
@@ -286,7 +280,7 @@ DEPENDENCIES
   nokogiri (~> 1.19)
   rake (~> 13.0)
   rubocop (~> 1.88)
-  simplecov (~> 0.22)
+  simplecov (~> 1.0)
   simplecov-json (~> 0.2.3)
   webrick (~> 1.9)
   yard (~> 0.9)
