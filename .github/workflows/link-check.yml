@@ -91,7 +91,7 @@ jobs:
 
       - name: Open issue with report
         if: steps.filter.outputs.has_errors == 'true'
-        uses: peter-evans/create-issue-from-file@v5
+        uses: peter-evans/create-issue-from-file@v6
         with:
           title: "Broken external links — ${{ steps.date.outputs.month }}"
           content-filepath: ./lychee/out.md
