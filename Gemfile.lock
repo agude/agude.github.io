@@ -246,7 +246,7 @@ GEM
       ethon (>= 0.18.0)
     unicode-display_width (2.6.0)
     webrick (1.9.2)
-    yard (0.9.44)
+    yard (0.9.45)
     yell (2.2.2)
     zeitwerk (2.8.2)
 
