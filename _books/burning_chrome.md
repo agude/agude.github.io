@@ -24,9 +24,9 @@ same_as_urls:
 ---
 
 {% book_link page.title %} is a collection of short stories by {% author_link
-page.book_authors[0] link=false %}, three of them written with collaborators.
-It features some of his earliest work in the {% series_text page.series
-link=false %}.
+page.book_authors[0] link=false %}. It features both solo and collaborative
+works, some of which are the earliest written stories in the {{ page.series }}
+universe.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors[0] link=false %}{% endcapture %}
