@@ -24,6 +24,8 @@ Fix ONLY:
 - Punctuation errors
 - Typos
 
+**Read [references/STYLE.md](references/STYLE.md) "Punctuation & Mechanics" before changing any punctuation.** The house rules there differ from standard American usage. The guide is the authority---do not infer a convention by grepping the corpus, and do not "correct" the author toward a rule the guide doesn't set.
+
 ### Polish Mode
 
 Follow this prompt:
@@ -70,6 +72,7 @@ Key points:
 - **Em-dashes**: Do NOT add em-dashes. LLMs overuse them. Only keep existing ones if appropriate.
 - **Contractions**: Use naturally, don't insert needlessly.
 - **Oxford comma**: Yes
+- **Logical quotation**: Punctuation goes OUTSIDE closing quotation marks unless it is part of the quoted content. `a "space opera", and` --- not `a "space opera," and`. This is not American style; do not "fix" it.
 
 ### Anti-patterns (never do these)
 
