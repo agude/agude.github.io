@@ -196,8 +196,8 @@ trilogy, and Johnny is mentioned as part of her backstory.
 This story also introduces the theme that comes back again and again in the {{
 sprawl }}: what you give up when you modify yourself. Johnny makes a living
 storing other people's secrets but has no control over what gets put there.
-Molly has gained strength, speed, but as we see in {{ neuromancer }}, it came
-at a high cost.
+Molly has gained strength, speed, but as we see in {{ neuromancer }}, they
+came at a high cost.
 
 {{ johnny_mnemonic }} also starts to get at the weirdness of the {{ sprawl }}.
 It's not all rain-slicked streets and towering zaibatsu and neon lights in
