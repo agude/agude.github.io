@@ -56,7 +56,7 @@ universe.
 
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 {% capture sprawl %}{% series_link "Sprawl" %}{% endcapture %}
-{% capture sprawl_trilogy %}the {% series_link page.series %} trilogy{% endcapture %}
+{% capture sprawl_trilogy %}{% series_link page.series %} trilogy{% endcapture %}
 {% capture neuromancer %}{% book_link "Neuromancer" %}{% endcapture %}
 {% capture count_zero %}{% book_link "Count Zero" %}{% endcapture %}
 {% capture mona_lisa_overdrive %}{% book_link "Mona Lisa Overdrive" %}{% endcapture %}
@@ -138,6 +138,15 @@ universe.
 {% capture qntms %}{% author_link "qntm" possessive %}{% endcapture %}
 {% capture lena %}{% short_story_link "Lena" %}{% endcapture %}
 
+{% capture taylor %}{% author_link "Dennis E. Taylor" %}{% endcapture %}
+{% capture taylors %}{% author_link "Dennis E. Taylor" possessive %}{% endcapture %}
+{% capture taylor_lastname %}{% author_link "Dennis E. Taylor" link_text="Taylor" %}{% endcapture %}
+{% capture taylors_lastname %}{% author_link "Dennis E. Taylor" link_text="Taylor" possessive %}{% endcapture %}
+{% capture we_are_legion %}{% book_link "We Are Legion (We Are Bob)" %}{% endcapture %}
+{% capture bobiverse %}{% series_link "Bobiverse" %}{% endcapture %}
+
+{% capture surface_detail %}{% book_link "Surface Detail" %}{% endcapture %}
+
 {% capture watts %}{% author_link "Peter Watts" %}{% endcapture %}
 {% capture wattss %}{% author_link "Peter Watts" possessive %}{% endcapture %}
 {% capture watts_lastname %}{% author_link "Peter Watts" link_text="Watts" %}{% endcapture %}
@@ -172,14 +181,14 @@ prototypes, mixing together ideas he refines later; I'll point a few of these
 out in the story reviews.
 
 There's another pattern in these stories, one that didn't make it into the
-novels: nearly every one is narrated by a man watching a woman with more
-agency than he has. She drives the action, she gets what she wants, and more
-often than not she leaves him behind. Johnny is dragged along by Molly. The
-narrator of {{ new_rose_hotel }} recounts how Sandii burned him while he waits
-to die. Casey is left coming to terms with Lise's upload. We only see these
-women through someone else's eyes. But in the novels {{ the_authors_lastname
-}} lets them tell their own stories: Molly, Marly, Angela, Mona, and Kumiko
-all get their own chapters.
+novels: nearly every one is narrated by a man outpaced by a woman with more
+agency. She drives the action, she gets what she wants, and more often than
+not she leaves him behind. Johnny is dragged along by Molly. The narrator of
+{{ new_rose_hotel }} recounts how Sandii burned him while he waits to die.
+Casey is left coming to terms with Lise's upload. We only see these women
+through someone else's eyes. But in the novels {{ the_authors_lastname }} lets
+them tell their own stories: Molly, Marly, Angela, Mona, and Kumiko all get
+their own chapters.
 
 ### {% short_story_title "Johnny Mnemonic" %}
 
@@ -194,19 +203,19 @@ here, this one is a direct prequel: Molly is one of the main characters in the
 trilogy, and Johnny is mentioned as part of her backstory.
 
 This story also introduces the theme that comes back again and again in the {{
-sprawl }}: what you give up when you modify yourself. Johnny makes a living
-storing other people's secrets but has no control over what gets put there.
-Molly has gained strength, speed, but as we see in {{ neuromancer }}, they
-came at a high cost.
+sprawl }}: what modifying yourself really costs. Johnny makes a living storing
+other people's secrets but has no control over what gets put there. Molly has
+gained strength, speed, but as we see in {{ neuromancer }}, they came at a
+high price.
 
-{{ johnny_mnemonic }} also starts to get at the weirdness of the {{ sprawl }}.
-It's not all rain-slicked streets and towering zaibatsu and neon lights in
-cyberspace; it's also heroin-addicted uplifted dolphins (two years before {{
-brins_lastname }} {{ startide_rising }}), ninjas with monomolecular wire in
-their thumbs, and outcasts who implant animal teeth and live in the rafters of
-the geodesic domes. It's something {{ the_authors_lastname }} learned from {{
-brunners_lastname }} {{ stand_on_zanzibar }}: the weirdness makes the future
-feel more real.
+{{ johnny_mnemonic }} also starts to get at the weirdness of the {{ sprawl }}
+that makes it unique. It's not all rain-slicked streets and towering zaibatsu
+and neon lights in cyberspace; it's also heroin-addicted uplifted dolphins
+(two years before {{ brins_lastname }} {{ startide_rising }}), ninjas with
+monomolecular wire in their thumbs, and outcasts who implant animal teeth and
+live in the rafters of the geodesic domes. It's something {{
+the_authors_lastname }} learned from {{ brunners_lastname }} {{
+stand_on_zanzibar }}: the weirdness makes the future feel more real.
 
 ### {% short_story_title "The Gernsback Continuum" %}
 
@@ -220,7 +229,7 @@ fast-growing custom-tailored cancers---so commonplace the prose hardly has
 time for them; here nothing is grim, and everything is seamless, smooth, fast,
 and interchangeable. And the squalor is usually the disease, the thing that's
 wrong with the world; here it's the cure, with porn, bad television, and the
-ugly real world the only things that can break the spell.
+ugly reality the only things that can break the spell.
 
 But the prose is clunky and the characters don't matter. It's a story all
 about the _idea_, and that's not enough for me.
@@ -236,10 +245,10 @@ ex-girlfriend's via ASP---a precursor to simstim---and lets us form the
 picture. This is the exact style I love in the {{ sprawl_trilogy }}, but he
 doesn't quite land it here.
 
-There's a small bit about ASP stars becoming more androgynous because viewers
-can't adapt to recordings made by a different gender. It reminded me of {{
-falls_lastname }} {{ attack_helicopter }}, where Barb changes her gender to
-fly better.
+There's also a small bit about ASP stars becoming more androgynous because
+viewers can't adapt to recordings made by a different gender. It reminded me
+of {{ falls_lastname }} {{ attack_helicopter }}, where Barb changes her gender
+to fly better.
 
 ### {% short_story_title "The Belonging Kind" %}
 
@@ -258,18 +267,19 @@ finally blends in. A throwaway idea and little else.
 {{ hinterlands }} is the best story in {{ this_book }}. It perfectly balances
 the wonder and dread I love in science fiction. It's about the surrogates on a
 space station whose job is to meet astronauts returning through the wormhole.
-Most of them kill themselves immediately, but a few share transformative
+Most explorers kill themselves immediately, but a few share transformative
 knowledge before their insanity gets to them.
 
-{{ the_authors_lastname }} works in both the trauma the surrogates feel from
+{{ the_authors_lastname }} captures both the trauma the surrogates feel from
 bonding with people who are going to die and the guilt and loss they feel at
 having tried to go through the wormhole and been rejected: every surrogate is
 a failed explorer.
 
-Only a few other books balance wonder and dread the way this story does: {{
+Only a few other stories balance wonder and dread the way this story does: {{
 arkady_and_boris_strugatskys }} {{ roadside_picnic }}, of course, which this
 story is influenced by; {{ strosss_lastname }} {{ a_colder_war }}; {{
-wattss_lastname }} {{ firefall }}; {{ disco_elysium }}.
+wattss_lastname }} {{ firefall }}; {{ disco_elysium }}. It's this tension
+between awe and horror that I love so much in the best science fiction.
 
 ### {% short_story_title "Red Star, Winter Orbit" %}
 
@@ -282,10 +292,10 @@ everything is crumbling. It's almost an alternate history of the {{ sprawl }},
 where instead of Japan winning and the zaibatsu taking over, the Soviets did
 and then collapsed.
 
-Reggae shows up briefly in this story, and in a few others. {{
-the_authors_lastname }} used Afro-Caribbean culture throughout the {{
-sprawl_trilogy }}: the Rastafarian Zion cluster in {{ neuromancer }} and the
-Haitian Vodou loa in {{ count_zero }}.
+Reggae shows up briefly in this story, and in a few others in {{ this_book }}.
+{{ the_authors_lastname }} continued this trend of using Afro-Caribbean
+culture throughout the {{ sprawl_trilogy }}: the Rastafarian Zion cluster in
+{{ neuromancer }} and the Haitian Vodou loa in {{ count_zero }}.
 
 ### {% short_story_title "New Rose Hotel" %}
 
@@ -295,8 +305,8 @@ Haitian Vodou loa in {{ count_zero }}.
 narrator and his partner help scientists defect from one company to another,
 and they hire Sandii to seduce a Maas Biolabs scientist so they can sell him
 to Hosaka. But Maas isn't a towering zaibatsu. It's a lean startup, moving
-fast, all edge, a predator among the corporations. Maas got to Sandii first,
-and she has her own score to settle with Hosaka.
+fast, all edge, a predator among the corporations. But Sandii has her own
+score to settle with Hosaka, and Maas gives her the means to do it.
 
 {{ the_authors_lastname }} has finally honed his noir style and lean prose.
 The whole story is {{ chandler_lastname }}-esque: a man in a coffin hotel,
@@ -305,10 +315,10 @@ going over every detail of the woman who ruined him, still unable to let go.
 This story directly explores an idea that's only implicit in the {{
 sprawl_trilogy }}: that corporations are a life form, that they are artificial
 intelligences. That's a particularly interesting idea now, as we debate
-whether [LLMs][llm] are _real AI_ while overlooking the fact that we've had
-artificial intelligences for centuries. {{ strosss_lastname }} {{ accelerando
-}} does the same thing, although there he makes it explicit as corporations
-literally evolve past their human founders.
+whether [LLMs][llm] are _real AI_ while overlooking the fact that we've
+already had artificial intelligences for centuries. {{ strosss_lastname }} {{
+accelerando }} does the same thing, although there he makes it explicit as
+corporations literally evolve past their human founders.
 
 [llm]: https://en.wikipedia.org/wiki/Large_language_model
 
@@ -316,19 +326,22 @@ literally evolve past their human founders.
 
 {% rating_stars 4 %}
 
-Another story that reads like something from the {{ sprawl }} but isn't. Casey
-is a stim editor (another simstim precursor) who discovers Lise, a disabled
-artist. People love her work because she's trapped in her body: it's the same
-thing the down-and-out populace feels, but amplified. She uses Casey to become
-a star, which gives her the chance to upload her mind and escape her body.
-There's an irony there: her body is what made her art, and she casts it aside.
+A story that reads like something from the {{ sprawl }} but isn't. Casey is a
+stim editor (another simstim precursor) who discovers Lise, a disabled artist.
+People love her work because the feeling she conveys of being trapped by her
+body is a more intense version of what the down-and-out populace feels. She
+uses Casey to become a star, which gives her the chance to upload her mind and
+escape her body. There's an irony there: her body is what made her art, but
+she casts it aside anyway.
 
 This story asks whether the upload is still Lise. Casey doesn't think so, and
 he dreads talking to her afterward, afraid she'll convince him otherwise. It's
-the same idea that shows up in the {{ sprawl }} novels---with Dixie Flatline,
-with the Count and Angie---and in works like {{ qntms }} {{ lena }}. Rubin, an
-artist who builds things out of _gomi_, is another prototype: he becomes Slick
-from {{ mona_lisa_overdrive }}.
+the same idea that shows up in the {{ sprawl }} novels: with Dixie Flatline,
+with the Count, and with Angie---an addicted simstim star who uploads, a
+rework of Lise. The question shows up often in science fiction as a whole: in
+{{ qntms }} {{ lena }}, {{ bankss_lastname }} {{ surface_detail }}, {{
+taylors_lastname }} {{ bobiverse }}. Rubin, an artist who builds things out of
+_gomi_, is another prototype: he becomes Slick from {{ mona_lisa_overdrive }}.
 
 ### {% short_story_title "Dogfight" %}
 
