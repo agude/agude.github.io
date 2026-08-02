@@ -240,7 +240,7 @@ and then collapsed.
 Reggae shows up briefly in this story, and in a few others in {{ this_book }}.
 {{ the_authors_lastname }} continued this trend of using Afro-Caribbean
 culture throughout the {{ sprawl_trilogy }}: the Rastafarian Zion cluster in
-{{ neuromancer }} and the Haitian Vodou loa in {{ count_zero }}.
+{{ neuromancer }} and the Haitian Vodou Loa in {{ count_zero }}.
 
 ### {% short_story_title "New Rose Hotel" %}
 
