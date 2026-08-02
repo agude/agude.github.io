@@ -85,6 +85,7 @@ def process_file(file_path, dry_run=True):
                 # to prevent empty lines from being left behind.
                 new_content = new_content.replace(block + "\n", "")
 
+            new_content = re.sub(r"\n{3,}", "\n\n", new_content)
             path.write_text(new_content)
             print(f"  Cleaned up {path.name}")
 
