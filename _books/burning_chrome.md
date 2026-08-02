@@ -59,6 +59,8 @@ page.book_authors[0] link=false %}.
 {% capture count_zero %}{% book_link "Count Zero" %}{% endcapture %}
 {% capture mona_lisa_overdrive %}{% book_link "Mona Lisa Overdrive" %}{% endcapture %}
 
+{% capture chandler_lastname %}{% author_link "Raymond Chandler" link_text="Chandler" %}{% endcapture %}
+
 {% capture brunner %}{% author_link "John Brunner" %}{% endcapture %}
 {% capture brunners %}{% author_link "John Brunner" possessive %}{% endcapture %}
 {% capture brunner_lastname %}{% author_link "John Brunner" link_text="Brunner" %}{% endcapture %}
@@ -279,20 +281,24 @@ Haitian Vodou Loa in {{ count_zero }}.
 
 {% rating_stars 5 %}
 
-{{ new_rose_hotel }} is my other favorite story in the collection. It directly
-explores an idea that's implicit in the {{ sprawl_trilogy }}: that
-corporations are a life form, that they are artificial intelligences. That's a
-particularly interesting idea now as we debate whether [LLMs][llm] are _real
-AI_, overlooking the fact that we've had artificial intelligences for
-centuries. It's an idea we've seen in {{ strosss_lastname }} {{ accelerando
-}}, although there he makes it explicit as corporations literally evolve past
-their human founders.
+{{ new_rose_hotel }} is my other favorite story in the collection. In it, the
+narrator and his partner help scientists defect from one company to another.
+They hire Sandii to seduce a Maas Biolabs scientist so they can sell him to
+Hosaka. But Maas isn't a towering zaibatsu, it's a lean startup, moving fast,
+all edge. A predator among the corporations. They got to Sandii first, and she
+has her own score to settle with Hosaka.
 
-The narrator and his partner Fox extract scientist from zaibatsu, helping them
-defect to other companies. They hire Sandii to seduce a Maas Biolabs scientist
-so they can sell him to Hosaka. But Maas isn't a towering zaibatsu, it's a
-lean startup, moving fast, all edge. A predator among the corporations. And
-Sandii has her own score to settle with Hosaka.
+{{ the_authors_lastname }} has finally honed his noir style and lean prose.
+The whole story is {{ chandler_lastname }}-esque: its a man in a coffin hotel,
+examining every detail of the woman who ruined him, still unable to let go.
+
+This story directly explores an idea that's implicit in the {{ sprawl_trilogy
+}}: that corporations are a life form, that they are artificial intelligences.
+That's a particularly interesting idea now as we debate whether [LLMs][llm]
+are _real AI_, overlooking the fact that we've had artificial intelligences
+for centuries. It's an idea we've seen in {{ strosss_lastname }} {{
+accelerando }}, although there he makes it explicit as corporations literally
+evolve past their human founders.
 
 [llm]: https://en.wikipedia.org/wiki/Large_language_model
 
