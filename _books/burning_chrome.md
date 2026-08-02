@@ -137,6 +137,7 @@ universe.
 {% capture qntm %}{% author_link "qntm" %}{% endcapture %}
 {% capture qntms %}{% author_link "qntm" possessive %}{% endcapture %}
 {% capture lena %}{% short_story_link "Lena" %}{% endcapture %}
+{% capture a_powerful_culture %}{% short_story_link "A Powerful Culture" %}{% endcapture %}
 
 {% capture taylor %}{% author_link "Dennis E. Taylor" %}{% endcapture %}
 {% capture taylors %}{% author_link "Dennis E. Taylor" possessive %}{% endcapture %}
@@ -270,16 +271,26 @@ space station whose job is to meet astronauts returning through the wormhole.
 Most explorers kill themselves immediately, but a few share transformative
 knowledge before their insanity gets to them.
 
-{{ the_authors_lastname }} captures both the trauma the surrogates feel from
+{{ the_authors_lastname }} captures both the trauma the surrogates carry from
 bonding with people who are going to die and the guilt and loss they feel at
 having tried to go through the wormhole and been rejected: every surrogate is
-a failed explorer.
+a failed explorer. The narrator says that at the edge of the highway human
+understanding breaks down, leaving only the language of the shaman and
+cabalist. It's the same idea {{ the_authors_lastname }} builds {{ count_zero
+}} around: when power is incomprehensible, religion is the only framework
+humans have to understand it.
 
 Only a few other stories balance wonder and dread the way this story does: {{
 arkady_and_boris_strugatskys }} {{ roadside_picnic }}, of course, which this
 story is influenced by; {{ strosss_lastname }} {{ a_colder_war }}; {{
 wattss_lastname }} {{ firefall }}; {{ disco_elysium }}. It's this tension
 between awe and horror that I love so much in the best science fiction.
+
+And the idea of incomprehensible objects arriving from elsewhere isn't limited
+to {{ hinterlands }} or {{ roadside_picnic }}. {{ banks_lastname }} used it in
+{{ cleaning_up }}, although there he played for humor as aliens dump their
+trash on us, and by {{ qntm }} in {{ a_powerful_culture }}, where other
+dimensions dump toxic waste on Earth.
 
 ### {% short_story_title "Red Star, Winter Orbit" %}
 
