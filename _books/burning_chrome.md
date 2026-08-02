@@ -24,7 +24,8 @@ same_as_urls:
 ---
 
 {% book_link page.title %} is a collection of short stories by {% author_link
-page.book_authors[0] link=false %}.
+page.book_authors[0] link=false %}. It features some of his earliest work in
+the {% series_text page.series link=false %}.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors[0] link=false %}{% endcapture %}
@@ -145,7 +146,9 @@ page.book_authors[0] link=false %}.
 {% capture firefall %}{% series_link "Firefall" %}{% endcapture %}
 
 {{ this_book }} was published after {{ neuromancer }} and {{ count_zero }},
-but most of the stories were written before, and it shows in three ways:
+but most of the stories were written years earlier. As {{ the_authors_lastname
+}} writes them, you can see him finding the prose style, the ideas, and the
+characters that would make the {{ sprawl_trilogy }} such a masterwork.
 
 First, the prose in the {{ sprawl_trilogy }} is light, sparse, almost poetic.
 {{ the_authors_lastname }} doesn't tell you everything, he gives you just
