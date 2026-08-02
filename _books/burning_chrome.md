@@ -24,8 +24,9 @@ same_as_urls:
 ---
 
 {% book_link page.title %} is a collection of short stories by {% author_link
-page.book_authors[0] link=false %}. It features some of his earliest work in
-the {% series_text page.series link=false %}.
+page.book_authors[0] link=false %}, three of them written with collaborators.
+It features some of his earliest work in the {% series_text page.series
+link=false %}.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors[0] link=false %}{% endcapture %}
@@ -146,39 +147,39 @@ the {% series_text page.series link=false %}.
 {% capture firefall %}{% series_link "Firefall" %}{% endcapture %}
 
 {{ this_book }} was published after {{ neuromancer }} and {{ count_zero }},
-but most of the stories were written years earlier. As {{ the_authors_lastname
-}} writes them, you can see him finding the prose style, the ideas, and the
+but most of the stories were written years earlier. Reading them, you can see
+{{ the_authors_lastname }} finding the prose style, the ideas, and the
 characters that would make the {{ sprawl_trilogy }} such a masterwork.
 
 The prose in the {{ sprawl_trilogy }} is light, sparse, almost poetic. {{
-the_authors_lastname }} doesn't tell you everything, he gives you just enough
+the_authors_lastname }} doesn't tell you everything; he gives you just enough
 to leave an impression and trusts your mind to fill in the rest. These early
-works are much heavier, the prose slower, the descriptions longer, but you can
-see him finding his voice: by {{ new_rose_hotel }} his prose is stripped down
-and lean.
+stories are much heavier, slower, the descriptions longer. But you can see him
+finding his voice, and by {{ new_rose_hotel }} the prose is stripped down and
+lean.
 
 Many of the ideas and themes {{ the_authors_lastname }} expands in his novels
-were first tested out in these short stories: Cyberspace, simstim, the body as
+were first tested out in these short stories: cyberspace, simstim, the body as
 currency, what part of you is really _you_. Three of the stories are even the
 novels in miniature: {{ burning_chrome }} is {{ neuromancer }}'s heist, {{
 new_rose_hotel }} is {{ count_zero }}'s corporate extraction, and {{
 the_winter_market }} asks the same questions about uploading and identity as
 {{ mona_lisa_overdrive }}.
 
-And {{ the_authors_lastname }} used these stories to explore characters that
-would later show up in the novels. Some---like Molly and the Finn---are just
-brought over directly. But others are prototypes mixing together ideas that
-are refined later; I'll point a few of these out in the story reviews.
+{{ the_authors_lastname }} used these stories to work out characters, too.
+Some---like Molly and the Finn---are brought over directly. Others are
+prototypes, mixing together ideas he refines later; I'll point a few of these
+out in the story reviews.
 
-There's another pattern in this stories, but one that didn't make it into the
+There's another pattern in these stories, one that didn't make it into the
 novels: nearly every one is narrated by a man watching a woman with more
-agency than he has: she drives the action, she gets what she wants, and more
-often than not she leaves him behind. Johnny is passively dragged along by
-Molly. The narrator recounts how Sandii burned him while he waits to die.
-Casey is left coming to terms with Lise's upload. We only see the women
-through others' eyes. But by the novels, {{ the_authors_lastname }} allows
-them to tell their own stories---Molly, Marly, Angela, Mona, and Kumiko all
-get their own chapters.
+agency than he has. She drives the action, she gets what she wants, and more
+often than not she leaves him behind. Johnny is dragged along by Molly. The
+narrator of {{ new_rose_hotel }} recounts how Sandii burned him while he waits
+to die. Casey is left coming to terms with Lise's upload. We only see these
+women through someone else's eyes. But in the novels {{ the_authors_lastname
+}} lets them tell their own stories: Molly, Marly, Angela, Mona, and Kumiko
+all get their own chapters.
 
 ### {% short_story_title "Johnny Mnemonic" %}
 
@@ -187,58 +188,57 @@ get their own chapters.
 {{ johnny_mnemonic }} is an early {{ sprawl }} story featuring Johnny---a man
 able to store proprietary data in his head---and Molly---the street samurai
 from {{ neuromancer }} and {{ mona_lisa_overdrive }}. The Yakuza want Johnny
-dead because his mind contains their stolen data, and Molly is excited about
-the opportunity to test her enhancements against a vat-grown ninja. Unlike
-other stories in this book, this one is a direct prequel. Molly is one of the
-main characters in the trilogy; Johnny is mentioned as part of her backstory.
+dead because his mind holds their stolen data, and Molly is excited to test
+her enhancements against a vat-grown ninja. Unlike most of the other stories
+here, this one is a direct prequel: Molly is one of the main characters in the
+trilogy, and Johnny is mentioned as part of her backstory.
 
-This story also introduces the theme that appears again and again in the {{
-sprawl }}: what do you sacrifice and what do you lose when you modify
-yourself. Johnny makes a living storing people's secrets but has no control
-over what is put there. Molly has gained strength, speed, but as we see in {{
-neuromancer }} it comes at a high cost.
+This story also introduces the theme that comes back again and again in the {{
+sprawl }}: what you give up when you modify yourself. Johnny makes a living
+storing other people's secrets but has no control over what gets put there.
+Molly has gained strength, speed, but as we see in {{ neuromancer }}, it came
+at a high cost.
 
-{{ johnny_mnemonic }} starts to get at the weirdness of the sprawl. It's not
-all rain-slicked streets and towering zaibatsu and neon lights in cyberspace;
-it's also heroin-addicted uplifted dolphins (two years before {{
+{{ johnny_mnemonic }} also starts to get at the weirdness of the {{ sprawl }}.
+It's not all rain-slicked streets and towering zaibatsu and neon lights in
+cyberspace; it's also heroin-addicted uplifted dolphins (two years before {{
 brins_lastname }} {{ startide_rising }}), ninjas with monomolecular wire in
-their thumbs, and outcasts who implant animal teeth and live up in the rafters
-of the geodesic domes. It's something {{ the_authors_lastname }} learned from
-{{ brunners_lastname }} {{ stand_on_zanzibar }}: the weirdness makes the
-future feel more real.
+their thumbs, and outcasts who implant animal teeth and live in the rafters of
+the geodesic domes. It's something {{ the_authors_lastname }} learned from {{
+brunners_lastname }} {{ stand_on_zanzibar }}: the weirdness makes the future
+feel more real.
 
 ### {% short_story_title "The Gernsback Continuum" %}
 
 {% rating_stars 3 %}
 
 {{ the_authors_lastname }} doesn't write horror, but much of what he writes is
-horrifying. {{ the_gernsback_continuum }} is an inversion of his normal horror
-in three ways. {{ the_authors_lastname }} usually looks at a possible future;
-here he looks back at a future that never arrived. The horror is normally in
-the details---puppet shops, fast-growing custom-tailored cancers---so
-commonplace the prose hardly has time for them. Here absolutely nothing is
-grim; everything is seamless, smooth, fast, interchangeable. And the squalor
-is usually the disease, the thing that's wrong with the world. Here it's the
-cure, with porn, bad television, and the ugly real world the only things that
-can break the spell.
+horrifying. {{ the_gernsback_continuum }} inverts his usual horror three ways.
+He normally looks at a possible future; here he looks back at a future that
+never arrived. The horror is normally in the details---puppet shops,
+fast-growing custom-tailored cancers---so commonplace the prose hardly has
+time for them; here nothing is grim, and everything is seamless, smooth, fast,
+and interchangeable. And the squalor is usually the disease, the thing that's
+wrong with the world; here it's the cure, with porn, bad television, and the
+ugly real world the only things that can break the spell.
 
-But the prose is clunky, the characters don't matter. It's a story all about
-the _idea_ and that's not enough for me.
+But the prose is clunky and the characters don't matter. It's a story all
+about the _idea_, and that's not enough for me.
 
 ### {% short_story_title "Fragments of a Hologram Rose" %}
 
 {% rating_stars 3 %}
 
-{{ the_authors_lastname_possessive }} first published story. It's built around
-the idea that a fragment of a hologram gives you the whole picture still. {{
+{{ the_authors_lastname_possessive }} first published story, built around the
+idea that a fragment of a hologram still gives you the whole picture. {{
 the_authors_lastname }} gives us fragments of Parker's life, and of his
-ex-girlfriend's via ASP---a precursor idea to simstim---and lets us form the
+ex-girlfriend's via ASP---a precursor to simstim---and lets us form the
 picture. This is the exact style I love in the {{ sprawl_trilogy }}, but he
 doesn't quite land it here.
 
-There's a small, throwaway bit about ASP stars becoming more androgynous
-because viewers can't adapt to different-gender recordings. It reminded me of
-{{ falls_lastname }} {{ attack_helicopter }}, where Barb changes her gender to
+There's a small bit about ASP stars becoming more androgynous because viewers
+can't adapt to recordings made by a different gender. It reminded me of {{
+falls_lastname }} {{ attack_helicopter }}, where Barb changes her gender to
 fly better.
 
 ### {% short_story_title "The Belonging Kind" %}
@@ -247,29 +247,29 @@ fly better.
 {% rating_stars 2 %}
 
 A bizarre tale about a species that subsists on alcohol and uses human form as
-camouflage. The main character is a linguist who can't make small talk, but
-after becoming obsessed with one of the creatures, becomes one himself and
-starts to blend in. A throwaway idea and little else.
+camouflage. The main character is a linguist who can't make small talk; he
+becomes obsessed with one of the creatures, turns into one himself, and
+finally blends in. A throwaway idea and little else.
 
 ### {% short_story_title "Hinterlands" %}
 
 {% rating_stars 5 %}
 
 {{ hinterlands }} is the best story in {{ this_book }}. It perfectly balances
-the sense of wonder and dread I love in science fiction. It's about surrogates
-at a space station. Their job is to rendezvous with astronauts returning
-through the wormhole, most of whom kill themselves immediately, but some of
-whom share transformative knowledge before their insanity gets to them.
+the wonder and dread I love in science fiction. It's about the surrogates on a
+space station whose job is to meet astronauts returning through the wormhole.
+Most of them kill themselves immediately, but a few share transformative
+knowledge before their insanity gets to them.
 
-{{ the_authors_lastname }} beautifully incorporates both the trauma the
-surrogates feel as they have to bond with people who are going to die, and
-also the guilt and loss they feel at having tried to go through the wormhole
-and been rejected, for all surrogates are failed wormhole explorers.
+{{ the_authors_lastname }} works in both the trauma the surrogates feel from
+bonding with people who are going to die and the guilt and loss they feel at
+having tried to go through the wormhole and been rejected: every surrogate is
+a failed explorer.
 
-Only a few other books have balanced wonder and dread in the way this story
-does: {{ arkady_and_boris_strugatskys }} {{ roadside_picnic }}, of course,
-which this story is influenced by; {{ strosss_lastname }} {{ a_colder_war }};
-{{ wattss_lastname }} {{ firefall }}; {{ disco_elysium }}.
+Only a few other books balance wonder and dread the way this story does: {{
+arkady_and_boris_strugatskys }} {{ roadside_picnic }}, of course, which this
+story is influenced by; {{ strosss_lastname }} {{ a_colder_war }}; {{
+wattss_lastname }} {{ firefall }}; {{ disco_elysium }}.
 
 ### {% short_story_title "Red Star, Winter Orbit" %}
 
@@ -277,38 +277,38 @@ which this story is influenced by; {{ strosss_lastname }} {{ a_colder_war }};
 {% rating_stars 3 %}
 
 This story takes place on a decaying, soon-to-be-abandoned Soviet space
-station. They won the Cold War, went to the Moon, to Mars, and now everything
-is crumbling. It's almost an alternative history of the {{ sprawl }}, where
-instead of Japan winning and the Zaibatsus taking over, the Soviets did and
-then collapsed.
+station. The Soviets won the Cold War, went to the Moon and to Mars, and now
+everything is crumbling. It's almost an alternate history of the {{ sprawl }},
+where instead of Japan winning and the zaibatsu taking over, the Soviets did
+and then collapsed.
 
-Reggae shows up briefly in this story, and a few others. {{
+Reggae shows up briefly in this story, and in a few others. {{
 the_authors_lastname }} used Afro-Caribbean culture throughout the {{
 sprawl_trilogy }}: the Rastafarian Zion cluster in {{ neuromancer }} and the
-Haitian Vodou Loa in {{ count_zero }}.
+Haitian Vodou loa in {{ count_zero }}.
 
 ### {% short_story_title "New Rose Hotel" %}
 
 {% rating_stars 5 %}
 
-{{ new_rose_hotel }} is my other favorite story in the collection. In it, the
-narrator and his partner help scientists defect from one company to another.
-They hire Sandii to seduce a Maas Biolabs scientist so they can sell him to
-Hosaka. But Maas isn't a towering zaibatsu, it's a lean startup, moving fast,
-all edge. A predator among the corporations. They got to Sandii first, and she
-has her own score to settle with Hosaka.
+{{ new_rose_hotel }} is my other favorite story in the collection. The
+narrator and his partner help scientists defect from one company to another,
+and they hire Sandii to seduce a Maas Biolabs scientist so they can sell him
+to Hosaka. But Maas isn't a towering zaibatsu. It's a lean startup, moving
+fast, all edge, a predator among the corporations. Maas got to Sandii first,
+and she has her own score to settle with Hosaka.
 
 {{ the_authors_lastname }} has finally honed his noir style and lean prose.
-The whole story is {{ chandler_lastname }}-esque: its a man in a coffin hotel,
-examining every detail of the woman who ruined him, still unable to let go.
+The whole story is {{ chandler_lastname }}-esque: a man in a coffin hotel,
+going over every detail of the woman who ruined him, still unable to let go.
 
-This story directly explores an idea that's implicit in the {{ sprawl_trilogy
-}}: that corporations are a life form, that they are artificial intelligences.
-That's a particularly interesting idea now as we debate whether [LLMs][llm]
-are _real AI_, overlooking the fact that we've had artificial intelligences
-for centuries. It's an idea we've seen in {{ strosss_lastname }} {{
-accelerando }}, although there he makes it explicit as corporations literally
-evolve past their human founders.
+This story directly explores an idea that's only implicit in the {{
+sprawl_trilogy }}: that corporations are a life form, that they are artificial
+intelligences. That's a particularly interesting idea now, as we debate
+whether [LLMs][llm] are _real AI_ while overlooking the fact that we've had
+artificial intelligences for centuries. {{ strosss_lastname }} {{ accelerando
+}} does the same thing, although there he makes it explicit as corporations
+literally evolve past their human founders.
 
 [llm]: https://en.wikipedia.org/wiki/Large_language_model
 
@@ -317,36 +317,34 @@ evolve past their human founders.
 {% rating_stars 4 %}
 
 Another story that reads like something from the {{ sprawl }} but isn't. Casey
-is a stim editor (another simstim precursor) who discovers a disabled artist,
-Lise. People love her work because she's trapped in her body, and it's the
-same feelings, but amplified, that the down-and-out populace feels. She uses
-Casey to become a star, giving her the opportunity to upload her mind and
-escape her body. There is an irony there: her body is what made her art, and
-she casts it aside.
+is a stim editor (another simstim precursor) who discovers Lise, a disabled
+artist. People love her work because she's trapped in her body: it's the same
+thing the down-and-out populace feels, but amplified. She uses Casey to become
+a star, which gives her the chance to upload her mind and escape her body.
+There's an irony there: her body is what made her art, and she casts it aside.
 
-This story asks "is the upload still Lise?"; Casey doesn't think so, and
-dreads talking to her after it happens, fearful she'll convince him otherwise.
-It's the same idea that shows up in the {{ sprawl }} novels---with Dixie
-Flatline, the Count and Angie---and in works like {{ qntms }} {{ lena }}.
-Rubin, an artist who builds things out of _gomi_, is another prototype: he
-becomes Slick from {{ mona_lisa_overdrive }}.
+This story asks whether the upload is still Lise. Casey doesn't think so, and
+he dreads talking to her afterward, afraid she'll convince him otherwise. It's
+the same idea that shows up in the {{ sprawl }} novels---with Dixie Flatline,
+with the Count and Angie---and in works like {{ qntms }} {{ lena }}. Rubin, an
+artist who builds things out of _gomi_, is another prototype: he becomes Slick
+from {{ mona_lisa_overdrive }}.
 
 ### {% short_story_title "Dogfight" %}
 
 <div class="written-by">by {{ the_author_link }} and {{ swanwick }}</div>
 {% rating_stars 3 %}
 
-The third and final collaboration in this collection, {{ dogfight }}, is about
+The third and final collaboration in the collection, {{ dogfight }}, is about
 a drifter who cheats his way to winning at video games. In the process he
-destroys a disabled veteran's only source of meaning in life, and ruins his
+destroys a disabled veteran's only source of meaning and ruins his own
 fledgling relationship. It's an inversion of the women-with-agency pattern in
 the rest of {{ this_book }}.
 
-The story isn't based in the {{ sprawl }}, but it reads as another prototype
+The story isn't set in the {{ sprawl }}, but it reads as another prototype,
 with reflex-improving drugged-out fighter pilots, personal holographic
-projections like those used by Riviera in {{ neuromancer }}, and punishments
-that involve changing your personality like Slick in {{ mona_lisa_overdrive
-}}.
+projections like the ones Riviera uses in {{ neuromancer }}, and punishments
+that rewrite your personality like Slick's in {{ mona_lisa_overdrive }}.
 
 ### {% short_story_title "Burning Chrome" %}
 
@@ -354,12 +352,12 @@ that involve changing your personality like Slick in {{ mona_lisa_overdrive
 
 This story is a straightforward heist: Bobby Quine and Automatic Jack burn
 Chrome, a mob-connected fixer, and redistribute her money. But behind the
-simple story are ideas that would be revisited in the {{ sprawl }} novels:
-it's the first place {{ the_authors_lastname }} describes cyberspace, as a
-neon-lit geometric world you can jack into and steal a billion dollars. Rikki,
-Bobby's muse, needs Zeiss Ikon eyes so she can be a star; she sells her body
-at Chrome's puppet shop in order to fund them. It's the starkest version of
-the trade we've seen in the collection and it presages the trade we learn
-Molly made in {{ neuromancer }}. And this story gives us one of the most
-famous of {{ the_authors_lastname_possessive }} lines: "The street finds its
-own uses for things".
+simple story are ideas that would be revisited in the {{ sprawl }} novels.
+It's the first place {{ the_authors_lastname }} describes cyberspace, a
+neon-lit geometric world you can jack into to steal a billion dollars. Rikki,
+Bobby's muse, needs Zeiss Ikon eyes so she can be a star, and she sells her
+body at Chrome's puppet shop to pay for them. It's the starkest version of
+that trade in the collection, and it presages the one we learn Molly made in
+{{ neuromancer }}. This story also gives us one of the most famous of {{
+the_authors_lastname_possessive }} lines: "The street finds its own uses for
+things".
