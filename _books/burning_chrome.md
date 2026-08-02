@@ -335,13 +335,15 @@ escape her body. There's an irony there: her body is what made her art, but
 she casts it aside anyway.
 
 This story asks whether the upload is still Lise. Casey doesn't think so, and
-he dreads talking to her afterward, afraid she'll convince him otherwise. It's
-the same idea that shows up in the {{ sprawl }} novels: with Dixie Flatline,
-with the Count, and with Angie---an addicted simstim star who uploads, a
-rework of Lise. The question shows up often in science fiction as a whole: in
-{{ qntms }} {{ lena }}, {{ bankss_lastname }} {{ surface_detail }}, {{
-taylors_lastname }} {{ bobiverse }}. Rubin, an artist who builds things out of
-_gomi_, is another prototype: he becomes Slick from {{ mona_lisa_overdrive }}.
+he dreads talking to her afterward, afraid she'll convince him otherwise. Its
+a question science fiction keeps asking: {{ qntms }} {{ lena }}, {{
+bankss_lastname }} {{ surface_detail }}, {{ taylors_lastname }} {{ bobiverse
+}}, and {{  the_authors_lastname }} himself across the {{ sprawl }}
+novels---with Dixie Flatline, with the Count, and with Angie.
+
+Angie is Lise refined: another addicted simstim star, another escape through
+upload. Rubin, an artist who builds things out of gomi, is another prototype:
+he becomes Slick from {{ mona_lisa_overdrive }}.
 
 ### {% short_story_title "Dogfight" %}
 
@@ -367,10 +369,10 @@ This story is a straightforward heist: Bobby Quine and Automatic Jack burn
 Chrome, a mob-connected fixer, and redistribute her money. But behind the
 simple story are ideas that would be revisited in the {{ sprawl }} novels.
 It's the first place {{ the_authors_lastname }} describes cyberspace, a
-neon-lit geometric world you can jack into to steal a billion dollars. Rikki,
-Bobby's muse, needs Zeiss Ikon eyes so she can be a star, and she sells her
-body at Chrome's puppet shop to pay for them. It's the starkest version of
-that trade in the collection, and it presages the one we learn Molly made in
-{{ neuromancer }}. This story also gives us one of the most famous of {{
-the_authors_lastname_possessive }} lines: "The street finds its own uses for
-things".
+neon-lit geometric world you can jack into to steal a billion dollars. And
+Rikki, Bobby's muse, sells herself at Chrome's puppet shop for the Zeiss Ikon
+eyes she needs to be a simstim star. It's the same trade Molly makes in {{
+neuromancer }}: consciousness and bodily autonomy for agency.
+
+And this story also gives us one {{ the_authors_lastname_possessive }} most
+famous lines: "The street finds its own uses for things".
