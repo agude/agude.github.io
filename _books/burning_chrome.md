@@ -150,23 +150,30 @@ but most of the stories were written years earlier. As {{ the_authors_lastname
 }} writes them, you can see him finding the prose style, the ideas, and the
 characters that would make the {{ sprawl_trilogy }} such a masterwork.
 
-First, the prose in the {{ sprawl_trilogy }} is light, sparse, almost poetic.
-{{ the_authors_lastname }} doesn't tell you everything, he gives you just
-enough to leave an impression and trusts your mind to fill in the rest. These
-early works are much heavier, the prose slower, the descriptions longer, but
-you can see him finding his voice: by {{ new_rose_hotel }} his prose is
-stripped down and lean.
+The prose in the {{ sprawl_trilogy }} is light, sparse, almost poetic. {{
+the_authors_lastname }} doesn't tell you everything, he gives you just enough
+to leave an impression and trusts your mind to fill in the rest. These early
+works are much heavier, the prose slower, the descriptions longer, but you can
+see him finding his voice: by {{ new_rose_hotel }} his prose is stripped down
+and lean.
 
-Second, many of the ideas and themes {{ the_authors_lastname }} expands in his
-novels were first tested out in these short stories. Three of them are the
+Many of the ideas and themes {{ the_authors_lastname }} expands in his novels
+were first tested out in these short stories: Cyberspace, simstim, the body as
+currency, what part of you is really _you_. Three of the stories are even the
 novels in miniature: {{ burning_chrome }} is {{ neuromancer }}'s heist, {{
 new_rose_hotel }} is {{ count_zero }}'s corporate extraction, and {{
 the_winter_market }} asks the same questions about uploading and identity as
 {{ mona_lisa_overdrive }}.
 
-Third, nearly every story is narrated by a man watching a woman with more
+And {{ the_authors_lastname }} used these stories to explore characters that
+would later show up in the novels. Some---like Molly and the Finn---are just
+brought over directly. But others are prototypes mixing together ideas that
+are refined later; I'll point a few of these out in the story reviews.
+
+There's another pattern in this stories, but one that didn't make it into the
+novels: nearly every one is narrated by a man watching a woman with more
 agency than he has: she drives the action, she gets what she wants, and more
-often than not she leaves the man behind. Johnny is passively dragged along by
+often than not she leaves him behind. Johnny is passively dragged along by
 Molly. The narrator recounts how Sandii burned him while he waits to die.
 Casey is left coming to terms with Lise's upload. We only see the women
 through others' eyes. But by the novels, {{ the_authors_lastname }} allows
