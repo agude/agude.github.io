@@ -287,10 +287,10 @@ wattss_lastname }} {{ firefall }}; {{ disco_elysium }}. It's this tension
 between awe and horror that I love so much in the best science fiction.
 
 And the idea of incomprehensible objects arriving from elsewhere isn't limited
-to {{ hinterlands }} or {{ roadside_picnic }}. {{ banks_lastname }} used it in
-{{ cleaning_up }}, although there he played for humor as aliens dump their
-trash on us, and by {{ qntm }} in {{ a_powerful_culture }}, where other
-dimensions dump toxic waste on Earth.
+to {{ hinterlands }} or {{ roadside_picnic }}. {{ banks_lastname }} plays it
+for comedy in {{ cleaning_up }}, where aliens dump their trash on us, and {{
+qntm }} makes it deliberately hostile it in {{ a_powerful_culture }}, where
+other dimensions dump toxic waste on Earth.
 
 ### {% short_story_title "Red Star, Winter Orbit" %}
 
@@ -316,8 +316,8 @@ culture throughout the {{ sprawl_trilogy }}: the Rastafarian Zion cluster in
 narrator and his partner help scientists defect from one company to another,
 and they hire Sandii to seduce a Maas Biolabs scientist so they can sell him
 to Hosaka. But Maas isn't a towering zaibatsu. It's a lean startup, moving
-fast, all edge, a predator among the corporations. But Sandii has her own
-score to settle with Hosaka, and Maas gives her the means to do it.
+fast, all edge, a predator among the corporations. Sandii has her own score to
+settle with Hosaka, and Maas gives her the means to do it.
 
 {{ the_authors_lastname }} has finally honed his noir style and lean prose.
 The whole story is {{ chandler_lastname }}-esque: a man in a coffin hotel,
@@ -346,15 +346,15 @@ escape her body. There's an irony there: her body is what made her art, but
 she casts it aside anyway.
 
 This story asks whether the upload is still Lise. Casey doesn't think so, and
-he dreads talking to her afterward, afraid she'll convince him otherwise. Its
+he dreads talking to her afterward, afraid she'll convince him otherwise. It's
 a question science fiction keeps asking: {{ qntms }} {{ lena }}, {{
 bankss_lastname }} {{ surface_detail }}, {{ taylors_lastname }} {{ bobiverse
-}}, and {{  the_authors_lastname }} himself across the {{ sprawl }}
+}}, and {{ the_authors_lastname }} himself across the {{ sprawl }}
 novels---with Dixie Flatline, with the Count, and with Angie.
 
 Angie is Lise refined: another addicted simstim star, another escape through
-upload. Rubin, an artist who builds things out of gomi, is another prototype:
-he becomes Slick from {{ mona_lisa_overdrive }}.
+upload. Rubin, an artist who builds things out of _gomi_, is another
+prototype: he becomes Slick from {{ mona_lisa_overdrive }}.
 
 ### {% short_story_title "Dogfight" %}
 
@@ -385,5 +385,5 @@ Rikki, Bobby's muse, sells herself at Chrome's puppet shop for the Zeiss Ikon
 eyes she needs to be a simstim star. It's the same trade Molly makes in {{
 neuromancer }}: consciousness and bodily autonomy for agency.
 
-And this story also gives us one {{ the_authors_lastname_possessive }} most
-famous lines: "The street finds its own uses for things".
+This story gives us one of {{ the_authors_lastname_possessive }} most famous
+lines: "The street finds its own uses for things".
