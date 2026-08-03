@@ -26,6 +26,8 @@ same_as_urls:
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
 is a collection of eight short stories and novellas.
 
+Every story is different, very different, but they all _feel_ the same.
+
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 {% capture the_authors %}{% author_link page.book_authors link=false possessive %}{% endcapture %}
