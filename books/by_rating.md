@@ -91,6 +91,7 @@ ranked_list:
   - All These Worlds
   - Last Stand
   - "Home: Habitat, Range, Niche, Territory"
+  - Stories of Your Life and Others
   - The Moon Is a Harsh Mistress
   - The Left Hand of Darkness
   - The War of the Worlds
