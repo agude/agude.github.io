@@ -1,11 +1,11 @@
 ---
-date: 2026-08-02
+date: 2026-08-03
 title: Stories of Your Life and Others
 book_authors: Ted Chiang
 series: null
 book_number: 1
 is_anthology: true
-rating: null
+rating: 3
 image: /books/covers/stories_of_your_life_and_others.jpg
 wikidata_qid: Q3045861
 isbn: 978-0-7653-0418-6
