@@ -1,5 +1,5 @@
 ---
-date: 2026-08-03
+date: 2026-08-03 18:56:46 -0700
 title: Stories of Your Life and Others
 book_authors: Ted Chiang
 series: null
