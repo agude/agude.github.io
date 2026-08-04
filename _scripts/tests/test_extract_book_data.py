@@ -1,6 +1,83 @@
 """Tests for ranking/extract_book_data.py pure functions."""
 
-from extract_book_data import clean_liquid, extract_paragraphs, parse_front_matter
+import json
+
+import pytest
+from extract_book_data import (
+    carry_over_book,
+    clean_liquid,
+    extract_paragraphs,
+    load_existing_state,
+    parse_front_matter,
+)
+
+
+def seeded_book(**overrides):
+    """A freshly parsed book entry, before any ranking data is merged in."""
+    book = {
+        "title": "Hyperion",
+        "rating": 5,
+        "summary": "",
+        "elo": 1900,
+        "matches": 0,
+    }
+    book.update(overrides)
+    return book
+
+
+class TestLoadExistingState:
+    def test_missing_file_is_empty_state(self, tmp_path):
+        assert load_existing_state(tmp_path / "absent.json") == {}
+
+    def test_reads_existing_state(self, tmp_path):
+        path = tmp_path / "state.json"
+        path.write_text(
+            json.dumps(
+                {
+                    "meta": {"created": "2025-01-02", "total_matches": 2},
+                    "matches": [{"winner": "a", "loser": "b"}, {"winner": "c"}],
+                    "books": {"hyperion": {"elo": 1820}},
+                }
+            )
+        )
+        state = load_existing_state(path)
+        assert len(state["matches"]) == 2
+        assert state["meta"]["created"] == "2025-01-02"
+
+    def test_malformed_file_raises(self, tmp_path):
+        path = tmp_path / "state.json"
+        path.write_text("{not json")
+        with pytest.raises(SystemExit):
+            load_existing_state(path)
+
+
+class TestCarryOverBook:
+    def test_new_book_keeps_seeded_values(self):
+        result = carry_over_book(seeded_book(), {})
+        assert result["summary"] == ""
+        assert result["elo"] == 1900
+        assert result["matches"] == 0
+
+    def test_preserves_summary_elo_and_matches(self):
+        previous = {"summary": "Hand-written blurb.", "elo": 1820, "matches": 7}
+        result = carry_over_book(seeded_book(), previous)
+        assert result["summary"] == "Hand-written blurb."
+        assert result["elo"] == 1820
+        assert result["matches"] == 7
+
+    def test_front_matter_wins_for_rating_and_title(self):
+        previous = {"title": "Old Title", "rating": 2, "elo": 1820}
+        result = carry_over_book(seeded_book(), previous)
+        assert result["title"] == "Hyperion"
+        assert result["rating"] == 5
+
+    def test_empty_previous_summary_does_not_overwrite(self):
+        result = carry_over_book(seeded_book(summary="Fresh"), {"summary": ""})
+        assert result["summary"] == "Fresh"
+
+    def test_zero_matches_is_carried_over(self):
+        result = carry_over_book(seeded_book(matches=3), {"matches": 0})
+        assert result["matches"] == 0
 
 
 class TestParseFrontMatter:
