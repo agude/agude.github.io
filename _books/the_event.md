@@ -1,5 +1,5 @@
 ---
-date: 2026-08-04
+date: 2026-08-04 17:58:19 -0700
 title: The Event
 book_authors: Henry Bean
 series: null
