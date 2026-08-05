@@ -5,7 +5,7 @@ book_authors: Henry Bean
 series: null
 book_number: 1
 is_anthology: false
-rating: null
+rating: 4
 image: /books/covers/the_event.jpg
 wikidata_qid: null
 isbn: null
