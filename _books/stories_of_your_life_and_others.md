@@ -52,6 +52,7 @@ Every story is different, very different, but they all _feel_ the same.
 {% capture pkd_fulls %}{% author_link "Philip K. Dick" possessive %}{% endcapture %}
 {% capture pkd %}{% author_link "Philip K. Dick" link_text="PKD" %}{% endcapture %}
 {% capture pkds %}{% author_link "Philip K. Dick" link_text="PKD" possessive %}{% endcapture %}
+{% capture dick_lastname %}{% author_link "Philip K. Dick" link_text="Dick" %}{% endcapture %}
 {% capture dicks_lastname %}{% author_link "Philip K. Dick" link_text="Dick" possessive %}{% endcapture %}
 
 {% capture simmons %}{% author_link "Dan Simmons" %}{% endcapture %}
@@ -62,6 +63,8 @@ Every story is different, very different, but they all _feel_ the same.
 {% capture the_scholars_tale %}{% short_story_link "The Scholar's Tale" %}{% endcapture %}
 
 {% capture kierkegaard %}{% author_link "Søren Kierkegaard" %}{% endcapture %}
+{% capture kierkegaards %}{% author_link "Søren Kierkegaard" possessive %}{% endcapture %}
+{% capture kierkegaard_lastname %}{% author_link "Søren Kierkegaard" link_text="Kierkegaard" %}{% endcapture %}
 {% capture kierkegaards_lastname %}{% author_link "Søren Kierkegaard" link_text="Kierkegaard" possessive %}{% endcapture %}
 {% capture fear_and_trembling %}{% book_link "Fear and Trembling" %}{% endcapture %}
 
@@ -86,6 +89,7 @@ Every story is different, very different, but they all _feel_ the same.
 {% capture keyes %}{% author_link "Daniel Keyes" %}{% endcapture %}
 {% capture keyess %}{% author_link "Daniel Keyes" possessive %}{% endcapture %}
 {% capture keyes_lastname %}{% author_link "Daniel Keyes" link_text="Keyes" %}{% endcapture %}
+{% capture keyess_lastname %}{% author_link "Daniel Keyes" link_text="Keyes" possessive %}{% endcapture %}
 {% capture flowers_for_algernon %}{% book_link "Flowers for Algernon" %}{% endcapture %}
 {% capture algernon %}{% book_link "Flowers for Algernon" link_text="Algernon" %}{% endcapture %}
 
@@ -99,12 +103,14 @@ Every story is different, very different, but they all _feel_ the same.
 {% capture wells %}{% author_link "Martha Wells" %}{% endcapture %}
 {% capture wellss %}{% author_link "Martha Wells" possessive %}{% endcapture %}
 {% capture wells_lastname %}{% author_link "Martha Wells" link_text="Wells" %}{% endcapture %}
+{% capture wellss_lastname %}{% author_link "Martha Wells" link_text="Wells" possessive %}{% endcapture %}
 {% capture murderbot %}{% series_link "The Murderbot Diaries" link_text="Murderbot" %}{% endcapture %}
 {% capture the_murderbot_diaries %}{% series_link "The Murderbot Diaries" %}{% endcapture %}
 
 {% capture stephenson %}{% author_link "Neal Stephenson" %}{% endcapture %}
 {% capture stephensons %}{% author_link "Neal Stephenson" possessive %}{% endcapture %}
 {% capture stephenson_lastname %}{% author_link "Neal Stephenson" link_text="Stephenson" %}{% endcapture %}
+{% capture stephensons_lastname %}{% author_link "Neal Stephenson" link_text="Stephenson" possessive %}{% endcapture %}
 {% capture snow_crash %}{% book_link "Snow Crash" %}{% endcapture %}
 
 {% capture stross %}{% author_link "Charles Stross" %}{% endcapture %}
@@ -137,6 +143,7 @@ Every story is different, very different, but they all _feel_ the same.
 {% capture vonnegut %}{% author_link "Kurt Vonnegut" %}{% endcapture %}
 {% capture vonneguts %}{% author_link "Kurt Vonnegut" possessive %}{% endcapture %}
 {% capture vonnegut_lastname %}{% author_link "Kurt Vonnegut" link_text="Vonnegut" %}{% endcapture %}
+{% capture vonneguts_lastname %}{% author_link "Kurt Vonnegut" link_text="Vonnegut" possessive %}{% endcapture %}
 {% capture harrison_bergeron %}{% short_story_link "Harrison Bergeron" %}{% endcapture %}
 
 {% capture eva %}{% tv_show_title "Neon Genesis Evangelion" %}{% endcapture %}
@@ -202,7 +209,11 @@ think you can write down rules that he follows---is Sovereign.
 
 This story, with it's natural disaster-like angels, reminded me of {{ eva }}
 where angels are alien, terrifying; an extinction level threat. It's also
-similar to {{ stross_lastname
+similar to {{ strosss_lastname }} {{ a_colder_war }} in how it takes cosmic
+and grounds it in the real world. And in {{ count_zero }}, {{ gibson_lastname
+}} uses religion as a framework for incomprehensible power; {{
+the_authors_lastname }} instead makes religion comprehensible and turns it
+into engineering.
 
 ### {% short_story_title "Liking What You See: A Documentary" %}
 
