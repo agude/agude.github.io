@@ -46,6 +46,8 @@ is a collection of eight short stories and novellas.
 {% capture hell_is_the_absence_of_god %}{% short_story_link "Hell Is the Absence of God" %}{% endcapture %}
 {% capture liking_what_you_see %}{% short_story_link "Liking What You See: A Documentary" %}{% endcapture %}
 
+{% capture arrival %}{% movie_title "Arrival" %}{% endcapture %}
+
 {% capture martin %}{% author_link "George R. R. Martin" %}{% endcapture %}
 {% capture martins %}{% author_link "George R. R. Martin" possessive %}{% endcapture %}
 {% capture martin_lastname %}{% author_link "George R. R. Martin" link_text="Martin" %}{% endcapture %}
@@ -221,12 +223,33 @@ structure makes it hard to be taken by surprise.
 
 {% rating_stars 3 %}
 
-A mathematician disproves the consistency of asthmatic, allowing her to show
-that `1 = 2`. This
+A mathematician disproves the consistency of arithmetic, allowing her to show
+that `1 = 2`. Her proof shatters her view of math, and drives her to attempt
+suicide, while her husband struggles with the realization that he no longer
+understands her.
+
+There is some clever narrative structure related to the math: comparing things
+that are similar and showing how different they are (the mathematician and her
+husband), or how things that seem different can be the same (understanding and
+not). But in the end it's a proof about proofs, and one where I didn't really
+connect with the characters.
 
 ### {% short_story_title "Story of Your Life" %}
 
 {% rating_stars 4 %}
+
+{{ story_of_your_life }}, the basis for the feature film {{ arrival}}, is
+probably the most famous story in the collection. It's about first contact
+between humans and heptapods, told be one of the linguists who is trying to
+decipher the language. As she learns the language, she realizes that heptapods
+experience time differently than humans, and that by learning their language
+she start to experience is the same way.
+
+This is another good example of {{ the_authors_lastname }} playing with the
+structure in a clever way, as we realize we're experience the story the same
+way the linguist does, with bits from the future and the past all mixed in
+together. The relationship between the linguist, her physicist counterpart,
+and their future daughter adds some emotional weight that I loved.
 
 ### {% short_story_title "Seventy-Two Letters" %}
 
