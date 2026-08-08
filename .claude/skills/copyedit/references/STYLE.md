@@ -29,6 +29,23 @@ The test: Would you say it out loud to a friend? If not, simplify.
 high-stakes" or "dark, gritty". Pick the one that does the most work and drop
 the other. LLMs love doubling up adjectives; the author almost never does.
 
+## In-World Nouns Are Lowercase
+
+Established across the Sprawl reviews and applied by default: **`cyberspace`,
+`zaibatsu`/`zaibatsus`, and `simstim` are lowercase** in every review
+(neuromancer, count_zero, mona_lisa_overdrive, snow_crash, hyperion,
+burning_chrome). The single `Cyberspace` in `neuromancer.md` is an outlier.
+
+The exception is when the word names **specific entities rather than a class**.
+`count_zero.md` capitalizes **Loa** because those sentences treat the AI
+fragments as the actual Loa; a descriptive use ("the Haitian Vodou loa") could
+defensibly stay lowercase. `burning_chrome.md` capitalizes it too, aligning with
+the Count Zero precedent — **match the precedent rather than re-deriving the
+rule per review.**
+
+Check the corpus before changing one of these; the point is consistency across
+reviews, not correctness in isolation.
+
 ## Sentence Structure
 
 - Mix short and medium sentences
