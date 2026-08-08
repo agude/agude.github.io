@@ -240,16 +240,19 @@ connect with the characters.
 
 {{ story_of_your_life }}, the basis for the feature film {{ arrival}}, is
 probably the most famous story in the collection. It's about first contact
-between humans and heptapods, told be one of the linguists who is trying to
-decipher the language. As she learns the language, she realizes that heptapods
-experience time differently than humans, and that by learning their language
-she start to experience is the same way.
+between humans and heptapods, narrated by one of the linguists who is trying
+to decipher the language. As she learns the language, she realizes that
+heptapods experience time differently than humans, and that by learning their
+language she starts to experience it the same way.
 
 This is another good example of {{ the_authors_lastname }} playing with the
-structure in a clever way, as we realize we're experience the story the same
+structure in a clever way, as we realize we're experiencing the story the same
 way the linguist does, with bits from the future and the past all mixed in
 together. The relationship between the linguist, her physicist counterpart,
-and their future daughter adds some emotional weight that I loved.
+and their future daughter adds some emotional weight and demonstrates how
+the narrator has started to think like a heptapod, living the life she knows
+the future holds, unable to avoid it nor wanting too. It adds a layer of
+tragedy.
 
 ### {% short_story_title "Seventy-Two Letters" %}
 
