@@ -78,6 +78,13 @@ plain skill markdown:
   AT Protocol pipeline. Read when writing or editing blog posts or book
   reviews.
 
+- **[Links, Backlinks, and Previews](references/links-and-previews.md)** —
+  Why BacklinkBuilder scans raw Liquid, related-books tier scoring,
+  `canonical_url` filtering call sites, the hover-preview architecture (span-
+  only markup, re-entrancy guard, leak stripping, anchor positioning), and the
+  strict-Liquid constraints. Read when touching link resolution, the link
+  cache, previews, or `check_strict.rb`.
+
 - **[AT Protocol / standard.site](references/atproto-standard-site.md)** —
   How the site publishes to Bluesky's network: the domain-as-handle DNS
   wiring, the publish script, well-known generator, link tags, CI flow,

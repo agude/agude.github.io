@@ -49,11 +49,41 @@ between groups):
 
 ### Rules
 
+- **Generate all four author variants, always.** A partial set causes a
+  missing-variable error later, when the review text needs a form that was never
+  defined. Cheap to emit now, annoying to discover mid-draft.
 - If multiple books share an author, include the author bundle only once
   (with the first book).
 - Omit series capture for standalone books.
 - Don't duplicate the standard captures from the book template (the book
   being reviewed, its author, its series).
+
+## Treating the Notes
+
+Two rules about the source notes themselves:
+
+- **The notes outrank your reading of the text.** They record what is actually
+  on the page; your objections are recalled from training data and are the less
+  reliable of the two. Do not push back on a factual claim in the notes about
+  plot, character, or biography — verify it or accept it. Offering an
+  *additional* reading is fine; contradicting the note is not, unless the text
+  is in front of you.
+
+  Concrete failure: the notes said Sandii ("New Rose Hotel") is "a first run at
+  Kumiko from *Mona Lisa Overdrive*." The objection that the mapping did not
+  hold was wrong — Sandii is half Japanese, half Dutch, so both are
+  mixed-heritage Japanese women caught between larger powers, exactly the
+  connection the note was making.
+
+- **Drafts are scratchpads.** The author scatters sentences and ideas into a
+  draft as they occur to him, so they are not lost later. A sentence sitting
+  under the wrong story section is usually a parking spot, not an error. Ask
+  before flagging it as misfiled.
+
+  `notes.md` holds raw reading notes above a separator and a `# Review Plan`
+  below it. The plan carries a Status block, per-story theme assignments,
+  factual corrections, and "captures still needed." Append to the plan; never
+  touch the raw notes above the separator.
 
 ## Multiple Authors
 

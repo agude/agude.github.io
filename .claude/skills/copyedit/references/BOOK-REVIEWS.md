@@ -125,6 +125,54 @@ The transition from paragraph 1 to paragraph 2 is a prose challenge:
   splitting the chain can destroy the rhetorical flow.
 - **Avoid vague claims** ("the action is tighter"). Prefer concrete specifics.
 
+## One Spine Per Review
+
+Drafting a thematic section usually surfaces three or four viable threads. Pick
+**one as the spine** and let the others become evidence for it, rather than
+giving each equal weight. The tiebreaker: choose the thread that is what *this*
+book adds to what the previous book already said.
+
+In the *Count Zero* review the spine became "the evolution of power" — humans →
+corporations → AIs, each layer incomprehensible to the one below — which demoted
+the mammalian-certainty quote from thesis to evidence.
+
+Named comparisons to other authors' works belong in the "reminded me" section,
+not the thematic body. Moving them there frees the body to be about what the
+book is doing rather than what it recalls, and the comparison lands harder where
+the reader expects it. This is a placement rule, not a ban on structural
+comparison — a sequel's relationship to its predecessor is part of the argument
+and stays in the body.
+
+## Reviewing a Sequel
+
+When reviewing book N of a series, do not restate the thesis of the review of
+book N−1. It is redundant for anyone who read that review and filler for anyone
+who did not.
+
+The failure mode is **ping-pong**: prior book → this book → prior book → this
+book, four subject switches in four sentences. The fix is one compressed
+sentence for the earlier book (what it argued *and* how, together), then one
+sentence that pivots — then stay in the current book for good.
+
+Worked example, from the *Count Zero* review:
+
+> {{ neuromancer }} focused on power and its cost, taking us inside the
+> Tessier-Ashpool dynasty to show how their quest for it had destroyed their
+> humanity. {{ this_book }} views the same power from the outside.
+
+## Cutting a Section
+
+Outlines accumulate sections that duplicate work done elsewhere. During the
+*Count Zero* pass a planned "the world" section was dropped entirely: two
+sentences in the preceding paragraph ("in the dirt instead of in orbit: hiding
+in abandoned malls, crawling through the Appalachian mountains, hanging out in
+the projects") had already made the point. A full paragraph of additional
+texture would only have slowed the turn into the section carrying the review's
+real energy.
+
+The leftover details are not wasted — push concrete ones into the comparisons
+section as quick hits.
+
 ## Common Sections
 
 Reviews often include:
@@ -132,6 +180,10 @@ Reviews often include:
 - **Story** --- Plot discussion, pacing, what worked/didn't
 - **Literary References** --- Connections to other works (generates backlinks)
 - Per-story sections for anthologies
+
+For anthologies and short-story collections, see
+[COLLECTIONS.md](COLLECTIONS.md) — collection reviews have their own structure
+and ending conventions.
 
 ## Literary Comparisons
 

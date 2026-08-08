@@ -89,7 +89,7 @@ Key points:
 
 ## Book Review Structure
 
-See [references/BOOK-REVIEWS.md](references/BOOK-REVIEWS.md) for details on book review structure.
+See [references/BOOK-REVIEWS.md](references/BOOK-REVIEWS.md) for details on book review structure, and [references/COLLECTIONS.md](references/COLLECTIONS.md) when the book is an anthology or short-story collection.
 
 Key constraints:
 - **First paragraph**: Uses inline plugin tags (`{% book_link page.title %}`, `{% author_link page.book_authors %}`, `{% series_text page.series %}`), but no capture variables. This paragraph is pulled out for social media previews, so it must stand alone.
