@@ -48,6 +48,12 @@ Every story is different, very different, but they all _feel_ the same.
 {% capture hell_is_the_absence_of_god %}{% short_story_link "Hell Is the Absence of God" %}{% endcapture %}
 {% capture liking_what_you_see %}{% short_story_link "Liking What You See: A Documentary" %}{% endcapture %}
 
+{% capture martin %}{% author_link "George R. R. Martin" %}{% endcapture %}
+{% capture martins %}{% author_link "George R. R. Martin" possessive %}{% endcapture %}
+{% capture martin_lastname %}{% author_link "George R. R. Martin" link_text="Martin" %}{% endcapture %}
+{% capture martins_lastname %}{% author_link "George R. R. Martin" link_text="Martin" possessive %}{% endcapture %}
+{% capture a_song_of_ice_and_fire %}{% series_link "A Song of Ice and Fire" %}{% endcapture %}
+
 {% capture pkd_full %}{% author_link "Philip K. Dick" %}{% endcapture %}
 {% capture pkd_fulls %}{% author_link "Philip K. Dick" possessive %}{% endcapture %}
 {% capture pkd %}{% author_link "Philip K. Dick" link_text="PKD" %}{% endcapture %}
@@ -167,6 +173,24 @@ Every story is different, very different, but they all _feel_ the same.
 ### {% short_story_title "Seventy-Two Letters" %}
 
 {% rating_stars 2 %}
+
+{{ seventy_two_letters }} takes as its assumption that the world _actually_
+works roughly how 17th-century scientists and mystics thought it did. Golems
+are real and animated by a Kabbalistic name (the titular 72 letters).
+Reproduction happens not via sperm and egg but via homunculus already in a
+man's body when he is born. And the human race is 5 generations from
+extinction.
+
+This story has a lot of interesting branches: golems as replacement for skill
+labor, and the objection the golem making guild has to golems making golems;
+the way in which names are factor and studied to create new ones; the coming
+end of the world; the interplay between the politics of the poor and the
+gentry. But like a {{ martin }} in {{ a_song_of_ice_and_fire }}, {{
+the_authors_lastname }} feels like he over extends: he doesn't close off the
+various story lines, they're extraneous to his axiom and proof.
+
+In the end, that's why I didn't really like this story because it had a lot of
+interesting ideas that weren't capitalized on.
 
 ### {% short_story_title "The Evolution of Human Science" %}
 
