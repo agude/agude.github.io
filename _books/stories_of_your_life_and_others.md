@@ -54,6 +54,17 @@ Every story is different, very different, but they all _feel_ the same.
 {% capture pkds %}{% author_link "Philip K. Dick" link_text="PKD" possessive %}{% endcapture %}
 {% capture dicks_lastname %}{% author_link "Philip K. Dick" link_text="Dick" possessive %}{% endcapture %}
 
+{% capture simmons %}{% author_link "Dan Simmons" %}{% endcapture %}
+{% capture simmonss %}{% author_link "Dan Simmons" possessive %}{% endcapture %}
+{% capture simmons_lastname %}{% author_link "Dan Simmons" link_text="Simmons" %}{% endcapture %}
+{% capture simmonss_lastname %}{% author_link "Dan Simmons" link_text="Simmons" possessive %}{% endcapture %}
+{% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
+{% capture the_scholars_tale %}{% short_story_link "The Scholar's Tale" %}{% endcapture %}
+
+{% capture kierkegaard %}{% author_link "Søren Kierkegaard" %}{% endcapture %}
+{% capture kierkegaards_lastname %}{% author_link "Søren Kierkegaard" link_text="Kierkegaard" possessive %}{% endcapture %}
+{% capture fear_and_trembling %}{% book_link "Fear and Trembling" %}{% endcapture %}
+
 {% capture bradbury %}{% author_link "Ray Bradbury" %}{% endcapture %}
 {% capture bradburys %}{% author_link "Ray Bradbury" possessive %}{% endcapture %}
 {% capture bradbury_lastname %}{% author_link "Ray Bradbury" link_text="Bradbury" %}{% endcapture %}
@@ -99,6 +110,7 @@ Every story is different, very different, but they all _feel_ the same.
 {% capture stross %}{% author_link "Charles Stross" %}{% endcapture %}
 {% capture strosss %}{% author_link "Charles Stross" possessive %}{% endcapture %}
 {% capture stross_lastname %}{% author_link "Charles Stross" link_text="Stross" %}{% endcapture %}
+{% capture strosss_lastname %}{% author_link "Charles Stross" link_text="Stross" possessive %}{% endcapture %}
 {% capture a_colder_war %}{% short_story_link "A Colder War" %}{% endcapture %}
 
 {% capture gibson %}{% author_link "William Gibson" %}{% endcapture %}
@@ -165,19 +177,32 @@ reinforces the theme of the work.
 
 The axiom in this story is "God is real, His acts are quantifiable". {{
 the_authors_lastname }} takes this where it leads: angelic visitations are
-treated like weather and reported on the news; they track statistics on who
-is damned and who goes to heaven are tracked; people flock to places where
-angles often emerge hoping for miracles. Neil Fisk's wife was killed in a
-visitation and ascended to heaven. Neil doesn't love God, and so knows he
-won't be reunited with her. But he also knows that if you view Heaven's light
-when an angle emerges, you are rewritten to unconditionally love God, and
-always ascend to heaven. He sets out to try to see it.
+treated like weather and reported on the news; statistics on who is damned and
+who ascends are tracked; people flock to places where angels often emerge
+hoping for miracles. Neil Fisk's wife was killed in a visitation and ascended
+to heaven. Neil doesn't love God, and so knows he won't be reunited with her.
+But he also knows that if you view Heaven's light when an angel emerges, you
+are rewritten to unconditionally love God, and always ascend to heaven. He
+sets out to see it.
+
+Neil's reliance on the quantifiable system of God is similar to Sol Weintraub
+from {{ simmonss_lastname }} {{ hyperion }}. Sol is an academic expert on
+God's covenant and on {{ kierkegaard_lastname_possessive }} {{
+fear_and_trembling }}. He is intellectually ready for the exact problem he
+finds himself in, yet when a god-like entity demands the sacrifice of his
+daughter Rachel, all of Sol's theological mastery is useless. He cannot
+outdebate the absolute. Neil tries the same, reasoning: if A (see the light),
+then B (love God), then C (salvation).
 
 Neil succeeds in glimpsing Heaven's light, comes to love God unconditionally,
 and is sent to Hell anyway. {{ the_authors_lastname }} breaks the chain of
 logic he so steadfastly followed in the rest of the stories, and in doing so
 shows you that God isn't just, God isn't kind, God---even in a world where you
 think you can write down rules that he follows---is Sovereign.
+
+This story, with it's natural disaster-like angels, reminded me of {{ eva }}
+where angels are alien, terrifying; an extinction level threat. It's also
+similar to {{ stross_lastname
 
 ### {% short_story_title "Liking What You See: A Documentary" %}
 
