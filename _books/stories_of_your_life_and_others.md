@@ -28,8 +28,6 @@ is a collection of eight short stories and novellas.
 
 Every story is different, very different, but they all _feel_ the same.
 
-□
-
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 {% capture the_authors %}{% author_link page.book_authors link=false possessive %}{% endcapture %}
@@ -55,6 +53,12 @@ Every story is different, very different, but they all _feel_ the same.
 {% capture pkd %}{% author_link "Philip K. Dick" link_text="PKD" %}{% endcapture %}
 {% capture pkds %}{% author_link "Philip K. Dick" link_text="PKD" possessive %}{% endcapture %}
 {% capture dicks_lastname %}{% author_link "Philip K. Dick" link_text="Dick" possessive %}{% endcapture %}
+
+{% capture bradbury %}{% author_link "Ray Bradbury" %}{% endcapture %}
+{% capture bradburys %}{% author_link "Ray Bradbury" possessive %}{% endcapture %}
+{% capture bradbury_lastname %}{% author_link "Ray Bradbury" link_text="Bradbury" %}{% endcapture %}
+{% capture bradburys_lastname %}{% author_link "Ray Bradbury" link_text="Bradbury" possessive %}{% endcapture %}
+{% capture fahrenheit_451 %}{% book_link "Fahrenheit 451" %}{% endcapture %}
 
 {% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
 {% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
@@ -131,7 +135,7 @@ Every story is different, very different, but they all _feel_ the same.
 
 ### {% short_story_title "Understand" %}
 
-{% rating_stars 4 %}
+{% rating_stars 3 %}
 
 ### {% short_story_title "Division by Zero" %}
 
@@ -151,10 +155,30 @@ Every story is different, very different, but they all _feel_ the same.
 
 ### {% short_story_title "Hell Is the Absence of God" %}
 
-{% rating_stars 3 %}
+{% rating_stars 5 %}
+
+In my review of {{ bradburys_lastname }} {{ fahrenheit_451 }}, I said: "Some
+of my favorite books have structures that reinforce their themes." {{
+hell_is_the_absence_of_god }} was my favorite story in {{ this_book }} because
+it subverts {{ the_authors_lastname_possessive }} formula, and in doing so it
+reinforces the theme of the work.
+
+The axiom in this story is "God is real, His acts are quantifiable". {{
+the_authors_lastname }} takes this where it leads: angelic visitations are
+treated like weather and reported on the news; they track statistics on who
+is damned and who goes to heaven are tracked; people flock to places where
+angles often emerge hoping for miracles. Neil Fisk's wife was killed in a
+visitation and ascended to heaven. Neil doesn't love God, and so knows he
+won't be reunited with her. But he also knows that if you view Heaven's light
+when an angle emerges, you are rewritten to unconditionally love God, and
+always ascend to heaven. He sets out to try to see it.
+
+Neil succeeds in glimpsing Heaven's light, comes to love God unconditionally,
+and is sent to Hell anyway. {{ the_authors_lastname }} breaks the chain of
+logic he so steadfastly followed in the rest of the stories, and in doing so
+shows you that God isn't just, God isn't kind, God---even in a world where you
+think you can write down rules that he follows---is Sovereign.
 
 ### {% short_story_title "Liking What You See: A Documentary" %}
 
 {% rating_stars 3 %}
-
-□
