@@ -196,6 +196,13 @@ golems improve they start replacing humans at skilled crafts. We might be
 starting to see the same thing with our own language golems, piles of words
 given thought, as they completely replace manual programming.
 
+I've read a lot of stories where the authors use mysticism to make technology
+uncanny: {{ gibsons_lastname }} voodoo loa as a framework for AIs in {{
+count_zero }}, {{ stephensons_lastname }} Sumerian language-virus in {{
+snow_crash }}, {{ strosss_lastname }} weaponized Cthulhu in {{ a_colder_war
+}}. Here {{ the_authors_lastname }} does the opposite: he takes mysticism and
+treats it as a technology. Names as programming and math; golems as machines.
+
 ### {% short_story_title "The Evolution of Human Science" %}
 
 {% rating_stars 3 %}
@@ -241,7 +248,8 @@ similar to {{ strosss_lastname }} {{ a_colder_war }} in how it takes cosmic
 and grounds it in the real world. And in {{ count_zero }}, {{ gibson_lastname
 }} uses religion as a framework for incomprehensible power; {{
 the_authors_lastname }} instead makes religion comprehensible and turns it
-into engineering.
+into engineering. <!-- Do I need this here and in 72? Probably just in 72 with
+a mention about it here also? -->
 
 ### {% short_story_title "Liking What You See: A Documentary" %}
 
