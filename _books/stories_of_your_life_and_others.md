@@ -158,9 +158,41 @@ Every story is different, very different, but they all _feel_ the same.
 
 {% rating_stars 4 %}
 
+{{ tower_of_babylon }} assumes ancient cosmology is correct and treats the
+construction of the [Tower of Babel][babel] as a real mega-project. It is a
+simple story told about a group of miners climbing the tower to dig their way
+into heaven, and I really enjoyed the details {{ the_authors_lastname }}
+includes about the tower, how the people on each level lived, and the journey
+the miners make.
+
+[babel]: https://en.wikipedia.org/wiki/Tower_of_Babel
+
+During the story, the guide tells the narrator about a time when a star
+crashed into the tower, which reminded me of {{ bankss_lastname }} novel {{
+matter }} with it's rollstars that roll on tracks set in the ceiling of each
+level of the shellworld Sursamen. It made me realize that {{ banks_lastname }}
+also based the shellworlds on [Ptolemaic cosmology][geo] with giant towers
+supporting the heavens, a world made of concentric shells, and stars on
+tracks.
+
+[geo]: https://en.wikipedia.org/wiki/Geocentrism
+
 ### {% short_story_title "Understand" %}
 
-{% rating_stars 3 %}
+{% rating_stars 2 %}
+
+In {{ understand }}, a brain-damaged man is given an experimental treatment
+that continuously increases his intelligence until he can see the patterns
+behind everything, and discovers another super-intelligence that's been
+watching him. It's a response to {{ keyess_lastname }} {{ flowers_for_algernon
+}}, but without the eventual slide that adds emotional weight.
+
+When I read this story I had not yet figured out {{
+the_authors_lastname_possessive }} writing pattern, and so I kept second
+guessing where the story was going. I was sure the protagonist was delusional
+but no, the doctors really are trying to trick him, the CIA really is
+watching. It's my main critique of {{ the_authors }} writing: his proof-like
+structure makes it hard to be taken by surprise.
 
 ### {% short_story_title "Division by Zero" %}
 
@@ -197,7 +229,7 @@ starting to see the same thing with our own language golems, piles of words
 given thought, as they completely replace manual programming.
 
 I've read a lot of stories where the authors use mysticism to make technology
-uncanny: {{ gibsons_lastname }} voodoo loa as a framework for AIs in {{
+unknowable: {{ gibsons_lastname }} voodoo loa as a framework for AIs in {{
 count_zero }}, {{ stephensons_lastname }} Sumerian language-virus in {{
 snow_crash }}, {{ strosss_lastname }} weaponized Cthulhu in {{ a_colder_war
 }}. Here {{ the_authors_lastname }} does the opposite: he takes mysticism and
