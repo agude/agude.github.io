@@ -38,7 +38,7 @@ The first paragraph is special:
 2. **No capture variables**: Cannot define `{% capture %}` blocks and use them here (the capture becomes the excerpt instead of the paragraph text). Inline plugin tags (`{% book_link %}`, `{% author_link %}`, `{% series_text %}`) work fine.
 3. **Can use page variables**: `{{ page.title }}`, `{{ page.book_authors }}`, `{{ page.series }}`
 4. **Must stand alone**: Should make sense without the rest of the review
-5. **No quality verdict**: give the plot premise (new situation, conflict, who's involved), not how good it is — the verdict belongs in paragraph 2. Before drafting P1 options, read the existing P2 so P1 doesn't preempt it (the constraint runs both ways).
+5. **No quality verdict**: give the plot premise (new situation, conflict, who's involved), not how good it is --- the verdict belongs in paragraph 2. Before drafting P1 options, read the existing P2 so P1 doesn't preempt it (the constraint runs both ways).
 
 Standard opening pattern:
 ```markdown
@@ -118,7 +118,7 @@ The transition from paragraph 1 to paragraph 2 is a prose challenge:
 ## Paragraph Structure
 
 - **Every sentence must support the paragraph's thesis.** A sentence that's
-  actually a dig at a weakness doesn't belong in a paragraph arguing a strength —
+  actually a dig at a weakness doesn't belong in a paragraph arguing a strength ---
   even if it's true.
 - **Preserve intentional logical buildup within a sentence.** If the author
   chains ideas (multiple storylines → expands the universe → bigger battles),
@@ -132,16 +132,15 @@ Drafting a thematic section usually surfaces three or four viable threads. Pick
 giving each equal weight. The tiebreaker: choose the thread that is what *this*
 book adds to what the previous book already said.
 
-In the *Count Zero* review the spine became "the evolution of power" — humans →
-corporations → AIs, each layer incomprehensible to the one below — which demoted
+In the *Count Zero* review the spine became "the evolution of power" --- humans →
+corporations → AIs, each layer incomprehensible to the one below --- which demoted
 the mammalian-certainty quote from thesis to evidence.
 
-Named comparisons to other authors' works belong in the "reminded me" section,
-not the thematic body. Moving them there frees the body to be about what the
-book is doing rather than what it recalls, and the comparison lands harder where
-the reader expects it. This is a placement rule, not a ban on structural
-comparison — a sequel's relationship to its predecessor is part of the argument
-and stays in the body.
+Named comparisons to other authors' works are fine in the main body of the
+review if they're strong theme or content matches, or support the theme or
+show where the author was coming from or where their ideas went. But short
+references that are more surface level belong in the "reminded me of..."
+paragraph near the end.
 
 ## Reviewing a Sequel
 
@@ -152,7 +151,7 @@ who did not.
 The failure mode is **ping-pong**: prior book → this book → prior book → this
 book, four subject switches in four sentences. The fix is one compressed
 sentence for the earlier book (what it argued *and* how, together), then one
-sentence that pivots — then stay in the current book for good.
+sentence that pivots --- then stay in the current book for good.
 
 Worked example, from the *Count Zero* review:
 
@@ -170,7 +169,7 @@ the projects") had already made the point. A full paragraph of additional
 texture would only have slowed the turn into the section carrying the review's
 real energy.
 
-The leftover details are not wasted — push concrete ones into the comparisons
+The leftover details are not wasted --- push concrete ones into the comparisons
 section as quick hits.
 
 ## Common Sections
@@ -182,31 +181,34 @@ Reviews often include:
 - Per-story sections for anthologies
 
 For anthologies and short-story collections, see
-[COLLECTIONS.md](COLLECTIONS.md) — collection reviews have their own structure
+[COLLECTIONS.md](COLLECTIONS.md) --- collection reviews have their own structure
 and ending conventions.
 
 ## Literary Comparisons
 
-The "reminded me" section — typically the last substantive section before the
+The "reminded me" section --- typically the last substantive section before the
 close. It's a **signature** of these reviews (see `STYLE.md`), so a long one is
 fine.
 
 - **Lead in.** Open with a sentence like `{{ this_book }} reminded me of many
   other books.` (or "several others" / "a few others"). Don't jump straight into
   the comparisons.
-- **Format varies with content.** Flowing prose for a few tightly-related works;
-  a bullet list when collecting many discrete connections.
-- **Group by theme, not chronology** — related works share a sentence joined with
+- **Format varies with content.** Flowing prose for a few tightly-related
+  works, sometimes multiple paragraphs if needed for clusters of related
+  works.
+- **Group by theme, not chronology** --- related works share a sentence joined with
   semicolons (e.g. an identity/consciousness cluster; "death when optional"; the
   author's own other work).
 - **Digits for numbers:** "3 generations", "9 stories", "20 years."
-- **Never close on a bare list** — end on a sentence that states the point.
+- **Never close on a bare list** --- end on a sentence that states the point.
   Comparisons also get woven into the thematic sections as influence lists; don't
   trim those to hit a count either.
 
 ## Backlinks
 
-When you mention another book, author, or series using the link tags, the site generates backlinks. On the referenced work's page, a section appears: "Other reviews that mention this book."
+When you mention another book, author, or series using the link tags, the site
+generates backlinks. On the referenced work's page, a section appears: "Other
+reviews that mention this book."
 
 This is intentional and valuable. Comparing works builds a web of connections.
 
