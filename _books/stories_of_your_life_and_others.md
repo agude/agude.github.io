@@ -26,8 +26,6 @@ same_as_urls:
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
 is a collection of eight short stories and novellas.
 
-Every story is different, very different, but they all _feel_ the same.
-
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 {% capture the_authors %}{% author_link page.book_authors link=false possessive %}{% endcapture %}
@@ -60,6 +58,7 @@ Every story is different, very different, but they all _feel_ the same.
 {% capture pkds %}{% author_link "Philip K. Dick" link_text="PKD" possessive %}{% endcapture %}
 {% capture dick_lastname %}{% author_link "Philip K. Dick" link_text="Dick" %}{% endcapture %}
 {% capture dicks_lastname %}{% author_link "Philip K. Dick" link_text="Dick" possessive %}{% endcapture %}
+{% capture ubik %}{% book_link "Ubik" %}{% endcapture %}
 
 {% capture simmons %}{% author_link "Dan Simmons" %}{% endcapture %}
 {% capture simmonss %}{% author_link "Dan Simmons" possessive %}{% endcapture %}
@@ -141,6 +140,8 @@ Every story is different, very different, but they all _feel_ the same.
 {% capture there_is_no_antimemetics_division %}{% book_link "There Is No Antimemetics Division" %}{% endcapture %}
 {% capture antimemetics %}{% book_link "There Is No Antimemetics Division" link_text="Antimemetics" %}{% endcapture %}
 
+{% capture helicopter %}{% book_link "I Sexually Identify as an Attack Helicopter" %}{% endcapture %}
+
 {% capture borges %}{% author_link "Jorge Luis Borges" %}{% endcapture %}
 {% capture borgess %}{% author_link "Jorge Luis Borges" possessive %}{% endcapture %}
 {% capture borges_lastname %}{% author_link "Jorge Luis Borges" link_text="Borges" %}{% endcapture %}
@@ -153,6 +154,28 @@ Every story is different, very different, but they all _feel_ the same.
 {% capture harrison_bergeron %}{% short_story_link "Harrison Bergeron" %}{% endcapture %}
 
 {% capture eva %}{% tv_show_title "Neon Genesis Evangelion" %}{% endcapture %}
+
+{{ this_book }} was my nomination for this month's science fiction book club.
+I've wanted to read {{ the_authors }} work for two reasons. First, I
+appreciate how short stories---like {{ lena }} or {{ helicopter }}---can
+deliver tight, stripped-down explorations of complex concepts. Second, authors
+I love, like {{ watts }}, speak incredibly highly of him.
+
+{{ the_authors_lastname_possessive }} stories all have fantastic ideas,
+but reading {{ this_book }} made me realize they rely on a formula:
+
+1. Take an axiom.
+2. Turn the crank and see what happens.
+3. QED, the ending follows logically from the first two.
+
+Every story is different, very different, but that formula makes them all
+_feel_ the same. They are at their worst when he just works through the idea
+logically without adding anything more. It's the same problem I have with {{
+pkd }}, which I discussed in my review of {{ ubik }}: ideas alone aren't
+enough to carry a story. Fortunately, {{ the_authors_lastname }} doesn't leave
+all of his concepts bare. His stories are best when he does something
+subversive with his formula, like in {{ hell_is_the_absence_of_god }}, or adds
+incredibly rich worldbuilding as in {{ tower_of_babylon }}.
 
 ### {% short_story_title "Tower of Babylon" %}
 
@@ -197,6 +220,9 @@ structure makes it hard to be taken by surprise.
 ### {% short_story_title "Division by Zero" %}
 
 {% rating_stars 3 %}
+
+A mathematician disproves the consistency of asthmatic, allowing her to show
+that `1 = 2`. This
 
 ### {% short_story_title "Story of Your Life" %}
 
