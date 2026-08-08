@@ -181,16 +181,20 @@ Reproduction happens not via sperm and egg but via homunculus already in a
 man's body when he is born. And the human race is 5 generations from
 extinction.
 
-This story has a lot of interesting branches: golems as replacement for skill
-labor, and the objection the golem making guild has to golems making golems;
-the way in which names are factor and studied to create new ones; the coming
-end of the world; the interplay between the politics of the poor and the
-gentry. But like a {{ martin }} in {{ a_song_of_ice_and_fire }}, {{
-the_authors_lastname }} feels like he over extends: he doesn't close off the
-various story lines, they're extraneous to his axiom and proof.
+This story has a lot of interesting branches: golems as replacement for
+skilled labor, and the objection the golem making guild has to golems making
+golems; the way in which names are factored and studied to create new ones;
+the coming end of the world; the interplay between the politics of the poor
+and the gentry. But {{ the_authors_lastname }} is only interested in them in
+how they allow the story to unfold, not in really exploring their
+consequences. That's why I didn't like this story. It makes ill use of its
+amazing ideas.
 
-In the end, that's why I didn't really like this story because it had a lot of
-interesting ideas that weren't capitalized on.
+The golems reminded me of modern large language models. Both take instructions
+and carry them out in a manner that only humans could before, and as the
+golems improve they start replacing humans at skilled crafts. We might be
+starting to see the same thing with our own language golems, piles of words
+given thought, as they completely replace manual programming.
 
 ### {% short_story_title "The Evolution of Human Science" %}
 
