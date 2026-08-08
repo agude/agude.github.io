@@ -168,12 +168,12 @@ the miners make.
 [babel]: https://en.wikipedia.org/wiki/Tower_of_Babel
 
 During the story, the guide tells the narrator about a time when a star
-crashed into the tower, which reminded me of {{ bankss_lastname }} novel {{
-matter }} with it's rollstars that roll on tracks set in the ceiling of each
-level of the shellworld Sursamen. It made me realize that {{ banks_lastname }}
-also based the shellworlds on [Ptolemaic cosmology][geo] with giant towers
-supporting the heavens, a world made of concentric shells, and stars on
-tracks.
+crashed into the tower. This idea of stars as literal, physical objects moving
+past the characters reminded me of {{ bankss_lastname }} novel {{ matter }},
+with its rollstars that roll on tracks set in the ceiling of each level of
+Sursamen. It made me realize that {{ banks_lastname }} also based his
+shellworlds on [Ptolemaic cosmology][geo], utilizing giant towers to support
+the heavens, a world made of concentric shells, and stars on tracks.
 
 [geo]: https://en.wikipedia.org/wiki/Geocentrism
 
