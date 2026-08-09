@@ -381,3 +381,9 @@ charismatic and use it to persuade students.
 The story is great as a discussion prompt: my book club spent some time having
 the same debate. But it's another of {{ the_authors_lastname_possessive }}
 great idea stories, without that "something else" to elevate it.
+
+The idea is similar to {{ vonneguts_lastname }} {{ harrison_bergeron }}, in
+which people are made equal by handicapping everyone to the same level; {{ {{
+the_authors_lastname }} leaves his questions open, whereas {{
+vonnegut_lastname }} comes down clearly against the authoritarianism required
+to enforce the handicaps.
