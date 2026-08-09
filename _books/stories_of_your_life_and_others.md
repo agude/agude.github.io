@@ -302,22 +302,28 @@ their readers. In it the narrator writes about how humans no longer do science
 now that smarter metahumans have surpassed them, and how human scientists can
 no longer understand what is going on.
 
-I love the questions around what do you do when your life's work moves beyond
-your ability, and should you make your children metahuman even though it means
-you'll no longer understand them? As a parent it's a poignant question because
-we never do truly understand our children, they grow up in a different world
-than we did.
-
-It brought to mind Siri Keeton, the "synthesist" narrator of {{
-wattss_lastname }} {{ blindsight }}. Just like the scientists, Keaton's job is
-to interpret the actions and responses of posthuman (and alien) intellects
-into something baseline humans can understand.
+Despite it's short length and focus, the story hints at a lot of deep
+questions: What do you do when your life's work moves beyond you ability?
+Should allow your children to become metahuman, when it guarantees you won't
+be able to understand them? As a parent, that last question is poignant
+because we never do truly understand our children, they grow up in a different
+world than we did.
 
 The idea that science might move beyond humans is something we're already
 seeing the start of. First, in how science has become so specialized, with
 thousand-person collaborations needed to advance the field. And second, now
 with LLM-assisted math proofs, solving problems humans have spent decades
 failing at.
+
+Structurally it's similar to {{ qntms }} {{ lena }}, which uses a dry
+Wikipedia article format to deliver its horror; the dissonance between the
+flat tone and nightmare content is what makes it work. Here it's a
+letter-from-the-editor is also dry, but the content isn't disturbing enough
+for the juxtaposition to be effective. It also reminded me of Siri Keeton, the
+"synthesist" narrator of {{ wattss_lastname }} {{ blindsight }}. Just like the
+scientists, Keeton's job is to interpret the actions and responses of
+posthuman (and alien) intellects into something baseline humans can
+understand.
 
 ### {% short_story_title "Hell Is the Absence of God" %}
 
