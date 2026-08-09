@@ -238,21 +238,27 @@ connect with the characters.
 
 {% rating_stars 4 %}
 
-{{ story_of_your_life }}, the basis for the feature film {{ arrival}}, is
+{{ story_of_your_life }}, the basis for the feature film {{ arrival }}, is
 probably the most famous story in the collection. It's about first contact
 between humans and heptapods, narrated by one of the linguists who is trying
 to decipher the language. As she learns the language, she realizes that
 heptapods experience time differently than humans, and that by learning their
 language she starts to experience it the same way.
 
-This is another good example of {{ the_authors_lastname }} playing with the
-structure in a clever way, as we realize we're experiencing the story the same
-way the linguist does, with bits from the future and the past all mixed in
-together. The relationship between the linguist, her physicist counterpart,
-and their future daughter adds some emotional weight and demonstrates how
-the narrator has started to think like a heptapod, living the life she knows
-the future holds, unable to avoid it nor wanting too. It adds a layer of
-tragedy.
+This is another good example of {{ the_authors_lastname }} playing with
+structure: we experience the story the way the linguist does, with the future
+and the past mixed together. Her tenses slip when she talks about her
+daughter, and like {{ tower_of_babylon }}, the story ends where it begins.
+
+The heptapods know what is going to happen but they do it anyway because
+otherwise what they know to be true wouldn't be. The narrator starts behaving
+the same way, having a child even though she knows it ends in tragedy, unable
+to avoid it and not wanting to.
+
+Telling a story out of order in time reminded me of how {{ banks_lastname }}
+tells a story forward and backwards in {{ use_of_weapons }}. Both authors use
+the narration itself to hide clues for the reader: {{ the_authors_lastname }}
+through wrong tenses, {{ banks_lastname }} by never naming the protagonist.
 
 ### {% short_story_title "Seventy-Two Letters" %}
 
@@ -290,6 +296,23 @@ treats it as a technology. Names as programming and math; golems as machines.
 ### {% short_story_title "The Evolution of Human Science" %}
 
 {% rating_stars 3 %}
+
+A very short story in the form of a letter from a scientific journal editor to
+their readers. In it the narrator writes about how humans no longer do science
+now that smarter metahumans have surpassed them, and how human scientists can
+no longer understand what is going on.
+
+I love the questions around what do you do when your life's work moves beyond
+your ability, and should you make your children metahuman even though it means
+you'll no longer understand them? As a parent it's a poignant question because
+we never do truly understand our children, they grow up in a different world
+than we did.
+
+The idea that science might move beyond humans is something we're already
+seeing the start off. First, in how science has become so specialized, with
+thousand person collaborations needed to advance the field. And second, now
+with LLM assisted math proof, solving problems humans have spend decades
+failing it.
 
 ### {% short_story_title "Hell Is the Absence of God" %}
 
