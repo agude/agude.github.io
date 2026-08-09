@@ -348,12 +348,12 @@ sets out to see it.
 
 Neil's reliance on the quantifiable system of God is similar to Sol Weintraub
 from {{ simmonss_lastname }} {{ hyperion }}. Sol is an academic expert on
-God's covenant and on {{ kierkegaard_lastname_possessive }} {{
-fear_and_trembling }}. He is intellectually ready for the exact problem he
-finds himself in, yet when a god-like entity demands the sacrifice of his
-daughter Rachel, all of Sol's theological mastery is useless. He cannot
-outdebate the absolute. Neil tries the same, reasoning: if A (see the light),
-then B (love God), then C (salvation).
+God's covenant and on {{ kierkegaards_lastname }} {{ fear_and_trembling }}. He
+is intellectually ready for the exact problem he finds himself in, yet when a
+god-like entity demands the sacrifice of his daughter Rachel, all of Sol's
+theological mastery is useless. He cannot outdebate the absolute. Neil tries
+the same, reasoning: if A (see the light), then B (love God), then C
+(salvation).
 
 Neil succeeds in glimpsing Heaven's light, comes to love God unconditionally,
 and is sent to Hell anyway. {{ the_authors_lastname }} breaks the chain of
