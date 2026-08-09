@@ -308,11 +308,16 @@ you'll no longer understand them? As a parent it's a poignant question because
 we never do truly understand our children, they grow up in a different world
 than we did.
 
+It brought to mind Siri Keeton, the "synthesist" narrator of {{
+wattss_lastname }} {{ blindsight }}. Just like the scientists, Keaton's job is
+to interpret the actions and responses of posthuman (and alien) intellects
+into something baseline humans can understand.
+
 The idea that science might move beyond humans is something we're already
-seeing the start off. First, in how science has become so specialized, with
-thousand person collaborations needed to advance the field. And second, now
-with LLM assisted math proof, solving problems humans have spend decades
-failing it.
+seeing the start of. First, in how science has become so specialized, with
+thousand-person collaborations needed to advance the field. And second, now
+with LLM-assisted math proofs, solving problems humans have spent decades
+failing at.
 
 ### {% short_story_title "Hell Is the Absence of God" %}
 
