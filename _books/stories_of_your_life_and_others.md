@@ -370,20 +370,19 @@ and grounds it in the real world.
 
 {% rating_stars 3 %}
 
-This story is written as the script of a fictional documentary on
-calliagnosia, a reversible procedure that makes people blind to how attractive
-someone is. A college holds a vote to require students to have calliagnosia,
-which sparks debate between the various factions: should it be mandatory? Is
-it ethical to force people to use it? The vote fails, but not because of the
-debate---advertisers release a new modification that makes people unnaturally
-charismatic and use it to persuade students.
+This story takes the form of a documentary script about calliagnosia, a
+reversible procedure that makes people blind to how attractive someone is. A
+college holds a vote to require students to have calliagnosia, which sparks
+debate: should it be mandatory? Is it ethical to force people to use it? The
+vote fails, but not because of the debate---advertisers release a new
+modification that makes people unnaturally charismatic and use it to persuade
+students.
+
+The idea is similar to {{ vonneguts_lastname }} {{ harrison_bergeron }}, in
+which people are made equal by handicapping everyone to the same level. But
+where {{ vonnegut_lastname }} comes down clearly on the anti-handicap side, {{
+the_authors_lastname }} leaves his questions open.
 
 The story is great as a discussion prompt: my book club spent some time having
 the same debate. But it's another of {{ the_authors_lastname_possessive }}
 great idea stories, without that "something else" to elevate it.
-
-The idea is similar to {{ vonneguts_lastname }} {{ harrison_bergeron }}, in
-which people are made equal by handicapping everyone to the same level; {{ {{
-the_authors_lastname }} leaves his questions open, whereas {{
-vonnegut_lastname }} comes down clearly against the authoritarianism required
-to enforce the handicaps.
