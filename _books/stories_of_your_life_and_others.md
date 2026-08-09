@@ -288,10 +288,10 @@ given thought, as they completely replace manual programming.
 
 I've read a lot of stories where the authors use mysticism to make technology
 unknowable: {{ gibsons_lastname }} voodoo loa as a framework for AIs in {{
-count_zero }}, {{ stephensons_lastname }} Sumerian language-virus in {{
-snow_crash }}, {{ strosss_lastname }} weaponized Cthulhu in {{ a_colder_war
-}}. Here {{ the_authors_lastname }} does the opposite: he takes mysticism and
-treats it as a technology. Names as programming and math; golems as machines.
+count_zero }} or {{ stephensons_lastname }} Sumerian language-virus in {{
+snow_crash }}. Here {{ the_authors_lastname }} does the opposite: he takes
+mysticism and treats it as a technology. Names as programming and math; golems
+as machines.
 
 ### {% short_story_title "The Evolution of Human Science" %}
 
@@ -364,16 +364,20 @@ think you can write down rules that he follows---is Sovereign.
 This story, with it's natural disaster-like angels, reminded me of {{ eva }}
 where angels are alien, terrifying; an extinction level threat. It's also
 similar to {{ strosss_lastname }} {{ a_colder_war }} in how it takes cosmic
-and grounds it in the real world. And in {{ count_zero }}, {{ gibson_lastname
-}} uses religion as a framework for incomprehensible power; {{
-the_authors_lastname }} instead makes religion comprehensible and turns it
-into engineering. <!-- Do I need this here and in 72? Probably just in 72 with
-a mention about it here also? -->
+and grounds it in the real world.
 
 ### {% short_story_title "Liking What You See: A Documentary" %}
 
 {% rating_stars 3 %}
 
-This story is written as the script of a fictional documentary of
+This story is written as the script of a fictional documentary on
 calliagnosia, a reversible procedure that makes people blind to how attractive
-someone is.
+someone is. A college holds a vote to require students to have calliagnosia,
+which sparks debate between the various factions: should it be mandatory? Is
+it ethical to force people to use it? The vote fails, but not because of the
+debate---advertisers release a new modification that makes people unnaturally
+charismatic and use it to persuade students.
+
+The story is great as a discussion prompt: my book club spent some time having
+the same debate. But it's another of {{ the_authors_lastname_possessive }}
+great idea stories, without that "something else" to elevate it.
