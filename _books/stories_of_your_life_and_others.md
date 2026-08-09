@@ -160,8 +160,8 @@ is a collection of eight short stories and novellas.
 {{ this_book }} was my nomination for this month's science fiction book club.
 I've wanted to read {{ the_authors }} work for two reasons. First, I
 appreciate how short stories---like {{ lena }} or {{ helicopter }}---can
-deliver tight, stripped-down explorations of complex concepts. Second, authors
-I love, like {{ watts }}, speak incredibly highly of him.
+explore big ideas in a stripped-down way. Second, authors I love, like {{
+watts }}, speak incredibly highly of him.
 
 {{ the_authors_lastname_possessive }} stories all have fantastic ideas,
 but reading {{ this_book }} made me realize they rely on a formula:
@@ -177,28 +177,28 @@ pkd }}, which I discussed in my review of {{ ubik }}: ideas alone aren't
 enough to carry a story. Fortunately, {{ the_authors_lastname }} doesn't leave
 all of his concepts bare. His stories are best when he does something
 subversive with his formula, like in {{ hell_is_the_absence_of_god }}, or adds
-incredibly rich worldbuilding as in {{ tower_of_babylon }}.
+rich worldbuilding as in {{ tower_of_babylon }}.
 
 ### {% short_story_title "Tower of Babylon" %}
 
 {% rating_stars 4 %}
 
 {{ tower_of_babylon }} assumes ancient cosmology is correct and treats the
-construction of the [Tower of Babel][babel] as a real mega-project. It is a
-simple story told about a group of miners climbing the tower to dig their way
-into heaven, and I really enjoyed the details {{ the_authors_lastname }}
-includes about the tower, how the people on each level lived, and the journey
-the miners make.
+construction of the [Tower of Babel][babel] as a real mega-project. It's a
+simple story about a group of miners climbing the tower to dig their way into
+heaven, and I really enjoyed the details {{ the_authors_lastname }} includes
+about the tower, how the people on each level lived, and the journey the
+miners make.
 
 [babel]: https://en.wikipedia.org/wiki/Tower_of_Babel
 
 During the story, the guide tells the narrator about a time when a star
-crashed into the tower. This idea of stars as literal, physical objects moving
-past the characters reminded me of {{ bankss_lastname }} novel {{ matter }},
-with its rollstars that roll on tracks set in the ceiling of each level of
-Sursamen. It made me realize that {{ banks_lastname }} also based his
-shellworlds on [Ptolemaic cosmology][geo], utilizing giant towers to support
-the heavens, a world made of concentric shells, and stars on tracks.
+crashed into the tower. Stars as literal, physical objects moving past the
+characters reminded me of {{ bankss_lastname }} {{ matter }}, with its
+rollstars that roll on tracks set in the ceiling of each level of Sursamen. It
+made me realize that {{ banks_lastname }} also based his shellworlds on
+[Ptolemaic cosmology][geo]: giant towers to support the heavens, a world of
+concentric shells, and stars on tracks.
 
 [geo]: https://en.wikipedia.org/wiki/Geocentrism
 
@@ -213,18 +213,18 @@ watching him. It's a response to {{ keyess_lastname }} {{ flowers_for_algernon
 }}, but without the eventual slide that adds emotional weight.
 
 When I read this story I had not yet figured out {{
-the_authors_lastname_possessive }} writing pattern, and so I kept second
-guessing where the story was going. I was sure the protagonist was delusional
-but no, the doctors really are trying to trick him, the CIA really is
-watching. It's my main critique of {{ the_authors }} writing: his proof-like
-structure makes it hard to be taken by surprise.
+the_authors_lastname_possessive }} writing pattern, and so I kept
+second-guessing where the story was going. I was sure the protagonist was
+delusional, but no, the doctors really are trying to trick him, the CIA really
+is watching. It's my main critique of {{ the_authors }} writing: his
+proof-like structure makes it hard to be taken by surprise.
 
 ### {% short_story_title "Division by Zero" %}
 
 {% rating_stars 3 %}
 
 A mathematician disproves the consistency of arithmetic, allowing her to show
-that `1 = 2`. Her proof shatters her view of math, and drives her to attempt
+that `1 = 2`. Her proof shatters her view of math and drives her to attempt
 suicide, while her husband struggles with the realization that he no longer
 understands her.
 
@@ -240,17 +240,17 @@ connect with the characters.
 
 {{ story_of_your_life }}, the basis for the feature film {{ arrival }}, is
 probably the most famous story in the collection. It's about first contact
-between humans and heptapods, narrated by one of the linguists who is trying
-to decipher the language. As she learns the language, she realizes that
-heptapods experience time differently than humans, and that by learning their
-language she starts to experience it the same way.
+between humans and heptapods, narrated by one of the linguists trying to
+decipher the language. As she learns it, she realizes that heptapods experience
+time differently than humans, and that learning their language makes her
+experience it the same way.
 
 This is another good example of {{ the_authors_lastname }} playing with
 structure: we experience the story the way the linguist does, with the future
 and the past mixed together. Her tenses slip when she talks about her
 daughter, and like {{ tower_of_babylon }}, the story ends where it begins.
 
-The heptapods know what is going to happen but they do it anyway because
+The heptapods know what is going to happen, but they do it anyway because
 otherwise what they know to be true wouldn't be. The narrator starts behaving
 the same way, having a child even though she knows it ends in tragedy, unable
 to avoid it and not wanting to.
@@ -264,21 +264,19 @@ through wrong tenses, {{ banks_lastname }} by never naming the protagonist.
 
 {% rating_stars 2 %}
 
-{{ seventy_two_letters }} takes as its assumption that the world _actually_
-works roughly how 17th-century scientists and mystics thought it did. Golems
-are real and animated by a Kabbalistic name (the titular 72 letters).
-Reproduction happens not via sperm and egg but via homunculus already in a
-man's body when he is born. And the human race is 5 generations from
-extinction.
+{{ seventy_two_letters }} assumes the world _actually_ works roughly how
+17th-century scientists and mystics thought it did. Golems are real and
+animated by a Kabbalistic name (the titular 72 letters). Reproduction happens
+not via sperm and egg but via a homunculus already in a man's body when he is
+born. And the human race is 5 generations from extinction.
 
 This story has a lot of interesting branches: golems as replacement for
-skilled labor, and the objection the golem making guild has to golems making
-golems; the way in which names are factored and studied to create new ones;
-the coming end of the world; the interplay between the politics of the poor
-and the gentry. But {{ the_authors_lastname }} is only interested in them in
-how they allow the story to unfold, not in really exploring their
-consequences. That's why I didn't like this story. It makes ill use of its
-amazing ideas.
+skilled labor, and the objection the golem-making guild has to golems making
+golems; the way names are factored and studied to create new ones; the coming
+end of the world; the interplay between the politics of the poor and the
+gentry. But {{ the_authors_lastname }} is only interested in how they serve
+the plot, not in exploring their consequences. That's why I didn't like this
+story. It was too short to make use of all its ideas.
 
 The golems reminded me of modern large language models. Both take instructions
 and carry them out in a manner that only humans could before, and as the
@@ -298,23 +296,21 @@ as machines.
 {% rating_stars 3 %}
 
 A very short story in the form of a letter from a scientific journal editor to
-their readers. In it the narrator writes about how humans no longer do science
-now that smarter metahumans have surpassed them, and how human scientists can
-no longer understand what is going on.
+their readers. The narrator writes about how humans no longer do science now
+that smarter metahumans have surpassed them, and how human scientists can no
+longer understand what is going on.
 
-Despite its short length and focus, the story hints at a lot of deep
-questions: What do you do when your life's work moves beyond your ability?
-Should you allow your children to become metahuman, when it guarantees you won't
-be able to understand them? As a parent, that last question is poignant
-because we never do truly understand our children, they grow up in a different
-world than we did.
+Despite its short length, the story hints at deep questions: What do you do
+when your life's work moves beyond your ability? Should you allow your
+children to become metahuman, knowing you won't be able to understand them? As
+a parent, that last question is poignant because we never truly understand our
+children; they grow up in a different world than we did.
 
-The idea that science might move beyond humans is something we're already
-seeing the start of. First, in how science has become so specialized that no
-person can understand more than a tiny fraction of it, with thousand-person
-collaborations needed to advance the field. And second, now with LLM-assisted
-math proofs, solving problems humans have spent decades failing at through the
-use of a new form of intelligence.
+We're already seeing this start in the real world. Science has become so
+specialized that no one can understand more than a tiny fraction of it, with
+thousand-person collaborations needed to advance the field. And now
+LLM-assisted math proofs are solving problems humans spent decades failing at,
+through a new form of intelligence.
 
 Structurally {{ the_evolution_of_human_science }} is similar to {{ qntms }} {{
 lena }}, which uses a dry Wikipedia article format to deliver its horror. The
@@ -333,7 +329,7 @@ understand.
 In my review of {{ bradburys_lastname }} {{ fahrenheit_451 }}, I said: "Some
 of my favorite books have structures that reinforce their themes." {{
 hell_is_the_absence_of_god }} was my favorite story in {{ this_book }} because
-it subverts {{ the_authors_lastname_possessive }} formula, and in doing so it
+it subverts {{ the_authors_lastname_possessive }} formula, and in doing so
 reinforces the theme of the work.
 
 The axiom in this story is "God is real, His acts are quantifiable". {{
@@ -357,14 +353,14 @@ the same, reasoning: if A (see the light), then B (love God), then C
 
 Neil succeeds in glimpsing Heaven's light, comes to love God unconditionally,
 and is sent to Hell anyway. {{ the_authors_lastname }} breaks the chain of
-logic he so steadfastly followed in the rest of the stories, and in doing so
+logic he followed so steadfastly in the rest of the stories, and in doing so
 shows you that God isn't just, God isn't kind, God---even in a world where you
 think you can write down rules that he follows---is Sovereign.
 
-This story, with it's natural disaster-like angels, reminded me of {{ eva }}
-where angels are alien, terrifying; an extinction level threat. It's also
-similar to {{ strosss_lastname }} {{ a_colder_war }} in how it takes cosmic
-and grounds it in the real world.
+This story, with its natural disaster-like angels, reminded me of {{ eva }}
+where angels are alien, terrifying; an extinction-level threat. It's also
+similar to {{ strosss_lastname }} {{ a_colder_war }} in how it takes the
+cosmic and grounds it in the real world.
 
 ### {% short_story_title "Liking What You See: A Documentary" %}
 
