@@ -302,22 +302,23 @@ their readers. In it the narrator writes about how humans no longer do science
 now that smarter metahumans have surpassed them, and how human scientists can
 no longer understand what is going on.
 
-Despite it's short length and focus, the story hints at a lot of deep
-questions: What do you do when your life's work moves beyond you ability?
-Should allow your children to become metahuman, when it guarantees you won't
+Despite its short length and focus, the story hints at a lot of deep
+questions: What do you do when your life's work moves beyond your ability?
+Should you allow your children to become metahuman, when it guarantees you won't
 be able to understand them? As a parent, that last question is poignant
 because we never do truly understand our children, they grow up in a different
 world than we did.
 
 The idea that science might move beyond humans is something we're already
-seeing the start of. First, in how science has become so specialized, with
-thousand-person collaborations needed to advance the field. And second, now
-with LLM-assisted math proofs, solving problems humans have spent decades
-failing at.
+seeing the start of. First, in how science has become so specialized that no
+person can understand more than a tiny fraction of it, with thousand-person
+collaborations needed to advance the field. And second, now with LLM-assisted
+math proofs, solving problems humans have spent decades failing at through the
+use of a new form of intelligence.
 
-Structurally it's similar to {{ qntms }} {{ lena }}, which uses a dry
-Wikipedia article format to deliver its horror; the dissonance between the
-flat tone and nightmare content is what makes it work. Here it's a
+Structurally {{ the_evolution_of_human_science }} is similar to {{ qntms }} {{
+lena }}, which uses a dry Wikipedia article format to deliver its horror. The
+dissonance between the tone and content is what makes it work. Here the
 letter-from-the-editor is also dry, but the content isn't disturbing enough
 for the juxtaposition to be effective. It also reminded me of Siri Keeton, the
 "synthesist" narrator of {{ wattss_lastname }} {{ blindsight }}. Just like the
@@ -372,3 +373,5 @@ a mention about it here also? -->
 ### {% short_story_title "Liking What You See: A Documentary" %}
 
 {% rating_stars 3 %}
+
+In
