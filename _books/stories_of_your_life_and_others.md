@@ -374,4 +374,6 @@ a mention about it here also? -->
 
 {% rating_stars 3 %}
 
-In
+This story is written as the script of a fictional documentary of
+calliagnosia, a reversible procedure that makes people blind to how attractive
+someone is.
