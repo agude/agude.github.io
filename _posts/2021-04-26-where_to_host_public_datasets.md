@@ -30,8 +30,6 @@ run the scripts. Too much of a hurdle for most people. And worse, California
 no longer provided some of the oldest data. It was suddenly impossible for
 other people to reproduce my earlier work!
 
-[sqlite]: https://en.wikipedia.org/wiki/SQLite
-
 Luckily, I had saved all of the data. So I decided to [host the dataset
 online][hosted_dataset_post] to make it easy to start using right away.
 

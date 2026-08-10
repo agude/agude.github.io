@@ -22,8 +22,6 @@ into the plotting notebook to show you what it can do.
 
 [library]: https://github.com/agude/Jupyter-Notebook-Template-Library
 
-[nb_post]: {% post_url 2016-10-17-jupyter_not_for_development %}
-
 ## The Plotting Notebook
 
 Visualizing your data is a critical step in understanding it, and so it is
