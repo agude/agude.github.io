@@ -88,6 +88,8 @@ narratives.
 
 {% capture eva %}{% tv_show_title "Neon Genesis Evangelion" %}{% endcapture %}
 
+{% capture warhammer %}{% game_title "Warhammer 40,000" %}{% endcapture %}
+
 {{ this_book }} was my nomination for this month's science fiction book club.
 I've wanted to read {{ the_authors }} work for 2 reasons. First, I
 appreciate how short stories---like {{ lena }} or {{ helicopter }}---can
@@ -114,13 +116,14 @@ rich worldbuilding, as in {{ tower_of_babylon }}.
 
 {% rating_stars 4 %}
 
-{{ tower_of_babylon }} assumes ancient cosmology is correct and treats the
-construction of the [Tower of Babel][babel] as a real mega-project. It's a
-simple story about a group of miners climbing the tower to dig their way into
-heaven, and I really enjoyed the details {{ the_authors_lastname }} includes
-about the tower, how the people on each level live, and the journey the
-miners make.
+{{ tower_of_babylon }} assumes [Ptolemaic cosmology][geo] is correct and
+treats the construction of the [Tower of Babel][babel] as a real mega-project.
+It's a simple story about a group of miners climbing the tower to dig their
+way into heaven, and I really enjoyed the details {{ the_authors_lastname }}
+includes about the tower, how the people on each level live, and the journey
+the miners make.
 
+[geo]: https://en.wikipedia.org/wiki/Geocentrism
 [babel]: https://en.wikipedia.org/wiki/Tower_of_Babel
 
 During the story, the guide tells the narrator about a time when a star
@@ -128,10 +131,8 @@ crashed into the tower. Stars as literal, physical objects moving past the
 characters reminded me of {{ bankss_lastname }} {{ matter }}, with its
 rollstars that roll on tracks set in the ceiling of each level of Sursamen. It
 made me realize that {{ banks_lastname }} also based his shellworlds on
-[Ptolemaic cosmology][geo]: giant towers to support the heavens, a world of
+Ptolemaic cosmology: giant towers to support the heavens, a world of
 concentric shells, and stars on tracks.
-
-[geo]: https://en.wikipedia.org/wiki/Geocentrism
 
 ### {% short_story_title "Understand" %}
 
@@ -162,8 +163,8 @@ understands her.
 There is some clever narrative structure related to the math: comparing things
 that are similar and showing how different they are (the mathematician and her
 husband), or how things that seem different can be the same (understanding and
-not understanding). But in the end, it's a proof about proofs, and one where I
-didn't really connect with the characters.
+not understanding). But in the end, I didn't really connect with the
+characters.
 
 ### {% short_story_title "Story of Your Life" %}
 
@@ -196,18 +197,22 @@ through wrong tenses, {{ banks_lastname }} by never naming the protagonist.
 {% rating_stars 2 %}
 
 {{ seventy_two_letters }} assumes the world _actually_ works roughly how
-17th-century scientists and mystics thought it did. Golems are real and
-animated by a Kabbalistic name (the titular 72 letters). Reproduction happens
-not via sperm and egg but via a homunculus already in a man's body when he is
-born. And the human race is 5 generations from extinction.
+17th-century scientists and mystics thought it did. [Golems][golem] are real
+and animated by a [Kabbalistic][kabbalah] name (the titular 72 letters).
+Reproduction happens not via sperm and egg but via a homunculus already in a
+man's body when he is born. And the human race is 5 generations from
+extinction.
 
-This story has a lot of interesting branches: golems as a replacement for
-skilled labor, and the objection the golem-making guild has to golems making
-golems; the way names are factored and studied to create new ones; the coming
-end of the world; the interplay between the politics of the poor and the
-gentry. But {{ the_authors_lastname }} is only interested in how they serve
-the plot, not in exploring their consequences. That's why I didn't like this
-story. It was too short to make use of all its ideas.
+[golem]: https://en.wikipedia.org/wiki/Golem
+[kabbalah]: https://en.wikipedia.org/wiki/Kabbalah
+
+I've read stories where authors use mysticism to make technology feel
+unknowable, like {{ gibsons_lastname }} Vodou Loa in {{ count_zero }}, or the
+Adeptus Mechanicus praying to machine spirits in {{ warhammer }}. {{
+the_authors_lastname }} does the exact opposite. Like {{ stephenson_lastname
+}} treating Sumerian myth as a literal language-virus in {{ snow_crash }}, {{
+the_authors_lastname }} takes mysticism and treats it strictly as a
+technology. Names as programming and math; golems as industrial machines.
 
 The golems reminded me of modern large language models. Both take instructions
 and carry them out in a manner that only humans could before, and as the
@@ -215,12 +220,13 @@ golems improve, they start replacing humans at skilled crafts. We might be
 starting to see the same thing with our own language golems, piles of words
 given thought, as they completely replace manual programming.
 
-I've read a lot of stories where authors use mysticism to make technology
-unknowable: {{ gibsons_lastname }} Vodou Loa as a framework for AIs in {{
-count_zero }} or {{ stephensons_lastname }} Sumerian language-virus in {{
-snow_crash }}. Here {{ the_authors_lastname }} does the opposite: he takes
-mysticism and treats it as a technology. Names as programming and math; golems
-as machines.
+This story has a lot of interesting branches: golems as a replacement for
+skilled labor, and the guild's objection to golems building each other; the
+way names are factored and studied to create new ones; the coming end of the
+world; the interplay between the politics of the poor and the gentry. But {{
+the_authors_lastname }} is only interested in how they serve the plot, not in
+exploring their consequences. That's why I didn't like this story. It was too
+short to make use of all its ideas.
 
 ### {% short_story_title "The Evolution of Human Science" %}
 
@@ -237,9 +243,9 @@ children to become metahuman, knowing you won't be able to understand them? As
 a parent, that last question is poignant because we never truly understand our
 children; they grow up in a different world than we did.
 
-We're already seeing this happen in the real world. Science has become so
-specialized that no one can understand more than a tiny fraction of it, with
-thousand-person collaborations needed to advance the field. And now
+But we don't need metahumans to see this happening. Science has already become
+so specialized that no one can understand more than a tiny fraction of it,
+with thousand-person collaborations needed to advance the field. And now
 LLM-assisted math proofs are solving problems humans spent decades failing at,
 through a new form of intelligence.
 
@@ -247,11 +253,11 @@ Structurally, {{ the_evolution_of_human_science }} is similar to {{ qntms }}
 {{ lena }}, which uses a dry Wikipedia article format to deliver its horror.
 The dissonance between the tone and content is what makes it work. Here, the
 letter-from-the-editor is also dry, but the content isn't disturbing enough
-for the juxtaposition to be effective. It also reminded me of Siri Keeton, the
-"synthesist" narrator of {{ wattss_lastname }} {{ blindsight }}. Just like the
-scientists, Keeton's job is to interpret the actions and responses of
-posthuman (and alien) intellects into something baseline humans can
-understand.
+for the juxtaposition to be effective. The story also reminded me of Siri
+Keeton, the "synthesist" narrator of {{ wattss_lastname }} {{ blindsight }}.
+Just like the scientists, Keeton's job is to interpret the actions and
+responses of posthuman (and alien) intellects into something baseline humans
+can understand.
 
 ### {% short_story_title "Hell Is the Absence of God" %}
 
@@ -264,23 +270,22 @@ it subverts {{ the_authors_lastname_possessive }} formula and, in doing so,
 reinforces the theme of the work.
 
 The axiom in this story is "God is real, His acts are quantifiable". {{
-the_authors_lastname }} takes this where it leads: angelic visitations are
-treated like weather and reported on the news; statistics on who is damned and
-who ascends are tracked; people flock to places where angels often emerge,
-hoping for miracles. Neil Fisk's wife was killed in a visitation and ascended
-to Heaven. Neil doesn't love God, and so knows he won't be reunited with her.
-But he also knows that if you view Heaven's light when an angel emerges, you
-are rewritten to unconditionally love God and always ascend to Heaven. He sets
-out to see it.
+the_authors_lastname }} follows it to its logical conclusion: angelic
+visitations are treated like weather and reported on the news; statistics on
+who is damned and who ascends are tracked; people flock to places where angels
+often emerge, hoping for miracles. Neil Fisk's wife was killed in a visitation
+and ascended to Heaven. Neil doesn't love God, and so knows he won't be
+reunited with her. But he also knows that if you view Heaven's light when an
+angel emerges, you are rewritten to unconditionally love God and always ascend
+to Heaven. He sets out to see it.
 
-Neil's reliance on the quantifiable system of God is similar to that of Sol
-Weintraub from {{ simmonss_lastname }} {{ hyperion }}. Sol is an academic
-expert on God's covenant and on {{ kierkegaards_lastname }} {{
-fear_and_trembling }}. He is intellectually ready for the exact problem he
-finds himself in, yet when a god-like entity demands the sacrifice of his
-daughter, Rachel, all of Sol's theological mastery is useless. He cannot
-outdebate the absolute. Neil tries the same, reasoning: if A (see the light),
-then B (love God), then C (salvation).
+Neil's reliance on the quantifiable system of God is similar to Sol Weintraub
+from {{ simmonss_lastname }} {{ hyperion }}. Despite being an academic expert
+on God's covenant and {{ kierkegaards_lastname }} {{ fear_and_trembling }},
+all of Sol's theological mastery is useless when a god-like entity demands the
+sacrifice of his daughter, Rachel. He cannot outdebate the absolute. Neil
+tries the same, reasoning: if A (see the light), then B (love God), then C
+(salvation).
 
 Neil succeeds in glimpsing Heaven's light, comes to love God unconditionally,
 and is sent to Hell anyway. {{ the_authors_lastname }} breaks the chain of
