@@ -48,7 +48,7 @@ OPEN := $(shell command -v xdg-open 2>/dev/null || command -v open 2>/dev/null)
 .PHONY: serve build test test-scripts lint lint-scripts format-scripts clean debug scripts
 
 # Tier 2: Command variants
-.PHONY: serve-drafts serve-profile test-cov test-summary lint-fix check-links check-liquid doc-index doc-show
+.PHONY: serve-drafts serve-profile test-cov test-summary lint-fix check-links check-refs check-liquid doc-index doc-show
 
 # Tier 3: Domain operations
 .PHONY: image-build image-rebuild deps-lock hooks-install prettier-image-build prettier-image-rebuild format-md prettier rank
@@ -257,6 +257,11 @@ format-scripts:
 check-links: build
 	@echo "Checking generated site for broken links and HTML issues..."
 	@$(DOCKER_RUN) bundle exec ruby _bin/check_links.rb
+
+# Check for undefined markdown reference links ([text][id] with no [id]: definition).
+check-refs: image-build
+	@echo "Checking all documents for undefined reference links..."
+	@$(DOCKER_RUN) bundle exec ruby _bin/check_reference_links.rb
 
 # Check all documents for strict Liquid compliance.
 check-liquid: image-build

@@ -100,6 +100,9 @@ jobs:
       - name: Check for strict Liquid errors
         run: bundle exec ruby _bin/check_strict.rb
 
+      - name: Check for undefined reference links
+        run: bundle exec ruby _bin/check_reference_links.rb
+
   # Build job
   build:
     runs-on: ubuntu-latest
