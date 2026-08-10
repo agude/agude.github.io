@@ -27,130 +27,58 @@ same_as_urls:
 is a collection of eight short stories and novellas.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
-{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 {% capture the_authors %}{% author_link page.book_authors link=false possessive %}{% endcapture %}
 {% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
 {% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text=author_last_name_text %}{% endcapture %}
 {% capture the_authors_lastname_possessive %}{% author_link page.book_authors link=false link_text=author_last_name_text possessive %}{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
-{% capture the_authors_link %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture the_authors_lastname_link %}{% author_link page.book_authors link_text=author_last_name_text %}{% endcapture %}
-{% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
 
 {% capture tower_of_babylon %}{% short_story_link "Tower of Babylon" %}{% endcapture %}
 {% capture understand %}{% short_story_link "Understand" %}{% endcapture %}
-{% capture division_by_zero %}{% short_story_link "Division by Zero" %}{% endcapture %}
 {% capture story_of_your_life %}{% short_story_link "Story of Your Life" %}{% endcapture %}
 {% capture seventy_two_letters %}{% short_story_link "Seventy-Two Letters" %}{% endcapture %}
 {% capture the_evolution_of_human_science %}{% short_story_link "The Evolution of Human Science" %}{% endcapture %}
 {% capture hell_is_the_absence_of_god %}{% short_story_link "Hell Is the Absence of God" %}{% endcapture %}
-{% capture liking_what_you_see %}{% short_story_link "Liking What You See: A Documentary" %}{% endcapture %}
 
 {% capture arrival %}{% movie_title "Arrival" %}{% endcapture %}
 
-{% capture martin %}{% author_link "George R. R. Martin" %}{% endcapture %}
-{% capture martins %}{% author_link "George R. R. Martin" possessive %}{% endcapture %}
-{% capture martin_lastname %}{% author_link "George R. R. Martin" link_text="Martin" %}{% endcapture %}
-{% capture martins_lastname %}{% author_link "George R. R. Martin" link_text="Martin" possessive %}{% endcapture %}
-{% capture a_song_of_ice_and_fire %}{% series_link "A Song of Ice and Fire" %}{% endcapture %}
-
-{% capture pkd_full %}{% author_link "Philip K. Dick" %}{% endcapture %}
-{% capture pkd_fulls %}{% author_link "Philip K. Dick" possessive %}{% endcapture %}
 {% capture pkd %}{% author_link "Philip K. Dick" link_text="PKD" %}{% endcapture %}
-{% capture pkds %}{% author_link "Philip K. Dick" link_text="PKD" possessive %}{% endcapture %}
-{% capture dick_lastname %}{% author_link "Philip K. Dick" link_text="Dick" %}{% endcapture %}
-{% capture dicks_lastname %}{% author_link "Philip K. Dick" link_text="Dick" possessive %}{% endcapture %}
 {% capture ubik %}{% book_link "Ubik" %}{% endcapture %}
 
-{% capture simmons %}{% author_link "Dan Simmons" %}{% endcapture %}
-{% capture simmonss %}{% author_link "Dan Simmons" possessive %}{% endcapture %}
-{% capture simmons_lastname %}{% author_link "Dan Simmons" link_text="Simmons" %}{% endcapture %}
 {% capture simmonss_lastname %}{% author_link "Dan Simmons" link_text="Simmons" possessive %}{% endcapture %}
 {% capture hyperion %}{% book_link "Hyperion" %}{% endcapture %}
-{% capture the_scholars_tale %}{% short_story_link "The Scholar's Tale" %}{% endcapture %}
 
-{% capture kierkegaard %}{% author_link "Søren Kierkegaard" %}{% endcapture %}
-{% capture kierkegaards %}{% author_link "Søren Kierkegaard" possessive %}{% endcapture %}
-{% capture kierkegaard_lastname %}{% author_link "Søren Kierkegaard" link_text="Kierkegaard" %}{% endcapture %}
 {% capture kierkegaards_lastname %}{% author_link "Søren Kierkegaard" link_text="Kierkegaard" possessive %}{% endcapture %}
 {% capture fear_and_trembling %}{% book_link "Fear and Trembling" %}{% endcapture %}
 
-{% capture bradbury %}{% author_link "Ray Bradbury" %}{% endcapture %}
-{% capture bradburys %}{% author_link "Ray Bradbury" possessive %}{% endcapture %}
-{% capture bradbury_lastname %}{% author_link "Ray Bradbury" link_text="Bradbury" %}{% endcapture %}
 {% capture bradburys_lastname %}{% author_link "Ray Bradbury" link_text="Bradbury" possessive %}{% endcapture %}
 {% capture fahrenheit_451 %}{% book_link "Fahrenheit 451" %}{% endcapture %}
 
-{% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
-{% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
 {% capture banks_lastname %}{% author_link "Iain M. Banks" link_text="Banks" %}{% endcapture %}
 {% capture bankss_lastname %}{% author_link "Iain M. Banks" link_text="Banks" possessive %}{% endcapture %}
-{% capture culture %}{% series_link "Culture" %}{% endcapture %}
 {% capture matter %}{% book_link "Matter" %}{% endcapture %}
-{% capture consider_phlebas %}{% book_link "Consider Phlebas" %}{% endcapture %}
-{% capture phlebas %}{% book_link "Consider Phlebas" link_text="Phlebas" %}{% endcapture %}
-{% capture look_to_windward %}{% book_link "Look to Windward" %}{% endcapture %}
-{% capture windward %}{% book_link "Look to Windward" link_text="Windward" %}{% endcapture %}
 {% capture use_of_weapons %}{% book_link "Use of Weapons" %}{% endcapture %}
 
-{% capture keyes %}{% author_link "Daniel Keyes" %}{% endcapture %}
-{% capture keyess %}{% author_link "Daniel Keyes" possessive %}{% endcapture %}
-{% capture keyes_lastname %}{% author_link "Daniel Keyes" link_text="Keyes" %}{% endcapture %}
 {% capture keyess_lastname %}{% author_link "Daniel Keyes" link_text="Keyes" possessive %}{% endcapture %}
 {% capture flowers_for_algernon %}{% book_link "Flowers for Algernon" %}{% endcapture %}
-{% capture algernon %}{% book_link "Flowers for Algernon" link_text="Algernon" %}{% endcapture %}
 
 {% capture watts %}{% author_link "Peter Watts" %}{% endcapture %}
-{% capture wattss %}{% author_link "Peter Watts" possessive %}{% endcapture %}
-{% capture watts_lastname %}{% author_link "Peter Watts" link_text="Watts" %}{% endcapture %}
 {% capture wattss_lastname %}{% author_link "Peter Watts" link_text="Watts" possessive %}{% endcapture %}
-{% capture firefall %}{% series_link "Firefall" %}{% endcapture %}
 {% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
 
-{% capture wells %}{% author_link "Martha Wells" %}{% endcapture %}
-{% capture wellss %}{% author_link "Martha Wells" possessive %}{% endcapture %}
-{% capture wells_lastname %}{% author_link "Martha Wells" link_text="Wells" %}{% endcapture %}
-{% capture wellss_lastname %}{% author_link "Martha Wells" link_text="Wells" possessive %}{% endcapture %}
-{% capture murderbot %}{% series_link "The Murderbot Diaries" link_text="Murderbot" %}{% endcapture %}
-{% capture the_murderbot_diaries %}{% series_link "The Murderbot Diaries" %}{% endcapture %}
-
-{% capture stephenson %}{% author_link "Neal Stephenson" %}{% endcapture %}
-{% capture stephensons %}{% author_link "Neal Stephenson" possessive %}{% endcapture %}
-{% capture stephenson_lastname %}{% author_link "Neal Stephenson" link_text="Stephenson" %}{% endcapture %}
 {% capture stephensons_lastname %}{% author_link "Neal Stephenson" link_text="Stephenson" possessive %}{% endcapture %}
 {% capture snow_crash %}{% book_link "Snow Crash" %}{% endcapture %}
 
-{% capture stross %}{% author_link "Charles Stross" %}{% endcapture %}
-{% capture strosss %}{% author_link "Charles Stross" possessive %}{% endcapture %}
-{% capture stross_lastname %}{% author_link "Charles Stross" link_text="Stross" %}{% endcapture %}
 {% capture strosss_lastname %}{% author_link "Charles Stross" link_text="Stross" possessive %}{% endcapture %}
 {% capture a_colder_war %}{% short_story_link "A Colder War" %}{% endcapture %}
 
-{% capture gibson %}{% author_link "William Gibson" %}{% endcapture %}
-{% capture gibsons %}{% author_link "William Gibson" possessive %}{% endcapture %}
-{% capture gibson_lastname %}{% author_link "William Gibson" link_text="Gibson" %}{% endcapture %}
 {% capture gibsons_lastname %}{% author_link "William Gibson" link_text="Gibson" possessive %}{% endcapture %}
-{% capture sprawl %}{% series_link "Sprawl" %}{% endcapture %}
-{% capture neuromancer %}{% book_link "Neuromancer" %}{% endcapture %}
 {% capture count_zero %}{% book_link "Count Zero" %}{% endcapture %}
-{% capture burning_chrome %}{% book_link "Burning Chrome" %}{% endcapture %}
-{% capture the_winter_market %}{% short_story_link "The Winter Market" %}{% endcapture %}
 
-{% capture qntm %}{% author_link "qntm" %}{% endcapture %}
 {% capture qntms %}{% author_link "qntm" possessive %}{% endcapture %}
 {% capture lena %}{% short_story_link "Lena" %}{% endcapture %}
-{% capture there_is_no_antimemetics_division %}{% book_link "There Is No Antimemetics Division" %}{% endcapture %}
-{% capture antimemetics %}{% book_link "There Is No Antimemetics Division" link_text="Antimemetics" %}{% endcapture %}
 
 {% capture helicopter %}{% book_link "I Sexually Identify as an Attack Helicopter" %}{% endcapture %}
 
-{% capture borges %}{% author_link "Jorge Luis Borges" %}{% endcapture %}
-{% capture borgess %}{% author_link "Jorge Luis Borges" possessive %}{% endcapture %}
-{% capture borges_lastname %}{% author_link "Jorge Luis Borges" link_text="Borges" %}{% endcapture %}
-{% capture borgess_lastname %}{% author_link "Jorge Luis Borges" link_text="Borges" possessive %}{% endcapture %}
-
-{% capture vonnegut %}{% author_link "Kurt Vonnegut" %}{% endcapture %}
-{% capture vonneguts %}{% author_link "Kurt Vonnegut" possessive %}{% endcapture %}
 {% capture vonnegut_lastname %}{% author_link "Kurt Vonnegut" link_text="Vonnegut" %}{% endcapture %}
 {% capture vonneguts_lastname %}{% author_link "Kurt Vonnegut" link_text="Vonnegut" possessive %}{% endcapture %}
 {% capture harrison_bergeron %}{% short_story_link "Harrison Bergeron" %}{% endcapture %}
