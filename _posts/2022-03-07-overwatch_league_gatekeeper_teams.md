@@ -156,7 +156,6 @@ rate. Combining those rates yields a gatekeeper score of 89!
 
 [streak]: https://www.espn.com/esports/story/_/id/25535277/espn-esports-awards-2018-why-shanghai-dragons-0-40-record-espn-biggest-disappointment-year
 [2018_florida]: https://en.wikipedia.org/wiki/2018_Florida_Mayhem_season
-[2018_dragons]: https://en.wikipedia.org/wiki/2018_Shanghai_Dragons_season
 
 But are they the gatekeeper? They run into the [volatility problem I described
 above][volatility]: 3 wins against the Dragons got them 100 points and 4 wins

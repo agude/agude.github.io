@@ -64,6 +64,13 @@ the same for the plain file-path references below.
   `git stash --keep-index` mechanism) are a header comment in
   `_bin/pre-commit.sh`. Read when modifying CI workflows or commit hooks.
 
+- **CI gate tests** (`_tests/bin/`) — the `_bin/check_*` gates are executed
+  as real subprocesses against throwaway fixture directories; the approach
+  and the fixture builders are a header comment in
+  `_tests/bin/bin_script_helper.rb`. `test_bin_scripts_are_wired_up.rb`
+  fails if a new `check_*` script has no test or is never invoked by the
+  workflow. Read before adding or changing a CI gate.
+
 ## Policy docs (no single code home)
 
 These describe authoring conventions, not code behavior, so they stay as
@@ -81,9 +88,10 @@ plain skill markdown:
 - **[Links, Backlinks, and Previews](references/links-and-previews.md)** —
   Why BacklinkBuilder scans raw Liquid, related-books tier scoring,
   `canonical_url` filtering call sites, the hover-preview architecture (span-
-  only markup, re-entrancy guard, leak stripping, anchor positioning), and the
-  strict-Liquid constraints. Read when touching link resolution, the link
-  cache, previews, or `check_strict.rb`.
+  only markup, re-entrancy guard, leak stripping, anchor positioning), the
+  reference-link checker, and the strict-Liquid constraints. Read when
+  touching link resolution, the link cache, previews,
+  `check_reference_links.rb`, or `check_strict.rb`.
 
 - **[AT Protocol / standard.site](references/atproto-standard-site.md)** —
   How the site publishes to Bluesky's network: the domain-as-handle DNS

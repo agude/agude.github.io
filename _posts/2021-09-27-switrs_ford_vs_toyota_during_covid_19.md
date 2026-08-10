@@ -102,8 +102,6 @@ normalized plot:
     proportion of crashes that occur at different severity levels.
     {% endcitedquote %}
 
-[mn_report]: https://dps.mn.gov/divisions/ots/reports-statistics/Documents/2014-crash-facts.pdf
-
 [![The collision rate for Fords compared to Toyotas before and after the COVID-19 stay at home order in
 California, with mean normalized from January 2019 through June 2019.][f_vs_t_norm]][f_vs_t_norm]
 
@@ -117,11 +115,10 @@ work and hence not commuting. But right after, the series diverge:
 
 [xmas]: {% post_url 2016-12-02-switrs_crashes_by_date %}/#day-by-day
 
-- Toyota collisions trend down a few weeks before the stay-at-home
-  order and drop off significantly the week before. Ford collisions stay
-  constant until the order. This suggests that Toyota drivers made a decision
-  to stay home by themselves while Ford drivers waited until the state
-  mandated it.
+- Toyota collisions trend down a few weeks before the stay-at-home order and
+  drop off significantly the week before. Ford collisions stay constant until
+  the order. This suggests that Toyota drivers made a decision to stay home by
+  themselves while Ford drivers waited until the state mandated it.
 
 - Toyota collisions drop much more the week of the order, likely indicating
   that more Toyota drivers stayed at home when told to do so.
@@ -155,11 +152,9 @@ Fords.[^political_cars]
     The most left-leaning models with at least a dozen sightings in Mr.
     MacMichael's project were the Honda Civic (80-20 left-leaning), Toyota
     Corolla (78-19) and Toyota Camry (74-26). The list of most right-leaning
-    was led by another Toyota, but a midsize SUV, the Toyota 4Runner
-    (86-14), followed by the Ford Expedition (76-24) and Ford F-150 (75-25).
+    was led by another Toyota, but a midsize SUV, the Toyota 4Runner (86-14),
+    followed by the Ford Expedition (76-24) and Ford F-150 (75-25).
     {% endcitedquote %}
-
-[nyt_car]: https://www.nytimes.com/2005/04/01/automobiles/your-car-politics-on-wheels.html
 
 Initially I thought this difference would be driven purely by the prevalence
 of Ford trucks, but as we shall see it is not just trucks versus cars.

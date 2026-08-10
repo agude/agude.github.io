@@ -15,11 +15,14 @@ permalink: blog/sat2vec/claude_results/
 date: 2023-05-29
 ---
 
-Below are the full results of running [Anthropic's][anthropic] biggest
-model, [Claude][claude], on SAT Analogies.
+Below are the full results of running [Anthropic's][anthropic] biggest model,
+[Claude][claude], on SAT Analogies. My analysis of these results is
+[here][post].
 
 [anthropic]: https://www.anthropic.com/
 [claude]: https://www.anthropic.com/index/introducing-claude
+
+[post]: {% post_url 2023-05-29-claude_sat_analogies %}
 
 {% comment %} This allows styling the table text without cutting and pasting a
 lot of HTML. {% endcomment %}
@@ -51,8 +54,6 @@ lot of HTML. {% endcomment %}
 For each analogy, the first word pair is the correct answer (in **bold**)
 while the answer the model choose is {{u}}green underlined{{endu}}.
 
-[post]: {% post_url 2023-05-29-claude_sat_analogies %}
-
 {{model}}
 
 > Okay, I understand. Let's do this SAT analogy exercise.
@@ -63,22 +64,29 @@ while the answer the model choose is {{u}}green underlined{{endu}}.
 >
 > The relationship is:
 >
-> authenticity is the opposite of counterfeit. So I need to find another pair of words with an oppositional or antonymous relationship.
+> authenticity is the opposite of counterfeit. So I need to find another pair
+> of words with an oppositional or antonymous relationship.
 >
 > Based on this, from the choices provided, I would pick:
 >
 > reliability : erratic
 >
-> Because reliability implies consistency and dependability, while erratic implies inconsistency and unpredictability. So these words are also opposites or antonyms, just like authenticity and counterfeit.
+> Because reliability implies consistency and dependability, while erratic
+> implies inconsistency and unpredictability. So these words are also
+> opposites or antonyms, just like authenticity and counterfeit.
 >
 > The other choices do not have an directly opposite relationship:
 >
 > - Mobility and energetic are related but not strictly antonymous
-> - Argument and contradictory are related but argument does not directly imply the opposite of contradictory
+> - Argument and contradictory are related but argument does not directly
+>   imply the opposite of contradictory
 > - Reserve and reticent are related but do not directly imply opposites
 > - Anticipation and solemn do not directly imply opposites
 >
-> So by process of elimination, reliability : erratic is the only choice that matches the authenticity : counterfeit relationship. Does this make sense? Let me know if you have another analogy question you'd like me to work through!
+> So by process of elimination, reliability : erratic is the only choice that
+> matches the authenticity : counterfeit relationship. Does this make sense?
+> Let me know if you have another analogy question you'd like me to work
+> through!
 
 {{endmodel}}
 
@@ -127,8 +135,8 @@ while the answer the model choose is {{u}}green underlined{{endu}}.
 >   on or use a teacher in the same direct way that a conference uses an
 >   agenda or a trip uses a map.
 > - Executive : employee - An executive oversees employees but employees do
->   not directly rely on or make use of an executive the same way a
->   conference uses an agenda or a trip uses a map.
+>   not directly rely on or make use of an executive the same way a conference
+>   uses an agenda or a trip uses a map.
 > - Man : woman - These do not have a direct facilitator/user relationship.
 >   They do not rely on each other in the same way.
 > - Agency : assignment - While an agency may give out assignments, an

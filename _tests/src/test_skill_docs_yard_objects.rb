@@ -92,7 +92,21 @@ class TestSkillDocsYardObjects < Minitest::Test
       files = yardopts_lines.reject { |line| line.start_with?('--') }
                             .map { |file| File.join(REPO_ROOT, file) }
       YARD::Registry.clear
-      YARD.parse(files)
+      # YARD warns "Undocumentable method defined on object instance" for
+      # every `def some_stub.method` in the test files .yardopts parses.
+      # Singleton stubs are the normal way to fake a collaborator here, and
+      # this test only queries tags and object paths — documentability of
+      # test doubles is not something it can act on. Errors still print.
+      silence_yard_warnings { YARD.parse(files) }
+    end
+
+    def silence_yard_warnings
+      logger = YARD::Logger.instance
+      previous = logger.level
+      logger.level = Logger::ERROR
+      yield
+    ensure
+      logger.level = previous
     end
   end
 

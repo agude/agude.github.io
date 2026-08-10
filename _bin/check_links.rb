@@ -29,10 +29,6 @@ options = {
   parallel: { in_processes: 2 },
 }
 
-begin
-  HTMLProofer.check_directory('./_site', options).run
-rescue RuntimeError => e
-  puts "\n❌ HTMLProofer found errors!"
-  puts e.message
-  exit 1
-end
+# HTMLProofer reports its own failures and calls exit(1) itself, so there is
+# nothing to rescue: a `rescue RuntimeError` here would be dead code.
+HTMLProofer.check_directory('./_site', options).run

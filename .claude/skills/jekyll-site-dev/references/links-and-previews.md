@@ -119,6 +119,52 @@ parser preserves the nesting; HTML5 breaks it.
 `Nokogiri::HTML` call sites were migrated to HTML5 safely because they do
 `.text` extraction only.
 
+## Reference links
+
+`check_reference_links.rb` (`make check-refs`, plus a CI step) fails the
+build on three problems in `[text][id]` / `[id]:` markdown reference links:
+
+| Problem | Why it is fatal |
+|---|---|
+| Undefined `[text][id]` | Kramdown emits the literal source text |
+| Duplicate `[id]:` | Kramdown keeps the **first** definition silently |
+| Orphaned `[id]:` | Usually a link that was set up and never attached |
+
+- **Orphans are errors, not warnings.** They look like harmless dead weight,
+  but of the ten found when the check was written, five were a definition
+  whose reference was never written — the prose rendered as plain text with
+  nothing to show for it, which is invisible on the page. The other five were
+  deleted. The site sits at zero, so any new orphan is a fresh mistake.
+- **Kramdown's own warnings are not usable.** Jekyll discards them unless
+  `show_warnings` is set, they are never fatal, and they fire on shorthand
+  `[id]` references too — indistinguishable from editorial brackets in prose
+  (`[sic]`, `[…]`). For the same reason the checker only reports *undefined*
+  for full-form `[text][id]`; shorthand refs are used solely to keep a
+  definition from counting as orphaned.
+- **Scanning logic lives in `_bin/reference_link_scanner.rb`**, a pure module
+  with no Jekyll dependency, tested by
+  `_tests/bin/test_reference_link_scanner.rb`. `check_reference_links.rb` only
+  loads the site and prints. Add regression cases to the test, not to the
+  script.
+- **Liquid is neutralized, never deleted.** Every `{{ … }}` / `{% … %}` becomes
+  a placeholder word that keeps the surrounding markdown structure and the
+  line count. Deleting is what produced the original false positives:
+  - dropping `{% capture %}` bodies lost the references inside them
+    (`{% capture x %}[{% movie_title … %}][soldier]{% endcapture %}` made
+    `[soldier]:` look orphaned);
+  - truncating a definition line at its first Liquid tag lost references after
+    it, which footnote definitions routinely have
+    (`[^lampshade]: {{ author }} [lampshades][lampshade] this.`).
+- **Line numbers are file lines.** `doc.content` has the front matter
+  stripped, so `content_line_offset` locates the body inside the raw file and
+  adds the difference. Any transform that changes the line count (comments,
+  fenced code, multi-line Liquid tags) must emit the same number of newlines
+  it consumed.
+- **A definition inside a paragraph splits it.** When fixing an undefined
+  reference, put `[id]:` after the whole paragraph, not on the first blank
+  line found — a definition block ends the paragraph and the remaining lines
+  start a new `<p>`.
+
 ## Strict Liquid
 
 `check_strict.rb` runs a full build with strict Liquid and catches

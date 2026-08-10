@@ -383,7 +383,9 @@ end
 class TestPluginLoggerUtilsMutableReturn < TestPluginLoggerUtilsBase
   def test_returns_mutable_string_when_logging_enabled
     ctx = create_test_context('plugin_logging' => { 'MUTABLE_TAG' => true })
-    result = call_log_liquid_failure(ctx, tag_type: 'MUTABLE_TAG', reason: 'Reason.', level: :info)
+    result = Jekyll.stub :logger, silent_logger do
+      call_log_liquid_failure(ctx, tag_type: 'MUTABLE_TAG', reason: 'Reason.', level: :info)
+    end
     assert_match(/MUTABLE_TAG/, result)
     refute_predicate result, :frozen?
   end
@@ -396,9 +398,11 @@ class TestPluginLoggerUtilsMutableReturn < TestPluginLoggerUtilsBase
   end
 
   def test_returns_mutable_string_when_site_config_missing
-    result = ::Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
-      context: nil, tag_type: 'MUTABLE_TAG', reason: 'Reason.',
-    )
+    result = Jekyll.stub :logger, silent_logger do
+      ::Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+        context: nil, tag_type: 'MUTABLE_TAG', reason: 'Reason.',
+      )
+    end
     assert_equal '', result
     refute_predicate result, :frozen?
   end

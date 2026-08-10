@@ -36,7 +36,8 @@ own data rather than have my wife text me when Ash said a new word.
 
 The main difficulties in data collection were the same though:
 
-- Deciding when Ash had associated a sound with a concept as opposed to just babbling.
+- Deciding when Ash had associated a sound with a concept as opposed to just
+  babbling.
 
 - Deciding if Ash "knew" a word or was just repeating a sound he had just
   heard.
@@ -58,8 +59,8 @@ something he loved back then and the word is still in frequent use. He often
 demands "milk milk milk" while shoving his empty cup towards us. His second
 word was "mom" in Cantonese and his third word was "dad" in English. Unlike my
 other children, Ash didn't start using the Cantonese word for "dad" until very
-late. He preferred his own pidgin where he would simply use the English word
-"dad" in an otherwise Cantonese phrase.
+late. He preferred his own [pidgin][chinglish] where he would simply use the
+English word "dad" in an otherwise Cantonese phrase.
 
 [chinglish]: https://en.wikipedia.org/wiki/Chinglish
 

@@ -48,7 +48,7 @@ OPEN := $(shell command -v xdg-open 2>/dev/null || command -v open 2>/dev/null)
 .PHONY: serve build test test-scripts lint lint-scripts format-scripts clean debug scripts
 
 # Tier 2: Command variants
-.PHONY: serve-drafts serve-profile test-cov test-summary lint-fix check-links check-liquid doc-index doc-show
+.PHONY: serve-drafts serve-profile test-cov test-summary lint-fix check-links check-refs check-liquid doc-index doc-show
 
 # Tier 3: Domain operations
 .PHONY: image-build image-rebuild deps-lock hooks-install prettier-image-build prettier-image-rebuild format-md prettier rank
@@ -79,7 +79,11 @@ deps-lock: .ruby-version # Dependency on .ruby-version
 
 # Build the Docker image using '.' as build context.
 # Pass the Ruby and Bundler versions as build arguments.
-image-build: Dockerfile Gemfile Gemfile.lock .ruby-version # Removed .bundler-version dependency
+# Uses a stamp file (same pattern as .prettier-image.stamp) so `docker build`
+# only runs when the Dockerfile or dependency manifests actually change.
+# Without it every target that depends on image-build paid ~40 lines of
+# BuildKit output just to confirm a cache hit.
+.jekyll-image.stamp: Dockerfile Gemfile Gemfile.lock .ruby-version # Removed .bundler-version dependency
 	@echo "Building Docker image $(IMAGE) using Ruby $(RUBY_VERSION) and Bundler $(BUNDLER_VERSION)..."
 	@if [ ! -f .dockerignore ]; then \
 		echo "Warning: .dockerignore file not found. Build context might be large or include unwanted files."; \
@@ -88,6 +92,16 @@ image-build: Dockerfile Gemfile Gemfile.lock .ruby-version # Removed .bundler-ve
 	    --build-arg RUBY_VERSION=$(RUBY_VERSION) \
 	    --build-arg BUNDLER_VERSION=$(BUNDLER_VERSION) \
 	    . -f Dockerfile -t $(IMAGE)
+	@touch .jekyll-image.stamp
+
+# The stamp can outlive the image (docker system prune), which would turn
+# every later target into an opaque "Unable to find image" failure. Rebuild
+# instead of failing.
+image-build: .jekyll-image.stamp
+	@docker image inspect $(IMAGE) >/dev/null 2>&1 || { \
+		rm -f .jekyll-image.stamp; \
+		$(MAKE) --no-print-directory .jekyll-image.stamp; \
+	}
 
 # Rebuild the Docker image without cache.
 image-rebuild: Dockerfile Gemfile Gemfile.lock .ruby-version # Removed .bundler-version dependency
@@ -99,6 +113,7 @@ image-rebuild: Dockerfile Gemfile Gemfile.lock .ruby-version # Removed .bundler-
 	    --build-arg RUBY_VERSION=$(RUBY_VERSION) \
 	    --build-arg BUNDLER_VERSION=$(BUNDLER_VERSION) \
 	    --no-cache . -f Dockerfile -t $(IMAGE)
+	@touch .jekyll-image.stamp
 
 # Clean out _site and other caches. Requires the image to exist.
 clean: image-build clean-coverage
@@ -191,8 +206,12 @@ test: image-build # Depends on the Docker image being built/up-to-date
 		echo "Warning: No test files found. Check the TEST variable or your file structure."; \
 		exit 0; \
 	fi
-	@echo "Found test files:"
-	@echo "$(TEST)" | tr ' ' '\n'
+	@# Echoing every discovered file buries the results on a full run.
+	@# The list only helps when TEST was given explicitly, so print it then
+	@# and print a count otherwise.
+	@$(if $(filter command line,$(origin TEST)), \
+		echo "Test files:" && echo "$(TEST)" | tr ' ' '\n', \
+		echo "Found $(words $(TEST)) test files.")
 	@echo "---"
 	@$(DOCKER_RUN) bundle exec ruby -I _plugins -I _tests \
 		-e "require 'test_helper'; ARGV.each { |f| load f }" \
@@ -257,6 +276,12 @@ format-scripts:
 check-links: build
 	@echo "Checking generated site for broken links and HTML issues..."
 	@$(DOCKER_RUN) bundle exec ruby _bin/check_links.rb
+
+# Check markdown reference links: undefined [text][id], duplicate [id]:,
+# and orphaned [id]: definitions. All three fail the build.
+check-refs: image-build
+	@echo "Checking all documents for reference link problems..."
+	@$(DOCKER_RUN) bundle exec ruby _bin/check_reference_links.rb
 
 # Check all documents for strict Liquid compliance.
 check-liquid: image-build

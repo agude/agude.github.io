@@ -115,21 +115,21 @@ It shows features similar to both cars and motorcycles:
 
 Thinking back to [the model][model] we can try to reason about the trend. We
 know the number of cars increased, so the decrease in crashes in the last few
-years is either due to a decrease in the number of cyclists---possibly
-because they traded their bikes for cars as they found employment---or a
-decrease in the likelihood of a crashes---perhaps because drivers are more
-used to cyclists and look out for them.
+years is either due to a decrease in the number of cyclists---possibly because
+they traded their bikes for cars as they found employment---or a decrease in
+the likelihood of a crashes---perhaps because drivers are more used to
+cyclists and look out for them.
 
 [model]: #a-simple-model
 
 ## Day-by-Day
 
 Cars are involved in crashes [on holidays during which the drivers also
-work][car_dbd], like Halloween. Motorcycles are in crashes during summer
-holidays. Bicycles, on the other hand, have no holidays with a large excess in
-the number of crashes. Some holidays, like Christmas and Thanksgiving, keep
-people from getting on their bikes, but none seem to motivate people to get out and
-ride.
+work][car_dbd], like Halloween. Motorcycles are in crashes [during summer
+holidays][mc_dbd]. Bicycles, on the other hand, have no holidays with a large
+excess in the number of crashes. Some holidays, like Christmas and
+Thanksgiving, keep people from getting on their bikes, but none seem to
+motivate people to get out and ride.
 
 [car_dbd]: {% post_url 2016-12-02-switrs_crashes_by_date %}#day-by-day
 [mc_dbd]: {% post_url 2017-02-21-switrs_motorcycle_crashes_by_date %}#day-by-day
