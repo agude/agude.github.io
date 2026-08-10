@@ -81,7 +81,7 @@ def strip_liquid(content)
   result = content.dup
   result.gsub!(/\{%-?\s*comment\s*-?%\}.*?\{%-?\s*endcomment\s*-?%\}/m, '')
   result.gsub!(/\{%-?\s*capture\s+\w+\s*-?%\}.*?\{%-?\s*endcapture\s*-?%\}/m, '')
-  result.gsub!(/^(\[[^\]]+\]:\s*)\{[%{].*$/) { "#{$1}#{PLACEHOLDER_URL}" }
+  result.gsub!(/^(\[[^\]]+\]:\s*)\{[%{].*$/) { "#{Regexp.last_match(1)}#{PLACEHOLDER_URL}" }
   result.gsub!(/\{\{.*?\}\}/, PLACEHOLDER_URL)
   result.gsub!(/\{%.*?%\}/m, '')
   result
