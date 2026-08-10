@@ -203,8 +203,8 @@ Reproduction happens not via sperm and egg but via a homunculus already in a
 man's body when he is born. And the human race is 5 generations from
 extinction.
 
-[golem]: https://en.wikipedia.org/wiki/Golem [kabbalah]:
-https://en.wikipedia.org/wiki/Kabbalah
+[golem]: https://en.wikipedia.org/wiki/Golem
+[kabbalah]: https://en.wikipedia.org/wiki/Kabbalah
 
 I've read stories where authors use mysticism to make technology feel
 unknowable, like {{ gibsons_lastname }} Vodou Loa in {{ count_zero }}, or the
