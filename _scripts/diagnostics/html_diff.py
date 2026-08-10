@@ -19,6 +19,9 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 from bs4.element import Comment
 
+# Configuration: how many paths to print per summary list
+MAX_LISTED_FILES = 10
+
 # Configuration: Files to skip entirely
 IGNORED_FILES = [
     "feed.xml",
@@ -152,6 +155,21 @@ def _comparable_files(root):
         yield path
 
 
+def print_file_list(header, paths, bullet):
+    """Print a file list, capped, saying so when there are more.
+
+    The count in the header is the real total; without the trailing note a
+    truncated list reads as complete, and a file that did change looks
+    untouched. Every listed file is exported regardless.
+    """
+    print(f"{header} ({len(paths)}):")
+    for path in sorted(paths)[:MAX_LISTED_FILES]:
+        print(f"  {bullet} {path}")
+    if len(paths) > MAX_LISTED_FILES:
+        print(f"  ... and {len(paths) - MAX_LISTED_FILES} more (all are exported)")
+    print("")
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Semantically compare two Jekyll builds and export clean files for diffing."
@@ -194,22 +212,11 @@ def main():
 
     # Print Summary
     if only_a:
-        print(f"Files only in {dir_a} ({len(only_a)}):")
-        for f in sorted(only_a)[:10]:
-            print(f"  - {f}")
-        print("")
-
+        print_file_list(f"Files only in {dir_a}", only_a, "-")
     if only_b:
-        print(f"Files only in {dir_b} ({len(only_b)}):")
-        for f in sorted(only_b)[:10]:
-            print(f"  - {f}")
-        print("")
-
+        print_file_list(f"Files only in {dir_b}", only_b, "-")
     if diffs:
-        print(f"Files with differences ({len(diffs)}):")
-        for f in sorted(diffs)[:10]:
-            print(f"  * {f}")
-        print("")
+        print_file_list("Files with differences", diffs, "*")
 
     # Print suggested commands
     print("💡 COMMANDS TO VIEW DIFFS:\n")
