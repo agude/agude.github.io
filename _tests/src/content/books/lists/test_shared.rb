@@ -18,12 +18,14 @@ class TestBookListsShared < Minitest::Test
 
   def test_log_filter_warning_returns_warn_log_html
     set_logging_context
-    result = @tester.send(
-      :log_filter_warning,
-      tag_type: 'SHARED_TEST',
-      reason: 'Filter was empty.',
-      identifiers: { FilterInput: 'N/A' },
-    )
+    result = Jekyll.stub :logger, silent_logger do
+      @tester.send(
+        :log_filter_warning,
+        tag_type: 'SHARED_TEST',
+        reason: 'Filter was empty.',
+        identifiers: { FilterInput: 'N/A' },
+      )
+    end
     assert_match(/\[WARN\] SHARED_TEST_FAILURE: Reason='Filter was empty\.'/, result)
     assert_match(%r{FilterInput='N/A'}, result)
     refute_predicate result, :frozen?
@@ -31,11 +33,13 @@ class TestBookListsShared < Minitest::Test
 
   def test_log_no_results_returns_info_log_html
     set_logging_context
-    result = @tester.send(
-      :log_no_results,
-      tag_type: 'SHARED_TEST',
-      reason: 'No results found.',
-    )
+    result = Jekyll.stub :logger, silent_logger do
+      @tester.send(
+        :log_no_results,
+        tag_type: 'SHARED_TEST',
+        reason: 'No results found.',
+      )
+    end
     assert_match(/\[INFO\] SHARED_TEST_FAILURE: Reason='No results found\.'/, result)
     refute_predicate result, :frozen?
   end

@@ -11,12 +11,22 @@
 # Naming: test_{plugin_name}.rb. Multi-file matches are allowed
 # (test_user.rb and test_user_integration.rb both match user.rb).
 #
+# _tests/bin/ mirrors _bin/ the same way, but those tests run the CI gate
+# scripts as subprocesses against fixture directories rather than loading
+# them — see the header of _tests/bin/bin_script_helper.rb.
+#
 # Run tests: `make test` (all) or `make test TEST=_tests/src/path/to/test.rb`.
 #
 # SimpleCov: 95% line + branch coverage threshold, output to _coverage/.
 # Running a single test file with `make test TEST=...` may exit with code 2
 # because the threshold isn't met when only one file's coverage is
 # measured — this is expected and harmless.
+#
+# A clean run prints nothing but progress dots and the result line. If you
+# add a test that logs, wrap the call in
+# `Jekyll.stub(:logger, silent_logger) { ... }` — console output from a
+# deliberately triggered error path interleaves with the dots and hides
+# real failures. See also GemWarningFilter below.
 #
 # For common test patterns (stub-and-capture, Finder+Renderer orchestration,
 # render mode testing), see the @pattern docstrings on
@@ -42,15 +52,16 @@ SimpleCov.start do
   coverage_dir '_coverage'
 
   # Exclude the test files themselves from the coverage report
-  add_filter '_tests/'
+  skip '_tests/'
 
-  # Group related files for a cleaner report
-  add_group 'Tags', '_plugins'
-  add_group 'Generators', '_plugins'
-  add_group 'Filters', '_plugins'
-  add_group 'Utilities', '_plugins/utils'
-  add_group 'Logic Components', '_plugins/logic'
-  add_group 'Link Cache', '_plugins/link_cache'
+  # Group by the domains in _plugins/src (see AGENTS.md "Architecture Map").
+  # A file lands in the first group that matches, so these must be disjoint
+  # paths, not repeated prefixes.
+  group 'Content', '_plugins/src/content'
+  group 'UI', '_plugins/src/ui'
+  group 'SEO', '_plugins/src/seo'
+  group 'Infrastructure', '_plugins/src/infrastructure'
+  group 'CI Checkers', '_bin'
 
   # Set a minimum coverage threshold. The build will fail if it drops below this.
   minimum_coverage 95
@@ -62,6 +73,36 @@ require 'minitest/autorun'
 require 'minitest/mock'
 require 'jekyll'
 require 'time' # Needed for Time.parse if mocking dates
+
+# Minitest.autorun sets Warning[:deprecated] = true, which is what we want
+# for our own code. The cost is third-party noise we cannot act on: Liquid
+# 4.0.4 has no `frozen_string_literal` comments, so Ruby 3.4's chilled
+# strings emit ~220 "literal string will be frozen" warnings per run,
+# burying anything real.
+#
+# Drop warnings raised from inside an installed gem; keep every other
+# warning, including ones with no identifiable source. Filtering by origin
+# rather than by message means a genuine deprecation in _plugins/ or
+# _tests/ still surfaces, and this needs no maintenance when the offending
+# gem is upgraded.
+#
+# Uses a memoized method rather than a constant: test_helper.rb is loaded
+# under two path spellings in the same process, and re-assigning a constant
+# would itself emit "already initialized constant".
+module GemWarningFilter
+  def warn(message, ...)
+    return if gem_dirs.any? { |dir| message.start_with?(dir) }
+
+    super
+  end
+
+  private
+
+  def gem_dirs
+    @gem_dirs ||= Gem.path.map { |dir| "#{File.join(dir, 'gems')}/" }
+  end
+end
+Warning.extend(GemWarningFilter)
 
 # Add the parent _plugins directory to the load path
 $LOAD_PATH.unshift(File.expand_path('../_plugins', __dir__))

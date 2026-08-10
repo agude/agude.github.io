@@ -32,6 +32,7 @@ _data/standard_site.json
 
 # Make stamp files
 .prettier-image.stamp
+.jekyll-image.stamp
 
 # Ruby
 .bundle
