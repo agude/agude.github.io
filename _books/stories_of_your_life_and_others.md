@@ -91,17 +91,17 @@ narratives.
 {% capture warhammer %}{% game_title "Warhammer 40,000" %}{% endcapture %}
 
 {{ this_book }} was my nomination for this month's science fiction book club.
-I've wanted to read {{ the_authors }} work for 2 reasons. First, I
-appreciate how short stories---like {{ lena }} or {{ helicopter }}---can
-explore big ideas in a stripped-down way. Second, authors I love, like {{
-watts }}, speak incredibly highly of him.
+I've wanted to read {{ the_authors }} work for 2 reasons. First, I appreciate
+how short stories---like {{ lena }} or {{ helicopter }}---can explore big
+ideas in a stripped-down way. Second, authors I love, like {{ watts }}, speak
+incredibly highly of him.
 
 {{ the_authors_lastname_possessive }} stories all have fantastic ideas, but
 reading {{ this_book }} made me realize they rely on a formula:
 
 1. Take an axiom.
 2. Turn the crank and see what happens.
-3. QED, the ending follows logically from the first two.
+3. QED, the ending follows logically from the first 2.
 
 Every story is different, very different, but that formula makes them all
 _feel_ the same. They are at their worst when he just works through the idea
@@ -119,7 +119,7 @@ rich worldbuilding, as in {{ tower_of_babylon }}.
 {{ tower_of_babylon }} assumes [Ptolemaic cosmology][geo] is correct and
 treats the construction of the [Tower of Babel][babel] as a real mega-project.
 It's a simple story about a group of miners climbing the tower to dig their
-way into heaven, and I really enjoyed the details {{ the_authors_lastname }}
+way into Heaven, and I really enjoyed the details {{ the_authors_lastname }}
 includes about the tower, how the people on each level live, and the journey
 the miners make.
 
@@ -173,9 +173,9 @@ characters.
 {{ story_of_your_life }}, the basis for the feature film {{ arrival }}, is
 probably the most famous story in the collection. It's about first contact
 between humans and heptapods, narrated by one of the linguists trying to
-decipher the language. As she learns it, she realizes that heptapods experience
-time differently than humans do, and that learning their language makes her
-experience it the same way.
+decipher the language. As she learns it, she realizes that heptapods
+experience time differently than humans do, and that learning their language
+makes her experience it the same way.
 
 This is another good example of {{ the_authors_lastname }} playing with
 structure: we experience the story the way the linguist does, with the future
@@ -203,16 +203,16 @@ Reproduction happens not via sperm and egg but via a homunculus already in a
 man's body when he is born. And the human race is 5 generations from
 extinction.
 
-[golem]: https://en.wikipedia.org/wiki/Golem
-[kabbalah]: https://en.wikipedia.org/wiki/Kabbalah
+[golem]: https://en.wikipedia.org/wiki/Golem [kabbalah]:
+https://en.wikipedia.org/wiki/Kabbalah
 
 I've read stories where authors use mysticism to make technology feel
 unknowable, like {{ gibsons_lastname }} Vodou Loa in {{ count_zero }}, or the
 Adeptus Mechanicus praying to machine spirits in {{ warhammer }}. {{
-the_authors_lastname }} does the exact opposite. Like {{ stephenson_lastname
-}} treating Sumerian myth as a literal language-virus in {{ snow_crash }}, {{
-the_authors_lastname }} takes mysticism and treats it strictly as a
-technology. Names as programming and math; golems as industrial machines.
+the_authors_lastname }} does the exact opposite. Like {{ stephensons_lastname
+}} treating Sumerian myth as a literal language-virus in {{ snow_crash }}, he
+takes mysticism and treats it strictly as a technology. Names as programming
+and math; golems as industrial machines.
 
 The golems reminded me of modern large language models. Both take instructions
 and carry them out in a manner that only humans could before, and as the
@@ -240,8 +240,8 @@ longer understand what is going on.
 Despite its short length, the story hints at deep questions: What do you do
 when your life's work moves beyond your ability? Should you allow your
 children to become metahuman, knowing you won't be able to understand them? As
-a parent, that last question is poignant because we never truly understand our
-children; they grow up in a different world than we did.
+a parent, I find that last question poignant because we never truly understand
+our children; they grow up in a different world than we did.
 
 But we don't need metahumans to see this happening. Science has already become
 so specialized that no one can understand more than a tiny fraction of it,
@@ -255,9 +255,9 @@ The dissonance between the tone and content is what makes it work. Here, the
 letter-from-the-editor is also dry, but the content isn't disturbing enough
 for the juxtaposition to be effective. The story also reminded me of Siri
 Keeton, the "synthesist" narrator of {{ wattss_lastname }} {{ blindsight }}.
-Just like the scientists, Keeton's job is to interpret the actions and
-responses of posthuman (and alien) intellects into something baseline humans
-can understand.
+Just like the scientists, Keeton interprets the actions and responses of
+posthuman (and alien) intellects into something baseline humans can
+understand.
 
 ### {% short_story_title "Hell Is the Absence of God" %}
 
@@ -280,10 +280,10 @@ angel emerges, you are rewritten to unconditionally love God and always ascend
 to Heaven. He sets out to see it.
 
 Neil's reliance on the quantifiable system of God is similar to Sol Weintraub
-from {{ simmonss_lastname }} {{ hyperion }}. Despite being an academic expert
-on God's covenant and {{ kierkegaards_lastname }} {{ fear_and_trembling }},
-all of Sol's theological mastery is useless when a god-like entity demands the
-sacrifice of his daughter, Rachel. He cannot outdebate the absolute. Neil
+from {{ simmonss_lastname }} {{ hyperion }}. Despite Sol being an academic
+expert on God's covenant and {{ kierkegaards_lastname }} {{ fear_and_trembling
+}}, all of his theological mastery is useless when a god-like entity demands
+the sacrifice of his daughter, Rachel. He cannot outdebate the absolute. Neil
 tries the same, reasoning: if A (see the light), then B (love God), then C
 (salvation).
 
@@ -291,7 +291,7 @@ Neil succeeds in glimpsing Heaven's light, comes to love God unconditionally,
 and is sent to Hell anyway. {{ the_authors_lastname }} breaks the chain of
 logic he followed so steadfastly in the rest of the stories, and in doing so
 shows you that God isn't just, God isn't kind, God---even in a world where you
-think you can write down rules that he follows---is Sovereign.
+think you can write down rules that He follows---is Sovereign.
 
 This story, with its natural-disaster-like angels, reminded me of {{ eva }},
 where angels are alien, terrifying, and an extinction-level threat. It's also
