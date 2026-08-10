@@ -507,26 +507,59 @@ class TestJsonLdBuilder < Minitest::Test
 
   # --- Word Count Method ---
 
+  def build_word_count(content)
+    doc = create_doc({ 'title' => 'Test' }, '/test.html', content)
+    Jekyll::SEO::JsonLdBuilder.build('BlogPosting', document: doc, &:word_count)
+  end
+
   def test_word_count_from_document_content
-    doc = create_doc({ 'title' => 'Test' }, '/test.html', 'This is a test with seven words total.')
-    result = Jekyll::SEO::JsonLdBuilder.build('BlogPosting', document: doc) do |schema|
-      schema.word_count
-    end
+    result = build_word_count('This is a test with seven words total.')
+
     assert_equal 8, result['wordCount']
   end
 
-  def test_word_count_not_added_without_document
-    result = Jekyll::SEO::JsonLdBuilder.build('BlogPosting') do |schema|
+  def test_word_count_ignores_html_tags
+    # The injector runs post-convert, so content is rendered HTML. Splitting
+    # it directly counted `<a` and `href="...">Two` as words and inflated
+    # every post's wordCount.
+    result = build_word_count('<p>This is <a href="https://example.com">a test</a> with seven words.</p>')
+
+    assert_equal 7, result['wordCount']
+  end
+
+  def test_word_count_ignores_tag_attributes
+    result = build_word_count('<img src="/a/very/long/path.png" alt="alt text here"><p>Three words only</p>')
+
+    assert_equal 3, result['wordCount']
+  end
+
+  def test_word_count_matches_article_body
+    # The two fields describe the same text, so they must not disagree.
+    content = '<p>Some <em>emphasised</em> prose with <a href="https://example.com">a link</a>.</p>'
+    doc = create_doc({ 'title' => 'Test' }, '/test.html', content)
+    result = Jekyll::SEO::JsonLdBuilder.build('BlogPosting', document: doc) do |schema|
+      schema.article_body
       schema.word_count
     end
+
+    assert_equal result['articleBody'].split.size, result['wordCount']
+  end
+
+  def test_word_count_not_added_without_document
+    result = Jekyll::SEO::JsonLdBuilder.build('BlogPosting', &:word_count)
+
     refute result.key?('wordCount')
   end
 
   def test_word_count_not_added_with_empty_content
-    doc = create_doc({ 'title' => 'Test' }, '/test.html', '')
-    result = Jekyll::SEO::JsonLdBuilder.build('BlogPosting', document: doc) do |schema|
-      schema.word_count
-    end
+    result = build_word_count('')
+
+    refute result.key?('wordCount')
+  end
+
+  def test_word_count_not_added_with_markup_only_content
+    result = build_word_count('<div><span></span></div>')
+
     refute result.key?('wordCount')
   end
 

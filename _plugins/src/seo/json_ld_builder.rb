@@ -264,13 +264,23 @@ module Jekyll
         set_if_present('headline', value)
       end
 
+      # @gotcha Count the cleaned text, not `@document.content`. The injector
+      #   runs on the :post_convert hook, so `content` is rendered HTML by
+      #   then and splitting it counts markup as words: `<a href="...">Two
+      #   words</a>` scores four. That inflated every post's schema.org
+      #   wordCount by roughly the tag count — 1062 against 940 real words on
+      #   one measured post. Reusing article_body's extraction also keeps the
+      #   two fields agreeing with each other.
       def word_count
         return unless @document
 
-        content = @document.content
-        return unless content && !content.empty?
+        text = Jekyll::SEO::JsonLdUtils.extract_descriptive_text(
+          @document,
+          field_priority: ['content'],
+        )
+        return unless text
 
-        count = content.split.size
+        count = text.split.size
         @data['wordCount'] = count if count.positive?
       end
 
