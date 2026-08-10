@@ -24,7 +24,10 @@ same_as_urls:
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is a collection of eight short stories and novellas.
+is a collection of 8 short stories and novellas. The concepts range from alien
+linguistics to the literal nature of God, but reading them together reveals a
+strict logical formula that sometimes lets the ideas overshadow the
+narratives.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_authors %}{% author_link page.book_authors link=false possessive %}{% endcapture %}
@@ -86,7 +89,7 @@ is a collection of eight short stories and novellas.
 {% capture eva %}{% tv_show_title "Neon Genesis Evangelion" %}{% endcapture %}
 
 {{ this_book }} was my nomination for this month's science fiction book club.
-I've wanted to read {{ the_authors }} work for two reasons. First, I
+I've wanted to read {{ the_authors }} work for 2 reasons. First, I
 appreciate how short stories---like {{ lena }} or {{ helicopter }}---can
 explore big ideas in a stripped-down way. Second, authors I love, like {{
 watts }}, speak incredibly highly of him.
@@ -213,7 +216,7 @@ starting to see the same thing with our own language golems, piles of words
 given thought, as they completely replace manual programming.
 
 I've read a lot of stories where authors use mysticism to make technology
-unknowable: {{ gibsons_lastname }} voodoo loa as a framework for AIs in {{
+unknowable: {{ gibsons_lastname }} Vodou Loa as a framework for AIs in {{
 count_zero }} or {{ stephensons_lastname }} Sumerian language-virus in {{
 snow_crash }}. Here {{ the_authors_lastname }} does the opposite: he takes
 mysticism and treats it as a technology. Names as programming and math; golems
@@ -270,14 +273,14 @@ But he also knows that if you view Heaven's light when an angel emerges, you
 are rewritten to unconditionally love God and always ascend to Heaven. He sets
 out to see it.
 
-Neil's reliance on the quantifiable system of God is similar to Sol Weintraub
-from {{ simmonss_lastname }} {{ hyperion }}. Sol is an academic expert on
-God's covenant and on {{ kierkegaards_lastname }} {{ fear_and_trembling }}. He
-is intellectually ready for the exact problem he finds himself in, yet when a
-god-like entity demands the sacrifice of his daughter, Rachel, all of Sol's
-theological mastery is useless. He cannot outdebate the absolute. Neil tries
-the same, reasoning: if A (see the light), then B (love God), then C
-(salvation).
+Neil's reliance on the quantifiable system of God is similar to that of Sol
+Weintraub from {{ simmonss_lastname }} {{ hyperion }}. Sol is an academic
+expert on God's covenant and on {{ kierkegaards_lastname }} {{
+fear_and_trembling }}. He is intellectually ready for the exact problem he
+finds himself in, yet when a god-like entity demands the sacrifice of his
+daughter, Rachel, all of Sol's theological mastery is useless. He cannot
+outdebate the absolute. Neil tries the same, reasoning: if A (see the light),
+then B (love God), then C (salvation).
 
 Neil succeeds in glimpsing Heaven's light, comes to love God unconditionally,
 and is sent to Hell anyway. {{ the_authors_lastname }} breaks the chain of
@@ -285,7 +288,7 @@ logic he followed so steadfastly in the rest of the stories, and in doing so
 shows you that God isn't just, God isn't kind, God---even in a world where you
 think you can write down rules that he follows---is Sovereign.
 
-This story, with its natural disaster-like angels, reminded me of {{ eva }},
+This story, with its natural-disaster-like angels, reminded me of {{ eva }},
 where angels are alien, terrifying, and an extinction-level threat. It's also
 similar to {{ strosss_lastname }} {{ a_colder_war }} in how it takes the
 cosmic and grounds it in the real world.
@@ -297,7 +300,7 @@ cosmic and grounds it in the real world.
 This story takes the form of a documentary script about calliagnosia, a
 reversible procedure that makes people blind to how attractive someone is. A
 college holds a vote to require students to have calliagnosia, which sparks
-debate: should it be mandatory? Is it ethical to force people to use it? The
+debate: Should it be mandatory? Is it ethical to force people to use it? The
 vote fails, but not because of the debate---advertisers release a new
 modification that makes people unnaturally charismatic and use it to persuade
 students.
