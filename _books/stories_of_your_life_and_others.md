@@ -248,7 +248,7 @@ experience it the same way.
 This is another good example of {{ the_authors_lastname }} playing with
 structure: we experience the story the way the linguist does, with the future
 and the past mixed together. Her tenses slip when she talks about her
-daughter, and like {{ tower_of_babylon }}, the story ends where it begins.
+daughter, and like {{ tower_of_babylon }}, the story begins where it ends.
 
 The heptapods know what is going to happen, but they do it anyway because
 otherwise what they know to be true wouldn't be. The narrator starts behaving
@@ -284,7 +284,7 @@ golems improve they start replacing humans at skilled crafts. We might be
 starting to see the same thing with our own language golems, piles of words
 given thought, as they completely replace manual programming.
 
-I've read a lot of stories where the authors use mysticism to make technology
+I've read a lot of stories where authors use mysticism to make technology
 unknowable: {{ gibsons_lastname }} voodoo loa as a framework for AIs in {{
 count_zero }} or {{ stephensons_lastname }} Sumerian language-virus in {{
 snow_crash }}. Here {{ the_authors_lastname }} does the opposite: he takes
@@ -306,7 +306,7 @@ children to become metahuman, knowing you won't be able to understand them? As
 a parent, that last question is poignant because we never truly understand our
 children; they grow up in a different world than we did.
 
-We're already seeing this start in the real world. Science has become so
+We're already seeing this happen in the real world. Science has become so
 specialized that no one can understand more than a tiny fraction of it, with
 thousand-person collaborations needed to advance the field. And now
 LLM-assisted math proofs are solving problems humans spent decades failing at,
