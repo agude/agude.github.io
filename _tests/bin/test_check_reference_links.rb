@@ -6,7 +6,7 @@ require_relative 'bin_script_helper'
 # Covers _bin/check_reference_links.rb end to end. The scanning rules are
 # unit-tested in test_reference_link_scanner.rb; what this file pins is the
 # wiring: which documents get scanned, that front-matter line offsets reach
-# the printed output, and that only errors — never warnings — fail CI.
+# the printed output, and that every kind of problem fails the build.
 class TestCheckReferenceLinks < Minitest::Test
   include BinScriptHelper
 
@@ -67,7 +67,9 @@ class TestCheckReferenceLinks < Minitest::Test
     end
   end
 
-  def test_orphaned_definition_warns_but_does_not_fail
+  def test_orphaned_definition_fails
+    # An orphan usually means a link was set up and never attached, which is
+    # invisible on the rendered page — the prose just quietly is not a link.
     in_fixture_dir do |dir|
       reference_site(dir) do
         write_fixture(dir, 'index.md', page("Nothing links here.\n\n[unused]: https://example.com\n"))
@@ -75,8 +77,7 @@ class TestCheckReferenceLinks < Minitest::Test
 
       output, status = run_bin_script(SCRIPT, dir)
 
-      assert_predicate status, :success?, output
-      assert_includes output, 'warning:'
+      refute_predicate status, :success?
       assert_includes output, 'orphaned link definition [unused]'
     end
   end

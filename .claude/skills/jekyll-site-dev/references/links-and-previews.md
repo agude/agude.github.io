@@ -121,21 +121,26 @@ parser preserves the nesting; HTML5 breaks it.
 
 ## Reference links
 
-`check_reference_links.rb` (`make check-refs`, plus a CI step) flags three
-problems in `[text][id]` / `[id]:` markdown reference links:
+`check_reference_links.rb` (`make check-refs`, plus a CI step) fails the
+build on three problems in `[text][id]` / `[id]:` markdown reference links:
 
-| Problem | Severity | Why |
-|---|---|---|
-| Undefined `[text][id]` | error | Kramdown emits the literal source text |
-| Duplicate `[id]:` | error | Kramdown keeps the **first** definition silently |
-| Orphaned `[id]:` | warning | Dead weight, but harmless |
+| Problem | Why it is fatal |
+|---|---|
+| Undefined `[text][id]` | Kramdown emits the literal source text |
+| Duplicate `[id]:` | Kramdown keeps the **first** definition silently |
+| Orphaned `[id]:` | Usually a link that was set up and never attached |
 
+- **Orphans are errors, not warnings.** They look like harmless dead weight,
+  but of the ten found when the check was written, five were a definition
+  whose reference was never written — the prose rendered as plain text with
+  nothing to show for it, which is invisible on the page. The other five were
+  deleted. The site sits at zero, so any new orphan is a fresh mistake.
 - **Kramdown's own warnings are not usable.** Jekyll discards them unless
   `show_warnings` is set, they are never fatal, and they fire on shorthand
   `[id]` references too — indistinguishable from editorial brackets in prose
   (`[sic]`, `[…]`). For the same reason the checker only reports *undefined*
-  for full-form `[text][id]`; shorthand refs are used solely to suppress
-  orphan warnings.
+  for full-form `[text][id]`; shorthand refs are used solely to keep a
+  definition from counting as orphaned.
 - **Scanning logic lives in `_bin/reference_link_scanner.rb`**, a pure module
   with no Jekyll dependency, tested by
   `_tests/bin/test_reference_link_scanner.rb`. `check_reference_links.rb` only

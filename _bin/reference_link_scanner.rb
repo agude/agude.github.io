@@ -39,8 +39,9 @@ module ReferenceLinkScanner
 
   module_function
 
-  # Returns { errors: [...], warnings: [...] }, each entry a
-  # { line:, message: } hash with line numbers offset into the original file.
+  # Returns every problem as [{ line:, message: }], ordered by line, with
+  # line numbers offset into the original file. All three kinds are fatal,
+  # so there is no severity to report — the message names the kind.
   def scan(content, line_offset: 0)
     neutralized = neutralize_liquid(content)
     # Offset up front so that every line number a message quotes is already
@@ -48,10 +49,11 @@ module ReferenceLinkScanner
     definitions = offset(find_definitions(neutralized), line_offset)
     references = find_references(neutralized).transform_values { |refs| offset(refs, line_offset) }
 
-    {
-      errors: undefined_errors(references[:full], definitions) + duplicate_errors(definitions),
-      warnings: orphan_warnings(definitions, references),
-    }
+    problems = undefined_errors(references[:full], definitions) +
+               duplicate_errors(definitions) +
+               orphan_errors(definitions, references)
+
+    problems.sort_by { |problem| problem[:line] }
   end
 
   # How many lines of the file precede `content`. Jekyll hands us the body
@@ -147,7 +149,7 @@ module ReferenceLinkScanner
     end
   end
 
-  def orphan_warnings(definitions, references)
+  def orphan_errors(definitions, references)
     used = Set.new(
       references[:full].map { |ref| ref[:id] } +
       references[:shorthand].map { |ref| ref[:id] },

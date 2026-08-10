@@ -277,9 +277,10 @@ check-links: build
 	@echo "Checking generated site for broken links and HTML issues..."
 	@$(DOCKER_RUN) bundle exec ruby _bin/check_links.rb
 
-# Check for undefined markdown reference links ([text][id] with no [id]: definition).
+# Check markdown reference links: undefined [text][id], duplicate [id]:,
+# and orphaned [id]: definitions. All three fail the build.
 check-refs: image-build
-	@echo "Checking all documents for undefined reference links..."
+	@echo "Checking all documents for reference link problems..."
 	@$(DOCKER_RUN) bundle exec ruby _bin/check_reference_links.rb
 
 # Check all documents for strict Liquid compliance.

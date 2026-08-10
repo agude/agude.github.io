@@ -20,48 +20,44 @@ class TestReferenceLinkScanner < Minitest::Test
   def test_undefined_full_reference_is_an_error
     result = scan("See [the docs][docs].\n")
 
-    assert_equal ['1: undefined reference link [docs]'], messages(result[:errors])
+    assert_equal ['1: undefined reference link [docs]'], messages(result)
   end
 
   def test_defined_full_reference_is_clean
     result = scan("See [the docs][docs].\n\n[docs]: https://example.com\n")
 
-    assert_empty result[:errors]
-    assert_empty result[:warnings]
+    assert_empty result
   end
 
   def test_reference_id_matching_is_case_insensitive
     result = scan("See [the docs][Docs].\n\n[docs]: https://example.com\n")
 
-    assert_empty result[:errors]
-    assert_empty result[:warnings]
+    assert_empty result
   end
 
   def test_full_reference_may_wrap_across_lines
     result = scan("See [the very long\ndocs title][docs].\n\n[docs]: https://example.com\n")
 
-    assert_empty result[:errors]
+    assert_empty result
   end
 
   def test_implicit_link_name_uses_the_link_text_as_the_id
     result = scan("See [docs][].\n\n[docs]: https://example.com\n")
 
-    assert_empty result[:errors]
-    assert_empty result[:warnings]
+    assert_empty result
   end
 
   def test_shorthand_reference_never_reports_undefined
     # Editorial brackets in prose are indistinguishable from shorthand refs.
     result = scan("He said [sic] it was [...] fine.\n")
 
-    assert_empty result[:errors]
+    assert_empty result
   end
 
   def test_footnote_reference_is_not_a_link_reference
     result = scan("A claim[^note].\n\n[^note]: The footnote body.\n")
 
-    assert_empty result[:errors]
-    assert_empty result[:warnings]
+    assert_empty result
   end
 
   # --- Duplicate definitions ---
@@ -71,22 +67,34 @@ class TestReferenceLinkScanner < Minitest::Test
     result = scan(content)
 
     assert_equal ['4: duplicate link definition [dup] (first defined on line 3)'],
-                 messages(result[:errors])
+                 messages(result)
   end
 
   # --- Orphaned definitions ---
 
-  def test_orphaned_definition_is_a_warning
+  def test_orphaned_definition_is_an_error
     result = scan("Nothing links here.\n\n[unused]: https://example.com\n")
 
-    assert_empty result[:errors]
-    assert_equal ['3: orphaned link definition [unused]'], messages(result[:warnings])
+    assert_equal ['3: orphaned link definition [unused]'], messages(result)
   end
 
   def test_shorthand_reference_keeps_a_definition_from_being_orphaned
     result = scan("See [docs] for more.\n\n[docs]: https://example.com\n")
 
-    assert_empty result[:warnings]
+    assert_empty result
+  end
+
+  def test_problems_are_ordered_by_line_not_by_kind
+    # Without an explicit sort the orphan on line 1 would trail the
+    # undefined reference on line 3, because the kinds are collected in
+    # sequence rather than in document order.
+    result = scan("[unused]: https://example.com\n\nSee [the docs][docs].\n")
+    expected = [
+      '1: orphaned link definition [unused]',
+      '3: undefined reference link [docs]',
+    ]
+
+    assert_equal expected, messages(result)
   end
 
   # --- Line numbers ---
@@ -94,7 +102,7 @@ class TestReferenceLinkScanner < Minitest::Test
   def test_line_offset_shifts_reported_lines
     result = scan("See [the docs][docs].\n", line_offset: 10)
 
-    assert_equal ['11: undefined reference link [docs]'], messages(result[:errors])
+    assert_equal ['11: undefined reference link [docs]'], messages(result)
   end
 
   def test_multi_line_liquid_does_not_shift_later_line_numbers
@@ -108,7 +116,7 @@ class TestReferenceLinkScanner < Minitest::Test
     MARKDOWN
     result = scan(content)
 
-    assert_equal ['6: orphaned link definition [unused]'], messages(result[:warnings])
+    assert_equal ['6: orphaned link definition [unused]'], messages(result)
   end
 
   def test_content_line_offset_counts_the_front_matter_lines
@@ -143,41 +151,37 @@ class TestReferenceLinkScanner < Minitest::Test
   def test_liquid_in_a_definition_url_still_defines_the_id
     result = scan("See [the post][p].\n\n[p]: {% post_url 2016-01-01-thing %}\n")
 
-    assert_empty result[:errors]
-    assert_empty result[:warnings]
+    assert_empty result
   end
 
   def test_liquid_output_in_a_definition_url_still_defines_the_id
     result = scan("See [the file][f].\n\n[f]: {{ file_dir }}/data.json\n")
 
-    assert_empty result[:errors]
-    assert_empty result[:warnings]
+    assert_empty result
   end
 
   def test_liquid_array_index_is_not_a_reference
     result = scan("Value is {{ arr[0] }} here.\n")
 
-    assert_empty result[:errors]
-    assert_empty result[:warnings]
+    assert_empty result
   end
 
   def test_commented_out_markup_is_ignored
     result = scan("{% comment %}[text][gone]{% endcomment %}\n")
 
-    assert_empty result[:errors]
+    assert_empty result
   end
 
   def test_brackets_inside_fenced_code_are_not_references
     result = scan("```python\nrow = data[0]\nlink = \"[text][id]\"\n```\n")
 
-    assert_empty result[:errors]
-    assert_empty result[:warnings]
+    assert_empty result
   end
 
   def test_brackets_inside_inline_code_are_not_references
     result = scan("Use `data[0]` and `[text][id]` in code.\n")
 
-    assert_empty result[:errors]
+    assert_empty result
   end
 
   # --- Regressions ---
@@ -194,8 +198,7 @@ class TestReferenceLinkScanner < Minitest::Test
     MARKDOWN
     result = scan(content)
 
-    assert_empty result[:errors]
-    assert_empty result[:warnings]
+    assert_empty result
   end
 
   def test_reference_after_liquid_in_a_footnote_definition_is_not_orphaned
@@ -210,14 +213,13 @@ class TestReferenceLinkScanner < Minitest::Test
     MARKDOWN
     result = scan(content)
 
-    assert_empty result[:errors]
-    assert_empty result[:warnings]
+    assert_empty result
   end
 
   def test_definition_url_containing_brackets_is_not_a_reference
     content = "See [the page][wiki].\n\n[wiki]: https://example.com/a[b][c]\n"
     result = scan(content)
 
-    assert_empty result[:errors]
+    assert_empty result
   end
 end

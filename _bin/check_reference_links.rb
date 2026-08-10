@@ -4,11 +4,15 @@
 require 'jekyll'
 require_relative 'reference_link_scanner'
 
-# Scan markdown source for reference-style link problems:
-# - Undefined: [text][id] with no [id]: definition   -> error
-# - Duplicate: [id]: defined twice                   -> error (Kramdown
-#   silently keeps the first definition, so the second link is wrong)
-# - Orphaned:  [id]: with no reference                -> warning
+# Scan markdown source for reference-style link problems, all of them fatal:
+# - Undefined: [text][id] with no [id]: definition. Kramdown emits the
+#   literal source text, so raw markdown ships to the page.
+# - Duplicate: [id]: defined twice. Kramdown silently keeps the first, so
+#   the second link points somewhere its author did not intend.
+# - Orphaned:  [id]: with no reference. Usually means a link was set up and
+#   never attached — the prose renders as plain text with nothing to show
+#   for it. Five such cases were found on this site when the check was
+#   first written, which is why this is an error and not a warning.
 #
 # Kramdown itself warns about undefined references, but Jekyll drops those
 # warnings unless show_warnings is set, they are never fatal, and they fire
@@ -17,42 +21,37 @@ require_relative 'reference_link_scanner'
 
 def main
   site = setup_site
-  errors = []
-  warnings = []
+  problems = []
 
   puts 'Checking all documents for reference link problems...'
   (site.pages + site.documents).each do |doc|
     next if doc.path.include?('vendor/')
     next unless doc.path.end_with?('.md', '.markdown')
 
-    check_document(doc, errors, warnings)
+    problems.concat(check_document(doc))
   end
 
-  report(errors, warnings)
+  report(problems)
 end
 
-def check_document(doc, errors, warnings)
+def check_document(doc)
   offset = ReferenceLinkScanner.content_line_offset(doc.path, doc.content)
-  result = ReferenceLinkScanner.scan(doc.content, line_offset: offset)
-
-  result[:errors].each { |e| errors << format_problem(doc, e) }
-  result[:warnings].each { |w| warnings << format_problem(doc, w) }
+  ReferenceLinkScanner.scan(doc.content, line_offset: offset)
+                      .map { |problem| format_problem(doc, problem) }
 end
 
 def format_problem(doc, problem)
   "#{doc.relative_path}:#{problem[:line]}: #{problem[:message]}"
 end
 
-def report(errors, warnings)
-  warnings.each { |warning| puts "warning: #{warning}" }
-
-  if errors.empty?
+def report(problems)
+  if problems.empty?
     puts 'Success: All documents passed reference link check.'
     exit 0
   end
 
   puts "\nReference link errors found:"
-  errors.each { |error| puts "- #{error}" }
+  problems.each { |problem| puts "- #{problem}" }
   exit 1
 end
 
