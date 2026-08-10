@@ -91,8 +91,8 @@ appreciate how short stories---like {{ lena }} or {{ helicopter }}---can
 explore big ideas in a stripped-down way. Second, authors I love, like {{
 watts }}, speak incredibly highly of him.
 
-{{ the_authors_lastname_possessive }} stories all have fantastic ideas,
-but reading {{ this_book }} made me realize they rely on a formula:
+{{ the_authors_lastname_possessive }} stories all have fantastic ideas, but
+reading {{ this_book }} made me realize they rely on a formula:
 
 1. Take an axiom.
 2. Turn the crank and see what happens.
@@ -105,7 +105,7 @@ pkd }}, which I discussed in my review of {{ ubik }}: ideas alone aren't
 enough to carry a story. Fortunately, {{ the_authors_lastname }} doesn't leave
 all of his concepts bare. His stories are best when he does something
 subversive with his formula, like in {{ hell_is_the_absence_of_god }}, or adds
-rich worldbuilding as in {{ tower_of_babylon }}.
+rich worldbuilding, as in {{ tower_of_babylon }}.
 
 ### {% short_story_title "Tower of Babylon" %}
 
@@ -115,7 +115,7 @@ rich worldbuilding as in {{ tower_of_babylon }}.
 construction of the [Tower of Babel][babel] as a real mega-project. It's a
 simple story about a group of miners climbing the tower to dig their way into
 heaven, and I really enjoyed the details {{ the_authors_lastname }} includes
-about the tower, how the people on each level lived, and the journey the
+about the tower, how the people on each level live, and the journey the
 miners make.
 
 [babel]: https://en.wikipedia.org/wiki/Tower_of_Babel
@@ -136,16 +136,16 @@ concentric shells, and stars on tracks.
 
 In {{ understand }}, a brain-damaged man is given an experimental treatment
 that continuously increases his intelligence until he can see the patterns
-behind everything, and discovers another super-intelligence that's been
+behind everything and discovers another super-intelligence that's been
 watching him. It's a response to {{ keyess_lastname }} {{ flowers_for_algernon
 }}, but without the eventual slide that adds emotional weight.
 
-When I read this story I had not yet figured out {{
-the_authors_lastname_possessive }} writing pattern, and so I kept
-second-guessing where the story was going. I was sure the protagonist was
-delusional, but no, the doctors really are trying to trick him, the CIA really
-is watching. It's my main critique of {{ the_authors }} writing: his
-proof-like structure makes it hard to be taken by surprise.
+When I read this story, I had not yet figured out {{
+the_authors_lastname_possessive }} writing pattern, so I kept second-guessing
+where the story was going. I was sure the protagonist was delusional, but no,
+the doctors really are trying to trick him, the CIA really is watching. It's
+my main critique of {{ the_authors }} writing: his proof-like structure makes
+it hard to be taken by surprise.
 
 ### {% short_story_title "Division by Zero" %}
 
@@ -159,8 +159,8 @@ understands her.
 There is some clever narrative structure related to the math: comparing things
 that are similar and showing how different they are (the mathematician and her
 husband), or how things that seem different can be the same (understanding and
-not). But in the end it's a proof about proofs, and one where I didn't really
-connect with the characters.
+not understanding). But in the end, it's a proof about proofs, and one where I
+didn't really connect with the characters.
 
 ### {% short_story_title "Story of Your Life" %}
 
@@ -170,7 +170,7 @@ connect with the characters.
 probably the most famous story in the collection. It's about first contact
 between humans and heptapods, narrated by one of the linguists trying to
 decipher the language. As she learns it, she realizes that heptapods experience
-time differently than humans, and that learning their language makes her
+time differently than humans do, and that learning their language makes her
 experience it the same way.
 
 This is another good example of {{ the_authors_lastname }} playing with
@@ -179,12 +179,12 @@ and the past mixed together. Her tenses slip when she talks about her
 daughter, and like {{ tower_of_babylon }}, the story begins where it ends.
 
 The heptapods know what is going to happen, but they do it anyway because
-otherwise what they know to be true wouldn't be. The narrator starts behaving
-the same way, having a child even though she knows it ends in tragedy, unable
-to avoid it and not wanting to.
+otherwise what they know to be true wouldn't be true. The narrator starts
+behaving the same way, having a child even though she knows it ends in
+tragedy, unable to avoid it and not wanting to.
 
 Telling a story out of order in time reminded me of how {{ banks_lastname }}
-tells a story forward and backwards in {{ use_of_weapons }}. Both authors use
+tells a story forward and backward in {{ use_of_weapons }}. Both authors use
 the narration itself to hide clues for the reader: {{ the_authors_lastname }}
 through wrong tenses, {{ banks_lastname }} by never naming the protagonist.
 
@@ -198,7 +198,7 @@ animated by a Kabbalistic name (the titular 72 letters). Reproduction happens
 not via sperm and egg but via a homunculus already in a man's body when he is
 born. And the human race is 5 generations from extinction.
 
-This story has a lot of interesting branches: golems as replacement for
+This story has a lot of interesting branches: golems as a replacement for
 skilled labor, and the objection the golem-making guild has to golems making
 golems; the way names are factored and studied to create new ones; the coming
 end of the world; the interplay between the politics of the poor and the
@@ -208,7 +208,7 @@ story. It was too short to make use of all its ideas.
 
 The golems reminded me of modern large language models. Both take instructions
 and carry them out in a manner that only humans could before, and as the
-golems improve they start replacing humans at skilled crafts. We might be
+golems improve, they start replacing humans at skilled crafts. We might be
 starting to see the same thing with our own language golems, piles of words
 given thought, as they completely replace manual programming.
 
@@ -240,9 +240,9 @@ thousand-person collaborations needed to advance the field. And now
 LLM-assisted math proofs are solving problems humans spent decades failing at,
 through a new form of intelligence.
 
-Structurally {{ the_evolution_of_human_science }} is similar to {{ qntms }} {{
-lena }}, which uses a dry Wikipedia article format to deliver its horror. The
-dissonance between the tone and content is what makes it work. Here the
+Structurally, {{ the_evolution_of_human_science }} is similar to {{ qntms }}
+{{ lena }}, which uses a dry Wikipedia article format to deliver its horror.
+The dissonance between the tone and content is what makes it work. Here, the
 letter-from-the-editor is also dry, but the content isn't disturbing enough
 for the juxtaposition to be effective. It also reminded me of Siri Keeton, the
 "synthesist" narrator of {{ wattss_lastname }} {{ blindsight }}. Just like the
@@ -257,24 +257,24 @@ understand.
 In my review of {{ bradburys_lastname }} {{ fahrenheit_451 }}, I said: "Some
 of my favorite books have structures that reinforce their themes." {{
 hell_is_the_absence_of_god }} was my favorite story in {{ this_book }} because
-it subverts {{ the_authors_lastname_possessive }} formula, and in doing so
+it subverts {{ the_authors_lastname_possessive }} formula and, in doing so,
 reinforces the theme of the work.
 
 The axiom in this story is "God is real, His acts are quantifiable". {{
 the_authors_lastname }} takes this where it leads: angelic visitations are
 treated like weather and reported on the news; statistics on who is damned and
-who ascends are tracked; people flock to places where angels often emerge
+who ascends are tracked; people flock to places where angels often emerge,
 hoping for miracles. Neil Fisk's wife was killed in a visitation and ascended
-to heaven. Neil doesn't love God, and so knows he won't be reunited with her.
+to Heaven. Neil doesn't love God, and so knows he won't be reunited with her.
 But he also knows that if you view Heaven's light when an angel emerges, you
-are rewritten to unconditionally love God, and always ascend to heaven. He
-sets out to see it.
+are rewritten to unconditionally love God and always ascend to Heaven. He sets
+out to see it.
 
 Neil's reliance on the quantifiable system of God is similar to Sol Weintraub
 from {{ simmonss_lastname }} {{ hyperion }}. Sol is an academic expert on
 God's covenant and on {{ kierkegaards_lastname }} {{ fear_and_trembling }}. He
 is intellectually ready for the exact problem he finds himself in, yet when a
-god-like entity demands the sacrifice of his daughter Rachel, all of Sol's
+god-like entity demands the sacrifice of his daughter, Rachel, all of Sol's
 theological mastery is useless. He cannot outdebate the absolute. Neil tries
 the same, reasoning: if A (see the light), then B (love God), then C
 (salvation).
@@ -285,8 +285,8 @@ logic he followed so steadfastly in the rest of the stories, and in doing so
 shows you that God isn't just, God isn't kind, God---even in a world where you
 think you can write down rules that he follows---is Sovereign.
 
-This story, with its natural disaster-like angels, reminded me of {{ eva }}
-where angels are alien, terrifying; an extinction-level threat. It's also
+This story, with its natural disaster-like angels, reminded me of {{ eva }},
+where angels are alien, terrifying, and an extinction-level threat. It's also
 similar to {{ strosss_lastname }} {{ a_colder_war }} in how it takes the
 cosmic and grounds it in the real world.
 
