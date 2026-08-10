@@ -26,8 +26,8 @@ year's][last_post], I will use plots to explore how the Tour unfolded.
 
 [last_post]: {% post_url 2019-08-05-2019_tour_de_france_plot %}
 
-The code that generated the plots can be found [here][plot_code]
-([rendered on Github][rendered]). The data [is here][data].
+The code that generated the plots can be found [here][plot_code] ([rendered on
+Github][rendered]). The data [is here][data].
 
 {% capture notebook_uri %}{{ "Tour de France 2020 Plot.ipynb" | uri_escape }}{% endcapture %}
 [plot_code]: {{ file_dir }}/{{ notebook_uri }}
@@ -140,10 +140,10 @@ finished in Paris, but lost lots of time in the Alps.
 
 [white]: https://en.wikipedia.org/wiki/White_jersey
 
-Thibaut Pinot crashed on stage 1. [Emanuel Buchmann][buchmann] crashed in a
-previous race and his ability to start was in question. Both lost time in the
-first mountains and never recovered, but nevertheless stayed in the race
-through the end.
+[Thibaut Pinot][pinot] crashed on stage 1. [Emanuel Buchmann][buchmann]
+crashed in a previous race and his ability to start was in question. Both lost
+time in the first mountains and never recovered, but nevertheless stayed in
+the race through the end.
 
 [pinot]: https://en.wikipedia.org/wiki/Thibaut_Pinot
 [buchmann]: https://en.wikipedia.org/wiki/Emanuel_Buchmann

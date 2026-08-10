@@ -107,9 +107,9 @@ the_author }} explored the horrifying consequences of creating uploaded
 minds---and how easy it is to ignore their humanity---in {{ lena }} and {{
 driver }}.[^lena] One of the researchers references the quote _"Sending this
 message was important to us. We considered ourselves to be a powerful
-culture."_, the warning Sandia National Laboratories wanted to convey about
-nuclear waste disposal. That same message shows up in {{ powerful_culture }},
-about disposing of dangerous waste to other dimensions.
+culture."_, [the warning Sandia National Laboratories wanted to convey about
+nuclear waste disposal][nuke]. That same message shows up in {{
+powerful_culture }}, about disposing of dangerous waste to other dimensions.
 
 [^lena]: {{ lena }} is my favorite short story of the last decade.
 

@@ -44,7 +44,6 @@ us how the explosion is evolving.
 [nsf]: https://snfactory.lbl.gov
 [sn2011fe]: https://en.wikipedia.org/wiki/SN_2011fe
 [pereira]: https://doi.org/10.1051/0004-6361/201221008
-[aldering_2002]: https://doi.org/10.1117/12.458107
 [spectrum]: https://en.wikipedia.org/wiki/Astronomical_spectroscopy
 
 [^pereira_cite]:
@@ -103,7 +102,8 @@ requires us to write three functions:
 
 - [`init_fig()`][init_fig]: draws the static background
 
-- [`frame_iter()`][frame_iter]: yields the `frame_data` needed to draw each update
+- [`frame_iter()`][frame_iter]: yields the `frame_data` needed to draw each
+  update
 
 - [`update_artists(frame_data)`][update_artists]: takes `frame_data` and
   updates the artists
