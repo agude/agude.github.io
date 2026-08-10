@@ -29,13 +29,13 @@ Zillow, Redfin, and Realtor.com. Let's see what we can learn with more
 complete data!
 
 You can find the Jupyter notebook used to perform this analysis
-[here][notebook] ([rendered on Github][rendered]). The data can be found
+[here][plot_notebook] ([rendered on Github][plot_rendered]). The data can be found
 [here][data].
 
 {% capture notebook_uri %}{{ "House Price Estimate Timeseries Plot Automated.ipynb" | uri_escape }}{% endcapture %}
 
-[notebook]: {{ file_dir }}/{{ notebook_uri }}
-[rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
+[plot_notebook]: {{ file_dir }}/{{ notebook_uri }}
+[plot_rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 [data]: {{ file_dir }}/home_price_estimate_20220701.json
 
 ## Data Collection
@@ -43,14 +43,14 @@ You can find the Jupyter notebook used to perform this analysis
 I wrote a script to download the entire page for the specific house from each
 of the three sites. I ran it on my Raspberry Pi everyday using `cron`. I
 parsed the HTML using Python and a wrote the [cleaned data][data] to JSON.
-That parsing notebook can be found [here][notebook] ([rendered on
-Github][rendered]). I won't include the raw data, you will have to collect
+That parsing notebook can be found [here][parse_notebook] ([rendered on
+Github][parse_rendered]). I won't include the raw data, you will have to collect
 some yourself.
 
 {% capture notebook_uri %}{{ "parse_zillow.ipynb" | uri_escape }}{% endcapture %}
 
-[notebook]: {{ file_dir }}/{{ notebook_uri }}
-[rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
+[parse_notebook]: {{ file_dir }}/{{ notebook_uri }}
+[parse_rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 
 ## Plot
 
