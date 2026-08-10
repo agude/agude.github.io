@@ -382,3 +382,7 @@ the_authors_lastname }} leaves his questions open.
 The story is great as a discussion prompt: my book club spent some time having
 the same debate. But it's another of {{ the_authors_lastname_possessive }}
 great idea stories, without that "something else" to elevate it.
+
+<p class="tombstone" markdown="1">[□][qed]</p>
+
+[qed]: https://en.wikipedia.org/wiki/Q.E.D.
