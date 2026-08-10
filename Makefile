@@ -32,6 +32,18 @@ DOCKER_RUN := docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) 
 #   make test TEST=$$(find _tests/plugins/utils -name 'test_*.rb')
 TEST ?= $(shell find _tests -type f -name 'test_*.rb' -not -name 'test_helper.rb')
 
+# Where 'make rank' drops the ranking state file. The ELO tools have no
+# localStorage or query-param loading; the file gets picked through the page's
+# file input, so it needs to sit somewhere the browser file picker opens into.
+DOWNLOADS ?= $(HOME)/Downloads
+
+# Ranking state file and the browser tool that consumes it.
+RANKING_STATE := _scripts/ranking/book_ranking_state.json
+RANKING_TOOL := _scripts/ranking/elo_calculator.html
+
+# Portable "open this in the desktop default application".
+OPEN := $(shell command -v xdg-open 2>/dev/null || command -v open 2>/dev/null)
+
 # Tier 1: Daily drivers
 .PHONY: serve build test test-scripts lint lint-scripts format-scripts clean debug scripts
 
@@ -39,7 +51,7 @@ TEST ?= $(shell find _tests -type f -name 'test_*.rb' -not -name 'test_helper.rb
 .PHONY: serve-drafts serve-profile test-cov test-summary lint-fix check-links check-liquid doc-index doc-show
 
 # Tier 3: Domain operations
-.PHONY: image-build image-rebuild deps-lock hooks-install prettier-image-build prettier-image-rebuild format-md prettier
+.PHONY: image-build image-rebuild deps-lock hooks-install prettier-image-build prettier-image-rebuild format-md prettier rank
 
 # Internal targets
 .PHONY: all clean-coverage
@@ -149,6 +161,24 @@ debug: image-build
 # List available scripts with one-line descriptions and invocations.
 scripts:
 	@uv run _scripts/list_scripts.py
+
+# Rebuild the book ranking state, stage it for the browser, and open the ELO
+# tool. Recorded match history is carried over by the extractor, so this is
+# safe to run after every new review. Load the copy in $(DOWNLOADS) through the
+# page's file input -- the tool has no auto-loading.
+rank:
+	@echo "Extracting book data..."
+	@uv run _scripts/ranking/extract_book_data.py
+	@mkdir -p "$(DOWNLOADS)"
+	@cp $(RANKING_STATE) "$(DOWNLOADS)/"
+	@echo "Copied state to $(DOWNLOADS)/book_ranking_state.json"
+	@if [ -z "$(OPEN)" ]; then \
+		echo "No xdg-open/open found. Open this manually:"; \
+		echo "  file://$(PWD)/$(RANKING_TOOL)"; \
+	else \
+		echo "Opening $(RANKING_TOOL)..."; \
+		$(OPEN) "file://$(PWD)/$(RANKING_TOOL)" >/dev/null 2>&1; \
+	fi
 
 # Run Minitest tests located in _tests/ inside the Docker container.
 # Note: `make test TEST=...` for a subset of files may exit 2 even when

@@ -4,7 +4,9 @@
 # ///
 """Extract book data from _books/ front matter and first paragraphs.
 
-Outputs a JSON state file suitable for the ELO ranking tool.
+Outputs a JSON state file suitable for the ELO ranking tool. Match history
+recorded by the ranking UIs is carried over from any existing state file, so
+regenerating after adding a review never discards recorded votes.
 """
 
 import json
@@ -15,6 +17,8 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 BOOKS_DIR = PROJECT_ROOT / "_books"
 BY_RATING_FILE = PROJECT_ROOT / "books" / "by_rating.md"
 OUTPUT_FILE = Path(__file__).resolve().parent / "book_ranking_state.json"
+
+DEFAULT_CREATED = "2026-03-01"
 
 # Seed ELO based on current rating so the matchup selector
 # starts with useful signal.  200-point gaps ≈ 75% expected
@@ -200,7 +204,44 @@ def extract_ranked_list(books: dict) -> list[str]:
     return ranked_slugs
 
 
+def load_existing_state(path: Path) -> dict:
+    """Return the existing state file, or an empty state if there is none.
+
+    A malformed file raises rather than being silently replaced: the state file
+    holds hand-written summaries and hundreds of recorded votes, so a reset is
+    never the safe interpretation of a parse error.
+    """
+    if not path.exists():
+        return {}
+
+    try:
+        return json.loads(path.read_text())
+    except json.JSONDecodeError as exc:
+        raise SystemExit(f"Refusing to overwrite unreadable state file {path}: {exc}") from exc
+
+
+def carry_over_book(book: dict, previous: dict) -> dict:
+    """Merge ranking results from a previous entry into a freshly parsed book.
+
+    Front matter is the source of truth for title, authors, and rating, but the
+    ranking UIs own ``summary``, ``elo``, and ``matches``. Those are only ever
+    written by hand or by voting, so they are carried over rather than reseeded.
+    """
+    if not previous:
+        return book
+
+    if previous.get("summary"):
+        book["summary"] = previous["summary"]
+    if previous.get("elo") is not None:
+        book["elo"] = previous["elo"]
+    if previous.get("matches") is not None:
+        book["matches"] = previous["matches"]
+    return book
+
+
 def main():
+    previous_state = load_existing_state(OUTPUT_FILE)
+    previous_books = previous_state.get("books", {})
     books = {}
 
     for filepath in sorted(BOOKS_DIR.glob("*.md")):
@@ -221,34 +262,43 @@ def main():
 
         summary_raw, summary_extra = extract_paragraphs(body)
 
-        books[slug] = {
-            "title": fm["title"],
-            "authors": authors,
-            "series": fm.get("series"),
-            "book_number": fm.get("book_number"),
-            "rating": fm.get("rating"),
-            "image": fm.get("image"),
-            "summary_raw": summary_raw,
-            "summary_extra": summary_extra,
-            "summary": "",
-            "elo": RATING_TO_ELO.get(fm.get("rating"), 1500),
-            "matches": 0,
-        }
+        books[slug] = carry_over_book(
+            {
+                "title": fm["title"],
+                "authors": authors,
+                "series": fm.get("series"),
+                "book_number": fm.get("book_number"),
+                "rating": fm.get("rating"),
+                "image": fm.get("image"),
+                "summary_raw": summary_raw,
+                "summary_extra": summary_extra,
+                "summary": "",
+                "elo": RATING_TO_ELO.get(fm.get("rating"), 1500),
+                "matches": 0,
+            },
+            previous_books.get(slug, {}),
+        )
 
     ranked_list = extract_ranked_list(books)
+    matches = previous_state.get("matches", [])
+    created = previous_state.get("meta", {}).get("created", DEFAULT_CREATED)
+    new_books = [slug for slug in books if slug not in previous_books]
 
     state = {
         "meta": {
-            "created": "2026-03-01",
-            "total_matches": 0,
+            "created": created,
+            "total_matches": len(matches),
         },
-        "matches": [],
+        "matches": matches,
         "books": books,
         "ranked_list": ranked_list,
     }
 
     OUTPUT_FILE.write_text(json.dumps(state, indent=2, ensure_ascii=False) + "\n")
-    print(f"Wrote {len(books)} books ({len(ranked_list)} ranked) to {OUTPUT_FILE}")
+    print(
+        f"Wrote {len(books)} books ({len(ranked_list)} ranked, "
+        f"{len(new_books)} new, {len(matches)} matches kept) to {OUTPUT_FILE}"
+    )
 
 
 if __name__ == "__main__":

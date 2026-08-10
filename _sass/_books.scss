@@ -118,6 +118,20 @@ a.book-nav-item {
   text-decoration: none;
 }
 
+// End-of-proof tombstone (□) used as a closing device in collection reviews
+.content .tombstone {
+  text-align: right;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
 // Alphabetical jump links for book lists
 .alpha-jump-links {
   display: flex;

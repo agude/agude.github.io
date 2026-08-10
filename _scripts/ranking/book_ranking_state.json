@@ -1434,6 +1434,21 @@
       "elo": 1884,
       "matches": 1
     },
+    "accelerando": {
+      "title": "Accelerando",
+      "authors": [
+        "Charles Stross"
+      ],
+      "series": null,
+      "book_number": 1,
+      "rating": 2,
+      "image": "/books/covers/accelerando.jpg",
+      "summary_raw": "Originally published as 9 separate stories, it follows 3 generations of the Macx family as they upload, fork, merge, and scatter across a solar system slowly being converted into computronium.",
+      "summary_extra": "Is about time and how fast change can come, but it is also a book solidly frozen in time. It was written from a corner of the geek internet that only existed from 2000--2005 on small forums and on Slashdot. It marks itself as such with shibboleths like IP rights, music piracy, Bill Gates and Microsoft. At the time, must have seemed like an eminently possible future, but the smartphone and cloud computing a few years later blew it away. Now it reads more like an alternate history of a technological ideal that never came to pass.",
+      "summary": "",
+      "elo": 1300,
+      "matches": 0
+    },
     "all_systems_red": {
       "title": "All Systems Red",
       "authors": [
@@ -1508,6 +1523,24 @@
       "summary": "Laumer's original Bolo collection: seven novellas and short stories featuring the sentient tanks. Includes 'The Last Command', 'Field Test', and 'A Relic of War'.",
       "elo": 1468,
       "matches": 4
+    },
+    "burning_chrome": {
+      "title": "Burning Chrome",
+      "authors": [
+        "William Gibson",
+        "John Shirley",
+        "Bruce Sterling",
+        "Michael Swanwick"
+      ],
+      "series": "Sprawl",
+      "book_number": 0,
+      "rating": 4,
+      "image": "/books/covers/burning_chrome.jpg",
+      "summary_raw": "It features both solo and collaborative works, some of which are the earliest written stories in the universe.",
+      "summary_extra": "Was published after and , but most of the stories were written years earlier. Reading them, you can see finding the prose style, the ideas, and the characters that would make the such a masterwork.",
+      "summary": "",
+      "elo": 1700,
+      "matches": 0
     },
     "chevalier": {
       "title": "Chevalier",
@@ -1613,6 +1646,21 @@
       "summary": "Culture book 1. Horza bumbles through nasty vignettes during the Idiran-Culture War. Gruesome, small story against grand ideas. Drowning in shit, fingers chewed off.",
       "elo": 1284,
       "matches": 5
+    },
+    "count_zero": {
+      "title": "Count Zero",
+      "authors": [
+        "William Gibson"
+      ],
+      "series": "Sprawl",
+      "book_number": 2,
+      "rating": 5,
+      "image": "/books/covers/count_zero.jpg",
+      "summary_raw": "It follows three strangers---a teenage hacker on his first run, a mercenary hired to extract a defecting scientist, and an art dealer tracking down mysterious boxes---as they're pulled into a struggle between zaibatsus, the ultra-rich, and something stranger.",
+      "summary_extra": "I've been on a bit of a cyberpunk kick recently. I started , then paused and picked up to build the context I'd need to understand satire. That diversion taught me I **love** writing, so I was excited to pick up again.",
+      "summary": "",
+      "elo": 1900,
+      "matches": 0
     },
     "countdown_city": {
       "title": "Countdown City",
@@ -1761,7 +1809,7 @@
       ],
       "series": "The Murderbot Diaries",
       "book_number": 4,
-      "rating": 3,
+      "rating": 4,
       "image": "/books/covers/exit_strategy.jpg",
       "summary_raw": "It wraps up the GrayCris storyline as Murderbot returns to save its friends.",
       "summary_extra": "Is the climax of the first four books in . It concludes the GrayCris storyline that began in , when Murderbot saved Dr. Ayda Mensah and her team and was set free.",
@@ -1798,6 +1846,36 @@
       "summary": "Final Architecture book 2. Parthenon Int program, Originator ruins, rescue of Idris from a deathworld. Tighter focus than book 1. The 'infected testicle' sentence.",
       "elo": 1132,
       "matches": 2
+    },
+    "fahrenheit_451": {
+      "title": "Fahrenheit 451",
+      "authors": [
+        "Ray Bradbury"
+      ],
+      "series": null,
+      "book_number": 1,
+      "rating": 3,
+      "image": "/books/covers/fahrenheit_451.jpg",
+      "summary_raw": "It follows Guy Montag, a fireman who burns books for a living, as he slowly realizes he must stop.",
+      "summary_extra": "I first read when I was just beginning to choose sci-fi books from the library for myself. I loved take on censorship and the importance of free media and free thought. I went on to read everything wrote. I saw it as a companion work to or . It felt very advanced, a book that showed you instead of telling.",
+      "summary": "",
+      "elo": 1500,
+      "matches": 0
+    },
+    "field_of_dishonor": {
+      "title": "Field of Dishonor",
+      "authors": [
+        "David Weber"
+      ],
+      "series": "Honor Harrington",
+      "book_number": 4,
+      "rating": 3,
+      "image": "/books/covers/field_of_dishonor.jpg",
+      "summary_raw": "It reduces the scale of the narrative, trading fleet battles for political maneuvering and personal grudges.",
+      "summary_extra": "Picks up right where ends, with a court martial split along political lines. Pavel Young is found guilty and cashiered, but acquitted of the charges that would have hanged him. I was worried going in. This book is mostly political and personal drama, without the massive naval battles that defined the first three books. But it worked! The change of pace was exactly what the series needed, and it should have easily been the best book so far.",
+      "summary": "",
+      "elo": 1500,
+      "matches": 0
     },
     "flatland_a_romance_of_many_dimensions": {
       "title": "Flatland: A Romance of Many Dimensions",
@@ -1958,6 +2036,21 @@
       "elo": 1900,
       "matches": 2
     },
+    "i_sexually_identify_as_an_attack_helicopter": {
+      "title": "I Sexually Identify as an Attack Helicopter",
+      "authors": [
+        "Isabel Fall"
+      ],
+      "series": null,
+      "book_number": 1,
+      "rating": 5,
+      "image": "/books/covers/clarkesworld_issue_160.jpg",
+      "summary_raw": "It follows Barb as she bombs a high school, wrestles with what she's become, and asks what gender even is.",
+      "summary_extra": "I can't write about without acknowledging the controversy that surrounded it. It was published in January 2020 in [Clarkesworld][clarkesworld-issue] and almost immediately [provoked outrage][vox-controversy]. People accused not of reclaiming the transphobic joke, but of furthering it. She was harassed until she [asked to have the story taken down][clarkesworld-statement]. It still earned a well-deserved [Hugo][hugo-2021] nomination, under the title . I'm saddened that we drove away a brilliant new author, and that I likely won't have the chance to read more of her work.",
+      "summary": "",
+      "elo": 1900,
+      "matches": 0
+    },
     "inversions": {
       "title": "Inversions",
       "authors": [
@@ -1996,7 +2089,7 @@
         "John Mina",
         "William R. Forstchen",
         "Robert Greenberger",
-        "William H. Keith, Jr.",
+        "William H. Keith Jr.",
         "Todd Johnson",
         "Steve Perry",
         "John DeCamp",
@@ -2148,6 +2241,21 @@
       "elo": 1332,
       "matches": 6
     },
+    "mona_lisa_overdrive": {
+      "title": "Mona Lisa Overdrive",
+      "authors": [
+        "William Gibson"
+      ],
+      "series": "Sprawl",
+      "book_number": 3,
+      "rating": 5,
+      "image": "/books/covers/mona_lisa_overdrive.jpg",
+      "summary_raw": "It brings together characters from both previous books---Molly, Angela, Bobby, and the ghost of 3Jane---around a device that can hold the entirety of cyberspace, and maybe a human soul.",
+      "summary_extra": "The first two books of are both thrillers about surviving in a post-human world of AI and mega-corporations, but each is subtly different: is about bad-asses in space; is about normal people encountering the seemingly divine. I wasn't sure what would be. It could have been a third variation. Instead, it ties both together, capping off their storylines.",
+      "summary": "",
+      "elo": 1900,
+      "matches": 0
+    },
     "monday_begins_on_saturday": {
       "title": "Monday Begins on Saturday",
       "authors": [
@@ -2194,6 +2302,21 @@
       "elo": 1764,
       "matches": 4
     },
+    "neuromancer": {
+      "title": "Neuromancer",
+      "authors": [
+        "William Gibson"
+      ],
+      "series": "Sprawl",
+      "book_number": 1,
+      "rating": 5,
+      "image": "/books/covers/neuromancer.jpg",
+      "summary_raw": "And one of the founding texts of cyberpunk. In it, Case, a hacker who can't jack in anymore, and street samurai Molly Millions are hired by a mysterious ex-special forces agent to pull off a heist.",
+      "summary_extra": "I picked up after starting my re-read and realizing I had never read a single thing by . responds to and satirizes a lot of what developed, and I wouldn't be able to spot it without reading the original first. So I put book aside to give the classic a read.",
+      "summary": "",
+      "elo": 1900,
+      "matches": 0
+    },
     "night_without_stars": {
       "title": "Night Without Stars",
       "authors": [
@@ -2231,8 +2354,8 @@
       ],
       "series": "Honor Harrington",
       "book_number": 1,
-      "rating": 4,
-      "image": "/books/covers/on_basilisk_station.jpg",
+      "rating": 3,
+      "image": "/books/covers/on_basilisk_station_first_edition.jpg",
       "summary_raw": "The long-running military science fiction epic, . It introduces Commander Honor Harrington, a brilliant naval officer exiled to a remote star system with an aging ship and a demoralized crew. There, she must enforce the law and uncover a smuggling plot that proves to be the opening move in an interstellar war.",
       "summary_extra": "It follows Honor Harrington as she climbs the ranks of the Royal Manticoran Navy, which is essentially the Royal Navy with rocket boosters attached. answer to \"How do I get Napoleonic battle lines in space?\" is part of what makes that translation work so well. Ships have gravity sails that can't be fired through from the front, forcing broadside engagements. Add wormholes to create choke points and faster-than-light travel affected by gravity to act like shallows and currents, and you have Lord Nelson, but in the void.",
       "summary": "Honor Harrington book 1. Commander Harrington, exiled to a remote system, uncovers a smuggling plot that's the opening move of an interstellar war. Napoleonic naval battles in space.",
@@ -2268,6 +2391,21 @@
       "summary": "Patternist book 4. Far future, almost pure fantasy. Brothers Teray and Coransee fight to become the new Patternmaster. Feudal Patternist society with magic.",
       "elo": 1548,
       "matches": 3
+    },
+    "red_rising": {
+      "title": "Red Rising",
+      "authors": [
+        "Pierce Brown"
+      ],
+      "series": "Red Rising Trilogy",
+      "book_number": 1,
+      "rating": 2,
+      "image": "/books/covers/red_rising.jpg",
+      "summary_raw": "It follows Darrow, a Red miner on Mars who discovers his entire caste has been enslaved, and joins a revolution by infiltrating the Gold ruling class.",
+      "summary_extra": "I did not expect to like .",
+      "summary": "",
+      "elo": 1300,
+      "matches": 0
     },
     "redwall": {
       "title": "Redwall",
@@ -2375,6 +2513,21 @@
       "elo": 1100,
       "matches": 2
     },
+    "snow_crash": {
+      "title": "Snow Crash",
+      "authors": [
+        "Neal Stephenson"
+      ],
+      "series": null,
+      "book_number": 1,
+      "rating": 4,
+      "image": "/books/covers/snow_crash.jpg",
+      "summary_raw": "Competing franchises. It follows Hiro Protagonist, a hacker and pizza delivery driver, and Y.T., a teenage skateboard courier, as they uncover a conspiracy to reprogram the human mind.",
+      "summary_extra": "I first read in college and didn't get it. It had cool ideas, great writing, some authentic weirdness. The problem was I had no context to place it within the canon. I'd read a lot of science fiction growing up, but it was mostly golden-age authors like , , and . I had completely missed New Wave authors like , and probably hadn't even heard of cyberpunk. This time I decided to fix that, reading first. I'm glad I did. makes direct references to ---the same 'sarariman' Rōmaji, a drone decapitation, Rife's primary-colored cyberspace---but the real connection is thematic. is about what makes us human and how we strip it away for power. This book responds that it's even simpler: you don't need to jack in or have your humanity cut away and replaced with chrome to lose yourself. Commodified, homogenized, commercialized culture does it for you already.",
+      "summary": "",
+      "elo": 1700,
+      "matches": 0
+    },
     "stand_on_zanzibar": {
       "title": "Stand on Zanzibar",
       "authors": [
@@ -2419,6 +2572,21 @@
       "summary": "Cheela book 2. A massive starquake destroys Cheela civilization. Survivors and humans rebuild, fight barbarians. Study of how societies handle slow-moving crises.",
       "elo": 1500,
       "matches": 8
+    },
+    "stories_of_your_life_and_others": {
+      "title": "Stories of Your Life and Others",
+      "authors": [
+        "Ted Chiang"
+      ],
+      "series": null,
+      "book_number": 1,
+      "rating": 3,
+      "image": "/books/covers/stories_of_your_life_and_others.jpg",
+      "summary_raw": "",
+      "summary_extra": "Every story is different, very different, but they all _feel_ the same.",
+      "summary": "",
+      "elo": 1500,
+      "matches": 0
     },
     "sunstone_imperative": {
       "title": "Sunstone Imperative",
@@ -2630,6 +2798,21 @@
       "elo": 1316,
       "matches": 1
     },
+    "the_honor_of_the_queen": {
+      "title": "The Honor of the Queen",
+      "authors": [
+        "David Weber"
+      ],
+      "series": "Honor Harrington",
+      "book_number": 2,
+      "rating": 3,
+      "image": "/books/covers/the_honor_of_the_queen_first_edition.jpg",
+      "summary_raw": "Harrington must forge an alliance with Grayson, a planet of religious conservatives who don't believe women belong in uniform, while Haven plots to stop her.",
+      "summary_extra": "Halfway through , I checked Goodreads and was surprised to find it rated higher than , because the first half drags under [overly verbose world-building][pizza] and three problems: Harrington has to make uncharacteristic mistakes so the plot can move forward; there's a constant theme of \"the practical naval officer must---regrettably!---overrule the too-trusting bureaucrats\"; and is weird about Asian women in a way that hasn't aged well.",
+      "summary": "",
+      "elo": 1500,
+      "matches": 0
+    },
     "the_hydrogen_sonata": {
       "title": "The Hydrogen Sonata",
       "authors": [
@@ -2764,6 +2947,21 @@
       "summary": "Book of the New Sun book 1. Torturer Severian is exiled for showing mercy. Slow pace, fantastic worldbuilding. Small personal story hinting at larger forces.",
       "elo": 1732,
       "matches": 4
+    },
+    "the_short_victorious_war": {
+      "title": "The Short Victorious War",
+      "authors": [
+        "David Weber"
+      ],
+      "series": "Honor Harrington",
+      "book_number": 3,
+      "rating": 4,
+      "image": "/books/covers/the_short_victorious_war_first_edition.jpg",
+      "summary_raw": "Harrington takes command of the battlecruiser _Nike_ as the People's Republic of Haven makes its move and a revolution brews in Nouveau Paris.",
+      "summary_extra": "Is the culmination of and : the war with Haven finally kicks off with Harrington right in the middle, of course. brings in multiple storylines that expand the universe without it feeling like a sudden change, and when the shooting starts we get our first dreadnought and superdreadnought battles. These improvements over the first two books make the best one so far. It feels like it's operating on a completely new scale. But that larger scale makes one thing clear: has no sense of subtlety.",
+      "summary": "",
+      "elo": 1700,
+      "matches": 0
     },
     "the_sirens_of_titan": {
       "title": "The Sirens of Titan",
@@ -2923,6 +3121,21 @@
       "elo": 1468,
       "matches": 10
     },
+    "the_wind_in_the_willows": {
+      "title": "The Wind in the Willows",
+      "authors": [
+        "Kenneth Grahame"
+      ],
+      "series": null,
+      "book_number": 1,
+      "rating": 4,
+      "image": "/books/covers/the_wind_in_the_willows.jpg",
+      "summary_raw": "Follows Mole, Ratty, Badger, and Toad in a story of bucolic life in the English countryside: playing around in boats, long summers, and the pull of home.",
+      "summary_extra": "My father read to me when I was young. My first memory of it is him reading the final chapter, _The Return of Ulysses_, in which Toad, Badger, Mole, and Ratty storm Toad Hall and take it back from the weasels, ferrets, and stoats. I remember him singing _When The Toad Came Home_ loudly. I don't know if we read the whole book; on this re-read I found some chapters familiar and others completely new, so I suspect we only read some of them.",
+      "summary": "",
+      "elo": 1700,
+      "matches": 0
+    },
     "there_is_no_antimemetics_division": {
       "title": "There Is No Antimemetics Division",
       "authors": [
@@ -2930,7 +3143,7 @@
       ],
       "series": null,
       "book_number": 1,
-      "rating": 4,
+      "rating": 5,
       "image": "/books/covers/there_is_no_antimemetics_division.jpg",
       "summary_raw": "",
       "summary_extra": "Is rewrite of his . I thought the strongest part of the was the first half, written as disjointed short stories with tight plotting. The weakest part was the second half, where the author tried to stitch them into a larger narrative. The execution felt shallow, and the world it described felt like a stage just wide enough to contain the action, with nothing beyond the edges.",
@@ -2983,6 +3196,21 @@
       "summary": "Tintin in the Belgian Congo, diamond-smuggling ring. Racist and colonial. Not one for the kids.",
       "elo": 1100,
       "matches": 4
+    },
+    "ubik": {
+      "title": "Ubik",
+      "authors": [
+        "Philip K. Dick"
+      ],
+      "series": null,
+      "book_number": 1,
+      "rating": 1,
+      "image": "/books/covers/ubik.jpg",
+      "summary_raw": "Everything begins to fall apart when they're lured into a too-good-to-be-true job where their boss is murdered. Suddenly, reality starts deteriorating, with objects reverting to older versions, and the characters start dying one by one.",
+      "summary_extra": "Twenty-five years ago, I read my first book: . I can't remember where I found it. If I had to guess, it was one of the books left in my family's run-down Adirondack cabin, probably by someone who didn't mind parting with it. I got halfway through and put it back for some other bored traveler. I **hated** it. The ensemble cast was flat, disposable. I didn't care about them getting picked off -style. The mystery hooked me, but then it collapsed as we learned nothing was actually real. The prose just barely told you what was happening. ideas were wild, but they couldn't make up for the lack of characters, story, and prose.",
+      "summary": "",
+      "elo": 1100,
+      "matches": 0
     },
     "use_of_weapons": {
       "title": "Use of Weapons",
@@ -3074,5 +3302,135 @@
       "elo": 1484,
       "matches": 5
     }
-  }
+  },
+  "ranked_list": [
+    "disco_elysium",
+    "echopraxia",
+    "blindsight",
+    "a_fire_upon_the_deep",
+    "surface_detail",
+    "use_of_weapons",
+    "look_to_windward",
+    "the_player_of_games",
+    "hyperion",
+    "inversions",
+    "the_hydrogen_sonata",
+    "neuromancer",
+    "count_zero",
+    "mona_lisa_overdrive",
+    "the_colonel",
+    "the_fall_of_hyperion",
+    "the_triumphant",
+    "a_mote_in_shadow",
+    "i_sexually_identify_as_an_attack_helicopter",
+    "there_is_no_antimemetics_division",
+    "a_memory_called_empire",
+    "artificial_condition",
+    "network_effect",
+    "the_tainted_cup",
+    "exit_strategy",
+    "explorers_on_the_moon",
+    "snow_crash",
+    "childhoods_end",
+    "excession",
+    "roadside_picnic",
+    "a_desolation_called_peace",
+    "salamandastron",
+    "mattimeo",
+    "serpent_valley",
+    "the_sword_of_the_lictor",
+    "the_citadel_of_the_autarch",
+    "the_shadow_of_the_torturer",
+    "the_wind_in_the_willows",
+    "a_canticle_for_leibowitz",
+    "destination_moon",
+    "dragons_egg",
+    "wild_seed",
+    "the_unconquerable",
+    "burning_chrome",
+    "the_short_victorious_war",
+    "pandoras_star",
+    "judas_unchained",
+    "metropolitan",
+    "eater",
+    "night_without_stars",
+    "field_of_dishonor",
+    "on_basilisk_station",
+    "rogue_protocol",
+    "a_drop_of_corruption",
+    "the_honor_of_the_queen",
+    "starquake",
+    "the_abyss_beyond_dreams",
+    "the_dreaming_void",
+    "redwall",
+    "the_rise_of_endymion",
+    "endymion",
+    "grand_melee",
+    "patternmaster",
+    "valuable_humans_in_transit_and_other_stories",
+    "dog_soldier",
+    "honor_of_the_regiment",
+    "mariel_of_redwall",
+    "we_are_legion_we_are_bob",
+    "all_systems_red",
+    "mossflower",
+    "matter",
+    "the_claw_of_the_conciliator",
+    "not_till_we_are_lost",
+    "for_we_are_many",
+    "sunstone_imperative",
+    "ymir",
+    "all_these_worlds",
+    "last_stand",
+    "home_habitat_range_niche_territory",
+    "stories_of_your_life_and_others",
+    "the_moon_is_a_harsh_mistress",
+    "the_left_hand_of_darkness",
+    "the_war_of_the_worlds",
+    "fahrenheit_451",
+    "the_darfsteller",
+    "rogue_bolo",
+    "the_last_policeman",
+    "the_state_of_the_art",
+    "the_blue_lotus",
+    "the_nameless_city",
+    "flatland_a_romance_of_many_dimensions",
+    "bolo_annals_of_the_dinochrome_brigade",
+    "there_is_no_antimemetics_division_original",
+    "red_rising",
+    "monday_begins_on_saturday",
+    "this_is_how_you_lose_the_time_war",
+    "the_temporal_void",
+    "the_evolutionary_void",
+    "chevalier",
+    "city_on_fire",
+    "mission_of_gravity",
+    "martin_the_warrior",
+    "the_fractal_prince",
+    "the_dragons_banker",
+    "heavens_river",
+    "accelerando",
+    "gun_with_occasional_music",
+    "clays_ark",
+    "cigars_of_the_pharaoh",
+    "flowers_for_algernon",
+    "close_to_critical",
+    "star_light",
+    "the_causal_angel",
+    "consider_phlebas",
+    "countdown_city",
+    "world_of_trouble",
+    "the_sirens_of_titan",
+    "the_urth_of_the_new_sun",
+    "ubik",
+    "stand_on_zanzibar",
+    "lords_of_uncreation",
+    "eyes_of_the_void",
+    "shards_of_earth",
+    "the_quantum_thief",
+    "mind_of_my_mind",
+    "house_of_suns",
+    "tintin_in_the_congo",
+    "the_three_body_problem"
+  ]
 }
