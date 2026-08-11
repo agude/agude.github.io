@@ -26,3 +26,21 @@ same_as_urls:
 {% capture the_authors_link %}{% author_link page.book_authors possessive %}{% endcapture %}
 {% capture the_authors_lastname_link %}{% author_link page.book_authors link_text=author_last_name_text %}{% endcapture %}
 {% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
+
+{% capture fall %}{% author_link "Isabel Fall" %}{% endcapture %}
+{% capture falls %}{% author_link "Isabel Fall" possessive %}{% endcapture %}
+{% capture fall_lastname %}{% author_link "Isabel Fall" link_text="Fall" %}{% endcapture %}
+{% capture falls_lastname %}{% author_link "Isabel Fall" link_text="Fall" possessive %}{% endcapture %}
+{% capture i_sexually_identify_as_an_attack_helicopter %}{% book_link "I Sexually Identify as an Attack Helicopter" %}{% endcapture %}
+
+{% capture arkady_strugatsky %}{% author_link "Arkady Strugatsky" %}{% endcapture %}
+{% capture arkady_strugatskys %}{% author_link "Arkady Strugatsky" possessive %}{% endcapture %}
+{% capture arkady_strugatsky_lastname %}{% author_link "Arkady Strugatsky" link_text="Strugatsky" %}{% endcapture %}
+{% capture arkady_strugatskys_lastname %}{% author_link "Arkady Strugatsky" link_text="Strugatsky" possessive %}{% endcapture %}
+{% capture boris_strugatsky %}{% author_link "Boris Strugatsky" %}{% endcapture %}
+{% capture boris_strugatskys %}{% author_link "Boris Strugatsky" possessive %}{% endcapture %}
+{% capture boris_strugatsky_lastname %}{% author_link "Boris Strugatsky" link_text="Strugatsky" %}{% endcapture %}
+{% capture boris_strugatskys_lastname %}{% author_link "Boris Strugatsky" link_text="Strugatsky" possessive %}{% endcapture %}
+{% capture arkady_and_boris %}{% author_link "Arkady Strugatsky" link_text="Arkady" %} and {% author_link "Boris Strugatsky" link_text="Boris" %}{% endcapture %}
+{% capture arkady_and_boriss %}{% author_link "Arkady Strugatsky" link_text="Arkady" %} and {% author_link "Boris Strugatsky" link_text="Boris" possessive %}{% endcapture %}
+{% capture roadside_picnic %}{% book_link "Roadside Picnic" %}{% endcapture %}
