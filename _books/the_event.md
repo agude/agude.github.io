@@ -75,8 +75,9 @@ Palestine.
 [the_event]: https://jewishcurrents.org/the-event
 
 {{ the_author }} is telling two stories that reinforce each other. The report
-is about The Event, at least initially. About how it is hard to understand,
-how people try to forget it, avert their gaze when near the borders. The
-footnotes start out as academic but soon start revealing the failures of the
-narrator's life, something that he can only face obliquely, like the event. By
-the end, the report it self is more about him than the research.
+itself is about The Event, at least initially. About how it is hard to
+understand, how people try to forget it and avert their gaze when near the
+borders. The footnotes start out as academic but soon start revealing the
+failures of the narrator's life, something that he, like The Event, can only
+face obliquely. By the end, the report it self is more about him than the
+research.
