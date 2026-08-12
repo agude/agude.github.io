@@ -68,7 +68,7 @@ is a short story about the destruction of Israel and Palestine.
 {% capture faulkners_lastname %}{% author_link "William Faulkner" link_text="Faulkner" possessive %}{% endcapture %}
 {% capture absalom_absalom %}{% book_link "Absalom, Absalom!" %}{% endcapture %}
 
-{{ this_book }} is fake academic report published in [Jewish
+{{ this_book }} was written as a fake academic report published in [Jewish
 Currents][the_event], about a supernatural fire that engulfed Israel and
 Palestine.
 
