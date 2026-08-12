@@ -14,7 +14,8 @@ same_as_urls:
   - "https://jewishcurrents.org/the-event"
 ---
 
-{% book_link page.title %}, by {% author_link page.book_authors link=false %}, is a short story.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is a short story about the destruction of Israel and Palestine.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
@@ -44,3 +45,38 @@ same_as_urls:
 {% capture arkady_and_boris %}{% author_link "Arkady Strugatsky" link_text="Arkady" %} and {% author_link "Boris Strugatsky" link_text="Boris" %}{% endcapture %}
 {% capture arkady_and_boriss %}{% author_link "Arkady Strugatsky" link_text="Arkady" %} and {% author_link "Boris Strugatsky" link_text="Boris" possessive %}{% endcapture %}
 {% capture roadside_picnic %}{% book_link "Roadside Picnic" %}{% endcapture %}
+
+{% capture danielewski %}{% author_link "Mark Z. Danielewski" %}{% endcapture %}
+{% capture danielewskis %}{% author_link "Mark Z. Danielewski" possessive %}{% endcapture %}
+{% capture danielewski_lastname %}{% author_link "Mark Z. Danielewski" link_text="Danielewski" %}{% endcapture %}
+{% capture danielewskis_lastname %}{% author_link "Mark Z. Danielewski" link_text="Danielewski" possessive %}{% endcapture %}
+{% capture house_of_leaves %}{% book_link "House of Leaves" %}{% endcapture %}
+
+{% capture qntm %}{% author_link "qntm" %}{% endcapture %}
+{% capture qntms %}{% author_link "qntm" possessive %}{% endcapture %}
+{% capture lena %}{% short_story_link "Lena" %}{% endcapture %}
+
+{% capture chiang %}{% author_link "Ted Chiang" %}{% endcapture %}
+{% capture chiangs %}{% author_link "Ted Chiang" possessive %}{% endcapture %}
+{% capture chiang_lastname %}{% author_link "Ted Chiang" link_text="Chiang" %}{% endcapture %}
+{% capture chiangs_lastname %}{% author_link "Ted Chiang" link_text="Chiang" possessive %}{% endcapture %}
+{% capture the_evolution_of_human_science %}{% short_story_link "The Evolution of Human Science" %}{% endcapture %}
+
+{% capture faulkner %}{% author_link "William Faulkner" %}{% endcapture %}
+{% capture faulkners %}{% author_link "William Faulkner" possessive %}{% endcapture %}
+{% capture faulkner_lastname %}{% author_link "William Faulkner" link_text="Faulkner" %}{% endcapture %}
+{% capture faulkners_lastname %}{% author_link "William Faulkner" link_text="Faulkner" possessive %}{% endcapture %}
+{% capture absalom_absalom %}{% book_link "Absalom, Absalom!" %}{% endcapture %}
+
+{{ this_book }} is fake academic report published in [Jewish
+Currents][the_event], about a supernatural fire that engulfed Israel and
+Palestine.
+
+[the_event]: https://jewishcurrents.org/the-event
+
+{{ the_author }} is telling two stories that reinforce each other. The report
+is about The Event, at least initially. About how it is hard to understand,
+how people try to forget it, avert their gaze when near the borders. The
+footnotes start out as academic but soon start revealing the failures of the
+narrator's life, something that he can only face obliquely, like the event. By
+the end, the report it self is more about him than the research.
