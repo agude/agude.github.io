@@ -70,7 +70,14 @@ is a short story about the destruction of Israel and Palestine.
 
 {{ this_book }} was written as a fake academic report published in [Jewish
 Currents][the_event], about a supernatural fire that engulfed Israel and
-Palestine.
+Palestine. It explores how some topics can't be acknowledged or discussed:
+they can only be approached indirectly. This is exactly the case with the
+mystical fire. Little is known about it, people are starting to forget it, and
+even subconsciously avert their gaze when near. The narrator has the same
+problem with his life, unable to face his own failures and the people he's
+hurt; slowly revealing it through the footnotes of his report. And the story
+itself, of course, is a way to address the Israeli--Palestinian conflict
+obliquely.
 
 [the_event]: https://jewishcurrents.org/the-event
 
