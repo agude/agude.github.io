@@ -43,7 +43,7 @@ is a short story about the destruction of Israel and Palestine.
 {% capture boris_strugatsky_lastname %}{% author_link "Boris Strugatsky" link_text="Strugatsky" %}{% endcapture %}
 {% capture boris_strugatskys_lastname %}{% author_link "Boris Strugatsky" link_text="Strugatsky" possessive %}{% endcapture %}
 {% capture arkady_and_boris %}{% author_link "Arkady Strugatsky" link_text="Arkady" %} and {% author_link "Boris Strugatsky" link_text="Boris" %}{% endcapture %}
-{% capture arkady_and_boriss %}{% author_link "Arkady Strugatsky" link_text="Arkady" %} and {% author_link "Boris Strugatsky" link_text="Boris" possessive %}{% endcapture %}
+{% capture arkady_and_boris_strugatskys %}{% author_link "Arkady Strugatsky" link_text="Arkady" %} and {% author_link "Boris Strugatsky" possessive %}{% endcapture %}
 {% capture roadside_picnic %}{% book_link "Roadside Picnic" %}{% endcapture %}
 
 {% capture danielewski %}{% author_link "Mark Z. Danielewski" %}{% endcapture %}
@@ -55,6 +55,7 @@ is a short story about the destruction of Israel and Palestine.
 {% capture qntm %}{% author_link "qntm" %}{% endcapture %}
 {% capture qntms %}{% author_link "qntm" possessive %}{% endcapture %}
 {% capture lena %}{% short_story_link "Lena" %}{% endcapture %}
+{% capture antimeme %}{% book_link "There Is No Antimemetics Division" %}{% endcapture %}
 
 {% capture chiang %}{% author_link "Ted Chiang" %}{% endcapture %}
 {% capture chiangs %}{% author_link "Ted Chiang" possessive %}{% endcapture %}
@@ -75,7 +76,7 @@ they can only be approached indirectly. This is exactly the case with the
 mystical fire. Little is known about it, people are starting to forget it, and
 even subconsciously avert their gaze when near. The theme plays out at
 multiple scales: from satellites going blind, to the arms of Egypt crossing
-into the fire, unaware the that troops ahead of them have been incinerated.
+into the fire, unaware that the troops ahead of them have been incinerated.
 The narrator has the same problem with his life, unable to face his own
 failures and the people he's hurt; it slowly leaks into his report. And the
 story itself, of course, is a way to address the [Israeli--Palestinian
@@ -84,11 +85,21 @@ conflict][ip] obliquely.
 [the_event]: https://jewishcurrents.org/the-event
 [ip]: https://en.wikipedia.org/wiki/Israeli%E2%80%93Palestinian_conflict
 
-The structure of the story reinforces the theme. It starts as a dry academic
-report complete with citations. But the footnotes, which start out academic,
-soon start revealing the failures of the narrator's life. By the end, the
-report itself is more about him than the research. It's a mix of {{
+I enjoyed how the structure of the story reinforces the theme. It starts as a
+dry academic report complete with citations. But the footnotes, which start
+out academic, soon begin revealing the failures of the narrator's life: his
+failed marriage, how he called his Jewish ex-wife at 1:30 AM, and then trying
+to take it back by stating it's all irrelevant. By the end, the report itself
+is more about him than the research. The story is a mix of {{
 danielewskis_lastname }} {{ house_of_leaves }}, which uses footnotes to tell a
 parallel story, and {{ qntms }} {{ lena }} and {{ chiangs_lastname }} {{
 the_evolution_of_human_science }}, which use dry formatting to heighten the
 emotional content of the prose.
+
+{{ this_book }} is similar to {{ arkady_and_boris_strugatskys }} {{
+roadside_picnic }}; both have a mysterious zone that humanity is trying, and
+failing, to understand. Using fiction to approach a nearly taboo subject is
+the same thing {{ fall_lastname }} does with gender in {{
+i_sexually_identify_as_an_attack_helicopter }}. And the way people can't quite
+comprehend the zone, going so far as to literally not look at it, reminds me
+of the antimemes from {{ qntms }} {{ antimeme }}.
