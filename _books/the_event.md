@@ -73,18 +73,22 @@ Currents][the_event], about a supernatural fire that engulfed Israel and
 Palestine. It explores how some topics can't be acknowledged or discussed:
 they can only be approached indirectly. This is exactly the case with the
 mystical fire. Little is known about it, people are starting to forget it, and
-even subconsciously avert their gaze when near. The narrator has the same
-problem with his life, unable to face his own failures and the people he's
-hurt; slowly revealing it through the footnotes of his report. And the story
-itself, of course, is a way to address the Israeli--Palestinian conflict
-obliquely.
+even subconsciously avert their gaze when near. The theme plays out at
+multiple scales: from satellites going blind, to the arms of Egypt crossing
+into the fire, unaware the that troops ahead of them have been incinerated.
+The narrator has the same problem with his life, unable to face his own
+failures and the people he's hurt; it slowly leaks into his report. And the
+story itself, of course, is a way to address the [Israeli--Palestinian
+conflict][ip] obliquely.
 
 [the_event]: https://jewishcurrents.org/the-event
+[ip]: https://en.wikipedia.org/wiki/Israeli%E2%80%93Palestinian_conflict
 
-{{ the_author }} is telling two stories that reinforce each other. The report
-itself is about The Event, at least initially. About how it is hard to
-understand, how people try to forget it and avert their gaze when near the
-borders. The footnotes start out as academic but soon start revealing the
-failures of the narrator's life, something that he, like The Event, can only
-face obliquely. By the end, the report it self is more about him than the
-research.
+The structure of the story reinforces the theme. It starts as a dry academic
+report complete with citations. But the footnotes, which start out academic,
+soon start revealing the failures of the narrator's life. By the end, the
+report itself is more about him than the research. It's a mix of {{
+danielewskis_lastname }} {{ house_of_leaves }}, which uses footnotes to tell a
+parallel story, and {{ qntms }} {{ lena }} and {{ chiangs_lastname }} {{
+the_evolution_of_human_science }}, which use dry formatting to heighten the
+emotional content of the prose.
