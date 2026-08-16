@@ -15,7 +15,8 @@ same_as_urls:
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is a short story about the destruction of Israel and Palestine.
+is a short story about the destruction of Israel and Palestine, narrated by a
+researcher who can barely keep his own life together.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
@@ -75,7 +76,7 @@ Palestine. It explores how some topics can't be acknowledged or discussed:
 they can only be approached indirectly. This is exactly the case with the
 mystical fire. Little is known about it, people are starting to forget it, and
 even subconsciously avert their gaze when near. The theme plays out at
-multiple scales: from satellites going blind, to the arms of Egypt crossing
+multiple scales: from satellites going blind, to the armies of Egypt crossing
 into the fire, unaware that the troops ahead of them have been incinerated.
 The narrator has the same problem with his life, unable to face his own
 failures and the people he's hurt; it slowly leaks into his report. And the
@@ -103,3 +104,7 @@ the same thing {{ fall_lastname }} does with gender in {{
 i_sexually_identify_as_an_attack_helicopter }}. And the way people can't quite
 comprehend the zone, going so far as to literally not look at it, reminds me
 of the antimemes from {{ qntms }} {{ antimeme }}.
+
+{{ the_author }} does a great job of fitting so much into this short
+story---politics, grief, the narrator's self-destruction---all without really
+focusing on it. It is [free to read][the_event], I recommend giving it a shot.
