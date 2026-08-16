@@ -130,17 +130,28 @@ build on three problems in `[text][id]` / `[id]:` markdown reference links:
 | Duplicate `[id]:` | Kramdown keeps the **first** definition silently |
 | Orphaned `[id]:` | Usually a link that was set up and never attached |
 
+- **No other gate can catch this class.** Worth knowing before reaching for
+  one of them, because all three look like "strict mode" and none overlap:
+  - **html-proofer is blind to it.** An unresolved reference renders as
+    literal bracket text plus a bare URL paragraph. There is no `<a>` tag, so
+    there is nothing for it to report — the page is valid HTML that happens
+    to be wrong. This is how a bare Wikipedia URL reached production.
+  - **`check_strict.rb` is blind to it.** That gate runs documents through
+    **Liquid** strict mode. Kramdown parses afterwards, so `[text][id]` is
+    plain text as far as Liquid is concerned.
 - **Orphans are errors, not warnings.** They look like harmless dead weight,
   but of the ten found when the check was written, five were a definition
   whose reference was never written — the prose rendered as plain text with
   nothing to show for it, which is invisible on the page. The other five were
   deleted. The site sits at zero, so any new orphan is a fresh mistake.
-- **Kramdown's own warnings are not usable.** Jekyll discards them unless
-  `show_warnings` is set, they are never fatal, and they fire on shorthand
-  `[id]` references too — indistinguishable from editorial brackets in prose
-  (`[sic]`, `[…]`). For the same reason the checker only reports *undefined*
-  for full-form `[text][id]`; shorthand refs are used solely to keep a
-  definition from counting as orphaned.
+- **Kramdown's own warnings are not usable.** It has no strict/error mode at
+  all — it only collects `.warnings` passively, and Jekyll discards them
+  unless `show_warnings` is set. Even then they are never fatal, so
+  log-scraping was the only path the config offered. They also fire on
+  shorthand `[id]` references — indistinguishable from editorial brackets in
+  prose (`[sic]`, `[…]`). For the same reason the checker only reports
+  *undefined* for full-form `[text][id]`; shorthand refs are used solely to
+  keep a definition from counting as orphaned.
 - **Scanning logic lives in `_bin/reference_link_scanner.rb`**, a pure module
   with no Jekyll dependency, tested by
   `_tests/bin/test_reference_link_scanner.rb`. `check_reference_links.rb` only

@@ -22,6 +22,21 @@ Jekyll-based static site (alexgude.com) running in Docker.
 - **Test Scripts:** `make test-scripts` (Run Python script tests via pytest).
 - **Hooks:** `make hooks-install` (Install pre-commit hook).
 
+### Content checks
+
+**No single command runs every check.** `make check` is only an alias for
+`check-links`. The suite is three separate commands, and each catches a class
+the other two are blind to:
+
+- **`make check-links`** — builds the site, then runs html-proofer over
+  `_site/` for broken links, missing images, and empty `alt`.
+- **`make check-refs`** — markdown reference links: undefined `[text][id]`,
+  duplicate `[id]:`, orphaned `[id]:`. All three fail the build.
+- **`make check-liquid`** — strict-Liquid render of every document.
+
+Why they do not overlap:
+`.claude/skills/jekyll-site-dev/references/links-and-previews.md`.
+
 ## Architecture Map
 
 - **Content:** `_posts/` (Blog), `_books/` (Reviews collection).
@@ -59,6 +74,14 @@ Jekyll-based static site (alexgude.com) running in Docker.
 
 - **`book-*` branches are active.** They mark books the owner is currently
   reading; never delete them during housekeeping.
+- **Do not merge a branch straight into `main`.** The content checks run in
+  CI on push and on PRs targeting `main`, so a direct `git merge` publishes
+  without any of them running. A malformed reference-link definition reached
+  production this way: two `[id]:` definitions got joined onto one line during
+  a prose rewrap, kramdown swallowed the second, and the live page rendered a
+  bare Wikipedia URL in the middle of a paragraph. Either open a PR, or run
+  `make check-links && make check-refs && make check-liquid` locally before
+  merging.
 
 ## Development Rules
 
