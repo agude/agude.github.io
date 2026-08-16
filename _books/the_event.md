@@ -46,7 +46,7 @@ subject. Little is known about it, people are starting to forget it, and they
 subconsciously avert their gaze when near it. This plays out at every scale,
 from satellites going blind to the armies of Egypt crossing into the fire,
 unaware that the troops ahead of them have been incinerated. The narrator has
-the same problem with his own life, unable to face his failures and the people
+the same problem with his own life, unable to face his failures or the people
 he's hurt; it slowly leaks into his report. And the story itself, of course,
 is a way to address the [Israeli--Palestinian conflict][ip] obliquely.
 
@@ -73,5 +73,5 @@ of the antimemes from {{ qntms }} {{ antimeme }}.
 
 {{ the_author }} does a great job of fitting so much into this short
 story---politics, grief, the narrator's self-destruction---all without
-focusing on it directly. It is [free to read][the_event]; I recommend giving
-it a shot.
+focusing on any of it directly. It is [free to read][the_event]; I recommend
+giving it a shot.
