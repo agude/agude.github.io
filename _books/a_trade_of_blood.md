@@ -84,3 +84,11 @@ is the third book in the {% series_link page.series %} series.
 {% capture william_shakespeare_lastname %}{% author_link "William Shakespeare" link_text="Shakespeare" %}{% endcapture %}
 {% capture william_shakespeares_lastname %}{% author_link "William Shakespeare" link_text="Shakespeare" possessive %}{% endcapture %}
 {% capture romeo_and_juliet %}{% book_link "Romeo and Juliet" %}{% endcapture %}
+
+<!--
+
+I think you can only be "surprised" by the world once, and that's book 1.
+
+Book 1 also does a great "Little mystery OH SHIT Leviathan!"; not enough
+leviathans in the other books.
+-->
