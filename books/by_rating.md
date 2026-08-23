@@ -65,6 +65,7 @@ ranked_list:
   - Night Without Stars
   - Field of Dishonor
   - On Basilisk Station
+  - A Trade of Blood
   - Rogue Protocol
   - A Drop of Corruption
   - The Honor of the Queen
