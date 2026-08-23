@@ -1,5 +1,5 @@
 ---
-date: 2026-08-04
+date: 2026-08-23 15:32:43 -0700
 title: A Trade of Blood
 book_authors: Robert Jackson Bennett
 series: Shadow of the Leviathan
