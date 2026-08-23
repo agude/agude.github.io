@@ -5,7 +5,7 @@ book_authors: Robert Jackson Bennett
 series: Shadow of the Leviathan
 book_number: 3
 is_anthology: false
-rating: null
+rating: 3
 image: /books/covers/a_trade_of_blood.jpg
 qid: Q140866199
 wikidata_qid: Q140866199
