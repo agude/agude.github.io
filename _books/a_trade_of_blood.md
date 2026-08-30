@@ -119,9 +119,9 @@ The worldbuilding is darker in this book because it asks explicitly what it
 costs to keep the Empire going. That's the main theme of this book: sacrifice.
 Din has sacrificed his humanity to provide for his family. The gentry
 sacrifice their children and their mental health to provide meat for the
-empire. The empire is sacrificing the land itself. The Daljen enslave those
-who they consider lesser, and Din worries the Empire is headed the same way
-with it's Sublimes.
+Empire. The Empire is sacrificing the land itself. The Daljen enslaved people
+they considered lesser, and Din worries the Empire is headed the same way with
+its Sublimes.
 
 But the worldbuilding feels like filling in the details; it doesn't surprise
 me like the earlier books. {{ book_1 }} had the advantage of showing us the
