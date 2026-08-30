@@ -103,7 +103,7 @@ romeo_and_juliet }} at first blush, so much so that {{ the_authors_lastname }}
 lampshades the comparison through Ana, who calls the situation "derivative".
 
 But the story is far from derivative. The simple murder quickly spirals into a
-large conspiracy involving mind controlling fungi, cattle the size of houses,
+large conspiracy involving mind-controlling fungi, cattle the size of houses,
 and the mysterious Daljen---an ancient Khanum tribe that disappeared hundreds
 of years before the Khanum as a whole vanished.
 
@@ -116,19 +116,19 @@ book. She has always been the stronger of the two characters, with the more
 distinct personality, so that hurts.
 
 The worldbuilding is darker in this book, showing how the empire feeds itself
-at the expense of its land and it's people, how it bio-engineers gigantic
-cattle and fungus controlled cats to pick food.
+at the expense of its land and its people, how it bio-engineers gigantic
+cattle and fungus-controlled cats to pick food.
 
-But the worldbuilding feels like feeling in the details; it doesn't surprise
+But the worldbuilding feels like filling in the details; it doesn't surprise
 me like the earlier books. {{ book_1 }} had the advantage of showing us the
 world for the first time. Every detail was new and exciting: buildings grown,
 not constructed; horrifying plants and fungi that can kill just by breathing
 them in; people modified to have perfect memory or amazing eyesight. And just
 as the mystery is starting to wind down, a leviathan smashes its way into the
 story! By {{ book_2 }}, I'd already seen half of the things that make the {{
-this_series }} unique, the world felt more familiar and exploring it was less
+this_series }} unique. The world felt more familiar and exploring it was less
 exciting. {{ this_book }} has that same problem. The mystery is fine, but
-without the new-world excitement or the climatic leviathan the mystery has to
-carry most of the narrative. It doesn't quite, and it makes the pacing feel
+without the new-world excitement or the climactic leviathan, the mystery has
+to carry most of the narrative. It doesn't quite, and it makes the pacing feel
 slow. Halfway through, I could tell there had to be a few more twists and
 turns, but I was ready to be done.
