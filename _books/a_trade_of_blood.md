@@ -106,6 +106,8 @@ different part of how the Empire works: {{ book_1 }} asks what the state owes
 its people; {{ book_2 }}, what bad rulers do to it; and {{ this_book }}, what
 it consumes, both literally and figuratively.
 
+### Losing the Surprise
+
 But the worldbuilding feels like filling in details now. It doesn't surprise
 me the way the earlier books did. {{ book_1 }} had the advantage of showing us
 the world for the first time. Every detail was new and exciting: buildings
@@ -119,8 +121,6 @@ but without the new-world excitement or the climactic leviathan, it has to
 carry most of the narrative. It doesn't quite pull it off, and the pacing
 feels slow. Halfway through, I could tell a few more twists were coming, but I
 was ready to be done.
-
-### Mysteries
 
 This book made me ask myself: do I even like mysteries? But I must! {{
 doyles_lastname }} {{ sherlock_series }} books were some of the first I read
