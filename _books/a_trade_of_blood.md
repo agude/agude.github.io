@@ -174,5 +174,5 @@ and I cried when Holmes fell to his "death". I'm enjoying {{ wellss }} {{ mb6
 {{ fahrenheit_451 }}, I said I like books with clever structure; I enjoy
 unraveling the puzzle, like in {{ william_faulkners_lastname }} {{
 absalom_absalom }} and {{ iain_m_bankss_lastname }} {{ use_of_weapons }}.
-{{ this_book }} has neither the clever structure, not the pace, to keep me
-interested.
+{{ this_book }} has neither the clever structure, not the pace, to carry the
+whole book on its own.
