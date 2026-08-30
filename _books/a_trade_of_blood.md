@@ -18,12 +18,11 @@ same_as_urls:
   - "https://www.google.com/search?kgmid=/g/11mdxd0b02"
 ---
 
-{% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the third book in the {% series_link page.series %} series. Din and Ana
-travel to Lacanthim, where Castus Armenta, heir to one of the region's two
-rival cattle clans, has been arrested---literally red-handed!---for the murder
-of Zansay Burav, the only daughter of the other. Her death has put both
-families on the brink of war.
+In {% book_link page.title %}, the third book in {% author_link
+page.book_authors link=false %}'s {% series_link page.series %} series, Din
+and Ana travel to Lacanthim to stop a brewing clan war. Castus Armenta, heir
+to a powerful cattle clan, has been caught literally red-handed after the
+murder of Zansay Burav, the daughter of his family's only rival.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture this_series %}{% series_link page.series %} series{% endcapture %}
