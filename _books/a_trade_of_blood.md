@@ -115,9 +115,13 @@ history. On the other hand, Ana receded into the background a bit in this
 book. She has always been the stronger of the two characters, with the more
 distinct personality, so that hurts.
 
-The worldbuilding is darker in this book, showing how the empire feeds itself
-at the expense of its land and its people, how it bio-engineers gigantic
-cattle and fungus-controlled cats to pick food.
+The worldbuilding is darker in this book because it asks explicitly what it
+costs to keep the Empire going. That's the main theme of this book: sacrifice.
+Din has sacrificed his humanity to provide for his family. The gentry
+sacrifice their children and their mental health to provide meat for the
+empire. The empire is sacrificing the land itself. The Daljen enslave those
+who they consider lesser, and Din worries the Empire is headed the same way
+with it's Sublimes.
 
 But the worldbuilding feels like filling in the details; it doesn't surprise
 me like the earlier books. {{ book_1 }} had the advantage of showing us the
