@@ -184,9 +184,9 @@ cried when Holmes fell to his "death". I'm enjoying {{ wellss }} {{ mb6 }},
 which I'm reading right now. In my review of {{ ray_bradburys_lastname }} {{
 fahrenheit_451 }}, I said I like books with clever structure; I enjoy
 unraveling the puzzle, like in {{ william_faulkners_lastname }} {{
-absalom_absalom }} and {{ iain_m_bankss_lastname }} {{ use_of_weapons }}. {{
-this_book }} has neither the clever structure, not the pace, to carry the
-whole book on its own.
+absalom_absalom }} and {{ iain_m_bankss_lastname }} {{ use_of_weapons }}.
+Maybe that's it: {{ this_book }} has neither the clever structure, not the
+pace, to carry the whole book on its own.
 
 ### Other Books
 
@@ -203,6 +203,7 @@ contamination from powerful beings, is like the Zone from {{
 arkady_and_boris_strugatskys }} {{ roadside_picnic }}.
 
 I really enjoy the unique world that {{ the_authors_lastname }} has built, but
-the mysteries are secondary to me. That makes me worried for my enjoyment of
-this series, as it seems we're leaning more into Din and Ana and less into the
-wider, weird world that surrounds them.
+the more familiar it becomes, the more the mysteries have to carry the series.
+I'm worried for what the means as we go forward. Still, I liked {{ this_book
+}}, and I'm hoping we'll see some strange things, and a leviathan, in the next
+one.
