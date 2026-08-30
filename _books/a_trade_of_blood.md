@@ -34,7 +34,7 @@ murder of Zansay Burav, the daughter of his family's only rival.
 {% capture book_2 %}{% book_link "A Drop of Corruption" %}{% endcapture %}
 
 {% capture doyles_lastname %}{% author_link "Arthur Conan Doyle" link_text="Doyle" possessive %}{% endcapture %}
-{% capture sherlock_series %}{% series_link "Sherlock Holmes" %} series{% endcapture %}
+{% capture sherlock_series %}{% series_link "Sherlock Holmes" %}{% endcapture %}
 
 {% capture wellss %}{% author_link "Martha Wells" link_text="Wells" possessive %}{% endcapture %}
 {% capture mb6 %}{% book_link "Fugitive Telemetry" %}{% endcapture %}
@@ -86,7 +86,7 @@ years before the rest of the Khanum vanished.
 Din is much improved in this book. In {{ book_2 }}, he was depressed and
 trying to recover by whoring around. He's back on his feet, more competent
 now, and his powers are changing in ways that mean he is running out of time,
-but also making him a better detective. We're also starting to learn about his
+but also making him a better detective. And we're starting to learn about his
 family and history. But Ana recedes into the background a bit in this book.
 She has always been the stronger character with the more distinct personality,
 so sidelining her is taking away part of what makes the series work.
@@ -96,7 +96,7 @@ costs to keep the Empire going. That's the main theme: sacrifice. Din has
 sacrificed his humanity to provide for his family. The gentry sacrifice their
 children and their mental health to provide meat for the Empire. The Empire
 sacrifices the land itself. The Daljen enslaved people they considered lesser,
-and Din worries the Empire is headed the same way with its Sublimes.
+and Din now worries the Empire is headed the same way with its Sublimes.
 
 I'm beginning to think that "Leviathan" in the {{ series_title }} doesn't just
 refer to the giant monsters, but to the state itself, as in {{
