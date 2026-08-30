@@ -19,8 +19,8 @@ same_as_urls:
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the third book in the {% series_link page.series %} series. In it, Din and
-Ana travel to Lacanthim, where Castus Armenta, heir to one of the region's two
+is the third book in the {% series_link page.series %} series. Din and Ana
+travel to Lacanthim, where Castus Armenta, heir to one of the region's two
 rival cattle clans, has been arrested---literally red-handed!---for the murder
 of Zansay Burav, the only daughter of the other. Her death has put both
 families on the brink of war.
@@ -127,25 +127,24 @@ families on the brink of war.
 {% capture william_faulkners_lastname %}{% author_link "William Faulkner" link_text="Faulkner" possessive %}{% endcapture %}
 {% capture absalom_absalom %}{% book_link "Absalom, Absalom!" %}{% endcapture %}
 
-The case isn't as simple as it seems. It quickly becomes clear that the two
-were having a tryst and planned to run away from their families. It's {{
-romeo_and_juliet }} at first blush, so much so that {{ the_authors_lastname }}
-lampshades the comparison through Ana, who calls the situation "derivative".
+The case isn't as simple as it seems. Castus and Zansay were having a tryst
+and planned to run away from their families. It's {{ romeo_and_juliet }} at
+first blush, so much so that {{ the_authors_lastname }} lampshades the
+comparison through Ana, who calls the situation "derivative".
 
 But the story is far from derivative. The simple murder quickly spirals into a
-large conspiracy involving mind-controlling fungi, cattle the size of houses,
-and the mysterious Daljen---an ancient Khanum tribe that disappeared hundreds
-of years before the Khanum as a whole vanished.
+conspiracy involving mind-controlling fungi, cattle the size of houses, and
+the mysterious Daljen---an ancient Khanum tribe that disappeared hundreds of
+years before the Khanum as a whole vanished.
 
 ### Din and Ana
 
-Din's character is much improved in this book. In {{ book_2 }} he was
-depressed, trying to recover by whoring around. He's back on his feet, more
-competent now, and his powers are changing in a way that opens up new
-possibilities for him. And we're starting to learn about his family and
-history. On the other hand, Ana receded into the background a bit in this
-book. She has always been the stronger of the two characters, with the more
-distinct personality, so that hurts.
+Din is much improved in this book. In {{ book_2 }}, he was depressed and
+trying to recover by whoring around. He's back on his feet, more competent
+now, and his powers are changing in ways that open up new possibilities for
+him. We're also starting to learn about his family and history. But Ana
+receded into the background a bit in this book. She has always been the
+stronger character, with the more distinct personality. That hurts.
 
 ### The World
 
@@ -153,37 +152,37 @@ The worldbuilding is darker in this book because it asks explicitly what it
 costs to keep the Empire going. That's the main theme of this book: sacrifice.
 Din has sacrificed his humanity to provide for his family. The gentry
 sacrifice their children and their mental health to provide meat for the
-Empire. The Empire is sacrificing the land itself. The Daljen enslaved people
-they considered lesser, and Din worries the Empire is headed the same way with
-its Sublimes. I'm beginning to think that "Leviathan" in the {{ series_title
-}} doesn't just refer to the giant monsters, but to the state itself, as in {{
+Empire. The Empire sacrifices the land itself. The Daljen enslaved people they
+considered lesser, and Din worries the Empire is headed the same way with its
+Sublimes. I'm beginning to think that "Leviathan" in the {{ series_title }}
+doesn't just refer to the giant monsters, but to the state itself, as in {{
 thomas_hobbess_lastname }} {{ leviathan }}. Each book examines a different
 part of how the Empire works: {{ book_1 }} asks what the state owes its
 people; {{ book_2 }}, what bad rulers do to it; and {{ this_book }}, what it
 consumes, both literally and figuratively.
 
-But the worldbuilding feels like filling in the details; it doesn't surprise
-me like the earlier books. {{ book_1 }} had the advantage of showing us the
-world for the first time. Every detail was new and exciting: buildings grown,
-not constructed; horrifying plants and fungi that can kill just by breathing
-them in; people modified to have perfect memory or amazing eyesight. And just
-as the mystery is starting to wind down, a leviathan smashes its way into the
-story! By {{ book_2 }}, I'd already seen half of the things that make the {{
-this_series }} unique. The world felt more familiar and exploring it was less
-exciting. {{ this_book }} has that same problem. The mystery is good, but
-without the new-world excitement or the climactic leviathan, the mystery has
-to carry most of the narrative. It doesn't quite, and it makes the pacing feel
-slow. Halfway through, I could tell there had to be a few more twists and
-turns, but I was ready to be done.
+But the worldbuilding feels like filling in details. It doesn't surprise me
+the way the earlier books did. {{ book_1 }} had the advantage of showing us
+the world for the first time. Every detail was new and exciting: buildings
+grown, not constructed; horrifying plants and fungi that can kill just by
+breathing them in; people modified to have perfect memory or amazing eyesight.
+And just as the mystery is starting to wind down, a leviathan smashes its way
+into the story! By {{ book_2 }}, I'd already seen half the things that make
+the {{ this_series }} unique. The world felt more familiar, and exploring it
+was less exciting. {{ this_book }} has that same problem. The mystery is good,
+but without the new-world excitement or the climactic leviathan, it has to
+carry most of the narrative. It doesn't quite, and the pacing feels slow.
+Halfway through, I could tell a few more twists were coming, but I was ready
+to be done.
 
 ### Mysteries
 
-This book made me wonder whether I actually like mysteries. But I must. {{
-doyles_lastname }} {{ sherlock_series }} were some of the first books I read
-to myself, and I cried when Holmes fell to his "death". I'm enjoying {{ wellss
-}} {{ mb6 }}, which I'm reading right now. In my review of {{
-ray_bradburys_lastname }} {{ fahrenheit_451 }}, I said I like books with
-clever structure; I enjoy unraveling the puzzle, like in {{
+This book made me wonder whether I actually like mysteries. But I must. The
+books in {{ doyles_lastname }} {{ sherlock_series }} were among the first
+books I read to myself, and I cried when Holmes fell to his "death". I'm
+enjoying {{ wellss }} {{ mb6 }}, which I'm reading right now. In my review of
+{{ ray_bradburys_lastname }} {{ fahrenheit_451 }}, I said I like books with
+clever structure. I enjoy unraveling the puzzle, as in {{
 william_faulkners_lastname }} {{ absalom_absalom }} and {{
 iain_m_bankss_lastname }} {{ use_of_weapons }}. Maybe that's it: {{ this_book
 }} has neither the clever structure nor the pace to carry the whole book on
@@ -191,20 +190,20 @@ its own.
 
 ### Other Books
 
-This book reminded me of several others: Din recalling what he's seen or heard
+This book reminded me of several others. Din recalling what he's seen or heard
 in a sort of fugue state is similar to how Johnny recites stored data in {{
-william_gibsons_lastname }} {{ johnny_mnemonic }}. Din having a new voice in
-his head is like several of the characters in {{ peter_wattss_lastname }} {{
-blindsight }}. Ana asking about how much suffering the Empire will tolerate
-for its own comfort is a similar question to {{ ursula_k_le_guins_lastname }}
-{{ omelas }}. The destriers are a direct reference to the same not-quite-horse
-beasts in {{ wolfes_lastname }} {{ botns }}. The Touched Site, hidden in a
-forest the makes people unnaturally afraid to enter and containing
-contamination from powerful beings, is like the Zone from {{
-arkady_and_boris_strugatskys }} {{ roadside_picnic }}.
+william_gibsons_lastname }} {{ johnny_mnemonic }}. The new voice in Din's head
+is like those in {{ peter_wattss_lastname }} {{ blindsight }}. Ana's question
+about how much suffering the Empire will tolerate for its own comfort is
+similar to the one in {{ ursula_k_le_guins_lastname }} {{ omelas }}. The
+destriers are a direct reference to the same not-quite-horse beasts in {{
+wolfes_lastname }} {{ botns }}. The Touched Site, hidden in a forest that
+makes people unnaturally afraid to enter and containing contamination from
+powerful beings, is like the Zone from {{ arkady_and_boris_strugatskys }} {{
+roadside_picnic }}.
 
 I really enjoy the unique world that {{ the_authors_lastname }} has built, but
 the more familiar it becomes, the more the mysteries have to carry the series.
-I'm worried for what the means as we go forward. Still, I liked {{ this_book
-}}, and I'm hoping we'll see some strange things, and a leviathan, in the next
-one.
+I'm worried about what that means as we go forward. Still, I liked {{
+this_book }}, and I'm hoping the next one has some strange things and a
+leviathan.
