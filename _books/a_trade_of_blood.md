@@ -170,7 +170,7 @@ them in; people modified to have perfect memory or amazing eyesight. And just
 as the mystery is starting to wind down, a leviathan smashes its way into the
 story! By {{ book_2 }}, I'd already seen half of the things that make the {{
 this_series }} unique. The world felt more familiar and exploring it was less
-exciting. {{ this_book }} has that same problem. The mystery is fine, but
+exciting. {{ this_book }} has that same problem. The mystery is good, but
 without the new-world excitement or the climactic leviathan, the mystery has
 to carry most of the narrative. It doesn't quite, and it makes the pacing feel
 slow. Halfway through, I could tell there had to be a few more twists and
@@ -178,15 +178,16 @@ turns, but I was ready to be done.
 
 ### Mysteries
 
-This book made me wonder whether I don't like mysteries. But that can't be.
-The {{ sherlock_series }} were some of the first books I read to myself, and I
-cried when Holmes fell to his "death". I'm enjoying {{ wellss }} {{ mb6 }},
-which I'm reading right now. In my review of {{ ray_bradburys_lastname }} {{
-fahrenheit_451 }}, I said I like books with clever structure; I enjoy
-unraveling the puzzle, like in {{ william_faulkners_lastname }} {{
-absalom_absalom }} and {{ iain_m_bankss_lastname }} {{ use_of_weapons }}.
-Maybe that's it: {{ this_book }} has neither the clever structure, not the
-pace, to carry the whole book on its own.
+This book made me wonder whether I actually like mysteries. But I must. {{
+doyles_lastname }} {{ sherlock_series }} were some of the first books I read
+to myself, and I cried when Holmes fell to his "death". I'm enjoying {{ wellss
+}} {{ mb6 }}, which I'm reading right now. In my review of {{
+ray_bradburys_lastname }} {{ fahrenheit_451 }}, I said I like books with
+clever structure; I enjoy unraveling the puzzle, like in {{
+william_faulkners_lastname }} {{ absalom_absalom }} and {{
+iain_m_bankss_lastname }} {{ use_of_weapons }}. Maybe that's it: {{ this_book
+}} has neither the clever structure nor the pace to carry the whole book on
+its own.
 
 ### Other Books
 
