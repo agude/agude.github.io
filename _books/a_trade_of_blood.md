@@ -19,7 +19,7 @@ same_as_urls:
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the third book in the {% series_link page.series %} series. In it Din and
+is the third book in the {% series_link page.series %} series. In it, Din and
 Ana travel to Lacanthim, where Castus Armenta, heir to one of the region's two
 rival cattle clans, has been arrested---literally red-handed!---for the murder
 of Zansay Burav, the only daughter of the other. Her death has put both
@@ -49,6 +49,10 @@ families on the brink of war.
 {% capture wellss %}{% author_link "Martha Wells" link_text="Wells" possessive %}{% endcapture %}
 {% capture mb6 %}{% book_link "Fugitive Telemetry" %}{% endcapture %}
 
+{% capture arkady_and_boris_strugatskys %}{% author_link "Arkady Strugatsky" link_text="Arkady" %} and {% author_link "Boris Strugatsky" possessive %}{% endcapture %}
+{% capture roadside_picnic %}{% book_link "Roadside Picnic" %}{% endcapture %}
+
+{% capture wolfes_lastname %}{% author_link "Gene Wolfe" link_text="Wolfe" possessive %}{% endcapture %}
 {% capture botns %}{% series_link "The Book of the New Sun" %}{% endcapture %}
 
 {% capture peter_watts %}{% author_link "Peter Watts" %}{% endcapture %}
@@ -150,9 +154,9 @@ they considered lesser, and Din worries the Empire is headed the same way with
 its Sublimes. I'm beginning to think that "Leviathan" in the {{ series_title
 }} doesn't just refer to the giant monsters, but to the state itself, as in {{
 thomas_hobbess_lastname }} {{ leviathan }}. Each book examines a different
-part of how the Empire works: {{ book_1 }} asks what people owe the state; {{
-book_2 }}, what bad rulers do to it; and {{ this_book }}, what it consumes,
-both literally and figuratively.
+part of how the Empire works: {{ book_1 }} asks what the state owes its
+people; {{ book_2 }}, what bad rulers do to it; and {{ this_book }}, what it
+consumes, both literally and figuratively.
 
 But the worldbuilding feels like filling in the details; it doesn't surprise
 me like the earlier books. {{ book_1 }} had the advantage of showing us the
@@ -177,3 +181,20 @@ unraveling the puzzle, like in {{ william_faulkners_lastname }} {{
 absalom_absalom }} and {{ iain_m_bankss_lastname }} {{ use_of_weapons }}.
 {{ this_book }} has neither the clever structure, not the pace, to carry the
 whole book on its own.
+
+This book reminded me of several others: Din recalling what he's seen or heard
+in a sort of fugue state is similar to how Johnny recites stored data in {{
+william_gibsons_lastname }} {{ johnny_mnemonic }}. Din having a new voice in
+his head is like several of the characters in {{ peter_wattss_lastname }} {{
+blindsight }}. Ana asking about how much suffering the Empire will tolerate
+for its own comfort is a similar question to {{ ursula_k_le_guins_lastname }}
+{{ omelas }}. The destriers are a direct reference to the same not-quite-horse
+beasts in {{ wolfes_lastname }} {{ botns }}. The Touched Site, hidden in a
+forest the makes people unnaturally afraid to enter and containing
+contamination from powerful beings, is like the Zone from {{
+arkady_and_boris_strugatskys }} {{ roadside_picnic }}.
+
+I really enjoy the unique world that {{ the_authors_lastname }} has built, but
+the mysteries are secondary to me. That makes me worried for my enjoyment of
+this series, as it seems we're leaning more into Din and Ana and less into the
+wider, weird world that surrounds them.
