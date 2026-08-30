@@ -51,6 +51,7 @@ murder of Zansay Burav, the daughter of his family's only rival.
 {% capture thomas_hobbess_lastname %}{% author_link "Thomas Hobbes" link_text="Hobbes" possessive %}{% endcapture %}
 {% capture leviathan %}{% book_link "Leviathan" %}{% endcapture %}
 
+{% capture william_gibson_lastname %}{% author_link "William Gibson" link_text="Gibson" %}{% endcapture %}
 {% capture william_gibsons_lastname %}{% author_link "William Gibson" link_text="Gibson" possessive %}{% endcapture %}
 {% capture johnny_mnemonic %}{% short_story_link "Johnny Mnemonic" %}{% endcapture %}
 {% capture neuromancer %}{% book_link "Neuromancer" %}{% endcapture %}
@@ -135,18 +136,18 @@ its own.
 
 This book reminded me of several others. Din recalling what he's seen or heard
 in a sort of fugue state is similar to how Johnny recites stored data in {{
-william_gibsons_lastname }} {{ johnny_mnemonic }}. In fact, Din's overarching
-struggle---sacrificing his humanity and bodily autonomy to do his job---is
-exactly the kind of dark bargain Case and Molly make in {{
-william_gibsons_lastname }} {{ neuromancer }}. The new voice in Din's head is
-like those in {{ peter_wattss_lastname }} {{ blindsight }}. Ana's question
-about how much suffering the Empire will tolerate for its own comfort is
-similar to the one in {{ ursula_k_le_guins_lastname }} {{ omelas }}. The
-destriers are a direct reference to the same not-quite-horse beasts in {{
-wolfes_lastname }} {{ botns }}. The Touched Site---hidden in a forest that
-makes people unnaturally afraid to enter and containing contamination from
-powerful beings---is like the Zone from {{ arkady_and_boris_strugatskys }} {{
-roadside_picnic }}.
+william_gibsons_lastname }} {{ johnny_mnemonic }}. In fact, Din's sacrifice of
+his humanity and bodily autonomy for his family's survival is the exact
+bargain {{ william_gibson_lastname }} explores with Johnny, and also with
+Molly and Case in {{ neuromancer }}. The new voice in Din's head reminds me of
+the multiple personalities sharing Susan James's mind in {{
+peter_wattss_lastname }} {{ blindsight }}. Ana's question about how much
+suffering the Empire will tolerate for its own comfort is similar to the one
+in {{ ursula_k_le_guins_lastname }} {{ omelas }}. The destriers are a direct
+reference to the same not-quite-horse beasts in {{ wolfes_lastname }} {{ botns
+}}. The Touched Site---hidden in a forest that makes people unnaturally afraid
+to enter and containing contamination from powerful beings---is like the Zone
+from {{ arkady_and_boris_strugatskys }} {{ roadside_picnic }}.
 
 I really enjoy the unique world that {{ the_authors_lastname }} has built, but
 the more familiar it becomes, the more the mysteries have to carry the series.
