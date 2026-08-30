@@ -36,6 +36,14 @@ is the third book in the {% series_link page.series %} series.
 {% capture book_1 %}{% book_link "The Tainted Cup" %}{% endcapture %}
 {% capture book_2 %}{% book_link "A Drop of Corruption" %}{% endcapture %}
 
+{% capture doyles %}{% author_link "Arthur Conan Doyle" possessive %}{% endcapture %}
+{% capture doyles_lastname %}{% author_link "Arthur Conan Doyle" link_text="Doyle" possessive %}{% endcapture %}
+{% capture sherlock_series %}{% series_link "Sherlock Holmes" %} series{% endcapture %}
+
+{% capture wells %}{% author_link "Martha Wells" link_text="Wells" %}{% endcapture %}
+{% capture wellss %}{% author_link "Martha Wells" link_text="Wells" possessive %}{% endcapture %}
+{% capture mb6 %}{% book_link "Fugitive Telemetry" %}{% endcapture %}
+
 {% capture botns %}{% series_link "The Book of the New Sun" %}{% endcapture %}
 
 {% capture peter_watts %}{% author_link "Peter Watts" %}{% endcapture %}
@@ -99,15 +107,28 @@ large conspiracy involving mind controlling fungi, cattle the size of houses,
 and the mysterious Daljen---an ancient Khanum tribe that disappeared hundreds
 of years before the Khanum as a whole vanished.
 
-{{ book_1 }} had the advantage of showing us the world for the first time.
-Every detail was new and exciting: buildings grown, not constructed;
-horrifying plants and fungi that can kill just by breathing them in; people
-modified to have perfect memory or amazing eyesight. And just as the mystery
-is starting to wind down, a leviathan smashes its way into the story! By {{
-book_2 }}, I'd already seen half of the things that make the {{ this_series }}
-unique, the world felt more familiar and exploring it was less exciting. {{
-this_book }} has that same problem. The mystery is fine, but without the
-new-world excitement or the climatic leviathan the mystery has to carry most
-of the narrative. It doesn't quite, and it makes the pacing feel slow. Halfway
-through, I could tell there had to be a few more twists and turns, but I was
-ready to be done.
+Din's character is much improved in this book. In {{ book_2 }} he was
+depressed, trying to recover by whoring around. He's back on his feet, more
+competent now, and his powers are changing in a way that opens up new
+possibilities for him. And we're starting to learn about his family and
+history. On the other hand, Ana receded into the background a bit in this
+book. She has always been the stronger of the two characters, with the more
+distinct personality, so that hurts.
+
+The worldbuilding is darker in this book, showing how the empire feeds itself
+at the expense of its land and it's people, how it bio-engineers gigantic
+cattle and fungus controlled cats to pick food.
+
+But the worldbuilding feels like feeling in the details; it doesn't surprise
+me like the earlier books. {{ book_1 }} had the advantage of showing us the
+world for the first time. Every detail was new and exciting: buildings grown,
+not constructed; horrifying plants and fungi that can kill just by breathing
+them in; people modified to have perfect memory or amazing eyesight. And just
+as the mystery is starting to wind down, a leviathan smashes its way into the
+story! By {{ book_2 }}, I'd already seen half of the things that make the {{
+this_series }} unique, the world felt more familiar and exploring it was less
+exciting. {{ this_book }} has that same problem. The mystery is fine, but
+without the new-world excitement or the climatic leviathan the mystery has to
+carry most of the narrative. It doesn't quite, and it makes the pacing feel
+slow. Halfway through, I could tell there had to be a few more twists and
+turns, but I was ready to be done.
