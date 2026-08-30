@@ -167,11 +167,12 @@ to carry most of the narrative. It doesn't quite, and it makes the pacing feel
 slow. Halfway through, I could tell there had to be a few more twists and
 turns, but I was ready to be done.
 
-This book made me wonder if I really like mysteries. But that can't be true?
-One of the first set of books I read to myself was {{ doyles_lastname }} {{
-sherlock_series }}, and I loved it. I cried when Holmes fell to his "death".
-And I'm enjoying {{ wellss }} {{ mb6 }} which I'm reading right now. In my
-review of {{ ray_bradburys_lastname }} {{ fahrenheit_451 }}, I said I like
-books with complicated structure; it's unraveling the clever puzzle that I
-enjoy, like in {{ iain_m_banks }}'s {{ use_of_weapons }} and {{
-william_faulkners_lastname }} {{ absalom_absalom }}.
+This book made me wonder whether I really like mysteries. But that can't be
+true. The {{ sherlock_series }} were some of the first books I read to myself,
+and I cried when Holmes fell to his "death". I'm enjoying {{ wellss }} {{ mb6
+}}, which I'm reading right now. In my review of {{ ray_bradburys_lastname }}
+{{ fahrenheit_451 }}, I said I like books with clever structure; I enjoy
+unraveling the puzzle, like in {{ william_faulkners_lastname }} {{
+absalom_absalom }} and {{ iain_m_bankss_lastname }} {{ use_of_weapons }}.
+{{ this_book }} has neither the clever structure, not the pace, to keep me
+interested.
