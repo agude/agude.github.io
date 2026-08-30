@@ -21,8 +21,9 @@ same_as_urls:
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
 is the third book in the {% series_link page.series %} series. In it Din and
 Ana travel to Lacanthim, where Castus Armenta, heir to one of the region's two
-rival cattle clans, has been caught murdering Zansay Burav, the only daughter
-of the other. Her death has put both families on the brink of war.
+rival cattle clans, has been arrested---literally red-handed!---for the murder
+of Zansay Burav, the only daughter of the other. Her death has put both
+families on the brink of war.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture this_series %}{% series_link page.series %} series{% endcapture %}
@@ -122,8 +123,8 @@ of the other. Her death has put both families on the brink of war.
 {% capture william_faulkners_lastname %}{% author_link "William Faulkner" link_text="Faulkner" possessive %}{% endcapture %}
 {% capture absalom_absalom %}{% book_link "Absalom, Absalom!" %}{% endcapture %}
 
-The case isn't as simple as it seems though. It quickly becomes clear that the
-two were having a tryst and planned to run away from their families. It's {{
+The case isn't as simple as it seems. It quickly becomes clear that the two
+were having a tryst and planned to run away from their families. It's {{
 romeo_and_juliet }} at first blush, so much so that {{ the_authors_lastname }}
 lampshades the comparison through Ana, who calls the situation "derivative".
 
