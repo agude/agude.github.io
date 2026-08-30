@@ -71,6 +71,7 @@ murder of Zansay Burav, the daughter of his family's only rival.
 {% capture william_gibson_lastname %}{% author_link "William Gibson" link_text="Gibson" %}{% endcapture %}
 {% capture william_gibsons_lastname %}{% author_link "William Gibson" link_text="Gibson" possessive %}{% endcapture %}
 {% capture johnny_mnemonic %}{% short_story_link "Johnny Mnemonic" %}{% endcapture %}
+{% capture neuromancer %}{% book_link "Neuromancer" %}{% endcapture %}
 
 {% capture arkady_strugatsky %}{% author_link "Arkady Strugatsky" %}{% endcapture %}
 {% capture arkady_strugatskys %}{% author_link "Arkady Strugatsky" possessive %}{% endcapture %}
@@ -147,12 +148,14 @@ stronger character with the more distinct personality, so that hurts.
 
 The worldbuilding is darker in this book because it asks explicitly what it
 costs to keep the Empire going. That's the main theme of this book: sacrifice.
-Din has sacrificed his humanity to provide for his family. The gentry
-sacrifice their children and their mental health to provide meat for the
-Empire. The Empire sacrifices the land itself. The Daljen enslaved people they
-considered lesser, and Din worries the Empire is headed the same way with its
-Sublimes. I'm beginning to think that "Leviathan" in the {{ series_title }}
-doesn't just refer to the giant monsters, but to the state itself, as in {{
+Din has sacrificed his humanity to provide for his family, trading a piece of
+himself for power and survival in a way that echos the core theme of {{
+william_gibsons_lastname }} {{ neuromancer }}. The gentry sacrifice their
+children and their mental health to provide meat for the Empire. The Empire
+sacrifices the land itself. The Daljen enslaved people they considered lesser,
+and Din worries the Empire is headed the same way with its Sublimes. I'm
+beginning to think that "Leviathan" in the {{ series_title }} doesn't just
+refer to the giant monsters, but to the state itself, as in {{
 thomas_hobbess_lastname }} {{ leviathan }}. Each book examines a different
 part of how the Empire works: {{ book_1 }} asks what the state owes its
 people; {{ book_2 }}, what bad rulers do to it; and {{ this_book }}, what it
