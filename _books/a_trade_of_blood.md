@@ -22,6 +22,7 @@ same_as_urls:
 is the third book in the {% series_link page.series %} series.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
+{% capture this_series %}{% series_link page.series %} series{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 {% capture the_authors %}{% author_link page.book_authors link=false possessive %}{% endcapture %}
 {% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
@@ -32,8 +33,8 @@ is the third book in the {% series_link page.series %} series.
 {% capture the_authors_lastname_link %}{% author_link page.book_authors link_text=author_last_name_text %}{% endcapture %}
 {% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
 
-{% capture the_tainted_cup %}{% book_link "The Tainted Cup" %}{% endcapture %}
-{% capture a_drop_of_corruption %}{% book_link "A Drop of Corruption" %}{% endcapture %}
+{% capture book_1 %}{% book_link "The Tainted Cup" %}{% endcapture %}
+{% capture book_2 %}{% book_link "A Drop of Corruption" %}{% endcapture %}
 
 {% capture botns %}{% series_link "The Book of the New Sun" %}{% endcapture %}
 
@@ -85,10 +86,28 @@ is the third book in the {% series_link page.series %} series.
 {% capture william_shakespeares_lastname %}{% author_link "William Shakespeare" link_text="Shakespeare" possessive %}{% endcapture %}
 {% capture romeo_and_juliet %}{% book_link "Romeo and Juliet" %}{% endcapture %}
 
-<!--
+In {{ this_book }}, Din and Ana travel to Lacanthim, a part of the empire
+dominated by two feuding cattle clans: the Armentas and the Buravs. The last
+remaining heir of the Armentas has been arrested, literally red-handed, for
+the murder of the Burav's only daughter. It quickly becomes clear that the two
+were having a tryst and planned to run away from their families. It's {{
+romeo_and_juliet }} at first blush, so much so that {{ the_authors_lastname }}
+lampshades the comparison through Ana, who calls the situation "derivative".
 
-I think you can only be "surprised" by the world once, and that's book 1.
+But the story is far from derivative. The simple murder quickly spirals into a
+large conspiracy involving mind controlling fungi, cattle the size of houses,
+and the mysterious Daljen---an ancient Khanum tribe that disappeared hundreds
+of years before the Khanum as a whole vanished.
 
-Book 1 also does a great "Little mystery OH SHIT Leviathan!"; not enough
-leviathans in the other books.
--->
+{{ book_1 }} had the advantage of showing us the world for the first time.
+Every detail was new and exciting: buildings grown, not constructed;
+horrifying plants and fungi that can kill just by breathing them in; people
+modified to have perfect memory or amazing eyesight. And just as the mystery
+is starting to wind down, a leviathan smashes its way into the story! By {{
+book_2 }}, I'd already seen half of the things that make the {{ this_series }}
+unique, the world felt more familiar and exploring it was less exciting. {{
+this_book }} has that same problem. The mystery is fine, but without the
+new-world excitement or the climatic leviathan the mystery has to carry most
+of the narrative. It doesn't quite, and it makes the pacing feel slow. Halfway
+through, I could tell there had to be a few more twists and turns, but I was
+ready to be done.
