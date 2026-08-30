@@ -135,18 +135,16 @@ comparison through Ana, who calls the situation "derivative".
 But the story is far from derivative. The simple murder quickly spirals into a
 conspiracy involving mind-controlling fungi, cattle the size of houses, and
 the mysterious Daljen---an ancient Khanum tribe that disappeared hundreds of
-years before the Khanum as a whole vanished.
+years before the rest of the Khanum vanished.
 
-### Din and Ana
+### The World
 
 Din is much improved in this book. In {{ book_2 }}, he was depressed and
 trying to recover by whoring around. He's back on his feet, more competent
 now, and his powers are changing in ways that open up new possibilities for
 him. We're also starting to learn about his family and history. But Ana
-receded into the background a bit in this book. She has always been the
-stronger character, with the more distinct personality. That hurts.
-
-### The World
+recedes into the background a bit in this book. She has always been the
+stronger character with the more distinct personality, so that hurts.
 
 The worldbuilding is darker in this book because it asks explicitly what it
 costs to keep the Empire going. That's the main theme of this book: sacrifice.
@@ -171,17 +169,17 @@ into the story! By {{ book_2 }}, I'd already seen half the things that make
 the {{ this_series }} unique. The world felt more familiar, and exploring it
 was less exciting. {{ this_book }} has that same problem. The mystery is good,
 but without the new-world excitement or the climactic leviathan, it has to
-carry most of the narrative. It doesn't quite, and the pacing feels slow.
-Halfway through, I could tell a few more twists were coming, but I was ready
-to be done.
+carry most of the narrative. It doesn't quite pull it off, and the pacing
+feels slow. Halfway through, I could tell a few more twists were coming, but I
+was ready to be done.
 
 ### Mysteries
 
 This book made me wonder whether I actually like mysteries. But I must. The
-books in {{ doyles_lastname }} {{ sherlock_series }} were among the first
-books I read to myself, and I cried when Holmes fell to his "death". I'm
-enjoying {{ wellss }} {{ mb6 }}, which I'm reading right now. In my review of
-{{ ray_bradburys_lastname }} {{ fahrenheit_451 }}, I said I like books with
+books in {{ doyles_lastname }} {{ sherlock_series }} were among the first I
+read to myself, and I cried when Holmes fell to his "death". I'm enjoying {{
+wellss }} {{ mb6 }}, which I'm reading right now. In my review of {{
+ray_bradburys_lastname }} {{ fahrenheit_451 }}, I said I like books with
 clever structure. I enjoy unraveling the puzzle, as in {{
 william_faulkners_lastname }} {{ absalom_absalom }} and {{
 iain_m_bankss_lastname }} {{ use_of_weapons }}. Maybe that's it: {{ this_book
@@ -197,13 +195,13 @@ is like those in {{ peter_wattss_lastname }} {{ blindsight }}. Ana's question
 about how much suffering the Empire will tolerate for its own comfort is
 similar to the one in {{ ursula_k_le_guins_lastname }} {{ omelas }}. The
 destriers are a direct reference to the same not-quite-horse beasts in {{
-wolfes_lastname }} {{ botns }}. The Touched Site, hidden in a forest that
+wolfes_lastname }} {{ botns }}. The Touched Site---hidden in a forest that
 makes people unnaturally afraid to enter and containing contamination from
-powerful beings, is like the Zone from {{ arkady_and_boris_strugatskys }} {{
+powerful beings---is like the Zone from {{ arkady_and_boris_strugatskys }} {{
 roadside_picnic }}.
 
 I really enjoy the unique world that {{ the_authors_lastname }} has built, but
 the more familiar it becomes, the more the mysteries have to carry the series.
 I'm worried about what that means as we go forward. Still, I liked {{
-this_book }}, and I'm hoping the next one has some strange things and a
-leviathan.
+this_book }}, and I'm hoping the next one gives us some new strange things and
+a leviathan.
