@@ -27,24 +27,15 @@ murder of Zansay Burav, the daughter of his family's only rival.
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture this_series %}{% series_link page.series %} series{% endcapture %}
 {% capture series_title %}{% series_link page.series %}{% endcapture %}
-{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
-{% capture the_authors %}{% author_link page.book_authors link=false possessive %}{% endcapture %}
 {% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
 {% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text=author_last_name_text %}{% endcapture %}
-{% capture the_authors_lastname_possessive %}{% author_link page.book_authors link=false link_text=author_last_name_text possessive %}{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
-{% capture the_authors_link %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture the_authors_lastname_link %}{% author_link page.book_authors link_text=author_last_name_text %}{% endcapture %}
-{% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
 
 {% capture book_1 %}{% book_link "The Tainted Cup" %}{% endcapture %}
 {% capture book_2 %}{% book_link "A Drop of Corruption" %}{% endcapture %}
 
-{% capture doyles %}{% author_link "Arthur Conan Doyle" possessive %}{% endcapture %}
 {% capture doyles_lastname %}{% author_link "Arthur Conan Doyle" link_text="Doyle" possessive %}{% endcapture %}
 {% capture sherlock_series %}{% series_link "Sherlock Holmes" %} series{% endcapture %}
 
-{% capture wells %}{% author_link "Martha Wells" link_text="Wells" %}{% endcapture %}
 {% capture wellss %}{% author_link "Martha Wells" link_text="Wells" possessive %}{% endcapture %}
 {% capture mb6 %}{% book_link "Fugitive Telemetry" %}{% endcapture %}
 
@@ -54,76 +45,29 @@ murder of Zansay Burav, the daughter of his family's only rival.
 {% capture wolfes_lastname %}{% author_link "Gene Wolfe" link_text="Wolfe" possessive %}{% endcapture %}
 {% capture botns %}{% series_link "The Book of the New Sun" %}{% endcapture %}
 
-{% capture peter_watts %}{% author_link "Peter Watts" %}{% endcapture %}
-{% capture peter_wattss %}{% author_link "Peter Watts" possessive %}{% endcapture %}
-{% capture peter_watts_lastname %}{% author_link "Peter Watts" link_text="Watts" %}{% endcapture %}
 {% capture peter_wattss_lastname %}{% author_link "Peter Watts" link_text="Watts" possessive %}{% endcapture %}
 {% capture blindsight %}{% book_link "Blindsight" %}{% endcapture %}
 
-{% capture thomas_hobbes %}{% author_link "Thomas Hobbes" %}{% endcapture %}
-{% capture thomas_hobbess %}{% author_link "Thomas Hobbes" possessive %}{% endcapture %}
-{% capture thomas_hobbes_lastname %}{% author_link "Thomas Hobbes" link_text="Hobbes" %}{% endcapture %}
 {% capture thomas_hobbess_lastname %}{% author_link "Thomas Hobbes" link_text="Hobbes" possessive %}{% endcapture %}
 {% capture leviathan %}{% book_link "Leviathan" %}{% endcapture %}
 
-{% capture william_gibson %}{% author_link "William Gibson" %}{% endcapture %}
-{% capture william_gibsons %}{% author_link "William Gibson" possessive %}{% endcapture %}
-{% capture william_gibson_lastname %}{% author_link "William Gibson" link_text="Gibson" %}{% endcapture %}
 {% capture william_gibsons_lastname %}{% author_link "William Gibson" link_text="Gibson" possessive %}{% endcapture %}
 {% capture johnny_mnemonic %}{% short_story_link "Johnny Mnemonic" %}{% endcapture %}
 {% capture neuromancer %}{% book_link "Neuromancer" %}{% endcapture %}
 
-{% capture arkady_strugatsky %}{% author_link "Arkady Strugatsky" %}{% endcapture %}
-{% capture arkady_strugatskys %}{% author_link "Arkady Strugatsky" possessive %}{% endcapture %}
-{% capture arkady_strugatsky_lastname %}{% author_link "Arkady Strugatsky" link_text="Strugatsky" %}{% endcapture %}
-{% capture arkady_strugatskys_lastname %}{% author_link "Arkady Strugatsky" link_text="Strugatsky" possessive %}{% endcapture %}
-{% capture boris_strugatsky %}{% author_link "Boris Strugatsky" %}{% endcapture %}
-{% capture boris_strugatskys %}{% author_link "Boris Strugatsky" possessive %}{% endcapture %}
-{% capture boris_strugatsky_lastname %}{% author_link "Boris Strugatsky" link_text="Strugatsky" %}{% endcapture %}
-{% capture boris_strugatskys_lastname %}{% author_link "Boris Strugatsky" link_text="Strugatsky" possessive %}{% endcapture %}
-{% capture arkady_and_boris %}{% author_link "Arkady Strugatsky" link_text="Arkady" %} and {% author_link "Boris Strugatsky" link_text="Boris" %}{% endcapture %}
-{% capture arkady_and_boriss %}{% author_link "Arkady Strugatsky" link_text="Arkady" %} and {% author_link "Boris Strugatsky" link_text="Boris" possessive %}{% endcapture %}
 {% capture roadside_picnic %}{% book_link "Roadside Picnic" %}{% endcapture %}
 
-{% capture ursula_k_le_guin %}{% author_link "Ursula K. Le Guin" %}{% endcapture %}
-{% capture ursula_k_le_guins %}{% author_link "Ursula K. Le Guin" possessive %}{% endcapture %}
-{% capture ursula_k_le_guin_lastname %}{% author_link "Ursula K. Le Guin" link_text="Le Guin" %}{% endcapture %}
 {% capture ursula_k_le_guins_lastname %}{% author_link "Ursula K. Le Guin" link_text="Le Guin" possessive %}{% endcapture %}
 {% capture omelas %}{% short_story_link "The Ones Who Walk Away from Omelas" %}{% endcapture %}
 
-{% capture neal_stephenson %}{% author_link "Neal Stephenson" %}{% endcapture %}
-{% capture neal_stephensons %}{% author_link "Neal Stephenson" possessive %}{% endcapture %}
-{% capture neal_stephenson_lastname %}{% author_link "Neal Stephenson" link_text="Stephenson" %}{% endcapture %}
-{% capture neal_stephensons_lastname %}{% author_link "Neal Stephenson" link_text="Stephenson" possessive %}{% endcapture %}
-{% capture snow_crash %}{% book_link "Snow Crash" %}{% endcapture %}
-
-{% capture william_shakespeare %}{% author_link "William Shakespeare" %}{% endcapture %}
-{% capture william_shakespeares %}{% author_link "William Shakespeare" possessive %}{% endcapture %}
-{% capture william_shakespeare_lastname %}{% author_link "William Shakespeare" link_text="Shakespeare" %}{% endcapture %}
-{% capture william_shakespeares_lastname %}{% author_link "William Shakespeare" link_text="Shakespeare" possessive %}{% endcapture %}
 {% capture romeo_and_juliet %}{% book_link "Romeo and Juliet" %}{% endcapture %}
 
-{% capture ray_bradbury %}{% author_link "Ray Bradbury" %}{% endcapture %}
-{% capture ray_bradburys %}{% author_link "Ray Bradbury" possessive %}{% endcapture %}
-{% capture ray_bradbury_lastname %}{% author_link "Ray Bradbury" link_text="Bradbury" %}{% endcapture %}
 {% capture ray_bradburys_lastname %}{% author_link "Ray Bradbury" link_text="Bradbury" possessive %}{% endcapture %}
 {% capture fahrenheit_451 %}{% book_link "Fahrenheit 451" %}{% endcapture %}
 
-{% capture ted_chiang %}{% author_link "Ted Chiang" %}{% endcapture %}
-{% capture ted_chiangs %}{% author_link "Ted Chiang" possessive %}{% endcapture %}
-{% capture ted_chiang_lastname %}{% author_link "Ted Chiang" link_text="Chiang" %}{% endcapture %}
-{% capture ted_chiangs_lastname %}{% author_link "Ted Chiang" link_text="Chiang" possessive %}{% endcapture %}
-{% capture stories_of_your_life_and_others %}{% book_link "Stories of Your Life and Others" %}{% endcapture %}
-
-{% capture iain_m_banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
-{% capture iain_m_bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
-{% capture iain_m_banks_lastname %}{% author_link "Iain M. Banks" link_text="Banks" %}{% endcapture %}
 {% capture iain_m_bankss_lastname %}{% author_link "Iain M. Banks" link_text="Banks" possessive %}{% endcapture %}
 {% capture use_of_weapons %}{% book_link "Use of Weapons" %}{% endcapture %}
 
-{% capture william_faulkner %}{% author_link "William Faulkner" %}{% endcapture %}
-{% capture william_faulkners %}{% author_link "William Faulkner" possessive %}{% endcapture %}
-{% capture william_faulkner_lastname %}{% author_link "William Faulkner" link_text="Faulkner" %}{% endcapture %}
 {% capture william_faulkners_lastname %}{% author_link "William Faulkner" link_text="Faulkner" possessive %}{% endcapture %}
 {% capture absalom_absalom %}{% book_link "Absalom, Absalom!" %}{% endcapture %}
 
