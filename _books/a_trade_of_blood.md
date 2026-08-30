@@ -137,6 +137,8 @@ large conspiracy involving mind-controlling fungi, cattle the size of houses,
 and the mysterious Daljen---an ancient Khanum tribe that disappeared hundreds
 of years before the Khanum as a whole vanished.
 
+### Din and Ana
+
 Din's character is much improved in this book. In {{ book_2 }} he was
 depressed, trying to recover by whoring around. He's back on his feet, more
 competent now, and his powers are changing in a way that opens up new
@@ -144,6 +146,8 @@ possibilities for him. And we're starting to learn about his family and
 history. On the other hand, Ana receded into the background a bit in this
 book. She has always been the stronger of the two characters, with the more
 distinct personality, so that hurts.
+
+### The World
 
 The worldbuilding is darker in this book because it asks explicitly what it
 costs to keep the Empire going. That's the main theme of this book: sacrifice.
@@ -172,15 +176,19 @@ to carry most of the narrative. It doesn't quite, and it makes the pacing feel
 slow. Halfway through, I could tell there had to be a few more twists and
 turns, but I was ready to be done.
 
-This book made me wonder whether I really like mysteries. But that can't be
-true. The {{ sherlock_series }} were some of the first books I read to myself,
-and I cried when Holmes fell to his "death". I'm enjoying {{ wellss }} {{ mb6
-}}, which I'm reading right now. In my review of {{ ray_bradburys_lastname }}
-{{ fahrenheit_451 }}, I said I like books with clever structure; I enjoy
+### Mysteries
+
+This book made me wonder whether I don't like mysteries. But that can't be.
+The {{ sherlock_series }} were some of the first books I read to myself, and I
+cried when Holmes fell to his "death". I'm enjoying {{ wellss }} {{ mb6 }},
+which I'm reading right now. In my review of {{ ray_bradburys_lastname }} {{
+fahrenheit_451 }}, I said I like books with clever structure; I enjoy
 unraveling the puzzle, like in {{ william_faulkners_lastname }} {{
-absalom_absalom }} and {{ iain_m_bankss_lastname }} {{ use_of_weapons }}.
-{{ this_book }} has neither the clever structure, not the pace, to carry the
+absalom_absalom }} and {{ iain_m_bankss_lastname }} {{ use_of_weapons }}. {{
+this_book }} has neither the clever structure, not the pace, to carry the
 whole book on its own.
+
+### Other Books
 
 This book reminded me of several others: Din recalling what he's seen or heard
 in a sort of fugue state is similar to how Johnny recites stored data in {{
