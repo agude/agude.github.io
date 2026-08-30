@@ -85,28 +85,28 @@ years before the rest of the Khanum vanished.
 
 Din is much improved in this book. In {{ book_2 }}, he was depressed and
 trying to recover by whoring around. He's back on his feet, more competent
-now, and his powers are changing in ways that open up new possibilities for
-him. We're also starting to learn about his family and history. But Ana
-recedes into the background a bit in this book. She has always been the
-stronger character with the more distinct personality, so that hurts.
+now, and his powers are changing in ways that mean he is running out of time,
+but also making him a better detective. We're also starting to learn about his
+family and history. But Ana recedes into the background a bit in this book.
+She has always been the stronger character with the more distinct personality,
+so sidelining her is taking away part of what makes the series work.
 
 The worldbuilding is darker in this book because it asks explicitly what it
-costs to keep the Empire going. That's the main theme of this book: sacrifice.
-Din has sacrificed his humanity to provide for his family, trading a piece of
-himself for power and survival in a way that echoes the core theme of {{
-william_gibsons_lastname }} {{ neuromancer }}. The gentry sacrifice their
+costs to keep the Empire going. That's the main theme: sacrifice. Din has
+sacrificed his humanity to provide for his family. The gentry sacrifice their
 children and their mental health to provide meat for the Empire. The Empire
 sacrifices the land itself. The Daljen enslaved people they considered lesser,
-and Din worries the Empire is headed the same way with its Sublimes. I'm
-beginning to think that "Leviathan" in the {{ series_title }} doesn't just
-refer to the giant monsters, but to the state itself, as in {{
-thomas_hobbess_lastname }} {{ leviathan }}. Each book examines a different
-part of how the Empire works: {{ book_1 }} asks what the state owes its
-people; {{ book_2 }}, what bad rulers do to it; and {{ this_book }}, what it
-consumes, both literally and figuratively.
+and Din worries the Empire is headed the same way with its Sublimes.
 
-But the worldbuilding feels like filling in details. It doesn't surprise me
-the way the earlier books did. {{ book_1 }} had the advantage of showing us
+I'm beginning to think that "Leviathan" in the {{ series_title }} doesn't just
+refer to the giant monsters, but to the state itself, as in {{
+thomas_hobbess_lastname }} {{ leviathan }}. Looking back, each book examines a
+different part of how the Empire works: {{ book_1 }} asks what the state owes
+its people; {{ book_2 }}, what bad rulers do to it; and {{ this_book }}, what
+it consumes, both literally and figuratively.
+
+But the worldbuilding feels like filling in details now. It doesn't surprise
+me the way the earlier books did. {{ book_1 }} had the advantage of showing us
 the world for the first time. Every detail was new and exciting: buildings
 grown, not constructed; horrifying plants and fungi that can kill just by
 breathing them in; people modified to have perfect memory or amazing eyesight.
@@ -121,12 +121,11 @@ was ready to be done.
 
 ### Mysteries
 
-This book made me wonder whether I actually like mysteries. But I must. The
-books in {{ doyles_lastname }} {{ sherlock_series }} were among the first I
-read to myself, and I cried when Holmes fell to his "death". I'm enjoying {{
-wellss }} {{ mb6 }}, which I'm reading right now. In my review of {{
-ray_bradburys_lastname }} {{ fahrenheit_451 }}, I said I like books with
-clever structure. I enjoy unraveling the puzzle, as in {{
+This book made me ask myself: do I even like mysteries? But I must! {{
+doyles_lastname }} {{ sherlock_series }} books were some of the first I read
+on my own, and I'm enjoying {{ wellss }} {{ mb6 }} right now. As I mentioned
+in my review of {{ ray_bradburys_lastname }} {{fahrenheit_451 }}, I like books
+with clever structure. I enjoy unraveling the puzzle, as in {{
 william_faulkners_lastname }} {{ absalom_absalom }} and {{
 iain_m_bankss_lastname }} {{ use_of_weapons }}. Maybe that's it: {{ this_book
 }} has neither the clever structure nor the pace to carry the whole book on
@@ -136,8 +135,11 @@ its own.
 
 This book reminded me of several others. Din recalling what he's seen or heard
 in a sort of fugue state is similar to how Johnny recites stored data in {{
-william_gibsons_lastname }} {{ johnny_mnemonic }}. The new voice in Din's head
-is like those in {{ peter_wattss_lastname }} {{ blindsight }}. Ana's question
+william_gibsons_lastname }} {{ johnny_mnemonic }}. In fact, Din's overarching
+struggle---sacrificing his humanity and bodily autonomy to do his job---is
+exactly the kind of dark bargain Case and Molly make in {{
+william_gibsons_lastname }} {{ neuromancer }}. The new voice in Din's head is
+like those in {{ peter_wattss_lastname }} {{ blindsight }}. Ana's question
 about how much suffering the Empire will tolerate for its own comfort is
 similar to the one in {{ ursula_k_le_guins_lastname }} {{ omelas }}. The
 destriers are a direct reference to the same not-quite-horse beasts in {{
