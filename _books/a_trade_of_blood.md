@@ -23,6 +23,7 @@ is the third book in the {% series_link page.series %} series.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture this_series %}{% series_link page.series %} series{% endcapture %}
+{% capture series_title %}{% series_link page.series %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
 {% capture the_authors %}{% author_link page.book_authors link=false possessive %}{% endcapture %}
 {% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
@@ -94,6 +95,30 @@ is the third book in the {% series_link page.series %} series.
 {% capture william_shakespeares_lastname %}{% author_link "William Shakespeare" link_text="Shakespeare" possessive %}{% endcapture %}
 {% capture romeo_and_juliet %}{% book_link "Romeo and Juliet" %}{% endcapture %}
 
+{% capture ray_bradbury %}{% author_link "Ray Bradbury" %}{% endcapture %}
+{% capture ray_bradburys %}{% author_link "Ray Bradbury" possessive %}{% endcapture %}
+{% capture ray_bradbury_lastname %}{% author_link "Ray Bradbury" link_text="Bradbury" %}{% endcapture %}
+{% capture ray_bradburys_lastname %}{% author_link "Ray Bradbury" link_text="Bradbury" possessive %}{% endcapture %}
+{% capture fahrenheit_451 %}{% book_link "Fahrenheit 451" %}{% endcapture %}
+
+{% capture ted_chiang %}{% author_link "Ted Chiang" %}{% endcapture %}
+{% capture ted_chiangs %}{% author_link "Ted Chiang" possessive %}{% endcapture %}
+{% capture ted_chiang_lastname %}{% author_link "Ted Chiang" link_text="Chiang" %}{% endcapture %}
+{% capture ted_chiangs_lastname %}{% author_link "Ted Chiang" link_text="Chiang" possessive %}{% endcapture %}
+{% capture stories_of_your_life_and_others %}{% book_link "Stories of Your Life and Others" %}{% endcapture %}
+
+{% capture iain_m_banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
+{% capture iain_m_bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
+{% capture iain_m_banks_lastname %}{% author_link "Iain M. Banks" link_text="Banks" %}{% endcapture %}
+{% capture iain_m_bankss_lastname %}{% author_link "Iain M. Banks" link_text="Banks" possessive %}{% endcapture %}
+{% capture use_of_weapons %}{% book_link "Use of Weapons" %}{% endcapture %}
+
+{% capture william_faulkner %}{% author_link "William Faulkner" %}{% endcapture %}
+{% capture william_faulkners %}{% author_link "William Faulkner" possessive %}{% endcapture %}
+{% capture william_faulkner_lastname %}{% author_link "William Faulkner" link_text="Faulkner" %}{% endcapture %}
+{% capture william_faulkners_lastname %}{% author_link "William Faulkner" link_text="Faulkner" possessive %}{% endcapture %}
+{% capture absalom_absalom %}{% book_link "Absalom, Absalom!" %}{% endcapture %}
+
 In {{ this_book }}, Din and Ana travel to Lacanthim, a part of the empire
 dominated by two feuding cattle clans: the Armentas and the Buravs. The last
 remaining heir of the Armentas has been arrested, literally red-handed, for
@@ -121,7 +146,12 @@ Din has sacrificed his humanity to provide for his family. The gentry
 sacrifice their children and their mental health to provide meat for the
 Empire. The Empire is sacrificing the land itself. The Daljen enslaved people
 they considered lesser, and Din worries the Empire is headed the same way with
-its Sublimes.
+its Sublimes. I'm beginning to think that "Leviathan" in the {{ series_title
+}} doesn't just refer to the giant monsters, but to the state itself, as in {{
+thomas_hobbess_lastname }} {{ leviathan }}. Each book examines a different
+part of how the Empire works: {{ book_1 }} asks what people owe the state; {{
+book_2 }}, what bad rulers do to it; and {{ this_book }}, what it consumes,
+both literally and figuratively.
 
 But the worldbuilding feels like filling in the details; it doesn't surprise
 me like the earlier books. {{ book_1 }} had the advantage of showing us the
@@ -136,3 +166,12 @@ without the new-world excitement or the climactic leviathan, the mystery has
 to carry most of the narrative. It doesn't quite, and it makes the pacing feel
 slow. Halfway through, I could tell there had to be a few more twists and
 turns, but I was ready to be done.
+
+This book made me wonder if I really like mysteries. But that can't be true?
+One of the first set of books I read to myself was {{ doyles_lastname }} {{
+sherlock_series }}, and I loved it. I cried when Holmes fell to his "death".
+And I'm enjoying {{ wellss }} {{ mb6 }} which I'm reading right now. In my
+review of {{ ray_bradburys_lastname }} {{ fahrenheit_451 }}, I said I like
+books with complicated structure; it's unraveling the clever puzzle that I
+enjoy, like in {{ iain_m_banks }}'s {{ use_of_weapons }} and {{
+william_faulkners_lastname }} {{ absalom_absalom }}.
