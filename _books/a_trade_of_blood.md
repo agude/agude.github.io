@@ -149,7 +149,7 @@ stronger character with the more distinct personality, so that hurts.
 The worldbuilding is darker in this book because it asks explicitly what it
 costs to keep the Empire going. That's the main theme of this book: sacrifice.
 Din has sacrificed his humanity to provide for his family, trading a piece of
-himself for power and survival in a way that echos the core theme of {{
+himself for power and survival in a way that echoes the core theme of {{
 william_gibsons_lastname }} {{ neuromancer }}. The gentry sacrifice their
 children and their mental health to provide meat for the Empire. The Empire
 sacrifices the land itself. The Daljen enslaved people they considered lesser,
