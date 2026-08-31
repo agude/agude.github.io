@@ -1,5 +1,5 @@
 ---
-date: 2026-08-30
+date: 2026-08-30 13:26:24 -0700
 title: Fugitive Telemetry
 book_authors: Martha Wells
 series: The Murderbot Diaries
