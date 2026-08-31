@@ -86,11 +86,12 @@ years before the rest of the Khanum vanished.
 
 Din is much improved in this book. In {{ book_2 }}, he was depressed and
 trying to recover by whoring around. He's back on his feet, more competent
-now, and his powers are changing in ways that mean he is running out of time,
-but also making him a better detective. And we're starting to learn about his
-family and history. But Ana recedes into the background a bit in this book.
-She has always been the stronger character with the more distinct personality,
-so sidelining her is taking away part of what makes the series work.
+now, and his powers are changing in ways that mean he is running out of time
+but are also making him a better detective. And we're starting to learn about
+his family and history. But Ana recedes into the background a bit in this
+book. She has always been the stronger character with the more distinct
+personality, so sidelining her is taking away part of what makes the series
+work.
 
 The worldbuilding is darker in this book because it asks explicitly what it
 costs to keep the Empire going. That's the main theme: sacrifice. Din has
