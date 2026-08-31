@@ -25,6 +25,7 @@ brilliance is almost a match for Ana's own.
 {% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text=author_last_name_text %}{% endcapture %}
 
 {% capture book1 %}{% book_link "The Tainted Cup" %}{% endcapture %}
+{% capture book3 %}{% book_link "A Trade of Blood" %}{% endcapture %}
 
 {% capture doyles %}{% author_link "Arthur Conan Doyle" possessive %}{% endcapture %}
 {% capture final_problem %}{% short_story_link "The Final Problem" %}{% endcapture %}
@@ -113,4 +114,4 @@ forming a single mind and being unable to communicate with normal humans is
 like the Bicamerals in {{ wattss }} {{ echopraxia }}.
 
 Although not as good as {{ book1 }}, I still had fun reading {{ this_book }}.
-I'm looking forward to the third book.
+I'm looking forward to reading the next book: {{ book3 }}.
