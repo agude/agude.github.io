@@ -33,3 +33,10 @@ same_as_urls:
 {% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
 
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
+
+{% capture bennett %}{% author_link "Robert Jackson Bennett" %}{% endcapture %}
+{% capture bennetts %}{% author_link "Robert Jackson Bennett" possessive %}{% endcapture %}
+{% capture bennett_lastname %}{% author_link "Robert Jackson Bennett" link_text="Bennett" %}{% endcapture %}
+{% capture bennetts_lastname %}{% author_link "Robert Jackson Bennett" link_text="Bennett" possessive %}{% endcapture %}
+{% capture shadow_of_the_leviathan %}{% series_link "Shadow of the Leviathan" %}{% endcapture %}
+{% capture the_tainted_cup %}{% book_link "The Tainted Cup" %}{% endcapture %}
