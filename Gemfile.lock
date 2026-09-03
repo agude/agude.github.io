@@ -224,7 +224,7 @@ GEM
       google-protobuf (~> 4.31)
     sass-embedded (1.101.0-x86_64-linux-musl)
       google-protobuf (~> 4.31)
-    simplecov (1.0.3)
+    simplecov (1.1.1)
     simplecov-json (0.2.3)
       json
       simplecov
@@ -276,7 +276,7 @@ DEPENDENCIES
   nokogiri (~> 1.19)
   rake (~> 13.0)
   rubocop (~> 1.90)
-  simplecov (~> 1.0)
+  simplecov (~> 1.1)
   simplecov-json (~> 0.2.3)
   webrick (~> 1.9)
   yard (~> 0.9)
