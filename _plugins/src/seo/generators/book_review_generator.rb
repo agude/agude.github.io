@@ -7,7 +7,7 @@ module Jekyll
     module Generators
       # Generates JSON-LD Review schema for book reviews.
       module BookReviewLdGenerator
-        # rubocop:disable Metrics/AbcSize -- builder DSL calls inflate branch count
+        # rubocop:disable-next Metrics/AbcSize -- builder DSL calls inflate branch count
         def self.generate_hash(document, site)
           Jekyll::SEO::JsonLdBuilder.build('Review', license: true, document: document, site: site) do |review|
             review.site_author
@@ -32,7 +32,6 @@ module Jekyll
             end
           end
         end
-        # rubocop:enable Metrics/AbcSize
       end
     end
   end

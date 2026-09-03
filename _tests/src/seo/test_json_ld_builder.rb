@@ -3,7 +3,7 @@
 require_relative '../../test_helper'
 
 # Tests for Jekyll::SEO::JsonLdBuilder class.
-# rubocop:disable Style/SymbolProc -- builder DSL requires block form
+# rubocop:disable-next Style/SymbolProc -- builder DSL requires block form
 class TestJsonLdBuilder < Minitest::Test
   def setup
     @site_config = {
@@ -658,4 +658,3 @@ class TestJsonLdBuilder < Minitest::Test
     refute result.key?('about')
   end
 end
-# rubocop:enable Style/SymbolProc

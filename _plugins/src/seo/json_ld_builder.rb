@@ -9,7 +9,7 @@ module Jekyll
   module SEO
     # Block-based DSL for building JSON-LD structured data.
     # Handles context binding, snake_case to camelCase conversion, and nested schemas.
-    # rubocop:disable Metrics/ClassLength -- builder has many small field methods by design
+    # rubocop:disable-next Metrics/ClassLength -- builder has many small field methods by design
     class JsonLdBuilder
       AWARD_NAMES = {
         'hugo' => 'Hugo Award',
@@ -99,7 +99,7 @@ module Jekyll
         nested_builder(type, 'author', &)
       end
 
-      # rubocop:disable Naming/PredicatePrefix -- matches JSON-LD field 'isPartOf'
+      # rubocop:disable-next Naming/PredicatePrefix -- matches JSON-LD field 'isPartOf'
       def is_part_of_website
         return unless @site
 
@@ -113,7 +113,6 @@ module Jekyll
           'url' => site_url,
         }
       end
-      # rubocop:enable Naming/PredicatePrefix
 
       def main_entity_of_page
         return unless @document && @site
@@ -352,6 +351,5 @@ module Jekyll
         [start_date.empty? ? nil : start_date, end_date]
       end
     end
-    # rubocop:enable Metrics/ClassLength
   end
 end

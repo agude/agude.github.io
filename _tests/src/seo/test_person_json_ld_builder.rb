@@ -3,7 +3,7 @@
 require_relative '../../test_helper'
 
 # Tests for Jekyll::SEO::PersonJsonLdBuilder — person/resume schema methods.
-# rubocop:disable Style/SymbolProc -- builder DSL requires block form
+# rubocop:disable-next Style/SymbolProc -- builder DSL requires block form
 class TestPersonJsonLdBuilder < Minitest::Test
   def setup
     @site_config = {
@@ -197,4 +197,3 @@ class TestPersonJsonLdBuilder < Minitest::Test
     assert_equal ['Pseudonym'], result['alternateName']
   end
 end
-# rubocop:enable Style/SymbolProc
