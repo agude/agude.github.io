@@ -19,7 +19,10 @@ same_as_urls:
   - "https://www.librarything.com/work/24641084"
 ---
 
-{% book_link page.title %}, by {% author_link page.book_authors link=false %}, is the sixth book in {% series_text page.series link=false %}.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the sixth book in {% series_text page.series link=false %}. Now living on
+Preservation Station, Murderbot is reluctantly pulled into a murder
+investigation by station security.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
@@ -34,9 +37,39 @@ same_as_urls:
 
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
+{% capture mb1 %}{% book_link "All Systems Red" %}{% endcapture %}
+{% capture mb2 %}{% book_link "Artificial Condition" %}{% endcapture %}
+{% capture mb3 %}{% book_link "Rogue Protocol" %}{% endcapture %}
+{% capture mb4 %}{% book_link "Exit Strategy" %}{% endcapture %}
+{% capture mb5 %}{% book_link "Network Effect" %}{% endcapture %}
+{% capture mb7 %}{% book_link "System Collapse" %}{% endcapture %}
+{% capture mb8 %}{% book_link "Platform Decay" %}{% endcapture %}
+
 {% capture bennett %}{% author_link "Robert Jackson Bennett" %}{% endcapture %}
 {% capture bennetts %}{% author_link "Robert Jackson Bennett" possessive %}{% endcapture %}
 {% capture bennett_lastname %}{% author_link "Robert Jackson Bennett" link_text="Bennett" %}{% endcapture %}
 {% capture bennetts_lastname %}{% author_link "Robert Jackson Bennett" link_text="Bennett" possessive %}{% endcapture %}
 {% capture shadow_of_the_leviathan %}{% series_link "Shadow of the Leviathan" %}{% endcapture %}
 {% capture the_tainted_cup %}{% book_link "The Tainted Cup" %}{% endcapture %}
+{% capture a_trade_of_blood %}{% book_link "A Trade of Blood" %}{% endcapture %}
+
+{{ this_book }} is a stand-alone story set between {{ mb4 }} and {{ mb5 }}. A
+stranger is found murdered on Preservation Station and Murderbot is called in
+to help investigate, somewhat against its will. They quickly realize that the
+murdered man was helping slaves escape from the Corporate Rim, smuggling them
+through various neutral stations.
+
+The book is good fun. Murderbot is its normally anxious, depressed, hyper
+competent self. Bad guys get beaten up. Good guys learn to like Murderbot,
+first begrudgingly and then honestly. The mystery works because it moves
+quickly, and because it mainly acts to force Murderbot to work alongside
+humans instead of just hacking or shooting its way through the problem.
+
+{{ this_book }} continues the series's interest in what makes someone a
+person, which I discussed in my review of {{ mb5 }}. Here the focus shifts to
+ordinary bots. We learn they have their own, highly formalized query/response
+language, and that on Preservation they can name themselves (much to
+Murderbot's chagrin). And they don't have emotions like humans, or even
+Murderbot, do because they don't have neural tissue. But when one of their own
+appears to be in danger, the bots act as a community, working together to
+protect it and the humans nearby. They're more than just tools with names.
