@@ -1,39 +1,69 @@
 ---
 name: stub-book
 description: >-
-  Stub out a new book review file with front matter and template captures.
-  Use when adding a new book to _books/.
+  Creates a new book-review stub in _books/ with standard front matter, Liquid
+  captures, Wikidata metadata, and supporting author or series pages. Use when
+  adding a new book review, including requests to create a book-review file.
 ---
 
 # Stub Book
 
-Create a new book review stub in `_books/` with full front matter and
-standard capture blocks.
+Create a canonical book-review stub in `_books/`. Run the commands below from
+the project root.
 
-## Usage
+This workflow does not cover re-reviews. For a review whose book already has a
+canonical page, follow the book-family and `canonical_url` workflow in
+`../jekyll-site-dev/references/book-families.md` instead.
 
-`/stub-book <title>` --- The user may also provide author, series, book
-number, or a Wikidata QID. If not provided, look them up.
+Use `/stub-book <title>`. The request may also include the author, series,
+book number, or a Wikidata QID. Look up any missing detail before creating the
+file.
 
-## Steps
+## Gather the book details
 
-### 1. Determine Book Details
+Confirm the title and author before creating the file. Also determine whether
+the work belongs to a series, its number in that series, and whether it is an
+anthology or short-story collection.
 
-Establish title, author, series, and book number. If the book is part of
-a series already reviewed on the site, check an existing `_books/` entry
-for the correct names and numbering convention.
+For a series that already appears on the site, use an existing `_books/` entry
+to match the stored author name, series name, and numbering. Do not run the
+stub script against an existing output path: it overwrites that file.
 
-### 2. Find the Wikidata QID
+The stub script creates a single-author novel. For multiple authors, an
+anthology, or another atypical work, use its output only as a starting point:
+
+- Change `book_authors` to a YAML list when applicable.
+- Set `is_anthology: true` for an anthology or short-story collection. The
+  short-story link cache scans only books with this exact value.
+- Replace the generated opening and captures with forms appropriate to the
+  contributors. The standard template assumes one author.
+
+If a title, author, or series name contains YAML-significant characters such
+as `:`, `#`, `&`, `?`, brackets, braces, or quotes, quote and escape that value
+in the generated front matter before continuing. The stub script writes these
+values without YAML quoting.
+
+## Resolve the Wikidata work
+
+Use a work-level QID when one exists. It identifies the original literary work
+and normally has more complete metadata than an edition or translation.
 
 ```bash
-cd _scripts/metadata && uv run fetch_book_metadata.py "Book Title"
+(cd _scripts/metadata && uv run fetch_book_metadata.py "Book Title")
 ```
 
-The script prints numbered search results to stderr. Pick the entry for
-the original novel/work, not a specific edition or translation. If no
-match, proceed without a QID.
+The script lists candidates on stderr. In an interactive terminal, select the
+correct work; otherwise it uses the first result. Inspect the candidates before
+using the QID. If no appropriate work exists, continue without one and report
+that metadata still needs manual entry.
 
-### 3. Run the Stub Script
+Use the metadata scripts rather than an ad hoc Wikidata request. They include
+the required `User-Agent`; raw `requests` or `urllib` calls can receive a 403.
+
+## Create the stub
+
+Run the script with the known details. Omit `--series` for a standalone work,
+and omit `--qid` only when no reliable work QID is available.
 
 ```bash
 uv run _scripts/skills/stub_book.py \
@@ -44,56 +74,84 @@ uv run _scripts/skills/stub_book.py \
     --qid Q3400447
 ```
 
-Flags: `--title` (required), `--author` (required), `--series`,
-`--book-number` (default: 1), `--qid`, `--output`/`-o`.
-Omit `--series` for standalone books.
+The script writes `_books/<snake_case_title>.md` by default. Use
+`--output _books/<filename>.md` or `-o _books/<filename>.md` only after
+confirming that the path is new.
+`--title` and `--author` are required; `--book-number` defaults to `1`.
+It generates:
 
-### 4. Update Metadata
+- today’s `date`, the title, author, series, book number, `rating: null`,
+  `is_anthology: false`, and the expected cover-image path;
+- `wikidata_qid` when `--qid` is supplied;
+- a first paragraph that uses the book, author, and series Liquid tags; and
+- the standard capture blocks after that paragraph, including `this_series`
+  only for a series work.
+
+The opening paragraph is the excerpt. Keep capture blocks below it.
+
+## Enrich the front matter
+
+When the file has a reliable QID, populate its metadata:
 
 ```bash
-cd _scripts/metadata && uv run update_book_metadata.py _books/<slug>.md
+(cd _scripts/metadata && uv run update_book_metadata.py \
+    _books/the_honor_of_the_queen.md)
 ```
 
-Fetches ISBN, publication date, `same_as_urls`, and awards from Wikidata.
-Updates the file in place.
+By default, the updater only adds missing values. It manages
+`wikidata_qid`, `isbn`, `date_published`, `awards`, and `same_as_urls`; do not
+use `--force` unless replacing a manually curated value is intentional. Use
+`--only` to refresh a specific field.
 
-### 5. Post-Processing
+Review the result before treating it as final:
 
-Check the metadata for issues that need manual fixes:
-- **`date_published`** --- Wikidata dates may be year-only. Refine to
-  `YYYY-MM` using Goodreads or the publisher's site.
-- **ISBN** --- `update_book_metadata.py` prefers an English-language
-  edition, but Wikidata's data is incomplete often enough to warrant a
-  spot check. The ISBN should be ISBN-13 format (978-...). If it looks
-  wrong, list all editions:
+- Refine a year-only `date_published` value to `YYYY-MM` or `YYYY-MM-DD` when
+  Goodreads, a publisher, or another reliable source supports a more precise
+  date.
+- The updater prefers an ISBN-13 on the work. If the work has none, it checks
+  editions and prefers the first English-language ISBN it finds, then falls
+  back to the first available ISBN. Check that the selected ISBN describes the
+  intended edition, and prefer a 13-digit ISBN (`978-...`) when one is
+  available. To inspect editions, run:
+
   ```bash
-  cd _scripts/metadata && uv run list_editions.py Q_WORK_ID
+  (cd _scripts/metadata && uv run list_editions.py Q_WORK_ID)
   ```
-  Do not query the Wikidata API directly with ad hoc code (raw
-  `requests`/`urllib` calls get a 403 --- Wikimedia requires a
-  `User-Agent` header).
-- **Awards (anthologies)** --- `update_book_metadata.py` only finds
-  awards for the collection itself. For anthologies
-  (`is_anthology: true`), also check whether individual stories won
-  Hugo, Nebula, or Locus awards and add them to `awards`; the field
-  should cover the book's contents, not just the collection.
-- **`same_as_urls`** --- Work-level Wikidata entities have the richest
-  URLs. If you used an edition QID, check whether a work entity exists.
 
-### 6. Create Author and Series Pages
+- For an anthology, inspect awards for the individual stories as well as the
+  collection. The updater only looks up awards attached to the book’s QID;
+  add verified Hugo, Nebula, or Locus awards for its contents to `awards`.
+- Check that `same_as_urls` came from a work-level QID. An edition QID often
+  has fewer useful links.
+
+## Create supporting pages
+
+Generate missing author and series page stubs after the new book is in `_books/`:
 
 ```bash
 uv run _scripts/content/make_pages.py
-cd _scripts/metadata && uv run fetch_author_same_as.py "Author Name"
 ```
 
-`make_pages.py` creates stub pages for any new authors or series.
-`fetch_author_same_as.py` prints search results --- pick the person
-entry and copy `same_as_urls` into the author page under
-`books/authors/`.
+For each new author page, fetch the person’s metadata:
 
-### 7. Report
+```bash
+(cd _scripts/metadata && uv run fetch_author_same_as.py "Author Name")
+```
 
-Tell the user what was created and flag remaining manual steps:
-- Cover image needs to be added at the `image` path.
-- Any metadata issues found in step 5.
+Select the person rather than a bibliography or disambiguation item. Copy the
+returned `pen_names` and `same_as_urls` into the author page under
+`books/authors/`. Preserve values already curated on an existing author page.
+
+## Validate and report
+
+Run `make check-liquid` after the stub and supporting pages are complete. It
+renders the generated Liquid without requiring a finished review. Before
+publishing the completed review and cover image, run all content gates:
+
+```bash
+make check-links && make check-refs && make check-liquid
+```
+
+Report the file and supporting pages created, the QID and metadata added, and
+the remaining work: cover image at the `image` path, final rating and review
+date, any manual metadata corrections, and any validation failure.
