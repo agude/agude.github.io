@@ -5,7 +5,7 @@ book_authors: Martha Wells
 series: The Murderbot Diaries
 book_number: 6
 is_anthology: false
-rating: 4
+rating: 3
 image: /books/covers/fugitive_telemetry.jpg
 wikidata_qid: Q107123470
 isbn: 978-1-250-76537-6

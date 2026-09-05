@@ -65,9 +65,8 @@ ranked_list:
   - Night Without Stars
   - Field of Dishonor
   - On Basilisk Station
-  - A Trade of Blood
+  - Fugitive Telemetry
   - Rogue Protocol
-  - A Drop of Corruption
   - The Honor of the Queen
   - Starquake
   - The Abyss Beyond Dreams
@@ -79,9 +78,11 @@ ranked_list:
   - Patternmaster
   - Valuable Humans in Transit and Other Stories
   - Dog Soldier
+  - A Trade of Blood
   - Honor of the Regiment
   - Mariel of Redwall
   - We Are Legion (We Are Bob)
+  - A Drop of Corruption
   - All Systems Red
   - Mossflower
   - Matter
