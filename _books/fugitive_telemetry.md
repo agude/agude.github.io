@@ -48,7 +48,7 @@ or shooting its way through the problem.
 {{ this_book }} continues the series's interest in what makes someone a
 person, which I discussed in my review of {{ mb5 }}. Here the focus shifts to
 ordinary bots. We learn that they have their own, highly formalized
-query/response language; that on Preservation they are allowed to name
+query/response language and that on Preservation they are allowed to name
 themselves (much to Murderbot's chagrin). And unlike Murderbot or humans, they
 don't have emotions because they don't have neural tissue. But when one of
 their own appears to be in danger, the bots act together to avenge it and
