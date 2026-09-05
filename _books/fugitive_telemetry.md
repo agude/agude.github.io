@@ -21,9 +21,9 @@ same_as_urls:
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the sixth book in {% series_text page.series link=false %}. Now living on
-Preservation Station, Murderbot is reluctantly pulled into a murder
-investigation by station security.
+is the sixth book in {% series_text page.series link=false %}. In it,
+Murderbot is reluctantly pulled into a murder investigation by Preservation
+Station security.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
@@ -56,21 +56,21 @@ investigation by station security.
 
 {{ this_book }} is a stand-alone story set between {{ mb4 }} and {{ mb5 }}. A
 stranger is found murdered on Preservation Station and Murderbot is called in
-to help investigate, somewhat against its will. They quickly realize that the
-murdered man was helping slaves escape from the Corporate Rim, smuggling them
-through various neutral stations.
+to help. As Murderbot and station security investigate, it becomes clear that
+the murdered man was helping slaves escape from the Corporate Rim, smuggling
+them through various neutral stations.
 
 The book is good fun. Murderbot is its normally anxious, depressed, hyper
 competent self. Bad guys get beaten up. Good guys learn to like Murderbot,
-first begrudgingly and then honestly. The mystery works because it moves
-quickly, and because it mainly acts to force Murderbot to work alongside
-humans instead of just hacking or shooting its way through the problem.
+first begrudgingly and then genuinely. The mystery moves quickly and mainly
+forces Murderbot to work alongside humans instead of just hacking or shooting
+its way through the problem.
 
 {{ this_book }} continues the series's interest in what makes someone a
 person, which I discussed in my review of {{ mb5 }}. Here the focus shifts to
-ordinary bots. We learn they have their own, highly formalized query/response
-language, and that on Preservation they can name themselves (much to
-Murderbot's chagrin). And they don't have emotions like humans, or even
-Murderbot, do because they don't have neural tissue. But when one of their own
-appears to be in danger, the bots act as a community, working together to
-protect it and the humans nearby. They're more than just tools with names.
+ordinary bots. We learn that they have their own, highly formalized
+query/response language and can name themselves on Preservation (much to
+Murderbot's chagrin). Unlike Murderbot or humans, they don't have emotions
+because they don't have neural tissue. But when one of their own appears to be
+in danger, the bots act as a community, working together to avenge it and
+protect the humans nearby. They're more than just tools with names.
