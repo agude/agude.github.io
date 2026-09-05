@@ -26,33 +26,10 @@ Murderbot is reluctantly pulled into a murder investigation by Preservation
 Station security.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
-{% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
-{% capture the_authors %}{% author_link page.book_authors link=false possessive %}{% endcapture %}
 {% capture author_last_name_text %}{{ page.book_authors | split: " " | last }}{% endcapture %}
-{% capture the_authors_lastname %}{% author_link page.book_authors link=false link_text=author_last_name_text %}{% endcapture %}
-{% capture the_authors_lastname_possessive %}{% author_link page.book_authors link=false link_text=author_last_name_text possessive %}{% endcapture %}
-{% capture the_author_link %}{% author_link page.book_authors %}{% endcapture %}
-{% capture the_authors_link %}{% author_link page.book_authors possessive %}{% endcapture %}
-{% capture the_authors_lastname_link %}{% author_link page.book_authors link_text=author_last_name_text %}{% endcapture %}
-{% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
 
-{% capture this_series %}{% series_text page.series %}{% endcapture %}
-
-{% capture mb1 %}{% book_link "All Systems Red" %}{% endcapture %}
-{% capture mb2 %}{% book_link "Artificial Condition" %}{% endcapture %}
-{% capture mb3 %}{% book_link "Rogue Protocol" %}{% endcapture %}
 {% capture mb4 %}{% book_link "Exit Strategy" %}{% endcapture %}
 {% capture mb5 %}{% book_link "Network Effect" %}{% endcapture %}
-{% capture mb7 %}{% book_link "System Collapse" %}{% endcapture %}
-{% capture mb8 %}{% book_link "Platform Decay" %}{% endcapture %}
-
-{% capture bennett %}{% author_link "Robert Jackson Bennett" %}{% endcapture %}
-{% capture bennetts %}{% author_link "Robert Jackson Bennett" possessive %}{% endcapture %}
-{% capture bennett_lastname %}{% author_link "Robert Jackson Bennett" link_text="Bennett" %}{% endcapture %}
-{% capture bennetts_lastname %}{% author_link "Robert Jackson Bennett" link_text="Bennett" possessive %}{% endcapture %}
-{% capture shadow_of_the_leviathan %}{% series_link "Shadow of the Leviathan" %}{% endcapture %}
-{% capture the_tainted_cup %}{% book_link "The Tainted Cup" %}{% endcapture %}
-{% capture a_trade_of_blood %}{% book_link "A Trade of Blood" %}{% endcapture %}
 
 {{ this_book }} is a stand-alone story set between {{ mb4 }} and {{ mb5 }}. A
 stranger is found murdered on Preservation Station and Murderbot is called in
