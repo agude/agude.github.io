@@ -218,10 +218,10 @@ test: image-build # Depends on the Docker image being built/up-to-date
 		$(TEST)
 	@echo "Tests finished successfully."
 
-# Run Python script tests via pytest.
+# Run Python tests for repository scripts and skill-local generators.
 test-scripts:
 	@echo "Running script tests..."
-	@uv run --project _scripts pytest _scripts/tests/ -v
+	@uv run --project _scripts pytest _scripts/tests/ .agents/skills/parse-book-notes/tests/ -v
 	@echo "Script tests finished."
 
 # Run tests and generate a code coverage report.
