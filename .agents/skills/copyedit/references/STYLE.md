@@ -2,16 +2,28 @@
 
 Voice and style reference for alexgude.com.
 
+## Contents
+
+- [Tone](#tone)
+- [Vocabulary](#vocabulary)
+- [In-World Nouns Are Lowercase](#in-world-nouns-are-lowercase)
+- [Sentence Structure](#sentence-structure)
+- [Interpretation, Metaphor, Voice](#interpretation-metaphor-voice)
+- [Punctuation & Mechanics](#punctuation--mechanics)
+- [Comparisons to Other Works](#comparisons-to-other-works)
+- [Footnotes](#footnotes)
+- [Block Quotes](#block-quotes)
+
 ## Tone
 
 - **First-person**: Always write as "I"
-- **Conversational but substantive**: Not casual/chatty, but not academic either
+- **Conversational but substantive**: Keep the prose neither casual/chatty nor academic
 - **Direct and opinionated**: State opinions clearly. "I loved it" or "I didn't like it"
 - **No hedging**: Avoid "perhaps", "somewhat", "I think maybe"
 
 ## Vocabulary
 
-Use simple, direct words:
+Use simple, direct words when a simpler word preserves the meaning:
 
 | Prefer | Avoid |
 |--------|-------|
@@ -23,7 +35,7 @@ Use simple, direct words:
 | interesting | intriguing, fascinating |
 | boring | tedious, unengaging |
 
-The test: Would you say it out loud to a friend? If not, simplify.
+Use this test: Would you say it out loud to a friend? If not, simplify.
 
 **Stacked adjectives**: Avoid comma-separated adjective pairs like "brutal,
 high-stakes" or "dark, gritty". Pick the one that does the most work and drop
@@ -48,10 +60,10 @@ reviews, not correctness in isolation.
 
 ## Sentence Structure
 
-- Mix short and medium sentences
-- Not overly complex
-- Use colons before lists
-- "But" to introduce counterpoints is fine
+- Mix short and medium sentences.
+- Keep sentences straightforward rather than overly complex.
+- Use colons before lists.
+- "But" to introduce counterpoints is fine.
 
 ## Interpretation, Metaphor, Voice
 

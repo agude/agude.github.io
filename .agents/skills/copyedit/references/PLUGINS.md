@@ -1,10 +1,28 @@
 # Plugin Reference
 
-Liquid tags available for book reviews on alexgude.com.
+Use this reference when editing Liquid tags in book reviews on alexgude.com.
+
+## Contents
+
+- [Source of Truth](#source-of-truth)
+- [Quick Reference](#quick-reference)
+- [Book Links](#book-links)
+- [Author Links](#author-links)
+- [Series Links](#series-links)
+- [Series Text](#series-text)
+- [Short Story Links](#short-story-links)
+- [Short Story Titles (no link)](#short-story-titles-no-link)
+- [Rating Stars](#rating-stars)
+- [Citations](#citations)
+- [Cited Quotes](#cited-quotes)
+- [Capture Blocks](#capture-blocks)
+- [Common Capture Patterns](#common-capture-patterns)
+- [Important Notes](#important-notes)
 
 ## Source of Truth
 
-The plugin source code lives in `_plugins/src/`. For full details on any tag, read the source:
+Treat `_plugins/src/` as the source of truth. For a tag's full syntax and
+behavior, read the corresponding source file or directory:
 
 - `_plugins/src/content/books/tags/` --- book_link, related tags
 - `_plugins/src/content/authors/tags/` --- author_link
@@ -12,7 +30,8 @@ The plugin source code lives in `_plugins/src/`. For full details on any tag, re
 - `_plugins/src/content/short_stories/tags/` --- short_story_link, short_story_title
 - `_plugins/src/ui/tags/` --- citation, citedquote, rating_stars
 
-Use the **plugin-navigator** skill to navigate between plugins and their tests:
+Use the **plugin-navigator** skill to navigate between plugin source files and
+their tests:
 - `.claude/skills/plugin-navigator/scripts/test-for-plugin` --- find tests for a plugin
 - `.claude/skills/plugin-navigator/scripts/plugin-for-test` --- find plugin for a test
 - `.claude/skills/plugin-navigator/scripts/coverage-stats` --- see test coverage
@@ -95,7 +114,7 @@ Used in anthology reviews to rate individual stories.
 
 ## Citations
 
-For inline citations. At least one parameter is required.
+Use `citation` for inline citations. At least one parameter is required.
 
 ```liquid
 {% citation
@@ -132,8 +151,8 @@ For inline citations. At least one parameter is required.
 
 ## Cited Quotes
 
-For block quotes with attribution. Accepts all citation parameters above.
-Content between tags is processed as Markdown.
+Use `citedquote` for attributed block quotes. It accepts all citation
+parameters above, and the content between its tags is processed as Markdown.
 
 ```liquid
 {% citedquote
@@ -151,13 +170,14 @@ Are misery, and will not let them rest."
 
 ## Capture Blocks
 
-Standard Liquid, not a custom plugin. Used to define reusable variables:
+Capture blocks are standard Liquid, not a custom plugin. Use them to define
+reusable variables:
 
 ```liquid
 {% capture varname %}content here{% endcapture %}
 ```
 
-Then use as `{{ varname }}` in the text.
+Use the variable later in the text as `{{ varname }}`.
 
 ## Common Capture Patterns
 
@@ -184,8 +204,8 @@ Then use as `{{ varname }}` in the text.
 
 ## Important Notes
 
-1. **Preserve tags exactly**: When editing, do not modify Liquid tags
-2. **Spacing matters**: `{{ varname }}` not `{{varname}}`
-3. **Quotes**: Use double quotes for tag arguments
-4. **No tags in first paragraph**: Custom plugin tags cannot appear before capture definitions
+1. **Preserve tags exactly**: When editing, do not modify Liquid tags.
+2. **Spacing matters**: Use `{{ varname }}`, not `{{varname}}`.
+3. **Quotes**: Use double quotes for tag arguments.
+4. **First paragraph**: Follow the constraints in [BOOK-REVIEWS.md](BOOK-REVIEWS.md). Inline plugin tags can appear in the first paragraph, but capture variables cannot; the first paragraph becomes the excerpt.
 5. **Unreviewed books/authors are fine**: `book_link`, `author_link`, and `series_link` work whether or not the referenced book, author, or series has a page on the site. If no page exists, the tag renders styled text without a link. Always use the plugin tags — never fall back to raw HTML for unreviewed works.

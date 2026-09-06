@@ -1,7 +1,18 @@
 # Collection and Anthology Reviews
 
-Structure rules specific to story-by-story reviews. Everything in
-[BOOK-REVIEWS.md](BOOK-REVIEWS.md) still applies; this covers what differs.
+Use these rules for story-by-story reviews. Everything in
+[BOOK-REVIEWS.md](BOOK-REVIEWS.md) still applies; this reference covers only
+what differs for collections and anthologies.
+
+## Contents
+
+- [Distribute Themes Into Story Sections](#distribute-themes-into-story-sections)
+- [Section Length Tracks the Rating](#section-length-tracks-the-rating)
+- [End on a Line, Not a Conclusion](#end-on-a-line-not-a-conclusion)
+- ["They All Feel the Same" Owes a Mechanism](#they-all-feel-the-same-owes-a-mechanism)
+- [Defend a Criterion by Showing It Is Not Ad Hoc](#defend-a-criterion-by-showing-it-is-not-ad-hoc)
+- [Reading Fatigue Is Evidence, Not a Confound](#reading-fatigue-is-evidence-not-a-confound)
+- [Per-Story Markup](#per-story-markup)
 
 ## Distribute Themes Into Story Sections
 
@@ -100,8 +111,8 @@ the most-decorated story sitting late in the order: ask honestly whether it is a
 
 ## Per-Story Markup
 
-See [PLUGINS.md](PLUGINS.md) for `short_story_title` and `rating_stars`. Two
-conventions specific to collections:
+Read [PLUGINS.md](PLUGINS.md) for `short_story_title` and `rating_stars`. Apply
+these two conventions specific to collections:
 
 - **Per-story bylines** for co-written pieces use the raw div emitted by
   `_layouts/book.html`, placed immediately after the `###` heading with **no
