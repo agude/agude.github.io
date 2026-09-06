@@ -9,93 +9,203 @@ description: >
   Liquid tags, linking).
 ---
 
-# Jekyll Site Development Reference
+# Jekyll site development
 
-Most subsystem documentation lives next to the code it describes, not in
-this file — proximity is what keeps it from going stale. Look things up in
-three tiers:
+Use this skill to locate the authoritative implementation notes, policy
+guides, tests, and verification commands for the alexgude.com Jekyll site.
+The site runs Jekyll in Docker. Run site operations through `make`; do not run
+`jekyll` or `bundle` directly.
 
-1. **This file** — stable overview, rarely changes.
-2. **`make doc-index`** — lists every code object carrying one of the
-   custom doc tags declared in `.yardopts` (`@validator`, `@pipeline`,
-   `@pattern`, `@gotcha`). Narrow it with
-   `make doc-index QUERY='has_tag?(:<tag>)'`.
-3. **`make doc-show OBJ=<full::constant::path>`** — prints that object's
-   full docstring. A top-level method is `OBJ='#method_name'`; an instance
-   method is `OBJ='Some::Class#method'`. Reading the file at the path the
-   index reports works just as well.
+## Start with the relevant source of truth
 
-`_tests/src/test_skill_docs_yard_objects.rb` asserts every tag/object this
-file references still resolves; `_tests/src/test_skill_docs_paths.rb` does
-the same for the plain file-path references below.
+Most subsystem documentation lives next to the code it describes. Use the
+following order when investigating a change:
 
-## Code-resident docs
+1. Read this file for the stable architecture and workflow overview.
+2. Read the relevant code-resident documentation for implementation behavior.
+3. Read the relevant policy reference for authoring or operational rules.
+4. Read the matching tests and their shared helper before changing behavior.
+5. Run the narrowest relevant check, then the full checks required by the
+   change.
 
-- **Build Validators** (`@validator`) — classes that raise `FatalException`
-  on data errors, and what each one catches. Read when adding a validator,
-  debugging a `FatalException`, or understanding why a build failed.
+Code comments and tests are authoritative for implementation behavior. This
+skill summarizes where to find them; do not duplicate volatile implementation
+details here.
 
-- **Markdown Output Pipeline** (`@pipeline`) — the full pre-render ->
-  post-render -> llms.txt data flow lives on the pipeline's entry point,
-  `Jekyll::MarkdownOutput::MarkdownBodyHook`. Read when modifying
-  `render_mode` behavior, markdown output assembly, or the llms.txt index.
+### Query code-resident documentation
 
-- **Plugin Patterns** (`@pattern`) — tag structure, render-mode branching,
-  Finder/Renderer separation, the two link-resolver mixins, and the error-
-  logging convention, each on its canonical exemplar (`LinkTagBase`,
-  `DisplayTagRenderable`, `LinkResolverSupport`, `LinkResolverSkeleton`,
-  `PluginLoggerUtils.log_liquid_failure`). Read when creating or modifying
-  plugins.
+Custom YARD tags declared in `.yardopts` mark documentation that belongs with
+the code:
 
-- **Gotchas** (`@gotcha`) — non-obvious behaviors that cause subtle bugs,
-  documented next to the code they warn about (document URL access, page
-  payload snapshot, cache pollution, canonical URL filtering,
-  `generate_link_cache` in tests, ...). Read when debugging unexpected
-  behavior.
+| Tag          | Use it for                                                              |
+| ------------ | ----------------------------------------------------------------------- |
+| `@validator` | Build validators, the data errors they catch, and their fatal failures. |
+| `@pipeline`  | The stages and data flow of a processing pipeline.                      |
+| `@pattern`   | Reusable implementation and testing patterns.                           |
+| `@gotcha`    | Non-obvious behavior that can cause subtle bugs.                        |
 
-- **Testing** — test structure, naming, the test_helper.rb API
-  (MockDocument, MockSite, factory methods), common test patterns, and
-  SimpleCov behavior are a header comment at the top of
-  `_tests/test_helper.rb`; factory methods also carry their own
-  `@param`/`@return` docstrings.
+List all tagged objects:
 
-- **CI/CD & Hooks** — GitHub Actions pipeline stages are a header comment
-  in `.github/workflows/jekyll.yml`; pre-commit hook stages (and the
-  `git stash --keep-index` mechanism) are a header comment in
-  `_bin/pre-commit.sh`. Read when modifying CI workflows or commit hooks.
+```text
+make doc-index
+make doc-index QUERY='has_tag?(:gotcha)'
+```
 
-- **CI gate tests** (`_tests/bin/`) — the `_bin/check_*` gates are executed
-  as real subprocesses against throwaway fixture directories; the approach
-  and the fixture builders are a header comment in
-  `_tests/bin/bin_script_helper.rb`. `test_bin_scripts_are_wired_up.rb`
-  fails if a new `check_*` script has no test or is never invoked by the
-  workflow. Read before adding or changing a CI gate.
+Display one object’s full docstring:
 
-## Policy docs (no single code home)
+```text
+make doc-show OBJ=Jekyll::Books::Core::BookLinkResolver
+make doc-show OBJ='Jekyll::Books::Core::BookLinkResolver#resolve'
+```
 
-These describe authoring conventions, not code behavior, so they stay as
-plain skill markdown:
+For a top-level method, use `OBJ='#method_name'`. A constant, class method, or
+instance method can be passed by its full object path. Reading the source file
+reported by the index is equivalent when that is easier.
 
-- **[Book Families & `canonical_url`](references/book-families.md)** —
-  Re-review workflow and canonical URL rules. Read when adding or modifying
-  book reviews, especially re-reviews.
+The skill-doc tests keep these pointers current:
 
-- **[Content Authoring](references/content-authoring.md)** — Excerpt rules,
-  Liquid tag usage, linking conventions, front-matter rules enforced by the
-  AT Protocol pipeline. Read when writing or editing blog posts or book
-  reviews.
+- `_tests/src/test_skill_docs_yard_objects.rb` checks every referenced tag and
+  YARD object.
+- `_tests/src/test_skill_docs_paths.rb` checks every referenced repository
+  path.
 
-- **[Links, Backlinks, and Previews](references/links-and-previews.md)** —
-  Why BacklinkBuilder scans raw Liquid, related-books tier scoring,
-  `canonical_url` filtering call sites, the hover-preview architecture (span-
-  only markup, re-entrancy guard, leak stripping, anchor positioning), the
-  reference-link checker, and the strict-Liquid constraints. Read when
-  touching link resolution, the link cache, previews,
+## Repository map
+
+- `_posts/` contains blog posts.
+- `_books/` contains the `books` collection and book reviews.
+- `_layouts/` and `_includes/` define page structure and shared markup.
+- `_plugins/src/` contains the plugins, organized by domain:
+  - `infrastructure/` contains low-level utilities, text and URL handling,
+    the link cache, generated static files, and markdown formatting helpers.
+  - `ui/` contains reusable cards, ratings, citations, and markdown-card
+    components.
+  - `content/` contains domain logic for books, posts, authors, series, and
+    markdown output.
+  - `seo/` contains JSON-LD, SEO metadata, and standard.site output.
+- `_tests/` mirrors `_plugins/src/` for plugin tests. `_tests/bin/` mirrors
+  `_bin/` for CI-gate tests.
+- `_scripts/atproto/` contains the AT Protocol publishing tools.
+
+The link cache is built by `LinkCacheGenerator` and stored in
+`site.data['link_cache']`. Resolvers use it for O(1) lookups of books and
+authors. Keep it serializable; live document objects belong elsewhere.
+
+The SEO subsystems communicate through `_includes/head.html`:
+
+- `JsonLdInjector` populates `site.data['generated_json_ld_scripts']` with
+  `<script type="application/ld+json">` tags. Its dispatch is keyed by layout
+  through `LAYOUT_GENERATORS`; an unknown layout raises.
+- `SeoMetaInjector` populates `site.data['seo_meta']` with title, Open Graph,
+  Twitter, description, and canonical values. Its layout knowledge is limited
+  to title suffixes (`LAYOUT_TITLE_SUFFIX`) and article classification
+  (`ARTICLE_LAYOUTS`). The
+  `test_every_known_layout_has_article_classification` test requires every
+  layout in `LAYOUT_GENERATORS` to be explicitly classified.
+- `StandardSiteWellKnownGenerator` emits
+  `.well-known/site.standard.publication` for AT Protocol / Bluesky
+  verification. The matching link tags use `standard_site.publication_uri`
+  from configuration and `_data/standard_site.json` generated by CI.
+
+## Code-resident topics
+
+Read the named exemplar before modifying the corresponding subsystem:
+
+- **Build validators** (`@validator`): classes that raise
+  `Jekyll::Errors::FatalException` for invalid data. Read these when adding a
+  validator, debugging a `FatalException`, or determining why a build failed.
+- **Markdown output pipeline** (`@pipeline`): the complete pre-render →
+  post-render → `llms.txt` flow begins at
+  `Jekyll::MarkdownOutput::MarkdownBodyHook`. Read it when changing
+  `render_mode`, markdown output assembly, or the `llms.txt` index.
+- **Plugin patterns** (`@pattern`):
+  `Jekyll::Infrastructure::Links::LinkTagBase` documents the thin-tag and
+  delegate structure;
+  `Jekyll::UI::DisplayTagRenderable` documents render-mode branching;
+  `Jekyll::Infrastructure::Links::LinkResolverSupport` and
+  `Jekyll::Infrastructure::Links::LinkResolverSkeleton` document the two
+  link-resolver mixins; and
+  `Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure` documents
+  the error-logging convention.
+- **Gotchas** (`@gotcha`): read the tagged code comments for document URL
+  access, page-payload snapshots, cache pollution, canonical URL filtering,
+  `generate_link_cache` in tests, and other behavior that is easy to miss.
+- **Testing**: the header of `_tests/test_helper.rb` documents test structure,
+  naming, `MockDocument`, `MockSite`, factory methods, common patterns, and
+  SimpleCov behavior. Factory methods have their own `@param` and `@return`
+  documentation. Use the production pattern docs when writing tests for
+  Finder/Renderer orchestration or render-mode behavior.
+- **CI/CD and hooks**: the header of `.github/workflows/jekyll.yml` documents
+  workflow stages. The header of `_bin/pre-commit.sh` documents hook stages
+  and the `git stash --keep-index` mechanism. Read them before modifying a
+  workflow or commit hook.
+- **CI gates**: `_bin/check_*` scripts run as real subprocesses against
+  throwaway fixture directories. The header of
+  `_tests/bin/bin_script_helper.rb` documents the fixture builders and test
+  approach. `test_bin_scripts_are_wired_up.rb` fails when a new `check_*`
+  script has no test or is not invoked by the workflow.
+
+## Policy and operational references
+
+These documents describe policy rather than implementation. Read the one that
+matches the change:
+
+- [Book Families & `canonical_url`](references/book-families.md) — re-review
+  workflow and canonical URL rules. Required for book reviews, especially
+  re-reviews.
+- [Content Authoring](references/content-authoring.md) — excerpts, Liquid
+  tags, links, and front matter enforced by the AT Protocol pipeline. Required
+  for blog posts and book reviews.
+- [Links, Backlinks, and Previews](references/links-and-previews.md) — raw
+  Liquid scanning, related-book scoring, canonical URL filtering, hover and
+  footnote previews, reference-link validation, and strict-Liquid constraints.
+  Required for link resolution, the link cache, previews,
   `check_reference_links.rb`, or `check_strict.rb`.
+- [AT Protocol / standard.site](references/atproto-standard-site.md) —
+  domain-as-handle DNS wiring, the publish script, the well-known generator,
+  link tags, CI flow, and operational procedures for orphaned records,
+  outages, and secret rotation. Required for `_scripts/atproto/`, the
+  standard.site plugin, or publish steps in CI. The full design history is in
+  `bluesky.md` at the repository root.
 
-- **[AT Protocol / standard.site](references/atproto-standard-site.md)** —
-  How the site publishes to Bluesky's network: the domain-as-handle DNS
-  wiring, the publish script, well-known generator, link tags, CI flow,
-  and the operational runbook (orphans, outages, secret rotation). Read
-  when touching `_scripts/atproto/`, the standard.site plugin, or the
-  publish steps in CI. Full design history: `bluesky.md` at the repo root.
+## Content and plugin rules
+
+Keep these boundaries intact when changing the site:
+
+- Tags in `tags/` are thin wrappers. They select `render_mode` and delegate.
+- Utilities in `[domain]/[util].rb` orchestrate logic.
+- Finders fetch data; renderers generate HTML.
+- Use `PluginLoggerUtils.log_liquid_failure` for Liquid failures.
+- Add a matching test in `_tests/` for every new class.
+- When an invariant is violated, raise
+  `Jekyll::Errors::FatalException`. Do not allow incorrect output to ship
+  silently.
+
+When changing plugin architecture, CI workflow, hooks, or the markdown-output
+pipeline, update the matching document in `references/`.
+
+## Verification
+
+Run commands from the repository root. The content checks are separate; no
+single command runs all of them:
+
+| Command                                     | Checks                                                                                                                                                                 |
+| ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `make test`                                 | All Ruby tests in `_tests/`.                                                                                                                                           |
+| `make test TEST=_tests/src/path/to/test.rb` | One Ruby test file. A single-file run may exit with code 2 when SimpleCov measures less than its 95% threshold; that coverage result is expected for an isolated file. |
+| `make check-links`                          | Builds the site, then runs html-proofer for broken links, missing images, and empty `alt` attributes.                                                                  |
+| `make check-refs`                           | Finds undefined, duplicate, and orphaned Markdown reference links.                                                                                                     |
+| `make check-liquid`                         | Renders documents with strict Liquid checking.                                                                                                                         |
+| `make check`                                | Alias for `make check-links`; it does not run the other content checks.                                                                                                |
+| `make lint`                                 | Runs the repository lint checks.                                                                                                                                       |
+| `make format-md`                            | Formats Markdown through the repository formatter.                                                                                                                     |
+
+For a content or plugin change, run the targeted test first and then the
+checks that cover the changed behavior. Do not merge a branch straight into
+`main`. Open a pull request, or run `make check-links`, `make check-refs`, and
+`make check-liquid` locally before merging. These checks must run before the
+change can publish.
+
+The AT Protocol publish step runs on `main` only. Its PDS is the state store;
+the repository does not contain AT-URIs for individual documents. Read
+[AT Protocol / standard.site](references/atproto-standard-site.md) before
+changing publish behavior or operating the workflow.
