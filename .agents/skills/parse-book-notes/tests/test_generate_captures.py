@@ -39,9 +39,7 @@ def capture_arguments(**overrides: list[str]) -> Namespace:
 def render_capture_groups(arguments: Namespace) -> str:
     """Render generated groups in the same form printed by the command."""
     groups = build_capture_groups(arguments)
-    return "\n\n".join(
-        "\n".join(capture.render() for capture in group) for group in groups
-    )
+    return "\n\n".join("\n".join(capture.render() for capture in group) for group in groups)
 
 
 class TestCaptureGeneration:
@@ -65,20 +63,15 @@ class TestCaptureGeneration:
         )
 
     def test_deduplicates_repeated_books(self):
-        output = render_capture_groups(
-            capture_arguments(book=["Surface Detail", "Surface Detail"])
-        )
+        output = render_capture_groups(capture_arguments(book=["Surface Detail", "Surface Detail"]))
 
         assert (
-            output
-            == '{% capture surface_detail %}{% book_link "Surface Detail" %}{% endcapture %}'
+            output == '{% capture surface_detail %}{% book_link "Surface Detail" %}{% endcapture %}'
         )
 
     def test_generates_custom_pair_capture(self):
         output = render_capture_groups(
-            capture_arguments(
-                author_pair=["Arkady Strugatsky|Boris Strugatsky=arkady_and_boris"]
-            )
+            capture_arguments(author_pair=["Arkady Strugatsky|Boris Strugatsky=arkady_and_boris"])
         )
 
         assert output == (

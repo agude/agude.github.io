@@ -138,23 +138,15 @@ def parse_author_pair(raw_value: str) -> tuple[EntitySpec, EntitySpec, str]:
 
     author_names = [name.strip() for name in pair.split("|")]
     if len(author_names) != 2 or not all(author_names):
-        raise ValueError(
-            "--author-pair needs exactly two names: 'First Author|Second Author'"
-        )
+        raise ValueError("--author-pair needs exactly two names: 'First Author|Second Author'")
 
-    first_author = EntitySpec(
-        author_names[0], default_variable_name(author_names[0].split()[-1])
-    )
-    second_author = EntitySpec(
-        author_names[1], default_variable_name(author_names[1].split()[-1])
-    )
+    first_author = EntitySpec(author_names[0], default_variable_name(author_names[0].split()[-1]))
+    second_author = EntitySpec(author_names[1], default_variable_name(author_names[1].split()[-1]))
     if separator:
         pair_variable_name = variable_name.strip()
         validate_variable_name(pair_variable_name, raw_value)
     else:
-        pair_variable_name = (
-            f"{first_author.variable_name}_and_{second_author.variable_name}"
-        )
+        pair_variable_name = f"{first_author.variable_name}_and_{second_author.variable_name}"
     return first_author, second_author, pair_variable_name
 
 
@@ -242,29 +234,13 @@ def build_capture_groups(arguments: argparse.Namespace) -> list[list[Capture]]:
         first_author, second_author, variable_name = parse_author_pair(raw_value)
         add_group(author_pair_captures(first_author, second_author, variable_name))
     for raw_value in arguments.series:
-        add_group(
-            [
-                link_capture(
-                    parse_entity_spec(raw_value, "--series"), "series_link", "series"
-                )
-            ]
-        )
+        add_group([link_capture(parse_entity_spec(raw_value, "--series"), "series_link", "series")])
     for raw_value in arguments.book:
-        add_group(
-            [link_capture(parse_entity_spec(raw_value, "--book"), "book_link", "book")]
-        )
+        add_group([link_capture(parse_entity_spec(raw_value, "--book"), "book_link", "book")])
     for raw_value in arguments.movie:
-        add_group(
-            [
-                link_capture(
-                    parse_entity_spec(raw_value, "--movie"), "movie_title", "movie"
-                )
-            ]
-        )
+        add_group([link_capture(parse_entity_spec(raw_value, "--movie"), "movie_title", "movie")])
     for raw_value in arguments.game:
-        add_group(
-            [link_capture(parse_entity_spec(raw_value, "--game"), "game_title", "game")]
-        )
+        add_group([link_capture(parse_entity_spec(raw_value, "--game"), "game_title", "game")])
     for raw_value in arguments.tv_show:
         add_group(
             [
@@ -367,11 +343,7 @@ def main() -> None:
         print(f"error: {error}", file=sys.stderr)
         raise SystemExit(2) from error
 
-    print(
-        "\n\n".join(
-            "\n".join(capture.render() for capture in group) for group in capture_groups
-        )
-    )
+    print("\n\n".join("\n".join(capture.render() for capture in group) for group in capture_groups))
 
 
 if __name__ == "__main__":
