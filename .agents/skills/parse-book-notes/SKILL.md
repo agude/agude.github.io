@@ -1,124 +1,137 @@
 ---
 name: parse-book-notes
 description: >-
-  Parse rough book-review notes into Liquid capture blocks. Use when starting
-  a book review to turn voice-transcribed notes into template variables for
-  books, authors, and series mentioned.
+  Turns rough book-review notes into verified Liquid capture blocks. Uses a
+  bundled generator for repeatable book, author, series, and media captures.
+  Use when starting a book review from notes, especially voice-transcribed notes.
 ---
 
 # Parse Book Notes
 
-Turn rough notes (often voice-transcribed) into `{% capture %}` blocks for
-book reviews.
+Turn rough book-review notes into Liquid captures for the references used in a
+review. The bundled generator formats names and titles that have already been
+resolved; it does not extract references from prose or decide what a note means.
 
-## Usage
+## Workflow
 
-`/parse-book-notes` --- Pass rough notes and get back capture blocks for
-books, authors, series, and other media referenced.
+1. Identify books, authors, series, short stories, movies, games, and TV shows
+   in the notes. Correct transcription errors before generating captures.
+2. Check spelling against `_books/`, `books/authors/`, and `books/series/`.
+   Existing content is the source for the site's stored names. A missing page
+   is not an error: the link tags render styled text for unreviewed works.
+3. Run `scripts/generate_captures.py` for references other than the review's
+   own book, author, and series. The book template already defines captures
+   for those three values.
+4. Put the generated captures below the opening paragraph. The opening
+   paragraph is the Jekyll excerpt; a capture block above it replaces the
+   excerpt with empty output.
+5. Check the rendered blocks for the intended name, title, and variable name.
+   Run `make check-liquid` after inserting them into the review.
 
-## Steps
+## Generate standard captures
 
-1. Parse notes for mentions of books, authors, series, short stories,
-   movies, games
-2. Fix voice transcription errors (see below)
-3. Generate capture blocks following the naming conventions below
-4. Validate spellings against `_books/`, `books/authors/`, `books/series/`
+Run the generator from this skill directory. Each repeatable flag accepts
+`NAME` or `NAME=variable_name`. Use the explicit variable name for a familiar
+abbreviation or when two references would otherwise collide.
 
-## Capture Pattern
+```bash
+uv run scripts/generate_captures.py \
+    --author "Iain M. Banks" \
+    --series "Culture" \
+    --book "Surface Detail"
+```
 
-For each book referenced, generate this bundle (grouped by book, blank line
-between groups):
+The command writes paste-ready Liquid to stdout:
 
 ```liquid
 {% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
 {% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
 {% capture banks_lastname %}{% author_link "Iain M. Banks" link_text="Banks" %}{% endcapture %}
 {% capture bankss_lastname %}{% author_link "Iain M. Banks" link_text="Banks" possessive %}{% endcapture %}
+
 {% capture culture %}{% series_link "Culture" %}{% endcapture %}
+
 {% capture surface_detail %}{% book_link "Surface Detail" %}{% endcapture %}
 ```
 
-### Variable naming
+Repeat `--book` to generate captures for several books in one invocation:
 
-- `banks` --- full name link
-- `bankss` --- possessive (double s for names ending in s)
-- `banks_lastname` --- surname-only link
-- `bankss_lastname` --- surname-only possessive
-- Books and series: `snake_case` of the title including articles
-  (`the_player_of_games`). Common abbreviations are fine (`botns`).
-
-### Rules
-
-- **Generate all four author variants, always.** A partial set causes a
-  missing-variable error later, when the review text needs a form that was never
-  defined. Cheap to emit now, annoying to discover mid-draft.
-- If multiple books share an author, include the author bundle only once
-  (with the first book).
-- Omit series capture for standalone books.
-- Don't duplicate the standard captures from the book template (the book
-  being reviewed, its author, its series).
-
-## Treating the Notes
-
-Two rules about the source notes themselves:
-
-- **The notes outrank your reading of the text.** They record what is actually
-  on the page; your objections are recalled from training data and are the less
-  reliable of the two. Do not push back on a factual claim in the notes about
-  plot, character, or biography — verify it or accept it. Offering an
-  *additional* reading is fine; contradicting the note is not, unless the text
-  is in front of you.
-
-  Concrete failure: the notes said Sandii ("New Rose Hotel") is "a first run at
-  Kumiko from *Mona Lisa Overdrive*." The objection that the mapping did not
-  hold was wrong — Sandii is half Japanese, half Dutch, so both are
-  mixed-heritage Japanese women caught between larger powers, exactly the
-  connection the note was making.
-
-- **Drafts are scratchpads.** The author scatters sentences and ideas into a
-  draft as they occur to him, so they are not lost later. A sentence sitting
-  under the wrong story section is usually a parking spot, not an error. Ask
-  before flagging it as misfiled.
-
-  `notes.md` holds raw reading notes above a separator and a `# Review Plan`
-  below it. The plan carries a Status block, per-story theme assignments,
-  factual corrections, and "captures still needed." Append to the plan; never
-  touch the raw notes above the separator.
-
-## Multiple Authors
-
-Generate individual captures for each author, plus combined versions:
-
-```liquid
-{% capture el_mohtar_and_gladstone %}{% author_link "Amal El-Mohtar" %} and {% author_link "Max Gladstone" %}{% endcapture %}
-{% capture el_mohtar_and_gladstones %}{% author_link "Amal El-Mohtar" %} and {% author_link "Max Gladstone" possessive %}{% endcapture %}
+```bash
+uv run scripts/generate_captures.py \
+    --book "Surface Detail" \
+    --book "The Player of Games"
 ```
 
-For siblings, use first names: `arkady_and_boris`. For 3+ authors
-(anthologies), prefix with `author_`: `author_evans`, `author_weber`.
+The generator deduplicates repeated inputs and rejects variable-name
+collisions. Do not trim the four-capture author bundle: a missing full-name,
+possessive, surname, or surname-possessive form becomes a drafting error later.
+Do not pass `--series` for a standalone work.
 
-## Other Media
+| Flag | Generates |
+| --- | --- |
+| `--author NAME[=VARIABLE]` | The four standard author captures. |
+| `--author-pair 'NAME|NAME[=VARIABLE]'` | Full-name and possessive captures for a pair. |
+| `--book TITLE[=VARIABLE]` | A `book_link` capture. |
+| `--series TITLE[=VARIABLE]` | A `series_link` capture. |
+| `--movie`, `--game`, `--tv-show` | The matching media-title capture. |
 
-Movies, games, and TV shows use title tags (styled text, not hyperlinks):
+For example, use `--series "The Book of the New Sun=botns"` for an
+abbreviation. Use `--author "Linda Evans=author_evans"` for each contributor
+to a 3-or-more-author anthology. The generated possessive variable appends
+`s`, so `banks` becomes `bankss`, as required by the review convention.
 
-```liquid
-{% capture terminator %}{% movie_title "Terminator" %}{% endcapture %}
-{% capture fallout %}{% game_title "Fallout" %}{% endcapture %}
-{% capture ds9 %}{% tv_show_title "Deep Space Nine" %}{% endcapture %}
+The script intentionally does not write to the review. Inspect its output,
+then place it where the draft needs it. Run `uv run scripts/generate_captures.py
+--help` for the complete interface.
+
+## Multiple authors and other media
+
+Generate each author's four-capture bundle once. When prose needs a combined
+form, add a pair capture as well:
+
+```bash
+uv run scripts/generate_captures.py \
+    --author "Amal El-Mohtar" \
+    --author "Max Gladstone" \
+    --author-pair "Amal El-Mohtar|Max Gladstone"
 ```
 
-Filmmakers and showrunners get `author_link` pages. **Exception:** Disco
-Elysium uses `{% book_link %}`.
+For siblings, use an explicit pair name with first names, such as
+`--author-pair "Arkady Strugatsky|Boris Strugatsky=arkady_and_boris"`. For
+three or more contributors, give each `--author` an `author_`-prefixed variable
+name to prevent collisions.
 
-## Voice Transcription Errors
+Use `--movie`, `--game`, and `--tv-show` for media titles. Filmmakers and
+showrunners use `--author`, because they receive `author_link` pages. Use
+`--book "Disco Elysium"`; it is the exception to the game-title rule.
 
-Notes are often voice-transcribed and will contain errors:
-- Misspellings ("shriek" for Shrike, "telehard" for Teilhard)
-- Wrong words ("forecaster" for farcaster)
-- Missing capitals, phonetic spellings ("bobiberse" for Bobiverse)
+Write short-story captures manually when a `from_book` disambiguator is
+needed:
 
-Check existing content for correct spellings. Use your knowledge of sci-fi
-literature to resolve ambiguities. If unsure, ask.
+```liquid
+{% capture new_rose_hotel %}{% short_story_link "New Rose Hotel" from_book="Burning Chrome" %}{% endcapture %}
+```
 
-Generate captures even without an existing review --- the plugins handle
-missing content gracefully.
+## Treat the notes as source material
+
+- Notes outrank recollection. Do not contradict a note's claim about plot,
+  character, or biography unless the text is available or the claim has been
+  verified. A note describing Sandii in "New Rose Hotel" as an early version
+  of Kumiko in _Mona Lisa Overdrive_ was correct: both are mixed-heritage
+  Japanese women caught between larger powers.
+- Drafts are scratchpads. A sentence in an unexpected section is usually a
+  parking place, not a misfiled argument. Ask before treating it as an error.
+- `notes.md` keeps raw notes above its separator and `# Review Plan` below it.
+  Append factual corrections, theme assignments, and missing-capture work to
+  the plan. Never edit the raw notes above the separator.
+
+## Resolve uncertainty and report
+
+Use existing content and reliable sources to resolve voice-transcription
+mistakes such as "shriek" for Shrike, "telehard" for Teilhard, and
+"forecaster" for farcaster. If a reference remains ambiguous, report it rather
+than guessing.
+
+Return the generated blocks and identify every unresolved spelling, identity,
+or capture-name choice. Before publishing the completed review, run
+`make check-links && make check-refs && make check-liquid`.

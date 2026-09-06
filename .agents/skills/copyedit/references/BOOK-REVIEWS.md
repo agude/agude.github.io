@@ -1,10 +1,26 @@
 # Book Review Structure
 
-Structure and conventions for book reviews on alexgude.com.
+Use this reference when editing or reviewing book reviews on alexgude.com.
+
+## Contents
+
+- [File Location](#file-location)
+- [Front Matter](#front-matter)
+- [First Paragraph](#first-paragraph)
+- [Capture Blocks](#capture-blocks)
+- [Paragraph 2 Transition](#paragraph-2-transition)
+- [Paragraph Structure](#paragraph-structure)
+- [One Spine Per Review](#one-spine-per-review)
+- [Reviewing a Sequel](#reviewing-a-sequel)
+- [Cutting a Section](#cutting-a-section)
+- [Common Sections](#common-sections)
+- [Literary Comparisons](#literary-comparisons)
+- [Backlinks](#backlinks)
+- [Ending Pattern](#ending-pattern)
 
 ## File Location
 
-Book reviews live in `_books/` as markdown files.
+Store book reviews as Markdown files in `_books/`.
 
 ## Front Matter
 
@@ -32,13 +48,13 @@ book_authors:
 
 ## First Paragraph
 
-The first paragraph is special:
+Treat the first paragraph as a standalone lede with the following constraints:
 
-1. **Pulled out for previews**: Used on social media cards, front page, related books sections
-2. **No capture variables**: Cannot define `{% capture %}` blocks and use them here (the capture becomes the excerpt instead of the paragraph text). Inline plugin tags (`{% book_link %}`, `{% author_link %}`, `{% series_text %}`) work fine.
-3. **Can use page variables**: `{{ page.title }}`, `{{ page.book_authors }}`, `{{ page.series }}`
-4. **Must stand alone**: Should make sense without the rest of the review
-5. **No quality verdict**: give the plot premise (new situation, conflict, who's involved), not how good it is --- the verdict belongs in paragraph 2. Before drafting P1 options, read the existing P2 so P1 doesn't preempt it (the constraint runs both ways).
+1. **Pulled out for previews**: The site uses it in social media cards, the front page, and related-book sections.
+2. **No capture variables**: Do not define `{% capture %}` blocks in this paragraph. A capture becomes the excerpt instead of the paragraph text. Inline plugin tags (`{% book_link %}`, `{% author_link %}`, `{% series_text %}`) work fine.
+3. **Can use page variables**: `{{ page.title }}`, `{{ page.book_authors }}`, and `{{ page.series }}` are available.
+4. **Must stand alone**: Write it so it makes sense without the rest of the review.
+5. **No quality verdict**: Give the plot premise (new situation, conflict, who's involved), not how good it is --- the verdict belongs in paragraph 2. Before drafting P1 options, read the existing P2 so P1 doesn't preempt it (the constraint runs both ways).
 
 Standard opening pattern:
 ```markdown
@@ -66,7 +82,7 @@ class="author-name">{{ page.book_authors[0] | split: " " | first }}</span> and
 <span class="author-name">{{ page.book_authors[1] }}</span>, is ...
 ```
 
-For 3+ authors (anthologies): Don't enumerate all authors in the first paragraph. Describe generically:
+For 3+ authors (anthologies), do not enumerate all authors in the first paragraph. Describe the work generically:
 ```markdown
 <cite class="book-title">{{ page.title }}</cite> is the twelfth book in
 {% series_text page.series link=false %}. It's an anthology
@@ -75,7 +91,7 @@ of Bolo stories written by three different authors.
 
 ## Capture Blocks
 
-After the first paragraph, define template variables:
+Immediately after the first paragraph, define reusable template variables:
 
 ```liquid
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
@@ -93,15 +109,15 @@ Naming conventions:
 - Author lastname: `banks_lastname`, `simmons_lastname`
 - Author lastname possessive: `bankss_lastname`
 
-These come from the template in _books/_template/*.md
+These names come from the template in `_books/_template/*.md`.
 
 ## Paragraph 2 Transition
 
-The transition from paragraph 1 to paragraph 2 is a prose challenge:
+Use the transition from paragraph 1 to paragraph 2 to move from the premise to the review's analysis or judgment:
 
-**Problem**: Paragraph 1 gives an overview. The captures come next. Then paragraph 2 continues. Don't just repeat what paragraph 1 said.
+**Goal**: Paragraph 1 gives an overview, the captures come next, and paragraph 2 continues the review. Do not repeat what paragraph 1 said.
 
-**Solutions**:
+**Approaches**:
 - Continue a thought from paragraph 1
 - Zoom in on a specific aspect
 - Introduce the themes you'll discuss
@@ -117,7 +133,7 @@ The transition from paragraph 1 to paragraph 2 is a prose challenge:
 
 ## Paragraph Structure
 
-- **Every sentence must support the paragraph's thesis.** A sentence that's
+- **Every sentence must support the paragraph's thesis.** A sentence that is
   actually a dig at a weakness doesn't belong in a paragraph arguing a strength ---
   even if it's true.
 - **Preserve intentional logical buildup within a sentence.** If the author
@@ -128,19 +144,18 @@ The transition from paragraph 1 to paragraph 2 is a prose challenge:
 ## One Spine Per Review
 
 Drafting a thematic section usually surfaces three or four viable threads. Pick
-**one as the spine** and let the others become evidence for it, rather than
-giving each equal weight. The tiebreaker: choose the thread that is what *this*
+**one as the spine** and use the others as evidence for it rather than giving
+each equal weight. As a tiebreaker, choose the thread that captures what *this*
 book adds to what the previous book already said.
 
 In the *Count Zero* review the spine became "the evolution of power" --- humans →
 corporations → AIs, each layer incomprehensible to the one below --- which demoted
 the mammalian-certainty quote from thesis to evidence.
 
-Named comparisons to other authors' works are fine in the main body of the
-review if they're strong theme or content matches, or support the theme or
-show where the author was coming from or where their ideas went. But short
-references that are more surface level belong in the "reminded me of..."
-paragraph near the end.
+Use named comparisons to other authors' works in the main body when they strongly
+match a theme or content, support the review's theme, or show where the author
+was coming from or where their ideas went. Put short, surface-level references
+in the "reminded me of..." paragraph near the end.
 
 ## Reviewing a Sequel
 
@@ -190,7 +205,7 @@ The "reminded me" section --- typically the last substantive section before the
 close. It's a **signature** of these reviews (see `STYLE.md`), so a long one is
 fine.
 
-- **Lead in.** Open with a sentence like `{{ this_book }} reminded me of many
+- **Lead-in.** Open with a sentence like `{{ this_book }} reminded me of many
   other books.` (or "several others" / "a few others"). Don't jump straight into
   the comparisons.
 - **Format varies with content.** Flowing prose for a few tightly-related
