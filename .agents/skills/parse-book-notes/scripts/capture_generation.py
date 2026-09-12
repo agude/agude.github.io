@@ -1,19 +1,8 @@
-# /// script
-# requires-python = ">=3.10"
-# dependencies = []
-# ///
-"""Generate paste-ready Liquid captures for confirmed review references.
-
-The script deliberately formats supplied entities instead of extracting them
-from prose. Review notes can contain ambiguous or voice-transcribed names; a
-person or agent must resolve those names before passing them to the generator.
-"""
+"""Build paste-ready Liquid captures from confirmed review references."""
 
 from __future__ import annotations
 
-import argparse
 import re
-import sys
 import unicodedata
 from dataclasses import dataclass
 
@@ -40,7 +29,7 @@ TRANSLITERATIONS = str.maketrans(
 
 @dataclass(frozen=True)
 class EntitySpec:
-    """A referenced entity and the Liquid variable name assigned to it."""
+    """A referenced entity and its Liquid variable name."""
 
     value: str
     variable_name: str
@@ -55,11 +44,12 @@ class Capture:
     source: str
 
     def render(self) -> str:
+        """Render this capture as Liquid."""
         return f"{{% capture {self.name} %}}{self.content}{{% endcapture %}}"
 
 
 class CaptureRegistry:
-    """Collect captures while rejecting incompatible variable-name collisions."""
+    """Collect captures while rejecting incompatible name collisions."""
 
     def __init__(self) -> None:
         self._captures_by_name: dict[str, Capture] = {}
@@ -79,7 +69,7 @@ class CaptureRegistry:
 
 
 def default_variable_name(value: str) -> str:
-    """Convert a title or surname to an ASCII snake_case Liquid variable name."""
+    """Convert a title or surname to an ASCII snake_case variable name."""
     transliterated = value.translate(TRANSLITERATIONS)
     decomposed = unicodedata.normalize("NFKD", transliterated)
     ascii_value = decomposed.encode("ascii", "ignore").decode("ascii")
@@ -89,7 +79,7 @@ def default_variable_name(value: str) -> str:
 
 
 def validate_variable_name(variable_name: str, value: str) -> None:
-    """Reject names that Liquid cannot use as a conventional variable name."""
+    """Reject names that Liquid cannot use as conventional variables."""
     if VARIABLE_NAME_RE.fullmatch(variable_name):
         return
     raise ValueError(
@@ -114,7 +104,7 @@ def parse_entity_spec(raw_value: str, option_name: str) -> EntitySpec:
 
 
 def parse_author_spec(raw_value: str) -> EntitySpec:
-    """Parse NAME or NAME=variable_name, defaulting to the author's surname."""
+    """Parse NAME or NAME=variable_name, defaulting to the surname."""
     value, separator, variable_name = raw_value.rpartition("=")
     if not separator:
         value = raw_value.strip()
@@ -159,7 +149,7 @@ def liquid_string(value: str) -> str:
 
 
 def author_captures(author: EntitySpec) -> list[Capture]:
-    """Return the standard full-name and surname capture variants for an author."""
+    """Return the four standard capture variants for an author."""
     surname = author.value.split()[-1]
     author_name = liquid_string(author.value)
     surname_name = liquid_string(surname)
@@ -186,7 +176,7 @@ def author_pair_captures(
     second_author: EntitySpec,
     variable_name: str,
 ) -> list[Capture]:
-    """Return the standard full-name and possessive captures for an author pair."""
+    """Return the full-name and possessive captures for an author pair."""
     first_name = liquid_string(first_author.value)
     second_name = liquid_string(second_author.value)
     source = f"author pair {first_author.value!r}, {second_author.value!r}"
@@ -213,138 +203,108 @@ def link_capture(entity: EntitySpec, tag_name: str, entity_kind: str) -> Capture
     )
 
 
-def add_captures(registry: CaptureRegistry, captures: list[Capture]) -> list[Capture]:
-    """Add a capture group and return only the newly emitted captures."""
-    return [capture for capture in captures if registry.add(capture)]
-
-
-def build_capture_groups(arguments: argparse.Namespace) -> list[list[Capture]]:
-    """Build deduplicated capture groups in their paste-ready output order."""
+def deduplicate_captures(capture_groups: list[list[Capture]]) -> list[Capture]:
+    """Flatten capture groups while removing exact duplicates."""
     registry = CaptureRegistry()
-    groups: list[list[Capture]] = []
-
-    def add_group(captures: list[Capture]) -> None:
-        emitted = add_captures(registry, captures)
-        if emitted:
-            groups.append(emitted)
-
-    for raw_value in arguments.author:
-        add_group(author_captures(parse_author_spec(raw_value)))
-    for raw_value in arguments.author_pair:
-        first_author, second_author, variable_name = parse_author_pair(raw_value)
-        add_group(author_pair_captures(first_author, second_author, variable_name))
-    for raw_value in arguments.series:
-        add_group([link_capture(parse_entity_spec(raw_value, "--series"), "series_link", "series")])
-    for raw_value in arguments.book:
-        add_group([link_capture(parse_entity_spec(raw_value, "--book"), "book_link", "book")])
-    for raw_value in arguments.movie:
-        add_group([link_capture(parse_entity_spec(raw_value, "--movie"), "movie_title", "movie")])
-    for raw_value in arguments.game:
-        add_group([link_capture(parse_entity_spec(raw_value, "--game"), "game_title", "game")])
-    for raw_value in arguments.tv_show:
-        add_group(
-            [
-                link_capture(
-                    parse_entity_spec(raw_value, "--tv-show"),
-                    "tv_show_title",
-                    "TV show",
-                )
-            ]
-        )
-
-    return groups
+    captures: list[Capture] = []
+    for capture_group in capture_groups:
+        for capture in capture_group:
+            if registry.add(capture):
+                captures.append(capture)
+    return captures
 
 
-def parse_arguments() -> argparse.Namespace:
-    """Define the non-interactive capture-generation command-line interface."""
-    parser = argparse.ArgumentParser(
-        description="Generate paste-ready Liquid captures for confirmed review references.",
-        epilog=(
-            "Each repeatable value accepts TITLE or TITLE=variable_name. "
-            "Use --author-pair 'First Author|Second Author' for a combined capture."
-        ),
+def build_reference_group(
+    raw_authors: list[str],
+    raw_author_pairs: list[str],
+    raw_books: list[str],
+    raw_series: list[str],
+) -> list[Capture]:
+    """Build one complete author, series, and book reference group."""
+    authors = [parse_author_spec(raw_author) for raw_author in raw_authors]
+    author_pairs = [parse_author_pair(raw_pair) for raw_pair in raw_author_pairs]
+    if not authors:
+        raise ValueError("a reference group requires at least one --author")
+    if not raw_books and not raw_series:
+        raise ValueError("a reference group requires at least one --book or --series")
+
+    author_names = [author.value for author in authors]
+    distinct_author_names = set(author_names)
+    if len(distinct_author_names) != len(author_names):
+        raise ValueError("pass each author only once per reference group")
+
+    for first_author, second_author, _variable_name in author_pairs:
+        missing_authors = {first_author.value, second_author.value} - distinct_author_names
+        if missing_authors:
+            formatted_names = ", ".join(sorted(missing_authors))
+            raise ValueError(
+                f"--author-pair requires individual --author bundles for {formatted_names}"
+            )
+
+    if len(authors) == 2:
+        if len(author_pairs) != 1:
+            raise ValueError("a two-author reference group requires exactly one --author-pair")
+        paired_names = {author_pairs[0][0].value, author_pairs[0][1].value}
+        if paired_names != distinct_author_names:
+            raise ValueError("--author-pair must contain both authors in the reference group")
+
+    capture_groups = [author_captures(author) for author in authors]
+    capture_groups.extend(
+        author_pair_captures(first_author, second_author, variable_name)
+        for first_author, second_author, variable_name in author_pairs
     )
-    parser.add_argument(
-        "--author",
-        action="append",
-        default=[],
-        metavar="NAME[=VARIABLE]",
-        help="add a four-variant author capture bundle",
+    capture_groups.extend(
+        [link_capture(parse_entity_spec(raw_value, "--series"), "series_link", "series")]
+        for raw_value in raw_series
     )
-    parser.add_argument(
-        "--author-pair",
-        action="append",
-        default=[],
-        metavar="NAME|NAME[=VARIABLE]",
-        help="add full-name and possessive captures for two authors",
+    capture_groups.extend(
+        [link_capture(parse_entity_spec(raw_value, "--book"), "book_link", "book")]
+        for raw_value in raw_books
     )
-    parser.add_argument(
-        "--book",
-        action="append",
-        default=[],
-        metavar="TITLE[=VARIABLE]",
-        help="add a book_link capture; repeat for multiple books",
-    )
-    parser.add_argument(
-        "--series",
-        action="append",
-        default=[],
-        metavar="TITLE[=VARIABLE]",
-        help="add a series_link capture",
-    )
-    parser.add_argument(
-        "--movie",
-        action="append",
-        default=[],
-        metavar="TITLE[=VARIABLE]",
-        help="add a movie_title capture",
-    )
-    parser.add_argument(
-        "--game",
-        action="append",
-        default=[],
-        metavar="TITLE[=VARIABLE]",
-        help="add a game_title capture",
-    )
-    parser.add_argument(
-        "--tv-show",
-        action="append",
-        default=[],
-        metavar="TITLE[=VARIABLE]",
-        help="add a tv_show_title capture",
-    )
-    parser.add_argument(
-        "--porcelain",
-        action="store_true",
-        help="emit the default paste-ready Liquid output without headings",
-    )
-    arguments = parser.parse_args()
-    if not any(
-        [
-            arguments.author,
-            arguments.author_pair,
-            arguments.book,
-            arguments.series,
-            arguments.movie,
-            arguments.game,
-            arguments.tv_show,
-        ]
-    ):
-        parser.error("provide at least one reference flag, such as --author or --book")
-    return arguments
+    return deduplicate_captures(capture_groups)
 
 
-def main() -> None:
-    """Generate captures and report invalid input through argparse."""
-    arguments = parse_arguments()
+def build_standalone_reference(reference_kind: str, raw_value: str) -> list[Capture]:
+    """Build one deliberately unlinked author, book, or series reference."""
+    if reference_kind == "author":
+        return author_captures(parse_author_spec(raw_value))
+
+    tag_names = {"book": "book_link", "series": "series_link"}
     try:
-        capture_groups = build_capture_groups(arguments)
-    except ValueError as error:
-        print(f"error: {error}", file=sys.stderr)
-        raise SystemExit(2) from error
+        tag_name = tag_names[reference_kind]
+    except KeyError as error:
+        raise ValueError(f"unsupported standalone reference type: {reference_kind}") from error
+    entity = parse_entity_spec(raw_value, f"--{reference_kind}")
+    return [link_capture(entity, tag_name, reference_kind)]
 
-    print("\n\n".join("\n".join(capture.render() for capture in group) for group in capture_groups))
+
+def build_media_references(
+    raw_movies: list[str],
+    raw_games: list[str],
+    raw_tv_shows: list[str],
+) -> list[Capture]:
+    """Build standalone captures for movie, game, and television titles."""
+    capture_groups = [
+        [link_capture(parse_entity_spec(raw_value, "--movie"), "movie_title", "movie")]
+        for raw_value in raw_movies
+    ]
+    capture_groups.extend(
+        [link_capture(parse_entity_spec(raw_value, "--game"), "game_title", "game")]
+        for raw_value in raw_games
+    )
+    capture_groups.extend(
+        [
+            link_capture(
+                parse_entity_spec(raw_value, "--tv-show"),
+                "tv_show_title",
+                "TV show",
+            )
+        ]
+        for raw_value in raw_tv_shows
+    )
+    return deduplicate_captures(capture_groups)
 
 
-if __name__ == "__main__":
-    main()
+def render_captures(captures: list[Capture]) -> str:
+    """Render captures contiguously in paste-ready order."""
+    return "\n".join(capture.render() for capture in captures)
