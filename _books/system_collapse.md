@@ -87,21 +87,23 @@ while the Barish-Estranza Corporation tries to drag everyone into slavery.
 {% capture burning_chrome %}{% book_link "Burning Chrome" %}{% endcapture %}
 {% capture new_rose_hotel %}{% short_story_link "New Rose Hotel" from_book="Burning Chrome" %}{% endcapture %}
 
-{{ this_series }} has always had an element of escapism. For the reader,
-that's the competence porn and tight action. For Murderbot, it's watching soap
-operas while trying to ignore its feelings. {{ this_book }} focuses much more
-on the second and ignores the first. I almost put the book down during the
-first half, which is mostly Murderbot and its team walking through corridors
-while it tries to hide its debilitating PTSD from both the humans and the
-reader. Fortunately, the second half goes back to what works, with Murderbot
-causing mayhem and saving people.
+The corporate slavery and alien-contaminated world sound like heavy subjects,
+but {{ this_series }} has always had an element of escapism that keeps things
+from feeling oppressive. For the reader, that's the competence porn and tight
+action. For Murderbot, it's watching soap operas while trying to ignore its
+feelings. {{ this_book }} leans much more on the second and ignores the
+action. I almost put the book down during the first half, which reminded me of
+the ending of {{ matter }}: Murderbot and its team walking through too many
+corridors while it tries to hide its debilitating PTSD from both the humans
+and the reader. Fortunately, the second half goes back to what works, with
+Murderbot causing mayhem and saving people.
 
 {{ this_book }} focuses on stories and the power they have. After years of
-Murderbot using media to learn about humans, about how to walk and stand
-"normally", and even how to be a detective in {{ mb6 }}, {{ this_book }} shows
-that media is a weapon. Murderbot and its humans, down but not out, fight back
-the only way they can: propaganda. They create a real-ish story mixing fake
-shots and voices with real interviews to convince the colonists to reject
+Murderbot using media to learn about humans, how to walk and stand "normally",
+and even how to be a detective in {{ mb6 }}, {{ this_book }} shows that media
+is a weapon. Murderbot and its humans, down but not out, fight back the only
+way they can: propaganda. They create a real-ish story mixing fake shots and
+voices with real interviews to convince the colonists to reject
 Barish-Estranza. It's clever because it taps into Murderbot's expertise with
 stories to fight a foe it can't physically overpower. But it comes too late to
 fully save the book.
@@ -122,7 +124,7 @@ is also {{ vinges_lastname }} {{ a_fire_upon_the_deep }}, where ancient
 horrors can be released from the High Beyond. Finally, I've realized that {{
 this_series }} is really close to {{ alexs_lastname }} {{ a_mote_in_shadow }}.
 Both have evil corporations, both have infectious alien remnants, and both
-have high-stakes action. But whereas it gives you a sense of existential dread
+have high-stakes action. But while it gives you a sense of existential dread
 in {{ alexs_lastname }} work, in {{ the_authors_lastname_possessive }} it's...
 almost cozy? I think it's because Murderbot is extremely competent. Whereas {{
 alexs_lastname }} protagonists are in way over their heads, you know Murderbot
