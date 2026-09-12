@@ -54,7 +54,9 @@ def selected_reference(arguments: argparse.Namespace) -> tuple[str, str]:
 def warning_messages(reference_kind: str) -> list[str]:
     """Explain why standalone output needs deliberate review."""
     if reference_kind == "author":
-        correction = "use generate_reference_group.py unless the prose intentionally names only this author."
+        correction = (
+            "use generate_reference_group.py unless the prose intentionally names only this author."
+        )
     else:
         correction = (
             "use generate_reference_group.py unless the related author is already captured "

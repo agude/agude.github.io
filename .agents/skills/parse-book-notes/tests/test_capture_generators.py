@@ -86,8 +86,7 @@ class TestCaptureGeneration:
         )
         assert (
             '{% capture arkady_and_boriss %}{% author_link "Arkady Strugatsky" %} and '
-            '{% author_link "Boris Strugatsky" possessive %}{% endcapture %}'
-            in rendered
+            '{% author_link "Boris Strugatsky" possessive %}{% endcapture %}' in rendered
         )
 
     def test_rejects_capture_name_collisions(self):
@@ -160,10 +159,7 @@ class TestReferenceGroupCommand:
                 ]
             )
 
-        assert (
-            "individual --author bundles for Boris Strugatsky"
-            in capsys.readouterr().err
-        )
+        assert "individual --author bundles for Boris Strugatsky" in capsys.readouterr().err
 
     def test_accepts_three_authors_without_pair(self, capsys):
         reference_group_generator.main(
@@ -195,10 +191,7 @@ class TestStandaloneReferenceCommand:
         standalone_reference_generator.main(["--book", "Network Effect=mb5"])
 
         captured = capsys.readouterr()
-        assert (
-            captured.out
-            == '{% capture mb5 %}{% book_link "Network Effect" %}{% endcapture %}\n'
-        )
+        assert captured.out == '{% capture mb5 %}{% book_link "Network Effect" %}{% endcapture %}\n'
         assert "standalone reference mode is exceptional" in captured.err
         assert "You are probably doing this wrong" in captured.err
         assert "cannot preserve an author/work relationship" in captured.err
@@ -246,7 +239,4 @@ class TestMediaReferenceCommand:
         with pytest.raises(SystemExit, match="2"):
             media_reference_generator.main([])
 
-        assert (
-            "provide at least one --movie, --game, or --tv-show"
-            in capsys.readouterr().err
-        )
+        assert "provide at least one --movie, --game, or --tv-show" in capsys.readouterr().err
