@@ -21,9 +21,9 @@ same_as_urls:
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
 is the seventh book in {% series_text page.series link=false %}. It continues
-right where {% book_link "Network Effect" %} left off: with Murderbot, ART,
-their humans, and a bunch of colonists trapped on alien contaminated world,
-with the Barish-Estranza Corporation trying to drag everyone into slavery.
+right where {% book_link "Network Effect" %} left off: Murderbot, ART, their
+humans, and a bunch of colonists are trapped on an alien-contaminated world
+while the Barish-Estranza Corporation tries to drag everyone into slavery.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
@@ -88,20 +88,20 @@ with the Barish-Estranza Corporation trying to drag everyone into slavery.
 {% capture new_rose_hotel %}{% short_story_link "New Rose Hotel" from_book="Burning Chrome" %}{% endcapture %}
 
 {{ this_series }} has always had an element of escapism. For the reader,
-that's the competence porn, the tight action. For Murderbot, it's watching
-soap operas while trying to ignore it's feelings. {{ this_book }} focuses much
-more on the second, while ignoring the first. I almost put the book down
-during the first half, which focuses on Murderbot and his team walking through
-corridors while it tries to hide its debilitating PTSD from both the humans
-and the reader. Fortunately the second half goes back to what works, with
-Murderbot causing mayhem and saving people.
+that's the competence porn and tight action. For Murderbot, it's watching soap
+operas while trying to ignore its feelings. {{ this_book }} focuses much more
+on the second and ignores the first. I almost put the book down during the
+first half, which is mostly Murderbot and its team walking through corridors
+while it tries to hide its debilitating PTSD from both the humans and the
+reader. Fortunately, the second half goes back to what works, with Murderbot
+causing mayhem and saving people.
 
-{{ this_book }} focuses on stories, and the power they have. After years of
-Murderbot using media to learn about humans, about how to be a detective in {{
-mb6 }}, how to walk and stand normally; {{ this_book }} shows that media is a
-weapon. Murderbot and its humans, down but not out, fight back the only way
-they can: propaganda. They create a real-ish story mixing fake shots and
-voices with real interviews in order to convince the colonists to reject
+{{ this_book }} focuses on stories and the power they have. After years of
+Murderbot using media to learn about humans, about how to walk and stand
+"normally", and even how to be a detective in {{ mb6 }}, {{ this_book }} shows
+that media is a weapon. Murderbot and its humans, down but not out, fight back
+the only way they can: propaganda. They create a real-ish story mixing fake
+shots and voices with real interviews to convince the colonists to reject
 Barish-Estranza. It's clever because it taps into Murderbot's expertise with
 stories to fight a foe it can't physically overpower. But it comes too late to
 fully save the book.
@@ -109,26 +109,26 @@ fully save the book.
 {{ this_series }}, and {{ this_book }} in particular, really drive home how {{
 the_authors_lastname }} is mixing two classic sci-fi ideas: evil corporations
 and alien contamination. Corporate dystopia turns people into property, just
-something to sacrifice on the alter of capitalism. We've seen this before with
-the Zaibatsu and their indentured scientists in {{ gibsons_lastname }} {{
+something to sacrifice on the altar of capitalism. We've seen this before with
+the zaibatsus and their indentured scientists in {{ gibsons_lastname }} {{
 sprawl }} series, and with the Weyland-Yutani Corporation from {{ alien }}.
 And {{ alien }} is also where the two ideas come together: Weyland-Yutani is
 after an alien that infects its hosts.
 
 The idea that alien remnants are dangerous just by existing is something I've
 seen a lot. The classic of the genre is {{ arkady_and_boris_strugatskys }} {{
-roadside_picnic }}, where the danger might not even be intentional. But also
-{{ vinges_lastname }} {{ a_fire_upon_the_deep }} where ancient horrors can be
-released from the high beyond. Finally, I've realized that {{ this_series }}
-is really close to {{ alexs_lastname }} {{ a_mote_in_shadow }}. Both have evil
-corporations, both have infectious alien remnants, and both have high-stakes
-action. But whereas it gives you a sense of existential dread in {{
-alexs_lastname }} work, in {{ the_authors_lastname_possessive }} it's...
-almost cozy? I think it's because Murderbot is extremely competent, where as {{
-alexs_lastname }} protagonists are in way over their heads; you know Murderbot
+roadside_picnic }}, where the danger might not even be intentional. But there
+is also {{ vinges_lastname }} {{ a_fire_upon_the_deep }}, where ancient
+horrors can be released from the High Beyond. Finally, I've realized that {{
+this_series }} is really close to {{ alexs_lastname }} {{ a_mote_in_shadow }}.
+Both have evil corporations, both have infectious alien remnants, and both
+have high-stakes action. But whereas it gives you a sense of existential dread
+in {{ alexs_lastname }} work, in {{ the_authors_lastname_possessive }} it's...
+almost cozy? I think it's because Murderbot is extremely competent. Whereas {{
+alexs_lastname }} protagonists are in way over their heads, you know Murderbot
 is going to come out on top.
 
 Halfway through this book I was sure it was going to be the last time I read
 {{ this_series }}. The pacing really, really made me want to put it down. But
-the second half was classic Murderbot. Maybe I still have a few more in me, I
+the second half was classic Murderbot. Maybe I still have a few more in me. I
 guess we'll see when I get to {{ mb8 }}.
