@@ -44,6 +44,7 @@ with the Barish-Estranza Corporation trying to drag everyone into slavery.
 {% capture mb5 %}{% book_link "Network Effect" %}{% endcapture %}
 {% capture mb6 %}{% book_link "Fugitive Telemetry" %}{% endcapture %}
 {% capture mb7 %}{% book_link "System Collapse" %}{% endcapture %}
+{% capture mb8 %}{% book_link "Platform Decay" %}{% endcapture %}
 
 {% capture alien %}{% movie_title "Alien" %}{% endcapture %}
 
@@ -122,5 +123,12 @@ released from the high beyond. Finally, I've realized that {{ this_series }}
 is really close to {{ alexs_lastname }} {{ a_mote_in_shadow }}. Both have evil
 corporations, both have infectious alien remnants, and both have high-stakes
 action. But whereas it gives you a sense of existential dread in {{
-alexs_lastname }} work, in {{ the_authors_lastname_possessive }} its... almost
-cozy?
+alexs_lastname }} work, in {{ the_authors_lastname_possessive }} it's...
+almost cozy? I think it's because Murderbot is extremely competent, where as {{
+alexs_lastname }} protagonists are in way over their heads; you know Murderbot
+is going to come out on top.
+
+Halfway through this book I was sure it was going to be the last time I read
+{{ this_series }}. The pacing really, really made me want to put it down. But
+the second half was classic Murderbot. Maybe I still have a few more in me, I
+guess we'll see when I get to {{ mb8 }}.
