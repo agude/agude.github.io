@@ -1,5 +1,5 @@
 ---
-date: 2026-09-12
+date: 2026-09-12 09:20:22 -0700
 title: System Collapse
 book_authors: Martha Wells
 series: The Murderbot Diaries
