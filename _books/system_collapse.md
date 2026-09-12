@@ -19,7 +19,11 @@ same_as_urls:
   - "https://www.librarything.com/work/26774411"
 ---
 
-{% book_link page.title %}, by {% author_link page.book_authors link=false %}, is the seventh book in {% series_text page.series link=false %}.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the seventh book in {% series_text page.series link=false %}. It continues
+right where {% book_link "Network Effect" %} left off: with Murderbot, ART,
+their humans, and a bunch of colonists trapped on alien contaminated world,
+with the Barish-Estranza Corporation trying to drag everyone into slavery.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
@@ -70,3 +74,30 @@ same_as_urls:
 {% capture alex_lastname %}{% author_link "A. N. Alex" link_text="Alex" %}{% endcapture %}
 {% capture alexs_lastname %}{% author_link "A. N. Alex" link_text="Alex" possessive %}{% endcapture %}
 {% capture a_mote_in_shadow %}{% book_link "A Mote in Shadow" %}{% endcapture %}
+
+{{ this_series }} has always had an element of escapism. For the reader,
+that's the competence porn, the tight action. For Murderbot, it's watching
+soap operas while trying to ignore it's feelings. {{ this_book }} focuses much
+more on the second, while ignoring the first. I almost put the book down
+during the first half, which focuses on Murderbot and his team walking through
+corridors while it tries to hide its debilitating PTSD from both the humans
+and the reader. Fortunately the second half goes back to what works, with
+Murderbot causing mayhem and saving people.
+
+{{ this_book }} focuses on stories, and the power they have. After years of
+Murderbot using media to learn about humans, about how to be a detective in {{
+mb6 }}, how to walk and stand normally; {{ this_book }} shows that media is a
+weapon. Murderbot and its humans, down but not out, fight back the only way
+they can: propaganda. They create a real-ish story mixing fake shots and
+voices with real interviews in order to convince the colonists to reject
+Barish-Estranza. It's clever because it taps into Murderbot's expertise with
+stories to fight a foe it can't physically overpower. But it comes too late to
+fully save the book.
+
+This book reminded me of a few others. It really struck me this time how
+similar {{ this_series }} is to {{ alexs_lastname }} {{ a_mote_in_shadow }}.
+Both have evil corporations that murder and enslave for profit, both have
+alien remnants that can infect those who aren't careful, and both have
+high-stakes action. But whereas it gives you a sense of existential dread in
+{{ alexs_lastname }} work, in {{ the_authors_lastname_possessive }} its...
+almost cozy?
