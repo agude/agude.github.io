@@ -1,11 +1,11 @@
 ---
-date: 2026-08-30
+date: 2026-09-12
 title: System Collapse
 book_authors: Martha Wells
 series: The Murderbot Diaries
 book_number: 7
 is_anthology: false
-rating: null
+rating: 3
 image: /books/covers/system_collapse.jpg
 wikidata_qid: Q123521600
 isbn: 978-1-7050-4102-4
