@@ -45,6 +45,8 @@ with the Barish-Estranza Corporation trying to drag everyone into slavery.
 {% capture mb6 %}{% book_link "Fugitive Telemetry" %}{% endcapture %}
 {% capture mb7 %}{% book_link "System Collapse" %}{% endcapture %}
 
+{% capture alien %}{% movie_title "Alien" %}{% endcapture %}
+
 {% capture vinge %}{% author_link "Vernor Vinge" %}{% endcapture %}
 {% capture vinges %}{% author_link "Vernor Vinge" possessive %}{% endcapture %}
 {% capture vinge_lastname %}{% author_link "Vernor Vinge" link_text="Vinge" %}{% endcapture %}
@@ -59,8 +61,7 @@ with the Barish-Estranza Corporation trying to drag everyone into slavery.
 {% capture boriss %}{% author_link "Boris Strugatsky" possessive %}{% endcapture %}
 {% capture boris_lastname %}{% author_link "Boris Strugatsky" link_text="Strugatsky" %}{% endcapture %}
 {% capture boriss_lastname %}{% author_link "Boris Strugatsky" link_text="Strugatsky" possessive %}{% endcapture %}
-{% capture arkady_and_boris %}{% author_link "Arkady Strugatsky" %} and {% author_link "Boris Strugatsky" %}{% endcapture %}
-{% capture arkady_and_boriss %}{% author_link "Arkady Strugatsky" %} and {% author_link "Boris Strugatsky" possessive %}{% endcapture %}
+{% capture arkady_and_boris_strugatskys %}{% author_link "Arkady Strugatsky" link_text="Arkady" %} and {% author_link "Boris Strugatsky" possessive %}{% endcapture %}
 {% capture roadside_picnic %}{% book_link "Roadside Picnic" %}{% endcapture %}
 
 {% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
@@ -74,6 +75,16 @@ with the Barish-Estranza Corporation trying to drag everyone into slavery.
 {% capture alex_lastname %}{% author_link "A. N. Alex" link_text="Alex" %}{% endcapture %}
 {% capture alexs_lastname %}{% author_link "A. N. Alex" link_text="Alex" possessive %}{% endcapture %}
 {% capture a_mote_in_shadow %}{% book_link "A Mote in Shadow" %}{% endcapture %}
+
+{% capture gibson %}{% author_link "William Gibson" %}{% endcapture %}
+{% capture gibsons %}{% author_link "William Gibson" possessive %}{% endcapture %}
+{% capture gibson_lastname %}{% author_link "William Gibson" link_text="Gibson" %}{% endcapture %}
+{% capture gibsons_lastname %}{% author_link "William Gibson" link_text="Gibson" possessive %}{% endcapture %}
+{% capture sprawl %}{% series_link "Sprawl" %}{% endcapture %}
+{% capture neuromancer %}{% book_link "Neuromancer" %}{% endcapture %}
+{% capture count_zero %}{% book_link "Count Zero" %}{% endcapture %}
+{% capture burning_chrome %}{% book_link "Burning Chrome" %}{% endcapture %}
+{% capture new_rose_hotel %}{% short_story_link "New Rose Hotel" from_book="Burning Chrome" %}{% endcapture %}
 
 {{ this_series }} has always had an element of escapism. For the reader,
 that's the competence porn, the tight action. For Murderbot, it's watching
@@ -94,10 +105,22 @@ Barish-Estranza. It's clever because it taps into Murderbot's expertise with
 stories to fight a foe it can't physically overpower. But it comes too late to
 fully save the book.
 
-This book reminded me of a few others. It really struck me this time how
-similar {{ this_series }} is to {{ alexs_lastname }} {{ a_mote_in_shadow }}.
-Both have evil corporations that murder and enslave for profit, both have
-alien remnants that can infect those who aren't careful, and both have
-high-stakes action. But whereas it gives you a sense of existential dread in
-{{ alexs_lastname }} work, in {{ the_authors_lastname_possessive }} its...
-almost cozy?
+{{ this_series }}, and {{ this_book }} in particular, really drive home how {{
+the_authors_lastname }} is mixing two classic sci-fi ideas: evil corporations
+and alien contamination. Corporate dystopia turns people into property, just
+something to sacrifice on the alter of capitalism. We've seen this before with
+the Zaibatsu and their indentured scientists in {{ gibsons_lastname }} {{
+sprawl }} series, and with the Weyland-Yutani Corporation from {{ alien }}.
+And {{ alien }} is also where the two ideas come together: Weyland-Yutani is
+after an alien that infects its hosts.
+
+The idea that alien remnants are dangerous just by existing is something I've
+seen a lot. The classic of the genre is {{ arkady_and_boris_strugatskys }} {{
+roadside_picnic }}, where the danger might not even be intentional. But also
+{{ vinges_lastname }} {{ a_fire_upon_the_deep }} where ancient horrors can be
+released from the high beyond. Finally, I've realized that {{ this_series }}
+is really close to {{ alexs_lastname }} {{ a_mote_in_shadow }}. Both have evil
+corporations, both have infectious alien remnants, and both have high-stakes
+action. But whereas it gives you a sense of existential dread in {{
+alexs_lastname }} work, in {{ the_authors_lastname_possessive }} its... almost
+cozy?
