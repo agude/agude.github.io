@@ -69,11 +69,11 @@ mixing fake shots and voices with real interviews to win over the colonists.
 Weaponizing Murderbot's media obsession against a foe it can't physically
 overpower is clever, but it comes too late to fully save the book.
 
-{{ this_series }}, and {{ this_book }} in particular, really drive home how {{
+{{ this_series }} and {{ this_book }} in particular really drive home how {{
 the_authors_lastname }} is mixing two classic sci-fi ideas: evil corporations
 and alien contamination. Barish-Estranza's treatment of people as property is
 the latest iteration, but we've seen it before with the zaibatsus and their
-indentured scientists in {{ gibsons_lastname }} {{ sprawl }} series, and with
+indentured scientists in {{ gibsons_lastname }} {{ sprawl }} series and with
 the Weyland-Yutani Corporation from {{ alien }}. And {{ alien }} is also where
 the two ideas come together: Weyland-Yutani is trying to capture an alien that
 infects its hosts.
@@ -91,7 +91,7 @@ almost cozy? I think it's because Murderbot is extremely competent. Whereas {{
 alexs_lastname }} protagonists are in way over their heads, you know Murderbot
 is going to come out on top.
 
-Halfway through this book I was sure it was going to be the last time I read
+Halfway through this book, I was sure it was going to be the last time I read
 {{ this_series }}. The pacing really, really made me want to put it down. But
 the second half was classic Murderbot. Maybe I still have a few more in me. I
 guess we'll see when I get to {{ mb8 }}.
