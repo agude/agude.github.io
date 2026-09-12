@@ -108,27 +108,27 @@ Barish-Estranza. It's clever because it taps into Murderbot's expertise with
 stories to fight a foe it can't physically overpower. But it comes too late to
 fully save the book.
 
-{{ this_series }}, and {{ this_book }} in particular, really drive home how {{
-the_authors_lastname }} is mixing two classic sci-fi ideas: evil corporations
-and alien contamination. Corporate dystopia turns people into property, just
-something to sacrifice on the altar of capitalism. We've seen this before with
-the zaibatsus and their indentured scientists in {{ gibsons_lastname }} {{
-sprawl }} series, and with the Weyland-Yutani Corporation from {{ alien }}.
-And {{ alien }} is also where the two ideas come together: Weyland-Yutani is
-after an alien that infects its hosts.
+{{ this_series }}, and {{ this_book }} in particular, really drives home how
+{{ the_authors_lastname }} is mixing two classic sci-fi ideas: evil
+corporations and alien contamination. Corporate dystopia turns people into
+property, just something to sacrifice on the altar of capitalism. We've seen
+this before with the zaibatsus and their indentured scientists in {{
+gibsons_lastname }} {{ sprawl }} series, and with the Weyland-Yutani
+Corporation from {{ alien }}. And {{ alien }} is also where the two ideas come
+together: Weyland-Yutani is after an alien that infects its hosts.
 
 The idea that alien remnants are dangerous just by existing is something I've
 seen a lot. The classic of the genre is {{ arkady_and_boris_strugatskys }} {{
 roadside_picnic }}, where the danger might not even be intentional. But there
 is also {{ vinges_lastname }} {{ a_fire_upon_the_deep }}, where ancient
-horrors can be released from the High Beyond. Finally, I've realized that {{
+horrors can be released from the Transcend. Finally, I've realized that {{
 this_series }} is really close to {{ alexs_lastname }} {{ a_mote_in_shadow }}.
 Both have evil corporations, both have infectious alien remnants, and both
-have high-stakes action. But while it gives you a sense of existential dread
-in {{ alexs_lastname }} work, in {{ the_authors_lastname_possessive }} it's...
-almost cozy? I think it's because Murderbot is extremely competent. Whereas {{
-alexs_lastname }} protagonists are in way over their heads, you know Murderbot
-is going to come out on top.
+have high-stakes action. But while {{ a_mote_in_shadow }} gives you a sense of
+existential dread in {{ alexs_lastname }} work, in {{
+the_authors_lastname_possessive }} it's... almost cozy? I think it's because
+Murderbot is extremely competent. Whereas {{ alexs_lastname }} protagonists
+are in way over their heads, you know Murderbot is going to come out on top.
 
 Halfway through this book I was sure it was going to be the last time I read
 {{ this_series }}. The pacing really, really made me want to put it down. But
