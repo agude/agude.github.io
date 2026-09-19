@@ -1,11 +1,11 @@
 ---
-date: 2026-08-30
+date: 2026-09-19
 title: Platform Decay
 book_authors: Martha Wells
 series: The Murderbot Diaries
 book_number: 8
 is_anthology: false
-rating: null
+rating: 3
 image: /books/covers/platform_decay.jpg
 wikidata_qid: Q136749524
 isbn: 978-1-7050-4103-1
