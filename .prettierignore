@@ -12,7 +12,6 @@ topics/
 
 # Agent/meta files (not site content)
 AGENTS.md
-CLAUDE.md
 GEMINI.md
 README.md
 LICENSE.md
