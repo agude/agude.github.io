@@ -32,6 +32,14 @@ same_as_urls:
 
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
 
+{% capture mb1 %}{% book_link "All Systems Red" %}{% endcapture %}
+{% capture mb2 %}{% book_link "Artificial Condition" %}{% endcapture %}
+{% capture mb3 %}{% book_link "Rogue Protocol" %}{% endcapture %}
+{% capture mb4 %}{% book_link "Exit Strategy" %}{% endcapture %}
+{% capture mb5 %}{% book_link "Network Effect" %}{% endcapture %}
+{% capture mb6 %}{% book_link "Fugitive Telemetry" %}{% endcapture %}
+{% capture mb7 %}{% book_link "System Collapse" %}{% endcapture %}
+
 {% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
 {% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
 {% capture banks_lastname %}{% author_link "Iain M. Banks" link_text="Banks" %}{% endcapture %}
