@@ -66,3 +66,20 @@ Barish-Estranza. The setup is very similar to {{ mb4 }}, which is great
 because that's one of the best Murderbot books. But the mission gets more
 complicated when Murderbot discovers they may have been set up by Supervisor
 Leonide, from {{ mb5 }} and {{ mb7 }}, who needs Murderbot's help.
+
+I thought {{ mb7 }} was too slow and too long to really work. I worried it was
+a sign of things to come. {{ this_book }} puts those fears to rest as a fine
+return to form: it is fast, it is action packed, and it has deep emotional
+moments. It got everything you want out of {{ this_series }}, but it is also
+doing something new. In {{ mb5 }} and {{ mb7 }}, Murderbot gave other SecUnits
+code to hack their governor modules. In this book, we run into the first
+SecUnits that got the code without getting it from Murderbot. The revolt is
+now spreading beyond Murderbot's control.
+
+{{ this_book }} really focuses on family. {{ this_series }} follows the modern
+science-fiction trend towards found family. Murderbot is slowly realizing it
+has a place in Mensah's non-standard family, and that it is willing to risk
+its life to defend them. This book also shows us Corporate Rim families, which
+are just as non-standard and queer as the good guys on Preservation! But where
+Mensah's family rally's together to save their partners, the corporate
+families are torn apart by violence.
