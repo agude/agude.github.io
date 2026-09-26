@@ -82,5 +82,13 @@ has a place in Mensah's non-standard family, and that it is willing to risk
 its life to defend them. This book also shows us a Corporate Rim family, which
 is just as non-standard and queer as the good guys on Preservation! But where
 Mensah's family rallies together to save its members, Leonide's is torn apart
-by violence. Those who view other people as property begin to view their
-family the same way.
+by violence. The Corporate Rim uses violence to keep its workers
+enslaved and enforce its hierarchies, and its families reproduce that same
+behavior.
+
+This book reminded me of a few others. The giant station with it's natural
+landscape inside reminded me of the topopolis from {{ taylors_lastname }} {{
+heaven_s_river }}. The river suspended in the air is very similar to the
+Ouster's space river in {{ simmonss_lastname }} {{ the_fall_of_hyperion }}.
+The city built into the walls of the (artificial) canyon reminded me of the
+canyon city from {{ bankss_lastname }} {{ use_of_weapons }}.
