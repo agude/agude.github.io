@@ -17,7 +17,8 @@ same_as_urls:
   - "https://www.librarything.com/work/29024865"
 ---
 
-{% book_link page.title %}, by {% author_link page.book_authors link=false %}, is the eighth book in {% series_text page.series link=false %}.
+{% book_link page.title %}, by {% author_link page.book_authors link=false %},
+is the eighth book in {% series_text page.series link=false %}.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
@@ -58,3 +59,10 @@ same_as_urls:
 {% capture simmons_lastname %}{% author_link "Dan Simmons" link_text="Simmons" %}{% endcapture %}
 {% capture simmonss_lastname %}{% author_link "Dan Simmons" link_text="Simmons" possessive %}{% endcapture %}
 {% capture the_fall_of_hyperion %}{% book_link "The Fall of Hyperion" %}{% endcapture %}
+
+{{ this_book }} starts with Murderbot and Three infiltrating a corporate
+station to rescue some of Mensah's family, who have been kidnapped by
+Barish-Estranza. The setup is very similar to {{ mb4 }}, which is great
+because that's one of the best Murderbot books. But the mission gets more
+complicated when Murderbot discovers they may have been set up by Supervisor
+Leonide, from {{ mb5 }} and {{ mb7 }}, who needs Murderbot's help.
