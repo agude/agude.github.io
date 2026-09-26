@@ -79,7 +79,8 @@ now spreading beyond Murderbot's control.
 {{ this_book }} really focuses on family. {{ this_series }} follows the modern
 science-fiction trend towards found family. Murderbot is slowly realizing it
 has a place in Mensah's non-standard family, and that it is willing to risk
-its life to defend them. This book also shows us Corporate Rim families, which
-are just as non-standard and queer as the good guys on Preservation! But where
-Mensah's family rally's together to save their partners, the corporate
-families are torn apart by violence.
+its life to defend them. This book also shows us a Corporate Rim family, which
+is just as non-standard and queer as the good guys on Preservation! But where
+Mensah's family rallies together to save its members, Leonide's is torn apart
+by violence. Those who view other people as property begin to view their
+family the same way.
