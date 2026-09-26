@@ -1,5 +1,5 @@
 ---
-date: 2026-09-19
+date: 2026-09-19 13:49:14 -0700
 title: Platform Decay
 book_authors: Martha Wells
 series: The Murderbot Diaries
