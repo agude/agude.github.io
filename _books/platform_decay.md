@@ -31,3 +31,22 @@ same_as_urls:
 {% capture the_authors_lastname_possessive_link %}{% author_link page.book_authors link_text=author_last_name_text possessive %}{% endcapture %}
 
 {% capture this_series %}{% series_text page.series %}{% endcapture %}
+
+{% capture banks %}{% author_link "Iain M. Banks" %}{% endcapture %}
+{% capture bankss %}{% author_link "Iain M. Banks" possessive %}{% endcapture %}
+{% capture banks_lastname %}{% author_link "Iain M. Banks" link_text="Banks" %}{% endcapture %}
+{% capture bankss_lastname %}{% author_link "Iain M. Banks" link_text="Banks" possessive %}{% endcapture %}
+{% capture use_of_weapons %}{% book_link "Use of Weapons" %}{% endcapture %}
+
+{% capture taylor %}{% author_link "Dennis E. Taylor" %}{% endcapture %}
+{% capture taylors %}{% author_link "Dennis E. Taylor" possessive %}{% endcapture %}
+{% capture taylor_lastname %}{% author_link "Dennis E. Taylor" link_text="Taylor" %}{% endcapture %}
+{% capture taylors_lastname %}{% author_link "Dennis E. Taylor" link_text="Taylor" possessive %}{% endcapture %}
+{% capture bobiverse %}{% series_link "Bobiverse" %}{% endcapture %}
+{% capture heaven_s_river %}{% book_link "Heaven's River" %}{% endcapture %}
+
+{% capture simmons %}{% author_link "Dan Simmons" %}{% endcapture %}
+{% capture simmonss %}{% author_link "Dan Simmons" possessive %}{% endcapture %}
+{% capture simmons_lastname %}{% author_link "Dan Simmons" link_text="Simmons" %}{% endcapture %}
+{% capture simmonss_lastname %}{% author_link "Dan Simmons" link_text="Simmons" possessive %}{% endcapture %}
+{% capture the_fall_of_hyperion %}{% book_link "The Fall of Hyperion" %}{% endcapture %}
