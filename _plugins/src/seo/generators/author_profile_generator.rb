@@ -10,6 +10,7 @@ module Jekyll
         def self.generate_hash(document, site)
           Jekyll::SEO::PersonJsonLdBuilder.build('Person', document: document, site: site) do |schema|
             schema.name document.data['title']
+            schema.node_id document.url
             schema.url
             schema.same_as document.data['same_as_urls']
             schema.description_from_fields(field_priority: %w[excerpt description])

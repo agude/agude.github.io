@@ -114,6 +114,32 @@ class TestJsonLdBuilder < Minitest::Test
     assert_equal 'https://example.com/blog/custom-path.html', result['url']
   end
 
+  # --- Node Identifier Method ---
+
+  def test_node_id_converts_local_path_to_absolute_url
+    result = Jekyll::SEO::JsonLdBuilder.build('Article', site: @site) do |schema|
+      schema.node_id '/custom-path.html'
+    end
+    assert_equal 'https://example.com/blog/custom-path.html', result['@id']
+  end
+
+  def test_node_id_preserves_absolute_url
+    absolute_url = 'https://other.example/book'
+    result = Jekyll::SEO::JsonLdBuilder.build('Article', site: @site) do |schema|
+      schema.node_id absolute_url
+    end
+    assert_equal absolute_url, result['@id']
+  end
+
+  def test_node_id_omits_nil_empty_and_whitespace_values
+    [nil, '', '   '].each do |value|
+      result = Jekyll::SEO::JsonLdBuilder.build('Article', site: @site) do |schema|
+        schema.node_id value
+      end
+      refute result.key?('@id')
+    end
+  end
+
   # --- Site Author Method ---
 
   def test_site_author_builds_person_entity

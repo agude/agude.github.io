@@ -20,6 +20,7 @@ class TestAuthorProfileLdGenerator < Minitest::Test
       '@context' => 'https://schema.org',
       '@type' => 'Person',
       'name' => name,
+      '@id' => url,
       'url' => url,
     }
   end
@@ -191,6 +192,7 @@ class TestAuthorProfileLdGenerator < Minitest::Test
     expected = {
       '@context' => 'https://schema.org',
       '@type' => 'Person',
+      '@id' => 'https://mysite.dev/authors/empty.html',
       'url' => 'https://mysite.dev/authors/empty.html',
     }
     assert_equal expected, Jekyll::SEO::Generators::AuthorProfileLdGenerator.generate_hash(doc, @site)
