@@ -52,10 +52,17 @@ and normally has more complete metadata than an edition or translation.
 (cd _scripts/metadata && uv run fetch_book_metadata.py "Book Title")
 ```
 
-The script lists candidates on stderr. In an interactive terminal, select the
-correct work; otherwise it uses the first result. Inspect the candidates before
-using the QID. If no appropriate work exists, continue without one and report
-that metadata still needs manual entry.
+The script lists candidates on stderr and never selects one, even when the
+search returns exactly one result. Inspect the candidates, choose the correct
+work explicitly, and rerun the command with its QID:
+
+```bash
+(cd _scripts/metadata && uv run fetch_book_metadata.py Q_WORK_ID)
+```
+
+Use that same explicit QID with the stub command below. If no candidate is
+correct, do not select a fallback; continue without a QID and report that the
+metadata still needs manual entry.
 
 Use the metadata scripts rather than an ad hoc Wikidata request. They include
 the required `User-Agent`; raw `requests` or `urllib` calls can receive a 403.
