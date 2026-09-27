@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../json_ld_builder'
+require_relative '../book_identity_resolver'
 
 module Jekyll
   module SEO
@@ -20,6 +21,7 @@ module Jekyll
 
             review.item_reviewed('Book') do |book|
               book.name document.data['title']
+              book.node_id Jekyll::SEO::BookIdentityResolver.resolve(document, site)
               book.url document.url
               book.authors document.data['book_authors']
               book.image document.data['image']

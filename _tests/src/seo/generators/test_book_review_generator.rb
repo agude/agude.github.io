@@ -32,6 +32,28 @@ class TestBookReviewLdGenerator < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_generate_hash_book_review_uses_canonical_book_id_for_archived_review
+    canonical = create_doc(
+      { 'title' => 'Family Book', 'book_authors' => ['Author'] },
+      '/books/family-book/',
+    )
+    archived = create_doc(
+      {
+        'title' => 'Family Book',
+        'book_authors' => ['Author'],
+        'canonical_url' => canonical.url,
+      },
+      '/books/family-book-archived/',
+    )
+    site = create_site(@site_config, { 'books' => [canonical, archived] })
+
+    result = Jekyll::SEO::Generators::BookReviewLdGenerator.generate_hash(archived, site)
+
+    assert_equal 'https://alexgude.com/books/family-book/', result.dig('itemReviewed', '@id')
+    assert_equal 'https://alexgude.com/books/family-book-archived/', result['url']
+    assert_equal 'https://alexgude.com/books/family-book-archived/', result.dig('itemReviewed', 'url')
+  end
+
   def test_generate_hash_book_review_all_fields_single_author
     doc = create_all_fields_doc
     expected = build_expected_all_fields_hash
@@ -190,6 +212,7 @@ class TestBookReviewLdGenerator < Minitest::Test
       'itemReviewed' => {
         '@type' => 'Book',
         'name' => 'Hyperion',
+        '@id' => 'https://alexgude.com/books/hyperion.html',
         'url' => 'https://alexgude.com/books/hyperion.html',
         'author' => { '@type' => 'Person', 'name' => 'Dan Simmons' },
         'inLanguage' => 'en',
@@ -227,6 +250,7 @@ class TestBookReviewLdGenerator < Minitest::Test
       'itemReviewed' => {
         '@type' => 'Book',
         'name' => 'Good Omens',
+        '@id' => 'https://alexgude.com/books/good-omens.html',
         'url' => 'https://alexgude.com/books/good-omens.html',
         'author' => [
           { '@type' => 'Person', 'name' => 'Terry Pratchett' },
@@ -282,6 +306,7 @@ class TestBookReviewLdGenerator < Minitest::Test
     {
       '@type' => 'Book',
       'name' => 'Dune',
+      '@id' => 'https://alexgude.com/books/dune.html',
       'url' => 'https://alexgude.com/books/dune.html',
       'author' => { '@type' => 'Person', 'name' => 'Frank Herbert' },
       'image' => { '@type' => 'ImageObject', 'url' => 'https://alexgude.com/assets/covers/dune.jpg' },
@@ -345,6 +370,7 @@ class TestBookReviewLdGenerator < Minitest::Test
       'itemReviewed' => {
         '@type' => 'Book',
         'name' => 'Minimal Book',
+        '@id' => 'https://alexgude.com/books/minimal-book.html',
         'url' => 'https://alexgude.com/books/minimal-book.html',
         'author' => { '@type' => 'Person', 'name' => 'Min Author' },
         'inLanguage' => 'en',
