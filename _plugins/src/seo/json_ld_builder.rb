@@ -44,6 +44,16 @@ module Jekyll
         set_if_present('url', abs_url)
       end
 
+      def node_id(path)
+        return if path.nil?
+
+        normalized_path = path.to_s.strip
+        return if normalized_path.empty?
+
+        abs_url = Jekyll::Infrastructure::UrlUtils.absolute_url(normalized_path, @site)
+        set_if_present('@id', abs_url)
+      end
+
       def site_author(include_url: false)
         entity = Jekyll::SEO::JsonLdUtils.build_site_person_entity(@site, include_site_url: include_url)
         @data['author'] = entity if entity
