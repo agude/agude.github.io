@@ -71,7 +71,7 @@ help.
 
 I thought {{ mb7 }} was too slow and too long to really work, and I worried it
 was a sign of things to come. {{ this_book }} puts those fears to rest. It is
-a fine return to form: fast and action packed, with deep emotional moments. It
+a fine return to form: fast and action-packed, with deep emotional moments. It
 has everything I want out of {{ this_series }}, while also moving the larger
 story forward. In {{ mb5 }} and {{ mb7 }}, Murderbot gave other SecUnits code
 to hack their governor modules. In this book, we meet the first SecUnits who
