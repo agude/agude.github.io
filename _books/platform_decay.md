@@ -64,37 +64,37 @@ family from Barish-Estranza.
 {% capture the_fall_of_hyperion %}{% book_link "The Fall of Hyperion" %}{% endcapture %}
 
 The setup in {{ this_book }} is very similar to {{ mb4 }}, which is great
-because that's one of the best Murderbot books. But the mission gets more
+because that's one of the best Murderbot books. The mission gets more
 complicated when Murderbot discovers that Supervisor Leonide, from {{ mb5 }}
 and {{ mb7 }}, may have arranged the kidnapping because she needs Murderbot's
 help.
 
-I thought {{ mb7 }} was too slow and too long to really work. I worried it was
-a sign of things to come. {{ this_book }} puts those fears to rest as a fine
-return to form: it is fast, it is action packed, and it has deep emotional
-moments. It got everything you want out of {{ this_series }}, but it is also
-doing something new. In {{ mb5 }} and {{ mb7 }}, Murderbot gave other SecUnits
-code to hack their governor modules. In this book, we run into the first
-SecUnits that got the code without getting it from Murderbot. The revolt is
-now spreading beyond Murderbot's control.
+I thought {{ mb7 }} was too slow and too long to really work, and I worried it
+was a sign of things to come. {{ this_book }} puts those fears to rest. It is
+a fine return to form: fast and action packed, with deep emotional moments. It
+has everything I want out of {{ this_series }}, while also moving the larger
+story forward. In {{ mb5 }} and {{ mb7 }}, Murderbot gave other SecUnits code
+to hack their governor modules. In this book, we meet the first SecUnits who
+got that code from someone other than Murderbot. The revolt is now spreading
+beyond Murderbot's control.
 
-{{ this_book }} really focuses on family. {{ this_series }} follows the modern
-science-fiction trend towards found family. Murderbot is slowly realizing it
-has a place in Mensah's non-standard family, and that it is willing to risk
-its life to defend them. This book also shows us a Corporate Rim family, which
-is just as non-standard and queer as the good guys on Preservation! But where
-Mensah's family rallies together to save its members, Leonide's is torn apart
-by violence. The Corporate Rim uses violence to keep its workers enslaved and
-enforce its hierarchies, and its families reproduce that same behavior.
+Modern science fiction is full of found family, and {{ this_series }} follows
+that trend. Murderbot is slowly realizing it has a place in Mensah's
+non-standard family and is willing to risk its life to defend them. The
+Corporate Rim has equally complex families, including Leonide's queer,
+multi-parent one, but they operate very differently. Where Mensah's family
+rallies to save its members, Leonide's is torn apart from the inside. The
+Corporate Rim uses violence to keep its workers enslaved and enforce its
+hierarchies, and its families reproduce that same behavior.
 
-This book reminded me of a few others. The giant station with it's natural
+This book reminded me of a few others. The giant station with its natural
 landscape inside reminded me of the topopolis from {{ taylors_lastname }} {{
-heaven_s_river }}. The river suspended in the air is very similar to the
-Ouster's space river in {{ simmonss_lastname }} {{ the_fall_of_hyperion }}.
-The city built into the walls of the (artificial) canyon reminded me of the
-canyon city from {{ bankss_lastname }} {{ use_of_weapons }}.
+heaven_s_river }}. The river suspended in the air is similar to the Ousters'
+space river in {{ simmonss_lastname }} {{ the_fall_of_hyperion }}. The city
+built into the walls of the (artificial) canyon reminded me of the canyon city
+from {{ bankss_lastname }} {{ use_of_weapons }}.
 
-I thought I might be done with Murderbot after {{ mb7 }} but {{ this_book }}
+I thought I might be done with Murderbot after {{ mb7 }}, but {{ this_book }}
 won me back! I'm excited to see where {{ the_authors_lastname }} takes the
-SecUnit revolt, and if it is the thing the causes the foreshadowed collapse of
-the Corporate Rim.
+SecUnit revolt and whether it causes the foreshadowed collapse of the
+Corporate Rim.
