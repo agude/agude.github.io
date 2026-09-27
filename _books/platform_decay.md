@@ -15,6 +15,7 @@ same_as_urls:
   - "https://openlibrary.org/works/OL44660267W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?3597228"
   - "https://www.librarything.com/work/29024865"
+  - "https://www.google.com/search?kgmid=/g/11yjcc4db0"
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
@@ -62,10 +63,11 @@ family from Barish-Estranza.
 {% capture simmonss_lastname %}{% author_link "Dan Simmons" link_text="Simmons" possessive %}{% endcapture %}
 {% capture the_fall_of_hyperion %}{% book_link "The Fall of Hyperion" %}{% endcapture %}
 
-The setup is very similar to {{ mb4 }}, which is great because that's one of
-the best Murderbot books. But the mission gets more complicated when Murderbot
-discovers they may have been set up by Supervisor Leonide, from {{ mb5 }} and
-{{ mb7 }}, who needs Murderbot's help.
+The setup in {{ this_book }} is very similar to {{ mb4 }}, which is great
+because that's one of the best Murderbot books. But the mission gets more
+complicated when Murderbot discovers that Supervisor Leonide, from {{ mb5 }}
+and {{ mb7 }}, may have arranged the kidnapping because she needs Murderbot's
+help.
 
 I thought {{ mb7 }} was too slow and too long to really work. I worried it was
 a sign of things to come. {{ this_book }} puts those fears to rest as a fine
@@ -91,3 +93,8 @@ heaven_s_river }}. The river suspended in the air is very similar to the
 Ouster's space river in {{ simmonss_lastname }} {{ the_fall_of_hyperion }}.
 The city built into the walls of the (artificial) canyon reminded me of the
 canyon city from {{ bankss_lastname }} {{ use_of_weapons }}.
+
+I thought I might be done with Murderbot after {{ mb7 }} but this one won me
+back! I'm excited to see where {{ the_authors_lastname }} takes the SecUnit
+revolt, and if it is the thing the causes the foreshadowed collapse of the
+Corporate Rim.
