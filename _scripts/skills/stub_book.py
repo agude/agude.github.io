@@ -26,6 +26,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import sys
 import unicodedata
@@ -35,6 +36,43 @@ from pathlib import Path
 _SCRIPT_DIR = Path(__file__).resolve().parent
 _PROJECT_ROOT = _SCRIPT_DIR.parent.parent  # _scripts/skills/ -> project root
 TEMPLATE_PATH = _PROJECT_ROOT / "_books" / "_template" / "book_template.md"
+_YAML_SPECIAL_CHARACTERS = frozenset(":#'\"[]{},&*?|>!%")
+_YAML_TYPED_VALUE = re.compile(
+    r"^(?:[-+]?(?:\d+|\d*\.\d+)(?:[eE][-+]?\d+)?|\d{4}(?:-\d{2}(?:-\d{2})?)?)$"
+)
+
+
+def _needs_yaml_quoting(value: str) -> bool:
+    """Return whether a string could be misread as YAML syntax or a type."""
+    stripped_value = value.strip()
+    if not value or value != stripped_value or "\n" in value or "\r" in value:
+        return True
+    if value[0] in "-?:@`" or any(char in value for char in _YAML_SPECIAL_CHARACTERS):
+        return True
+    if value.casefold() in {
+        "null",
+        "true",
+        "false",
+        "yes",
+        "no",
+        "on",
+        "off",
+        "~",
+        ".nan",
+        ".inf",
+        "+.inf",
+        "-.inf",
+    }:
+        return True
+    return bool(_YAML_TYPED_VALUE.fullmatch(value))
+
+
+def yaml_scalar(value: str) -> str:
+    """Serialize a string as a readable YAML scalar."""
+    if _needs_yaml_quoting(value):
+        # JSON double-quoted strings are valid YAML and escape all string data.
+        return json.dumps(value, ensure_ascii=False)
+    return value
 
 
 def slugify(title: str) -> str:
@@ -85,9 +123,9 @@ def build_front_matter(
 
     lines = [
         f"date: {today}",
-        f"title: {title}",
-        f"book_authors: {author}",
-        f"series: {series}" if series else "series: null",
+        f"title: {yaml_scalar(title)}",
+        f"book_authors: {yaml_scalar(author)}",
+        f"series: {yaml_scalar(series)}" if series else "series: null",
         f"book_number: {book_number}",
         "is_anthology: false",
         "rating: null",
@@ -95,7 +133,7 @@ def build_front_matter(
     ]
 
     if qid:
-        lines.append(f"wikidata_qid: {qid}")
+        lines.append(f"wikidata_qid: {yaml_scalar(qid)}")
 
     return "\n".join(lines)
 

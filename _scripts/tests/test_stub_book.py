@@ -3,6 +3,7 @@
 import sys
 
 import pytest
+import yaml
 from stub_book import (
     build_front_matter,
     build_opening,
@@ -117,6 +118,33 @@ class TestBuildFrontMatter:
             qid=None,
         )
         assert "image: /books/covers/a_fire_upon_the_deep.jpg" in result
+
+    @pytest.mark.parametrize(
+        "value",
+        [
+            "Title: Subtitle",
+            "Title #1",
+            'Title\'s "Edition"',
+            "Title [Special]",
+            "Title {Special}",
+            "Title & Co.",
+            "What? Title",
+        ],
+    )
+    def test_yaml_significant_values_round_trip(self, value):
+        result = build_front_matter(
+            title=value,
+            author=value,
+            series=value,
+            book_number=2,
+            qid=None,
+        )
+
+        parsed = yaml.safe_load(result)
+
+        assert parsed["title"] == value
+        assert parsed["book_authors"] == value
+        assert parsed["series"] == value
 
 
 class TestBuildOpening:
