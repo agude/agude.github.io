@@ -65,6 +65,7 @@ ranked_list:
   - Night Without Stars
   - Field of Dishonor
   - On Basilisk Station
+  - Platform Decay
   - Fugitive Telemetry
   - Rogue Protocol
   - The Honor of the Queen

@@ -172,7 +172,6 @@ exclude:
     - .venv/
     - AGENTS.md
     - bluesky.md
-    - CLAUDE.md
     - CNAME
     - Dockerfile
     - GEMINI.md
