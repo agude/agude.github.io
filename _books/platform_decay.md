@@ -94,7 +94,7 @@ Ouster's space river in {{ simmonss_lastname }} {{ the_fall_of_hyperion }}.
 The city built into the walls of the (artificial) canyon reminded me of the
 canyon city from {{ bankss_lastname }} {{ use_of_weapons }}.
 
-I thought I might be done with Murderbot after {{ mb7 }} but this one won me
-back! I'm excited to see where {{ the_authors_lastname }} takes the SecUnit
-revolt, and if it is the thing the causes the foreshadowed collapse of the
-Corporate Rim.
+I thought I might be done with Murderbot after {{ mb7 }} but {{ this_book }}
+won me back! I'm excited to see where {{ the_authors_lastname }} takes the
+SecUnit revolt, and if it is the thing the causes the foreshadowed collapse of
+the Corporate Rim.
