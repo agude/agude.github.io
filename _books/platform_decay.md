@@ -18,7 +18,9 @@ same_as_urls:
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},
-is the eighth book in {% series_text page.series link=false %}.
+is the eighth book in {% series_text page.series link=false %}. It follows
+Murderbot and Three as they infiltrate a planetary torus to rescue Mensah's
+family from Barish-Estranza.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
@@ -60,12 +62,10 @@ is the eighth book in {% series_text page.series link=false %}.
 {% capture simmonss_lastname %}{% author_link "Dan Simmons" link_text="Simmons" possessive %}{% endcapture %}
 {% capture the_fall_of_hyperion %}{% book_link "The Fall of Hyperion" %}{% endcapture %}
 
-{{ this_book }} starts with Murderbot and Three infiltrating a corporate
-station to rescue some of Mensah's family, who have been kidnapped by
-Barish-Estranza. The setup is very similar to {{ mb4 }}, which is great
-because that's one of the best Murderbot books. But the mission gets more
-complicated when Murderbot discovers they may have been set up by Supervisor
-Leonide, from {{ mb5 }} and {{ mb7 }}, who needs Murderbot's help.
+The setup is very similar to {{ mb4 }}, which is great because that's one of
+the best Murderbot books. But the mission gets more complicated when Murderbot
+discovers they may have been set up by Supervisor Leonide, from {{ mb5 }} and
+{{ mb7 }}, who needs Murderbot's help.
 
 I thought {{ mb7 }} was too slow and too long to really work. I worried it was
 a sign of things to come. {{ this_book }} puts those fears to rest as a fine
@@ -82,9 +82,8 @@ has a place in Mensah's non-standard family, and that it is willing to risk
 its life to defend them. This book also shows us a Corporate Rim family, which
 is just as non-standard and queer as the good guys on Preservation! But where
 Mensah's family rallies together to save its members, Leonide's is torn apart
-by violence. The Corporate Rim uses violence to keep its workers
-enslaved and enforce its hierarchies, and its families reproduce that same
-behavior.
+by violence. The Corporate Rim uses violence to keep its workers enslaved and
+enforce its hierarchies, and its families reproduce that same behavior.
 
 This book reminded me of a few others. The giant station with it's natural
 landscape inside reminded me of the topopolis from {{ taylors_lastname }} {{
