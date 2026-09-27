@@ -14,7 +14,7 @@ Usage:
     # By Q-ID (preferred, unambiguous):
     uv run fetch_author_same_as.py Q312579
 
-    # By name (searches Wikidata, lets you pick from results):
+    # By name (prints candidates for explicit Q-ID selection):
     uv run fetch_author_same_as.py "Iain M. Banks"
 """
 
@@ -26,7 +26,10 @@ from wikidata_utils import (
     extract_same_as_urls,
     fetch_entity,
     get_claim_strings,
+    is_qid,
+    print_entity_candidates,
     resolve_qid,
+    search_entity,
     yaml_quoted,
 )
 
@@ -79,6 +82,10 @@ def main() -> None:
         sys.exit(1)
 
     arg = " ".join(sys.argv[1:])
+    if not is_qid(arg):
+        print_entity_candidates(search_entity(arg))
+        return
+
     qid = resolve_qid(arg)
 
     entity = fetch_entity(qid)

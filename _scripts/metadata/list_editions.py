@@ -18,7 +18,7 @@ Usage:
     # By Q-ID (preferred, unambiguous):
     uv run list_editions.py Q302026
 
-    # By title (searches Wikidata, lets you pick from results):
+    # By title (prints candidates for explicit Q-ID selection):
     uv run list_editions.py "Hyperion"
 """
 
@@ -32,7 +32,10 @@ from wikidata_utils import (
     fetch_entity,
     get_claim_entity_ids,
     get_claim_strings,
+    is_qid,
+    print_entity_candidates,
     resolve_qid,
+    search_entity,
 )
 
 
@@ -104,6 +107,10 @@ def main() -> None:
         sys.exit(1)
 
     arg = " ".join(sys.argv[1:])
+    if not is_qid(arg):
+        print_entity_candidates(search_entity(arg))
+        return
+
     qid = resolve_qid(arg)
 
     editions = list_editions(qid)

@@ -1,7 +1,9 @@
 """Tests for metadata/list_editions.py."""
 
+import sys
 from unittest.mock import patch
 
+import list_editions as list_editions_module
 from list_editions import format_editions, list_editions, pick_selected_isbn
 
 
@@ -129,3 +131,25 @@ class TestFormatEditions:
         result = format_editions("Q0", editions, None)
         assert "[?] Q1" in result
         assert "[en] Q2" in result
+
+
+class TestMain:
+    def test_title_search_only_prints_candidates(self, monkeypatch, capsys):
+        candidates = [
+            {
+                "id": "Q1",
+                "label": "Hyperion",
+                "description": "science fiction novel",
+                "aliases": [],
+            }
+        ]
+        monkeypatch.setattr(sys, "argv", ["list_editions.py", "Hyperion"])
+
+        with (
+            patch("list_editions.search_entity", return_value=candidates),
+            patch("list_editions.list_editions") as editions_mock,
+        ):
+            list_editions_module.main()
+
+        editions_mock.assert_not_called()
+        assert "Q1" in capsys.readouterr().err

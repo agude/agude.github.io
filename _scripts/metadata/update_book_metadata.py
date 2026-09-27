@@ -34,63 +34,34 @@ from pathlib import Path
 
 from fetch_book_metadata import BOOK_PROPERTY_MAP
 from wikidata_utils import (
-    api_get,
+    EntityCandidate,
     extract_same_as_urls,
     fetch_awards,
     fetch_entity,
     get_claim_strings,
     get_claim_time,
     get_earliest_edition_isbn,
+    print_entity_candidates,
+    resolve_qid,
+    search_entity,
     yaml_quoted,
 )
 
 log = logging.getLogger(__name__)
 
 
-def search_book_entity(title: str, author: str) -> str:
-    """Search Wikidata for a book, prioritizing results that mention the author.
-
-    Fetches up to 15 results for the title, sorts those whose description
-    contains the author's surname to the top, then presents the interactive
-    picker.
-    """
+def search_book_entity(title: str, author: str) -> list[EntityCandidate]:
+    """Search for a book and rank candidates that mention the author first."""
     log.debug("Searching Wikidata for title=%r author=%r", title, author)
-    data = api_get(
-        {
-            "action": "wbsearchentities",
-            "search": title,
-            "language": "en",
-            "type": "item",
-            "limit": "15",
-        }
-    )
-    results = data.get("search", [])
-    if not results:
-        log.error("No Wikidata entity found for: %s", title)
-        sys.exit(1)
+    candidates = search_entity(title, limit=15)
 
     # Sort: results whose description mentions the author's surname first.
     author_surname = author.split()[-1].lower() if author else ""
     if author_surname:
-        results.sort(key=lambda r: author_surname not in r.get("description", "").lower())
-
-    for i, r in enumerate(results):
-        desc = r.get("description", "")
-        print(
-            f"  [{i}] {r['id']}  {r['label']}" + (f" — {desc}" if desc else ""),
-            file=sys.stderr,
+        candidates.sort(
+            key=lambda candidate: author_surname not in candidate["description"].lower()
         )
-
-    if sys.stdin.isatty():
-        print(file=sys.stderr)
-        choice = input("Pick a result [0]: ").strip()
-        idx = int(choice) if choice.isdigit() and int(choice) < len(results) else 0
-    else:
-        idx = 0
-
-    qid = results[idx]["id"]
-    log.info("Selected: %s (%s)", qid, results[idx].get("label", ""))
-    return qid
+    return candidates
 
 
 # Fields this script manages, in output order.
@@ -273,21 +244,24 @@ def main() -> None:
     # Resolve Q-ID: --qid flag → front matter → search by title.
     existing_qid = existing.get("wikidata_qid")
     if args.qid:
-        qid = args.qid
+        qid = resolve_qid(args.qid)
     elif existing_qid and existing_qid != "null":
-        qid = existing_qid
+        qid = resolve_qid(existing_qid)
         log.info("Using wikidata_qid from front matter: %s", qid)
     elif only_fields:
         # Can't fetch specific fields without a Q-ID.
-        log.warning("Skipping: no wikidata_qid in %s", args.file)
-        return
+        log.error("No explicit wikidata_qid supplied for %s", args.file)
+        sys.exit(1)
     else:
         title = existing.get("title", "")
         if not title:
             log.error("No title in %s front matter", args.file)
             sys.exit(1)
         author = existing.get("book_authors", "")
-        qid = search_book_entity(title, author)
+        candidates = search_book_entity(title, author)
+        print_entity_candidates(candidates)
+        log.error("No Q-ID selected; rerun with --qid <Q-ID> after reviewing candidates")
+        sys.exit(1)
 
     # Fetch metadata.
     metadata = fetch_metadata(qid)

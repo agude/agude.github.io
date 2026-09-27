@@ -15,7 +15,7 @@ Usage:
     # By Q-ID (preferred, unambiguous):
     uv run fetch_book_metadata.py Q302026
 
-    # By title (searches Wikidata, lets you pick from results):
+    # By title (prints candidates for explicit Q-ID selection):
     uv run fetch_book_metadata.py "Hyperion"
 """
 
@@ -29,7 +29,10 @@ from wikidata_utils import (
     get_claim_strings,
     get_claim_time,
     get_earliest_edition_isbn,
+    is_qid,
+    print_entity_candidates,
     resolve_qid,
+    search_entity,
     yaml_quoted,
 )
 
@@ -77,6 +80,10 @@ def main() -> None:
         sys.exit(1)
 
     arg = " ".join(sys.argv[1:])
+    if not is_qid(arg):
+        print_entity_candidates(search_entity(arg))
+        return
+
     qid = resolve_qid(arg)
 
     entity = fetch_entity(qid)

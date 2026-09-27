@@ -6,6 +6,7 @@ from __future__ import annotations
 import logging
 import sys
 import urllib.parse
+from typing import TextIO, TypedDict
 
 import requests
 from requests.adapters import HTTPAdapter
@@ -19,6 +20,15 @@ USER_AGENT = "alexgude-blog-scripts/0.1 (wikidata metadata fetcher)"
 
 # Shared session with retry/backoff configuration.
 _session: requests.Session | None = None
+
+
+class EntityCandidate(TypedDict):
+    """The identity details needed to evaluate a Wikidata search result."""
+
+    id: str
+    label: str
+    description: str
+    aliases: list[str]
 
 
 def _get_session() -> requests.Session:
@@ -85,8 +95,23 @@ def sparql_query(query: str) -> list[dict]:
         return []
 
 
-def search_entity(name: str) -> str | None:
-    """Search Wikidata for an entity by name. Return the Q-ID or None."""
+def _candidate_aliases(result: dict) -> list[str]:
+    """Extract alias strings from the varying Wikidata response shapes."""
+    aliases = result.get("aliases", [])
+    if isinstance(aliases, dict):
+        aliases = [alias for language_aliases in aliases.values() for alias in language_aliases]
+
+    normalized: list[str] = []
+    for alias in aliases:
+        if isinstance(alias, str) and alias:
+            normalized.append(alias)
+        elif isinstance(alias, dict) and alias.get("value"):
+            normalized.append(alias["value"])
+    return list(dict.fromkeys(normalized))
+
+
+def search_entity(name: str, *, limit: int = 5) -> list[EntityCandidate]:
+    """Search Wikidata and return candidates without selecting one."""
     log.debug("Searching for entity: %s", name)
     data = api_get(
         {
@@ -94,30 +119,70 @@ def search_entity(name: str) -> str | None:
             "search": name,
             "language": "en",
             "type": "item",
-            "limit": "5",
+            "limit": str(limit),
         }
     )
-    results = data.get("search", [])
-    if not results:
-        return None
-
-    for i, r in enumerate(results):
-        desc = r.get("description", "")
-        print(
-            f"  [{i}] {r['id']}  {r['label']}" + (f" — {desc}" if desc else ""),
-            file=sys.stderr,
+    candidates: list[EntityCandidate] = []
+    for result in data.get("search", []):
+        qid = result.get("id")
+        if not qid:
+            log.warning("Ignoring Wikidata search result without an ID: %s", result)
+            continue
+        candidates.append(
+            {
+                "id": qid,
+                "label": result.get("label", ""),
+                "description": result.get("description", ""),
+                "aliases": _candidate_aliases(result),
+            }
         )
+    return candidates
 
-    if sys.stdin.isatty():
-        print(file=sys.stderr)
-        choice = input("Pick a result [0]: ").strip()
-        idx = int(choice) if choice.isdigit() and int(choice) < len(results) else 0
-    else:
-        idx = 0
 
-    qid = results[idx]["id"]
-    log.info("Selected entity: %s (%s)", qid, results[idx].get("label", ""))
-    return qid
+def print_entity_candidates(
+    candidates: list[EntityCandidate],
+    *,
+    stream: TextIO | None = None,
+) -> None:
+    """Print search candidates for explicit human or LLM selection."""
+    output = stream or sys.stderr
+    if not candidates:
+        print("No Wikidata candidates found.", file=output)
+        return
+
+    print("Wikidata candidates:", file=output)
+    for index, candidate in enumerate(candidates):
+        details = candidate["description"]
+        if candidate["aliases"]:
+            aliases = ", ".join(candidate["aliases"])
+            details = f"{details}; aliases: {aliases}" if details else f"aliases: {aliases}"
+        suffix = f" — {details}" if details else ""
+        print(f"  [{index}] {candidate['id']}  {candidate['label']}{suffix}", file=output)
+
+
+def is_qid(value: str) -> bool:
+    """Return whether a value is a syntactically valid Wikidata item ID."""
+    return bool(value) and value.startswith("Q") and value[1:].isdigit()
+
+
+def require_qid(identifier: str) -> str:
+    """Validate an explicitly supplied Q-ID, exiting on invalid input."""
+    if not is_qid(identifier):
+        log.error("An explicit Wikidata Q-ID is required: %s", identifier)
+        sys.exit(1)
+    return identifier
+
+
+def select_candidate(candidates: list[EntityCandidate], identifier: str) -> EntityCandidate:
+    """Select only the candidate matching an explicitly supplied Q-ID."""
+    qid = require_qid(identifier)
+    for candidate in candidates:
+        if candidate["id"] == qid:
+            log.info("Selected entity: %s (%s)", qid, candidate["label"])
+            return candidate
+
+    log.error("Q-ID %s was not among the search candidates; no candidate selected", qid)
+    sys.exit(1)
 
 
 def fetch_entity(qid: str) -> dict:
@@ -291,16 +356,9 @@ def get_earliest_edition_isbn(work_qid: str) -> str | None:
     return None
 
 
-def resolve_qid(arg: str) -> str:
-    """Resolve a Q-ID or name string to a Q-ID. Exits on failure."""
-    if arg.startswith("Q") and arg[1:].isdigit():
-        return arg
-
-    qid = search_entity(arg)
-    if qid is None:
-        log.error("No Wikidata entity found for: %s", arg)
-        sys.exit(1)
-    return qid
+def resolve_qid(identifier: str) -> str:
+    """Validate an explicitly supplied Q-ID without searching or selecting."""
+    return require_qid(identifier)
 
 
 def _resolve_award_family(award_qid: str, seen: set[str] | None = None) -> str | None:
