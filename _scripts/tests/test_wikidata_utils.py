@@ -2,6 +2,7 @@
 
 from unittest.mock import patch
 
+import pytest
 from wikidata_utils import (
     AWARD_FAMILIES,
     _needs_yaml_quoting,
@@ -11,8 +12,129 @@ from wikidata_utils import (
     get_claim_strings,
     get_claim_time,
     get_earliest_edition_isbn,
+    is_qid,
+    print_entity_candidates,
+    require_qid,
+    search_entity,
+    select_candidate,
     yaml_quoted,
 )
+
+
+class TestEntitySearch:
+    def test_returns_candidates_without_selecting_first_result(self):
+        search_response = {
+            "search": [
+                {
+                    "id": "Q1",
+                    "label": "First result",
+                    "description": "first description",
+                    "aliases": ["First alias"],
+                },
+                {
+                    "id": "Q2",
+                    "label": "Second result",
+                    "description": "second description",
+                    "aliases": ["Second alias"],
+                },
+            ]
+        }
+
+        with patch("wikidata_utils.api_get", return_value=search_response):
+            result = search_entity("title")
+
+        assert result == [
+            {
+                "id": "Q1",
+                "label": "First result",
+                "description": "first description",
+                "aliases": ["First alias"],
+            },
+            {
+                "id": "Q2",
+                "label": "Second result",
+                "description": "second description",
+                "aliases": ["Second alias"],
+            },
+        ]
+
+    def test_normalizes_alias_objects_and_deduplicates_them(self):
+        search_response = {
+            "search": [
+                {
+                    "id": "Q1",
+                    "label": "Label",
+                    "aliases": [
+                        {"language": "en", "value": "Alias"},
+                        "Alias",
+                        "Other alias",
+                    ],
+                }
+            ]
+        }
+
+        with patch("wikidata_utils.api_get", return_value=search_response):
+            result = search_entity("title")
+
+        assert result[0]["aliases"] == ["Alias", "Other alias"]
+
+    def test_ignores_results_without_ids(self):
+        with patch(
+            "wikidata_utils.api_get",
+            return_value={"search": [{"label": "Missing ID"}]},
+        ):
+            assert search_entity("title") == []
+
+
+class TestEntitySelection:
+    def test_requires_explicit_qid(self):
+        candidates = [{"id": "Q1", "label": "One", "description": "", "aliases": []}]
+
+        with patch("wikidata_utils.api_get") as api_mock, pytest.raises(SystemExit):
+            select_candidate(candidates, "not-a-qid")
+
+        api_mock.assert_not_called()
+
+    def test_selects_matching_qid(self):
+        candidates = [
+            {"id": "Q1", "label": "One", "description": "", "aliases": []},
+            {"id": "Q2", "label": "Two", "description": "", "aliases": []},
+        ]
+
+        assert select_candidate(candidates, "Q2")["id"] == "Q2"
+
+    def test_rejected_qid_does_not_fall_back(self):
+        candidates = [{"id": "Q1", "label": "One", "description": "", "aliases": []}]
+
+        with pytest.raises(SystemExit):
+            select_candidate(candidates, "Q2")
+
+    def test_qid_validation_is_explicit(self):
+        assert is_qid("Q123") is True
+        assert is_qid("Q") is False
+        assert is_qid("title") is False
+
+        with pytest.raises(SystemExit):
+            require_qid("title")
+
+    def test_candidate_output_includes_identity_details(self, capsys):
+        candidates = [
+            {
+                "id": "Q1",
+                "label": "Book",
+                "description": "a novel",
+                "aliases": ["Alternate title"],
+            }
+        ]
+
+        print_entity_candidates(candidates)
+
+        output = capsys.readouterr().err
+        assert "Q1" in output
+        assert "Book" in output
+        assert "a novel" in output
+        assert "Alternate title" in output
+        assert "selected" not in output.lower()
 
 
 class TestYamlQuoted:
