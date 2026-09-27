@@ -10,6 +10,8 @@ module Jekyll
       module BookReviewLdGenerator
         # rubocop:disable-next Metrics/AbcSize -- builder DSL calls inflate branch count
         def self.generate_hash(document, site)
+          book_identity_url = Jekyll::SEO::BookIdentityResolver.resolve(document, site)
+
           Jekyll::SEO::JsonLdBuilder.build('Review', license: true, document: document, site: site) do |review|
             review.site_author
             review.date_published
@@ -21,8 +23,8 @@ module Jekyll
 
             review.item_reviewed('Book') do |book|
               book.name document.data['title']
-              book.node_id Jekyll::SEO::BookIdentityResolver.resolve(document, site)
-              book.url document.url
+              book.node_id book_identity_url
+              book.url book_identity_url
               book.authors document.data['book_authors']
               book.image document.data['image']
               book.isbn document.data['isbn']

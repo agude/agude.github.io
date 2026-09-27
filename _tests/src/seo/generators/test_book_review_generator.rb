@@ -51,7 +51,7 @@ class TestBookReviewLdGenerator < Minitest::Test
 
     assert_equal 'https://alexgude.com/books/family-book/', result.dig('itemReviewed', '@id')
     assert_equal 'https://alexgude.com/books/family-book-archived/', result['url']
-    assert_equal 'https://alexgude.com/books/family-book-archived/', result.dig('itemReviewed', 'url')
+    assert_equal 'https://alexgude.com/books/family-book/', result.dig('itemReviewed', 'url')
   end
 
   def test_generate_hash_book_review_all_fields_single_author
