@@ -1,9 +1,14 @@
 """Tests for skills/stub_book.py pure functions."""
 
+import sys
+
+import pytest
+import yaml
 from stub_book import (
     build_front_matter,
     build_opening,
     build_template,
+    main,
     number_word,
     ordinal,
     slugify,
@@ -114,6 +119,36 @@ class TestBuildFrontMatter:
         )
         assert "image: /books/covers/a_fire_upon_the_deep.jpg" in result
 
+    @pytest.mark.parametrize(
+        "value",
+        [
+            "Title: Subtitle",
+            "Title #1",
+            'Title\'s "Edition"',
+            "Title [Special]",
+            "Title {Special}",
+            "Title & Co.",
+            "What? Title",
+            "Title\tTabbed",
+            "1_000",
+            "0x10",
+        ],
+    )
+    def test_yaml_significant_values_round_trip(self, value):
+        result = build_front_matter(
+            title=value,
+            author=value,
+            series=value,
+            book_number=2,
+            qid=None,
+        )
+
+        parsed = yaml.safe_load(result)
+
+        assert parsed["title"] == value
+        assert parsed["book_authors"] == value
+        assert parsed["series"] == value
+
 
 class TestBuildOpening:
     def test_standalone(self):
@@ -180,3 +215,51 @@ class TestBuildTemplate:
         )
         assert "{% capture this_book %}" in result
         assert "{% capture the_author %}" in result
+
+
+class TestMain:
+    def test_existing_output_path_is_not_overwritten(self, tmp_path, monkeypatch, capsys):
+        output_path = tmp_path / "existing.md"
+        original_content = "existing content\n"
+        output_path.write_text(original_content)
+        monkeypatch.setattr(
+            sys,
+            "argv",
+            [
+                "stub_book.py",
+                "--title",
+                "New Book",
+                "--author",
+                "New Author",
+                "--output",
+                str(output_path),
+            ],
+        )
+
+        with pytest.raises(SystemExit) as error:
+            main()
+
+        assert error.value.code != 0
+        assert output_path.read_text() == original_content
+        assert "output path already exists" in capsys.readouterr().err
+
+    def test_new_output_path_is_written(self, tmp_path, monkeypatch):
+        output_path = tmp_path / "new_book.md"
+        monkeypatch.setattr(
+            sys,
+            "argv",
+            [
+                "stub_book.py",
+                "--title",
+                "New Book",
+                "--author",
+                "New Author",
+                "--output",
+                str(output_path),
+            ],
+        )
+
+        main()
+
+        assert output_path.exists()
+        assert "title: New Book" in output_path.read_text()

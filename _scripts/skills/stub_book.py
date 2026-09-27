@@ -26,6 +26,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import sys
 import unicodedata
@@ -35,6 +36,42 @@ from pathlib import Path
 _SCRIPT_DIR = Path(__file__).resolve().parent
 _PROJECT_ROOT = _SCRIPT_DIR.parent.parent  # _scripts/skills/ -> project root
 TEMPLATE_PATH = _PROJECT_ROOT / "_books" / "_template" / "book_template.md"
+_YAML_SPECIAL_CHARACTERS = frozenset(":#'\"[]{},&*?|>!%")
+
+
+def _needs_yaml_quoting(value: str) -> bool:
+    """Return whether a string could be misread as YAML syntax or a type."""
+    stripped_value = value.strip()
+    if not value or value != stripped_value:
+        return True
+    if any(char.isspace() and char != " " for char in value):
+        return True
+    if value[0].isdigit() or value[0] in "-+?:.@`":
+        return True
+    if any(char in value for char in _YAML_SPECIAL_CHARACTERS):
+        return True
+    return value.casefold() in {
+        "null",
+        "true",
+        "false",
+        "yes",
+        "no",
+        "on",
+        "off",
+        "~",
+        ".nan",
+        ".inf",
+        "+.inf",
+        "-.inf",
+    }
+
+
+def yaml_scalar(value: str) -> str:
+    """Serialize a string as a readable YAML scalar."""
+    if _needs_yaml_quoting(value):
+        # JSON double-quoted strings are valid YAML and escape all string data.
+        return json.dumps(value, ensure_ascii=False)
+    return value
 
 
 def slugify(title: str) -> str:
@@ -85,9 +122,9 @@ def build_front_matter(
 
     lines = [
         f"date: {today}",
-        f"title: {title}",
-        f"book_authors: {author}",
-        f"series: {series}" if series else "series: null",
+        f"title: {yaml_scalar(title)}",
+        f"book_authors: {yaml_scalar(author)}",
+        f"series: {yaml_scalar(series)}" if series else "series: null",
         f"book_number: {book_number}",
         "is_anthology: false",
         "rating: null",
@@ -95,7 +132,7 @@ def build_front_matter(
     ]
 
     if qid:
-        lines.append(f"wikidata_qid: {qid}")
+        lines.append(f"wikidata_qid: {yaml_scalar(qid)}")
 
     return "\n".join(lines)
 
@@ -143,6 +180,16 @@ def build_template(
             output_lines.append(line)
 
     return "\n".join(output_lines)
+
+
+def write_new_file(output_path: Path, content: str) -> None:
+    """Write content only when the output path is not already occupied."""
+    try:
+        with output_path.open("x", encoding="utf-8") as output_file:
+            output_file.write(content)
+    except FileExistsError:
+        print(f"Error: output path already exists: {output_path}", file=sys.stderr)
+        raise SystemExit(1) from None
 
 
 def main() -> None:
@@ -203,12 +250,13 @@ def main() -> None:
         is_series=bool(args.series),
     )
 
-    output_path = args.output
-    if not output_path:
+    if args.output:
+        output_path = Path(args.output)
+    else:
         slug = slugify(args.title)
         output_path = _PROJECT_ROOT / "_books" / f"{slug}.md"
 
-    Path(output_path).write_text(content, encoding="utf-8")
+    write_new_file(output_path, content)
     print(f"Wrote {output_path}", file=sys.stderr)
 
 
