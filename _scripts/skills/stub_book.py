@@ -145,6 +145,16 @@ def build_template(
     return "\n".join(output_lines)
 
 
+def write_new_file(output_path: Path, content: str) -> None:
+    """Write content only when the output path is not already occupied."""
+    try:
+        with output_path.open("x", encoding="utf-8") as output_file:
+            output_file.write(content)
+    except FileExistsError:
+        print(f"Error: output path already exists: {output_path}", file=sys.stderr)
+        raise SystemExit(1) from None
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Assemble a book review stub from template and arguments.",
@@ -203,12 +213,13 @@ def main() -> None:
         is_series=bool(args.series),
     )
 
-    output_path = args.output
-    if not output_path:
+    if args.output:
+        output_path = Path(args.output)
+    else:
         slug = slugify(args.title)
         output_path = _PROJECT_ROOT / "_books" / f"{slug}.md"
 
-    Path(output_path).write_text(content, encoding="utf-8")
+    write_new_file(output_path, content)
     print(f"Wrote {output_path}", file=sys.stderr)
 
 
