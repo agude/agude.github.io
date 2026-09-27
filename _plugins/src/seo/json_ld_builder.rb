@@ -83,6 +83,12 @@ module Jekyll
         @data['author'] = entities.length == 1 ? entities.first : entities
       end
 
+      def author_entities(entities)
+        return if entities.nil? || (entities.respond_to?(:empty?) && entities.empty?)
+
+        @data['author'] = entities
+      end
+
       def rating(value)
         entity = Jekyll::SEO::JsonLdUtils.build_rating_entity(value)
         @data['reviewRating'] = entity if entity

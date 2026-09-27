@@ -169,6 +169,28 @@ class TestJsonLdBuilder < Minitest::Test
     assert_equal expected, result['publisher']
   end
 
+  def test_author_entities_sets_linked_person_entities
+    entities = [
+      { '@type' => 'Person', '@id' => 'https://example.com/authors/jane', 'name' => 'Jane Doe' },
+      { '@type' => 'Person', '@id' => 'https://example.com/authors/john', 'name' => 'John Smith' },
+    ]
+
+    result = Jekyll::SEO::JsonLdBuilder.build('Book') do |schema|
+      schema.author_entities entities
+    end
+
+    assert_equal entities, result['author']
+  end
+
+  def test_author_entities_omits_empty_entities
+    result = Jekyll::SEO::JsonLdBuilder.build('Book') do |schema|
+      schema.author_entities []
+      schema.author_entities nil
+    end
+
+    refute result.key?('author')
+  end
+
   # --- Image Method ---
 
   def test_image_builds_image_object

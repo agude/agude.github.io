@@ -2,6 +2,7 @@
 
 require_relative '../json_ld_builder'
 require_relative '../book_identity_resolver'
+require_relative '../book_author_entity_resolver'
 
 module Jekyll
   module SEO
@@ -25,7 +26,7 @@ module Jekyll
               book.name document.data['title']
               book.node_id book_identity_url
               book.url book_identity_url
-              book.authors document.data['book_authors']
+              book.author_entities Jekyll::SEO::BookAuthorEntityResolver.resolve(document, site)
               book.image document.data['image']
               book.isbn document.data['isbn']
               book.in_language document.data['language'] || 'en'

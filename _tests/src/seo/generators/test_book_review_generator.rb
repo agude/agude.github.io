@@ -15,7 +15,7 @@ class TestBookReviewLdGenerator < Minitest::Test
       'baseurl' => '',
       'author' => { 'name' => 'Alex Gude' },
     }
-    @site = create_site(@site_config)
+    @site = create_site(@site_config, {}, author_pages)
     @books_collection = MockCollection.new([], 'books')
   end
 
@@ -32,6 +32,29 @@ class TestBookReviewLdGenerator < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_generate_hash_book_review_preserves_pen_name_with_canonical_author_identity
+    doc = create_doc(
+      { 'layout' => 'book', 'title' => 'Pen Name Book', 'book_authors' => ['J.D. Writer'] },
+      '/books/pen-name-book.html',
+      'Review content',
+      '2024-01-01',
+      @books_collection,
+    )
+
+    result = Jekyll::SEO::Generators::BookReviewLdGenerator.generate_hash(doc, @site)
+
+    assert_equal(
+      {
+        '@type' => 'Person',
+        '@id' => 'https://alexgude.com/authors/jane-doe.html',
+        'url' => 'https://alexgude.com/authors/jane-doe.html',
+        'name' => 'J.D. Writer',
+        'sameAs' => ['https://example.com/jane'],
+      },
+      result.dig('itemReviewed', 'author'),
+    )
+  end
+
   def test_generate_hash_book_review_uses_canonical_book_id_for_archived_review
     canonical = create_doc(
       { 'title' => 'Family Book', 'book_authors' => ['Author'] },
@@ -45,7 +68,11 @@ class TestBookReviewLdGenerator < Minitest::Test
       },
       '/books/family-book-archived/',
     )
-    site = create_site(@site_config, { 'books' => [canonical, archived] })
+    site = create_site(
+      @site_config,
+      { 'books' => [canonical, archived] },
+      [create_author_page('Author', '/authors/author.html')],
+    )
 
     result = Jekyll::SEO::Generators::BookReviewLdGenerator.generate_hash(archived, site)
 
@@ -182,6 +209,39 @@ class TestBookReviewLdGenerator < Minitest::Test
 
   private
 
+  def author_pages
+    [
+      create_author_page(
+        'Dan Simmons',
+        '/authors/dan-simmons.html',
+        same_as_urls: ['https://example.com/dan-simmons'],
+      ),
+      create_author_page('Terry Pratchett', '/authors/terry-pratchett.html'),
+      create_author_page('Neil Gaiman', '/authors/neil-gaiman.html'),
+      create_author_page('Frank Herbert', '/authors/frank-herbert.html'),
+      create_author_page('Author', '/authors/author.html'),
+      create_author_page('Min Author', '/authors/min-author.html'),
+      create_author_page(
+        'Jane Doe',
+        '/authors/jane-doe.html',
+        pen_names: ['J.D. Writer'],
+        same_as_urls: ['https://example.com/jane'],
+      ),
+    ]
+  end
+
+  def create_author_page(title, url, pen_names: [], same_as_urls: [])
+    create_doc(
+      {
+        'title' => title,
+        'layout' => 'author_page',
+        'pen_names' => pen_names,
+        'same_as_urls' => same_as_urls,
+      },
+      url,
+    )
+  end
+
   def create_single_author_doc
     create_doc(
       {
@@ -214,7 +274,13 @@ class TestBookReviewLdGenerator < Minitest::Test
         'name' => 'Hyperion',
         '@id' => 'https://alexgude.com/books/hyperion.html',
         'url' => 'https://alexgude.com/books/hyperion.html',
-        'author' => { '@type' => 'Person', 'name' => 'Dan Simmons' },
+        'author' => {
+          '@type' => 'Person',
+          '@id' => 'https://alexgude.com/authors/dan-simmons.html',
+          'url' => 'https://alexgude.com/authors/dan-simmons.html',
+          'name' => 'Dan Simmons',
+          'sameAs' => ['https://example.com/dan-simmons'],
+        },
         'inLanguage' => 'en',
       },
     }
@@ -253,8 +319,18 @@ class TestBookReviewLdGenerator < Minitest::Test
         '@id' => 'https://alexgude.com/books/good-omens.html',
         'url' => 'https://alexgude.com/books/good-omens.html',
         'author' => [
-          { '@type' => 'Person', 'name' => 'Terry Pratchett' },
-          { '@type' => 'Person', 'name' => 'Neil Gaiman' },
+          {
+            '@type' => 'Person',
+            '@id' => 'https://alexgude.com/authors/terry-pratchett.html',
+            'url' => 'https://alexgude.com/authors/terry-pratchett.html',
+            'name' => 'Terry Pratchett',
+          },
+          {
+            '@type' => 'Person',
+            '@id' => 'https://alexgude.com/authors/neil-gaiman.html',
+            'url' => 'https://alexgude.com/authors/neil-gaiman.html',
+            'name' => 'Neil Gaiman',
+          },
         ],
         'inLanguage' => 'en',
       },
@@ -308,7 +384,12 @@ class TestBookReviewLdGenerator < Minitest::Test
       'name' => 'Dune',
       '@id' => 'https://alexgude.com/books/dune.html',
       'url' => 'https://alexgude.com/books/dune.html',
-      'author' => { '@type' => 'Person', 'name' => 'Frank Herbert' },
+      'author' => {
+        '@type' => 'Person',
+        '@id' => 'https://alexgude.com/authors/frank-herbert.html',
+        'url' => 'https://alexgude.com/authors/frank-herbert.html',
+        'name' => 'Frank Herbert',
+      },
       'image' => { '@type' => 'ImageObject', 'url' => 'https://alexgude.com/assets/covers/dune.jpg' },
       'isbn' => '978-0441172719',
       'inLanguage' => 'en',
@@ -372,7 +453,12 @@ class TestBookReviewLdGenerator < Minitest::Test
         'name' => 'Minimal Book',
         '@id' => 'https://alexgude.com/books/minimal-book.html',
         'url' => 'https://alexgude.com/books/minimal-book.html',
-        'author' => { '@type' => 'Person', 'name' => 'Min Author' },
+        'author' => {
+          '@type' => 'Person',
+          '@id' => 'https://alexgude.com/authors/min-author.html',
+          'url' => 'https://alexgude.com/authors/min-author.html',
+          'name' => 'Min Author',
+        },
         'inLanguage' => 'en',
       },
     }

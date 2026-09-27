@@ -76,9 +76,37 @@ class TestCacheBuilder < Minitest::Test
     assert_equal 'Jane Doe', authors['jane doe']['title']
   end
 
+  def test_caches_cleaned_author_identity_data
+    author_page = create_doc(
+      {
+        'title' => 'Jane Doe',
+        'layout' => 'author_page',
+        'same_as_urls' => [' https://example.com/jane ', nil, '', 'https://example.com/jane'],
+      },
+      '/authors/jane-doe.html',
+    )
+
+    site = create_site({}, {}, [author_page])
+    author = site.data['link_cache']['authors']['jane doe']
+
+    assert_equal(
+      {
+        'url' => '/authors/jane-doe.html',
+        'title' => 'Jane Doe',
+        'same_as_urls' => ['https://example.com/jane'],
+      },
+      author,
+    )
+  end
+
   def test_caches_author_pen_names
     author_page = create_doc(
-      { 'title' => 'Jane Doe', 'layout' => 'author_page', 'pen_names' => ['J.D. Writer', 'Anonymous'] },
+      {
+        'title' => 'Jane Doe',
+        'layout' => 'author_page',
+        'pen_names' => ['J.D. Writer', 'Anonymous'],
+        'same_as_urls' => ['https://example.com/jane'],
+      },
       '/authors/jane-doe.html',
     )
 
@@ -88,6 +116,8 @@ class TestCacheBuilder < Minitest::Test
     # Should be findable by pen names too
     assert_equal '/authors/jane-doe.html', authors['j.d. writer']['url']
     assert_equal '/authors/jane-doe.html', authors['anonymous']['url']
+    assert_equal authors['jane doe'], authors['j.d. writer']
+    assert_equal ['https://example.com/jane'], authors['anonymous']['same_as_urls']
   end
 
   def test_caches_series_pages
