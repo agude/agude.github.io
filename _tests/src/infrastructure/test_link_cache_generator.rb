@@ -100,7 +100,7 @@ class TestLinkCacheGeneratorBasicOperations < TestLinkCacheGeneratorBase
   private
 
   def assert_author_cache_correct(cache)
-    expected = { 'url' => '/authors/jane-doe.html', 'title' => 'Jane Doe' }
+    expected = { 'url' => '/authors/jane-doe.html', 'title' => 'Jane Doe', 'same_as_urls' => [] }
     assert_equal(expected, cache['authors']['jane doe'])
   end
 

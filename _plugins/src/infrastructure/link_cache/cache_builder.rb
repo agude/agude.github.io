@@ -74,7 +74,13 @@ module Jekyll
 
         def cache_author_page(page)
           canonical_title = page.data['title'].strip
-          page_data = { 'url' => page.url, 'title' => canonical_title }
+          page_data = {
+            'url' => page.url,
+            'title' => canonical_title,
+            'same_as_urls' => Jekyll::Infrastructure::FrontMatterUtils.get_list_from_string_or_array(
+              page.data['same_as_urls'],
+            ),
+          }
           author_cache = @link_cache['authors']
 
           author_cache[Jekyll::Infrastructure::TextProcessingUtils.normalize_title(canonical_title)] = page_data
