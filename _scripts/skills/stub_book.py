@@ -37,19 +37,20 @@ _SCRIPT_DIR = Path(__file__).resolve().parent
 _PROJECT_ROOT = _SCRIPT_DIR.parent.parent  # _scripts/skills/ -> project root
 TEMPLATE_PATH = _PROJECT_ROOT / "_books" / "_template" / "book_template.md"
 _YAML_SPECIAL_CHARACTERS = frozenset(":#'\"[]{},&*?|>!%")
-_YAML_TYPED_VALUE = re.compile(
-    r"^(?:[-+]?(?:\d+|\d*\.\d+)(?:[eE][-+]?\d+)?|\d{4}(?:-\d{2}(?:-\d{2})?)?)$"
-)
 
 
 def _needs_yaml_quoting(value: str) -> bool:
     """Return whether a string could be misread as YAML syntax or a type."""
     stripped_value = value.strip()
-    if not value or value != stripped_value or "\n" in value or "\r" in value:
+    if not value or value != stripped_value:
         return True
-    if value[0] in "-?:@`" or any(char in value for char in _YAML_SPECIAL_CHARACTERS):
+    if any(char.isspace() and char != " " for char in value):
         return True
-    if value.casefold() in {
+    if value[0].isdigit() or value[0] in "-+?:.@`":
+        return True
+    if any(char in value for char in _YAML_SPECIAL_CHARACTERS):
+        return True
+    return value.casefold() in {
         "null",
         "true",
         "false",
@@ -62,9 +63,7 @@ def _needs_yaml_quoting(value: str) -> bool:
         ".inf",
         "+.inf",
         "-.inf",
-    }:
-        return True
-    return bool(_YAML_TYPED_VALUE.fullmatch(value))
+    }
 
 
 def yaml_scalar(value: str) -> str:

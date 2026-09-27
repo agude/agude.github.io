@@ -26,8 +26,9 @@ the work belongs to a series, its number in that series, and whether it is an
 anthology or short-story collection.
 
 For a series that already appears on the site, use an existing `_books/` entry
-to match the stored author name, series name, and numbering. Do not run the
-stub script against an existing output path: it overwrites that file.
+to match the stored author name, series name, and numbering. The stub script
+refuses to overwrite an existing output path; treat that error as a path or
+duplicate-book conflict and resolve it before continuing.
 
 The stub script creates a single-author novel. For multiple authors, an
 anthology, or another atypical work, use its output only as a starting point:
@@ -38,10 +39,9 @@ anthology, or another atypical work, use its output only as a starting point:
 - Replace the generated opening and captures with forms appropriate to the
   contributors. The standard template assumes one author.
 
-If a title, author, or series name contains YAML-significant characters such
-as `:`, `#`, `&`, `?`, brackets, braces, or quotes, quote and escape that value
-in the generated front matter before continuing. The stub script writes these
-values without YAML quoting.
+The stub script quotes and escapes YAML-sensitive title, author, series, and
+QID values. Pass their literal values on the command line; do not add YAML
+escaping yourself.
 
 ## Resolve the Wikidata work
 

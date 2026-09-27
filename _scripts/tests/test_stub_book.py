@@ -129,6 +129,9 @@ class TestBuildFrontMatter:
             "Title {Special}",
             "Title & Co.",
             "What? Title",
+            "Title\tTabbed",
+            "1_000",
+            "0x10",
         ],
     )
     def test_yaml_significant_values_round_trip(self, value):
