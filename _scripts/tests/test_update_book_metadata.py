@@ -1,7 +1,11 @@
 """Tests for _scripts/metadata/update_book_metadata.py."""
 
+import sys
 from textwrap import dedent
+from unittest.mock import patch
 
+import pytest
+import update_book_metadata
 from update_book_metadata import (
     MANAGED_FIELDS,
     _strip_field,
@@ -238,6 +242,93 @@ class TestNeverOverwriteWithNull:
         # But format_field returns "" for awards=None, so it gets filtered later
         assert "awards" in fields_to_write
         assert "isbn" in fields_to_write
+
+
+class TestMetadataSelection:
+    def test_search_does_not_select_a_candidate(self, tmp_path, monkeypatch, capsys):
+        book_file = tmp_path / "book.md"
+        original = dedent("""\
+            ---
+            title: Hyperion
+            book_authors: Dan Simmons
+            rating: 5
+            ---
+            Review text.
+            """)
+        book_file.write_text(original, encoding="utf-8")
+        candidates = [
+            {
+                "id": "Q1",
+                "label": "Hyperion",
+                "description": "novel by Dan Simmons",
+                "aliases": [],
+            },
+            {
+                "id": "Q2",
+                "label": "Hyperion (film)",
+                "description": "unrelated film",
+                "aliases": [],
+            },
+        ]
+        monkeypatch.setattr(
+            sys,
+            "argv",
+            ["update_book_metadata.py", str(book_file)],
+        )
+
+        with (
+            patch("update_book_metadata.search_book_entity", return_value=candidates),
+            patch("update_book_metadata.fetch_metadata") as fetch_mock,
+            pytest.raises(SystemExit),
+        ):
+            update_book_metadata.main()
+
+        fetch_mock.assert_not_called()
+        assert book_file.read_text(encoding="utf-8") == original
+        assert "Q1" in capsys.readouterr().err
+
+    def test_invalid_explicit_qid_fails_before_write(self, tmp_path, monkeypatch):
+        book_file = tmp_path / "book.md"
+        original = "---\ntitle: Hyperion\n---\nReview text.\n"
+        book_file.write_text(original, encoding="utf-8")
+        monkeypatch.setattr(
+            sys,
+            "argv",
+            ["update_book_metadata.py", str(book_file), "--qid", "not-a-qid"],
+        )
+
+        with (
+            patch("update_book_metadata.fetch_metadata") as fetch_mock,
+            pytest.raises(SystemExit),
+        ):
+            update_book_metadata.main()
+
+        fetch_mock.assert_not_called()
+        assert book_file.read_text(encoding="utf-8") == original
+
+    def test_explicit_qid_is_used_for_writes(self, tmp_path, monkeypatch):
+        book_file = tmp_path / "book.md"
+        book_file.write_text("---\ntitle: Hyperion\n---\nReview text.\n", encoding="utf-8")
+        metadata = {
+            "wikidata_qid": "Q1",
+            "isbn": "978-0-553-28368-3",
+            "date_published": None,
+            "awards": None,
+            "same_as_urls": None,
+        }
+        monkeypatch.setattr(
+            sys,
+            "argv",
+            ["update_book_metadata.py", str(book_file), "--qid", "Q1"],
+        )
+
+        with patch("update_book_metadata.fetch_metadata", return_value=metadata) as fetch_mock:
+            update_book_metadata.main()
+
+        fetch_mock.assert_called_once_with("Q1")
+        content = book_file.read_text(encoding="utf-8")
+        assert "wikidata_qid: Q1" in content
+        assert "isbn: 978-0-553-28368-3" in content
 
     def test_non_null_overwrites_existing(self):
         metadata = {"awards": ["hugo"], "isbn": "978-0-123"}

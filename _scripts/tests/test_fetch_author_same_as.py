@@ -1,5 +1,9 @@
 """Tests for metadata/fetch_author_same_as.py pure functions."""
 
+import sys
+from unittest.mock import patch
+
+import fetch_author_same_as
 from fetch_author_same_as import AUTHOR_PROPERTY_MAP, format_yaml
 
 
@@ -67,3 +71,27 @@ class TestAuthorPropertyMap:
         for _, _, template in AUTHOR_PROPERTY_MAP:
             if template is not None:
                 assert "{value}" in template
+
+
+class TestMain:
+    def test_name_search_only_prints_candidates(self, monkeypatch, capsys):
+        candidates = [
+            {
+                "id": "Q1",
+                "label": "Iain M. Banks",
+                "description": "Scottish author",
+                "aliases": ["Iain Banks"],
+            }
+        ]
+        monkeypatch.setattr(sys, "argv", ["fetch_author_same_as.py", "Iain M. Banks"])
+
+        with (
+            patch("fetch_author_same_as.search_entity", return_value=candidates),
+            patch("fetch_author_same_as.fetch_entity") as fetch_mock,
+        ):
+            fetch_author_same_as.main()
+
+        fetch_mock.assert_not_called()
+        output = capsys.readouterr().err
+        assert "Q1" in output
+        assert "selected" not in output.lower()
