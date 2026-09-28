@@ -19,9 +19,7 @@
         This now uses the pre-computed list from LinkCacheGenerator for performance.
       {% endcomment %}
 
-      {% assign data = site | optional: 'data' %}
-      {% assign link_cache = data | optional: 'link_cache' %}
-      {% assign nav_items = link_cache | optional: 'sidebar_nav' %}
+      {% assign nav_items = site.data.link_cache.sidebar_nav %}
 
       {% if nav_items %}
         {% for node in nav_items %}
