@@ -23,6 +23,12 @@ module Jekyll
       #
       class Finder
         DEFAULT_MAX_BOOKS = 3
+        LINK_TIERS = {
+          mentioned_works: { cache_key: 'forward_links', entry_key: :target, types: %w[book short_story] },
+          mentioned_series: { cache_key: 'forward_links', entry_key: :target, types: ['series'] },
+          backlink_works: { cache_key: 'backlinks', entry_key: :source, types: %w[book short_story] },
+          backlink_series: { cache_key: 'backlinks', entry_key: :source, types: ['series'] },
+        }.freeze
 
         # @param site [Jekyll::Site] The Jekyll site object
         # @param page [Jekyll::Document, Jekyll::Page] The current page/document
@@ -108,10 +114,7 @@ module Jekyll
           # Works tiers combine books and short stories, sorted by count (position/date/title tiebreaker).
           process_series(all_potential_books)
           process_authors(books_by_date_desc)
-          process_link_tier('forward_links', :target, %w[book short_story])
-          process_link_tier('forward_links', :target, 'series')
-          process_link_tier('backlinks', :source, %w[book short_story])
-          process_link_tier('backlinks', :source, 'series')
+          LINK_TIERS.each_value { |tier| process_link_tier(**tier) }
           process_recent(books_by_date_desc)
         end
 
@@ -233,13 +236,12 @@ module Jekyll
           end
         end
 
-        def process_link_tier(cache_key, entry_key, link_type)
-          link_types = Array(link_type)
+        def process_link_tier(cache_key:, entry_key:, types:)
           current_urls = Set.new(@candidate_books.map(&:url))
           return unless current_urls.size < @max_books
 
           links = @site.data.dig('link_cache', cache_key, page_url) || []
-          type_entries = links.select { |entry| link_types.include?(entry[:type]) }
+          type_entries = links.select { |entry| types.include?(entry[:type]) }
           sorted_entries = sort_link_entries(type_entries, entry_key)
 
           sorted_entries.each do |entry|
