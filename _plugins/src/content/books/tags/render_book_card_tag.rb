@@ -28,8 +28,6 @@ module Jekyll
         CardRenderer = Jekyll::Books::Core::BookCardRenderer
         private_constant :TagArgs, :Logger, :CardRenderer
 
-        SYNTAX = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
-
         def initialize(tag_name, markup, tokens)
           super
           @raw_markup = markup.strip
@@ -98,29 +96,11 @@ module Jekyll
         end
 
         def parse_optional_arguments(scanner)
-          parse_single_argument(scanner) while scanner.skip(/\s+/) && !scanner.eos?
-        end
-
-        def parse_single_argument(scanner)
-          unless scanner.scan(SYNTAX)
-            raise Liquid::SyntaxError,
-                  "Syntax Error in 'render_book_card': " \
-                  "Invalid arguments near '#{scanner.rest}' in '#{@raw_markup}'"
-          end
-
-          process_argument(scanner[1], scanner[2])
-        end
-
-        def process_argument(key, value_markup)
-          case key
-          when 'display_title'
-            @display_title_markup = value_markup
-          when 'subtitle'
-            @subtitle_markup = value_markup
-          else
-            raise Liquid::SyntaxError,
-                  "Syntax Error in 'render_book_card': Unknown argument '#{key}' in '#{@raw_markup}'"
-          end
+          arguments = TagArgs.parse_named_arguments(
+            scanner, tag_name: 'render_book_card', allowed: %w[display_title subtitle],
+          )
+          @display_title_markup = arguments['display_title']
+          @subtitle_markup = arguments['subtitle']
         end
       end
     end

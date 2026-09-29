@@ -2,7 +2,6 @@
 
 require 'jekyll'
 require 'liquid'
-require 'strscan' # For parsing arguments
 require_relative '../../infrastructure/plugin_logger_utils' # For logging
 require_relative '../../infrastructure/tag_argument_utils'
 
@@ -25,7 +24,6 @@ module Jekyll
         Logger = Jekyll::Infrastructure::PluginLoggerUtils
         private_constant :TagArgs, :Logger
 
-        SYNTAX = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
         THIN_NBSP = '&#x202F;' # U+202F NARROW NO-BREAK SPACE
 
         # Internal unit definitions (can be expanded)
@@ -50,9 +48,9 @@ module Jekyll
 
         def initialize(tag_name, markup, tokens)
           super
-          @raw_markup = markup
-          @attributes = parse_attributes(markup)
-          validate_attributes
+          @attributes = TagArgs.parse_named_arguments(
+            markup.strip, tag_name: 'units', allowed: ALLOWED_KEYS, required: %w[number unit],
+          )
         end
 
         def render(context)
@@ -70,47 +68,6 @@ module Jekyll
         end
 
         private
-
-        def parse_attributes(markup)
-          attributes = {}
-          scanner = StringScanner.new(markup.strip)
-          scan_attributes(scanner, attributes)
-          validate_no_trailing_args(scanner)
-          attributes
-        end
-
-        def scan_attributes(scanner, attributes)
-          while scanner.scan(SYNTAX)
-            attributes[scanner[1]] = scanner[2]
-            scanner.skip(/\s*/)
-          end
-        end
-
-        def validate_no_trailing_args(scanner)
-          return if scanner.eos?
-
-          raise Liquid::SyntaxError,
-                "Syntax Error in 'units' tag: Invalid or unexpected trailing arguments near " \
-                "'#{scanner.rest}' in '#{@raw_markup}'"
-        end
-
-        def validate_attributes
-          @attributes.each_key do |key|
-            unless ALLOWED_KEYS.include?(key)
-              raise Liquid::SyntaxError, "Syntax Error in 'units' tag: Unknown argument '#{key}' in '#{@raw_markup}'"
-            end
-          end
-
-          validate_required_arg('number')
-          validate_required_arg('unit')
-        end
-
-        def validate_required_arg(arg)
-          return if @attributes[arg]
-
-          raise Liquid::SyntaxError,
-                "Syntax Error in 'units' tag: Required argument '#{arg}' is missing in '#{@raw_markup}'"
-        end
 
         def resolve_and_validate_args(context)
           number_input = TagArgs.resolve_value(@attributes['number'], context)

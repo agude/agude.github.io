@@ -60,8 +60,11 @@ module Jekyll
           scanner = StringScanner.new(markup.strip)
           url = nil
 
-          if scanner.scan(/url\s*=\s*(#{QuotedFragment}|\S+)/)
-            url = scanner[1]
+          if scanner.match?(/url\s*=/)
+            arguments = TagArgs.parse_named_arguments(
+              scanner, tag_name: 'article_card_lookup', allowed: ['url'], required: ['url'],
+            )
+            url = arguments['url']
           elsif scanner.scan(QuotedFragment) || scanner.scan(/\S+/)
             url = scanner.matched
           end

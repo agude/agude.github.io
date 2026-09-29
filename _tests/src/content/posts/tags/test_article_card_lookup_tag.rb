@@ -209,12 +209,19 @@ class TestArticleCardLookupTag < Minitest::Test
     err = assert_raises Liquid::SyntaxError do
       Liquid::Template.parse("{% article_card_lookup url='/p1.html' extra=bad %}")
     end
-    assert_match(/Unknown argument\(s\)/, err.message)
+    assert_match(/Unknown argument 'extra'/, err.message)
 
     err2 = assert_raises Liquid::SyntaxError do
       Liquid::Template.parse("{% article_card_lookup '/p1.html' extra=bad %}")
     end
     assert_match(/Unknown argument\(s\)/, err2.message)
+  end
+
+  def test_syntax_error_duplicate_named_url
+    error = assert_raises(Liquid::SyntaxError) do
+      Liquid::Template.parse("{% article_card_lookup url='/first' url='/second' %}")
+    end
+    assert_match "Duplicate argument 'url'", error.message
   end
 
   # --- Orchestration Tests ---

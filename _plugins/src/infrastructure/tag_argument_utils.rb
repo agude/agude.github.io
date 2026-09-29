@@ -1,9 +1,48 @@
 # frozen_string_literal: true
 
+require 'liquid'
+require 'strscan'
+
 module Jekyll
   module Infrastructure
     # Utility module for parsing and resolving Liquid tag arguments.
     module TagArgumentUtils
+      NAMED_ARGUMENT = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
+
+      # Parses a named-only argument tail and rejects malformed, unknown,
+      # duplicate, and missing required keys before a tag resolves values.
+      def self.parse_named_arguments(markup, tag_name:, allowed:, required: [], downcase_keys: false)
+        scanner = markup.is_a?(StringScanner) ? markup : StringScanner.new(markup)
+        arguments = {}
+
+        until scanner.eos?
+          scanner.skip(/\s*/)
+          break if scanner.eos?
+
+          unless scanner.scan(NAMED_ARGUMENT)
+            raise Liquid::SyntaxError,
+                  "Syntax Error in '#{tag_name}': Invalid argument syntax near '#{scanner.rest}'."
+          end
+
+          key = downcase_keys ? scanner[1].downcase : scanner[1]
+          unless allowed.include?(key)
+            raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': Unknown argument '#{key}'."
+          end
+          if arguments.key?(key)
+            raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': Duplicate argument '#{key}'."
+          end
+
+          arguments[key] = scanner[2]
+        end
+
+        required.each do |key|
+          next if arguments.key?(key)
+
+          raise Liquid::SyntaxError, "Syntax Error in '#{tag_name}': Required argument '#{key}' is missing."
+        end
+        arguments
+      end
+
       # Resolves a Liquid markup string.
       # - If the markup is quoted (single or double), returns the literal string content.
       # - If the markup is NOT quoted, assumes it's a variable name (simple or dot notation)

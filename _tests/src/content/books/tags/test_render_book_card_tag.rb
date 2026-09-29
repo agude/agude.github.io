@@ -68,7 +68,14 @@ class TestRenderBookCardTag < Minitest::Test
     err = assert_raises Liquid::SyntaxError do
       render_tag('my_book not_key_value')
     end
-    assert_match "Invalid arguments near 'not_key_value'", err.message
+    assert_match "Invalid argument syntax near 'not_key_value'", err.message
+  end
+
+  def test_syntax_error_for_duplicate_named_argument
+    error = assert_raises(Liquid::SyntaxError) do
+      render_tag('my_book subtitle="First" subtitle="Second"')
+    end
+    assert_match "Duplicate argument 'subtitle'", error.message
   end
 
   # 2. Render - Success
