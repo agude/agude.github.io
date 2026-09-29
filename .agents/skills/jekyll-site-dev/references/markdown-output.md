@@ -13,6 +13,9 @@ The Markdown pass temporarily sets it to `markdown` and restores the prior
 value before returning. Pages also copy `markdown_alternate_href` into
 `payload['page']` because their Liquid payload is a snapshot.
 
+The converter protects fenced code blocks using backticks or tildes and
+inline code spans with matching delimiter lengths before converting inline HTML.
+
 `DisplayAwardsPageTag` fetches awards and favorites through
 `Books::AwardsPage::Finder` once per render pass. It sends the prepared data
 to `HtmlRenderer` or `MarkdownRenderer` according to `render_mode`.

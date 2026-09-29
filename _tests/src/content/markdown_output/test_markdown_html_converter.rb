@@ -104,13 +104,79 @@ class TestMarkdownHtmlConverter < Minitest::Test
   # --- code block stashing ---
 
   def test_inline_code_preserved
-    input = 'Use `<cite class="book-title">Foo</cite>` for titles.'
+    input = 'Use `<cite class="book-title">Foo</cite>, <em>literal</em>, and ' \
+            '<strong>bold</strong>` for titles.'
     assert_equal input, Converter.convert(input)
   end
 
   def test_fenced_code_block_preserved
-    input = "Some text.\n\n```html\n<cite class=\"book-title\">Foo</cite>\n```\n\nMore text."
+    input = "Some text.\n\n```html\n<cite class=\"book-title\">Foo</cite> and " \
+            "<em>literal</em> and <strong>bold</strong>\n```\n\n" \
+            '<cite class="book-title">After</cite>'
+    expected = "Some text.\n\n```html\n<cite class=\"book-title\">Foo</cite> and " \
+               "<em>literal</em> and <strong>bold</strong>\n```\n\n_After_"
+    assert_equal expected, Converter.convert(input)
+  end
+
+  def test_tilde_fenced_code_block_preserved
+    input = "~~~html\n<cite class=\"book-title\">Inside</cite>\n~~~\n" \
+            '<cite class="book-title">After</cite>'
+    expected = "~~~html\n<cite class=\"book-title\">Inside</cite>\n~~~\n_After_"
+    assert_equal expected, Converter.convert(input)
+  end
+
+  def test_long_backtick_fence_preserves_shorter_runs
+    input = "````markdown\nUse `code` and ```short``` before " \
+            "<cite class=\"book-title\">Inside</cite>.\n````\n" \
+            '<cite class="book-title">After</cite>'
+    expected = "````markdown\nUse `code` and ```short``` before " \
+               "<cite class=\"book-title\">Inside</cite>.\n````\n_After_"
+    assert_equal expected, Converter.convert(input)
+  end
+
+  def test_fence_closer_can_be_longer_than_opener
+    input = "~~~html\n<cite class=\"book-title\">Inside</cite>\n~~~~\n" \
+            '<cite class="book-title">After</cite>'
+    expected = "~~~html\n<cite class=\"book-title\">Inside</cite>\n~~~~\n_After_"
+    assert_equal expected, Converter.convert(input)
+  end
+
+  def test_crlf_fenced_code_block_preserved
+    input = "```html\r\n<cite class=\"book-title\">Inside</cite>\r\n```\r\n" \
+            '<cite class="book-title">After</cite>'
+    expected = "```html\r\n<cite class=\"book-title\">Inside</cite>\r\n```\r\n_After_"
+    assert_equal expected, Converter.convert(input)
+  end
+
+  def test_unclosed_fenced_code_block_preserved
+    input = "<cite class=\"book-title\">Before</cite>\n```html\n" \
+            '<cite class="book-title">Inside</cite>'
+    expected = "_Before_\n```html\n<cite class=\"book-title\">Inside</cite>"
+    assert_equal expected, Converter.convert(input)
+  end
+
+  def test_multibacktick_inline_span_preserves_shorter_and_longer_runs
+    input = 'Use ``a ` short and ``` longer <cite class="book-title">Inside</cite>``; ' \
+            '<cite class="book-title">Outside</cite>.'
+    expected = 'Use ``a ` short and ``` longer <cite class="book-title">Inside</cite>``; _Outside_.'
+    assert_equal expected, Converter.convert(input)
+  end
+
+  def test_single_backtick_span_allows_embedded_double_run
+    input = 'Use `one ``two <cite class="book-title">Inside</cite> three` and ' \
+            '<cite class="book-title">Outside</cite>.'
+    expected = 'Use `one ``two <cite class="book-title">Inside</cite> three` and _Outside_.'
+    assert_equal expected, Converter.convert(input)
+  end
+
+  def test_multiline_inline_span_is_preserved
+    input = "Use ``<cite class=\"book-title\">Foo</cite>\ncontinued`` here."
     assert_equal input, Converter.convert(input)
+  end
+
+  def test_unmatched_inline_delimiter_does_not_hide_later_html
+    input = 'A lone ` delimiter, then <cite class="book-title">Foo</cite>.'
+    assert_equal 'A lone ` delimiter, then _Foo_.', Converter.convert(input)
   end
 
   def test_backreference_in_code_preserved
