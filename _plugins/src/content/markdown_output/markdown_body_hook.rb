@@ -152,22 +152,22 @@ module Jekyll
       end
 
       def self.prepare_document(doc, payload)
-        prepare_output(doc, payload, doc.content)
+        prepare_output(doc, payload) { doc.content }
       end
 
       def self.prepare_page(page, payload)
-        content = content_with_layout_tags(page.content, page)
-        prepare_output(page, payload, content, copy_href_to_payload: true)
+        prepare_output(page, payload, copy_href_to_payload: true) do
+          content_with_layout_tags(page.content, page)
+        end
       end
 
-      def self.prepare_output(item, payload, content, copy_href_to_payload: false)
+      def self.prepare_output(item, payload, copy_href_to_payload: false)
+        content = yield
         item.data['markdown_body'] = render_markdown_body(content, item.site, payload)
         href = compute_markdown_href(item)
         item.data['markdown_alternate_href'] = href
         # Page#to_liquid is a snapshot, so the HTML payload needs the href too.
         payload['page']['markdown_alternate_href'] = href if copy_href_to_payload
-      rescue Jekyll::Errors::FatalException
-        raise
       rescue StandardError => e
         raise Jekyll::Errors::FatalException, "Markdown output failed for #{item.url}: #{e.message}"
       end

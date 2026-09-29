@@ -405,6 +405,22 @@ class TestMarkdownBodyHook < Minitest::Test
     assert_match 'render failed', error.message
   end
 
+  def test_page_content_preparation_failure_includes_url
+    site = create_site
+    page = create_doc({ 'layout' => 'page' }, '/papers/')
+    page.define_singleton_method(:site) { site }
+    payload = { 'page' => page.data.dup }
+
+    [RuntimeError, Jekyll::Errors::FatalException].each do |error_class|
+      error = Hook.stub(:content_with_layout_tags, ->(*) { raise error_class, 'layout failed' }) do
+        assert_raises(Jekyll::Errors::FatalException) { Hook.prepare_page(page, payload) }
+      end
+
+      assert_match '/papers/', error.message
+      assert_match 'layout failed', error.message
+    end
+  end
+
   private
 
   def build_rendering_fixtures
