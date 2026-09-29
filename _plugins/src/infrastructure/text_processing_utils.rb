@@ -156,6 +156,11 @@ module Jekyll
         text.to_s.gsub(/[\[\]]/) { |m| "\\#{m}" }
       end
 
+      # Replaces HTML line breaks in display titles used in Markdown output.
+      def self.markdown_title_text(title)
+        title.to_s.gsub(%r{\s*<br\s*/?\s*>\s*}i, ' ')
+      end
+
       # Escapes characters that break Markdown link URLs: ( and ).
       def self.escape_url(url)
         url.to_s.gsub(/[()]/) { |m| "\\#{m}" }

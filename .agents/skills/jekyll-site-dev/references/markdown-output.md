@@ -28,6 +28,10 @@ The final Markdown whitespace pass trims prose line endings and collapses
 excess blank lines, while preserving hard-break spaces and whitespace inside
 fenced or indented code blocks.
 
+Markdown headers and book/article card links replace `<br>` variants in titles
+with a single space before escaping link text. This conversion uses a local
+rendered value; it does not modify the document's stored title used for HTML.
+
 `DisplayAwardsPageTag` fetches awards and favorites through
 `Books::AwardsPage::Finder` once per render pass. It sends the prepared data
 to `HtmlRenderer` or `MarkdownRenderer` according to `render_mode`.
