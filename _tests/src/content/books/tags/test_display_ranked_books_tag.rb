@@ -116,7 +116,6 @@ class TestDisplayRankedBooksTag < Minitest::Test
     assert_match "Title 'Book A (5 Stars)' (Rating: 5) at position 2", err.message
   end
 
-
   def test_processor_returns_correct_structure
     processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(@context_dev, 'page.ranked_list')
     result = processor.process

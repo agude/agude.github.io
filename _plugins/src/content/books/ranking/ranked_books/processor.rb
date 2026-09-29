@@ -103,7 +103,6 @@ module Jekyll
             )
             book_map[normalized]
           end
-
         end
       end
     end
