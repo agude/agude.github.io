@@ -28,6 +28,10 @@ The final Markdown whitespace pass trims prose line endings and collapses
 excess blank lines, while preserving hard-break spaces and whitespace inside
 fenced or indented code blocks.
 
+The ChatGPT edit include keeps its compact HTML markup for HTML rendering. In
+Markdown mode it emits Prompt and Output labels with quoted content indented as
+footnote continuation, preserving paragraph breaks and list lines.
+
 Markdown headers and book/article card links replace `<br>` variants in titles
 with a single space before escaping link text. This conversion uses a local
 rendered value; it does not modify the document's stored title used for HTML.

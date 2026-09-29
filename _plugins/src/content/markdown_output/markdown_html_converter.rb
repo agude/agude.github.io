@@ -35,11 +35,20 @@ module Jekyll
       # so nested cites/spans are already converted.
       ANCHOR_RE = %r{<a[^>]*href=["']([^"']+)["'][^>]*>(.*?)</a>}m
 
+      CHATGPT_EDIT_RE = %r{
+        <div\s+class=["']chatgpt-edit-markdown["']>
+        \s*<strong>Prompt</strong><blockquote>(.*?)</blockquote>
+        \s*<strong>Output</strong><blockquote>(.*?)</blockquote>
+        </div>
+      }mx
+      BREAK_RE = %r{<br\s*/?\s*>}i
+
       def self.convert(markdown_body)
         return markdown_body if markdown_body.nil? || markdown_body.empty?
 
         stashed = {}
         body = stash_code_blocks(markdown_body, stashed)
+        body = convert_chatgpt_edit_blocks(body)
 
         # Convert inner tags before outer tags (cite/span before anchors).
         body.gsub!(CITE_RE) { "_#{Regexp.last_match(1)}_" }
@@ -54,6 +63,35 @@ module Jekyll
       end
 
       # --- private helpers ---
+
+      def self.convert_chatgpt_edit_blocks(text)
+        text.gsub(CHATGPT_EDIT_RE) do
+          prompt, output = Regexp.last_match.captures
+          [
+            '**Prompt**',
+            '',
+            format_chatgpt_quote(prompt),
+            '',
+            '    **Output**',
+            '',
+            format_chatgpt_quote(output),
+          ].join("\n")
+        end
+      end
+      private_class_method :convert_chatgpt_edit_blocks
+
+      def self.format_chatgpt_quote(content)
+        stashed = {}
+        protected_content = stash_code_blocks(content, stashed)
+        protected_content.gsub!(BREAK_RE, "\n")
+        markdown = restore_code_blocks(convert(protected_content), stashed).strip
+        return '    >' if markdown.empty?
+
+        markdown.split("\n", -1).map do |line|
+          line.empty? ? '    >' : "    > #{line}"
+        end.join("\n")
+      end
+      private_class_method :format_chatgpt_quote
 
       def self.convert_presentation_wrappers(text)
         body = convert_presentation_spans(text)

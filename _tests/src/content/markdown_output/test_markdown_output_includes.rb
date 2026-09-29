@@ -66,6 +66,36 @@ class TestMarkdownOutputIncludes < Minitest::Test
     refute_includes output, '[Video]'
   end
 
+  def test_chatgpt_markdown_preserves_quotes_and_labels_inside_footnote
+    parameters = {
+      'prompt' => 'Why <em>this</em>?<br><br>Next paragraph.',
+      'output' => "1. <strong>First</strong>\n2. Second",
+    }
+    output = MarkdownOutputConverter.convert(render_include('chatgpt_edit.html', parameters, :markdown))
+    refute_match(/<(?:div|blockquote|br)\b/i, output)
+
+    markdown = "See this.[^edit]\n\n[^edit]: #{output}\n\nAfterwards.\n"
+    html = Nokogiri::HTML.fragment(Kramdown::Document.new(markdown).to_html)
+    footnote = html.at_css('.footnotes li')
+    refute_nil footnote
+    quotes = footnote.css('blockquote')
+    assert_equal 2, quotes.length
+    assert_equal ['Why this?', 'Next paragraph.'], quotes.first.css('p').map(&:text).map(&:strip)
+    assert_equal %w[First Second], quotes.last.css('ol > li').map(&:text).map(&:strip)
+    assert_equal %w[Prompt Output First], footnote.css('strong').map(&:text)
+    assert_equal 'Afterwards.', html.css('p').find { |paragraph| paragraph.text == 'Afterwards.' }&.text
+  end
+
+  def test_chatgpt_html_preserves_existing_compact_markup
+    output = render_include('chatgpt_edit.html', { 'prompt' => 'Question', 'output' => 'Answer' }, :html)
+    assert_includes output, '<div class="chatgpt-edit-block">'
+    assert_includes output, '<strong>Prompt</strong>'
+    assert_includes output, '<blockquote>Question</blockquote>'
+    assert_includes output, '<strong>Output</strong>'
+    assert_includes output, '<blockquote>Answer</blockquote>'
+    refute_includes output, "\n"
+  end
+
   private
 
   def render_include(filename, parameters, render_mode)
