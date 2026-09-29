@@ -23,57 +23,6 @@ class TestRelatedBooksFinder < Minitest::Test
     @context = create_context({}, { site: create_site, page: create_doc })
   end
 
-  # --- Unit tests for score_from_cache ---
-
-  def test_score_from_cache_returns_count_for_early_mentions
-    finder = Jekyll::Books::Related::Finder.new(nil, nil, nil)
-    entry = { count: 2, min_position: 50 }
-
-    score = finder.send(:score_from_cache, entry)
-
-    assert_equal 2.0, score
-  end
-
-  def test_score_from_cache_returns_count
-    # score_from_cache simply returns the count for sorting
-    finder = Jekyll::Books::Related::Finder.new(nil, nil, nil)
-    entry = { count: 3, min_position: 95 }
-
-    score = finder.send(:score_from_cache, entry)
-
-    assert_equal 3, score
-  end
-
-  def test_score_from_cache_returns_zero_for_zero_count
-    finder = Jekyll::Books::Related::Finder.new(nil, nil, nil)
-    entry = { count: 0, min_position: 100 }
-
-    score = finder.send(:score_from_cache, entry)
-
-    assert_equal 0.0, score
-  end
-
-  def test_score_from_cache_returns_zero_for_nil_count
-    # Entries with nil count (unused captures, direct links) score 0.
-    # This is expected for links that exist for backlink symmetry but have no prose usage.
-    finder = Jekyll::Books::Related::Finder.new(nil, nil, nil)
-    entry = { count: nil, min_position: nil }
-
-    score = finder.send(:score_from_cache, entry)
-
-    assert_equal 0.0, score
-  end
-
-  def test_score_from_cache_returns_zero_for_missing_count_key
-    # Entry without count key (e.g., from older cache format) scores 0 gracefully
-    finder = Jekyll::Books::Related::Finder.new(nil, nil, nil)
-    entry = { type: 'book' } # No count or min_position keys
-
-    score = finder.send(:score_from_cache, entry)
-
-    assert_equal 0.0, score
-  end
-
   # --- Integration tests ---
 
   def test_returns_correct_structure_with_empty_books
@@ -1874,8 +1823,8 @@ class TestRelatedBooksFinder < Minitest::Test
     assert_equal '/books/once.html', result[:books][1].url
   end
 
-  def test_e2e_late_position_penalty_affects_ranking
-    # Full pipeline: early vs late mentions → BacklinkBuilder calculates position → Finder applies penalty
+  def test_e2e_earlier_position_breaks_tie_before_title
+    # The later mention sorts first by title, so only position can put the earlier mention first.
     curr = create_doc(
       {
         'title' => 'Current Book',
@@ -1885,8 +1834,8 @@ class TestRelatedBooksFinder < Minitest::Test
       },
       '/books/current.html',
       <<~CONTENT,
-        {% capture early %}{% book_link "Early Book" %}{% endcapture %}
-        {% capture late %}{% book_link "Late Book" %}{% endcapture %}
+        {% capture early %}{% book_link "Zebra Book" %}{% endcapture %}
+        {% capture late %}{% book_link "Alpha Book" %}{% endcapture %}
 
         {{ early }} is discussed substantively here at the start.
         #{'x' * 1000}
@@ -1895,7 +1844,7 @@ class TestRelatedBooksFinder < Minitest::Test
     )
     early_book = create_doc(
       {
-        'title' => 'Early Book',
+        'title' => 'Zebra Book',
         'book_authors' => ['Author B'],
         'published' => true,
         'date' => @test_time_now - (60 * 60 * 24 * 5),
@@ -1905,7 +1854,7 @@ class TestRelatedBooksFinder < Minitest::Test
     )
     late_book = create_doc(
       {
-        'title' => 'Late Book',
+        'title' => 'Alpha Book',
         'book_authors' => ['Author C'],
         'published' => true,
         'date' => @test_time_now - (60 * 60 * 24 * 5),
@@ -1922,7 +1871,7 @@ class TestRelatedBooksFinder < Minitest::Test
     end
 
     assert_equal 2, result[:books].length
-    # Early (no penalty) should rank before late (0.25 penalty)
+    # The earlier mention wins the position tiebreaker.
     assert_equal '/books/early.html', result[:books][0].url, 'Early mention should rank before penalized late mention'
     assert_equal '/books/late.html', result[:books][1].url
   end
