@@ -71,6 +71,8 @@ module Jekyll
           CardRenderer.render(
             book_object, context, display_title_override: display_title, subtitle: subtitle,
           )
+        rescue Jekyll::Errors::FatalException
+          raise
         rescue StandardError => e
           Logger.log_liquid_failure(
             context: context,

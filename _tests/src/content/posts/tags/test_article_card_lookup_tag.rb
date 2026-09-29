@@ -63,6 +63,15 @@ class TestArticleCardLookupTag < Minitest::Test
     output
   end
 
+  def test_fatal_card_error_stops_liquid_render
+    failure = ->(*) { raise Jekyll::Errors::FatalException, 'invalid article card' }
+
+    error = Jekyll::Posts::ArticleCardRenderer.stub(:render, failure) do
+      assert_raises(Jekyll::Errors::FatalException) { render_tag('url="/blog/post-one.html"') }
+    end
+    assert_match 'invalid article card', error.message
+  end
+
   # --- Test Cases ---
 
   def test_lookup_with_url_parameter_quoted

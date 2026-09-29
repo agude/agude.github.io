@@ -27,6 +27,15 @@ class TestRenderArticleCardTag < Minitest::Test
     output
   end
 
+  def test_fatal_card_error_stops_liquid_render
+    failure = ->(*) { raise Jekyll::Errors::FatalException, 'invalid article card' }
+
+    error = Jekyll::Posts::ArticleCardRenderer.stub(:render, failure) do
+      assert_raises(Jekyll::Errors::FatalException) { render_tag('my_post') }
+    end
+    assert_match 'invalid article card', error.message
+  end
+
   # --- Test Cases ---
 
   # 1. Syntax Error

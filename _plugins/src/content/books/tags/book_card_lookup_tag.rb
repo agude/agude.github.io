@@ -159,6 +159,8 @@ module Jekyll
           end
 
           CardRenderer.render(found_book, context)
+        rescue Jekyll::Errors::FatalException
+          raise
         rescue StandardError => e
           # Return the log message from Jekyll::Infrastructure::PluginLoggerUtils
           Logger.log_liquid_failure(

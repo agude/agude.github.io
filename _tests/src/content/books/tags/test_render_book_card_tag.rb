@@ -33,6 +33,15 @@ class TestRenderBookCardTag < Minitest::Test
     output
   end
 
+  def test_fatal_card_error_stops_liquid_render
+    failure = ->(*) { raise Jekyll::Errors::FatalException, 'invalid book card' }
+
+    error = Jekyll::Books::Core::BookCardRenderer.stub(:render, failure) do
+      assert_raises(Jekyll::Errors::FatalException) { render_tag('my_book') }
+    end
+    assert_match 'invalid book card', error.message
+  end
+
   # --- Test Cases ---
 
   # 1. Syntax Error

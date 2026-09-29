@@ -47,6 +47,8 @@ module Jekyll
           else
             CardRenderer.render(post_object, context)
           end
+        rescue Jekyll::Errors::FatalException
+          raise
         rescue StandardError => e
           log_render_error(context, e)
         end

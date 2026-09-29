@@ -126,6 +126,8 @@ module Jekyll
           end
 
           CardRenderer.render(post, context)
+        rescue Jekyll::Errors::FatalException
+          raise
         rescue StandardError => e
           Logger.log_liquid_failure(
             context: context,
