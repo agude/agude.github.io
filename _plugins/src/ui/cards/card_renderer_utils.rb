@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'cgi' # For escaping image alt text if not already escaped
+require 'jekyll'
 
 module Jekyll
   # Utility module for rendering HTML card components for books and articles.
@@ -11,7 +12,6 @@ module Jekyll
       module CardRendererUtils
         # Renders a generic card structure based on provided data.
         #
-        # @param context [Liquid::Context] The current Liquid context (potentially for site/baseurl if needed).
         # @param card_data [Hash] A hash containing all necessary data to render the card. Expected keys:
         #   :base_class [String] e.g., "article-card", "book-card"
         #   :url [String] The primary URL for links in the card.
@@ -25,21 +25,18 @@ module Jekyll
         #   :extra_elements_html [Array<String>, nil] Array of pre-rendered HTML strings for additional elements
         #                                            (e.g., author line, rating stars for book cards).
         # @return [String] The rendered HTML for the card.
-        def self.render_card(context:, card_data:)
-          # Context is currently unused but kept in signature for API compatibility.
-          # Passing it to Renderer prevents Lint/UnusedMethodArgument if we use it there,
-          # or we prefix with underscore if truly unused.
-          Renderer.new(context, card_data).render
+        def self.render_card(card_data:)
+          Renderer.new(card_data).render
         end
 
         # Helper class to handle card rendering logic
         class Renderer
-          def initialize(_context, card_data)
+          def initialize(card_data)
             @card_data = card_data
           end
 
           def render
-            return '' unless valid_data?
+            validate_data!
 
             html = "<li class=\"#{@card_data[:base_class]}\">\n"
             html << render_image_section
@@ -49,14 +46,12 @@ module Jekyll
 
           private
 
-          def valid_data?
-            if @card_data.is_a?(Hash) && @card_data[:base_class] && @card_data[:url] && @card_data[:title_html]
-              return true
-            end
+          def validate_data!
+            required = %i[base_class url title_html]
+            missing = required.reject { |key| @card_data.is_a?(Hash) && @card_data[key] }
+            return if missing.empty?
 
-            # In a real scenario, might log this failure using Jekyll::Infrastructure::PluginLoggerUtils or raise error
-            puts '[Jekyll::UI::Cards::CardRendererUtils ERROR] Invalid or incomplete card_data provided.'
-            false
+            raise Jekyll::Errors::FatalException, "Card data missing required fields: #{missing.join(', ')}"
           end
 
           def render_image_section

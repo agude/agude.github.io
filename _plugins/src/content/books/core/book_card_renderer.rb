@@ -76,7 +76,7 @@ module Jekyll
             data[:excerpt],
             format_extra_elements(data),
           )
-          @log_out + CardRenderer.render_card(context: @context, card_data: card_data)
+          @log_out + CardRenderer.render_card(card_data: card_data)
         end
 
         private
