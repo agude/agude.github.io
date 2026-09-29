@@ -135,7 +135,7 @@ class TestUnitsTag < Minitest::Test
       # This will be caught by the scanner.eos? check after valid args
       Liquid::Template.parse('{% units number="10" unit="C" this is garbage %}')
     end
-    assert_match "Invalid or unexpected trailing arguments near 'this is garbage'", err.message
+    assert_match "Invalid argument syntax near 'this is garbage'", err.message
   end
 
   def test_syntax_error_no_arguments

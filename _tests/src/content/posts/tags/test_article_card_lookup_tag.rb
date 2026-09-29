@@ -63,6 +63,15 @@ class TestArticleCardLookupTag < Minitest::Test
     output
   end
 
+  def test_fatal_card_error_stops_liquid_render
+    failure = ->(*) { raise Jekyll::Errors::FatalException, 'invalid article card' }
+
+    error = Jekyll::Posts::ArticleCardRenderer.stub(:render, failure) do
+      assert_raises(Jekyll::Errors::FatalException) { render_tag('url="/blog/post-one.html"') }
+    end
+    assert_match 'invalid article card', error.message
+  end
+
   # --- Test Cases ---
 
   def test_lookup_with_url_parameter_quoted
@@ -200,12 +209,19 @@ class TestArticleCardLookupTag < Minitest::Test
     err = assert_raises Liquid::SyntaxError do
       Liquid::Template.parse("{% article_card_lookup url='/p1.html' extra=bad %}")
     end
-    assert_match(/Unknown argument\(s\)/, err.message)
+    assert_match(/Unknown argument 'extra'/, err.message)
 
     err2 = assert_raises Liquid::SyntaxError do
       Liquid::Template.parse("{% article_card_lookup '/p1.html' extra=bad %}")
     end
     assert_match(/Unknown argument\(s\)/, err2.message)
+  end
+
+  def test_syntax_error_duplicate_named_url
+    error = assert_raises(Liquid::SyntaxError) do
+      Liquid::Template.parse("{% article_card_lookup url='/first' url='/second' %}")
+    end
+    assert_match "Duplicate argument 'url'", error.message
   end
 
   # --- Orchestration Tests ---

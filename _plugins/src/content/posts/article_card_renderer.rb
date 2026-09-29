@@ -44,7 +44,7 @@ module Jekyll
         return @log_output unless data
 
         card_data = assemble_card_data(data)
-        @log_output + Jekyll::UI::Cards::CardRendererUtils.render_card(context: @context, card_data: card_data)
+        @log_output + Jekyll::UI::Cards::CardRendererUtils.render_card(card_data: card_data)
       end
 
       private

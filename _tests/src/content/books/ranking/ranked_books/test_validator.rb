@@ -17,26 +17,16 @@ class TestRankedBooksValidator < Minitest::Test
     )
   end
 
-  def build_book_map(books)
-    books.each_with_object({}) do |book, map|
-      normalized = book.data['title'].downcase.strip
-      map[normalized] = book
-    end
-  end
+  def test_returns_validated_rating
+    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new('list')
 
-  def test_skips_validation_in_production
-    book_map = build_book_map([@book_5star])
-    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new(book_map, 'list', true)
-
-    # Should not raise even with nil book
-    validator.validate('Missing Book', 0, nil)
+    assert_equal 5, validator.validate('Five Star Book', 0, @book_5star)
   end
 
   def test_raises_when_book_not_found
-    book_map = build_book_map([@book_5star])
-    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new(book_map, 'list', false)
+    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new('list')
 
-    error = assert_raises(RuntimeError) do
+    error = assert_raises(Jekyll::Errors::FatalException) do
       validator.validate('Missing Book', 0, nil)
     end
 
@@ -50,10 +40,9 @@ class TestRankedBooksValidator < Minitest::Test
       { 'title' => 'Bad', 'published' => true, 'rating' => 'five' },
       '/books/bad.html',
     )
-    book_map = build_book_map([bad_rating])
-    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new(book_map, 'list', false)
+    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new('list')
 
-    error = assert_raises(RuntimeError) do
+    error = assert_raises(Jekyll::Errors::FatalException) do
       validator.validate('Bad', 0, bad_rating)
     end
 
@@ -61,14 +50,13 @@ class TestRankedBooksValidator < Minitest::Test
   end
 
   def test_validates_monotonicity
-    book_map = build_book_map([@book_5star, @book_4star])
-    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new(book_map, 'list', false)
+    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new('list')
 
     # First validate 4-star book
     validator.validate('Four Star Book', 0, @book_4star)
 
     # Then try to validate 5-star book (higher rating after lower)
-    error = assert_raises(RuntimeError) do
+    error = assert_raises(Jekyll::Errors::FatalException) do
       validator.validate('Five Star Book', 1, @book_5star)
     end
 
@@ -76,8 +64,7 @@ class TestRankedBooksValidator < Minitest::Test
   end
 
   def test_allows_equal_ratings
-    book_map = build_book_map([@book_5star])
-    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new(book_map, 'list', false)
+    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new('list')
 
     book_5star_b = create_doc(
       { 'title' => 'Another Five', 'published' => true, 'rating' => 5 },
@@ -90,8 +77,7 @@ class TestRankedBooksValidator < Minitest::Test
   end
 
   def test_allows_decreasing_ratings
-    book_map = build_book_map([@book_5star, @book_4star])
-    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new(book_map, 'list', false)
+    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new('list')
 
     # 5 then 4 is valid (non-increasing)
     validator.validate('Five Star Book', 0, @book_5star)
@@ -99,10 +85,9 @@ class TestRankedBooksValidator < Minitest::Test
   end
 
   def test_error_includes_list_variable_name
-    book_map = build_book_map([@book_5star])
-    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new(book_map, 'page.ranked_books', false)
+    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new('page.ranked_books')
 
-    error = assert_raises(RuntimeError) do
+    error = assert_raises(Jekyll::Errors::FatalException) do
       validator.validate('Missing', 0, nil)
     end
 
@@ -110,12 +95,11 @@ class TestRankedBooksValidator < Minitest::Test
   end
 
   def test_error_includes_position_info
-    book_map = build_book_map([@book_5star, @book_4star])
-    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new(book_map, 'list', false)
+    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new('list')
 
     validator.validate('Four Star Book', 0, @book_4star)
 
-    error = assert_raises(RuntimeError) do
+    error = assert_raises(Jekyll::Errors::FatalException) do
       validator.validate('Five Star Book', 1, @book_5star)
     end
 
@@ -128,10 +112,9 @@ class TestRankedBooksValidator < Minitest::Test
       { 'title' => 'Nil Rating', 'published' => true, 'rating' => nil },
       '/books/nil.html',
     )
-    book_map = build_book_map([nil_rating])
-    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new(book_map, 'list', false)
+    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new('list')
 
-    error = assert_raises(RuntimeError) do
+    error = assert_raises(Jekyll::Errors::FatalException) do
       validator.validate('Nil Rating', 0, nil_rating)
     end
 

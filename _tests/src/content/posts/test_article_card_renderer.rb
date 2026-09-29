@@ -64,8 +64,7 @@ class TestArticleCardRenderer < Minitest::Test
       Jekyll::Infrastructure::TypographyUtils.stub :prepare_display_title, mock_prepared_title do
         Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_description_html, mock_description_html_from_desc_extractor do
           Jekyll::UI::Cards::CardRendererUtils.stub :render_card,
-                                                    lambda { |context:, card_data:|
-                                                      _ = context # Explicitly ignore unused variable
+                                                    lambda { |card_data:|
                                                       captured_card_data = card_data
                                                       'mocked_card_html'
                                                     } do
@@ -107,8 +106,7 @@ class TestArticleCardRenderer < Minitest::Test
       Jekyll::Infrastructure::TypographyUtils.stub :prepare_display_title, mock_prepared_title do
         Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_description_html, mock_description_html do
           Jekyll::UI::Cards::CardRendererUtils.stub :render_card,
-                                                    lambda { |context:, card_data:|
-                                                      _ = context # Explicitly ignore unused variable
+                                                    lambda { |card_data:|
                                                       captured_card_data = card_data
                                                       'card_no_image'
                                                     } do
@@ -156,8 +154,7 @@ class TestArticleCardRenderer < Minitest::Test
                                                          mock_description_html_from_extractor
                                                        } do
           Jekyll::UI::Cards::CardRendererUtils.stub :render_card,
-                                                    lambda { |context:, card_data:|
-                                                      _ = context # Explicitly ignore unused variable
+                                                    lambda { |card_data:|
                                                       captured_card_data = card_data
                                                       'card_with_excerpt'
                                                     } do
@@ -334,8 +331,7 @@ class TestArticleCardRenderer < Minitest::Test
         Jekyll::UI::Cards::CardDataExtractorUtils.stub :extract_description_html, mock_description_html do
           Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure, log_verifier do
             Jekyll::UI::Cards::CardRendererUtils.stub :render_card,
-                                                      lambda { |context:, card_data:|
-                                                        _ = context
+                                                      lambda { |card_data:|
                                                         captured_card_data = card_data
                                                         'card_missing_alt'
                                                       } do

@@ -55,6 +55,16 @@ class TestRelatedBooksFinder < RelatedBookFinderTestCase
     assert_equal [books[0].url, books[2].url, books[3].url], result[:books].map(&:url)
   end
 
+  def test_series_neighbors_alternate_then_exhaust_succeeding_books
+    books, site = @helper.setup_series_books(8)
+    finder = Jekyll::Books::Related::Finder.new(site, books[5], 6)
+
+    result = Time.stub(:now, @test_time_now) { finder.find }
+
+    assert_equal [books[1], books[2], books[3], books[4], books[6], books[7]].map(&:url),
+                 result[:books].map(&:url)
+  end
+
   def test_series_provides_zero_books_fills_with_author_and_recent
     _, _, _, context = @helper.setup_zero_series_books_scenario
 

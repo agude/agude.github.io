@@ -2,7 +2,6 @@
 
 require 'jekyll'
 require 'liquid'
-require 'strscan'
 require_relative '../post_list_utils'
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../../../infrastructure/plugin_logger_utils'
@@ -32,7 +31,6 @@ module Jekyll
         Renderer = Jekyll::Posts::Category::Renderer
         private_constant :TagArgs, :Logger, :ListUtils, :Renderer
 
-        SYNTAX_NAMED_ARG = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
         ALLOWED_KEYS = %w[topic exclude_current_page].freeze
         REQUIRED_KEYS = ['topic'].freeze
 
@@ -40,10 +38,9 @@ module Jekyll
           super
           @tag_name = tag_name
           @raw_markup = markup.strip
-          @attributes_markup = {}
-
-          parse_attributes
-          validate_required_keys
+          @attributes_markup = TagArgs.parse_named_arguments(
+            @raw_markup, tag_name: @tag_name, allowed: ALLOWED_KEYS, required: REQUIRED_KEYS,
+          )
         end
 
         def render(context)
@@ -71,52 +68,6 @@ module Jekyll
           return '' if posts.empty?
 
           posts.map { |p| MdCards.render_article_card_md({ title: p.data['title'], url: p.url }) }.join("\n")
-        end
-
-        def parse_attributes
-          scanner = StringScanner.new(@raw_markup)
-
-          loop do
-            scanner.skip(/\s*/)
-            break if scanner.eos?
-
-            parse_single_attribute(scanner)
-          end
-        end
-
-        def parse_single_attribute(scanner)
-          raise Liquid::SyntaxError, syntax_error_message(scanner) unless scanner.scan(SYNTAX_NAMED_ARG)
-
-          key = scanner[1].to_s.strip
-          value = scanner[2].to_s.strip
-
-          validate_key(key)
-          @attributes_markup[key] = value
-        end
-
-        def syntax_error_message(scanner)
-          token = scanner.rest.strip.split.first || ''
-          "Syntax Error in '#{@tag_name}': Expected named arguments (e.g., key='value'). " \
-            "Found unexpected token near '#{token}' in '#{@raw_markup}'"
-        end
-
-        def validate_key(key)
-          unless ALLOWED_KEYS.include?(key)
-            raise Liquid::SyntaxError, "Syntax Error in '#{@tag_name}': Unknown argument '#{key}' in '#{@raw_markup}'"
-          end
-
-          return unless @attributes_markup.key?(key)
-
-          raise Liquid::SyntaxError, "Syntax Error in '#{@tag_name}': Duplicate argument '#{key}' in '#{@raw_markup}'"
-        end
-
-        def validate_required_keys
-          REQUIRED_KEYS.each do |req_key|
-            next if @attributes_markup.key?(req_key)
-
-            raise Liquid::SyntaxError,
-                  "Syntax Error in '#{@tag_name}': Required argument '#{req_key}' is missing in '#{@raw_markup}'"
-          end
         end
 
         def resolve_topic(context)

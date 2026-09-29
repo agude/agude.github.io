@@ -41,21 +41,21 @@ class TestFrontPageFeedTag < Minitest::Test
     err = assert_raises Liquid::SyntaxError do
       Liquid::Template.parse('{% front_page_feed not_limit_equals_val %}')
     end
-    assert_match "Invalid arguments. Use 'limit=N' or no arguments.", err.message
+    assert_match 'Invalid argument syntax', err.message
   end
 
   def test_syntax_error_extra_arguments_after_limit
     err = assert_raises Liquid::SyntaxError do
       Liquid::Template.parse('{% front_page_feed limit=5 extra=true %}')
     end
-    assert_match "Unexpected arguments after 'limit'", err.message
+    assert_match "Unknown argument 'extra'", err.message
   end
 
   def test_syntax_error_malformed_argument_with_valid_later
     err = assert_raises Liquid::SyntaxError do
       Liquid::Template.parse('{% front_page_feed junk limit=5 %}')
     end
-    assert_match 'Malformed arguments', err.message
+    assert_match 'Invalid argument syntax', err.message
   end
 
   # --- Orchestration Tests ---

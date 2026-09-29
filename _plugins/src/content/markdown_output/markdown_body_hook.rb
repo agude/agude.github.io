@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'cgi'
+require 'jekyll'
 require_relative 'markdown_html_converter'
 
 module Jekyll
@@ -149,6 +150,28 @@ module Jekyll
         # Decode so the .md filename matches the directory encoding.
         "#{CGI.unescape(url)}.md"
       end
+
+      def self.prepare_document(doc, payload)
+        prepare_output(doc, payload) { doc.content }
+      end
+
+      def self.prepare_page(page, payload)
+        prepare_output(page, payload, copy_href_to_payload: true) do
+          content_with_layout_tags(page.content, page)
+        end
+      end
+
+      def self.prepare_output(item, payload, copy_href_to_payload: false)
+        content = yield
+        item.data['markdown_body'] = render_markdown_body(content, item.site, payload)
+        href = compute_markdown_href(item)
+        item.data['markdown_alternate_href'] = href
+        # Page#to_liquid is a snapshot, so the HTML payload needs the href too.
+        payload['page']['markdown_alternate_href'] = href if copy_href_to_payload
+      rescue StandardError => e
+        raise Jekyll::Errors::FatalException, "Markdown output failed for #{item.url}: #{e.message}"
+      end
+      private_class_method :prepare_output
     end
   end
 end
@@ -164,16 +187,7 @@ Jekyll::Hooks.register :documents, :pre_render do |doc, payload|
   next unless Jekyll::MarkdownOutput::MarkdownBodyHook.enabled?(doc.site)
   next unless Jekyll::MarkdownOutput::MarkdownBodyHook.eligible_document?(doc)
 
-  begin
-    doc.data['markdown_body'] = Jekyll::MarkdownOutput::MarkdownBodyHook.render_markdown_body(
-      doc.content, doc.site, payload,
-    )
-    doc.data['markdown_alternate_href'] = Jekyll::MarkdownOutput::MarkdownBodyHook.compute_markdown_href(doc)
-  rescue StandardError => e
-    Jekyll.logger.warn 'MarkdownOutput:', "Failed for #{doc.url}: #{e.message}"
-    doc.data.delete('markdown_body')
-    doc.data.delete('markdown_alternate_href')
-  end
+  Jekyll::MarkdownOutput::MarkdownBodyHook.prepare_document(doc, payload)
 end
 
 # Hook for standalone pages (author, series, category, root pages, etc.)
@@ -184,21 +198,5 @@ Jekyll::Hooks.register :pages, :pre_render do |page, payload|
   next unless Jekyll::MarkdownOutput::MarkdownBodyHook.enabled?(page.site)
   next unless Jekyll::MarkdownOutput::MarkdownBodyHook.eligible_page?(page)
 
-  begin
-    content = Jekyll::MarkdownOutput::MarkdownBodyHook.content_with_layout_tags(page.content, page)
-    page.data['markdown_body'] = Jekyll::MarkdownOutput::MarkdownBodyHook.render_markdown_body(
-      content, page.site, payload,
-    )
-    href = Jekyll::MarkdownOutput::MarkdownBodyHook.compute_markdown_href(page)
-    page.data['markdown_alternate_href'] = href
-    # Page#to_liquid returns a Hash snapshot (unlike Document's live Drop),
-    # so the payload's 'page' won't see data changes made after assign_pages!.
-    # Inject into the payload directly so layouts/includes can access it.
-    payload['page']['markdown_alternate_href'] = href if payload
-  rescue StandardError => e
-    Jekyll.logger.warn 'MarkdownOutput:', "Failed for #{page.url}: #{e.message}"
-    page.data.delete('markdown_body')
-    page.data.delete('markdown_alternate_href')
-    payload['page']&.delete('markdown_alternate_href') if payload
-  end
+  Jekyll::MarkdownOutput::MarkdownBodyHook.prepare_page(page, payload)
 end

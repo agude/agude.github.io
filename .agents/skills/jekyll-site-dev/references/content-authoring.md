@@ -22,6 +22,11 @@ Always use the custom Liquid tags: `book_link`, `author_link`, `series_link`.
 `LinkValidator` breaks the build if it finds raw inline (`[text](url)`) or
 reference-style (`[ref]: url`) links to these URLs.
 
+Tags with named options reject unknown or repeated keys and malformed
+`key=value` syntax during Liquid parsing. Their shared parser is
+`TagArgumentUtils.parse_named_arguments`; tags with positional arguments
+parse that part locally.
+
 If you need non-title link text (e.g., linking the word "before" to a book
 page), use `book_link` with `cite=false` and `link_text=`:
 

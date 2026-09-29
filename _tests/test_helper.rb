@@ -161,7 +161,6 @@ require 'src/infrastructure/optional_filter'
 # --- Utilities (_plugins/utils/) ---
 require 'src/content/posts/article_card_renderer'
 require 'src/content/authors/author_link_resolver'
-require 'src/infrastructure/links/backlink_utils'
 require 'src/content/books/core/book_awards_formatter'
 require 'src/content/books/core/book_card_renderer'
 require 'src/content/books/core/book_data_utils'

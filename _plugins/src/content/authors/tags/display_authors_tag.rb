@@ -18,7 +18,6 @@ module Jekyll
       #   {% display_authors page.book_authors linked=true %}
       #   {% display_authors page.book_authors etal_after=3 %}
       class DisplayAuthorsTag < Liquid::Tag
-        SYNTAX_NAMED_ARG = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
         ALLOWED_NAMED_KEYS = %w[linked etal_after].freeze
         # Aliases for readability
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
@@ -55,7 +54,9 @@ module Jekyll
           scanner.skip(/\s*/)
 
           parse_authors_list(scanner)
-          parse_named_arguments(scanner)
+          @options_markup = TagArgs.parse_named_arguments(
+            scanner, tag_name: @tag_name, allowed: ALLOWED_NAMED_KEYS, downcase_keys: true,
+          ).transform_keys(&:to_sym)
           validate_required_arguments
         end
 
@@ -68,39 +69,6 @@ module Jekyll
 
           @authors_list_markup = scanner[1].strip
           scanner.skip(/\s*/)
-        end
-
-        def parse_named_arguments(scanner)
-          until scanner.eos?
-            scanner.skip(/\s*/)
-            break if scanner.eos?
-
-            parse_single_named_argument(scanner)
-          end
-        end
-
-        def parse_single_named_argument(scanner)
-          unless scanner.scan(SYNTAX_NAMED_ARG)
-            raise Liquid::SyntaxError,
-                  "Syntax Error in '#{@tag_name}': Invalid argument syntax near '#{scanner.rest}'. " \
-                  "Expected key='value' or key=variable."
-          end
-
-          key = scanner[1].downcase
-          value = scanner[2]
-
-          validate_named_argument(key)
-          @options_markup[key.to_sym] = value
-        end
-
-        def validate_named_argument(key)
-          unless ALLOWED_NAMED_KEYS.include?(key)
-            raise Liquid::SyntaxError, "Syntax Error in '#{@tag_name}': Unknown argument '#{key}' in '#{@raw_markup}'"
-          end
-
-          return unless @options_markup.key?(key.to_sym)
-
-          raise Liquid::SyntaxError, "Syntax Error in '#{@tag_name}': Duplicate argument '#{key}' in '#{@raw_markup}'"
         end
 
         def validate_required_arguments

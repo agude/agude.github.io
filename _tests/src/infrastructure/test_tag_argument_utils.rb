@@ -7,6 +7,35 @@ require 'src/infrastructure/tag_argument_utils' # Require the new util module
 #
 # Verifies that the utility correctly resolves tag arguments from quoted strings and Liquid variables.
 class TestTagArgumentUtils < Minitest::Test
+  def test_parse_named_arguments_accepts_quoted_values_and_required_keys
+    arguments = Jekyll::Infrastructure::TagArgumentUtils.parse_named_arguments(
+      'topic="Data Science" limit=page.limit',
+      tag_name: 'example',
+      allowed: %w[topic limit],
+      required: ['topic'],
+    )
+
+    assert_equal({ 'topic' => '"Data Science"', 'limit' => 'page.limit' }, arguments)
+  end
+
+  def test_parse_named_arguments_rejects_invalid_keys_and_syntax
+    cases = {
+      'other=1' => "Unknown argument 'other'",
+      'topic=one topic=two' => "Duplicate argument 'topic'",
+      'topic=one stray' => 'Invalid argument syntax',
+      '' => "Required argument 'topic' is missing",
+    }
+
+    cases.each do |markup, message|
+      error = assert_raises(Liquid::SyntaxError) do
+        Jekyll::Infrastructure::TagArgumentUtils.parse_named_arguments(
+          markup, tag_name: 'example', allowed: ['topic'], required: ['topic'],
+        )
+      end
+      assert_match message, error.message
+    end
+  end
+
   # --- resolve_value ---
   def test_resolve_value_quoted_string
     ctx = create_context

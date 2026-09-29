@@ -8,13 +8,13 @@ require_relative '../ranking/ranked_books/processor'
 require_relative '../ranking/ranked_books/renderer'
 require_relative '../../../ui/cards/markdown_card_utils'
 
-# Liquid Tag to validate (in non-prod) and render a list of books
+# Liquid Tag to validate and render a list of books
 # grouped by rating, based on a monotonically sorted list of titles.
 # (e.g., page.ranked_list).
 #
 # Combines the logic previously in check_monotonic_rating and render_ranked_books.
 #
-# Validation (Non-Production Only):
+# Validation:
 # 1. Each title in the ranked list exists in the site.books collection
 #    and has a valid integer rating.
 # 2. The rating associated with each title is less than or equal to the
@@ -31,7 +31,7 @@ module Jekyll
   module Books
     module Tags
       # Liquid tag for displaying books grouped by rating.
-      # Validates monotonic rating order in non-production builds.
+      # Validates monotonic rating order in every build.
       class DisplayRankedBooksTag < Liquid::Tag
         def initialize(tag_name, markup, tokens)
           super

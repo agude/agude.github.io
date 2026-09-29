@@ -2,6 +2,7 @@
 
 require_relative '../../../infrastructure/plugin_logger_utils'
 require_relative '../../../infrastructure/text_processing_utils'
+require_relative '../../../infrastructure/page_url'
 
 module Jekyll
   module Books
@@ -20,7 +21,7 @@ module Jekyll
         def find
           return validation_error_result if missing_prerequisites?
 
-          canonical_url = @caches[:canonical_map][@page['url']]
+          canonical_url = @caches[:canonical_map][page_url]
           return { logs: '', backlinks: [] } unless canonical_url
 
           entries = gather_backlinks(canonical_url)
@@ -33,6 +34,10 @@ module Jekyll
         end
 
         private
+
+        def page_url
+          Jekyll::Infrastructure::PageUrl.fetch(@page)
+        end
 
         def fetch_caches
           # Use safe navigation for site/data in case site is nil (handled in validation)
@@ -47,7 +52,7 @@ module Jekyll
 
         def missing_prerequisites?
           !(@site && @page && @site.collections.key?('books') &&
-            present?(@page['url']) && present?(@page['title']))
+            present?(page_url) && present?(@page['title']))
         end
 
         def present?(val)
@@ -65,7 +70,7 @@ module Jekyll
           missing << 'site object' unless @site
           missing << 'page object' unless @page
           missing << "site.collections['books']" unless @site&.collections&.key?('books')
-          missing << "page['url'] (present and not empty)" unless present?(@page&.[]('url'))
+          missing << "page['url'] (present and not empty)" unless present?(page_url)
           missing << "page['title'] (present and not empty)" unless present?(@page&.[]('title'))
           missing
         end
@@ -75,7 +80,7 @@ module Jekyll
             context: log_context,
             tag_type: 'BOOK_BACKLINKS_TAG',
             reason: "Tag prerequisites missing: #{missing.join(', ')}.",
-            identifiers: { PageURL: @page&.[]('url') || 'N/A', PageTitle: @page&.[]('title') || 'N/A' },
+            identifiers: { PageURL: page_url || 'N/A', PageTitle: @page&.[]('title') || 'N/A' },
             level: :error,
           )
         end

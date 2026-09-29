@@ -112,7 +112,8 @@ module Jekyll
         script_tag = "<script type=\"application/ld+json\">\n#{script_content}\n</script>"
         site.data['generated_json_ld_scripts'][doc_url] = script_tag
       rescue JSON::GeneratorError => e
-        Jekyll.logger.error 'JSON-LD:', "Failed to generate JSON for '#{doc_url}': #{e.message}"
+        raise Jekyll::Errors::FatalException,
+              "JSON-LD: Failed to generate JSON for '#{doc_url}': #{e.message}"
       end
       private_class_method :_store_script
     end

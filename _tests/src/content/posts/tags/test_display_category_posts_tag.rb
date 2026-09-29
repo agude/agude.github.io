@@ -44,7 +44,7 @@ class TestDisplayCategoryPostsTag < Minitest::Test
     err = assert_raises Liquid::SyntaxError do
       Liquid::Template.parse("{% display_category_posts topic='Tech' some_bare_word %}")
     end
-    expected_message = "Expected named arguments (e.g., key='value'). Found unexpected token near 'some_bare_word'"
+    expected_message = "Invalid argument syntax near 'some_bare_word'"
     assert_match expected_message, err.message
   end
 
@@ -66,7 +66,7 @@ class TestDisplayCategoryPostsTag < Minitest::Test
     err = assert_raises Liquid::SyntaxError do
       Liquid::Template.parse("{% display_category_posts 'Tech' %}")
     end
-    expected_message = "Expected named arguments (e.g., key='value'). Found unexpected token near ''Tech''"
+    expected_message = "Invalid argument syntax near ''Tech''"
     assert_match expected_message, err.message
   end
 

@@ -283,7 +283,7 @@ class TestBookCardRenderer < Minitest::Test
           stub_author_resolver('<a>Author</a>') do
             Jekyll::Infrastructure::TextProcessingUtils.stub :format_list_as_sentence, ->(list, etal_after: nil) { list.first } do
               Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, nil do
-                Jekyll::UI::Cards::CardRendererUtils.stub :render_card, ->(context:, card_data:) { 'card_html' } do
+                Jekyll::UI::Cards::CardRendererUtils.stub :render_card, ->(card_data:) { 'card_html' } do
                   Jekyll.stub :logger, @silent_logger_stub do
                     captured_output = Jekyll::Books::Core::BookCardRenderer.new(book_no_title, @context, nil, nil).render
                   end
@@ -319,7 +319,7 @@ class TestBookCardRenderer < Minitest::Test
             Jekyll::Infrastructure::TextProcessingUtils.stub :format_list_as_sentence, ->(list, etal_after: nil) { list.first } do
               Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, nil do
                 Jekyll::UI::Cards::CardRendererUtils.stub :render_card,
-                                                          lambda { |context:, card_data:|
+                                                          lambda { |card_data:|
                                                             captured_card_data = card_data
                                                             'card'
                                                           } do
@@ -359,7 +359,7 @@ class TestBookCardRenderer < Minitest::Test
             Jekyll::Infrastructure::TextProcessingUtils.stub :format_list_as_sentence, ->(list, etal_after: nil) { list.first } do
               # Make Jekyll::UI::Ratings::RatingUtils raise ArgumentError
               Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, ->(_val, _tag = 'div') { raise ArgumentError, 'Invalid rating' } do
-                Jekyll::UI::Cards::CardRendererUtils.stub :render_card, ->(context:, card_data:) { 'card_html' } do
+                Jekyll::UI::Cards::CardRendererUtils.stub :render_card, ->(card_data:) { 'card_html' } do
                   Jekyll.stub :logger, @silent_logger_stub do
                     captured_output = Jekyll::Books::Core::BookCardRenderer.new(book_bad_rating, @context, nil, nil).render
                   end
@@ -520,7 +520,7 @@ class TestBookCardRenderer < Minitest::Test
               # Return empty string instead of nil to trigger the else branch
               Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, '' do
                 Jekyll::UI::Cards::CardRendererUtils.stub :render_card,
-                                                          lambda { |context:, card_data:|
+                                                          lambda { |card_data:|
                                                             captured_card_data = card_data
                                                             'card'
                                                           } do
@@ -648,7 +648,7 @@ class TestBookCardRenderer < Minitest::Test
   def capture_card_data(&)
     captured_card_data = nil
     Jekyll::UI::Cards::CardRendererUtils.stub :render_card,
-                                              lambda { |context:, card_data:|
+                                              lambda { |card_data:|
                                                 captured_card_data = card_data
                                                 'mocked_card'
                                               } do
@@ -661,7 +661,7 @@ class TestBookCardRenderer < Minitest::Test
     captured_card_data = nil
     final_output = ''
     Jekyll::UI::Cards::CardRendererUtils.stub :render_card,
-                                              lambda { |context:, card_data:|
+                                              lambda { |card_data:|
                                                 captured_card_data = card_data
                                                 'minimal_card_html'
                                               } do

@@ -33,11 +33,6 @@ class TestDisplayRankedBooksTag < Minitest::Test
       { site: @site_prod, page: create_doc(@page_data_prod.merge({ 'url' => '/test_page.html' }), '/test_page.html') },
     )
 
-    # Enable logging for the tag type for production tests that check console output
-    @site_prod.config['plugin_logging']['DISPLAY_RANKED_BOOKS'] = true
-    # Set a permissive console log level for production site in tests to ensure our :error messages from the tag get through
-    @site_prod.config['plugin_log_level'] = 'debug'
-
     @mock_card_html_generic = "<div class='mock-book-card'>Rendered Book Card</div>\n"
     @mock_stars_html_generic = '<span>Mock Stars</span>'
 
@@ -83,8 +78,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
   # ========================================================================
 
   def test_validator_accepts_valid_book_in_dev_mode
-    book_map = build_test_book_map(@all_books_for_map)
-    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new(book_map, 'test_list', false)
+    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new('test_list')
 
     assert_silent do
       validator.validate('Book A (5 Stars)', 0, @book5a)
@@ -93,51 +87,34 @@ class TestDisplayRankedBooksTag < Minitest::Test
   end
 
   def test_validator_raises_error_for_missing_book_in_dev_mode
-    book_map = build_test_book_map(@all_books_for_map)
-    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new(book_map, 'test_list', false)
+    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new('test_list')
 
-    err = assert_raises RuntimeError do
+    err = assert_raises Jekyll::Errors::FatalException do
       validator.validate('Non Existent Book', 1, nil)
     end
     assert_match "Title 'Non Existent Book' (position 2 in 'test_list') not found", err.message
   end
 
   def test_validator_raises_error_for_invalid_rating_in_dev_mode
-    book_map = build_test_book_map(@all_books_for_map)
-    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new(book_map, 'test_list', false)
+    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new('test_list')
 
-    err = assert_raises RuntimeError do
+    err = assert_raises Jekyll::Errors::FatalException do
       validator.validate('Book Invalid Rating', 1, @book_invalid_rating)
     end
     assert_match "Title 'Book Invalid Rating' (position 2 in 'test_list') has invalid non-integer rating", err.message
   end
 
   def test_validator_raises_error_for_monotonicity_violation_in_dev_mode
-    book_map = build_test_book_map(@all_books_for_map)
-    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new(book_map, 'test_list', false)
+    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new('test_list')
 
     validator.validate('Book C (4 Stars)', 0, @book4a)
 
-    err = assert_raises RuntimeError do
+    err = assert_raises Jekyll::Errors::FatalException do
       validator.validate('Book A (5 Stars)', 1, @book5a)
     end
     assert_match 'Monotonicity violation', err.message
     assert_match "Title 'Book A (5 Stars)' (Rating: 5) at position 2", err.message
   end
-
-  def test_validator_skips_validation_in_production_mode
-    book_map = build_test_book_map(@all_books_for_map)
-    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new(book_map, 'test_list', true)
-
-    # Should not raise even with invalid data in production
-    assert_silent do
-      validator.validate('Non Existent Book', 1, nil)
-    end
-  end
-
-  # ========================================================================
-  # Processor Tests - Test data processing logic directly
-  # ========================================================================
 
   def test_processor_returns_correct_structure
     processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(@context_dev, 'page.ranked_list')
@@ -178,53 +155,21 @@ class TestDisplayRankedBooksTag < Minitest::Test
     assert_empty result[:rating_groups]
   end
 
-  def test_processor_skips_missing_book_in_production_mode
+  def test_processor_rejects_missing_book_in_production_mode
     @context_prod['page']['ranked_list'] = @non_existent_title_list
     processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(@context_prod, 'page.ranked_list')
-    result = nil
 
-    mock_jekyll_logger = Minitest::Mock.new
-    expected_console_msg_fragment = 'DISPLAY_RANKED_BOOKS_FAILURE'
-    mock_jekyll_logger.expect(:error, nil) do |prefix, msg|
-      prefix == 'PluginLiquid:' && msg.include?(expected_console_msg_fragment)
-    end
-
-    Jekyll.stub :logger, mock_jekyll_logger do
-      result = processor.process
-    end
-
-    mock_jekyll_logger.verify
-    # In production mode, log_messages should be empty (no HTML comments)
-    assert_equal '', result[:log_messages]
-    # Should have 2 books (skipping the non-existent one)
-    assert_equal(2, result[:rating_groups].sum { |g| g[:books].length })
+    error = assert_raises(Jekyll::Errors::FatalException) { processor.process }
+    assert_match 'Non Existent Book', error.message
   end
 
-  def test_processor_skips_invalid_rating_in_production_mode
+  def test_processor_rejects_invalid_rating_in_production_mode
     @context_prod['page']['ranked_list'] = @invalid_rating_list
     processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(@context_prod, 'page.ranked_list')
-    result = nil
 
-    mock_jekyll_logger = Minitest::Mock.new
-    expected_console_msg_fragment = 'DISPLAY_RANKED_BOOKS_FAILURE'
-    mock_jekyll_logger.expect(:error, nil) do |prefix, msg|
-      prefix == 'PluginLiquid:' && msg.include?(expected_console_msg_fragment)
-    end
-
-    Jekyll.stub :logger, mock_jekyll_logger do
-      result = processor.process
-    end
-
-    mock_jekyll_logger.verify
-    # In production mode, log_messages should be empty (no HTML comments)
-    assert_equal '', result[:log_messages]
-    # Should have 2 books (skipping the invalid rating one)
-    assert_equal(2, result[:rating_groups].sum { |g| g[:books].length })
+    error = assert_raises(Jekyll::Errors::FatalException) { processor.process }
+    assert_match 'invalid non-integer rating', error.message
   end
-
-  # ========================================================================
-  # Renderer Tests - Test HTML generation directly
-  # ========================================================================
 
   def test_renderer_returns_empty_string_for_empty_groups
     renderer = Jekyll::Books::Ranking::RankedBooks::Renderer.new(@context_dev, [])
@@ -307,7 +252,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
 
   def test_runtime_error_if_list_variable_not_an_array
     @context_dev['page']['ranked_list'] = 'not_an_array'
-    err = assert_raises RuntimeError do
+    err = assert_raises Jekyll::Errors::FatalException do
       render_tag('page.ranked_list', @context_dev)
     end
     assert_match "Input 'page.ranked_list' is not a valid list (Array)", err.message
@@ -315,7 +260,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
 
   def test_runtime_error_if_books_collection_missing
     @context_dev.registers[:site].collections.delete('books')
-    err = assert_raises RuntimeError do
+    err = assert_raises Jekyll::Errors::FatalException do
       render_tag('page.ranked_list', @context_dev)
     end
     assert_match "Collection 'books' not found", err.message
@@ -329,7 +274,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
 
   def test_dev_mode_raises_error_for_non_existent_title_in_list
     @context_dev['page']['ranked_list'] = @non_existent_title_list
-    err = assert_raises RuntimeError do
+    err = assert_raises Jekyll::Errors::FatalException do
       render_tag('page.ranked_list', @context_dev)
     end
     assert_match "Title 'Non Existent Book' (position 2 in 'page.ranked_list') not found", err.message
@@ -337,7 +282,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
 
   def test_dev_mode_raises_error_for_invalid_rating_in_list
     @context_dev['page']['ranked_list'] = @invalid_rating_list
-    err = assert_raises RuntimeError do
+    err = assert_raises Jekyll::Errors::FatalException do
       render_tag('page.ranked_list', @context_dev)
     end
     assert_match "Title 'Book Invalid Rating' (position 2 in 'page.ranked_list') has invalid non-integer rating: '\"five_stars\"'",
@@ -346,7 +291,7 @@ class TestDisplayRankedBooksTag < Minitest::Test
 
   def test_dev_mode_raises_error_for_monotonic_violation
     @context_dev['page']['ranked_list'] = @monotonic_violation_list
-    err = assert_raises RuntimeError do
+    err = assert_raises Jekyll::Errors::FatalException do
       render_tag('page.ranked_list', @context_dev)
     end
     assert_match "Monotonicity violation in 'page.ranked_list'", err.message
@@ -354,58 +299,22 @@ class TestDisplayRankedBooksTag < Minitest::Test
     assert_match "cannot appear after \n  Title 'Book C (4 Stars)' (Rating: 4) at position 1", err.message
   end
 
-  def test_prod_mode_logs_error_to_console_for_non_existent_title_and_skips
+  def test_prod_mode_stops_build_for_non_existent_title
     @context_prod['page']['ranked_list'] = @non_existent_title_list
 
-    mock_jekyll_logger = Minitest::Mock.new
-    # NOTE: Jekyll::Infrastructure::PluginLoggerUtils escapes HTML in reason/identifiers for console too.
-    expected_console_msg_fragment = "DISPLAY_RANKED_BOOKS_FAILURE: Reason='Book title from ranked list not found in lookup map (Production Mode).' Title='Non Existent Book' ListVariable='page.ranked_list' SourcePage='test_page.md'"
-    mock_jekyll_logger.expect(:error, nil) do |prefix, msg|
-      prefix == 'PluginLiquid:' && msg.include?(expected_console_msg_fragment)
+    error = assert_raises(Jekyll::Errors::FatalException) do
+      render_tag('page.ranked_list', @context_prod)
     end
-
-    output = ''
-    # Pass the mock_jekyll_logger to render_tag
-    Jekyll::Books::Core::BookCardRenderer.stub :render, @mock_card_html_generic do
-      Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, @mock_stars_html_generic do
-        output = render_tag('page.ranked_list', @context_prod, mock_jekyll_logger)
-      end
-    end
-
-    mock_jekyll_logger.verify
-    refute_match(
-      /<!--.*?DISPLAY_RANKED_BOOKS_FAILURE.*?-->/,
-      output,
-      'HTML comment should NOT be present in production',
-    )
-    assert_equal 2, output.scan('mock-book-card').count
+    assert_match 'Non Existent Book', error.message
   end
 
-  def test_prod_mode_logs_error_to_console_for_invalid_rating_and_skips
+  def test_prod_mode_stops_build_for_invalid_rating
     @context_prod['page']['ranked_list'] = @invalid_rating_list
 
-    mock_jekyll_logger = Minitest::Mock.new
-    # CGI.escapeHTML turns " into &quot;
-    expected_rating_identifier_val = CGI.escapeHTML('"five_stars"')
-    expected_console_msg_fragment = "DISPLAY_RANKED_BOOKS_FAILURE: Reason='Book has invalid non-integer rating (Production Mode).' Title='Book Invalid Rating' Rating='#{expected_rating_identifier_val}' ListVariable='page.ranked_list' SourcePage='test_page.md'"
-    mock_jekyll_logger.expect(:error, nil) do |prefix, msg|
-      prefix == 'PluginLiquid:' && msg.include?(expected_console_msg_fragment)
+    error = assert_raises(Jekyll::Errors::FatalException) do
+      render_tag('page.ranked_list', @context_prod)
     end
-
-    output = ''
-    Jekyll::Books::Core::BookCardRenderer.stub :render, @mock_card_html_generic do
-      Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, @mock_stars_html_generic do
-        output = render_tag('page.ranked_list', @context_prod, mock_jekyll_logger)
-      end
-    end
-
-    mock_jekyll_logger.verify
-    refute_match(
-      /<!--.*?DISPLAY_RANKED_BOOKS_FAILURE.*?-->/,
-      output,
-      'HTML comment should NOT be present in production',
-    )
-    assert_equal 2, output.scan('mock-book-card').count
+    assert_match 'invalid non-integer rating', error.message
   end
 
   def test_processor_skips_book_with_empty_title
@@ -474,19 +383,6 @@ class TestDisplayRankedBooksTag < Minitest::Test
   end
 
   private
-
-  # Helper to build a test book map
-  def build_test_book_map(books)
-    books.each_with_object({}) do |book, map|
-      next if book.data['published'] == false
-
-      title = book.data['title']
-      next unless title && !title.to_s.strip.empty?
-
-      normalized = Jekyll::Infrastructure::TextProcessingUtils.normalize_title(title, strip_articles: false)
-      map[normalized] = book
-    end
-  end
 
   # Helper to assert jump links navigation structure
   def assert_jump_links_navigation(output)

@@ -2,7 +2,6 @@
 
 require 'jekyll'
 require 'liquid'
-require 'strscan'
 require_relative '../feed_utils'
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../../../infrastructure/plugin_logger_utils'
@@ -29,8 +28,6 @@ module Jekyll
         FeedUtils = Jekyll::Posts::FeedUtils
         Renderer = Jekyll::Posts::Feed::Renderer
         private_constant :TagArgs, :Logger, :FeedUtils, :Renderer
-
-        SYNTAX_NAMED_ARG = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
 
         def initialize(tag_name, markup, tokens)
           super
@@ -73,42 +70,8 @@ module Jekyll
         end
 
         def parse_arguments
-          return if @raw_markup.empty?
-
-          unless @raw_markup.match?(SYNTAX_NAMED_ARG)
-            raise Liquid::SyntaxError,
-                  "Syntax Error in '#{@tag_name}': Invalid arguments. Use 'limit=N' or no arguments."
-          end
-
-          scanner = StringScanner.new(@raw_markup)
-          parse_named_argument(scanner)
-          validate_no_trailing_chars(scanner)
-        end
-
-        def parse_named_argument(scanner)
-          unless scanner.scan(SYNTAX_NAMED_ARG)
-            raise Liquid::SyntaxError, "Syntax Error in '#{@tag_name}': Malformed arguments '#{@raw_markup}'."
-          end
-
-          key = scanner[1].to_s.strip
-          value = scanner[2].to_s.strip
-          validate_and_store_argument(key, value)
-        end
-
-        def validate_and_store_argument(key, value)
-          if key == 'limit'
-            @limit_markup = value
-          else
-            raise Liquid::SyntaxError,
-                  "Syntax Error in '#{@tag_name}': Unknown argument '#{key}'. Only 'limit' is allowed."
-          end
-        end
-
-        def validate_no_trailing_chars(scanner)
-          scanner.skip(/\s*/)
-          return if scanner.eos?
-
-          raise Liquid::SyntaxError, "Syntax Error in '#{@tag_name}': Unexpected arguments after 'limit'."
+          arguments = TagArgs.parse_named_arguments(@raw_markup, tag_name: @tag_name, allowed: ['limit'])
+          @limit_markup = arguments['limit']
         end
 
         def resolve_limit(context)

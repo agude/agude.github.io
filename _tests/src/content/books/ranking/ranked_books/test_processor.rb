@@ -70,7 +70,7 @@ class TestRankedBooksProcessor < Minitest::Test
 
     processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(context, 'my_list')
 
-    error = assert_raises(RuntimeError) { processor.process }
+    error = assert_raises(Jekyll::Errors::FatalException) { processor.process }
     assert_includes error.message, 'not a valid list'
   end
 
@@ -80,7 +80,7 @@ class TestRankedBooksProcessor < Minitest::Test
 
     processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(context, 'my_list')
 
-    error = assert_raises(RuntimeError) { processor.process }
+    error = assert_raises(Jekyll::Errors::FatalException) { processor.process }
     assert_includes error.message, "Collection 'books' not found"
   end
 
@@ -95,7 +95,7 @@ class TestRankedBooksProcessor < Minitest::Test
     processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(context, 'my_list')
 
     # In non-production mode, should raise because book not found
-    error = assert_raises(RuntimeError) { processor.process }
+    error = assert_raises(Jekyll::Errors::FatalException) { processor.process }
     assert_includes error.message, 'not found'
   end
 
@@ -109,11 +109,11 @@ class TestRankedBooksProcessor < Minitest::Test
     processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(context, 'my_list')
 
     # 5 after 4 violates monotonicity
-    error = assert_raises(RuntimeError) { processor.process }
+    error = assert_raises(Jekyll::Errors::FatalException) { processor.process }
     assert_includes error.message, 'Monotonicity violation'
   end
 
-  def test_skips_validation_in_production
+  def test_rejects_missing_book_in_production
     site = create_site({ 'environment' => 'production' }, { 'books' => [@book_5star] })
     context = create_context(
       { 'my_list' => ['Missing Book'] },
@@ -121,13 +121,11 @@ class TestRankedBooksProcessor < Minitest::Test
     )
 
     processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(context, 'my_list')
-    result = processor.process
-
-    # Should not raise, just skip the missing book
-    assert_empty result[:rating_groups]
+    error = assert_raises(Jekyll::Errors::FatalException) { processor.process }
+    assert_includes error.message, 'Missing Book'
   end
 
-  def test_handles_books_with_invalid_rating_in_production
+  def test_rejects_invalid_rating_in_production
     bad_rating = create_doc(
       { 'title' => 'Bad Rating', 'published' => true, 'rating' => 'not a number' },
       '/books/bad.html',
@@ -139,9 +137,7 @@ class TestRankedBooksProcessor < Minitest::Test
     )
 
     processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(context, 'my_list')
-    result = processor.process
-
-    # Should skip the book with invalid rating
-    assert_empty result[:rating_groups]
+    error = assert_raises(Jekyll::Errors::FatalException) { processor.process }
+    assert_includes error.message, 'invalid non-integer rating'
   end
 end

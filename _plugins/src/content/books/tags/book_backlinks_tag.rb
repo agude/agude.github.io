@@ -2,7 +2,6 @@
 
 require 'jekyll'
 require 'liquid'
-require 'cgi'
 
 require_relative '../backlinks/finder'
 require_relative '../backlinks/renderer'
@@ -27,13 +26,9 @@ module Jekyll
           finder = Jekyll::Books::Backlinks::Finder.new(site, page)
           result = finder.find
 
-          page = context.registers[:page]
           return result[:logs] if result[:backlinks].empty?
 
-          renderer = Jekyll::Books::Backlinks::Renderer.new(context, page, result[:backlinks])
-          html_output = renderer.render
-
-          result[:logs] + html_output
+          result[:logs] + Jekyll::Books::Backlinks::Renderer.new(context, page, result[:backlinks]).render
         end
       end
     end

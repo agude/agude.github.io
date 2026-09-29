@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../../../infrastructure/plugin_logger_utils'
+require_relative '../../../infrastructure/page_url'
 
 module Jekyll
   module Posts
@@ -33,6 +34,10 @@ module Jekyll
 
         private
 
+        def page_url
+          Jekyll::Infrastructure::PageUrl.fetch(@page)
+        end
+
         def prerequisites_met?
           @site && @page && site_posts_valid? && page_url_valid?
         end
@@ -42,7 +47,7 @@ module Jekyll
         end
 
         def page_url_valid?
-          @page['url'] && !@page['url'].to_s.strip.empty?
+          page_url && !page_url.to_s.strip.empty?
         end
 
         def log_missing_prerequisites
@@ -51,7 +56,7 @@ module Jekyll
             context: log_context,
             tag_type: 'RELATED_POSTS',
             reason: "Missing prerequisites: #{missing.join(', ')}.",
-            identifiers: { PageURL: @page ? (@page['url'] || 'N/A') : 'N/A' },
+            identifiers: { PageURL: page_url || 'N/A' },
             level: :error,
           )
         end
@@ -93,7 +98,7 @@ module Jekyll
         end
 
         def gather_posts
-          @current_url = @page['url']
+          @current_url = page_url
           @all_posts = filter_and_sort_posts(@site.posts.docs)
 
           # Waterfall priority: category matches > config posts > recent posts

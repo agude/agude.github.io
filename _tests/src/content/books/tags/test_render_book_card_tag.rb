@@ -33,6 +33,15 @@ class TestRenderBookCardTag < Minitest::Test
     output
   end
 
+  def test_fatal_card_error_stops_liquid_render
+    failure = ->(*) { raise Jekyll::Errors::FatalException, 'invalid book card' }
+
+    error = Jekyll::Books::Core::BookCardRenderer.stub(:render, failure) do
+      assert_raises(Jekyll::Errors::FatalException) { render_tag('my_book') }
+    end
+    assert_match 'invalid book card', error.message
+  end
+
   # --- Test Cases ---
 
   # 1. Syntax Error
@@ -59,7 +68,14 @@ class TestRenderBookCardTag < Minitest::Test
     err = assert_raises Liquid::SyntaxError do
       render_tag('my_book not_key_value')
     end
-    assert_match "Invalid arguments near 'not_key_value'", err.message
+    assert_match "Invalid argument syntax near 'not_key_value'", err.message
+  end
+
+  def test_syntax_error_for_duplicate_named_argument
+    error = assert_raises(Liquid::SyntaxError) do
+      render_tag('my_book subtitle="First" subtitle="Second"')
+    end
+    assert_match "Duplicate argument 'subtitle'", error.message
   end
 
   # 2. Render - Success

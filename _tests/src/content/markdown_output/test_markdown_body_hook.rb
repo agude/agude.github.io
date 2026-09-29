@@ -369,15 +369,7 @@ class TestMarkdownBodyHook < Minitest::Test
     # Simulate what Renderer#assign_pages! does: snapshot via to_liquid
     payload = { 'page' => page.data.dup, 'render_mode' => 'html' }
 
-    # Simulate what the hook does
-    Hook.eligible_page?(page) || skip('Page not eligible')
-    content = Hook.content_with_layout_tags(page.content, page)
-    with_silent_logger do
-      page.data['markdown_body'] = Hook.render_markdown_body(content, site, payload)
-    end
-    href = Hook.compute_markdown_href(page)
-    page.data['markdown_alternate_href'] = href
-    payload['page']['markdown_alternate_href'] = href
+    Hook.prepare_page(page, payload)
 
     # The key assertion: payload['page'] must have the href
     assert_equal '/papers.md',
@@ -385,16 +377,48 @@ class TestMarkdownBodyHook < Minitest::Test
                  'markdown_alternate_href must be injected into payload for Pages'
   end
 
-  def test_pages_hook_cleans_payload_on_failure
-    # If the hook fails, payload['page'] should not retain a stale href
-    payload = { 'page' => { 'layout' => 'page' }, 'render_mode' => 'html' }
-    payload['page']['markdown_alternate_href'] = '/stale.md'
+  def test_document_markdown_failure_stops_build
+    site = create_site
+    doc = create_doc({}, '/books/broken.html')
+    doc.define_singleton_method(:site) { site }
+    payload = { 'page' => doc.data.dup }
 
-    # Simulate error cleanup
-    payload['page']&.delete('markdown_alternate_href')
+    error = Hook.stub(:render_markdown_body, ->(*) { raise 'render failed' }) do
+      assert_raises(Jekyll::Errors::FatalException) { Hook.prepare_document(doc, payload) }
+    end
 
-    refute payload['page'].key?('markdown_alternate_href'),
-           'Stale markdown_alternate_href must be cleaned from payload on failure'
+    assert_match '/books/broken.html', error.message
+    assert_match 'render failed', error.message
+  end
+
+  def test_page_markdown_failure_stops_build
+    site = create_site
+    page = create_doc({ 'layout' => 'page' }, '/papers/')
+    page.define_singleton_method(:site) { site }
+    payload = { 'page' => page.data.dup }
+
+    error = Hook.stub(:render_markdown_body, ->(*) { raise 'render failed' }) do
+      assert_raises(Jekyll::Errors::FatalException) { Hook.prepare_page(page, payload) }
+    end
+
+    assert_match '/papers/', error.message
+    assert_match 'render failed', error.message
+  end
+
+  def test_page_content_preparation_failure_includes_url
+    site = create_site
+    page = create_doc({ 'layout' => 'page' }, '/papers/')
+    page.define_singleton_method(:site) { site }
+    payload = { 'page' => page.data.dup }
+
+    [RuntimeError, Jekyll::Errors::FatalException].each do |error_class|
+      error = Hook.stub(:content_with_layout_tags, ->(*) { raise error_class, 'layout failed' }) do
+        assert_raises(Jekyll::Errors::FatalException) { Hook.prepare_page(page, payload) }
+      end
+
+      assert_match '/papers/', error.message
+      assert_match 'layout failed', error.message
+    end
   end
 
   private
