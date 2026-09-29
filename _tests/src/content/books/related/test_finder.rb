@@ -154,7 +154,28 @@ class TestRelatedBooksFinder < Minitest::Test
       result = finder.find
     end
     assert_empty result[:books]
-    assert_match(/Missing prerequisites: page\[&#39;url&#39;\]/, result[:logs])
+    assert_match(/Missing prerequisites: page.url/, result[:logs])
+  end
+
+  def test_finds_related_book_when_page_url_is_only_an_accessor
+    page = create_doc(
+      { 'title' => 'Current', 'book_authors' => ['Author A'], 'date' => @test_time_now - 86_400 },
+      '/books/current.html',
+    )
+    related = create_doc(
+      { 'title' => 'Related', 'book_authors' => ['Author A'], 'date' => @test_time_now - 43_200 },
+      '/books/related.html',
+    )
+    page.data.delete('url')
+    def page.[](key)
+      key.to_s == 'url' ? nil : super
+    end
+
+    site = create_site(@site_config_base.dup, { 'books' => [page, related] })
+    finder = Jekyll::Books::Related::Finder.new(site, page)
+    result = Time.stub(:now, @test_time_now) { finder.find }
+
+    assert_equal ['/books/related.html'], result[:books].map(&:url)
   end
 
   def test_logs_error_when_books_collection_is_missing

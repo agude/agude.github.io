@@ -46,8 +46,14 @@ module Jekyll
 
         private
 
+        def page_url
+          return unless @page
+
+          @page.respond_to?(:url) ? @page.url : @page['url']
+        end
+
         def prerequisites_met?
-          if @site && @page && @site.collections.key?('books') && @page['url']
+          if @site && @page && @site.collections.key?('books') && page_url
             true
           else
             log_missing_prerequisites
@@ -61,7 +67,7 @@ module Jekyll
             context: log_context,
             tag_type: 'RELATED_BOOKS',
             reason: "Missing prerequisites: #{missing.join(', ')}.",
-            identifiers: { PageURL: @page ? @page['url'] : 'N/A' },
+            identifiers: { PageURL: page_url || 'N/A' },
             level: :error,
           )
         end
@@ -71,7 +77,7 @@ module Jekyll
           missing << 'site object' unless @site
           missing << 'page object' unless @page
           missing << "site.collections['books']" unless @site&.collections&.key?('books')
-          missing << "page['url']" unless @page && @page['url']
+          missing << 'page.url' unless page_url
           missing
         end
 
@@ -89,7 +95,7 @@ module Jekyll
             context: log_context,
             tag_type: 'RELATED_BOOKS',
             reason: 'Link cache is missing. Ensure Jekyll::Infrastructure::LinkCacheGenerator is running.',
-            identifiers: { PageURL: @page['url'] },
+            identifiers: { PageURL: page_url },
             level: :error,
           )
         end
@@ -111,7 +117,7 @@ module Jekyll
         end
 
         def build_exclusion_set
-          urls = Set.new([@page['url']])
+          urls = Set.new([page_url])
           urls.add(@page['canonical_url']) if @page['canonical_url']&.start_with?('/')
           urls
         end
@@ -167,7 +173,7 @@ module Jekyll
             tag_type: 'RELATED_BOOKS_SERIES',
             reason: "Current page has unparseable book_number ('#{@page['book_number']}'). " \
                     'Using all series books sorted by number.',
-            identifiers: { PageURL: @page['url'], Series: series },
+            identifiers: { PageURL: page_url, Series: series },
             level: :info,
           )
         end
@@ -275,7 +281,7 @@ module Jekyll
           current_urls = Set.new(@candidate_books.map(&:url))
           return unless current_urls.size < @max_books
 
-          links = @site.data.dig('link_cache', cache_key, @page['url']) || []
+          links = @site.data.dig('link_cache', cache_key, page_url) || []
           type_entries = links.select { |entry| link_types.include?(entry[:type]) }
           sorted_entries = sort_link_entries(type_entries, entry_key)
 
