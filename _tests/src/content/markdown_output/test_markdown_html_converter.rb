@@ -41,6 +41,15 @@ class TestMarkdownHtmlConverter < Minitest::Test
     assert_equal '_Warhammer 40k_', Converter.convert(html)
   end
 
+  def test_emphasis_tag
+    assert_equal '_et al._', Converter.convert('<em>et al.</em>')
+  end
+
+  def test_attributed_emphasis_tag
+    html = '<em class="author-emphasis">et al.</em>'
+    assert_equal '_et al._', Converter.convert(html)
+  end
+
   # --- span → plain text ---
 
   def test_author_name_span
@@ -76,6 +85,11 @@ class TestMarkdownHtmlConverter < Minitest::Test
 
   def test_anchor_wrapping_cite
     html = '<a href="/books/hyperion/"><cite class="book-title">Hyperion</cite></a>'
+    assert_equal '[_Hyperion_](/books/hyperion/)', Converter.convert(html)
+  end
+
+  def test_anchor_wrapping_emphasis
+    html = '<a href="/books/hyperion/"><em>Hyperion</em></a>'
     assert_equal '[_Hyperion_](/books/hyperion/)', Converter.convert(html)
   end
 

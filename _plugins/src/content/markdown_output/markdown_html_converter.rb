@@ -13,6 +13,9 @@ module Jekyll
       # Cite classes that should become italic (_Title_).
       CITE_RE = %r{<cite[^>]*class=["'][^"']*\b\w+-title\b[^"']*["'][^>]*>(.*?)</cite>}m
 
+      # Emphasis tags become Markdown emphasis, including tags with attributes.
+      EM_RE = %r{<em(?:\s+[^>]*)?>(.*?)</em>}m
+
       # Span classes that should be stripped to plain text.
       SPAN_RE = %r{<span[^>]*class=["'](?:author-name|book-series|written-by)["'][^>]*>(.*?)</span>}m
 
@@ -33,6 +36,7 @@ module Jekyll
         body.gsub!(CITE_RE) { "_#{Regexp.last_match(1)}_" }
         body.gsub!(SPAN_RE, '\1')
         body.gsub!(ABBR_RE, '\1')
+        body.gsub!(EM_RE) { "_#{Regexp.last_match(1)}_" }
         body.gsub!(ANCHOR_RE, '[\2](\1)')
 
         restore_code_blocks(body, stashed)

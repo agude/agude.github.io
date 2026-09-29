@@ -16,7 +16,7 @@ class TestMarkdownOutputIncludes < Minitest::Test
   def test_figure_markdown_renders_caption_and_converts_supported_inline_html
     parameters = {
       'url' => '/images/figure.png',
-      'caption' => '<cite class="book-title">A book</cite>',
+      'caption' => '<em>A book</em>',
       'image_alt' => 'A chart',
     }
     output = render_include('figure.html', parameters, :markdown)

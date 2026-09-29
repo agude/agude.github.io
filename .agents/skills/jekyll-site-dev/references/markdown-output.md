@@ -23,6 +23,9 @@ HTML is converted.
 The video include emits a `[Video](file)` link in Markdown mode while
 preserving its video markup in HTML mode.
 
+The converter converts `<em>` tags to Markdown emphasis before converting
+enclosing anchors to Markdown links.
+
 `DisplayAwardsPageTag` fetches awards and favorites through
 `Books::AwardsPage::Finder` once per render pass. It sends the prepared data
 to `HtmlRenderer` or `MarkdownRenderer` according to `render_mode`.
