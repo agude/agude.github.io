@@ -50,6 +50,22 @@ class TestMarkdownOutputIncludes < Minitest::Test
     assert_includes output, '<img src="/images/figure.png" alt="A chart"'
   end
 
+  def test_video_markdown_renders_file_link
+    output = render_include('video.html', { 'file' => '/videos/demo.mp4' }, :markdown)
+
+    assert_includes output, '[Video](/videos/demo.mp4)'
+    refute_includes output, '<video'
+  end
+
+  def test_video_html_keeps_video_markup
+    output = render_include('video.html', { 'file' => '/videos/demo.mp4' }, :html)
+
+    assert_includes output, '<div class="video-gif">'
+    assert_includes output, '<video '
+    assert_includes output, '<source src="/videos/demo.mp4" type="video/mp4" />'
+    refute_includes output, '[Video]'
+  end
+
   private
 
   def render_include(filename, parameters, render_mode)
