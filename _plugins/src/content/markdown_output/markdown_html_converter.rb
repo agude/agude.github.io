@@ -22,6 +22,12 @@ module Jekyll
       # Span classes that should be stripped to plain text.
       SPAN_RE = %r{<span[^>]*class=["'](?:author-name|book-series|written-by)["'][^>]*>(.*?)</span>}m
 
+      # Wrappers handled below, while preserving other wrapper tags.
+      SPAN_WRAPPER_RE = %r{(<span\b[^>]*>)(.*?)(</span\s*>)}im
+      DIV_WRAPPER_RE = %r{(<div\b[^>]*>)(.*?)(</div\s*>)}im
+      PRESENTATION_SPAN_CLASSES = %w[nowrap band-name].freeze
+      WRITTEN_BY_CLASSES = %w[written-by].freeze
+
       # Abbr tags that should be stripped to plain text.
       ABBR_RE = %r{<abbr[^>]*class=["']etal["'][^>]*>(.*?)</abbr>}m
 
@@ -37,6 +43,7 @@ module Jekyll
 
         # Convert inner tags before outer tags (cite/span before anchors).
         body.gsub!(CITE_RE) { "_#{Regexp.last_match(1)}_" }
+        body = convert_presentation_wrappers(body)
         body.gsub!(SPAN_RE, '\1')
         body.gsub!(ABBR_RE, '\1')
         body.gsub!(EM_RE) { "_#{Regexp.last_match(1)}_" }
@@ -47,6 +54,52 @@ module Jekyll
       end
 
       # --- private helpers ---
+
+      def self.convert_presentation_wrappers(text)
+        body = convert_presentation_spans(text)
+        convert_written_by_divs(body)
+      end
+      private_class_method :convert_presentation_wrappers
+
+      def self.convert_presentation_spans(text)
+        text.gsub(SPAN_WRAPPER_RE) do |wrapper|
+          opening_tag, content, closing_tag = Regexp.last_match.captures
+          converted_content = convert_presentation_wrappers(content)
+
+          if class_attribute_includes?(opening_tag, PRESENTATION_SPAN_CLASSES)
+            converted_content
+          elsif converted_content == content
+            wrapper
+          else
+            "#{opening_tag}#{converted_content}#{closing_tag}"
+          end
+        end
+      end
+      private_class_method :convert_presentation_spans
+
+      def self.convert_written_by_divs(text)
+        text.gsub(DIV_WRAPPER_RE) do |wrapper|
+          opening_tag, content, closing_tag = Regexp.last_match.captures
+          converted_content = convert_presentation_wrappers(content)
+
+          if class_attribute_includes?(opening_tag, WRITTEN_BY_CLASSES)
+            "\n\n#{converted_content}\n\n"
+          elsif converted_content == content
+            wrapper
+          else
+            "#{opening_tag}#{converted_content}#{closing_tag}"
+          end
+        end
+      end
+      private_class_method :convert_written_by_divs
+
+      def self.class_attribute_includes?(opening_tag, expected_classes)
+        class_attribute = opening_tag.match(/(?<![\w:-])class\s*=\s*["']([^"']*)["']/i)
+        return false unless class_attribute
+
+        class_attribute[1].split.intersect?(expected_classes)
+      end
+      private_class_method :class_attribute_includes?
 
       def self.stash_code_blocks(text, stashed)
         body = stash_block_code(text, stashed)

@@ -61,6 +61,31 @@ class TestMarkdownHtmlConverter < Minitest::Test
 
   # --- span → plain text ---
 
+  def test_nowrap_span_preserves_link_and_adjacent_prose
+    input = "Read <span class=\"nowrap\"><a href=\"/books/neuromancer/\">Neuromancer</a>'s</span> sequel."
+    assert_equal "Read [Neuromancer](/books/neuromancer/)'s sequel.", Converter.convert(input)
+  end
+
+  def test_band_name_span_preserves_text
+    assert_equal 'Listen to The Beatles.', Converter.convert('Listen to <span class="band-name">The Beatles</span>.')
+  end
+
+  def test_presentation_span_matches_class_among_other_attributes
+    input = '<span id="title" class="nowrap highlighted">Neuromancer</span>'
+    assert_equal 'Neuromancer', Converter.convert(input)
+  end
+
+  def test_similar_presentation_classes_remain_unchanged
+    input = '<span data-class="nowrap">one</span> <span class="nowrapish">two</span> ' \
+            '<div class="written-by-note">three</div>'
+    assert_equal input, Converter.convert(input)
+  end
+
+  def test_written_by_block_preserves_paragraph_boundaries
+    input = 'Before.<div class="written-by">by <a href="/books/authors/william_gibson/">William Gibson</a></div>After.'
+    assert_equal "Before.\n\nby [William Gibson](/books/authors/william_gibson/)\n\nAfter.", Converter.convert(input)
+  end
+
   def test_author_name_span
     html = '<span class="author-name">Dan Simmons</span>'
     assert_equal 'Dan Simmons', Converter.convert(html)
@@ -133,16 +158,20 @@ class TestMarkdownHtmlConverter < Minitest::Test
 
   def test_inline_code_preserved
     input = 'Use `<cite class="book-title">Foo</cite>, <em>literal</em>, and ' \
-            '<strong>bold</strong>` for titles.'
+            '<strong>bold</strong>, and <span class="nowrap">title</span>` for titles.'
     assert_equal input, Converter.convert(input)
   end
 
   def test_fenced_code_block_preserved
     input = "Some text.\n\n```html\n<cite class=\"book-title\">Foo</cite> and " \
-            "<em>literal</em> and <strong>bold</strong>\n```\n\n" \
+            '<em>literal</em>, <strong>bold</strong>, and ' \
+            '<span class="band-name">The Beatles</span> and ' \
+            "<div class=\"written-by\">by Author</div>\n```\n\n" \
             '<cite class="book-title">After</cite>'
     expected = "Some text.\n\n```html\n<cite class=\"book-title\">Foo</cite> and " \
-               "<em>literal</em> and <strong>bold</strong>\n```\n\n_After_"
+               '<em>literal</em>, <strong>bold</strong>, and ' \
+               '<span class="band-name">The Beatles</span> and ' \
+               "<div class=\"written-by\">by Author</div>\n```\n\n_After_"
     assert_equal expected, Converter.convert(input)
   end
 

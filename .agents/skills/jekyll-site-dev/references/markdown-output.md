@@ -20,7 +20,9 @@ mode while preserving its video markup in HTML mode. The converter protects
 fenced code blocks using backticks or tildes and inline code spans with
 matching delimiter lengths before converting inline HTML. It converts `<em>`
 tags to Markdown emphasis and `<strong>` tags to Markdown strong emphasis
-before converting enclosing anchors to Markdown links.
+before converting enclosing anchors to Markdown links. Presentation spans with
+`nowrap` or `band-name` classes are stripped while their contents remain, and
+`written-by` divs become separate Markdown paragraphs.
 
 `DisplayAwardsPageTag` fetches awards and favorites through
 `Books::AwardsPage::Finder` once per render pass. It sends the prepared data
