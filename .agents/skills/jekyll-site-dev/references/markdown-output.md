@@ -13,6 +13,10 @@ The Markdown pass temporarily sets it to `markdown` and restores the prior
 value before returning. Pages also copy `markdown_alternate_href` into
 `payload['page']` because their Liquid payload is a snapshot.
 
+`DisplayAwardsPageTag` fetches awards and favorites through
+`Books::AwardsPage::Finder` once per render pass. It sends the prepared data
+to `HtmlRenderer` or `MarkdownRenderer` according to `render_mode`.
+
 Markdown generation errors for eligible items raise
 `Jekyll::Errors::FatalException` with the item's URL. Do not log and drop the
 Markdown twin: that would publish a successful build with missing output.
