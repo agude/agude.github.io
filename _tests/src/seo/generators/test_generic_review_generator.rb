@@ -146,12 +146,10 @@ class TestGenericReviewLdGenerator < Minitest::Test
     assert_equal expected, Jekyll::SEO::Generators::GenericReviewLdGenerator.generate_hash(doc, @site)
   end
 
-  def test_generate_hash_returns_empty_if_item_name_is_missing_in_generator_guard
-    # This test assumes the injector *might* somehow call it,
-    # so the generator's internal guard should return empty.
+  def test_generate_hash_rejects_missing_item_name
     doc_missing_item_name = create_doc(
       {
-        'layout' => 'post',
+        'layout' => 'review-post',
         'title' => 'Bad Review Data',
         'review' => { 'item_type' => 'Product' }, # item_name is missing
       },
@@ -160,18 +158,11 @@ class TestGenericReviewLdGenerator < Minitest::Test
       '2024-05-05',
       @post_collection,
     )
-    # Mock logger to ensure error is logged by the generator itself
-    mock_logger = Minitest::Mock.new
-    mock_logger.expect(:error, nil) do |prefix, message|
-      prefix == 'JSON-LD (GenericReviewGen):' && message.include?('missing or empty')
+    error = assert_raises(Jekyll::Errors::FatalException) do
+      Jekyll::SEO::Generators::GenericReviewLdGenerator.generate_hash(doc_missing_item_name, @site)
     end
 
-    actual_hash = nil
-    Jekyll.stub :logger, mock_logger do
-      actual_hash = Jekyll::SEO::Generators::GenericReviewLdGenerator.generate_hash(doc_missing_item_name, @site)
-    end
-
-    assert_equal({}, actual_hash)
-    mock_logger.verify
+    assert_match '/reviews/bad-data.html', error.message
+    assert_match 'review.item_name', error.message
   end
 end

@@ -292,25 +292,35 @@ class TestJsonLdInjectorSkip < TestJsonLdInjectorBase
     mock_logger.verify
   end
 
-  def test_handles_json_generation_error
+  def test_json_generation_error_stops_build
     # Create a hash that will cause JSON.pretty_generate to raise an error
     invalid_hash = { '@type' => 'BlogPosting', 'invalid' => Float::INFINITY }
 
     mock_logger = Minitest::Mock.new
     mock_logger.expect(:debug, nil, ['JSON-LD:', String])
-    mock_logger.expect(:error, nil) do |prefix, message|
-      prefix == 'JSON-LD:' && message.include?('Failed to generate JSON')
-    end
-
-    Jekyll::SEO::Generators::BlogPostingLdGenerator.stub :generate_hash, invalid_hash do
+    error = Jekyll::SEO::Generators::BlogPostingLdGenerator.stub :generate_hash, invalid_hash do
       Jekyll.stub :logger, mock_logger do
-        Jekyll::SEO::JsonLdInjector.inject_json_ld(@blog_post_doc, @site)
+        assert_raises(Jekyll::Errors::FatalException) do
+          Jekyll::SEO::JsonLdInjector.inject_json_ld(@blog_post_doc, @site)
+        end
       end
     end
 
-    # Verify no script was stored due to the error
+    assert_match @blog_post_doc.url, error.message
+    assert_match 'Failed to generate JSON', error.message
     assert_no_json_script(@blog_post_doc, @site)
     mock_logger.verify
+  end
+
+  def test_review_without_item_name_stops_build
+    @generic_review_post_doc.data['review'].delete('item_name')
+
+    error = assert_raises(Jekyll::Errors::FatalException) do
+      Jekyll::SEO::JsonLdInjector.inject_json_ld(@generic_review_post_doc, @site)
+    end
+
+    assert_match @generic_review_post_doc.url, error.message
+    assert_match 'review.item_name', error.message
   end
 
   private

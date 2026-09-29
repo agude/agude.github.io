@@ -10,7 +10,7 @@ module Jekyll
       module GenericReviewLdGenerator
         def self.generate_hash(document, site)
           review_fm = document.data['review'] || {}
-          return {} unless valid_item_name?(document, review_fm)
+          validate_item_name!(document, review_fm)
 
           Jekyll::SEO::JsonLdBuilder.build('Review', license: true, document: document, site: site) do |review|
             review.site_author
@@ -30,16 +30,13 @@ module Jekyll
           end
         end
 
-        def self.valid_item_name?(document, review_fm)
+        def self.validate_item_name!(document, review_fm)
           item_name = review_fm['item_name']
-          return true if item_name && !item_name.to_s.strip.empty?
+          return unless item_name.to_s.strip.empty?
 
           id = document.url || document.path || document.relative_path
-          Jekyll.logger.error(
-            'JSON-LD (GenericReviewGen):',
-            "Called for '#{id}' but 'review.item_name' is missing or empty.",
-          )
-          false
+          raise Jekyll::Errors::FatalException,
+                "JSON-LD review for '#{id}' requires review.item_name."
         end
 
         def self.clean_description(text)
