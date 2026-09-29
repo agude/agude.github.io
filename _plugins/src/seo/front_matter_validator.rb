@@ -2,9 +2,7 @@
 
 require 'jekyll'
 require_relative '../infrastructure/typography_utils'
-# Assuming Jekyll::Infrastructure::FrontMatterUtils is in _plugins/utils/ and will be loaded by Jekyll.
-# If you get NameError for Jekyll::Infrastructure::FrontMatterUtils, uncomment:
-# require_relative './utils/front_matter_utils'
+require_relative '../infrastructure/front_matter_utils'
 
 module Jekyll
   # Namespace for SEO-related plugins and utilities.
