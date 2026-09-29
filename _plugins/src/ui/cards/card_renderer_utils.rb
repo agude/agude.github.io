@@ -48,10 +48,20 @@ module Jekyll
 
           def validate_data!
             required = %i[base_class url title_html]
-            missing = required.reject { |key| @card_data.is_a?(Hash) && @card_data[key] }
+            missing = required.select { |key| !@card_data.is_a?(Hash) || @card_data[key].to_s.strip.empty? }
             return if missing.empty?
 
-            raise Jekyll::Errors::FatalException, "Card data missing required fields: #{missing.join(', ')}"
+            identity = if @card_data.is_a?(Hash)
+                         required.filter_map do |key|
+                           value = @card_data[key]
+                           "#{key}=#{value.inspect}" unless value.to_s.strip.empty?
+                         end.join(', ')
+                       else
+                         "card_data=#{@card_data.class}"
+                       end
+            message = "Card data missing required fields: #{missing.join(', ')}"
+            message += " (#{identity})" unless identity.empty?
+            raise Jekyll::Errors::FatalException, message
           end
 
           def render_image_section
