@@ -4,6 +4,10 @@
 `:pre_render`. `MarkdownOutputAssembler` writes the `.md` files in
 `:post_render`.
 
+The assembler passes document objects directly to related-content finders.
+Finders read URLs through `PageUrl.fetch`, which supports document accessors
+and Liquid page hashes. Do not copy document data just to add a `url` key.
+
 The pre-render hooks set `render_mode` to `html` for Jekyll's normal render.
 The Markdown pass temporarily sets it to `markdown` and restores the prior
 value before returning. Pages also copy `markdown_alternate_href` into

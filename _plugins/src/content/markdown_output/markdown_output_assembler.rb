@@ -112,11 +112,10 @@ module Jekyll
       # --- Book footer sections (related, backlinks, previous reviews) ---
 
       def self.build_book_footer(site, item)
-        page = page_data_for(item)
         sections = []
-        sections << build_backlinks_section(site, page)
-        sections << build_previous_reviews_section(site, page)
-        sections << build_related_books_section(site, page)
+        sections << build_backlinks_section(site, item)
+        sections << build_previous_reviews_section(site, item)
+        sections << build_related_books_section(site, item)
         sections.compact.reject { |s| s.to_s.strip.empty? }.join("\n\n")
       end
 
@@ -178,8 +177,7 @@ module Jekyll
       # --- Post footer sections (related posts) ---
 
       def self.build_post_footer(site, item)
-        page = page_data_for(item)
-        build_related_posts_section(site, page)
+        build_related_posts_section(site, item)
       end
 
       def self.build_related_posts_section(site, page)
@@ -217,20 +215,6 @@ module Jekyll
       end
 
       # --- Private helpers ---
-
-      # Build a page-data hash compatible with Finder prerequisite checks.
-      # Finders expect page['url'], page['title'], etc. via hash access,
-      # but Jekyll::Document stores url as a method, not in data[].
-      #
-      # @gotcha `Jekyll::Document#['url']` reads `data['url']` (nil), not
-      #   `doc.url`. When passing documents to Finders outside Liquid
-      #   context, merge url into data as done here. `MockDocument` masks
-      #   this with special `['url']` handling; use `RealDocLike` in tests
-      #   to catch regressions.
-      def self.page_data_for(item)
-        item.data.merge('url' => item.url)
-      end
-      private_class_method :page_data_for
 
       def self.format_date(date)
         date.strftime('%B %-d, %Y')

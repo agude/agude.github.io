@@ -3,6 +3,7 @@
 require_relative '../core/book_data_utils'
 require_relative '../../../infrastructure/plugin_logger_utils'
 require_relative '../../../infrastructure/front_matter_utils'
+require_relative '../../../infrastructure/page_url'
 require_relative '../../../infrastructure/text_processing_utils'
 
 module Jekyll
@@ -47,9 +48,7 @@ module Jekyll
         private
 
         def page_url
-          return unless @page
-
-          @page.respond_to?(:url) ? @page.url : @page['url']
+          Jekyll::Infrastructure::PageUrl.fetch(@page)
         end
 
         def prerequisites_met?

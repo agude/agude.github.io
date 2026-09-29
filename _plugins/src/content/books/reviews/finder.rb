@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../../../infrastructure/plugin_logger_utils'
+require_relative '../../../infrastructure/page_url'
 
 module Jekyll
   module Books
@@ -28,8 +29,12 @@ module Jekyll
 
         private
 
+        def page_url
+          Jekyll::Infrastructure::PageUrl.fetch(@page)
+        end
+
         def check_prerequisites
-          return nil if @site && @page && @page['url']
+          return nil if @site && @page && page_url
 
           Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
             context: log_context,
@@ -50,7 +55,7 @@ module Jekyll
 
         def find_archived_docs
           @site.collections['books'].docs.select do |book|
-            book.data['canonical_url'] == @page['url'] && book != @page
+            book.data['canonical_url'] == page_url && book != @page
           end
         end
       end
