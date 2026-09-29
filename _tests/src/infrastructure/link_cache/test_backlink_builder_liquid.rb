@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-require_relative 'backlink_builder_test_support'
+require_relative '../../../support/backlink_builder_test_support'
 
+# Liquid AST parsing, malformed input, and parser contracts.
 class TestBacklinkBuilderLiquid < BacklinkBuilderTestCase
   # --- Liquid AST parsing tests ---
   # These tests verify behavior that relies on Liquid's AST parser rather than
@@ -302,5 +303,4 @@ class TestBacklinkBuilderLiquid < BacklinkBuilderTestCase
                  actual_name,
                  'Liquid::Variable @name ivar changed — update BacklinkBuilder.extract_variable_name'
   end
-
 end

@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-require_relative 'backlink_builder_test_support'
+require_relative '../../../support/backlink_builder_test_support'
 
+# Capture usage, positions, and link score behavior.
 class TestBacklinkBuilderCaptures < BacklinkBuilderTestCase
   # --- Capture parsing and variable usage scoring tests ---
 
@@ -695,5 +696,4 @@ class TestBacklinkBuilderCaptures < BacklinkBuilderTestCase
     # min_position should be from the early usage, not the late one
     assert target_link[:min_position] < 30, "min_position #{target_link[:min_position]} should be < 30% (early)"
   end
-
 end

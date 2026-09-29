@@ -2,7 +2,7 @@
 
 require_relative '../../../../test_helper'
 require_relative '../../../../../_plugins/src/content/books/related/finder'
-require_relative 'related_book_fixture'
+require_relative '../../../../support/related_book_fixture'
 
 # Tests for Jekyll::Books::Related::Finder.
 #

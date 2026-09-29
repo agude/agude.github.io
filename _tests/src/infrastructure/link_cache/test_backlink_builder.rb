@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-require_relative 'backlink_builder_test_support'
+require_relative '../../../support/backlink_builder_test_support'
 
+# Direct book, series, and short-story link behavior.
 class TestBacklinkBuilder < BacklinkBuilderTestCase
   def test_builds_backlinks_from_book_links
     site = create_site({}, { 'books' => [@book_a, @book_b, @book_c] })
@@ -766,5 +767,4 @@ class TestBacklinkBuilder < BacklinkBuilderTestCase
     refute_nil dual
     assert_equal 'book', dual[:type], 'book_link should upgrade priority over series_link'
   end
-
 end
