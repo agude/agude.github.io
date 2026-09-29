@@ -13,18 +13,14 @@ The Markdown pass temporarily sets it to `markdown` and restores the prior
 value before returning. Pages also copy `markdown_alternate_href` into
 `payload['page']` because their Liquid payload is a snapshot.
 
-The converter protects fenced code blocks using backticks or tildes and
-inline code spans with matching delimiter lengths before converting inline HTML.
-
 The figure include emits its image and optional caption in Markdown mode;
 the caption then passes through `MarkdownHtmlConverter` so supported inline
-HTML is converted.
-
-The video include emits a `[Video](file)` link in Markdown mode while
-preserving its video markup in HTML mode.
-
-The converter converts `<em>` tags to Markdown emphasis before converting
-enclosing anchors to Markdown links.
+HTML is converted. The video include emits a `[Video](file)` link in Markdown
+mode while preserving its video markup in HTML mode. The converter protects
+fenced code blocks using backticks or tildes and inline code spans with
+matching delimiter lengths before converting inline HTML. It converts `<em>`
+tags to Markdown emphasis and `<strong>` tags to Markdown strong emphasis
+before converting enclosing anchors to Markdown links.
 
 `DisplayAwardsPageTag` fetches awards and favorites through
 `Books::AwardsPage::Finder` once per render pass. It sends the prepared data

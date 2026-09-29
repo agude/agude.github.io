@@ -45,6 +45,15 @@ class TestMarkdownHtmlConverter < Minitest::Test
     assert_equal '_et al._', Converter.convert('<em>et al.</em>')
   end
 
+  def test_strong_tag
+    assert_equal '**Prompt**', Converter.convert('<strong>Prompt</strong>')
+  end
+
+  def test_attributed_strong_tag
+    html = '<strong class="prompt">Prompt</strong>'
+    assert_equal '**Prompt**', Converter.convert(html)
+  end
+
   def test_attributed_emphasis_tag
     html = '<em class="author-emphasis">et al.</em>'
     assert_equal '_et al._', Converter.convert(html)
@@ -91,6 +100,11 @@ class TestMarkdownHtmlConverter < Minitest::Test
   def test_anchor_wrapping_emphasis
     html = '<a href="/books/hyperion/"><em>Hyperion</em></a>'
     assert_equal '[_Hyperion_](/books/hyperion/)', Converter.convert(html)
+  end
+
+  def test_anchor_wrapping_strong
+    html = '<a href="/prompts/1"><strong>Prompt</strong></a>'
+    assert_equal '[**Prompt**](/prompts/1)', Converter.convert(html)
   end
 
   def test_anchor_wrapping_span

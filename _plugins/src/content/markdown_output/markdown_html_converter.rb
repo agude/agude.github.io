@@ -16,6 +16,9 @@ module Jekyll
       # Emphasis tags become Markdown emphasis, including tags with attributes.
       EM_RE = %r{<em(?:\s+[^>]*)?>(.*?)</em>}m
 
+      # Strong tags become Markdown strong emphasis, including attributes.
+      STRONG_RE = %r{<strong(?:\s+[^>]*)?>(.*?)</strong>}m
+
       # Span classes that should be stripped to plain text.
       SPAN_RE = %r{<span[^>]*class=["'](?:author-name|book-series|written-by)["'][^>]*>(.*?)</span>}m
 
@@ -37,6 +40,7 @@ module Jekyll
         body.gsub!(SPAN_RE, '\1')
         body.gsub!(ABBR_RE, '\1')
         body.gsub!(EM_RE) { "_#{Regexp.last_match(1)}_" }
+        body.gsub!(STRONG_RE) { "**#{Regexp.last_match(1)}**" }
         body.gsub!(ANCHOR_RE, '[\2](\1)')
 
         restore_code_blocks(body, stashed)
