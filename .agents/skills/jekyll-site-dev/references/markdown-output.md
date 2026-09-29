@@ -24,6 +24,10 @@ before converting enclosing anchors to Markdown links. Presentation spans with
 `nowrap` or `band-name` classes are stripped while their contents remain, and
 `written-by` divs become separate Markdown paragraphs.
 
+The final Markdown whitespace pass trims prose line endings and collapses
+excess blank lines, while preserving hard-break spaces and whitespace inside
+fenced or indented code blocks.
+
 `DisplayAwardsPageTag` fetches awards and favorites through
 `Books::AwardsPage::Finder` once per render pass. It sends the prepared data
 to `HtmlRenderer` or `MarkdownRenderer` according to `render_mode`.

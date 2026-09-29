@@ -14,8 +14,29 @@ class TestMarkdownWhitespaceNormalizer < Minitest::Test
   end
 
   def test_removes_trailing_whitespace
-    input = "Line 1   \nLine 2\t\n"
+    input = "Line 1 \nLine 2\t\n"
     assert_equal "Line 1\nLine 2\n", Normalizer.normalize(input)
+  end
+
+  def test_preserves_markdown_hard_break_spaces
+    input = "First line  \nSecond line\n"
+    assert_equal input, Normalizer.normalize(input)
+  end
+
+  def test_preserves_long_fenced_code_whitespace_and_normalizes_surrounding_prose
+    code = "````text\nfirst  \n```short```\n\n\nlast\t\n````\n"
+    input = "\nIntro \n\n\n#{code}\n\n\nEnd \n\n"
+    assert_equal "Intro\n\n#{code}\nEnd\n", Normalizer.normalize(input)
+  end
+
+  def test_preserves_tilde_fenced_code_with_crlf
+    code = "~~~text\r\nfirst  \r\n\r\n\r\nlast\t\r\n~~~\r\n"
+    assert_equal "#{code}\nEnd\n", Normalizer.normalize("#{code}\nEnd \n")
+  end
+
+  def test_preserves_indented_code_whitespace
+    input = "Example:\n\n    first  \n\n\n    last\t\n\nEnd\n"
+    assert_equal input, Normalizer.normalize(input)
   end
 
   def test_single_trailing_newline
