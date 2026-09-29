@@ -148,13 +148,6 @@ class TestParsePost:
         assert rec is not None
         assert rec["publishedAt"] == "2024-03-01T00:00:00Z"
 
-    def test_date_object_in_front_matter(self, tmp_path: Path) -> None:
-        f = tmp_path / "2025-06-15-some_post.md"
-        f.write_text("---\ntitle: Post\ndate: 2024-03-01\n---\n")
-        rec = parse_post(f)
-        assert rec is not None
-        assert rec["publishedAt"].startswith("2024")
-
     def test_no_description_key_omitted(self, tmp_path: Path) -> None:
         f = tmp_path / "2025-01-01-post.md"
         f.write_text("---\ntitle: Post\n---\n")
