@@ -4,24 +4,20 @@ module Jekyll
   module Books
     module Ranking
       module RankedBooks
-        # Validates a ranked books list for correctness (non-production only).
+        # Validates a ranked books list for correctness.
         #
         # Ensures that:
         # 1. Each title exists in the books collection
         # 2. Each book has a valid integer rating
         # 3. Ratings are monotonically non-increasing
         class Validator
-          def initialize(book_map, list_variable_markup, is_production)
-            @book_map = book_map
+          def initialize(list_variable_markup)
             @list_variable_markup = list_variable_markup
-            @is_production = is_production
             @prev_rating = Float::INFINITY
             @prev_title = nil
           end
 
           def validate(title_raw, index, book)
-            return if @is_production
-
             validate_book_exists(title_raw, index, book)
 
             rating = parse_rating(book.data['rating'], title_raw, index)
@@ -29,6 +25,7 @@ module Jekyll
 
             @prev_rating = rating
             @prev_title = title_raw
+            rating
           end
 
           private
@@ -39,7 +36,7 @@ module Jekyll
             msg = "Jekyll::Books::Ranking::RankedBooks Validation Error: Title '#{title_raw}' " \
                   "(position #{index + 1} in '#{@list_variable_markup}') " \
                   "not found in the 'books' collection."
-            raise msg
+            raise Jekyll::Errors::FatalException, msg
           end
 
           def validate_monotonicity(rating, title_raw, index)
@@ -50,7 +47,7 @@ module Jekyll
                   "Title '#{title_raw}' (Rating: #{rating}) at position #{index + 1} \n  " \
                   "cannot appear after \n  " \
                   "Title '#{@prev_title}' (Rating: #{@prev_rating}) at position #{index}."
-            raise msg
+            raise Jekyll::Errors::FatalException, msg
           end
 
           def parse_rating(raw, title, index)
@@ -59,7 +56,7 @@ module Jekyll
             msg = "Jekyll::Books::Ranking::RankedBooks Validation Error: Title '#{title}' " \
                   "(position #{index + 1} in '#{@list_variable_markup}') " \
                   "has invalid non-integer rating: '#{raw.inspect}'."
-            raise msg
+            raise Jekyll::Errors::FatalException, msg
           end
         end
       end
