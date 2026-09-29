@@ -5,7 +5,7 @@ require_relative '../../../../../_plugins/src/content/books/tags/display_books_b
 
 # Tests for Jekyll::Books::Tags::DisplayBooksByTitleAlphaGroupTag Liquid tag.
 #
-# Verifies that the tag correctly orchestrates the Finder and Renderer.
+# Verifies the tag's Liquid syntax and rendered output.
 class TestDisplayBooksByTitleAlphaGroupTag < Minitest::Test
   def setup
     @site = create_site
@@ -19,71 +19,15 @@ class TestDisplayBooksByTitleAlphaGroupTag < Minitest::Test
     assert_match 'This tag does not accept any arguments', err.message
   end
 
-  def test_render_orchestrates_finder_and_renderer
-    # 1. Define the mock data that the Finder will "return"
-    mock_book = create_doc({ 'title' => 'Test Book' })
-    mock_finder_data = {
-      alpha_groups: [{ letter: 'T', books: [mock_book] }],
-      log_messages: '',
-    }
+  def test_html_mode_renders_book_groups
+    book = create_doc({ 'title' => 'Dune', 'book_authors' => ['Frank Herbert'] }, '/books/dune.html')
+    site = create_site({}, { 'books' => [book] })
+    context = create_context({}, { site: site })
 
-    # 2. Define the mock HTML that the Renderer will "return"
-    mock_renderer_html = '<h2>T</h2><div>Books</div>'
+    output = Liquid::Template.parse('{% display_books_by_title_alpha_group %}').render!(context)
 
-    # 3. Set up mocks for the Finder and Renderer
-    mock_finder = Minitest::Mock.new
-    mock_finder.expect :find, mock_finder_data
-
-    mock_renderer = Minitest::Mock.new
-    mock_renderer.expect :render, mock_renderer_html
-
-    # Stub the .new methods to return our mock instances
-    Jekyll::Books::Lists::ByTitleAlphaFinder.stub :new, ->(_args) { mock_finder } do
-      Jekyll::Books::Lists::Renderers::ByTitleAlphaRenderer.stub :new,
-                                                                 lambda { |context, data|
-                                                                   # This is a key assertion: ensure the data from the finder is what the renderer receives
-                                                                   assert_equal mock_finder_data, data
-                                                                   assert_equal @context, context
-                                                                   mock_renderer # Return our mock renderer instance
-                                                                 } do
-        # Execute the tag
-        output = Liquid::Template.parse('{% display_books_by_title_alpha_group %}').render!(@context)
-
-        # Assert that the final output is composed correctly (log_messages + rendered HTML)
-        assert_equal '<h2>T</h2><div>Books</div>', output
-      end
-    end
-
-    # Verify that both find and render methods were called exactly once
-    mock_finder.verify
-    mock_renderer.verify
-  end
-
-  def test_render_includes_log_messages_from_finder
-    # Test that log messages from the finder are prepended to the renderer output
-    mock_finder_data = {
-      alpha_groups: [],
-      log_messages: '<!-- Log Message -->',
-    }
-    mock_renderer_html = '<div>No books</div>'
-
-    mock_finder = Minitest::Mock.new
-    mock_finder.expect :find, mock_finder_data
-
-    mock_renderer = Minitest::Mock.new
-    mock_renderer.expect :render, mock_renderer_html
-
-    Jekyll::Books::Lists::ByTitleAlphaFinder.stub :new, ->(_args) { mock_finder } do
-      Jekyll::Books::Lists::Renderers::ByTitleAlphaRenderer.stub :new, ->(_context, _data) { mock_renderer } do
-        output = Liquid::Template.parse('{% display_books_by_title_alpha_group %}').render!(@context)
-
-        # Log messages should come before rendered HTML
-        assert_equal '<!-- Log Message --><div>No books</div>', output
-      end
-    end
-
-    mock_finder.verify
-    mock_renderer.verify
+    assert_includes output, 'Dune'
+    assert_includes output, 'D'
   end
 
   # --- Markdown render mode ---

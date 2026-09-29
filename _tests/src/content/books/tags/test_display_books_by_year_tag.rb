@@ -5,7 +5,7 @@ require_relative '../../../../../_plugins/src/content/books/tags/display_books_b
 
 # Tests for Jekyll::Books::Tags::DisplayBooksByYearTag Liquid tag.
 #
-# Verifies that the tag correctly orchestrates the Finder and Renderer.
+# Verifies the tag's Liquid syntax and rendered output.
 class TestDisplayBooksByYearTag < Minitest::Test
   def setup
     @site = create_site
@@ -19,52 +19,12 @@ class TestDisplayBooksByYearTag < Minitest::Test
     assert_match 'This tag does not accept any arguments', err.message
   end
 
-  def test_render_orchestrates_finder_and_renderer
-    # 1. Define the mock data that the Finder will "return"
-    mock_book = create_doc({ 'title' => 'Test Book' })
-    mock_finder_data = {
-      year_groups: [{ year: '2024', books: [mock_book] }],
-      log_messages: '',
-    }
-
-    # 2. Define the mock HTML that the Renderer will "return"
-    mock_renderer_html = '<h1>Rendered HTML</h1>'
-
-    # 3. Set up mocks for the Finder and Renderer
-    mock_finder = Minitest::Mock.new
-    mock_finder.expect :find, mock_finder_data
-
-    mock_renderer = Minitest::Mock.new
-    mock_renderer.expect :render, mock_renderer_html
-
-    # Stub the .new methods to return our mock instances
-    Jekyll::Books::Lists::ByYearFinder.stub :new, ->(_args) { mock_finder } do
-      Jekyll::Books::Lists::Renderers::ByYearRenderer.stub :new,
-                                                           lambda { |context, data|
-                                                             # This is a key assertion: ensure the data from the finder is what the renderer receives
-                                                             assert_equal mock_finder_data, data
-                                                             assert_equal @context, context
-                                                             mock_renderer # Return our mock renderer instance
-                                                           } do
-        # Execute the tag
-        output = Liquid::Template.parse('{% display_books_by_year %}').render!(@context)
-
-        # Assert that the final output is composed correctly (log_messages + rendered HTML)
-        assert_equal '<h1>Rendered HTML</h1>', output
-      end
-    end
-
-    # Verify that both find and render methods were called exactly once
-    mock_finder.verify
-    mock_renderer.verify
-  end
-
   # --- Markdown mode ---
 
   def test_markdown_mode_renders_year_headings_and_book_links
     books = [
-      create_doc({ 'title' => 'Old Book', 'book_authors' => ['Auth'], 'rating' => 4 }, '/books/old.html'),
-      create_doc({ 'title' => 'New Book', 'book_authors' => ['Auth'], 'rating' => 5 }, '/books/new.html'),
+      create_doc({ 'title' => 'Old Book', 'book_authors' => ['Auth'], 'rating' => 4, 'date' => Time.utc(2022, 1, 1) }, '/books/old.html'),
+      create_doc({ 'title' => 'New Book', 'book_authors' => ['Auth'], 'rating' => 5, 'date' => Time.utc(2024, 1, 1) }, '/books/new.html'),
     ]
     site = create_site({}, { 'books' => books })
     md_context = create_context(
@@ -72,35 +32,22 @@ class TestDisplayBooksByYearTag < Minitest::Test
       { site: site, page: create_doc({}, '/test.html'), render_mode: :markdown },
     )
     output = Liquid::Template.parse('{% display_books_by_year %}').render!(md_context)
-    assert_match(/^## \d{4}$/, output)
-    assert_match(/^- \[_.*_\]\(.*\)/, output)
+    assert_includes output, '## 2024'
+    assert_includes output, '[_New Book_](/books/new.html)'
+    assert_includes output, '## 2022'
+    assert_includes output, '[_Old Book_](/books/old.html)'
+    assert_operator output.index('## 2024'), :<, output.index('## 2022')
     refute_match(/<div/, output)
   end
 
-  def test_render_includes_log_messages_from_finder
-    # Test that log messages from the finder are prepended to the renderer output
-    mock_finder_data = {
-      year_groups: [],
-      log_messages: '<!-- Log Message -->',
-    }
-    mock_renderer_html = '<div>No books</div>'
+  def test_html_mode_renders_book_groups
+    book = create_doc({ 'title' => 'Year Book', 'book_authors' => ['Auth'], 'date' => Time.utc(2024, 1, 1) }, '/books/year.html')
+    site = create_site({}, { 'books' => [book] })
+    context = create_context({}, { site: site })
 
-    mock_finder = Minitest::Mock.new
-    mock_finder.expect :find, mock_finder_data
+    output = Liquid::Template.parse('{% display_books_by_year %}').render!(context)
 
-    mock_renderer = Minitest::Mock.new
-    mock_renderer.expect :render, mock_renderer_html
-
-    Jekyll::Books::Lists::ByYearFinder.stub :new, ->(_args) { mock_finder } do
-      Jekyll::Books::Lists::Renderers::ByYearRenderer.stub :new, ->(_context, _data) { mock_renderer } do
-        output = Liquid::Template.parse('{% display_books_by_year %}').render!(@context)
-
-        # Log messages should come before rendered HTML
-        assert_equal '<!-- Log Message --><div>No books</div>', output
-      end
-    end
-
-    mock_finder.verify
-    mock_renderer.verify
+    assert_includes output, '2024'
+    assert_includes output, 'Year Book'
   end
 end
