@@ -16,6 +16,10 @@ value before returning. Pages also copy `markdown_alternate_href` into
 The converter protects fenced code blocks using backticks or tildes and
 inline code spans with matching delimiter lengths before converting inline HTML.
 
+The figure include emits its image and optional caption in Markdown mode;
+the caption then passes through `MarkdownHtmlConverter` so supported inline
+HTML is converted.
+
 `DisplayAwardsPageTag` fetches awards and favorites through
 `Books::AwardsPage::Finder` once per render pass. It sends the prepared data
 to `HtmlRenderer` or `MarkdownRenderer` according to `render_mode`.
