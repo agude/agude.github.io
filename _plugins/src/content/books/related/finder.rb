@@ -108,10 +108,10 @@ module Jekyll
           # Works tiers combine books and short stories, sorted by count (position/date/title tiebreaker).
           process_series(all_potential_books)
           process_authors(books_by_date_desc)
-          process_mentioned_works
-          process_mentioned_series
-          process_backlink_works
-          process_backlink_series
+          process_link_tier('forward_links', :target, %w[book short_story])
+          process_link_tier('forward_links', :target, 'series')
+          process_link_tier('backlinks', :source, %w[book short_story])
+          process_link_tier('backlinks', :source, 'series')
           process_recent(books_by_date_desc)
         end
 
@@ -187,64 +187,30 @@ module Jekyll
         end
 
         def select_series_candidates(series_books, current_num)
-          preceding, succeeding = partition_series_books(series_books, current_num)
-          selected = interleave_books(preceding, succeeding)
-          @candidate_books.concat(selected.sort_by { |b| parse_book_num(b) })
+          preceding, succeeding = neighboring_series_books(series_books, current_num)
+          selected = interleave_series_books(preceding, succeeding)
+          @candidate_books.concat(selected.sort_by { |book| parse_book_num(book) })
         end
 
-        def partition_series_books(series_books, current_num)
+        def neighboring_series_books(series_books, current_num)
           parsed = series_books.map { |b| { doc: b, num: parse_book_num(b) } }
                                .reject { |b| b[:num] == Float::INFINITY }
-
-          preceding = extract_preceding_books(parsed, current_num)
-          succeeding = extract_succeeding_books(parsed, current_num)
+          preceding = parsed.select { |b| b[:num] < current_num }
+                            .sort_by { |b| -b[:num] }
+                            .map { |b| b[:doc] }
+          succeeding = parsed.select { |b| b[:num] > current_num }
+                             .sort_by { |b| b[:num] }
+                             .map { |b| b[:doc] }
           [preceding, succeeding]
         end
 
-        def extract_preceding_books(parsed, current_num)
-          parsed.select { |b| b[:num] < current_num }
-                .sort_by { |b| -b[:num] }
-                .map { |b| b[:doc] }
-        end
-
-        def extract_succeeding_books(parsed, current_num)
-          parsed.select { |b| b[:num] > current_num }
-                .sort_by { |b| b[:num] }
-                .map { |b| b[:doc] }
-        end
-
-        def interleave_books(preceding, succeeding)
+        def interleave_series_books(preceding, succeeding)
           selected = []
-          idx_pre = 0
-          idx_succ = 0
-
-          loop do
-            break if selected.length >= @max_books || exhausted_both_lists?(
-              idx_pre,
-              preceding,
-              idx_succ,
-              succeeding,
-            )
-
-            idx_pre = add_from_list(selected, preceding, idx_pre)
-            break if selected.length >= @max_books
-
-            idx_succ = add_from_list(selected, succeeding, idx_succ)
+          while selected.length < @max_books && (preceding.any? || succeeding.any?)
+            selected << preceding.shift unless preceding.empty?
+            selected << succeeding.shift if selected.length < @max_books && !succeeding.empty?
           end
           selected
-        end
-
-        def exhausted_both_lists?(idx_pre, preceding, idx_succ, succeeding)
-          idx_pre >= preceding.length && idx_succ >= succeeding.length
-        end
-
-        def add_from_list(selected, list, index)
-          if index < list.length
-            selected << list[index]
-            index + 1
-          else
-            index
-          end
         end
 
         def process_authors(books_by_date)
@@ -266,14 +232,6 @@ module Jekyll
             current_authors.intersect?(book_authors)
           end
         end
-
-        # Works tiers (books + short stories) compete by score; series stays separate
-        # because series links point to index pages, not individual reviews.
-        # Short story links resolve to their containing book's URL, so they surface the anthology.
-        def process_mentioned_works = process_link_tier('forward_links', :target, %w[book short_story])
-        def process_mentioned_series = process_link_tier('forward_links', :target, 'series')
-        def process_backlink_works = process_link_tier('backlinks', :source, %w[book short_story])
-        def process_backlink_series = process_link_tier('backlinks', :source, 'series')
 
         def process_link_tier(cache_key, entry_key, link_type)
           link_types = Array(link_type)
@@ -301,7 +259,8 @@ module Jekyll
             # Sort by: count desc, position asc (earlier better), date desc, title asc
             # Prefer direct_min_position (from book/short_story links) over min_position (includes series)
             position = entry[:direct_min_position] || entry[:min_position] || 100
-            [-score_from_cache(entry), position, -book.date.to_i, book.data['title'].to_s.downcase]
+            count = entry[:count] || 0
+            [-count, position, -book.date.to_i, book.data['title'].to_s.downcase]
           end
         end
 
@@ -330,10 +289,6 @@ module Jekyll
         def parse_book_num(obj)
           data = obj.is_a?(Jekyll::Document) || obj.is_a?(Jekyll::Page) ? obj.data : obj
           Jekyll::Books::Core::BookDataUtils.parse_book_number(data['book_number'])
-        end
-
-        def score_from_cache(entry)
-          entry[:count] || 0
         end
       end
     end
