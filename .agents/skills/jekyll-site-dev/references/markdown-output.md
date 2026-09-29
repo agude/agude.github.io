@@ -1,0 +1,19 @@
+# Markdown output
+
+`MarkdownBodyHook` prepares Markdown for eligible posts, books, and pages in
+`:pre_render`. `MarkdownOutputAssembler` writes the `.md` files in
+`:post_render`.
+
+The pre-render hooks set `render_mode` to `html` for Jekyll's normal render.
+The Markdown pass temporarily sets it to `markdown` and restores the prior
+value before returning. Pages also copy `markdown_alternate_href` into
+`payload['page']` because their Liquid payload is a snapshot.
+
+Markdown generation errors for eligible items raise
+`Jekyll::Errors::FatalException` with the item's URL. Do not log and drop the
+Markdown twin: that would publish a successful build with missing output.
+`enable_markdown_output: false` and per-item `markdown_output: false` remain
+the explicit ways to skip generation.
+
+For changes to this pipeline, run `make test`, `make build`, and the three
+content checks: `make check-links`, `make check-refs`, and `make check-liquid`.

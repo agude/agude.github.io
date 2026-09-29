@@ -155,6 +155,9 @@ matches the change:
 - [Content Authoring](references/content-authoring.md) — excerpts, Liquid
   tags, links, and front matter enforced by the AT Protocol pipeline. Required
   for blog posts and book reviews.
+- [Markdown Output](references/markdown-output.md) — pre-render hook behavior,
+  page payload updates, and fatal generation failures. Required for the
+  Markdown output pipeline.
 - [Links, Backlinks, and Previews](references/links-and-previews.md) — raw
   Liquid scanning, related-book scoring, canonical URL filtering, hover and
   footnote previews, reference-link validation, and strict-Liquid constraints.
