@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'cgi'
 require_relative '../core/book_link_resolver'
 
 module Jekyll
