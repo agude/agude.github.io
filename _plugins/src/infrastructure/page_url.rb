@@ -7,7 +7,10 @@ module Jekyll
       def self.fetch(page)
         return nil unless page
 
-        page.respond_to?(:url) ? page.url : page['url']
+        url = page.url if page.respond_to?(:url)
+        return url unless url.nil?
+
+        page['url'] if page.respond_to?(:[])
       end
     end
   end
