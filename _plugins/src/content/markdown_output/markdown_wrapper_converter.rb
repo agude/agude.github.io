@@ -13,6 +13,7 @@ module Jekyll
         chatgpt-prompt-only
         chatgpt-output-only
       ].freeze
+      LOW_WIDTH_TABLE_CLASS = 'low-width-table'
       WRAPPER_TAG_RE = %r{</?(?:span|div)(?=[\s/>])[^>]*>}im
 
       def self.convert(text)
@@ -75,10 +76,19 @@ module Jekyll
         classes = class_attribute_values(tag)
         return :written_by if name == 'div' && classes.intersect?(WRITTEN_BY_DIV_CLASSES)
 
+        return :strip if name == 'div' && classes.include?(LOW_WIDTH_TABLE_CLASS)
+        return :strip if name == 'span' && color_only_style?(tag)
+
         handled_classes = name == 'span' ? SPAN_CLASSES : CHATGPT_DIV_CLASSES
         classes.intersect?(handled_classes) ? :strip : :preserve
       end
       private_class_method :wrapper_behavior
+
+      def self.color_only_style?(tag)
+        style = tag.match(/(?<![\w:-])style\s*=\s*["']([^"']*)["']/i)&.[](1)
+        style&.match?(/\A\s*color\s*:[^;]+;?\s*\z/i)
+      end
+      private_class_method :color_only_style?
 
       def self.class_attribute_values(tag)
         attribute = tag.match(/(?<![\w:-])class\s*=\s*["']([^"']*)["']/i)

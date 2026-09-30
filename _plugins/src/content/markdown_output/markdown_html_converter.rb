@@ -38,6 +38,7 @@ module Jekyll
         </div>
       }mx
       BREAK_RE = %r{<br\s*/?\s*>}i
+      HORIZONTAL_RULE_RE = %r{<hr(?=[\s/>])[^>]*\s*/?>}i
       FenceParser = Jekyll::Infrastructure::MarkdownFenceParser
       DETAILS_RE = %r{<details\b[^>]*>(.*?)</details\s*>}im
       SUMMARY_RE = %r{<summary\b[^>]*>(.*?)</summary\s*>}im
@@ -50,6 +51,7 @@ module Jekyll
         body = convert_chatgpt_edit_blocks(body, stashed)
         body = WrapperConverter.convert(body)
         body = convert_disclosures(body)
+        body.gsub!(HORIZONTAL_RULE_RE, "\n\n---\n\n")
 
         # Convert inner tags before outer tags (cite/span before anchors).
         body.gsub!(CITE_RE) { "_#{Regexp.last_match(1)}_" }
