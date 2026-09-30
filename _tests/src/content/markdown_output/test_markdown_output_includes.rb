@@ -100,7 +100,16 @@ class TestMarkdownOutputIncludes < Minitest::Test
 
   def test_linktree_page_markdown_keeps_all_author_links_without_layout_wrappers
     root = File.expand_path('../../../..', __dir__)
-    site = Jekyll::Site.new(Jekyll.configuration('source' => root, 'quiet' => true))
+    author = {
+      'bluesky' => 'writer.example',
+      'mastodon_instance' => 'social.example',
+      'mastodon' => 'writer',
+      'github' => 'fixture-writer',
+      'linkedin' => 'fixture-writer-profile',
+      'name' => 'Fixture Writer',
+    }
+    config = Jekyll.configuration('source' => root, 'quiet' => true, 'author' => author)
+    site = Jekyll::Site.new(config)
     content = File.read(File.join(root, 'linktree.md')).sub(/\A---\n.*?\n---\n/m, '')
     payload = {
       'site' => { 'author' => site.config['author'] },
@@ -113,10 +122,10 @@ class TestMarkdownOutputIncludes < Minitest::Test
 
     actual_urls = html.css('a').map { |link| link['href'] }
     expected_urls = [
-      'https://bsky.app/profile/alexgude.com',
-      'https://fediscience.org/@alex_gude',
-      'https://github.com/agude',
-      'https://www.linkedin.com/in/alexandergude',
+      'https://bsky.app/profile/writer.example',
+      'https://social.example/@writer',
+      'https://github.com/fixture-writer',
+      'https://www.linkedin.com/in/fixture-writer-profile',
       '/',
       '/feed.xml',
       '/feed/books.xml',

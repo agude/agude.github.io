@@ -66,15 +66,6 @@ class TestMarkdownHtmlConverter < Minitest::Test
     assert_equal "Read [Neuromancer](/books/neuromancer/)'s sequel.", Converter.convert(input)
   end
 
-  def test_band_name_span_preserves_text
-    assert_equal 'Listen to The Beatles.', Converter.convert('Listen to <span class="band-name">The Beatles</span>.')
-  end
-
-  def test_presentation_span_matches_class_among_other_attributes
-    input = '<span id="title" class="nowrap highlighted">Neuromancer</span>'
-    assert_equal 'Neuromancer', Converter.convert(input)
-  end
-
   def test_similar_presentation_classes_remain_unchanged
     input = '<span data-class="nowrap">one</span> <span class="nowrapish">two</span> ' \
             '<div class="written-by-note">three</div> ' \
@@ -88,21 +79,6 @@ class TestMarkdownHtmlConverter < Minitest::Test
   def test_written_by_block_preserves_paragraph_boundaries
     input = 'Before.<div class="written-by">by <a href="/books/authors/william_gibson/">William Gibson</a></div>After.'
     assert_equal "Before.\n\nby [William Gibson](/books/authors/william_gibson/)\n\nAfter.", Converter.convert(input)
-  end
-
-  def test_author_name_span
-    html = '<span class="author-name">Dan Simmons</span>'
-    assert_equal 'Dan Simmons', Converter.convert(html)
-  end
-
-  def test_book_series_span
-    html = '<span class="book-series">Hyperion Cantos</span>'
-    assert_equal 'Hyperion Cantos', Converter.convert(html)
-  end
-
-  def test_written_by_span
-    html = '<span class="written-by">Written by</span>'
-    assert_equal 'Written by', Converter.convert(html)
   end
 
   # --- abbr → plain text ---
@@ -256,25 +232,10 @@ class TestMarkdownHtmlConverter < Minitest::Test
     end
   end
 
-  def test_nested_presentation_spans_are_removed_completely
-    input = '<span class="nowrap">Listen to <span class="band-name">The Beatles</span>.</span>'
-    assert_equal 'Listen to The Beatles.', Converter.convert(input)
-  end
-
-  def test_written_by_inside_unknown_div_preserves_outer_wrapper
-    input = '<div class="other"><div class="written-by">by Author</div>After.</div>'
-    expected = "<div class=\"other\">\n\nby Author\n\nAfter.</div>"
-    assert_equal expected, Converter.convert(input)
-  end
-
-  def test_unbalanced_wrappers_are_preserved
-    [
-      '<span class="nowrap">open',
-      '<div class="written-by">by Author</span>',
-      '<div class="other"><span class="band-name">Author</div>',
-    ].each do |input|
-      assert_equal input, Converter.convert(input)
-    end
+  def test_nested_presentation_spans_convert_anchors_and_preserve_adjacent_prose
+    input = '<span class="nowrap">Listen to <span class="band-name">' \
+            '<a href="/music/">The Beatles</a></span>.</span> Afterwards.'
+    assert_equal 'Listen to [The Beatles](/music/). Afterwards.', Converter.convert(input)
   end
 
   def test_unmatched_inline_delimiter_does_not_hide_later_html

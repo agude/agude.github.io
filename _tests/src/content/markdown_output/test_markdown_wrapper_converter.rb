@@ -7,6 +7,12 @@ require_relative '../../../../_plugins/src/content/markdown_output/markdown_wrap
 class TestMarkdownWrapperConverter < Minitest::Test
   WrapperConverter = Jekyll::MarkdownOutput::MarkdownWrapperConverter
 
+  def test_supported_span_classes_preserve_the_contents
+    %w[author-name book-series written-by nowrap band-name].each do |name|
+      assert_equal 'Text', WrapperConverter.convert("<span class=\"#{name}\">Text</span>"), name
+    end
+  end
+
   def test_strips_nested_supported_spans
     input = '<span id="title" class="nowrap highlighted">Listen to ' \
             '<span class="band-name">The Beatles</span>.</span>'
@@ -32,5 +38,11 @@ class TestMarkdownWrapperConverter < Minitest::Test
             '<span class="nowrap">open'
 
     assert_equal input, WrapperConverter.convert(input)
+    [
+      '<div class="written-by">by Author</span>',
+      '<div class="other"><span class="band-name">Author</div>',
+    ].each do |malformed|
+      assert_equal malformed, WrapperConverter.convert(malformed)
+    end
   end
 end

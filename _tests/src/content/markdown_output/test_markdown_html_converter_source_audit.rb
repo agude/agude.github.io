@@ -3,16 +3,19 @@
 require_relative '../../../test_helper'
 require_relative '../../../../_plugins/src/content/markdown_output/markdown_html_converter'
 
-# Source HTML cleanup cases found in the generated Markdown audit.
+# Stable list and footnote fixture for the corrected nowrap markup.
 class TestMarkdownHtmlSourceAudit < Minitest::Test
-  def test_localization_article_does_not_leave_a_malformed_nowrap_span
-    path = File.expand_path('../../../../_posts/2017-08-07-lab41_object_localization_without_deep_learning.md', __dir__)
-    item = File.read(path)[/^1\. An .*?(?=\n2\.)/m]
-    refute_nil item
+  def test_nowrap_footnote_in_list_preserves_the_link_and_following_prose
+    input = "1. Read [Detector](/paper/)<span\n   class=\"nowrap\">,[^ref]</span> carefully.\n\n[^ref]: Citation.\n"
+    expected = "1. Read [Detector](/paper/),[^ref] carefully.\n\n[^ref]: Citation.\n"
+    output = Jekyll::MarkdownOutput::MarkdownHtmlConverter.convert(input)
+    assert_equal expected, output
 
-    output = Jekyll::MarkdownOutput::MarkdownHtmlConverter.convert(item)
-
-    refute_match(%r{</?span\b}i, output)
-    assert_includes output, '[Single Shot MultiBox Detector (SSD)][ssd],[^liu] performed poorly.'
+    config = Jekyll.configuration('source' => File.expand_path('../../../..', __dir__), 'quiet' => true)
+    html = Nokogiri::HTML.fragment(Jekyll::Converters::Markdown.new(config).convert(output))
+    assert_equal '/paper/', html.at_css('ol > li a')['href']
+    assert_equal 'Detector', html.at_css('ol > li a').text
+    assert_includes html.at_css('ol > li').text, 'carefully.'
+    assert_equal 1, html.css('.footnotes li').length
   end
 end
