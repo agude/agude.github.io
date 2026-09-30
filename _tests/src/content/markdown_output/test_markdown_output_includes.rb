@@ -82,6 +82,61 @@ class TestMarkdownOutputIncludes < Minitest::Test
     assert_empty html.css('pre, code')
   end
 
+  def test_linktree_markdown_keeps_accessible_link_text_without_svg_or_layout_markup
+    parameters = {
+      'link' => 'https://example.com/profile',
+      'text' => 'My profile',
+      'button_class' => 'profile-button',
+      'icon' => '<svg aria-hidden="true"><path d="M0 0"/></svg>',
+    }
+    output = render_include('linktree_item.html', parameters, :markdown)
+    markdown = WhitespaceNormalizer.normalize(MarkdownOutputConverter.convert(output))
+
+    assert_equal '[My profile](https://example.com/profile)', markdown.strip
+    link = render_markdown(markdown).at_css('a')
+    assert_equal 'My profile', link.text
+    assert_equal parameters['link'], link['href']
+  end
+
+  def test_linktree_page_markdown_keeps_all_author_links_without_layout_wrappers
+    root = File.expand_path('../../../..', __dir__)
+    site = Jekyll::Site.new(Jekyll.configuration('source' => root, 'quiet' => true))
+    content = File.read(File.join(root, 'linktree.md')).sub(/\A---\n.*?\n---\n/m, '')
+    payload = {
+      'site' => { 'author' => site.config['author'] },
+      'page' => { 'url' => '/linktree/' },
+      'render_mode' => 'html',
+    }
+
+    markdown = Jekyll::MarkdownOutput::MarkdownBodyHook.render_markdown_body(content, site, payload)
+    html = render_markdown(markdown)
+
+    actual_urls = html.css('a').map { |link| link['href'] }
+    expected_urls = [
+      'https://bsky.app/profile/alexgude.com',
+      'https://fediscience.org/@alex_gude',
+      'https://github.com/agude',
+      'https://www.linkedin.com/in/alexandergude',
+      '/',
+      '/feed.xml',
+      '/feed/books.xml',
+    ]
+    assert_equal expected_urls, actual_urls
+    refute_match(%r{</?(?:div|svg|path|pre|code)\b}i, markdown)
+    assert_equal 'html', payload['render_mode']
+
+    html_payload = {
+      'site' => { 'author' => site.config['author'] },
+      'page' => { 'url' => '/linktree/' },
+      'render_mode' => 'html',
+    }
+    output = Liquid::Template.parse(content).render!(
+      html_payload,
+      registers: { site: site, page: html_payload['page'], render_mode: :html },
+    )
+    assert_includes output, '<div class="linktree-container">'
+  end
+
   def test_navigation_and_linktree_html_keep_layout_and_icons
     @site.data['link_cache']['books_topbar_nav'] = [{ 'short_title' => 'Date', 'url' => '/books/' }]
     navigation = Nokogiri::HTML.fragment(render_include('books_topbar.html', {}, :html))

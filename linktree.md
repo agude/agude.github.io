@@ -7,7 +7,7 @@ description: >
 sidebar_include: false
 ---
 
-<div class="linktree-container">
+{% if render_mode != 'markdown' %}<div class="linktree-container">{% endif %}
 
 {% comment %} Bluesky {% endcomment %}
 {% capture bluesky_url %}https://bsky.app/profile/{{ site.author.bluesky }}{% endcapture %}
@@ -80,4 +80,4 @@ sidebar_include: false
   button_class="rss-button"
 %}
 
-</div>
+{% if render_mode != 'markdown' %}</div>{% endif %}
