@@ -79,7 +79,9 @@ class TestMarkdownHtmlConverter < Minitest::Test
     input = '<span data-class="nowrap">one</span> <span class="nowrapish">two</span> ' \
             '<div class="written-by-note">three</div> ' \
             '<div class="chatgpt-edit-block-note">four</div> ' \
-            '<div data-class="chatgpt-prompt-only">five</div>'
+            '<div data-class="chatgpt-prompt-only">five</div> ' \
+            '<span-other class="nowrap">six</span-other> ' \
+            '<div-other class="written-by">seven</div-other>'
     assert_equal input, Converter.convert(input)
   end
 
@@ -251,6 +253,27 @@ class TestMarkdownHtmlConverter < Minitest::Test
     ].each do |input|
       expected = input.gsub('<em>prose</em>', '_prose_')
       assert_equal expected, Converter.convert(input)
+    end
+  end
+
+  def test_nested_presentation_spans_are_removed_completely
+    input = '<span class="nowrap">Listen to <span class="band-name">The Beatles</span>.</span>'
+    assert_equal 'Listen to The Beatles.', Converter.convert(input)
+  end
+
+  def test_written_by_inside_unknown_div_preserves_outer_wrapper
+    input = '<div class="other"><div class="written-by">by Author</div>After.</div>'
+    expected = "<div class=\"other\">\n\nby Author\n\nAfter.</div>"
+    assert_equal expected, Converter.convert(input)
+  end
+
+  def test_unbalanced_wrappers_are_preserved
+    [
+      '<span class="nowrap">open',
+      '<div class="written-by">by Author</span>',
+      '<div class="other"><span class="band-name">Author</div>',
+    ].each do |input|
+      assert_equal input, Converter.convert(input)
     end
   end
 

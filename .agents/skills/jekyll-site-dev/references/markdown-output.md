@@ -24,7 +24,10 @@ containers. Inline spans do not cross blank lines. It converts `<em>`
 tags to Markdown emphasis and `<strong>` tags to Markdown strong emphasis
 before converting enclosing anchors to Markdown links. Presentation spans with
 `nowrap` or `band-name` classes are stripped while their contents remain, and
-`written-by` divs become separate Markdown paragraphs.
+`author-name`, `book-series`, `written-by`, `nowrap`, and `band-name` spans are
+stripped by a balanced span/div traversal. `written-by` divs become separate
+Markdown paragraphs, while the supported ChatGPT wrapper divs are removed and
+other div/span wrappers remain intact.
 
 The final Markdown whitespace pass trims prose line endings and collapses
 excess blank lines, while preserving hard-break spaces and whitespace inside
