@@ -53,7 +53,7 @@ Deep learning seems like the best option for finding cars as well! But we
 don't use deep learning, for two reasons:
 
 1. An "off-the-shelf" network, [Single Shot MultiBox Detector (SSD)][ssd]<span
-   class="nowrap">,[^liu]<span> performed poorly.
+   class="nowrap">,[^liu]</span> performed poorly.
 
 2. We did not have much labeled data, so retraining wasn't an option.
 
