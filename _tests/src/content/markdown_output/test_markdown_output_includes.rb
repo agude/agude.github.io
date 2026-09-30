@@ -4,7 +4,7 @@ require_relative '../../../test_helper'
 require_relative '../../../../_plugins/src/infrastructure/markdown_whitespace_normalizer'
 require_relative '../../../../_plugins/src/content/markdown_output/markdown_html_converter'
 
-# Tests for Markdown and HTML output from figure and video includes.
+# Tests for Markdown and HTML output from shared content includes.
 class TestMarkdownOutputIncludes < Minitest::Test
   MarkdownOutputConverter = Jekyll::MarkdownOutput::MarkdownHtmlConverter
   WhitespaceNormalizer = Jekyll::Infrastructure::MarkdownWhitespaceNormalizer
@@ -64,6 +64,38 @@ class TestMarkdownOutputIncludes < Minitest::Test
     assert_includes output, '<video '
     assert_includes output, '<source src="/videos/demo.mp4" type="video/mp4" />'
     refute_includes output, '[Video]'
+  end
+
+  def test_books_topbar_markdown_keeps_sort_links_without_navigation_markup
+    @site.data['link_cache']['books_topbar_nav'] = [
+      { 'short_title' => 'Date', 'url' => '/books/' },
+      { 'short_title' => 'Author', 'url' => '/books/by-author/' },
+    ]
+    output = render_include('books_topbar.html', {}, :markdown)
+    markdown = WhitespaceNormalizer.normalize(MarkdownOutputConverter.convert(output))
+
+    refute_match(%r{</?(?:aside|nav|a)\b}i, markdown)
+    html = render_markdown(markdown)
+    assert_includes html.text, 'Sort by:'
+    links = html.css('a').map { |link| [link.text, link['href']] }
+    assert_equal [['Date', '/books/'], ['Author', '/books/by-author/']], links
+    assert_empty html.css('pre, code')
+  end
+
+  def test_navigation_and_linktree_html_keep_layout_and_icons
+    @site.data['link_cache']['books_topbar_nav'] = [{ 'short_title' => 'Date', 'url' => '/books/' }]
+    navigation = Nokogiri::HTML.fragment(render_include('books_topbar.html', {}, :html))
+    assert_equal '/books/', navigation.at_css('aside.book-topbar nav.book-nav a')['href']
+
+    parameters = {
+      'link' => 'https://example.com/profile',
+      'text' => 'My profile',
+      'icon' => '<svg aria-hidden="true"><path d="M0 0"/></svg>',
+    }
+    linktree = Nokogiri::HTML.fragment(render_include('linktree_item.html', parameters, :html))
+    assert_equal 'me', linktree.at_css('a')['rel']
+    assert_equal 'true', linktree.at_css('.linktree-images svg')['aria-hidden']
+    assert_equal 'My profile', linktree.at_css('.linktree-text strong').text.strip
   end
 
   def test_chatgpt_markdown_preserves_quotes_and_labels_inside_footnote
@@ -131,10 +163,20 @@ class TestMarkdownOutputIncludes < Minitest::Test
 
   private
 
+  def render_markdown(markdown)
+    config = Jekyll.configuration('source' => File.expand_path('../../../..', __dir__), 'quiet' => true)
+    Nokogiri::HTML.fragment(Jekyll::Converters::Markdown.new(config).convert(markdown))
+  end
+
   def render_include(filename, parameters, render_mode)
     include_path = File.expand_path("../../../../_includes/#{filename}", __dir__)
     template = Liquid::Template.parse(File.read(include_path))
-    scopes = { 'include' => parameters, 'render_mode' => render_mode.to_s }
+    scopes = {
+      'include' => parameters,
+      'render_mode' => render_mode.to_s,
+      'site' => { 'data' => @site.data, 'baseurl' => @site.baseurl },
+      'page' => { 'url' => '/books/' },
+    }
     registers = { site: @site, render_mode: render_mode }
     context = create_context(scopes, registers)
 

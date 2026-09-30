@@ -1,3 +1,18 @@
+{% if render_mode == 'markdown' %}
+Sort by:
+
+{% assign data = site | optional: 'data' %}
+{% assign link_cache = data | optional: 'link_cache' %}
+{% assign nav_items = link_cache | optional: 'books_topbar_nav' %}
+{% if nav_items %}
+{% for node in nav_items %}
+{% assign short_title = node | optional: 'short_title' %}
+{% if short_title != null %}
+[{{ short_title }}]({{ site.baseurl }}{{ node.url }})
+{% endif %}
+{% endfor %}
+{% endif %}
+{% else %}
 <aside class="book-topbar">
   <nav class="book-nav">
     {% comment %}
@@ -21,3 +36,4 @@
     {% endif %}
   </nav>
 </aside>
+{% endif %}
