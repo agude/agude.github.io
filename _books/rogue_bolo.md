@@ -7,7 +7,7 @@ book_number: 2
 is_anthology: true
 rating: 3
 image: /books/covers/rogue_bolo.jpg
-wikidata_qid: null
+wikidata_qid: Q141600939
 isbn: 978-0-671-65545-7
 date_published: 1986-01
 same_as_urls:
