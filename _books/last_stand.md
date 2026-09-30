@@ -18,7 +18,7 @@ book_number: 13
 is_anthology: true
 rating: 3
 image: /books/covers/bolos_book_4_last_stand_1st_edition.jpg
-wikidata_qid: null
+wikidata_qid: Q141609320
 isbn: 978-0-671-87760-6
 date_published: 1997-03-01
 same_as_urls:

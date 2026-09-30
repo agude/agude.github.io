@@ -14,7 +14,7 @@ book_number: 11
 is_anthology: true
 rating: 4
 image: /books/covers/bolos_book_2_the_unconquerable_1st_edition.jpg
-wikidata_qid: null
+wikidata_qid: Q141609318
 isbn: 978-0-671-87629-6
 date_published: 1994-01
 same_as_urls:

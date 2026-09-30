@@ -10,7 +10,7 @@ book_number: 12
 is_anthology: true
 rating: 5
 image: /books/covers/bolos_book_3_the_triumphant_1st_edition.jpg
-wikidata_qid: null
+wikidata_qid: Q141609319
 isbn: 978-0-671-87683-8
 date_published: 1995-08
 same_as_urls:
