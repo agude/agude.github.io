@@ -172,6 +172,8 @@ class TestMarkdownHtmlConverter < Minitest::Test
             '<span class="band-name">The Beatles</span> and ' \
             '<details><summary>literal</summary>answer</details> and ' \
             '<div class="chatgpt-edit-block"><div class="chatgpt-output-only">literal</div></div> and ' \
+            '<div class="chatgpt-edit-markdown"><strong>Prompt</strong><blockquote>x</blockquote>' \
+            '<strong>Output</strong><blockquote>y</blockquote></div> and ' \
             "<div class=\"written-by\">by Author</div>\n```\n\n" \
             '<cite class="book-title">After</cite>'
     expected = "Some text.\n\n```html\n<cite class=\"book-title\">Foo</cite> and " \
@@ -179,6 +181,8 @@ class TestMarkdownHtmlConverter < Minitest::Test
                '<span class="band-name">The Beatles</span> and ' \
                '<details><summary>literal</summary>answer</details> and ' \
                '<div class="chatgpt-edit-block"><div class="chatgpt-output-only">literal</div></div> and ' \
+               '<div class="chatgpt-edit-markdown"><strong>Prompt</strong><blockquote>x</blockquote>' \
+               '<strong>Output</strong><blockquote>y</blockquote></div> and ' \
                "<div class=\"written-by\">by Author</div>\n```\n\n_After_"
     assert_equal expected, Converter.convert(input)
   end
@@ -239,6 +243,17 @@ class TestMarkdownHtmlConverter < Minitest::Test
     assert_equal input, Converter.convert(input)
   end
 
+  def test_inline_code_does_not_cross_blank_line
+    [
+      "A lone ` here.\n\n<em>prose</em> and `code`.",
+      "> A lone ` here.\n>\n> <em>prose</em> and `code`.",
+      "A lone ` here.\r\n \t\r\n<em>prose</em> and `code`.",
+    ].each do |input|
+      expected = input.gsub('<em>prose</em>', '_prose_')
+      assert_equal expected, Converter.convert(input)
+    end
+  end
+
   def test_unmatched_inline_delimiter_does_not_hide_later_html
     input = 'A lone ` delimiter, then <cite class="book-title">Foo</cite>.'
     assert_equal 'A lone ` delimiter, then _Foo_.', Converter.convert(input)
@@ -279,7 +294,8 @@ class TestMarkdownHtmlConverter < Minitest::Test
     output = Converter.convert(input)
     refute_match(%r{</?div\b}i, output)
 
-    html = Nokogiri::HTML.fragment(Kramdown::Document.new(output).to_html)
+    config = Jekyll.configuration('source' => File.expand_path('../../../..', __dir__), 'quiet' => true)
+    html = Nokogiri::HTML.fragment(Jekyll::Converters::Markdown.new(config).convert(output))
     assert_equal %w[Prompt Output], html.css('strong').map(&:text)
     quotes = html.css('blockquote')
     assert_equal 2, quotes.length

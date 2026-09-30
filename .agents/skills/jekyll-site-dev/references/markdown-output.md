@@ -18,7 +18,9 @@ the caption then passes through `MarkdownHtmlConverter` so supported inline
 HTML is converted. The video include emits a `[Video](file)` link in Markdown
 mode while preserving its video markup in HTML mode. The converter protects
 fenced code blocks using backticks or tildes and inline code spans with
-matching delimiter lengths before converting inline HTML. It converts `<em>`
+matching delimiter lengths before converting inline HTML. Fence boundaries are
+shared with the whitespace normalizer and include list and blockquote
+containers. Inline spans do not cross blank lines. It converts `<em>`
 tags to Markdown emphasis and `<strong>` tags to Markdown strong emphasis
 before converting enclosing anchors to Markdown links. Presentation spans with
 `nowrap` or `band-name` classes are stripped while their contents remain, and
@@ -30,7 +32,8 @@ fenced or indented code blocks.
 
 The ChatGPT edit include keeps its compact HTML markup for HTML rendering. In
 Markdown mode it emits Prompt and Output labels with quoted content indented as
-footnote continuation, preserving paragraph breaks and list lines.
+footnote continuation, preserving paragraph breaks, list lines, and fenced
+code bytes inside the quote.
 Handwritten wrappers with the `chatgpt-edit-block`, `chatgpt-prompt`,
 `chatgpt-output`, `chatgpt-prompt-only`, and `chatgpt-output-only` classes are
 also removed in Markdown output while preserving their labels and Markdown

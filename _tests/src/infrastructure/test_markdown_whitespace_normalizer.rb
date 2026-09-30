@@ -39,6 +39,19 @@ class TestMarkdownWhitespaceNormalizer < Minitest::Test
     assert_equal input, Normalizer.normalize(input)
   end
 
+  def test_preserves_complete_fenced_code_inside_list
+    code = "    ```text\n    first\t\n\n\n    last  \n    ```\n"
+    input = "1. Example:\n\n#{code}\nEnd \n"
+    assert_equal "1. Example:\n\n#{code}\nEnd\n", Normalizer.normalize(input)
+  end
+
+  def test_indented_fence_without_list_context_does_not_swallow_following_prose
+    input = "    ```\n    <em>code</em>\n\n<em>prose</em> \n"
+    expected = "    ```\n    <em>code</em>\n\n<em>prose</em>\n"
+
+    assert_equal expected, Normalizer.normalize(input)
+  end
+
   def test_single_trailing_newline
     input = "Content\n\n\n"
     assert_equal "Content\n", Normalizer.normalize(input)

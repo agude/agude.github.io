@@ -75,7 +75,8 @@ class TestMarkdownOutputIncludes < Minitest::Test
     refute_match(/<(?:div|blockquote|br)\b/i, output)
 
     markdown = "See this.[^edit]\n\n[^edit]: #{output}\n\nAfterwards.\n"
-    html = Nokogiri::HTML.fragment(Kramdown::Document.new(markdown).to_html)
+    config = Jekyll.configuration('source' => File.expand_path('../../../..', __dir__), 'quiet' => true)
+    html = Nokogiri::HTML.fragment(Jekyll::Converters::Markdown.new(config).convert(markdown))
     footnote = html.at_css('.footnotes li')
     refute_nil footnote
     quotes = footnote.css('blockquote')
@@ -94,6 +95,38 @@ class TestMarkdownOutputIncludes < Minitest::Test
     assert_includes output, '<strong>Output</strong>'
     assert_includes output, '<blockquote>Answer</blockquote>'
     refute_includes output, "\n"
+  end
+
+  def test_production_pipeline_preserves_quoted_fence_in_footnote
+    root = File.expand_path('../../../..', __dir__)
+    site = Jekyll::Site.new(Jekyll.configuration('source' => root, 'quiet' => true))
+    code = "```ruby\nliteral = '<em>code</em>'\t\n\n\nlast = 1  \n```"
+    prompt = "Explain <em>this</em>.\n\nUse `<em>literal</em>\ncontinued`."
+    content = <<~LIQUID
+      Read this.[^edit]
+
+      [^edit]: {% include chatgpt_edit.html prompt=page.prompt output=page.code %}
+
+      Afterwards.
+    LIQUID
+    payload = { 'page' => { 'code' => code, 'prompt' => prompt }, 'render_mode' => 'html' }
+    body = Jekyll::MarkdownOutput::MarkdownBodyHook.render_markdown_body(content, site, payload)
+    doc = create_doc({ 'title' => 'Example', 'layout' => 'page', 'markdown_body' => body }, '/example/')
+    markdown = Jekyll::MarkdownOutput::MarkdownOutputAssembler.assemble_markdown(doc)
+    quoted_code = code.split("\n", -1).map { |line| line.empty? ? '    >' : "    > #{line}" }.join("\n")
+    assert_includes markdown, "\n#{quoted_code}\n"
+    assert_includes markdown, "\n    > Use `<em>literal</em>\n    > continued`.\n"
+
+    rendered = Jekyll::Converters::Markdown.new(site.config).convert(markdown)
+    html = Nokogiri::HTML.fragment(rendered)
+    footnote = html.at_css('.footnotes li')
+    refute_nil footnote
+    assert_equal 2, footnote.css('blockquote').length
+    assert_equal %w[Prompt Output], footnote.css('strong').map(&:text)
+    assert_equal 'this', footnote.at_css('em')&.text
+    assert_equal "literal = '<em>code</em>'\t\n\n\nlast = 1  \n", footnote.at_css('pre > code')&.text, rendered
+    assert_equal 'Afterwards.', html.xpath('./p').last.text.strip
+    assert_equal 'html', payload['render_mode']
   end
 
   private

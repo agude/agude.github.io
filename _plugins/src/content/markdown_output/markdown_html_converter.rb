@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../../infrastructure/markdown_fence_parser'
+
 module Jekyll
   module MarkdownOutput
     # Converts inline HTML tags to Markdown equivalents in rendered
@@ -50,6 +52,7 @@ module Jekyll
         </div>
       }mx
       BREAK_RE = %r{<br\s*/?\s*>}i
+      FenceParser = Jekyll::Infrastructure::MarkdownFenceParser
       DETAILS_RE = %r{<details\b[^>]*>(.*?)</details\s*>}im
       SUMMARY_RE = %r{<summary\b[^>]*>(.*?)</summary\s*>}im
 
@@ -58,7 +61,7 @@ module Jekyll
 
         stashed = {}
         body = stash_code_blocks(markdown_body, stashed)
-        body = convert_chatgpt_edit_blocks(body)
+        body = convert_chatgpt_edit_blocks(body, stashed)
         body = convert_chatgpt_divs(body)
         body = convert_disclosures(body)
 
@@ -76,34 +79,48 @@ module Jekyll
 
       # --- private helpers ---
 
-      def self.convert_chatgpt_edit_blocks(text)
+      def self.convert_chatgpt_edit_blocks(text, stashed)
         text.gsub(CHATGPT_EDIT_RE) do
           prompt, output = Regexp.last_match.captures
           [
             '**Prompt**',
             '',
-            format_chatgpt_quote(prompt),
+            format_chatgpt_quote(prompt, stashed),
             '',
             '    **Output**',
             '',
-            format_chatgpt_quote(output),
+            format_chatgpt_quote(output, stashed),
           ].join("\n")
         end
       end
       private_class_method :convert_chatgpt_edit_blocks
 
-      def self.format_chatgpt_quote(content)
-        stashed = {}
-        protected_content = stash_code_blocks(content, stashed)
+      def self.format_chatgpt_quote(content, stashed)
+        content = remove_chatgpt_boundary_lines(restore_code_blocks(content, stashed))
+        local_stashed = {}
+        protected_content = stash_code_blocks(content, local_stashed)
         protected_content.gsub!(BREAK_RE, "\n")
-        markdown = restore_code_blocks(convert(protected_content), stashed).strip
+        markdown = convert(protected_content)
         return '    >' if markdown.empty?
 
-        markdown.split("\n", -1).map do |line|
-          line.empty? ? '    >' : "    > #{line}"
-        end.join("\n")
+        markdown = restore_code_blocks(markdown, local_stashed)
+        stash(quote_markdown_lines(markdown), stashed)
       end
       private_class_method :format_chatgpt_quote
+
+      def self.remove_chatgpt_boundary_lines(content)
+        content.sub(/\A\r?\n/, '').sub(/\r?\n\z/, '')
+      end
+      private_class_method :remove_chatgpt_boundary_lines
+
+      def self.quote_markdown_lines(markdown)
+        markdown.each_line.map do |line|
+          ending = line[/\r?\n\z/] || ''
+          content = ending.empty? ? line : line[0...-ending.length]
+          content.empty? ? "    >#{ending}" : "    > #{content}#{ending}"
+        end.join
+      end
+      private_class_method :quote_markdown_lines
 
       def self.convert_chatgpt_divs(text)
         output = +''
@@ -204,9 +221,9 @@ module Jekyll
         line_index = 0
 
         while line_index < lines.length
-          fence = fence_start(lines[line_index])
+          fence = FenceParser.fence_start(lines[line_index], lines: lines, line_index: line_index)
           if fence
-            block, line_index = fenced_block(lines, line_index, fence)
+            block, line_index = FenceParser.fenced_block(lines, line_index, fence)
             ending = block[/\r?\n\z/] || ''
             fenced_content = ending.empty? ? block : block[0...-ending.length]
             output << stash(fenced_content, stashed) << ending
@@ -221,26 +238,6 @@ module Jekyll
       end
       private_class_method :stash_block_code
 
-      def self.fence_start(line)
-        match = line.match(/^ {0,3}(`{3,}|~{3,})/)
-        return nil unless match
-        return nil if match[1].start_with?('`') && line[match[0].length..].include?('`')
-
-        [match[1][0], match[1].length]
-      end
-      private_class_method :fence_start
-
-      def self.fenced_block(lines, start_index, fence)
-        marker, length = fence
-        close_pattern = /^ {0,3}#{Regexp.escape(marker)}{#{length},}[ \t]*\r?(?:\n|\z)/
-        line_index = start_index + 1
-        line_index += 1 while line_index < lines.length && !lines[line_index].match?(close_pattern)
-        line_index += 1 if line_index < lines.length
-
-        [lines[start_index...line_index].join, line_index]
-      end
-      private_class_method :fenced_block
-
       def self.stash_inline_code_spans(text, stashed)
         runs = []
         text.to_enum(:scan, /`+/).each do
@@ -248,7 +245,9 @@ module Jekyll
           runs << [match.begin(0), match.end(0), match[0].length]
         end
 
-        next_matching_run = find_next_matching_runs(runs)
+        paragraph_boundaries = blank_line_boundaries(text)
+        run_regions = assign_run_regions(runs, paragraph_boundaries)
+        next_matching_run = find_next_matching_runs(runs, run_regions)
 
         output = +''
         text_position = 0
@@ -273,13 +272,31 @@ module Jekyll
       end
       private_class_method :stash_inline_code_spans
 
-      def self.find_next_matching_runs(runs)
+      def self.assign_run_regions(runs, boundaries)
+        boundary_index = 0
+        runs.map do |run|
+          boundary_index += 1 while boundaries[boundary_index] && boundaries[boundary_index] <= run[0]
+          boundary_index
+        end
+      end
+      private_class_method :assign_run_regions
+
+      def self.blank_line_boundaries(text)
+        text.to_enum(:scan, /\r?\n[ \t]*(?:>[ \t]*(?:>[ \t]*)*)?[ \t]*\r?\n/).map do
+          Regexp.last_match.end(0)
+        end
+      end
+      private_class_method :blank_line_boundaries
+
+      def self.find_next_matching_runs(runs, run_regions)
         next_matching_run = Array.new(runs.length)
         nearest_run_by_length = {}
         (runs.length - 1).downto(0) do |run_index|
           delimiter_length = runs[run_index][2]
-          next_matching_run[run_index] = nearest_run_by_length[delimiter_length]
-          nearest_run_by_length[delimiter_length] = run_index
+          region = run_regions[run_index]
+          key = [delimiter_length, region]
+          next_matching_run[run_index] = nearest_run_by_length[key]
+          nearest_run_by_length[key] = run_index
         end
 
         next_matching_run

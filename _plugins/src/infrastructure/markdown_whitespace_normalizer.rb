@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
+require_relative 'markdown_fence_parser'
+
 module Jekyll
   module Infrastructure
     # Normalizes prose whitespace while preserving Markdown code and hard breaks.
     # @pattern Protect code blocks before normalizing prose so source whitespace
     #   inside code fences and indented code remains unchanged.
     module MarkdownWhitespaceNormalizer
-      FENCE_START_RE = /^ {0,3}(`{3,}|~{3,})/
+      FenceParser = Jekyll::Infrastructure::MarkdownFenceParser
       INDENTED_CODE_RE = /\A(?: {4}|\t)/
       LIST_ITEM_RE = /^ {0,3}(?:[-+*]|\d+[.)])\s/
       STASH_PREFIX = '@@MDWHITESPACE'
@@ -24,9 +26,9 @@ module Jekyll
         line_index = 0
 
         while line_index < lines.length
-          fence = fence_start(lines[line_index])
+          fence = FenceParser.fence_start(lines[line_index], lines: lines, line_index: line_index)
           if fence
-            block, line_index = fenced_block(lines, line_index, fence)
+            block, line_index = FenceParser.fenced_block(lines, line_index, fence)
             output << stash_block(block, stashed)
             next
           end
@@ -44,26 +46,6 @@ module Jekyll
         output.join
       end
       private_class_method :stash_code_blocks
-
-      def self.fence_start(line)
-        match = line.match(FENCE_START_RE)
-        return nil unless match
-        return nil if match[1].start_with?('`') && line[match[0].length..].include?('`')
-
-        [match[1][0], match[1].length]
-      end
-      private_class_method :fence_start
-
-      def self.fenced_block(lines, start_index, fence)
-        marker, length = fence
-        close_pattern = /^ {0,3}#{Regexp.escape(marker)}{#{length},}[ \t]*\r?(?:\n|\z)/
-        line_index = start_index + 1
-        line_index += 1 while line_index < lines.length && !lines[line_index].match?(close_pattern)
-        line_index += 1 if line_index < lines.length
-
-        [lines[start_index...line_index].join, line_index]
-      end
-      private_class_method :fenced_block
 
       def self.indented_code_start?(lines, line_index)
         return false unless lines[line_index].match?(INDENTED_CODE_RE)
