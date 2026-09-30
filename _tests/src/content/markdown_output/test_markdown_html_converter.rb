@@ -77,7 +77,9 @@ class TestMarkdownHtmlConverter < Minitest::Test
 
   def test_similar_presentation_classes_remain_unchanged
     input = '<span data-class="nowrap">one</span> <span class="nowrapish">two</span> ' \
-            '<div class="written-by-note">three</div>'
+            '<div class="written-by-note">three</div> ' \
+            '<div class="chatgpt-edit-block-note">four</div> ' \
+            '<div data-class="chatgpt-prompt-only">five</div>'
     assert_equal input, Converter.convert(input)
   end
 
@@ -159,7 +161,8 @@ class TestMarkdownHtmlConverter < Minitest::Test
   def test_inline_code_preserved
     input = 'Use `<cite class="book-title">Foo</cite>, <em>literal</em>, and ' \
             '<strong>bold</strong>, <span class="nowrap">title</span>, and ' \
-            '<details><summary>literal</summary>answer</details>` for titles.'
+            '<details><summary>literal</summary>answer</details>, and ' \
+            '<div class="chatgpt-prompt-only">literal</div>` for titles.'
     assert_equal input, Converter.convert(input)
   end
 
@@ -168,12 +171,14 @@ class TestMarkdownHtmlConverter < Minitest::Test
             '<em>literal</em>, <strong>bold</strong>, and ' \
             '<span class="band-name">The Beatles</span> and ' \
             '<details><summary>literal</summary>answer</details> and ' \
+            '<div class="chatgpt-edit-block"><div class="chatgpt-output-only">literal</div></div> and ' \
             "<div class=\"written-by\">by Author</div>\n```\n\n" \
             '<cite class="book-title">After</cite>'
     expected = "Some text.\n\n```html\n<cite class=\"book-title\">Foo</cite> and " \
                '<em>literal</em>, <strong>bold</strong>, and ' \
                '<span class="band-name">The Beatles</span> and ' \
                '<details><summary>literal</summary>answer</details> and ' \
+               '<div class="chatgpt-edit-block"><div class="chatgpt-output-only">literal</div></div> and ' \
                "<div class=\"written-by\">by Author</div>\n```\n\n_After_"
     assert_equal expected, Converter.convert(input)
   end
@@ -245,6 +250,82 @@ class TestMarkdownHtmlConverter < Minitest::Test
   end
 
   # --- mixed content ---
+
+  def test_handwritten_chatgpt_sections_preserve_labels_quotes_and_surrounding_prose
+    input = <<~MARKDOWN
+      Before.
+
+      <div class="chatgpt-edit-block">
+      <div class="chatgpt-prompt">
+      <strong>Prompt</strong>
+      <div class="chatgpt-prompt-only" markdown="1">
+      > Rewrite _this_.
+      >
+      > Keep the meaning.
+      </div>
+      </div>
+
+      <div class="chatgpt-output">
+      <strong>Output</strong>
+      <div class="chatgpt-output-only" markdown="1">
+      > 1. First version.
+      > 2. Second version.
+      </div>
+      </div>
+      </div>
+
+      Afterwards.
+    MARKDOWN
+    output = Converter.convert(input)
+    refute_match(%r{</?div\b}i, output)
+
+    html = Nokogiri::HTML.fragment(Kramdown::Document.new(output).to_html)
+    assert_equal %w[Prompt Output], html.css('strong').map(&:text)
+    quotes = html.css('blockquote')
+    assert_equal 2, quotes.length
+    assert_equal ['Rewrite this.', 'Keep the meaning.'], quotes.first.css('p').map(&:text).map(&:strip)
+    assert_equal 'this', quotes.first.at_css('em')&.text
+    assert_equal ['First version.', 'Second version.'], quotes.last.css('ol > li').map(&:text).map(&:strip)
+    assert_equal ['Before.', 'Prompt', 'Output', 'Afterwards.'], html.xpath('./p').map(&:text).map(&:strip)
+  end
+
+  def test_handwritten_chatgpt_prompt_only_preserves_quote_and_code
+    input = <<~MARKDOWN
+      <div class="chatgpt-edit-block">
+      <div class="chatgpt-prompt-only" markdown="1">
+      > Check `NONE` in this enum:
+      >
+      > ```python
+      > class Make(Enum):
+      >     UNKNOWN = "none"
+      > ```
+      </div>
+      </div>
+    MARKDOWN
+    expected = <<~MARKDOWN
+      > Check `NONE` in this enum:
+      >
+      > ```python
+      > class Make(Enum):
+      >     UNKNOWN = "none"
+      > ```
+    MARKDOWN
+    assert_equal expected.strip, Converter.convert(input).strip
+  end
+
+  def test_handwritten_chatgpt_output_only_preserves_quote_without_inventing_label
+    input = <<~MARKDOWN
+      <div class="chatgpt-edit-block">
+      <div class="chatgpt-output-only" markdown="1">
+      > The answer is **correct**.
+      >
+      > Here is why.
+      </div>
+      </div>
+    MARKDOWN
+    expected = "> The answer is **correct**.\n>\n> Here is why."
+    assert_equal expected, Converter.convert(input).strip
+  end
 
   def test_disclosure_preserves_summary_and_full_body_as_markdown
     input = 'Before.<details markdown="1"><summary markdown="1"><strong>Check the data</strong></summary>' \

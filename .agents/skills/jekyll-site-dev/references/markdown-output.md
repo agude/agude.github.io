@@ -31,6 +31,10 @@ fenced or indented code blocks.
 The ChatGPT edit include keeps its compact HTML markup for HTML rendering. In
 Markdown mode it emits Prompt and Output labels with quoted content indented as
 footnote continuation, preserving paragraph breaks and list lines.
+Handwritten wrappers with the `chatgpt-edit-block`, `chatgpt-prompt`,
+`chatgpt-output`, `chatgpt-prompt-only`, and `chatgpt-output-only` classes are
+also removed in Markdown output while preserving their labels and Markdown
+content.
 
 Disclosure blocks (`<details>` and `<summary>`) are flattened in Markdown
 output. The summary and answer body remain in order with paragraph boundaries;

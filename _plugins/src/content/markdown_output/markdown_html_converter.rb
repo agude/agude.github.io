@@ -27,6 +27,14 @@ module Jekyll
       DIV_WRAPPER_RE = %r{(<div\b[^>]*>)(.*?)(</div\s*>)}im
       PRESENTATION_SPAN_CLASSES = %w[nowrap band-name].freeze
       WRITTEN_BY_CLASSES = %w[written-by].freeze
+      CHATGPT_DIV_CLASSES = %w[
+        chatgpt-edit-block
+        chatgpt-prompt
+        chatgpt-output
+        chatgpt-prompt-only
+        chatgpt-output-only
+      ].freeze
+      DIV_TAG_RE = %r{</?div\b[^>]*>}im
 
       # Abbr tags that should be stripped to plain text.
       ABBR_RE = %r{<abbr[^>]*class=["']etal["'][^>]*>(.*?)</abbr>}m
@@ -51,6 +59,7 @@ module Jekyll
         stashed = {}
         body = stash_code_blocks(markdown_body, stashed)
         body = convert_chatgpt_edit_blocks(body)
+        body = convert_chatgpt_divs(body)
         body = convert_disclosures(body)
 
         # Convert inner tags before outer tags (cite/span before anchors).
@@ -95,6 +104,33 @@ module Jekyll
         end.join("\n")
       end
       private_class_method :format_chatgpt_quote
+
+      def self.convert_chatgpt_divs(text)
+        output = +''
+        stripped_divs = []
+        position = 0
+
+        text.to_enum(:scan, DIV_TAG_RE).each do
+          match = Regexp.last_match
+          start = match.begin(0)
+          finish = match.end(0)
+          tag = match[0]
+          output << text[position...start]
+
+          if tag.match?(%r{\A</div}i)
+            output << tag unless stripped_divs.pop
+          else
+            strip_tag = class_attribute_includes?(tag, CHATGPT_DIV_CLASSES)
+            stripped_divs << strip_tag
+            output << tag unless strip_tag
+          end
+
+          position = finish
+        end
+
+        output << text[position..]
+      end
+      private_class_method :convert_chatgpt_divs
 
       def self.convert_disclosures(text)
         text.gsub(DETAILS_RE) do
