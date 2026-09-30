@@ -74,7 +74,7 @@ of the Concordiat era.
 {% capture liar %}{% short_story_link "Liar!" %}{% endcapture %}
 
 {% capture wellss %}{% author_link "H. G. Wells" possessive %}{% endcapture %}
-{% capture war %}{% short_story_link "The War of the Worlds" %}{% endcapture %}
+{% capture war %}{% book_link "The War of the Worlds" %}{% endcapture %}
 
 {{ this_book }} follows {{ bolo10 }} and contains sequels to {{ lost_legion }}
 and {{ camelot }}. As the second book in the anthology, the authors and editor
