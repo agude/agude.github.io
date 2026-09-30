@@ -45,7 +45,8 @@ module Jekyll
         end
 
         def self.render_book_card_md(data)
-          line = "- [_#{Text.escape_link_text(data[:title])}_](#{Text.escape_url(data[:url])})"
+          title = Text.markdown_title_text(data[:title])
+          line = "- [_#{Text.escape_link_text(title)}_](#{Text.escape_url(data[:url])})"
           line += " by #{format_card_authors(data)}" if data[:authors]&.any?
           stars = format_stars(data[:rating])
           line += " --- #{stars}" if stars
@@ -63,7 +64,8 @@ module Jekyll
         private_class_method :format_card_authors
 
         def self.render_article_card_md(data)
-          line = "- [#{Text.escape_link_text(data[:title])}](#{Text.escape_url(data[:url])})"
+          title = Text.markdown_title_text(data[:title])
+          line = "- [#{Text.escape_link_text(title)}](#{Text.escape_url(data[:url])})"
           line += ": #{data[:description]}" if data[:description]
           line
         end

@@ -66,7 +66,7 @@ module Jekyll
       end
 
       def self.build_post_header(item)
-        title = item.data['title']
+        title = Text.markdown_title_text(item.data['title'])
         date = item.data['date']
         categories = item.data['categories'] || []
 
@@ -79,7 +79,7 @@ module Jekyll
       end
 
       def self.build_book_header(item, site)
-        title = item.data['title']
+        title = Text.markdown_title_text(item.data['title'])
         authors = item.data['book_authors']
         series = item.data['series']
         book_number = item.data['book_number']
@@ -101,12 +101,12 @@ module Jekyll
       end
 
       def self.build_category_header(item)
-        title = item.data['category-title'] || item.data['title']
+        title = Text.markdown_title_text(item.data['category-title'] || item.data['title'])
         "# Topic: #{title}"
       end
 
       def self.build_title_only_header(item)
-        "# #{item.data['title']}"
+        "# #{Text.markdown_title_text(item.data['title'])}"
       end
 
       # --- Book footer sections (related, backlinks, previous reviews) ---

@@ -1,5 +1,10 @@
 {% if render_mode == "markdown" %}
 ![{{ include | optional: 'image_alt' | default: "A figure with a caption" }}]({{ include | optional: 'url' }})
+{% assign caption = include | optional: 'caption' %}
+{% if caption %}
+
+{{ caption }}
+{% endif %}
 {% else %}
 <figure>
   {% comment %} The image {% endcomment %}

@@ -7,6 +7,18 @@ require_relative '../../../../_plugins/src/ui/cards/markdown_card_utils'
 #
 # Verifies that card data hashes are correctly formatted as Markdown list items.
 class TestMarkdownCardUtils < Minitest::Test
+  def test_article_card_replaces_title_breaks_and_preserves_link_escaping
+    data = { title: 'Spectrum:<BR /> From [Analysts]', url: '/blog/spectrum/' }
+    result = Jekyll::UI::Cards::MarkdownCardUtils.render_article_card_md(data)
+    assert_equal '- [Spectrum: From \\[Analysts\\]](/blog/spectrum/)', result
+  end
+
+  def test_book_card_replaces_title_breaks
+    data = { title: 'Part<br/>Two', url: '/books/part-two/' }
+    result = Jekyll::UI::Cards::MarkdownCardUtils.render_book_card_md(data)
+    assert_equal '- [_Part Two_](/books/part-two/)', result
+  end
+
   def test_render_book_card_md_full_data
     data = {
       title: 'The Great Gatsby',
@@ -119,11 +131,11 @@ class TestMarkdownCardUtils < Minitest::Test
 
   def test_book_doc_to_card_data_basic
     doc = create_doc(
-      { 'title' => 'Dune', 'book_authors' => ['Frank Herbert'], 'rating' => 5 },
+      { 'title' => 'Part<br/>Two', 'book_authors' => ['Frank Herbert'], 'rating' => 5 },
       '/books/dune/',
     )
     card = Jekyll::UI::Cards::MarkdownCardUtils.book_doc_to_card_data(doc)
-    assert_equal 'Dune', card[:title]
+    assert_equal 'Part<br/>Two', card[:title]
     assert_equal '/books/dune/', card[:url]
     assert_equal ['Frank Herbert'], card[:authors]
     assert_equal({}, card[:author_urls])

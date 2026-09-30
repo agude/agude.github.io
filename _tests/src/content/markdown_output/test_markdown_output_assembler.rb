@@ -32,6 +32,20 @@ class TestMarkdownOutputAssembler < Minitest::Test
 
   # --- Header builders ---
 
+  def test_headers_replace_html_title_breaks_without_changing_source_title
+    title = 'Spectrum: <br>From Analysts'
+    {
+      'post' => '# Spectrum: From Analysts',
+      'book' => '# Spectrum: From Analysts',
+      'category' => '# Topic: Spectrum: From Analysts',
+      'page' => '# Spectrum: From Analysts',
+    }.each do |layout, expected|
+      doc = create_doc({ 'layout' => layout, 'title' => title }, '/example/')
+      assert_equal expected, Assembler.build_header(doc).lines.first.strip
+      assert_equal title, doc.data['title']
+    end
+  end
+
   def test_header_post_includes_title_and_date
     doc = create_doc(
       {

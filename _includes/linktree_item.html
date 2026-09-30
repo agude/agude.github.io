@@ -1,3 +1,6 @@
+{% if render_mode == 'markdown' %}
+[{{ include | optional: 'text' }}]({{ include | optional: 'link' }})
+{% else %}
 <a rel="me" class="linktree-item" href="{{ include | optional: 'link' }}">
   {% comment %} The SVG icon {% endcomment %}
   <div class="social-button {{ include | optional: 'button_class' | default: ''}} linktree-images">
@@ -10,3 +13,4 @@
     </strong>
   </div>
 </a>
+{% endif %}

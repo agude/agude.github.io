@@ -1,5 +1,10 @@
+{% if render_mode == "markdown" %}
+{% assign video_file = include | optional: 'file' %}
+[Video]({{ video_file }})
+{% else %}
 <div class="video-gif">
   <video style="display:block; width:100%; height:auto;" autoplay muted loop="loop">
     <source src="{{ include | optional: 'file' }}" type="video/mp4" />
   </video>
 </div>
+{% endif %}

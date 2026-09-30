@@ -8,6 +8,13 @@ See:
 https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-include-external-content-inside-footnotes
 
 {% endcomment -%}
+{%- if render_mode == 'markdown' -%}
+<div class="chatgpt-edit-markdown"><strong>Prompt</strong><blockquote>
+{{ include | optional: 'prompt' }}
+</blockquote><strong>Output</strong><blockquote>
+{{ include | optional: 'output' }}
+</blockquote></div>
+{%- else -%}
 <div class="chatgpt-edit-block">{{- null -}}
   <div class="chatgpt-prompt">{{- null -}}
     <strong>Prompt</strong>{{- null -}}
@@ -22,3 +29,4 @@ https://stackoverflow.com/questions/50467557/jekyll-on-github-pages-how-to-inclu
     </div>{{- null -}}
   </div>{{- null -}}
 </div>{{- null -}}
+{%- endif -%}

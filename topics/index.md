@@ -11,6 +11,27 @@ all my articles on it.
 
 {% assign sorted_categories = site.categories | sort %}
 
+{% if render_mode == 'markdown' %}
+{% for category_pair in sorted_categories %}
+  {% assign category_name = category_pair[0] %}
+  {% assign posts_in_category = category_pair[1] %}
+  {% if posts_in_category.size > 0 %}
+- [#{{ category_name }} ({{ posts_in_category.size }})](#{{ category_name | slugify }})
+  {% endif %}
+{% endfor %}
+
+## Individual Topics
+
+{% for category_pair in sorted_categories %}
+  {% assign category_name = category_pair[0] %}
+  {% assign posts_in_category = category_pair[1] %}
+  {% if posts_in_category.size > 0 %}
+### [#{{ category_name }}](/topics/{{ category_name | slugify }}/) {#{{ category_name | slugify }}}
+{% display_category_posts topic=category_name %}
+  {% endif %}
+{% endfor %}
+{% else %}
+
 <ul>
 {% for category_pair in sorted_categories %}
   {% assign category_name = category_pair[0] %}
@@ -51,3 +72,4 @@ all my articles on it.
   {% display_category_posts topic=category_name %}
   {% endif %}
 {% endfor %}
+{% endif %}
