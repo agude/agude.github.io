@@ -16,8 +16,6 @@ module Jekyll
 
       # Cite classes that should become italic (_Title_).
       CITE_RE = %r{<cite[^>]*class=["'][^"']*\b\w+-title\b[^"']*["'][^>]*>(.*?)</cite>}m
-      DETAILS_RE = %r{<details\b[^>]*>(.*?)</details\s*>}im
-      SUMMARY_RE = %r{<summary\b[^>]*>(.*?)</summary\s*>}im
 
       WrapperConverter = Jekyll::MarkdownOutput::MarkdownWrapperConverter
 
@@ -116,15 +114,22 @@ module Jekyll
       private_class_method :quote_markdown_lines
 
       def self.convert_disclosures(text)
-        text.gsub(DETAILS_RE) do
-          contents = Regexp.last_match(1)
+        loop do
+          pair = HtmlRegionParser.tag_pairs(text, 'details').min_by { |item| item[3] - item[0] }
+          break text unless pair
+
+          open_start, open_end, close_start, close_end = pair
+          contents = text[open_end...close_start]
+          summary_pair = HtmlRegionParser.tag_pairs(contents, 'summary').first
           summary = nil
-          answer = contents.sub(SUMMARY_RE) do
-            summary = Regexp.last_match(1).strip
-            ''
+          if summary_pair
+            start_index, start_end, end_index, end_end = summary_pair
+            summary = contents[start_end...end_index].strip
+            contents = contents[0...start_index] + contents[end_end..]
           end
-          sections = [summary, answer.strip].compact.reject(&:empty?)
-          "\n\n#{sections.join("\n\n")}\n\n"
+          sections = [summary, contents.strip].compact.reject(&:empty?)
+          replacement = "\n\n#{sections.join("\n\n")}\n\n"
+          text[open_start...close_end] = replacement
         end
       end
       private_class_method :convert_disclosures

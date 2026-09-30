@@ -121,6 +121,15 @@ class TestMarkdownHtmlConverterFidelity < Minitest::Test
     assert_rendering_preserved('pre<em>fix</em>ed')
   end
 
+  def test_near_match_and_unclosed_disclosure_tags_are_preserved
+    [
+      '<details-extra><summary-extra>literal</summary-extra></details-extra>',
+      '<details><summary>Unclosed</summary><em>literal</em>',
+    ].each do |input|
+      assert_equal input, Jekyll::MarkdownOutput::MarkdownHtmlConverter.convert(input)
+    end
+  end
+
   def test_emphasis_with_boundary_whitespace_preserves_text_and_formatting
     ['<em> spaced </em>', '<strong> spaced </strong>'].each do |input|
       assert_rendering_preserved(input)
@@ -138,6 +147,44 @@ class TestMarkdownHtmlConverterFidelity < Minitest::Test
       assert_rendering_preserved(input)
     end
   end
+
+  def test_nested_disclosures_keep_summary_order_prose_and_exact_code
+    code = "```html\n<strong>literal</strong>\t\n\n\nlast  \n```\n"
+    input = <<~MARKDOWN
+      Before.
+
+      <details markdown="1">
+      <summary>Outer</summary>
+
+      Intro.
+
+      <details markdown="1">
+      <summary><strong>Inner</strong></summary>
+
+      Answer with <em>emphasis</em>.
+
+      #{code}
+      </details>
+
+      Outro.
+
+      </details>
+
+      After.
+    MARKDOWN
+    output = pipeline(input)
+
+    refute_match(%r{</?(?:details|summary)\b}i, output)
+    assert_includes output, code
+    html = render(output)
+    assert_equal ['Before.', 'Outer', 'Intro.', 'Inner', 'Answer with emphasis.', 'Outro.', 'After.'],
+                 html.xpath('./p').map(&:text)
+    assert_equal 'Inner', html.at_css('p strong')&.text
+    assert_equal 'emphasis', html.at_css('p em')&.text
+    assert_equal "<strong>literal</strong>\t\n\n\nlast  \n", html.at_css('pre > code')&.text
+  end
+
+  private
 
   def pipeline(content)
     payload = { 'page' => { 'example' => '<strong>literal</strong>' }, 'render_mode' => 'html' }
