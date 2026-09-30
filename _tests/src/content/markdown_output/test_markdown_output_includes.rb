@@ -153,6 +153,31 @@ class TestMarkdownOutputIncludes < Minitest::Test
     assert_equal 'My profile', linktree.at_css('.linktree-text strong').text.strip
   end
 
+  def test_topics_page_markdown_keeps_topic_anchors_and_post_links
+    root = File.expand_path('../../../..', __dir__)
+    content = File.read(File.join(root, 'topics/index.md')).sub(/\A---\n.*?\n---\n/m, '')
+    post = create_doc({ 'title' => 'Example post' }, '/blog/example/')
+    payload = {
+      'site' => { 'categories' => { 'data-science' => [post] } },
+      'page' => { 'url' => '/topics/' },
+      'render_mode' => 'html',
+    }
+    result = { posts: [post], log_messages: '' }
+    body = Jekyll::Posts::PostListUtils.stub(:get_posts_by_category, ->(**_args) { result }) do
+      Jekyll::MarkdownOutput::MarkdownBodyHook.render_markdown_body(content, @site, payload)
+    end
+    markdown = WhitespaceNormalizer.normalize(body)
+
+    refute_match(%r{</?(?:ul|li|span|h3)\b}i, markdown)
+    html = render_markdown(markdown)
+    assert_equal '#data-science (1)', html.at_css('ul > li > a[href="#data-science"]').text
+    assert_equal '#data-science', html.at_css('h3#data-science a').text
+    assert_equal '/topics/data-science/', html.at_css('h3#data-science a')['href']
+    assert_equal 'Example post', html.at_css('a[href="/blog/example/"]').text
+    assert_empty html.css('pre, code')
+    assert_equal 'html', payload['render_mode']
+  end
+
   def test_chatgpt_markdown_preserves_quotes_and_labels_inside_footnote
     parameters = {
       'prompt' => 'Why <em>this</em>?<br><br>Next paragraph.',

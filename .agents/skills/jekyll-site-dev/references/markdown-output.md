@@ -22,7 +22,10 @@ matching delimiter lengths before converting inline HTML. Fence boundaries are
 shared with the whitespace normalizer and include list and blockquote
 containers. Inline spans do not cross blank lines. It converts `<em>`
 tags to Markdown emphasis and `<strong>` tags to Markdown strong emphasis
-before converting enclosing anchors to Markdown links. Presentation spans with
+before converting enclosing anchors to Markdown links. Horizontal rules become
+Markdown thematic breaks with blank-line boundaries. Balanced `low-width-table`
+div wrappers and spans whose only inline style is `color` are stripped while
+their contents remain. Presentation spans with
 `nowrap` or `band-name` classes are stripped while their contents remain, and
 `author-name`, `book-series`, `written-by`, `nowrap`, and `band-name` spans are
 stripped by a balanced span/div traversal. `written-by` divs become separate
@@ -41,6 +44,12 @@ Handwritten wrappers with the `chatgpt-edit-block`, `chatgpt-prompt`,
 `chatgpt-output`, `chatgpt-prompt-only`, and `chatgpt-output-only` classes are
 also removed in Markdown output while preserving their labels and Markdown
 content.
+
+`books_topbar.html` emits the cached sort links as Markdown links. The linktree
+page keeps its author links and accessible link text while omitting decorative
+icons and layout divs from Markdown output; HTML retains its container and
+icons. The topics index emits a Markdown list and headings with explicit topic
+anchors, then renders each topic's post links.
 
 Disclosure blocks (`<details>` and `<summary>`) are flattened in Markdown
 output. The summary and answer body remain in order with paragraph boundaries;
