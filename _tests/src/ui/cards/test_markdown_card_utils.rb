@@ -131,11 +131,11 @@ class TestMarkdownCardUtils < Minitest::Test
 
   def test_book_doc_to_card_data_basic
     doc = create_doc(
-      { 'title' => 'Dune', 'book_authors' => ['Frank Herbert'], 'rating' => 5 },
+      { 'title' => 'Part<br/>Two', 'book_authors' => ['Frank Herbert'], 'rating' => 5 },
       '/books/dune/',
     )
     card = Jekyll::UI::Cards::MarkdownCardUtils.book_doc_to_card_data(doc)
-    assert_equal 'Dune', card[:title]
+    assert_equal 'Part<br/>Two', card[:title]
     assert_equal '/books/dune/', card[:url]
     assert_equal ['Frank Herbert'], card[:authors]
     assert_equal({}, card[:author_urls])

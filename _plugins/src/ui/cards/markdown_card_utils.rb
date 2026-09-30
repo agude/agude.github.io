@@ -18,7 +18,7 @@ module Jekyll
           authors = doc.data['book_authors']
           author_list = authors.is_a?(Array) ? authors : [authors].compact
           {
-            title: Text.markdown_title_text(doc.data['title']),
+            title: doc.data['title'],
             url: doc.url,
             authors: author_list,
             author_urls: author_urls,

@@ -48,8 +48,9 @@ their existing Markdown formatting is preserved, and code fences remain
 protected from conversion.
 
 Markdown headers and book/article card links replace `<br>` variants in titles
-with a single space before escaping link text. This conversion uses a local
-rendered value; it does not modify the document's stored title used for HTML.
+with a single space before escaping link text. Card data extraction keeps the
+document's raw title; the renderer normalizes a local value, so HTML continues
+to use the original title.
 
 `DisplayAwardsPageTag` fetches awards and favorites through
 `Books::AwardsPage::Finder` once per render pass. It sends the prepared data
