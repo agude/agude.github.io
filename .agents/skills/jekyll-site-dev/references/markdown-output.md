@@ -32,6 +32,11 @@ The ChatGPT edit include keeps its compact HTML markup for HTML rendering. In
 Markdown mode it emits Prompt and Output labels with quoted content indented as
 footnote continuation, preserving paragraph breaks and list lines.
 
+Disclosure blocks (`<details>` and `<summary>`) are flattened in Markdown
+output. The summary and answer body remain in order with paragraph boundaries;
+their existing Markdown formatting is preserved, and code fences remain
+protected from conversion.
+
 Markdown headers and book/article card links replace `<br>` variants in titles
 with a single space before escaping link text. This conversion uses a local
 rendered value; it does not modify the document's stored title used for HTML.

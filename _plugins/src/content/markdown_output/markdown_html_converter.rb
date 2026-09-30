@@ -42,6 +42,8 @@ module Jekyll
         </div>
       }mx
       BREAK_RE = %r{<br\s*/?\s*>}i
+      DETAILS_RE = %r{<details\b[^>]*>(.*?)</details\s*>}im
+      SUMMARY_RE = %r{<summary\b[^>]*>(.*?)</summary\s*>}im
 
       def self.convert(markdown_body)
         return markdown_body if markdown_body.nil? || markdown_body.empty?
@@ -49,6 +51,7 @@ module Jekyll
         stashed = {}
         body = stash_code_blocks(markdown_body, stashed)
         body = convert_chatgpt_edit_blocks(body)
+        body = convert_disclosures(body)
 
         # Convert inner tags before outer tags (cite/span before anchors).
         body.gsub!(CITE_RE) { "_#{Regexp.last_match(1)}_" }
@@ -92,6 +95,20 @@ module Jekyll
         end.join("\n")
       end
       private_class_method :format_chatgpt_quote
+
+      def self.convert_disclosures(text)
+        text.gsub(DETAILS_RE) do
+          contents = Regexp.last_match(1)
+          summary = nil
+          answer = contents.sub(SUMMARY_RE) do
+            summary = Regexp.last_match(1).strip
+            ''
+          end.strip
+          sections = [summary, answer].compact.reject(&:empty?)
+          "\n\n#{sections.join("\n\n")}\n\n"
+        end
+      end
+      private_class_method :convert_disclosures
 
       def self.convert_presentation_wrappers(text)
         body = convert_presentation_spans(text)

@@ -158,7 +158,8 @@ class TestMarkdownHtmlConverter < Minitest::Test
 
   def test_inline_code_preserved
     input = 'Use `<cite class="book-title">Foo</cite>, <em>literal</em>, and ' \
-            '<strong>bold</strong>, and <span class="nowrap">title</span>` for titles.'
+            '<strong>bold</strong>, <span class="nowrap">title</span>, and ' \
+            '<details><summary>literal</summary>answer</details>` for titles.'
     assert_equal input, Converter.convert(input)
   end
 
@@ -166,11 +167,13 @@ class TestMarkdownHtmlConverter < Minitest::Test
     input = "Some text.\n\n```html\n<cite class=\"book-title\">Foo</cite> and " \
             '<em>literal</em>, <strong>bold</strong>, and ' \
             '<span class="band-name">The Beatles</span> and ' \
+            '<details><summary>literal</summary>answer</details> and ' \
             "<div class=\"written-by\">by Author</div>\n```\n\n" \
             '<cite class="book-title">After</cite>'
     expected = "Some text.\n\n```html\n<cite class=\"book-title\">Foo</cite> and " \
                '<em>literal</em>, <strong>bold</strong>, and ' \
                '<span class="band-name">The Beatles</span> and ' \
+               '<details><summary>literal</summary>answer</details> and ' \
                "<div class=\"written-by\">by Author</div>\n```\n\n_After_"
     assert_equal expected, Converter.convert(input)
   end
@@ -242,6 +245,21 @@ class TestMarkdownHtmlConverter < Minitest::Test
   end
 
   # --- mixed content ---
+
+  def test_disclosure_preserves_summary_and_full_body_as_markdown
+    input = 'Before.<details markdown="1"><summary markdown="1"><strong>Check the data</strong></summary>' \
+            "\n\nThe answer is <em>complete</em>.\n\n```sql\nSELECT COUNT(*) FROM collisions;\n```\n" \
+            '</details>After.'
+    expected = "Before.\n\n**Check the data**\n\nThe answer is _complete_.\n\n" \
+               "```sql\nSELECT COUNT(*) FROM collisions;\n```\n\nAfter."
+    assert_equal expected, Converter.convert(input)
+  end
+
+  def test_disclosure_keeps_existing_markdown_in_multiline_summary
+    input = "<details>\n<summary>Data is **_never_** clean.\nCheck first.</summary>\n\nAnswer.\n</details>"
+    expected = "Data is **_never_** clean.\nCheck first.\n\nAnswer."
+    assert_equal expected, Converter.convert(input).strip
+  end
 
   def test_multiple_conversions
     html = '<cite class="book-title">Hyperion</cite>, by <span class="author-name">Dan Simmons</span>, ' \
