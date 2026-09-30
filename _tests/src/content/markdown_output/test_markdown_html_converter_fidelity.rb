@@ -117,6 +117,28 @@ class TestMarkdownHtmlConverterFidelity < Minitest::Test
     assert_includes output, '`</div>`'
   end
 
+  def test_emphasis_at_word_boundaries_preserves_rendered_formatting
+    assert_rendering_preserved('pre<em>fix</em>ed')
+  end
+
+  def test_emphasis_with_boundary_whitespace_preserves_text_and_formatting
+    ['<em> spaced </em>', '<strong> spaced </strong>'].each do |input|
+      assert_rendering_preserved(input)
+    end
+  end
+
+  def test_nested_emphasis_and_delimiter_contents_preserve_rendered_formatting
+    [
+      '<em>outer <em>inner</em> tail</em>',
+      '<strong>outer <strong>inner</strong> tail</strong>',
+      '<em>first_</em>',
+      '<em>_both_</em>',
+      '<strong>first*</strong>',
+    ].each do |input|
+      assert_rendering_preserved(input)
+    end
+  end
+
   def pipeline(content)
     payload = { 'page' => { 'example' => '<strong>literal</strong>' }, 'render_mode' => 'html' }
     content = content.sub('<strong>literal</strong>', '{{ page.example }}')

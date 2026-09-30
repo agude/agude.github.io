@@ -16,8 +16,6 @@ module Jekyll
 
       # Cite classes that should become italic (_Title_).
       CITE_RE = %r{<cite[^>]*class=["'][^"']*\b\w+-title\b[^"']*["'][^>]*>(.*?)</cite>}m
-      EM_RE = %r{<em(?:\s+[^>]*)?>(.*?)</em>}m
-      STRONG_RE = %r{<strong(?:\s+[^>]*)?>(.*?)</strong>}m
       DETAILS_RE = %r{<details\b[^>]*>(.*?)</details\s*>}im
       SUMMARY_RE = %r{<summary\b[^>]*>(.*?)</summary\s*>}im
 
@@ -65,8 +63,8 @@ module Jekyll
         # Convert inner tags before outer tags (cite/span before anchors).
         body.gsub!(CITE_RE) { "_#{Regexp.last_match(1)}_" }
         body.gsub!(ABBR_RE, '\1')
-        body.gsub!(EM_RE) { "_#{Regexp.last_match(1)}_" }
-        body.gsub!(STRONG_RE) { "**#{Regexp.last_match(1)}**" }
+        body = convert_emphasis_tags(body, 'em', '_')
+        body = convert_emphasis_tags(body, 'strong', '**')
         body.gsub!(ANCHOR_RE, '[\2](\1)')
 
         restore_code_blocks(body, stashed)
@@ -144,6 +142,35 @@ module Jekyll
         output
       end
       private_class_method :stash_raw_html_regions
+
+      def self.convert_emphasis_tags(text, tag_name, delimiter)
+        pairs = HtmlRegionParser.tag_pairs(text, tag_name)
+        pairs.reverse_each do |open_start, open_end, close_start, close_end, nested|
+          content = text[open_end...close_start]
+          next if nested || !safe_emphasis?(text, open_start, close_end, content, delimiter)
+
+          text[open_start...close_end] = "#{delimiter}#{content}#{delimiter}"
+        end
+
+        text
+      end
+      private_class_method :convert_emphasis_tags
+
+      def self.safe_emphasis?(text, open_start, close_end, content, delimiter)
+        return false if content.empty? || content.match?(/\A\s|\s\z/)
+        return false if content.include?(delimiter[0])
+        return false if content.match?(/\n[ \t]*\n/)
+
+        previous = open_start.positive? ? text[open_start - 1] : nil
+        following = text[close_end]
+        !word_character?(previous) && !word_character?(following)
+      end
+      private_class_method :safe_emphasis?
+
+      def self.word_character?(character)
+        character&.match?(/[\p{Alnum}_]/)
+      end
+      private_class_method :word_character?
 
       def self.stash_code_blocks(text, stashed)
         ranges = CodeRegionParser.protected_code_ranges(text)
