@@ -34,4 +34,28 @@ class TestMarkdownFenceParser < Minitest::Test
   def test_backtick_fence_rejects_backticks_in_info_string
     assert_nil Parser.fence_start("```ruby `invalid`\n")
   end
+
+  def test_tab_indented_list_fence_has_an_exact_closing_boundary
+    lines = ["1. item\n", "\n", "\t```html\n", "\tcode\t\n", "\t````\n", "After\n"]
+    fence = Parser.fence_start(lines[2], lines: lines, line_index: 2)
+    refute_nil fence
+
+    block, next_index = Parser.fenced_block(lines, 2, fence)
+    assert_equal lines[2..4].join, block
+    assert_equal 5, next_index
+  end
+
+  def test_both_quote_and_list_container_orders_are_recognized
+    [
+      ["> 123. item\n", ">\n", ">      ~~~html\n", ">      code\n", ">      ~~~~\n", "After\n"],
+      ["1. item\n", "\n", "    > ~~~html\n", "    > code\n", "    > ~~~~\n", "After\n"],
+    ].each do |lines|
+      fence = Parser.fence_start(lines[2], lines: lines, line_index: 2)
+      refute_nil fence, lines[2]
+
+      block, next_index = Parser.fenced_block(lines, 2, fence)
+      assert_equal lines[2..4].join, block
+      assert_equal 5, next_index
+    end
+  end
 end

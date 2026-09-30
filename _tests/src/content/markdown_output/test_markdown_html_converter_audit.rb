@@ -66,9 +66,9 @@ class TestMarkdownHtmlConverterAudit < Minitest::Test
   def test_raw_table_retains_merged_cells_and_alignment
     input = <<~HTML
       <table>
-        <thead><tr><th>Region</th><th>Gender</th><th>Pay</th></tr></thead>
+        <thead><tr><th>Region</th><th>Gender</th><th><strong>Pay</strong></th></tr></thead>
         <tbody>
-          <tr><td rowspan="2">California</td><td>Female</td><td style="text-align: right">$168k</td></tr>
+          <tr><td rowspan="2">California</td><td><em>Female</em></td><td style="text-align: right"><a href="/pay/">$168k</a></td></tr>
           <tr><td>Male</td><td style="text-align: right">$162k</td></tr>
         </tbody>
       </table>
@@ -79,6 +79,9 @@ class TestMarkdownHtmlConverterAudit < Minitest::Test
     assert_equal '2', html.at_css('td')['rowspan']
     assert_equal ['California', 'Female', '$168k', 'Male', '$162k'], html.css('td').map(&:text)
     assert_equal 2, html.css('td[style="text-align: right"]').length
+    assert_equal 'Pay', html.at_css('th strong')&.text
+    assert_equal 'Female', html.at_css('td em')&.text
+    assert_equal '/pay/', html.at_css('td a')&.[]('href')
   end
 
   def test_media_embed_and_comments_are_preserved

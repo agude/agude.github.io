@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require_relative 'markdown_fence_parser'
+require_relative 'markdown_code_region_parser'
+require_relative 'markdown_html_region_parser'
 
 module Jekyll
   module Infrastructure
@@ -8,98 +9,38 @@ module Jekyll
     # @pattern Protect code blocks before normalizing prose so source whitespace
     #   inside code fences and indented code remains unchanged.
     module MarkdownWhitespaceNormalizer
-      FenceParser = Jekyll::Infrastructure::MarkdownFenceParser
-      INDENTED_CODE_RE = /\A(?: {4}|\t)/
-      LIST_ITEM_RE = /^ {0,3}(?:[-+*]|\d+[.)])\s/
+      CodeRegionParser = Jekyll::Infrastructure::MarkdownCodeRegionParser
+      HtmlRegionParser = Jekyll::Infrastructure::MarkdownHtmlRegionParser
       STASH_PREFIX = '@@MDWHITESPACE'
 
       def self.normalize(content)
         stashed = {}
+        content = stash_ranges(content, HtmlRegionParser.protected_ranges(content), stashed)
         body = stash_code_blocks(content, stashed)
         body = normalize_prose(body)
         restore_code_blocks(body, stashed)
       end
 
       def self.stash_code_blocks(text, stashed)
-        lines = text.lines
-        output = []
-        line_index = 0
-
-        while line_index < lines.length
-          fence = FenceParser.fence_start(lines[line_index], lines: lines, line_index: line_index)
-          if fence
-            block, line_index = FenceParser.fenced_block(lines, line_index, fence)
-            output << stash_block(block, stashed)
-            next
-          end
-
-          if indented_code_start?(lines, line_index)
-            block, line_index = indented_code_block(lines, line_index)
-            output << stash_block(block, stashed)
-            next
-          end
-
-          output << lines[line_index]
-          line_index += 1
-        end
-
-        output.join
+        ranges = CodeRegionParser.protected_code_ranges(text)
+        stash_ranges(text, ranges, stashed)
       end
       private_class_method :stash_code_blocks
 
-      def self.indented_code_start?(lines, line_index)
-        return false unless lines[line_index].match?(INDENTED_CODE_RE)
-        return true if line_index.zero?
+      def self.stash_ranges(text, ranges, stashed)
+        return text if ranges.empty?
 
-        previous_index = line_index - 1
-        return false unless blank_line?(lines[previous_index])
-
-        previous_index -= 1 while previous_index >= 0 && blank_line?(lines[previous_index])
-        !inside_list_item?(lines, previous_index)
-      end
-      private_class_method :indented_code_start?
-
-      def self.inside_list_item?(lines, line_index)
-        while line_index >= 0
-          return true if lines[line_index].match?(LIST_ITEM_RE)
-          break unless lines[line_index].match?(INDENTED_CODE_RE)
-
-          line_index -= 1
-          line_index -= 1 while line_index >= 0 && blank_line?(lines[line_index])
+        output = []
+        position = 0
+        ranges.each do |start_index, end_index|
+          output << text[position...start_index]
+          output << stash_block(text[start_index...end_index], stashed)
+          position = end_index
         end
-
-        false
+        output << text[position..]
+        output.join
       end
-      private_class_method :inside_list_item?
-
-      def self.indented_code_block(lines, start_index)
-        line_index = start_index
-        block_lines = []
-
-        while line_index < lines.length
-          if lines[line_index].match?(INDENTED_CODE_RE) ||
-             (blank_line?(lines[line_index]) && blank_lines_lead_to_code?(lines, line_index))
-            block_lines << lines[line_index]
-            line_index += 1
-          else
-            break
-          end
-        end
-
-        [block_lines.join, line_index]
-      end
-      private_class_method :indented_code_block
-
-      def self.blank_lines_lead_to_code?(lines, line_index)
-        line_index += 1 while line_index < lines.length && blank_line?(lines[line_index])
-        line_index < lines.length && lines[line_index].match?(INDENTED_CODE_RE)
-      end
-      private_class_method :blank_lines_lead_to_code?
-
-      def self.blank_line?(line)
-        line.match?(/\A[ \t]*(?:\r?\n|\z)/)
-      end
-      private_class_method :blank_line?
+      private_class_method :stash_ranges
 
       def self.stash_block(block, stashed)
         ending = block[/\r?\n\z/] || ''
@@ -129,7 +70,7 @@ module Jekyll
       private_class_method :normalize_prose_line
 
       def self.restore_code_blocks(text, stashed)
-        stashed.each do |placeholder, original|
+        stashed.to_a.reverse_each do |placeholder, original|
           text.gsub!(placeholder) { original }
         end
         text

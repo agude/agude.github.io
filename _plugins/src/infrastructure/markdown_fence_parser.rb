@@ -49,9 +49,9 @@ module Jekyll
           if quote
             containers << :blockquote
             offset += quote[0].length
-          elsif allow_indented && remainder.start_with?('    ')
+          elsif allow_indented && indented_container_prefix(remainder)
             containers << :indent
-            offset += 4
+            offset += indented_container_prefix(remainder).length
           else
             break
           end
@@ -62,9 +62,17 @@ module Jekyll
       private_class_method :parse_containers
 
       def self.indented_fence_candidate?(line)
-        line.match?(/\A(?: {0,3}>[ \t]?)*(?: {4}|\t) {0,3}(?:`{3,}|~{3,})/)
+        line.match?(/\A(?: {0,3}>[ \t]?)*(?: {4,}|\t)(?: {0,3}>[ \t]?)*(?: {4,}|\t)? {0,3}(?:`{3,}|~{3,})/)
       end
       private_class_method :indented_fence_candidate?
+
+      def self.indented_container_prefix(line)
+        return "\t" if line.start_with?("\t")
+        return '    ' if line.start_with?('    ')
+
+        nil
+      end
+      private_class_method :indented_container_prefix
 
       def self.list_context?(lines, line_index)
         list_item = /^ {0,3}(?:[-+*]|\d+[.)])\s/
@@ -72,7 +80,7 @@ module Jekyll
         blank = /\A[ \t]*(?:\r?\n|\z)/
 
         (line_index - 1).downto(0) do |index|
-          line = lines[index]
+          line = strip_blockquote_prefixes(lines[index])
           return true if line.match?(list_item)
           return false unless line.match?(indentation) || line.match?(blank)
         end
@@ -80,6 +88,11 @@ module Jekyll
         false
       end
       private_class_method :list_context?
+
+      def self.strip_blockquote_prefixes(line)
+        line.sub(/\A(?: {0,3}>[ \t]?)+/, '')
+      end
+      private_class_method :strip_blockquote_prefixes
 
       def self.closing_fence?(line, fence)
         candidate = parse_fence_line(

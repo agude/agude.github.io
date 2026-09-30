@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require_relative '../../infrastructure/markdown_fence_parser'
+require_relative '../../infrastructure/markdown_code_region_parser'
+require_relative '../../infrastructure/markdown_html_region_parser'
 require_relative 'markdown_wrapper_converter'
 
 module Jekyll
@@ -15,12 +16,10 @@ module Jekyll
 
       # Cite classes that should become italic (_Title_).
       CITE_RE = %r{<cite[^>]*class=["'][^"']*\b\w+-title\b[^"']*["'][^>]*>(.*?)</cite>}m
-
-      # Emphasis tags become Markdown emphasis, including tags with attributes.
       EM_RE = %r{<em(?:\s+[^>]*)?>(.*?)</em>}m
-
-      # Strong tags become Markdown strong emphasis, including attributes.
       STRONG_RE = %r{<strong(?:\s+[^>]*)?>(.*?)</strong>}m
+      DETAILS_RE = %r{<details\b[^>]*>(.*?)</details\s*>}im
+      SUMMARY_RE = %r{<summary\b[^>]*>(.*?)</summary\s*>}im
 
       WrapperConverter = Jekyll::MarkdownOutput::MarkdownWrapperConverter
 
@@ -39,15 +38,25 @@ module Jekyll
       }mx
       BREAK_RE = %r{<br\s*/?\s*>}i
       HORIZONTAL_RULE_RE = %r{<hr(?=[\s/>])[^>]*\s*/?>}i
-      FenceParser = Jekyll::Infrastructure::MarkdownFenceParser
-      DETAILS_RE = %r{<details\b[^>]*>(.*?)</details\s*>}im
-      SUMMARY_RE = %r{<summary\b[^>]*>(.*?)</summary\s*>}im
+      CodeRegionParser = Jekyll::Infrastructure::MarkdownCodeRegionParser
+      HtmlRegionParser = Jekyll::Infrastructure::MarkdownHtmlRegionParser
+      MARKDOWN_DIV_CLASSES = %w[
+        chatgpt-edit-block
+        chatgpt-edit-markdown
+        chatgpt-prompt
+        chatgpt-output
+        chatgpt-prompt-only
+        chatgpt-output-only
+        low-width-table
+        written-by
+      ].freeze
 
       def self.convert(markdown_body)
         return markdown_body if markdown_body.nil? || markdown_body.empty?
 
         stashed = {}
-        body = stash_code_blocks(markdown_body, stashed)
+        body = stash_raw_html_regions(markdown_body, stashed)
+        body = stash_code_blocks(body, stashed)
         body = convert_chatgpt_edit_blocks(body, stashed)
         body = WrapperConverter.convert(body)
         body = convert_disclosures(body)
@@ -115,106 +124,44 @@ module Jekyll
           answer = contents.sub(SUMMARY_RE) do
             summary = Regexp.last_match(1).strip
             ''
-          end.strip
-          sections = [summary, answer].compact.reject(&:empty?)
+          end
+          sections = [summary, answer.strip].compact.reject(&:empty?)
           "\n\n#{sections.join("\n\n")}\n\n"
         end
       end
       private_class_method :convert_disclosures
 
+      def self.stash_raw_html_regions(text, stashed)
+        ranges = HtmlRegionParser.protected_ranges(text, markdown_div_classes: MARKDOWN_DIV_CLASSES)
+        output = +''
+        position = 0
+        ranges.each do |start_index, end_index|
+          output << text[position...start_index]
+          output << stash(text[start_index...end_index], stashed)
+          position = end_index
+        end
+        output << text[position..]
+        output
+      end
+      private_class_method :stash_raw_html_regions
+
       def self.stash_code_blocks(text, stashed)
-        body = stash_block_code(text, stashed)
-        stash_inline_code_spans(body, stashed)
-      end
-      private_class_method :stash_code_blocks
-
-      def self.stash_block_code(text, stashed)
-        lines = text.lines
-        output = []
-        line_index = 0
-
-        while line_index < lines.length
-          fence = FenceParser.fence_start(lines[line_index], lines: lines, line_index: line_index)
-          if fence
-            block, line_index = FenceParser.fenced_block(lines, line_index, fence)
-            ending = block[/\r?\n\z/] || ''
-            fenced_content = ending.empty? ? block : block[0...-ending.length]
-            output << stash(fenced_content, stashed) << ending
-            next
-          end
-
-          output << lines[line_index]
-          line_index += 1
-        end
-
-        output.join
-      end
-      private_class_method :stash_block_code
-
-      def self.stash_inline_code_spans(text, stashed)
-        runs = []
-        text.to_enum(:scan, /`+/).each do
-          match = Regexp.last_match
-          runs << [match.begin(0), match.end(0), match[0].length]
-        end
-
-        paragraph_boundaries = blank_line_boundaries(text)
-        run_regions = assign_run_regions(runs, paragraph_boundaries)
-        next_matching_run = find_next_matching_runs(runs, run_regions)
+        ranges = CodeRegionParser.protected_code_ranges(text)
+        return text if ranges.empty?
 
         output = +''
-        text_position = 0
-        run_index = 0
-
-        while run_index < runs.length
-          closing_index = next_matching_run[run_index]
-          if closing_index.nil?
-            run_index += 1
-            next
-          end
-
-          opening_start = runs[run_index][0]
-          closing_end = runs[closing_index][1]
-          output << text[text_position...opening_start]
-          output << stash(text[opening_start...closing_end], stashed)
-          text_position = closing_end
-          run_index = closing_index + 1
+        position = 0
+        ranges.each do |start_index, end_index|
+          output << text[position...start_index]
+          block = text[start_index...end_index]
+          ending = block[/\r?\n\z/] || ''
+          protected_content = ending.empty? ? block : block[0...-ending.length]
+          output << stash(protected_content, stashed) << ending
+          position = end_index
         end
-
-        output << text[text_position..]
+        output << text[position..]
       end
-      private_class_method :stash_inline_code_spans
-
-      def self.assign_run_regions(runs, boundaries)
-        boundary_index = 0
-        runs.map do |run|
-          boundary_index += 1 while boundaries[boundary_index] && boundaries[boundary_index] <= run[0]
-          boundary_index
-        end
-      end
-      private_class_method :assign_run_regions
-
-      def self.blank_line_boundaries(text)
-        text.to_enum(:scan, /\r?\n[ \t]*(?:>[ \t]*(?:>[ \t]*)*)?[ \t]*\r?\n/).map do
-          Regexp.last_match.end(0)
-        end
-      end
-      private_class_method :blank_line_boundaries
-
-      def self.find_next_matching_runs(runs, run_regions)
-        next_matching_run = Array.new(runs.length)
-        nearest_run_by_length = {}
-        (runs.length - 1).downto(0) do |run_index|
-          delimiter_length = runs[run_index][2]
-          region = run_regions[run_index]
-          key = [delimiter_length, region]
-          next_matching_run[run_index] = nearest_run_by_length[key]
-          nearest_run_by_length[key] = run_index
-        end
-
-        next_matching_run
-      end
-      private_class_method :find_next_matching_runs
+      private_class_method :stash_code_blocks
 
       def self.stash(original, stashed)
         placeholder = "#{STASH_PREFIX}_#{stashed.size}@@"

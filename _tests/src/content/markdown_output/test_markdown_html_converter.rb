@@ -217,8 +217,10 @@ class TestMarkdownHtmlConverter < Minitest::Test
   end
 
   def test_multiline_inline_span_is_preserved
-    input = "Use ``<cite class=\"book-title\">Foo</cite>\ncontinued`` here."
-    assert_equal input, Converter.convert(input)
+    input = "Use ``<cite class=\"book-title\">Foo</cite>\t\ncontinued`` here."
+    output = Converter.convert(input)
+    assert_equal input, output
+    assert_equal input, Jekyll::Infrastructure::MarkdownWhitespaceNormalizer.normalize(output)
   end
 
   def test_inline_code_does_not_cross_blank_line
