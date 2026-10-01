@@ -8,4 +8,5 @@ same_as_urls:
   - https://www.imdb.com/name/nm15588473/
   - https://web-cdn.bsky.app/profile/mixedmartialarx.bsky.social
   - https://nebulas.sfwa.org/nominees/argo-tuulik/
+  - https://www.wikidata.org/wiki/Q141611527
 ---

@@ -7,7 +7,7 @@ book_number: 1
 is_anthology: false
 rating: 4
 image: /books/covers/the_event.jpg
-wikidata_qid: null
+wikidata_qid: Q141611524
 isbn: null
 date_published: 2025-09
 same_as_urls:

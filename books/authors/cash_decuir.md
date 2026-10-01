@@ -8,4 +8,5 @@ same_as_urls:
   - https://nebulas.sfwa.org/nominees/cash-decuir/
   - https://www.cashdecuir.com/about
   - https://www.imdb.com/name/nm12585431/
+  - https://www.wikidata.org/wiki/Q141611528
 ---

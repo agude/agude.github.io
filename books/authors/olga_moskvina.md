@@ -9,4 +9,5 @@ same_as_urls:
   - https://www.imdb.com/name/nm15586619/
   - https://www.linkedin.com/in/olgamoskvina/
   - https://nebulas.sfwa.org/nominees/olga-moskvina/
+  - https://www.wikidata.org/wiki/Q141611529
 ---

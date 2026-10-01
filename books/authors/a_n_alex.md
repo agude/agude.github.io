@@ -9,4 +9,5 @@ same_as_urls:
   - https://deer.social/profile/lastnpcalex.agency
   - https://lastnpcalex.agency/
   - https://www.instagram.com/lastnpcalex/
+  - https://www.wikidata.org/wiki/Q141611526
 ---

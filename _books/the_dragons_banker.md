@@ -6,7 +6,7 @@ series: null
 book_number: 1
 rating: 2
 image: /books/covers/the_dragons_banker.jpg
-wikidata_qid: null
+wikidata_qid: Q141611523
 isbn: 978-0-578-55292-7
 date_published: 2019-09-25
 same_as_urls:
