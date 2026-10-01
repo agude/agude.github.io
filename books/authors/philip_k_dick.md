@@ -17,4 +17,5 @@ same_as_urls:
   - "https://www.britannica.com/biography/Philip-K-Dick"
   - "https://www.imdb.com/name/nm0001140/"
   - "https://www.librarything.com/author/dickphilipk"
+  - https://www.google.com/search?kgmid=/m/05qzv
 ---

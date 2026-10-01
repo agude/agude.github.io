@@ -13,6 +13,7 @@ same_as_urls:
   - "https://www.wikidata.org/wiki/Q134481106"
   - "https://en.wikipedia.org/wiki/A_Drop_of_Corruption"
   - "https://www.isfdb.org/cgi-bin/title.cgi?3425278"
+  - https://www.google.com/search?kgmid=/g/11vxvz_9ff
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

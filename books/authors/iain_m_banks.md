@@ -10,4 +10,5 @@ same_as_urls:
   - https://en.wikipedia.org/wiki/Iain_Banks
   - https://www.goodreads.com/author/show/5807106.Iain_M_Banks
   - https://www.iain-banks.net
+  - https://www.google.com/search?kgmid=/m/03v36
 ---

@@ -14,6 +14,7 @@ same_as_urls:
   - "https://openlibrary.org/works/OL20870384W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?180477"
   - "https://www.librarything.com/work/48743"
+  - https://www.google.com/search?kgmid=/g/12372hh8
 ---
 
 The sequel to {% book_link "Pandora's Star" %}, <cite class="book-title">{{

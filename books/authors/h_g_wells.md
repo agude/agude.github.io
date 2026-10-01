@@ -18,4 +18,5 @@ same_as_urls:
   - https://en.wikipedia.org/wiki/H._G._Wells
   - https://www.wikidata.org/wiki/Q42511
   - https://www.goodreads.com/author/show/880695.H_G_Wells
+  - https://www.google.com/search?kgmid=/m/03hnd
 ---

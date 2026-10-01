@@ -14,4 +14,5 @@ same_as_urls:
   - "https://www.isfdb.org/cgi-bin/ea.cgi?179"
   - "https://www.imdb.com/name/nm6419209/"
   - "https://www.librarything.com/author/swanwickmichael"
+  - https://www.google.com/search?kgmid=/m/01dzz7
 ---

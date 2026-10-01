@@ -8,4 +8,5 @@ same_as_urls:
   - https://en.wikipedia.org/wiki/Peter_Watts_(author)
   - https://www.goodreads.com/author/show/27167.Peter_Watts
   - https://rifters.com
+  - https://www.google.com/search?kgmid=/m/05dy2_
 ---

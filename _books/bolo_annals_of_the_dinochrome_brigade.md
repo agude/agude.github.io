@@ -14,6 +14,7 @@ same_as_urls:
   - "https://www.wikidata.org/wiki/Q48997316"
   - "https://en.wikipedia.org/wiki/Bolo%3A_Annals_of_the_Dinochrome_Brigade"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2837878"
+  - https://www.google.com/search?kgmid=/g/11gbkryjt3
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

@@ -15,4 +15,5 @@ same_as_urls:
   - "https://www.isfdb.org/cgi-bin/ea.cgi?429"
   - "https://www.imdb.com/name/nm1984312/"
   - "https://www.librarything.com/author/stephensonneal"
+  - https://www.google.com/search?kgmid=/m/05cv8
 ---

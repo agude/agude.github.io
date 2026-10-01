@@ -10,4 +10,5 @@ same_as_urls:
   - https://en.wikipedia.org/wiki/David_Drake
   - https://www.wikidata.org/wiki/Q736343
   - https://www.donaldsonfunerals.com/obituary/David-Drake
+  - https://www.google.com/search?kgmid=/m/023v6y
 ---

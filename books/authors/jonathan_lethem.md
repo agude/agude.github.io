@@ -8,4 +8,5 @@ same_as_urls:
   - https://en.wikipedia.org/wiki/Jonathan_Lethem
   - https://www.goodreads.com/author/show/6404.Jonathan_Lethem
   - https://www.jonathanlethem.com/
+  - https://www.google.com/search?kgmid=/m/02yl42
 ---

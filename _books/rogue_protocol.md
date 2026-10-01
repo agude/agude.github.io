@@ -14,6 +14,7 @@ same_as_urls:
   - "https://openlibrary.org/works/OL19753589W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2391283"
   - "https://www.librarything.com/work/20525242"
+  - https://www.google.com/search?kgmid=/g/11fyljw_3n
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

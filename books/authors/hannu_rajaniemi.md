@@ -7,4 +7,5 @@ same_as_urls:
   - https://www.wikidata.org/wiki/Q524579
   - https://en.wikipedia.org/wiki/Hannu_Rajaniemi
   - https://www.goodreads.com/author/show/2768002.Hannu_Rajaniemi
+  - https://www.google.com/search?kgmid=/m/0cm93k2
 ---

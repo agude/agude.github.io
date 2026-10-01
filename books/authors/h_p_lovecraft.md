@@ -7,4 +7,5 @@ same_as_urls:
   - https://www.wikidata.org/wiki/Q169566
   - https://en.wikipedia.org/wiki/H._P._Lovecraft
   - https://www.goodreads.com/author/show/9494.H_P_Lovecraft
+  - https://www.google.com/search?kgmid=/m/03j0d
 ---

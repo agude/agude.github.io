@@ -13,4 +13,5 @@ same_as_urls:
   - https://www.goodreads.com/author/show/12130438.Dennis_E_Taylor
   - https://www.isfdb.org/cgi-bin/ea.cgi?248059
   - https://www.librarything.com/author/taylordennise
+  - https://www.google.com/search?kgmid=/g/11f2hl4827
 ---

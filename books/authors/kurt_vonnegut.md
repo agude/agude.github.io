@@ -12,4 +12,5 @@ same_as_urls:
   - https://www.fantasticfiction.com/v/kurt-vonnegut-jr/
   - https://www.isfdb.org/cgi-bin/ea.cgi?62
   - https://www.goodreads.com/author/show/2778055
+  - https://www.google.com/search?kgmid=/m/049gc
 ---

@@ -8,4 +8,5 @@ same_as_urls:
   - https://en.wikipedia.org/wiki/Octavia_E._Butler
   - https://www.goodreads.com/author/show/29535.Octavia_E_Butler
   - https://www.octaviabutler.com
+  - https://www.google.com/search?kgmid=/m/017f0f
 ---

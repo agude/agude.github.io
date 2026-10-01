@@ -13,4 +13,5 @@ same_as_urls:
   - https://openlibrary.org/authors/OL7468980A/Adrian_Tchaikovsky
   - https://reactormag.com/author/adrian-tchaikovsky/
   - https://app.thestorygraph.com/authors/e92abad2-5d9d-44a9-babb-b0e1e781fd01
+  - https://www.google.com/search?kgmid=/m/076xyl9
 ---

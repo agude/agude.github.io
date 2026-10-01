@@ -18,4 +18,5 @@ same_as_urls:
   - https://id.loc.gov/authorities/names/n93023694.html
   - https://openlibrary.org/authors/OL221294A
   - https://www.imdb.com/name/nm14048632/
+  - https://www.google.com/search?kgmid=/m/07yvz9
 ---

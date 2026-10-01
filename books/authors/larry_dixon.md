@@ -7,4 +7,5 @@ same_as_urls:
   - https://www.isfdb.org/cgi-bin/ea.cgi?2263
   - https://en.wikipedia.org/wiki/Larry_Dixon_(fantasy_artist)
   - https://www.wikidata.org/wiki/Q6490202
+  - https://www.google.com/search?kgmid=/m/01xgxj
 ---

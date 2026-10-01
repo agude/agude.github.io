@@ -12,4 +12,5 @@ same_as_urls:
   - https://toddmccaffrey.com/
   - https://en.wikipedia.org/wiki/Todd_McCaffrey
   - https://www.wikidata.org/wiki/Q2438479
+  - https://www.google.com/search?kgmid=/m/05b_mn
 ---

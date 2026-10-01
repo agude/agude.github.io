@@ -7,4 +7,5 @@ same_as_urls:
   - https://www.wikidata.org/wiki/Q297538
   - https://en.wikipedia.org/wiki/Dan_Simmons
   - https://www.goodreads.com/author/show/2687.Dan_Simmons
+  - https://www.google.com/search?kgmid=/m/02g75
 ---

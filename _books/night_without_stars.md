@@ -13,6 +13,7 @@ same_as_urls:
   - "https://www.wikidata.org/wiki/Q30601997"
   - "https://en.wikipedia.org/wiki/A_Night_Without_Stars"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2032660"
+  - https://www.google.com/search?kgmid=/g/11c6_ty0y6
 ---
 
 {% book_link page.title %} is the second book in {% series_text page.series

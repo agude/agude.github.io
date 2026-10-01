@@ -15,6 +15,7 @@ same_as_urls:
   - "https://openlibrary.org/works/OL20157046W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2500310"
   - "https://www.librarything.com/work/21852517"
+  - https://www.google.com/search?kgmid=/g/11f5hkbjm8
 awards:
   - hugo
 ---

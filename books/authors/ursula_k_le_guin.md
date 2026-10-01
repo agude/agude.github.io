@@ -8,4 +8,5 @@ same_as_urls:
   - https://en.wikipedia.org/wiki/Ursula_K._Le_Guin
   - https://www.goodreads.com/author/show/874602.Ursula_K_Le_Guin
   - http://www.ursulakleguin.com
+  - https://www.google.com/search?kgmid=/m/07w21
 ---

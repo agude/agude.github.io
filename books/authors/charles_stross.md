@@ -13,4 +13,5 @@ same_as_urls:
   - "https://openlibrary.org/authors/OL343157A"
   - "https://www.isfdb.org/cgi-bin/ea.cgi?2200"
   - "https://www.librarything.com/author/strosscharles"
+  - https://www.google.com/search?kgmid=/m/01zkxv
 ---

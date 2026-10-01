@@ -9,4 +9,5 @@ same_as_urls:
   - https://sf-encyclopedia.com/entry/wehrstein_karen
   - https://www.linkedin.com/in/karen-wehrstein-91327b7
   - https://www.wikidata.org/wiki/Q55476641
+  - https://www.google.com/search?kgmid=/m/05qfsnw
 ---

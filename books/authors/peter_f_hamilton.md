@@ -8,4 +8,5 @@ same_as_urls:
   - https://en.wikipedia.org/wiki/Peter_F._Hamilton
   - https://www.goodreads.com/author/show/25375.Peter_F_Hamilton
   - https://www.panmacmillan.com/authors/peter-f-hamilton/1507
+  - https://www.google.com/search?kgmid=/m/05_qg
 ---

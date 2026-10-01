@@ -8,4 +8,5 @@ same_as_urls:
   - https://smstirling.com/
   - https://en.wikipedia.org/wiki/S._M._Stirling
   - https://www.wikidata.org/wiki/Q1368527
+  - https://www.google.com/search?kgmid=/m/02b0rr
 ---

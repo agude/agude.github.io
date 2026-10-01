@@ -13,6 +13,7 @@ same_as_urls:
   - "https://www.wikidata.org/wiki/Q30612330"
   - "https://openlibrary.org/works/OL19123425W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2159484"
+  - https://www.google.com/search?kgmid=/g/11g1nns933
 ---
 
 {% book_link page.title %} is a pop sci-fi book, the first in {% series_text

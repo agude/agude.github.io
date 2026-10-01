@@ -20,6 +20,7 @@ same_as_urls:
   - "https://www.wikidata.org/wiki/Q71693825"
   - "https://en.wikipedia.org/wiki/Disco_Elysium"
   - "https://discoelysium.com/"
+  - https://www.google.com/search?kgmid=/g/11fnyvphlh
 ---
 
 {% game_title page.title %}, written by {% author_link page.book_authors[0]

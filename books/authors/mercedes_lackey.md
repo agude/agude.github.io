@@ -13,4 +13,5 @@ same_as_urls:
   - https://sf-encyclopedia.com/entry/lackey_mercedes
   - https://en.wikipedia.org/wiki/Mercedes_Lackey
   - https://www.wikidata.org/wiki/Q298234
+  - https://www.google.com/search?kgmid=/m/0d5v_
 ---

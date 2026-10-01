@@ -13,4 +13,5 @@ same_as_urls:
   - https://sf-encyclopedia.com/entry/lewitt_s_n
   - https://en.wikipedia.org/wiki/Shariann_Lewitt
   - https://www.wikidata.org/wiki/Q7489641
+  - https://www.google.com/search?kgmid=/m/0d_jhf
 ---

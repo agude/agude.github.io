@@ -15,6 +15,7 @@ same_as_urls:
   - "https://openlibrary.org/works/OL20735675W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2717735"
   - "https://www.librarything.com/work/22627423"
+  - https://www.google.com/search?kgmid=/g/11hdvl9ctn
 awards:
   - hugo
   - locus

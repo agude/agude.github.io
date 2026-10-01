@@ -11,4 +11,5 @@ same_as_urls:
   - https://sf-encyclopedia.com/entry/keith_andrew
   - https://en.wikipedia.org/wiki/J._Andrew_Keith
   - https://www.wikidata.org/wiki/Q17402872
+  - https://www.google.com/search?kgmid=/m/05qfs7n
 ---

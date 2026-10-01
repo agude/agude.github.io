@@ -14,4 +14,5 @@ same_as_urls:
   - https://www.isfdb.org/cgi-bin/ea.cgi?197369
   - https://www.imdb.com/name/nm6274580/
   - https://www.librarything.com/author/brownpierce
+  - https://www.google.com/search?kgmid=/m/0_kqnvc
 ---

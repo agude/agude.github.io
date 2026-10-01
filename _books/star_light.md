@@ -15,6 +15,7 @@ same_as_urls:
   - "https://openlibrary.org/works/OL15005203W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?1143"
   - "https://www.librarything.com/work/115582"
+  - https://www.google.com/search?kgmid=/m/02qvqdm
 ---
 
 {% book_link page.title %} is the sequel to {% book_link "Mission of Gravity"

@@ -14,4 +14,5 @@ same_as_urls:
   - "https://www.britannica.com/biography/Bruce-Sterling"
   - "https://www.imdb.com/name/nm1790731/"
   - "https://www.librarything.com/author/sterlingbruce"
+  - https://www.google.com/search?kgmid=/m/018fq
 ---

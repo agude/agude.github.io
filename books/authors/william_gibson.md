@@ -16,4 +16,5 @@ same_as_urls:
   - "https://www.imdb.com/name/nm0317218/"
   - "https://www.librarything.com/author/gibsonwilliam-1"
   - "https://sf-encyclopedia.com/entry/gibson_william"
+  - https://www.google.com/search?kgmid=/m/0821j
 ---

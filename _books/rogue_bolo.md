@@ -14,6 +14,7 @@ same_as_urls:
   - "https://www.isfdb.org/cgi-bin/title.cgi?36973"
   - "https://www.goodreads.com/book/show/470074.Rogue_Bolo"
   - "https://www.amazon.com/Bolo-Rogue-Keith-Laumer/dp/1612424813"
+  - https://www.google.com/search?kgmid=/m/06gkyvx
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

@@ -10,4 +10,5 @@ same_as_urls:
   - https://openlibrary.org/authors/OL918039A/Keith_Laumer
   - https://en.wikipedia.org/wiki/Keith_Laumer
   - https://www.goodreads.com/author/show/32303.Keith_Laumer
+  - https://www.google.com/search?kgmid=/m/01dhp4
 ---

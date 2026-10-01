@@ -14,4 +14,5 @@ same_as_urls:
   - "https://www.britannica.com/biography/Kenneth-Grahame"
   - "https://www.imdb.com/name/nm0334370/"
   - "https://www.librarything.com/author/grahamekenneth"
+  - https://www.google.com/search?kgmid=/m/015hws
 ---

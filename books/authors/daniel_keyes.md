@@ -8,4 +8,5 @@ same_as_urls:
   - https://www.wikidata.org/wiki/Q185714
   - https://en.wikipedia.org/wiki/Daniel_Keyes
   - https://www.goodreads.com/author/show/11072.Daniel_Keyes
+  - https://www.google.com/search?kgmid=/m/03lp5p
 ---

@@ -11,4 +11,5 @@ same_as_urls:
   - https://sf-encyclopedia.com/entry/resnick_mike
   - https://en.wikipedia.org/wiki/Mike_Resnick
   - https://www.wikidata.org/wiki/Q913403
+  - https://www.google.com/search?kgmid=/m/025yd1
 ---

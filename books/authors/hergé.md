@@ -10,5 +10,6 @@ same_as_urls:
   - https://www.goodreads.com/author/show/2802356
   - https://www.isfdb.org/cgi-bin/ea.cgi?224310
   - https://en.wikipedia.org/wiki/Herg%C3%A9
+  - https://www.google.com/search?kgmid=/m/03q7l
 redirect_from: /books/authors/herge/
 ---

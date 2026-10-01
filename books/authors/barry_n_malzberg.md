@@ -11,4 +11,5 @@ same_as_urls:
   - https://sf-encyclopedia.com/entry/malzberg_barry_n
   - https://en.wikipedia.org/wiki/Barry_N._Malzberg
   - https://www.wikidata.org/wiki/Q113554
+  - https://www.google.com/search?kgmid=/m/036jyk
 ---

@@ -11,4 +11,5 @@ same_as_urls:
   - https://id.loc.gov/authorities/names/n2009008820.html
   - https://openlibrary.org/authors/OL6945174A
   - https://www.isfdb.org/cgi-bin/ea.cgi?130072
+  - https://www.google.com/search?kgmid=/m/0x1szwz
 ---

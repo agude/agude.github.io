@@ -9,4 +9,5 @@ same_as_urls:
   - https://sf-encyclopedia.com/entry/stasheff_christopher
   - https://en.wikipedia.org/wiki/Christopher_Stasheff
   - https://www.wikidata.org/wiki/Q4441391
+  - https://www.google.com/search?kgmid=/m/06pbh3
 ---

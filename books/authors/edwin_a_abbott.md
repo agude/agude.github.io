@@ -7,4 +7,5 @@ same_as_urls:
   - https://www.wikidata.org/wiki/Q531606
   - https://en.wikipedia.org/wiki/Edwin_Abbott_Abbott
   - https://www.goodreads.com/author/show/3093075.Edwin_A_Abbott
+  - https://www.google.com/search?kgmid=/m/02rds
 ---

@@ -14,4 +14,5 @@ same_as_urls:
   - "https://www.isfdb.org/cgi-bin/ea.cgi?1276"
   - "https://www.imdb.com/name/nm0794326/"
   - "https://www.librarything.com/author/shirleyjohn-1"
+  - https://www.google.com/search?kgmid=/m/018zd8
 ---

@@ -13,4 +13,5 @@ same_as_urls:
   - "https://www.isfdb.org/cgi-bin/ea.cgi?11251"
   - "https://www.imdb.com/name/nm5384213/"
   - "https://www.librarything.com/author/chiangted"
+  - https://www.google.com/search?kgmid=/m/01w2bh
 ---

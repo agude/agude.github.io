@@ -14,6 +14,7 @@ same_as_urls:
   - "https://openlibrary.org/works/OL27481052W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2344581"
   - "https://www.librarything.com/work/20421899"
+  - https://www.google.com/search?kgmid=/g/11hz297tnt
 awards:
   - hugo
   - locus
