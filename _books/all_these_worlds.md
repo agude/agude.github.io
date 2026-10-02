@@ -13,6 +13,7 @@ same_as_urls:
   - "https://www.wikidata.org/wiki/Q133306305"
   - "https://openlibrary.org/works/OL19742647W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2333582"
+  - https://www.google.com/search?kgmid=/g/11f0l4ht6d
 ---
 
 {% book_link page.title %} is the third book in {% series_text page.series

@@ -25,6 +25,7 @@ same_as_urls:
   - "https://www.amazon.com/Honor-Regiment-Bolos-Keith-Laumer/dp/0671721844"
   - "https://www.baen.com/Chapters/0671721844/0671721844.htm"
   - "https://www.goodreads.com/book/show/464055.Honor_of_the_Regiment"
+  - https://www.google.com/search?kgmid=/m/04t12ns
 ---
 
 {% book_link page.title %} is the tenth book in {% series_text page.series

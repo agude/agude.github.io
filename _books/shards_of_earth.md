@@ -14,6 +14,7 @@ same_as_urls:
   - "https://www.isfdb.org/cgi-bin/title.cgi?2859162"
   - "https://www.amazon.com/Shards-Earth-Final-Architects-Trilogy/dp/0316705853"
   - "https://www.goodreads.com/book/show/55278507-shards-of-earth"
+  - https://www.google.com/search?kgmid=/g/11kccw2pb3
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

@@ -12,6 +12,7 @@ date_published: 2023-04-27
 same_as_urls:
   - "https://www.wikidata.org/wiki/Q131382911"
   - "https://www.isfdb.org/cgi-bin/title.cgi?3160665"
+  - https://www.google.com/search?kgmid=/g/11s5j6ykhm
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

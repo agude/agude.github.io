@@ -13,6 +13,7 @@ same_as_urls:
   - "https://www.wikidata.org/wiki/Q5331267"
   - "https://en.wikipedia.org/wiki/Eater_%28novel%29"
   - "https://www.isfdb.org/cgi-bin/title.cgi?20863"
+  - https://www.google.com/search?kgmid=/m/06tlvm
 ---
 
 {% book_link page.title %} is a hard sci-fi novel by <span

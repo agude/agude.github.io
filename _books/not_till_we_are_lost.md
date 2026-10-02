@@ -14,6 +14,7 @@ date_published: 2025-01-05
 same_as_urls:
   - "https://www.wikidata.org/wiki/Q134525267"
   - "https://www.isfdb.org/cgi-bin/title.cgi?3399590"
+  - https://www.google.com/search?kgmid=/g/11yct98j9g
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false %},

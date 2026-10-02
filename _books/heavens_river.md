@@ -13,6 +13,7 @@ same_as_urls:
   - "https://www.wikidata.org/wiki/Q134525266"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2789069"
   - "https://www.amazon.com/Heavens-River-Dennis-Taylor-ebook/dp/B08P3NTSSR"
+  - https://www.google.com/search?kgmid=/g/11nz3v35n7
 ---
 
 {% book_link page.title %} is the fourth book in {% series_text page.series
