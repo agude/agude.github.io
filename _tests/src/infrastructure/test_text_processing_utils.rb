@@ -7,6 +7,14 @@ require_relative '../../test_helper'
 #
 # Verifies that the utility correctly processes text, including HTML cleaning, slugification, and list formatting.
 class TestTextProcessingUtils < Minitest::Test
+  # Verbatim book link with hover preview, from the built
+  # /books/a_fire_upon_the_deep/ page (BookPreviewRenderer output).
+  BLINDSIGHT_LINK_WITH_PREVIEW = '<a href="/books/blindsight/"><cite class="book-title">Blindsight</cite><!--book-preview--><span class="book-link-preview" aria-hidden="true" hidden=""><img class="book-link-preview-cover" src="/books/covers/blindsight.jpg" alt="Cover of Blindsight" loading="lazy" decoding="async" /><span class="book-link-preview-text"><span class="book-link-preview-title">Blindsight</span><span class="book-link-preview-author">by Peter Watts</span><span class="book-rating star-rating-5" role="img" aria-label="Rating: 5 out of 5 stars. Masterpiece — I loved it" title="Masterpiece — I loved it"><span class="book_star full_star" aria-hidden="true">★</span><span class="book_star full_star" aria-hidden="true">★</span><span class="book_star full_star" aria-hidden="true">★</span><span class="book_star full_star" aria-hidden="true">★</span><span class="book_star full_star" aria-hidden="true">★</span></span><span class="book-link-preview-series"><span class="book-series">Firefall</span> #1</span></span><span class="book-link-preview-lede"><cite class="book-title">Blindsight</cite> is a hard sci-fi novel about first contact with aliens in the near future. A crew of four transhumans and a vampire are sent on a spaceship to investigate an anomaly in the solar system after a swarm of alien probes scan Earth.</span></span><!--/book-preview--></a>'
+
+  # Footnote reference with hover preview (FootnotePreviewInjector output),
+  # from the built /books/a_canticle_for_leibowitz/ page.
+  FOOTNOTE_REF_WITH_PREVIEW = '<sup id="fnref:robot"><a href="#fn:robot" class="footnote" rel="footnote" role="doc-noteref">1</a><!--footnote-preview--><span class="footnote-preview" aria-hidden="true" hidden><span class="footnote-preview-body"><span class="fnp fnp-p"><cite class="book-title">R.U.R.</cite> is the origin of the word “Robot”.&nbsp;</span></span></span><!--/footnote-preview--></sup>'
+
   # --- Tests for clean_text_from_html ---
 
   def test_clean_text_from_html_basic
@@ -31,6 +39,19 @@ class TestTextProcessingUtils < Minitest::Test
     html = "<style>body { color: red; }</style><p>Visible</p><script>alert('hi');</script>"
     expected = 'Visible' # Script and style content should be gone
     assert_equal expected, Jekyll::Infrastructure::TextProcessingUtils.clean_text_from_html(html)
+  end
+
+  # Hover previews are hidden (aria-hidden, hidden) duplicates of other
+  # content. Flattening them into text puts another book's title, author,
+  # rating, and lede into this page's reviewBody/articleBody.
+  def test_clean_text_from_html_strips_book_link_preview
+    html = "<p>Behind only #{BLINDSIGHT_LINK_WITH_PREVIEW}.</p>"
+    assert_equal 'Behind only Blindsight.', Jekyll::Infrastructure::TextProcessingUtils.clean_text_from_html(html)
+  end
+
+  def test_clean_text_from_html_strips_footnote_preview
+    html = "<p>Robots.#{FOOTNOTE_REF_WITH_PREVIEW}</p>"
+    assert_equal 'Robots.1', Jekyll::Infrastructure::TextProcessingUtils.clean_text_from_html(html)
   end
 
   def test_clean_text_from_html_empty_input

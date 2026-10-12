@@ -11,7 +11,7 @@ class TestSeriesPageLdGenerator < Minitest::Test
       'url' => 'https://alexgude.com',
       'baseurl' => '',
       'title' => 'Alex Gude',
-      'author' => { 'name' => 'Alexander Gude' },
+      'author' => { 'name' => 'Alexander Gude', 'url' => '/resume/' },
     }
   end
 
@@ -38,11 +38,18 @@ class TestSeriesPageLdGenerator < Minitest::Test
   end
 
   def test_generate_hash_includes_about_book_series
-    doc = create_series_page_doc(title: 'Foundation')
+    doc = create_series_page_doc(title: 'Foundation', url: '/books/series/foundation/')
     site = create_site(@site_config)
     result = Jekyll::SEO::Generators::SeriesPageLdGenerator.generate_hash(doc, site)
 
-    expected_about = { '@type' => 'BookSeries', 'name' => 'Foundation' }
+    # The series page URL is the BookSeries @id, the same ID that each
+    # reviewed Book's isPartOf references.
+    expected_about = {
+      '@type' => 'BookSeries',
+      '@id' => 'https://alexgude.com/books/series/foundation/#series',
+      'url' => 'https://alexgude.com/books/series/foundation/',
+      'name' => 'Foundation',
+    }
     assert_equal expected_about, result['about']
   end
 
@@ -51,7 +58,7 @@ class TestSeriesPageLdGenerator < Minitest::Test
     site = create_site(@site_config)
     result = Jekyll::SEO::Generators::SeriesPageLdGenerator.generate_hash(doc, site)
 
-    expected_author = { '@type' => 'Person', 'name' => 'Alexander Gude' }
+    expected_author = { '@type' => 'Person', 'name' => 'Alexander Gude', '@id' => 'https://alexgude.com/resume/#person', 'url' => 'https://alexgude.com/resume/' }
     assert_equal expected_author, result['author']
   end
 
@@ -61,6 +68,20 @@ class TestSeriesPageLdGenerator < Minitest::Test
     result = Jekyll::SEO::Generators::SeriesPageLdGenerator.generate_hash(doc, site)
 
     refute result.key?('description'), 'Missing description should omit field'
+  end
+
+  def test_generate_hash_includes_is_part_of_website
+    doc = create_series_page_doc(title: 'Bobiverse')
+    site = create_site(@site_config)
+    result = Jekyll::SEO::Generators::SeriesPageLdGenerator.generate_hash(doc, site)
+
+    expected = {
+      '@type' => 'WebSite',
+      '@id' => 'https://alexgude.com/#website',
+      'name' => 'Alex Gude',
+      'url' => 'https://alexgude.com/',
+    }
+    assert_equal expected, result['isPartOf']
   end
 
   def test_generate_hash_without_author
@@ -75,13 +96,13 @@ class TestSeriesPageLdGenerator < Minitest::Test
 
   private
 
-  def create_series_page_doc(title:, description: nil)
+  def create_series_page_doc(title:, description: nil, url: '/books/series/bobiverse/')
     data = {
       'layout' => 'series_page',
       'title' => title,
     }
     data['description'] = description if description
 
-    create_doc(data, '/books/series/bobiverse/', 'Series page content', nil, nil)
+    create_doc(data, url, 'Series page content', nil, nil)
   end
 end

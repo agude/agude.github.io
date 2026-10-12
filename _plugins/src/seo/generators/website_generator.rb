@@ -9,7 +9,9 @@ module Jekyll
       module WebsiteLdGenerator
         def self.generate_hash(_document, site)
           Jekyll::SEO::JsonLdBuilder.build('WebSite', site: site) do |schema|
+            schema.website_id
             schema.site_name
+            schema.site_alternate_name
             schema.url ''
             schema.site_description
             schema.site_author

@@ -71,6 +71,9 @@ plugins:
 # Setup
 author:
     name: "Alexander Gude"
+    # Page that identifies the site owner. JSON-LD uses it as the owner's
+    # `url` and `<url>#person` as the @id on every author/publisher reference.
+    url: /resume/
     first: "Alexander"
     last: "Gude"
     alternate_names: ["Alex Gude"]

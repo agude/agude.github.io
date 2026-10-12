@@ -13,7 +13,7 @@ class TestSeoMetaGenerator < Minitest::Test
       'baseurl' => '',
       'title' => 'Alex Gude',
       'tagline' => 'Data Scientist',
-      'author' => { 'name' => 'Alexander Gude' },
+      'author' => { 'name' => 'Alexander Gude', 'url' => '/resume/' },
       'description' => 'A blog about technology, data science, machine learning, and more!',
       'locale' => 'en_US',
       'webmaster_verifications' => {

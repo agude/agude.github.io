@@ -16,7 +16,7 @@ module Jekyll
             review.site_author
             review.date_published
             review.site_publisher
-            review.review_body_from_fields(field_priority: ['description'])
+            review.review_body_from_fields(field_priority: ['content'])
             review.url
 
             review.item_reviewed(review_fm['item_type'] || 'Product') do |item|

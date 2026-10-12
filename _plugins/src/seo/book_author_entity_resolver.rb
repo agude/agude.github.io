@@ -3,6 +3,7 @@
 require_relative '../infrastructure/front_matter_utils'
 require_relative '../infrastructure/text_processing_utils'
 require_relative '../infrastructure/url_utils'
+require_relative 'json_ld_utils'
 
 module Jekyll
   module SEO
@@ -29,7 +30,7 @@ module Jekyll
         author_url = Jekyll::Infrastructure::UrlUtils.absolute_url(author_data['url'], site)
         entity = {
           '@type' => 'Person',
-          '@id' => author_url,
+          '@id' => Jekyll::SEO::JsonLdUtils.entity_id(author_url, :person),
           'url' => author_url,
           'name' => credited_name,
         }

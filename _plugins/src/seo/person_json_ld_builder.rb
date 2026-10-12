@@ -43,6 +43,12 @@ module Jekyll
         image_url @site&.config&.[]('logo')
       end
 
+      # Identifies this Person as the site owner, matching every other
+      # reference to the owner.
+      def site_owner_identity
+        @data.merge!(Jekyll::SEO::JsonLdUtils.site_owner_ref(@site))
+      end
+
       def works_for(org_name)
         return unless org_name && !org_name.to_s.strip.empty?
 
@@ -148,7 +154,8 @@ module Jekyll
         author = @site&.config&.[]('author')
         return unless author.is_a?(Hash) && author['name']
 
-        person = { '@type' => 'Person', 'name' => author['name'] }
+        person = { '@type' => 'Person' }.merge(Jekyll::SEO::JsonLdUtils.site_owner_ref(@site))
+        person['name'] = author['name']
         links = Jekyll::SEO::JsonLdUtils.build_social_links(author)
         person['sameAs'] = links if links.any?
         @data['mainEntity'] = person

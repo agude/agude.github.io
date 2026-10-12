@@ -10,7 +10,7 @@ class TestJsonLdBuilder < Minitest::Test
       'url' => 'https://example.com',
       'baseurl' => '/blog',
       'title' => 'Test Site',
-      'author' => { 'name' => 'Site Author' },
+      'author' => { 'name' => 'Site Author', 'url' => '/resume/' },
     }
     @site = create_site(@site_config)
 
@@ -146,27 +146,21 @@ class TestJsonLdBuilder < Minitest::Test
     result = Jekyll::SEO::JsonLdBuilder.build('Article', site: @site) do |schema|
       schema.site_author
     end
-    expected = { '@type' => 'Person', 'name' => 'Site Author' }
-    assert_equal expected, result['author']
-  end
-
-  def test_site_author_with_url
-    result = Jekyll::SEO::JsonLdBuilder.build('Article', site: @site) do |schema|
-      schema.site_author include_url: true
-    end
-    assert_equal 'https://example.com/blog/', result['author']['url']
-  end
-
-  def test_site_publisher_builds_person_with_url
-    result = Jekyll::SEO::JsonLdBuilder.build('Article', site: @site) do |schema|
-      schema.site_publisher
-    end
     expected = {
       '@type' => 'Person',
       'name' => 'Site Author',
-      'url' => 'https://example.com/blog/',
+      '@id' => 'https://example.com/blog/resume/#person',
+      'url' => 'https://example.com/blog/resume/',
     }
-    assert_equal expected, result['publisher']
+    assert_equal expected, result['author']
+  end
+
+  def test_site_publisher_matches_site_author
+    result = Jekyll::SEO::JsonLdBuilder.build('Article', site: @site) do |schema|
+      schema.site_author
+      schema.site_publisher
+    end
+    assert_equal result['author'], result['publisher']
   end
 
   def test_author_entities_sets_linked_person_entities
@@ -277,16 +271,14 @@ class TestJsonLdBuilder < Minitest::Test
 
   # --- Series Method ---
 
-  def test_series_builds_book_series_entity
+  # schema.org `position` is the item's place in a sequence, so it belongs
+  # on the Book. The BookSeries node is shared by every book in the series.
+  def test_series_puts_position_on_book
     result = Jekyll::SEO::JsonLdBuilder.build('Book') do |schema|
       schema.series 'The Expanse', 3
     end
-    expected = {
-      '@type' => 'BookSeries',
-      'name' => 'The Expanse',
-      'position' => '3',
-    }
-    assert_equal expected, result['isPartOf']
+    assert_equal({ '@type' => 'BookSeries', 'name' => 'The Expanse' }, result['isPartOf'])
+    assert_equal '3', result['position']
   end
 
   def test_series_without_position
@@ -295,6 +287,26 @@ class TestJsonLdBuilder < Minitest::Test
     end
     expected = { '@type' => 'BookSeries', 'name' => 'Dune' }
     assert_equal expected, result['isPartOf']
+    refute result.key?('position')
+  end
+
+  # Novellas between numbered books use fractional numbers (book_number:
+  # 4.5). Truncating to 4 would give two books the same position.
+  def test_series_keeps_fractional_position
+    result = Jekyll::SEO::JsonLdBuilder.build('Book') do |schema|
+      schema.series 'Culture', 4.5
+    end
+    assert_equal '4.5', result['position']
+  end
+
+  def test_series_invalid_position_omitted
+    [0, 'abc'].each do |bad_position|
+      result = Jekyll::SEO::JsonLdBuilder.build('Book') do |schema|
+        schema.series 'Dune', bad_position
+      end
+      refute result.key?('position'), "Position #{bad_position.inspect} should be omitted"
+      refute result['isPartOf'].key?('position'), 'BookSeries must never carry position'
+    end
   end
 
   def test_series_nil_not_added
@@ -385,6 +397,7 @@ class TestJsonLdBuilder < Minitest::Test
     end
     expected = {
       '@type' => 'WebSite',
+      '@id' => 'https://example.com/blog/#website',
       'name' => 'Test Site',
       'url' => 'https://example.com/blog/',
     }

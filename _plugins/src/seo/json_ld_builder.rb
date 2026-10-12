@@ -44,23 +44,27 @@ module Jekyll
         set_if_present('url', abs_url)
       end
 
-      def node_id(path)
+      # Sets @id from a page path. With `kind`, the @id is the page URL plus
+      # `#<kind>` (JsonLdUtils::ENTITY_KINDS), so the entity
+      # and the page that describes it get different identifiers.
+      def node_id(path, kind: nil)
         return if path.nil?
 
         normalized_path = path.to_s.strip
         return if normalized_path.empty?
 
         abs_url = Jekyll::Infrastructure::UrlUtils.absolute_url(normalized_path, @site)
+        abs_url = Jekyll::SEO::JsonLdUtils.entity_id(abs_url, kind) if kind
         set_if_present('@id', abs_url)
       end
 
-      def site_author(include_url: false)
-        entity = Jekyll::SEO::JsonLdUtils.build_site_person_entity(@site, include_site_url: include_url)
+      def site_author
+        entity = Jekyll::SEO::JsonLdUtils.build_site_person_entity(@site)
         @data['author'] = entity if entity
       end
 
       def site_publisher
-        entity = Jekyll::SEO::JsonLdUtils.build_site_person_entity(@site, include_site_url: true)
+        entity = Jekyll::SEO::JsonLdUtils.build_site_person_entity(@site)
         @data['publisher'] = entity if entity
       end
 
@@ -94,9 +98,24 @@ module Jekyll
         @data['reviewRating'] = entity if entity
       end
 
-      def series(name, position = nil)
-        entity = Jekyll::SEO::JsonLdUtils.build_book_series_entity(name, position)
-        @data['isPartOf'] = entity if entity
+      # Links this Book to its BookSeries and records the book's place in the
+      # series as the Book's own `position`.
+      # @param series_path [String, nil] Path of the series page; gives the
+      #   BookSeries its url and #series @id.
+      def series(name, position = nil, series_path: nil)
+        series_url = series_path && Jekyll::Infrastructure::UrlUtils.absolute_url(series_path, @site)
+        entity = Jekyll::SEO::JsonLdUtils.build_book_series_entity(name, series_url)
+        return unless entity
+
+        @data['isPartOf'] = entity
+        set_if_present('position', Jekyll::SEO::JsonLdUtils.format_series_position(position))
+      end
+
+      # Sets `about` to the BookSeries this document's page identifies.
+      def about_book_series(name)
+        page_url = @document && Jekyll::Infrastructure::UrlUtils.absolute_url(@document.url, @site)
+        entity = Jekyll::SEO::JsonLdUtils.build_book_series_entity(name, page_url)
+        @data['about'] = entity if entity
       end
 
       def dates
@@ -115,6 +134,17 @@ module Jekyll
         nested_builder(type, 'author', &)
       end
 
+      # Nests the entity a page is primarily about (ProfilePage → Person).
+      def main_entity(type, &)
+        nested_builder(type, 'mainEntity', &)
+      end
+
+      # Nests the entity a page is about when the page is not that entity's
+      # profile (CollectionPage of reviews → the books' author).
+      def about_entity(type, &)
+        nested_builder(type, 'about', &)
+      end
+
       # rubocop:disable-next Naming/PredicatePrefix -- matches JSON-LD field 'isPartOf'
       def is_part_of_website
         return unless @site
@@ -125,9 +155,16 @@ module Jekyll
 
         @data['isPartOf'] = {
           '@type' => 'WebSite',
+          '@id' => Jekyll::SEO::JsonLdUtils.entity_id(site_url, :website),
           'name' => site_name,
           'url' => site_url,
         }
+      end
+
+      # Sets the home page WebSite node's @id, which isPartOf references.
+      def website_id
+        site_url = Jekyll::Infrastructure::UrlUtils.absolute_url('', @site)
+        set_if_present('@id', Jekyll::SEO::JsonLdUtils.entity_id(site_url, :website))
       end
 
       def main_entity_of_page
@@ -233,6 +270,12 @@ module Jekyll
       def site_name
         name = @site&.config&.[]('title')
         set_if_present('name', name)
+      end
+
+      # Google's site-name markup recommends alternateName on the WebSite
+      # node; config `name` holds the site's alternate name.
+      def site_alternate_name
+        set_if_present('alternateName', @site&.config&.[]('name'))
       end
 
       def site_description

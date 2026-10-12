@@ -2,16 +2,22 @@
 
 require_relative '../../../test_helper'
 require_relative '../../../../_plugins/src/seo/generators/blog_posting_generator'
+require_relative '../../../../_plugins/src/seo/generators/person_generator'
+require_relative '../../../../_plugins/src/seo/generators/profile_page_generator'
 
 # Tests for Jekyll::SEO::Generators::BlogPostingLdGenerator module.
 #
 # Verifies that the generator correctly creates JSON-LD structured data for blog posts.
 class TestBlogPostingLdGenerator < Minitest::Test
+  # Verbatim book link with hover preview, from the built
+  # /books/a_fire_upon_the_deep/ page (BookPreviewRenderer output).
+  BLINDSIGHT_LINK_WITH_PREVIEW = '<a href="/books/blindsight/"><cite class="book-title">Blindsight</cite><!--book-preview--><span class="book-link-preview" aria-hidden="true" hidden=""><img class="book-link-preview-cover" src="/books/covers/blindsight.jpg" alt="Cover of Blindsight" loading="lazy" decoding="async" /><span class="book-link-preview-text"><span class="book-link-preview-title">Blindsight</span><span class="book-link-preview-author">by Peter Watts</span><span class="book-rating star-rating-5" role="img" aria-label="Rating: 5 out of 5 stars. Masterpiece — I loved it" title="Masterpiece — I loved it"><span class="book_star full_star" aria-hidden="true">★</span><span class="book_star full_star" aria-hidden="true">★</span><span class="book_star full_star" aria-hidden="true">★</span><span class="book_star full_star" aria-hidden="true">★</span><span class="book_star full_star" aria-hidden="true">★</span></span><span class="book-link-preview-series"><span class="book-series">Firefall</span> #1</span></span><span class="book-link-preview-lede"><cite class="book-title">Blindsight</cite> is a hard sci-fi novel about first contact with aliens in the near future. A crew of four transhumans and a vampire are sent on a spaceship to investigate an anomaly in the solar system after a swarm of alien probes scan Earth.</span></span><!--/book-preview--></a>'
+
   def setup
     @site_config = {
       'url' => 'https://blog.example.com',
       'baseurl' => '',
-      'author' => { 'name' => 'Test Author' },
+      'author' => { 'name' => 'Test Author', 'url' => '/resume/' },
     }
     @site = create_site(@site_config)
     @post_collection = MockCollection.new([], 'posts')
@@ -57,6 +63,53 @@ class TestBlogPostingLdGenerator < Minitest::Test
     assert_expected_keys_only(actual_hash)
   end
 
+  def test_article_body_and_word_count_exclude_book_link_preview
+    doc = create_doc(
+      { 'layout' => 'post', 'title' => 'Favorite Books' },
+      '/blog/favorites/',
+      "<p>My favorite is #{BLINDSIGHT_LINK_WITH_PREVIEW}.</p>",
+      '2024-01-01',
+      @post_collection,
+    )
+    result = Jekyll::SEO::Generators::BlogPostingLdGenerator.generate_hash(doc, @site)
+    assert_equal 'My favorite is Blindsight.', result['articleBody']
+    assert_equal 4, result['wordCount']
+  end
+
+  def test_author_and_publisher_share_site_owner_id
+    site = create_site(@site_config.merge('author' => { 'name' => 'Test Author', 'url' => '/resume/' }))
+    doc = create_basic_post_doc
+    result = Jekyll::SEO::Generators::BlogPostingLdGenerator.generate_hash(doc, site)
+
+    owner = {
+      '@type' => 'Person',
+      '@id' => 'https://blog.example.com/resume/#person',
+      'url' => 'https://blog.example.com/resume/',
+      'name' => 'Test Author',
+    }
+    assert_equal owner, result['author']
+    assert_equal owner, result['publisher']
+  end
+
+  # The resume's mainEntity and the linktree's mainEntity are the site
+  # owner every post credits as author. All must share one @id so
+  # consumers merge them into one Person.
+  def test_site_owner_id_matches_resume_and_linktree
+    site = create_site(@site_config.merge('author' => { 'name' => 'Test Author', 'url' => '/resume/' }))
+    resume = create_doc({ 'layout' => 'resume', 'title' => 'Resume' }, '/resume/', 'Resume content', nil, nil)
+    linktree = create_doc({ 'layout' => 'default', 'title' => 'Linktree' }, '/linktree/', 'Links', nil, nil)
+
+    post_author = Jekyll::SEO::Generators::BlogPostingLdGenerator.generate_hash(create_basic_post_doc, site)['author']
+    resume_person = Jekyll::SEO::Generators::PersonLdGenerator.generate_hash(resume, site)['mainEntity']
+    linktree_person = Jekyll::SEO::Generators::ProfilePageLdGenerator.generate_hash(linktree, site)['mainEntity']
+
+    assert_equal 'https://blog.example.com/resume/#person', post_author['@id']
+    assert_equal post_author['@id'], resume_person['@id']
+    assert_equal post_author['@id'], linktree_person['@id']
+    assert_equal post_author['url'], resume_person['url']
+    assert_equal post_author['url'], linktree_person['url']
+  end
+
   private
 
   def create_basic_post_doc
@@ -75,8 +128,8 @@ class TestBlogPostingLdGenerator < Minitest::Test
       '@type' => 'BlogPosting',
       'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
       'headline' => 'My First Post',
-      'author' => { '@type' => 'Person', 'name' => 'Test Author' },
-      'publisher' => { '@type' => 'Person', 'name' => 'Test Author', 'url' => 'https://blog.example.com/' },
+      'author' => { '@type' => 'Person', 'name' => 'Test Author', '@id' => 'https://blog.example.com/resume/#person', 'url' => 'https://blog.example.com/resume/' },
+      'publisher' => { '@type' => 'Person', 'name' => 'Test Author', '@id' => 'https://blog.example.com/resume/#person', 'url' => 'https://blog.example.com/resume/' },
       'datePublished' => '2024-01-15T10:00:00-05:00',
       'dateModified' => '2024-01-15T10:00:00-05:00',
       'url' => 'https://blog.example.com/tech/first-post.html',
@@ -112,8 +165,8 @@ class TestBlogPostingLdGenerator < Minitest::Test
       '@type' => 'BlogPosting',
       'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
       'headline' => 'Post With Excerpt',
-      'author' => { '@type' => 'Person', 'name' => 'Test Author' },
-      'publisher' => { '@type' => 'Person', 'name' => 'Test Author', 'url' => 'https://blog.example.com/' },
+      'author' => { '@type' => 'Person', 'name' => 'Test Author', '@id' => 'https://blog.example.com/resume/#person', 'url' => 'https://blog.example.com/resume/' },
+      'publisher' => { '@type' => 'Person', 'name' => 'Test Author', '@id' => 'https://blog.example.com/resume/#person', 'url' => 'https://blog.example.com/resume/' },
       'datePublished' => Time.parse('2024-02-10').xmlschema,
       'dateModified' => Time.parse('2024-02-10').xmlschema,
       'url' => 'https://blog.example.com/test/excerpt-post.html',
@@ -151,8 +204,8 @@ class TestBlogPostingLdGenerator < Minitest::Test
       '@type' => 'BlogPosting',
       'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
       'headline' => 'Post With Description',
-      'author' => { '@type' => 'Person', 'name' => 'Test Author' },
-      'publisher' => { '@type' => 'Person', 'name' => 'Test Author', 'url' => 'https://blog.example.com/' },
+      'author' => { '@type' => 'Person', 'name' => 'Test Author', '@id' => 'https://blog.example.com/resume/#person', 'url' => 'https://blog.example.com/resume/' },
+      'publisher' => { '@type' => 'Person', 'name' => 'Test Author', '@id' => 'https://blog.example.com/resume/#person', 'url' => 'https://blog.example.com/resume/' },
       'datePublished' => Time.parse('2024-03-01').xmlschema,
       'dateModified' => Time.parse('2024-03-01').xmlschema,
       'url' => 'https://blog.example.com/test/desc-post.html',
@@ -188,8 +241,8 @@ class TestBlogPostingLdGenerator < Minitest::Test
       '@type' => 'BlogPosting',
       'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
       'headline' => 'Updated Post',
-      'author' => { '@type' => 'Person', 'name' => 'Test Author' },
-      'publisher' => { '@type' => 'Person', 'name' => 'Test Author', 'url' => 'https://blog.example.com/' },
+      'author' => { '@type' => 'Person', 'name' => 'Test Author', '@id' => 'https://blog.example.com/resume/#person', 'url' => 'https://blog.example.com/resume/' },
+      'publisher' => { '@type' => 'Person', 'name' => 'Test Author', '@id' => 'https://blog.example.com/resume/#person', 'url' => 'https://blog.example.com/resume/' },
       'datePublished' => Time.parse('2024-03-15').xmlschema,
       'dateModified' => '2024-04-01T12:00:00Z',
       'image' => { '@type' => 'ImageObject', 'url' => 'https://blog.example.com/images/featured.png' },
@@ -238,8 +291,8 @@ class TestBlogPostingLdGenerator < Minitest::Test
       '@type' => 'BlogPosting',
       'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
       'headline' => 'Minimal',
-      'author' => { '@type' => 'Person', 'name' => 'Test Author' },
-      'publisher' => { '@type' => 'Person', 'name' => 'Test Author', 'url' => 'https://blog.example.com/' },
+      'author' => { '@type' => 'Person', 'name' => 'Test Author', '@id' => 'https://blog.example.com/resume/#person', 'url' => 'https://blog.example.com/resume/' },
+      'publisher' => { '@type' => 'Person', 'name' => 'Test Author', '@id' => 'https://blog.example.com/resume/#person', 'url' => 'https://blog.example.com/resume/' },
       'url' => 'https://blog.example.com/minimal.html',
       'mainEntityOfPage' => { '@type' => 'WebPage', '@id' => 'https://blog.example.com/minimal.html' },
     }

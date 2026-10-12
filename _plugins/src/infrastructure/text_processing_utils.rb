@@ -16,13 +16,17 @@ module Jekyll
         /#{Regexp.escape(FOOTNOTE_PREVIEW_OPEN)}.*?#{Regexp.escape(FOOTNOTE_PREVIEW_CLOSE)}/m
 
       # Cleans HTML content to plain text, normalizes whitespace.
-      # Removes script and style tag contents.
+      # Removes script and style tag contents, and book-link and footnote
+      # hover previews: those are hidden duplicates of other content, and
+      # flattening them would put another book's title, author, rating, and
+      # lede into this page's text (e.g. JSON-LD reviewBody/articleBody).
       # @param html_content [String] The HTML string to clean.
       # @return [String] The cleaned plain text.
       def self.clean_text_from_html(html_content)
         return '' if html_content.nil? || html_content.strip.empty?
 
-        doc = Nokogiri::HTML5(html_content.to_s)
+        without_previews = strip_link_previews(strip_footnote_previews(html_content.to_s))
+        doc = Nokogiri::HTML5(without_previews)
         doc.xpath('//script | //style').remove # Remove script and style elements
         doc.text.gsub(/\s+/, ' ').strip # Get text from remaining, normalize whitespace
       end

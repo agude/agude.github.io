@@ -11,36 +11,47 @@ module Jekyll
     module JsonLdUtils
       CC_BY_SA_LICENSE_URL = 'https://creativecommons.org/licenses/by-sa/4.0/'
 
+      # Entity kinds whose name, as a fragment, turns a page URL into the
+      # identifier of the thing the page describes. The bare page URL
+      # identifies the web page itself; one URI must not name both a page and
+      # a book or person (W3C, "Cool URIs for the Semantic Web").
+      ENTITY_KINDS = %i[book person series website].freeze
+
+      # --- Identity Helpers ---
+
+      # @param page_url [String] Absolute URL of the page describing the entity.
+      # @param kind [Symbol] One of ENTITY_KINDS.
+      # @return [String, nil] The entity's @id, or nil if page_url is blank.
+      def self.entity_id(page_url, kind)
+        raise ArgumentError, "unknown entity kind #{kind.inspect}" unless ENTITY_KINDS.include?(kind)
+
+        url = page_url.to_s.strip
+        url.empty? ? nil : "#{url}##{kind}"
+      end
+
+      # `@id` and `url` of the site owner, from `author.url` in _config.yml.
+      # Every author/publisher reference to the owner carries these, so all
+      # of them name one node.
+      def self.site_owner_ref(site)
+        path = site.config.dig('author', 'url').to_s.strip
+        raise Jekyll::Errors::FatalException, 'JSON-LD: _config.yml author.url is required.' if path.empty?
+
+        url = Jekyll::Infrastructure::UrlUtils.absolute_url(path, site)
+        { '@id' => entity_id(url, :person), 'url' => url }
+      end
+
       # --- Person Schema Object Helpers ---
 
       # Generates a Schema.org Person object from site configuration.
       # Used for site-wide author/publisher.
       # @param site [Jekyll::Site] The Jekyll site object.
-      # @param include_site_url [Boolean] If true, adds the site's root URL to the Person object.
-      # @return [Hash, nil] The Ruby Hash representing the Person object, or nil if essential data is missing.
-      # Renamed from get_site_person_object
-      def self.build_site_person_entity(site, include_site_url: false)
+      # @return [Hash, nil] The Person object, or nil if author.name is blank.
+      def self.build_site_person_entity(site)
         person_name = site.config.dig('author', 'name')
         return nil if person_name.to_s.strip.empty?
 
-        person_data = _base_person_entity(person_name)
-        _add_site_url_to_person(person_data, site) if include_site_url
-        person_data
+        { '@type' => 'Person', 'name' => person_name }.merge(site_owner_ref(site))
       end
-
-      def self._base_person_entity(person_name)
-        {
-          '@type' => 'Person',
-          'name' => person_name,
-        }
-      end
-      private_class_method :_base_person_entity
-
-      def self._add_site_url_to_person(person_data, site)
-        site_root_url = Jekyll::Infrastructure::UrlUtils.absolute_url('', site)
-        person_data['url'] = site_root_url if site_root_url && !site_root_url.empty?
-      end
-      private_class_method :_add_site_url_to_person
 
       # Generates a Schema.org Person object from a document field (e.g., book_author).
       # @param person_name_raw [String] The raw name of the person.
@@ -157,23 +168,36 @@ module Jekyll
 
       # --- BookSeries Schema Object Helper ---
 
-      # Generates a Schema.org BookSeries object.
+      # Generates a Schema.org BookSeries object. It never carries `position`:
+      # every book in the series references the same node, so the book's
+      # place in the series belongs on the Book (see format_series_position).
       # @param series_name_raw [String] The name of the series.
-      # @param position_raw The position of the book in the series.
-      # @return [Hash, nil] The Ruby Hash representing the BookSeries object, or nil if series name is empty.
-      # Renamed
-      def self.build_book_series_entity(series_name_raw, position_raw = nil)
+      # @param page_url [String, nil] Absolute URL of the series page. When
+      #   given, the entity gets `url` and its #series @id.
+      # @return [Hash, nil] The BookSeries object, or nil if series name is empty.
+      def self.build_book_series_entity(series_name_raw, page_url = nil)
         series_name = series_name_raw.to_s.strip
         return nil if series_name.empty?
 
-        series_data = {
-          '@type' => 'BookSeries',
-          'name' => series_name,
-        }
-        position = position_raw.to_i
-        series_data['position'] = position.to_s if position.positive?
-
+        series_data = { '@type' => 'BookSeries' }
+        series_id = entity_id(page_url, :series)
+        if series_id
+          series_data['@id'] = series_id
+          series_data['url'] = page_url.to_s.strip
+        end
+        series_data['name'] = series_name
         series_data
+      end
+
+      # Formats a book's number within its series for schema.org `position`.
+      # Fractional numbers (4.5 for a novella between books 4 and 5) are kept;
+      # truncating them would give two books the same position.
+      # @return [String, nil] nil for missing, non-numeric, or non-positive values.
+      def self.format_series_position(raw)
+        number = Float(raw.to_s.strip, exception: false)
+        return nil unless number&.positive?
+
+        number == number.floor ? number.to_i.to_s : number.to_s
       end
 
       # --- MediaObject Schema Object Helper ---

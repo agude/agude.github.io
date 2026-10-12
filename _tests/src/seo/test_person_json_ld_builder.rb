@@ -13,6 +13,7 @@ class TestPersonJsonLdBuilder < Minitest::Test
       'logo' => '/images/logo.jpg',
       'author' => {
         'name' => 'Site Author',
+        'url' => '/resume/',
         'first' => 'Site',
         'last' => 'Author',
         'alternate_names' => ['Pseudonym'],

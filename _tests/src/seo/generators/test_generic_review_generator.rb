@@ -6,12 +6,16 @@ require_relative '../../../../_plugins/src/seo/generators/generic_review_generat
 # Tests for Jekyll::SEO::Generators::GenericReviewLdGenerator module.
 #
 # Verifies that the generator correctly creates JSON-LD structured data for generic product reviews.
+#
+# `review-post` pages have no numeric rating. A Review without reviewRating
+# is valid schema.org. Google's review-snippet guidelines list reviewRating
+# as required, so these standalone pages do not meet that requirement.
 class TestGenericReviewLdGenerator < Minitest::Test
   def setup
     @site_config = {
       'url' => 'https://myreviews.com',
       'baseurl' => '/stuff',
-      'author' => { 'name' => 'Reviewer Name' },
+      'author' => { 'name' => 'Reviewer Name', 'url' => '/resume/' },
     }
     @site = create_site(@site_config)
     @post_collection = MockCollection.new([], 'posts')
@@ -37,10 +41,10 @@ class TestGenericReviewLdGenerator < Minitest::Test
       '@context' => 'https://schema.org',
       '@type' => 'Review',
       'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
-      'author' => { '@type' => 'Person', 'name' => 'Reviewer Name' },
-      'publisher' => { '@type' => 'Person', 'name' => 'Reviewer Name', 'url' => 'https://myreviews.com/stuff/' },
+      'author' => { '@type' => 'Person', 'name' => 'Reviewer Name', '@id' => 'https://myreviews.com/stuff/resume/#person', 'url' => 'https://myreviews.com/stuff/resume/' },
+      'publisher' => { '@type' => 'Person', 'name' => 'Reviewer Name', '@id' => 'https://myreviews.com/stuff/resume/#person', 'url' => 'https://myreviews.com/stuff/resume/' },
       'datePublished' => Time.parse('2024-05-01').xmlschema,
-      'reviewBody' => 'This gadget is pretty cool and does things.',
+      'reviewBody' => 'Post content',
       'url' => 'https://myreviews.com/stuff/reviews/my-gadget.html',
       'itemReviewed' => {
         '@type' => 'Product',
@@ -61,7 +65,7 @@ class TestGenericReviewLdGenerator < Minitest::Test
           'item_url' => 'https://servicex.com',
           'item_description' => 'A revolutionary new service for tasks.',
         },
-        'description' => 'My thoughts on Service X.', # This is reviewBody
+        'description' => 'My thoughts on Service X.',
         'image' => '/images/service_x_logo.png', # This becomes itemReviewed.image
       },
       '/reviews/service-x.html',
@@ -73,10 +77,10 @@ class TestGenericReviewLdGenerator < Minitest::Test
       '@context' => 'https://schema.org',
       '@type' => 'Review',
       'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
-      'author' => { '@type' => 'Person', 'name' => 'Reviewer Name' },
-      'publisher' => { '@type' => 'Person', 'name' => 'Reviewer Name', 'url' => 'https://myreviews.com/stuff/' },
+      'author' => { '@type' => 'Person', 'name' => 'Reviewer Name', '@id' => 'https://myreviews.com/stuff/resume/#person', 'url' => 'https://myreviews.com/stuff/resume/' },
+      'publisher' => { '@type' => 'Person', 'name' => 'Reviewer Name', '@id' => 'https://myreviews.com/stuff/resume/#person', 'url' => 'https://myreviews.com/stuff/resume/' },
       'datePublished' => Time.parse('2024-05-02').xmlschema,
-      'reviewBody' => 'My thoughts on Service X.',
+      'reviewBody' => 'Post content',
       'url' => 'https://myreviews.com/stuff/reviews/service-x.html',
       'itemReviewed' => {
         '@type' => 'Service',
@@ -103,7 +107,6 @@ class TestGenericReviewLdGenerator < Minitest::Test
         'layout' => 'post',
         'title' => 'Review of Thingy',
         'review' => { 'item_name' => 'A Thingamajig' }, # No item_type, should default to Product
-        'description' => 'It is a thing.',
       },
       '/reviews/thingy.html',
       'Post content',
@@ -113,7 +116,6 @@ class TestGenericReviewLdGenerator < Minitest::Test
     result_hash = Jekyll::SEO::Generators::GenericReviewLdGenerator.generate_hash(doc, @site)
     assert_equal 'Product', result_hash.dig('itemReviewed', '@type')
     assert_equal 'A Thingamajig', result_hash.dig('itemReviewed', 'name')
-    assert_equal 'It is a thing.', result_hash['reviewBody']
   end
 
   def test_generate_hash_review_missing_optional_fields
@@ -133,17 +135,35 @@ class TestGenericReviewLdGenerator < Minitest::Test
       '@context' => 'https://schema.org',
       '@type' => 'Review',
       'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
-      'author' => { '@type' => 'Person', 'name' => 'Reviewer Name' },
-      'publisher' => { '@type' => 'Person', 'name' => 'Reviewer Name', 'url' => 'https://myreviews.com/stuff/' },
+      'author' => { '@type' => 'Person', 'name' => 'Reviewer Name', '@id' => 'https://myreviews.com/stuff/resume/#person', 'url' => 'https://myreviews.com/stuff/resume/' },
+      'publisher' => { '@type' => 'Person', 'name' => 'Reviewer Name', '@id' => 'https://myreviews.com/stuff/resume/#person', 'url' => 'https://myreviews.com/stuff/resume/' },
       'datePublished' => Time.parse('2024-05-04').xmlschema,
+      'reviewBody' => 'Post content',
       'url' => 'https://myreviews.com/stuff/reviews/minimal.html',
       'itemReviewed' => {
         '@type' => 'Product', # Default
         'name' => 'Basic Item',
       },
-      # reviewBody will be missing
     }
     assert_equal expected, Jekyll::SEO::Generators::GenericReviewLdGenerator.generate_hash(doc, @site)
+  end
+
+  # reviewBody is the review text itself, not the front-matter summary.
+  def test_generate_hash_review_body_is_full_content_not_description
+    doc = create_doc(
+      {
+        'layout' => 'review-post',
+        'title' => 'Chair Review',
+        'review' => { 'item_name' => 'Chair' },
+        'description' => 'A summary.',
+      },
+      '/reviews/chair.html',
+      "<p>First paragraph.</p>\n<p>Second <strong>paragraph</strong>.</p>", # Kramdown separates blocks
+      '2024-05-06',
+      @post_collection,
+    )
+    result = Jekyll::SEO::Generators::GenericReviewLdGenerator.generate_hash(doc, @site)
+    assert_equal 'First paragraph. Second paragraph.', result['reviewBody']
   end
 
   def test_generate_hash_rejects_missing_item_name

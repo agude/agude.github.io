@@ -13,8 +13,9 @@ module Jekyll
             schema.name "#{title} - Book Reviews" unless title.empty?
             schema.url
             schema.description
-            schema.about 'BookSeries', document.data['title']
+            schema.about_book_series document.data['title']
             schema.site_author
+            schema.is_part_of_website
           end
         end
       end

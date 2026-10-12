@@ -11,7 +11,7 @@ class TestSeoMetaInjector < Minitest::Test
       'url' => 'https://example.com',
       'baseurl' => '',
       'title' => 'Test Site',
-      'author' => { 'name' => 'Test Author' },
+      'author' => { 'name' => 'Test Author', 'url' => '/resume/' },
       'description' => 'Test description',
     }
     @books_collection = MockCollection.new([], 'books')
@@ -306,4 +306,5 @@ class TestSeoMetaInjector < Minitest::Test
 
     refute site.data['seo_meta'].key?('/empty-layout/')
   end
+
 end

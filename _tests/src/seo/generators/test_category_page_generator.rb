@@ -11,7 +11,7 @@ class TestCategoryPageLdGenerator < Minitest::Test
       'url' => 'https://alexgude.com',
       'baseurl' => '',
       'title' => 'Alex Gude',
-      'author' => { 'name' => 'Alexander Gude' },
+      'author' => { 'name' => 'Alexander Gude', 'url' => '/resume/' },
     }
   end
 
@@ -42,7 +42,7 @@ class TestCategoryPageLdGenerator < Minitest::Test
     site = create_site(@site_config)
     result = Jekyll::SEO::Generators::CategoryPageLdGenerator.generate_hash(doc, site)
 
-    expected_author = { '@type' => 'Person', 'name' => 'Alexander Gude' }
+    expected_author = { '@type' => 'Person', 'name' => 'Alexander Gude', '@id' => 'https://alexgude.com/resume/#person', 'url' => 'https://alexgude.com/resume/' }
     assert_equal expected_author, result['author']
   end
 
@@ -53,6 +53,7 @@ class TestCategoryPageLdGenerator < Minitest::Test
 
     expected_part_of = {
       '@type' => 'WebSite',
+      '@id' => 'https://alexgude.com/#website',
       'name' => 'Alex Gude',
       'url' => 'https://alexgude.com/',
     }

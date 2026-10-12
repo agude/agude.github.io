@@ -14,6 +14,7 @@ class TestProfilePageLdGenerator < Minitest::Test
       'title' => 'Alex Gude',
       'author' => {
         'name' => 'Alexander Gude',
+        'url' => '/resume/',
         'linkedin' => 'alexandergude',
         'github' => 'agude',
         'bluesky' => 'alexgude.com',
@@ -39,6 +40,16 @@ class TestProfilePageLdGenerator < Minitest::Test
     assert result.key?('mainEntity'), 'Should include mainEntity'
     assert_equal 'Person', result['mainEntity']['@type']
     assert_equal 'Alexander Gude', result['mainEntity']['name']
+  end
+
+  def test_generate_hash_main_entity_references_site_owner_id
+    config = @site_config.merge('author' => @site_config['author'].merge('url' => '/resume/'))
+    doc = create_linktree_doc
+    site = create_site(config)
+    result = Jekyll::SEO::Generators::ProfilePageLdGenerator.generate_hash(doc, site)
+
+    assert_equal 'https://alexgude.com/resume/#person', result['mainEntity']['@id']
+    assert_equal 'https://alexgude.com/resume/', result['mainEntity']['url']
   end
 
   def test_generate_hash_main_entity_includes_same_as

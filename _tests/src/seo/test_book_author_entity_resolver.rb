@@ -32,7 +32,7 @@ class TestBookAuthorEntityResolver < Minitest::Test
     assert_equal(
       {
         '@type' => 'Person',
-        '@id' => 'https://mysite.dev/blog/authors/jane-doe.html',
+        '@id' => 'https://mysite.dev/blog/authors/jane-doe.html#person',
         'url' => 'https://mysite.dev/blog/authors/jane-doe.html',
         'name' => 'Jane Doe',
         'sameAs' => ['https://example.com/jane'],
@@ -47,7 +47,7 @@ class TestBookAuthorEntityResolver < Minitest::Test
     result = resolve(document)
 
     assert_equal 'J.D. Writer', result['name']
-    assert_equal 'https://mysite.dev/blog/authors/jane-doe.html', result['@id']
+    assert_equal 'https://mysite.dev/blog/authors/jane-doe.html#person', result['@id']
     assert_equal 'https://mysite.dev/blog/authors/jane-doe.html', result['url']
     assert_equal ['https://example.com/jane'], result['sameAs']
   end
@@ -59,9 +59,9 @@ class TestBookAuthorEntityResolver < Minitest::Test
 
     assert_equal 2, result.length
     assert_equal 'Jane Doe', result.first['name']
-    assert_equal 'https://mysite.dev/blog/authors/jane-doe.html', result.first['@id']
+    assert_equal 'https://mysite.dev/blog/authors/jane-doe.html#person', result.first['@id']
     assert_equal 'John Smith', result.last['name']
-    assert_equal 'https://mysite.dev/blog/authors/john-smith.html', result.last['@id']
+    assert_equal 'https://mysite.dev/blog/authors/john-smith.html#person', result.last['@id']
     refute result.last.key?('sameAs')
   end
 

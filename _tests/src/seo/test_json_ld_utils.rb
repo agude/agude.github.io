@@ -19,7 +19,7 @@ class TestJsonLdUtils < Minitest::Test
     @site_config_full = {
       'url' => 'https://example.com',
       'baseurl' => '/blog',
-      'author' => { 'name' => 'Site Author Name' },
+      'author' => { 'name' => 'Site Author Name', 'url' => '/resume/' },
     }
     @site_config_no_author = {
       'url' => 'https://example.com',
@@ -42,19 +42,97 @@ class TestJsonLdUtils < Minitest::Test
 
   public
 
-  # --- Tests for build_site_person_entity ---
-  def test_build_site_person_entity_with_name
-    expected = { '@type' => 'Person', 'name' => 'Site Author Name' }
-    assert_equal expected, Jekyll::SEO::JsonLdUtils.build_site_person_entity(@mock_site_full)
+  # --- Tests for entity_id ---
+  def test_entity_id_appends_kind_fragment
+    page_url = 'https://example.com/books/dune/'
+    assert_equal 'https://example.com/books/dune/#book', Jekyll::SEO::JsonLdUtils.entity_id(page_url, :book)
+    assert_equal 'https://example.com/books/dune/#person', Jekyll::SEO::JsonLdUtils.entity_id(page_url, :person)
+    assert_equal 'https://example.com/books/dune/#series', Jekyll::SEO::JsonLdUtils.entity_id(page_url, :series)
+    assert_equal 'https://example.com/books/dune/#website', Jekyll::SEO::JsonLdUtils.entity_id(page_url, :website)
   end
 
-  def test_build_site_person_entity_with_name_and_url
+  def test_entity_id_strips_page_url
+    assert_equal 'https://example.com/a/#book', Jekyll::SEO::JsonLdUtils.entity_id(' https://example.com/a/ ', :book)
+  end
+
+  def test_entity_id_blank_page_url_returns_nil
+    [nil, '', '   '].each do |page_url|
+      assert_nil Jekyll::SEO::JsonLdUtils.entity_id(page_url, :book), "page_url #{page_url.inspect}"
+    end
+  end
+
+  # A typo in the kind would otherwise produce an @id no other node shares.
+  def test_entity_id_unknown_kind_raises
+    assert_raises(ArgumentError) { Jekyll::SEO::JsonLdUtils.entity_id('https://example.com/a/', :bok) }
+  end
+
+  # --- Tests for site_owner_ref ---
+  def test_site_owner_ref_resolves_author_url_against_baseurl
+    site = create_site(@site_config_full.merge('author' => { 'name' => 'Owner', 'url' => ' /resume/ ' }))
+    expected = { '@id' => 'https://example.com/blog/resume/#person', 'url' => 'https://example.com/blog/resume/' }
+    assert_equal expected, Jekyll::SEO::JsonLdUtils.site_owner_ref(site)
+  end
+
+  def test_site_owner_ref_raises_without_author_url
+    [nil, '', '   '].each do |author_url|
+      site = create_site(@site_config_full.merge('author' => { 'name' => 'Owner', 'url' => author_url }))
+      assert_raises(Jekyll::Errors::FatalException, "author.url #{author_url.inspect}") do
+        Jekyll::SEO::JsonLdUtils.site_owner_ref(site)
+      end
+    end
+  end
+
+  # --- Tests for build_site_person_entity ---
+  def test_build_site_person_entity_with_name
     expected = {
       '@type' => 'Person',
       'name' => 'Site Author Name',
-      'url' => 'https://example.com/blog/', # Jekyll::Infrastructure::UrlUtils.absolute_url("", @mock_site_full)
+      '@id' => 'https://example.com/blog/resume/#person',
+      'url' => 'https://example.com/blog/resume/',
     }
-    assert_equal expected, Jekyll::SEO::JsonLdUtils.build_site_person_entity(@mock_site_full, include_site_url: true)
+    assert_equal expected, Jekyll::SEO::JsonLdUtils.build_site_person_entity(@mock_site_full)
+  end
+
+  # author.url names the page that identifies the site owner. Every
+  # reference to the owner (article author, publisher, resume, linktree)
+  # must carry the same @id so consumers can merge them into one node.
+  # The @id is the page URL plus #person: one URI must not name both a web
+  # page and a person (W3C, Cool URIs for the Semantic Web).
+  def test_build_site_person_entity_with_identity_url
+    site = create_site(
+      { 'url' => 'https://example.com', 'baseurl' => '', 'author' => { 'name' => 'Owner', 'url' => '/resume/' } },
+    )
+    expected = {
+      '@type' => 'Person',
+      '@id' => 'https://example.com/resume/#person',
+      'url' => 'https://example.com/resume/',
+      'name' => 'Owner',
+    }
+    assert_equal expected, Jekyll::SEO::JsonLdUtils.build_site_person_entity(site)
+  end
+
+  def test_build_site_person_entity_identity_url_respects_baseurl
+    site = create_site(
+      { 'url' => 'https://example.com', 'baseurl' => '/blog', 'author' => { 'name' => 'Owner', 'url' => '/resume/' } },
+    )
+    entity = Jekyll::SEO::JsonLdUtils.build_site_person_entity(site)
+
+    assert_equal 'https://example.com/blog/resume/#person', entity['@id']
+    assert_equal 'https://example.com/blog/resume/', entity['url']
+  end
+
+  def test_build_site_person_entity_absolute_identity_url_kept
+    site = create_site(
+      {
+        'url' => 'https://example.com',
+        'baseurl' => '/blog',
+        'author' => { 'name' => 'Owner', 'url' => 'https://owner.example.org/me/' },
+      },
+    )
+    entity = Jekyll::SEO::JsonLdUtils.build_site_person_entity(site)
+
+    assert_equal 'https://owner.example.org/me/#person', entity['@id']
+    assert_equal 'https://owner.example.org/me/', entity['url']
   end
 
   def test_build_site_person_entity_no_author_name
@@ -62,7 +140,7 @@ class TestJsonLdUtils < Minitest::Test
   end
 
   def test_build_site_person_entity_empty_author_name
-    site_empty_author = create_site({ 'author' => { 'name' => '  ' } })
+    site_empty_author = create_site({ 'author' => { 'name' => '  ', 'url' => '/resume/' } })
     assert_nil Jekyll::SEO::JsonLdUtils.build_site_person_entity(site_empty_author)
   end
 
@@ -204,22 +282,55 @@ class TestJsonLdUtils < Minitest::Test
   end
 
   # --- Tests for build_book_series_entity ---
-  def test_build_book_series_entity_with_name_and_position
-    expected = { '@type' => 'BookSeries', 'name' => 'The Expanse', 'position' => '3' }
-    assert_equal expected, Jekyll::SEO::JsonLdUtils.build_book_series_entity(' The Expanse ', '3')
+  # The series entity never carries `position`. Every review of a book in
+  # the series references the same BookSeries @id, so a position here would
+  # merge into one node holding every book's position. Position belongs on
+  # the Book (see JsonLdBuilder#series).
+  def test_build_book_series_entity_with_name
+    expected = { '@type' => 'BookSeries', 'name' => 'The Expanse' }
+    assert_equal expected, Jekyll::SEO::JsonLdUtils.build_book_series_entity(' The Expanse ')
   end
 
-  def test_build_book_series_entity_with_name_only
+  def test_build_book_series_entity_with_page_url
+    expected = {
+      '@type' => 'BookSeries',
+      '@id' => 'https://example.com/books/series/dune/#series',
+      'url' => 'https://example.com/books/series/dune/',
+      'name' => 'Dune',
+    }
+    assert_equal expected,
+                 Jekyll::SEO::JsonLdUtils.build_book_series_entity('Dune', ' https://example.com/books/series/dune/ ')
+  end
+
+  def test_build_book_series_entity_blank_page_url_omits_identity
     expected = { '@type' => 'BookSeries', 'name' => 'Dune' }
-    assert_equal expected, Jekyll::SEO::JsonLdUtils.build_book_series_entity('Dune')
-    assert_equal expected, Jekyll::SEO::JsonLdUtils.build_book_series_entity('Dune', 0) # Position 0 is invalid
-    assert_equal expected, Jekyll::SEO::JsonLdUtils.build_book_series_entity('Dune', 'abc') # Invalid position
+    assert_equal expected, Jekyll::SEO::JsonLdUtils.build_book_series_entity('Dune', '   ')
   end
 
   def test_build_book_series_entity_empty_or_nil_name
-    assert_nil Jekyll::SEO::JsonLdUtils.build_book_series_entity('', '1')
-    assert_nil Jekyll::SEO::JsonLdUtils.build_book_series_entity('   ', '1')
-    assert_nil Jekyll::SEO::JsonLdUtils.build_book_series_entity(nil, '1')
+    page_url = 'https://example.com/books/series/dune/'
+    assert_nil Jekyll::SEO::JsonLdUtils.build_book_series_entity('', page_url)
+    assert_nil Jekyll::SEO::JsonLdUtils.build_book_series_entity('   ', page_url)
+    assert_nil Jekyll::SEO::JsonLdUtils.build_book_series_entity(nil, page_url)
+  end
+
+  # --- Tests for format_series_position ---
+  def test_format_series_position_whole_numbers_have_no_decimal
+    assert_equal '3', Jekyll::SEO::JsonLdUtils.format_series_position(3)
+    assert_equal '3', Jekyll::SEO::JsonLdUtils.format_series_position('3')
+    assert_equal '4', Jekyll::SEO::JsonLdUtils.format_series_position(4.0)
+    assert_equal '4', Jekyll::SEO::JsonLdUtils.format_series_position(' 4.0 ')
+  end
+
+  def test_format_series_position_keeps_fraction
+    assert_equal '4.5', Jekyll::SEO::JsonLdUtils.format_series_position(4.5)
+    assert_equal '4.5', Jekyll::SEO::JsonLdUtils.format_series_position('4.5')
+  end
+
+  def test_format_series_position_invalid_returns_nil
+    [nil, '', '  ', 'abc', 0, '0', -1, -0.5].each do |raw|
+      assert_nil Jekyll::SEO::JsonLdUtils.format_series_position(raw), "position #{raw.inspect}"
+    end
   end
 
   # --- Tests for build_markdown_encoding_entity ---

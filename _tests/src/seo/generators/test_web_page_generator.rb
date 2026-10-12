@@ -9,7 +9,7 @@ class TestWebPageLdGenerator < Minitest::Test
       'url' => 'https://example.com',
       'baseurl' => '',
       'title' => 'Test Site',
-      'author' => { 'name' => 'Test Author' },
+      'author' => { 'name' => 'Test Author', 'url' => '/resume/' },
     }
     @site = create_site(@site_config)
   end
@@ -54,7 +54,7 @@ class TestWebPageLdGenerator < Minitest::Test
     doc = create_doc({ 'title' => 'Sample', 'layout' => 'page-not-on-sidebar' }, '/files/sample.html')
     result = Jekyll::SEO::Generators::WebPageLdGenerator.generate_hash(doc, @site)
 
-    assert_equal({ '@type' => 'Person', 'name' => 'Test Author' }, result['author'])
+    assert_equal({ '@type' => 'Person', 'name' => 'Test Author', '@id' => 'https://example.com/resume/#person', 'url' => 'https://example.com/resume/' }, result['author'])
   end
 
   def test_includes_is_part_of_website
@@ -63,6 +63,7 @@ class TestWebPageLdGenerator < Minitest::Test
 
     expected = {
       '@type' => 'WebSite',
+      '@id' => 'https://example.com/#website',
       'name' => 'Test Site',
       'url' => 'https://example.com/',
     }
