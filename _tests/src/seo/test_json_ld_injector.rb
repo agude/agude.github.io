@@ -3,6 +3,7 @@
 require_relative '../../test_helper'
 require_relative '../../../_plugins/src/seo/json_ld_injector'
 require 'json'
+require 'nokogiri'
 require 'minitest/mock'
 
 require 'src/seo/generators/blog_posting_generator'
@@ -310,6 +311,38 @@ class TestJsonLdInjectorSkip < TestJsonLdInjectorBase
     assert_match 'Failed to generate JSON', error.message
     assert_no_json_script(@blog_post_doc, @site)
     mock_logger.verify
+  end
+
+  # articleBody is post text with entities decoded, so code samples become
+  # literal markup inside the JSON. Two HTML parser states can end or hijack
+  # the <script> element: a closing tag in any letter case, and `<!--`
+  # followed by `<script`, which makes the parser ignore the real closing
+  # tag and swallow the rest of the head. Parse a full head with an HTML5
+  # parser and check that the JSON and a following element both survive.
+  def test_script_tag_survives_html_parsing_of_hostile_text
+    hostile_bodies = [
+      'Close the tag with </script> and keep going.',
+      'Mixed case </ScRiPt> also closes it.',
+      'An HTML comment <!-- <script> swallows what follows.',
+    ]
+
+    hostile_bodies.each do |body|
+      @site.data['generated_json_ld_scripts'] = {}
+      hash = { '@type' => 'BlogPosting', 'articleBody' => body }
+      Jekyll::SEO::Generators::BlogPostingLdGenerator.stub :generate_hash, hash do
+        Jekyll::SEO::JsonLdInjector.inject_json_ld(@blog_post_doc, @site)
+      end
+
+      script_tag = @site.data['generated_json_ld_scripts'][@blog_post_doc.url]
+      html = "<!DOCTYPE html><html><head>#{script_tag}<meta name=\"sentinel\" content=\"after\"></head>" \
+             '<body></body></html>'
+      doc = Nokogiri::HTML5(html)
+
+      refute_nil doc.at_css('head meta[name="sentinel"]'), "Sentinel element swallowed for: #{body.inspect}"
+      scripts = doc.css('script[type="application/ld+json"]')
+      assert_equal 1, scripts.size, "Expected one JSON-LD script for: #{body.inspect}"
+      assert_equal body, JSON.parse(scripts.first.text)['articleBody'], "JSON text altered for: #{body.inspect}"
+    end
   end
 
   def test_review_without_item_name_stops_build

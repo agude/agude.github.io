@@ -57,6 +57,19 @@ module Jekyll
       # content layouts whose pages don't need structured data.
       SKIP_LAYOUTS = %w[substitute compress redirect 404 test-page].freeze
 
+      # Characters escaped as JSON unicode escapes inside the <script>
+      # element. String values carry decoded post text, so `</script>` or
+      # `<!-- <script>` in a code sample would end or hijack the element
+      # (WHATWG "Restrictions for contents of script elements"). JSON
+      # escapes decode back to the same string; HTML entities would not,
+      # because script content is not entity-decoded. The three characters
+      # never appear in JSON syntax outside strings.
+      SCRIPT_UNSAFE_ESCAPES = {
+        '<' => '\u003c',
+        '>' => '\u003e',
+        '&' => '\u0026',
+      }.freeze
+
       def self.initialize_script_storage(site)
         site.data['generated_json_ld_scripts'] ||= {}
       end
@@ -108,7 +121,7 @@ module Jekyll
       private_class_method :_generate_and_store
 
       def self._store_script(hash, site, doc_url)
-        script_content = JSON.pretty_generate(hash)
+        script_content = JSON.pretty_generate(hash).gsub(/[<>&]/, SCRIPT_UNSAFE_ESCAPES)
         script_tag = "<script type=\"application/ld+json\">\n#{script_content}\n</script>"
         site.data['generated_json_ld_scripts'][doc_url] = script_tag
       rescue JSON::GeneratorError => e
