@@ -10,7 +10,6 @@ wikidata_qid: Q2362526
 isbn: 978-0-385-26747-2
 date_published: 1990-03
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q2362526"
   - "https://en.wikipedia.org/wiki/The_Fall_of_Hyperion_%28novel%29"
   - "https://openlibrary.org/books/OL2214392M/The_Fall_of_Hyperion"
   - "https://www.isfdb.org/cgi-bin/title.cgi?1970"

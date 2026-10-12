@@ -10,7 +10,6 @@ wikidata_qid: Q1150125
 isbn: 978-0-671-25325-7
 date_published: 1980-05
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q1150125"
   - "https://en.wikipedia.org/wiki/The_Shadow_of_the_Torturer"
   - "https://openlibrary.org/works/OL14871979W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?1243"

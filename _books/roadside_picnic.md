@@ -12,7 +12,6 @@ wikidata_qid: Q848517
 isbn: 978-0-575-02445-8
 date_published: 1972
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q848517"
   - "https://en.wikipedia.org/wiki/Roadside_Picnic"
   - "https://openlibrary.org/works/OL16465148W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?669485"

@@ -228,19 +228,16 @@ module Jekyll
         set_if_present('articleBody', text)
       end
 
-      def same_as(urls)
-        return if urls.nil?
-
-        unless urls.is_a?(Array)
+      # Sets sameAs from `same_as_urls`. With `wikidata_qid:`, the Wikidata
+      # item URL built from it comes first.
+      def same_as(urls, wikidata_qid: nil)
+        unless urls.nil? || urls.is_a?(Array)
           log_invalid_array_type('same_as_urls', 'sameAs')
-          return
+          urls = nil
         end
 
-        cleaned = urls.filter_map do |u|
-          s = u.to_s.strip
-          s unless s.empty?
-        end
-        @data['sameAs'] = cleaned if cleaned.any?
+        list = Jekyll::SEO::JsonLdUtils.same_as_list(urls, wikidata_qid)
+        @data['sameAs'] = list if list.any?
       end
 
       def awards(list)

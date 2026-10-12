@@ -12,7 +12,6 @@ wikidata_qid: Q134525267
 isbn: 978-1-68068-345-5
 date_published: 2025-01-05
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q134525267"
   - "https://www.isfdb.org/cgi-bin/title.cgi?3399590"
   - https://www.google.com/search?kgmid=/g/11yct98j9g
 ---

@@ -11,7 +11,6 @@ wikidata_qid: Q3316723
 isbn: 978-0-671-72163-3
 date_published: 1993-04
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q3316723"
   - "https://en.wikipedia.org/wiki/On_Basilisk_Station"
   - "https://openlibrary.org/works/OL80028W/On_Basilisk_Station"
   - "https://www.isfdb.org/cgi-bin/title.cgi?1442"

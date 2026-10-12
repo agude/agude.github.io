@@ -10,7 +10,6 @@ wikidata_qid: Q30612330
 isbn: 978-1-68068-032-4
 date_published: 2016-09-20
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q30612330"
   - "https://openlibrary.org/works/OL19123425W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2159484"
   - https://www.google.com/search?kgmid=/g/11g1nns933

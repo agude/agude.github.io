@@ -11,7 +11,6 @@ wikidata_qid: Q3400447
 isbn: 978-0-671-72172-5
 date_published: 1993-06
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q3400447"
   - "https://en.wikipedia.org/wiki/The_Honor_of_the_Queen"
   - "https://openlibrary.org/works/OL15401157W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?5859"

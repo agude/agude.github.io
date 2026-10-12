@@ -11,7 +11,6 @@ wikidata_qid: Q1195862
 isbn: 978-0-87997-336-0
 date_published: 1965
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q1195862"
   - "https://en.wikipedia.org/wiki/Monday_Begins_on_Saturday"
   - "https://www.isfdb.org/cgi-bin/title.cgi?6828"
   - "https://www.librarything.com/work/503890"

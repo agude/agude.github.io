@@ -10,7 +10,6 @@ wikidata_qid: Q7745946
 isbn: 978-1-59474-576-8
 date_published: 2012-07-10
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q7745946"
   - "https://en.wikipedia.org/wiki/The_Last_Policeman"
   - "https://openlibrary.org/works/OL16799662W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?1461582"

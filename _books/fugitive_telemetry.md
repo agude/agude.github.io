@@ -13,7 +13,6 @@ date_published: 2021-04-27
 awards:
   - locus
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q107123470"
   - "https://openlibrary.org/works/OL20805971W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2844053"
   - "https://www.librarything.com/work/24641084"

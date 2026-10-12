@@ -101,6 +101,14 @@ class TestAuthorProfileLdGenerator < Minitest::Test
     assert_equal ['https://twitter.com/janedoe', 'https://linkedin.com/in/janedoe'], result.dig('about', 'sameAs')
   end
 
+  # The author's Wikidata link comes from wikidata_qid, ahead of same_as_urls.
+  def test_generate_hash_about_same_as_starts_with_wikidata_url
+    doc = create_author_doc('wikidata_qid' => 'Q42', 'same_as_urls' => ['https://twitter.com/janedoe'])
+    result = generate(doc)
+
+    assert_equal ['https://www.wikidata.org/wiki/Q42', 'https://twitter.com/janedoe'], result.dig('about', 'sameAs')
+  end
+
   def test_generate_hash_about_with_pen_names
     doc = create_author_doc('pen_names' => ['Pen Name One', '  Pen Name Two  ', nil, ''])
     result = generate(doc)

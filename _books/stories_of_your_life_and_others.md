@@ -15,7 +15,6 @@ awards:
   - locus
   - nebula
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q3045861"
   - "https://en.wikipedia.org/wiki/Stories_of_Your_Life_and_Others"
   - "https://openlibrary.org/works/OL6216050W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?40036"

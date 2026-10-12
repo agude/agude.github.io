@@ -13,7 +13,6 @@ wikidata_qid: Q122463813
 isbn: 978-0-330-02094-7
 date_published: 1966
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q122463813"
   - "https://en.wikipedia.org/wiki/Flowers_for_Algernon"
   - "https://openlibrary.org/works/OL515754W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?1927"

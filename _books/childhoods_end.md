@@ -10,7 +10,6 @@ wikidata_qid: Q466057
 isbn: 978-0-345-34795-4
 date_published: 1953-08-24
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q466057"
   - "https://en.wikipedia.org/wiki/Childhood%27s_End"
   - "https://openlibrary.org/works/OL17415W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2248"

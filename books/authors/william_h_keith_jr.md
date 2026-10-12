@@ -1,6 +1,7 @@
 ---
 layout: author_page
 title: William H. Keith Jr.
+wikidata_qid: Q8010470
 pen_names:
   - Bill Keith
   - Bill Keith Jr.
@@ -16,7 +17,6 @@ description: >
   Alex Gude's reviews of books written by William H. Keith Jr..
 same_as_urls:
   - https://en.wikipedia.org/wiki/William_H._Keith_Jr.
-  - https://www.wikidata.org/wiki/Q8010470
   - https://id.loc.gov/authorities/names/no93003281.html
   - https://www.isfdb.org/cgi-bin/ea.cgi?William_H._Keith,_Jr.
   - https://www.fantasticfiction.com/k/william-h-keith/

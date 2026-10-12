@@ -1,10 +1,10 @@
 ---
 layout: author_page
 title: Martha Wells
+wikidata_qid: Q6774606
 description: >
   Alex Gude's reviews of books written by Martha Wells.
 same_as_urls:
-  - https://www.wikidata.org/wiki/Q6774606
   - https://marthawells.com
   - https://marthawells.dreamwidth.org
   - https://us.macmillan.com/author/marthawells

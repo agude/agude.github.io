@@ -10,7 +10,6 @@ wikidata_qid: Q2511421
 isbn: 978-0-7653-1218-1
 date_published: 2006-10-03
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q2511421"
   - "https://en.wikipedia.org/wiki/Blindsight_%28Watts_novel%29"
   - "https://openlibrary.org/works/OL8514692W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?186521"

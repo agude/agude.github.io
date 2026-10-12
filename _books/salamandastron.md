@@ -10,7 +10,6 @@ wikidata_qid: Q2346562
 isbn: 978-0-09-176433-3
 date_published: 1992-08
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q2346562"
   - "https://en.wikipedia.org/wiki/Salamandastron"
   - "https://openlibrary.org/works/OL465969W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?4168"

@@ -1,13 +1,13 @@
 ---
 layout: author_page
 title: Robert A. Heinlein
+wikidata_qid: Q123078
 pen_names:
   - Robert Heinlein
 description: >
   Alex Gude's reviews of books written by Robert A. Heinlein.
 same_as_urls:
   - https://en.wikipedia.org/wiki/Robert_A._Heinlein
-  - https://www.wikidata.org/wiki/Q123078
   - https://id.loc.gov/authorities/names/n79067868.html
   - https://openlibrary.org/authors/OL28641A/Robert_A._Heinlein
   - https://sf-encyclopedia.com/entry/heinlein_robert_a

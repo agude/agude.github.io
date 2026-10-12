@@ -10,7 +10,6 @@ wikidata_qid: Q2521688
 isbn: 978-0-553-10652-7
 date_published: 1997-09
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q2521688"
   - "https://en.wikipedia.org/wiki/The_Rise_of_Endymion"
   - "https://openlibrary.org/works/OL1963248W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?12"

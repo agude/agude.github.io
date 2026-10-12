@@ -10,7 +10,6 @@ wikidata_qid: Q133842917
 isbn: 978-1-9848-2070-9
 date_published: 2024-02-06
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q133842917"
   - "https://en.wikipedia.org/wiki/The_Tainted_Cup"
   - "https://www.isfdb.org/cgi-bin/title.cgi?3267240"
   - "https://www.librarything.com/work/30597048"

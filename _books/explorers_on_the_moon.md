@@ -10,7 +10,6 @@ wikidata_qid: Q1309201
 isbn: 978-0-316-35846-0
 date_published: 1954
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q1309201"
   - "https://en.wikipedia.org/wiki/Explorers_on_the_Moon"
   - "https://www.tintin.com/en/albums/explorers-on-the-moon"
   - "https://openlibrary.org/works/OL151067W/On_a_marché_sur_la_Lune"

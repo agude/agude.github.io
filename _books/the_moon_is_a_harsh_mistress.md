@@ -11,7 +11,6 @@ wikidata_qid: Q1410482
 isbn: 978-0-425-01601-5
 date_published: 1966-06-02
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q1410482"
   - "https://en.wikipedia.org/wiki/The_Moon_Is_a_Harsh_Mistress"
   - "https://openlibrary.org/works/OL59728W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?1502"

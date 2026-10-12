@@ -12,8 +12,13 @@ class TestBookAuthorEntityResolver < Minitest::Test
         'layout' => 'author_page',
         'pen_names' => ['J.D. Writer'],
         'same_as_urls' => [' https://example.com/jane ', nil, ''],
+        'wikidata_qid' => 'Q42',
       },
       '/authors/jane-doe.html',
+    )
+    qid_only_page = create_doc(
+      { 'title' => 'Ada Lee', 'layout' => 'author_page', 'wikidata_qid' => 'Q7' },
+      '/authors/ada-lee.html',
     )
     john_page = create_doc(
       { 'title' => 'John Smith', 'layout' => 'author_page' },
@@ -22,7 +27,7 @@ class TestBookAuthorEntityResolver < Minitest::Test
     @site = create_site(
       { 'url' => 'https://mysite.dev', 'baseurl' => '/blog' },
       {},
-      [jane_page, john_page],
+      [jane_page, qid_only_page, john_page],
     )
   end
 
@@ -35,10 +40,17 @@ class TestBookAuthorEntityResolver < Minitest::Test
         '@id' => 'https://mysite.dev/blog/authors/jane-doe.html#person',
         'url' => 'https://mysite.dev/blog/authors/jane-doe.html',
         'name' => 'Jane Doe',
-        'sameAs' => ['https://example.com/jane'],
+        # The Wikidata link comes from the author page's wikidata_qid.
+        'sameAs' => ['https://www.wikidata.org/wiki/Q42', 'https://example.com/jane'],
       },
       resolve(document),
     )
+  end
+
+  def test_same_as_from_wikidata_qid_alone
+    result = resolve(create_book_document(['Ada Lee']))
+
+    assert_equal ['https://www.wikidata.org/wiki/Q7'], result['sameAs']
   end
 
   def test_pen_name_preserves_credited_name_and_canonical_identity
@@ -49,7 +61,7 @@ class TestBookAuthorEntityResolver < Minitest::Test
     assert_equal 'J.D. Writer', result['name']
     assert_equal 'https://mysite.dev/blog/authors/jane-doe.html#person', result['@id']
     assert_equal 'https://mysite.dev/blog/authors/jane-doe.html', result['url']
-    assert_equal ['https://example.com/jane'], result['sameAs']
+    assert_equal ['https://www.wikidata.org/wiki/Q42', 'https://example.com/jane'], result['sameAs']
   end
 
   def test_resolves_multiple_credited_authors_to_an_array

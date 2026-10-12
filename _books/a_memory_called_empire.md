@@ -10,7 +10,6 @@ wikidata_qid: Q82566838
 isbn: 978-1-250-18643-0
 date_published: 2019-03-26
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q82566838"
   - "https://en.wikipedia.org/wiki/A_Memory_Called_Empire"
   - "https://openlibrary.org/works/OL20157046W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2500310"

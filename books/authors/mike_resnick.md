@@ -1,6 +1,7 @@
 ---
 layout: author_page
 title: Mike Resnick
+wikidata_qid: Q913403
 description: >
   Alex Gude's reviews of books written by Mike Resnick.
 same_as_urls:
@@ -10,6 +11,5 @@ same_as_urls:
   - https://www.mikeresnick.com/
   - https://sf-encyclopedia.com/entry/resnick_mike
   - https://en.wikipedia.org/wiki/Mike_Resnick
-  - https://www.wikidata.org/wiki/Q913403
   - https://www.google.com/search?kgmid=/m/025yd1
 ---

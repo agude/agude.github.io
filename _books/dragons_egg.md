@@ -10,7 +10,6 @@ wikidata_qid: Q3205839
 isbn: 978-0-345-28646-8
 date_published: 1980-05
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q3205839"
   - "https://en.wikipedia.org/wiki/Dragon%27s_Egg"
   - "https://openlibrary.org/works/OL84296W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?6773"

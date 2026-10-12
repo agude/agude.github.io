@@ -10,7 +10,6 @@ wikidata_qid: Q5135263
 isbn: 978-0-552-07915-0
 date_published: 1964-07
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q5135263"
   - "https://en.wikipedia.org/wiki/Close_to_Critical"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2219"
   - "https://www.google.com/search?kgmid=/m/02qv3t2"

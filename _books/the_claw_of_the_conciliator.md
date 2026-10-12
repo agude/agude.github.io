@@ -10,7 +10,6 @@ wikidata_qid: Q3209610
 isbn: 978-0-671-41370-5
 date_published: 1981-03
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q3209610"
   - "https://en.wikipedia.org/wiki/The_Claw_of_the_Conciliator"
   - "https://openlibrary.org/works/OL15859736W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2225"

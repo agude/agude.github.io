@@ -1,6 +1,7 @@
 ---
 layout: author_page
 title: Todd McCaffrey
+wikidata_qid: Q2438479
 pen_names:
   - Todd Johnson
   - Todd J. McCaffrey
@@ -11,6 +12,5 @@ same_as_urls:
   - http://pernhome.com/tjm/
   - https://toddmccaffrey.com/
   - https://en.wikipedia.org/wiki/Todd_McCaffrey
-  - https://www.wikidata.org/wiki/Q2438479
   - https://www.google.com/search?kgmid=/m/05b_mn
 ---

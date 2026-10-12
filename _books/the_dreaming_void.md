@@ -10,7 +10,6 @@ wikidata_qid: Q3557788
 isbn: 978-1-4050-8880-0
 date_published: 2007-08
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q3557788"
   - "https://en.wikipedia.org/wiki/The_Dreaming_Void"
   - "https://openlibrary.org/works/OL17726800W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?694213"

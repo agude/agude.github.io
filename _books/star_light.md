@@ -10,7 +10,6 @@ wikidata_qid: Q7600780
 isbn: 978-0-345-02361-2
 date_published: 1970-09
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q7600780"
   - "https://en.wikipedia.org/wiki/Star_Light"
   - "https://openlibrary.org/works/OL15005203W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?1143"

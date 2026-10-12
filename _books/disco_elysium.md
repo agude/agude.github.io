@@ -17,7 +17,6 @@ wikidata_qid: Q71693825
 isbn: null
 date_published: 2019-10-15
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q71693825"
   - "https://en.wikipedia.org/wiki/Disco_Elysium"
   - "https://discoelysium.com/"
   - https://www.google.com/search?kgmid=/g/11fnyvphlh

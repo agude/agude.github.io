@@ -493,10 +493,8 @@ class TestBookReviewLdGenerator < Minitest::Test
         'series' => 'Dune Saga',
         'book_number' => '1',
         'date_published' => '1965-08',
-        'same_as_urls' => [
-          'https://www.wikidata.org/wiki/Q190159',
-          'https://en.wikipedia.org/wiki/Dune_(novel)',
-        ],
+        'wikidata_qid' => 'Q190159',
+        'same_as_urls' => ['https://en.wikipedia.org/wiki/Dune_(novel)'],
       },
       '/books/dune.html',
       'Detailed review content.',
@@ -549,6 +547,7 @@ class TestBookReviewLdGenerator < Minitest::Test
         'name' => 'Dune Saga',
       },
       'position' => '1',
+      # The Wikidata link comes from wikidata_qid, ahead of same_as_urls.
       'sameAs' => [
         'https://www.wikidata.org/wiki/Q190159',
         'https://en.wikipedia.org/wiki/Dune_(novel)',

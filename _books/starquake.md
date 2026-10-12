@@ -10,7 +10,6 @@ wikidata_qid: Q3968388
 isbn: 978-0-345-31232-7
 date_published: 1985-10
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q3968388"
   - "https://en.wikipedia.org/wiki/Starquake_%28novel%29"
   - "https://openlibrary.org/works/OL7547351M"
   - "https://www.isfdb.org/cgi-bin/title.cgi?6774"

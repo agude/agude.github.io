@@ -10,7 +10,6 @@ wikidata_qid: Q131382911
 isbn: 978-1-5290-5198-8
 date_published: 2023-04-27
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q131382911"
   - "https://www.isfdb.org/cgi-bin/title.cgi?3160665"
   - https://www.google.com/search?kgmid=/g/11s5j6ykhm
 ---

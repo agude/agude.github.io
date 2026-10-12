@@ -11,7 +11,6 @@ wikidata_qid: Q2870331
 isbn: 978-0-671-87624-0
 date_published: 1994-10
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q2870331"
   - "https://en.wikipedia.org/wiki/Field_of_Dishonor"
   - "https://openlibrary.org/works/OL8259656W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?5861"

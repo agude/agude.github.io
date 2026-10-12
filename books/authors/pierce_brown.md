@@ -1,11 +1,11 @@
 ---
 layout: author_page
 title: Pierce Brown
+wikidata_qid: Q19665989
 pen_names:
 description: >
   Alex Gude's reviews of books written by Pierce Brown.
 same_as_urls:
-  - https://www.wikidata.org/wiki/Q19665989
   - https://en.wikipedia.org/wiki/Pierce_Brown
   - https://www.piercebrown.com/
   - https://www.goodreads.com/author/show/6474348

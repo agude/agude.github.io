@@ -10,7 +10,6 @@ wikidata_qid: Q138497553
 isbn: null
 date_published: 2024-05-07
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q138497553"
   - "https://lastnpcalex.agency/ams.html"
   - "https://www.amazon.com/Mote-Shadow-N-Alex-ebook/dp/B0CZMW9NCC"
 ---

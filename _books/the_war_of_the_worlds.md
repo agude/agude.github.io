@@ -10,7 +10,6 @@ wikidata_qid: Q213019
 isbn: 978-0-14-000570-7
 date_published: 1897-04
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q213019"
   - "https://en.wikipedia.org/wiki/The_War_of_the_Worlds"
   - "https://www.isfdb.org/cgi-bin/title.cgi?895"
   - "https://openlibrary.org/books/OL33225306M/The_war_of_the_worlds"

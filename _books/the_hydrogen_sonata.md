@@ -10,7 +10,6 @@ wikidata_qid: Q7741197
 isbn: 978-0-356-50150-5
 date_published: 2012-10-04
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q7741197"
   - "https://en.wikipedia.org/wiki/The_Hydrogen_Sonata"
   - "https://openlibrary.org/works/OL17717215W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?1488930"

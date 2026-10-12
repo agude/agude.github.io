@@ -10,7 +10,6 @@ wikidata_qid: Q23307323
 isbn: 978-0-312-14321-3
 date_published: 1984-03
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q23307323"
   - "https://en.wikipedia.org/wiki/Clay%27s_Ark"
   - "https://openlibrary.org/works/OL35622W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2224"

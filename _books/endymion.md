@@ -10,7 +10,6 @@ wikidata_qid: Q2656138
 isbn: 978-0-553-10020-4
 date_published: 1996-01
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q2656138"
   - "https://en.wikipedia.org/wiki/Endymion_%28Simmons_novel%29"
   - "https://openlibrary.org/works/OL1963317W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?11"

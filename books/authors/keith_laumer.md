@@ -1,10 +1,10 @@
 ---
 layout: author_page
 title: Keith Laumer
+wikidata_qid: Q724395
 description: >
   Alex Gude's reviews of books written by Keith Laumer.
 same_as_urls:
-  - https://www.wikidata.org/wiki/Q724395
   - https://id.loc.gov/authorities/names/n80032675.html
   - https://www.isfdb.org/cgi-bin/ea.cgi?211
   - https://openlibrary.org/authors/OL918039A/Keith_Laumer

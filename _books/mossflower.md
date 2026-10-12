@@ -10,7 +10,6 @@ wikidata_qid: Q2576767
 isbn: 978-0-399-21549-0
 date_published: 1988
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q2576767"
   - "https://en.wikipedia.org/wiki/Mossflower"
   - "https://openlibrary.org/works/OL25672716W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?4165"

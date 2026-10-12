@@ -10,7 +10,6 @@ wikidata_qid: Q3225052
 isbn: 978-0-312-93033-2
 date_published: 1987-08
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q3225052"
   - "https://en.wikipedia.org/wiki/The_Urth_of_the_New_Sun"
   - "https://openlibrary.org/works/OL14871974W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?936"

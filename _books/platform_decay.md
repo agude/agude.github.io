@@ -11,7 +11,6 @@ wikidata_qid: Q136749524
 isbn: 978-1-7050-4103-1
 date_published: 2026-05-05
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q136749524"
   - "https://openlibrary.org/works/OL44660267W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?3597228"
   - "https://www.librarything.com/work/29024865"

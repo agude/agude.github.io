@@ -10,7 +10,6 @@ wikidata_qid: Q1320289
 isbn: 978-0-316-35845-3
 date_published: 1953
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q1320289"
   - "https://en.wikipedia.org/wiki/Destination_Moon_%28comics%29"
   - "https://www.tintin.com/en/albums/destination-moon"
   - "https://openlibrary.org/works/OL151080W"

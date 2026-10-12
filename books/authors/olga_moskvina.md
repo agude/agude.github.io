@@ -1,6 +1,7 @@
 ---
 layout: author_page
 title: Olga Moskvina
+wikidata_qid: Q141611529
 pen_names:
 description: >
   Alex Gude's reviews of books written by Olga Moskvina.
@@ -9,5 +10,4 @@ same_as_urls:
   - https://www.imdb.com/name/nm15586619/
   - https://www.linkedin.com/in/olgamoskvina/
   - https://nebulas.sfwa.org/nominees/olga-moskvina/
-  - https://www.wikidata.org/wiki/Q141611529
 ---

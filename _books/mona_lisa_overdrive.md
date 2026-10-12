@@ -11,7 +11,6 @@ wikidata_qid: Q663215
 isbn: 978-0-553-05250-3
 date_published: 1988-10
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q663215"
   - "https://en.wikipedia.org/wiki/Mona_Lisa_Overdrive"
   - "https://openlibrary.org/works/OL27253W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?1505"

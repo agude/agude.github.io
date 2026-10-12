@@ -10,7 +10,6 @@ wikidata_qid: Q135006054
 isbn: null
 date_published: 2023-09-15
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q135006054"
   - "https://www.amazon.com/Serpent-Valley-War-Horses-Book-ebook/dp/B0CGTHHZ6W"
   - "https://www.goodreads.com/en/book/show/198130402-serpent-valley"
 ---

@@ -13,7 +13,6 @@ date_published: 1953-10
 awards:
   - hugo
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q202009"
   - "https://en.wikipedia.org/wiki/Fahrenheit_451"
   - "https://openlibrary.org/works/OL103200W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?1972"

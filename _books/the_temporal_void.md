@@ -10,7 +10,6 @@ wikidata_qid: Q3557789
 isbn: 978-1-4050-8883-1
 date_published: 2008-10
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q3557789"
   - "https://en.wikipedia.org/wiki/The_Temporal_Void"
   - "https://openlibrary.org/works/OL474053W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?910040"

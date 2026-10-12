@@ -15,7 +15,6 @@ wikidata_qid: Q1068344
 isbn: 978-0-87795-780-5
 date_published: 1986-04
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q1068344"
   - "https://en.wikipedia.org/wiki/Burning_Chrome_%28short_story_collection%29"
   - "https://www.isfdb.org/cgi-bin/title.cgi?36850"
   - "https://www.britannica.com/topic/Burning-Chrome"

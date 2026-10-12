@@ -38,7 +38,7 @@ module Jekyll
                 document.data['book_number'],
                 series_path: series_page_path(document, site),
               )
-              book.same_as document.data['same_as_urls']
+              book.same_as document.data['same_as_urls'], wikidata_qid: document.data['wikidata_qid']
             end
           end
         end

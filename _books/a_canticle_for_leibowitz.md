@@ -11,7 +11,6 @@ wikidata_qid: Q1659714
 isbn: 978-0-553-27381-6
 date_published: 1959-10
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q1659714"
   - "https://en.wikipedia.org/wiki/A_Canticle_for_Leibowitz"
   - "https://openlibrary.org/works/OL2626638W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2283"

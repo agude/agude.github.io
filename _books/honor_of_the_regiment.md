@@ -21,7 +21,6 @@ wikidata_qid: Q135027319
 isbn: 978-0-671-72184-8
 date_published: 2002-06-25
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q135027319"
   - "https://www.amazon.com/Honor-Regiment-Bolos-Keith-Laumer/dp/0671721844"
   - "https://www.baen.com/Chapters/0671721844/0671721844.htm"
   - "https://www.goodreads.com/book/show/464055.Honor_of_the_Regiment"

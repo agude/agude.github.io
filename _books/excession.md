@@ -10,7 +10,6 @@ wikidata_qid: Q74362
 isbn: 978-1-85723-394-0
 date_published: 1996-06
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q74362"
   - "https://en.wikipedia.org/wiki/Excession"
   - "https://openlibrary.org/works/OL11169894W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?6886"

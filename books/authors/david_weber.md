@@ -1,13 +1,13 @@
 ---
 layout: author_page
 title: David Weber
+wikidata_qid: Q588653
 pen_names:
 description: >
   Alex Gude's reviews of books written by David Weber.
 same_as_urls:
   - https://www.facebook.com/davidweberauthor/
   - https://en.wikipedia.org/wiki/David_Weber
-  - https://www.wikidata.org/wiki/Q588653
   - https://viaf.org/en/viaf/171240
   - https://isni.org/isni/0000000071416151
   - https://id.loc.gov/authorities/names/n96016522.html

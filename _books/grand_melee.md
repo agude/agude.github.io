@@ -10,7 +10,6 @@ wikidata_qid: Q135006078
 isbn: null
 date_published: 2024-11-20
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q135006078"
   - "https://www.amazon.com/War-Horses-Book-Grand-Melee-ebook/dp/B0DK5TQ4PN"
 ---
 

@@ -82,6 +82,7 @@ class TestCacheBuilder < Minitest::Test
         'title' => 'Jane Doe',
         'layout' => 'author_page',
         'same_as_urls' => [' https://example.com/jane ', nil, '', 'https://example.com/jane'],
+        'wikidata_qid' => 'Q42',
       },
       '/authors/jane-doe.html',
     )
@@ -89,11 +90,14 @@ class TestCacheBuilder < Minitest::Test
     site = create_site({}, {}, [author_page])
     author = site.data['link_cache']['authors']['jane doe']
 
+    # Book reviews build each author's sameAs from this entry, so it carries
+    # the QID the Wikidata link is generated from.
     assert_equal(
       {
         'url' => '/authors/jane-doe.html',
         'title' => 'Jane Doe',
         'same_as_urls' => ['https://example.com/jane'],
+        'wikidata_qid' => 'Q42',
       },
       author,
     )

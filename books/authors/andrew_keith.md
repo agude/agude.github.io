@@ -1,6 +1,7 @@
 ---
 layout: author_page
 title: Andrew Keith
+wikidata_qid: Q17402872
 pen_names:
   - J. Andrew Keith
   - Keith William Andrews
@@ -10,6 +11,5 @@ same_as_urls:
   - https://www.freelancetraveller.com/jakeith/jakeith.html
   - https://sf-encyclopedia.com/entry/keith_andrew
   - https://en.wikipedia.org/wiki/J._Andrew_Keith
-  - https://www.wikidata.org/wiki/Q17402872
   - https://www.google.com/search?kgmid=/m/05qfs7n
 ---

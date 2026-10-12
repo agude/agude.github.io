@@ -11,7 +11,6 @@ wikidata_qid: Q617357
 isbn: 978-0440092001
 date_published: 1969-05-01
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q617357"
   - "https://en.wikipedia.org/wiki/Ubik"
   - "https://openlibrary.org/works/OL2172454W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?948"

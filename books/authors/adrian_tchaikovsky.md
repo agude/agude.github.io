@@ -1,10 +1,10 @@
 ---
 layout: author_page
 title: Adrian Tchaikovsky
+wikidata_qid: Q4685389
 description: >
   Alex Gude's reviews of books written by Adrian Tchaikovsky.
 same_as_urls:
-  - https://www.wikidata.org/wiki/Q4685389
   - https://en.wikipedia.org/wiki/Adrian_Tchaikovsky
   - https://www.adriantchaikovsky.com
   - https://www.goodreads.com/author/show/1445909

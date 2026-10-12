@@ -10,7 +10,6 @@ wikidata_qid: Q1416458
 isbn: 978-0-356-02625-1
 date_published: 1968-09
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q1416458"
   - "https://en.wikipedia.org/wiki/Stand_on_Zanzibar"
   - "https://openlibrary.org/works/OL3521966W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?1149"

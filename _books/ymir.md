@@ -10,7 +10,6 @@ wikidata_qid: Q135006034
 isbn: null
 date_published: 2023-02-15
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q135006034"
   - "https://www.google.com/search?kgmid=/g/11sjzzdspx"
   - "https://www.goodreads.com/book/show/122162779-ymir"
   - "https://www.amazon.com/Ymir-War-Horses-Book-2-ebook/dp/B0BSCBV6LL"

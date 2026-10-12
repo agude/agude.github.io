@@ -1,12 +1,12 @@
 ---
 layout: author_page
 title: Kurt Vonnegut
+wikidata_qid: Q49074
 pen_names:
 description: >
   Alex Gude's reviews of books written by Kurt Vonnegut.
 same_as_urls:
   - https://en.wikipedia.org/wiki/Kurt_Vonnegut
-  - https://www.wikidata.org/wiki/Q49074
   - https://id.loc.gov/authorities/names/n79062641.html
   - https://www.britannica.com/biography/Kurt-Vonnegut
   - https://www.fantasticfiction.com/v/kurt-vonnegut-jr/

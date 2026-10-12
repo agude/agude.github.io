@@ -10,7 +10,6 @@ wikidata_qid: Q23038229
 isbn: 978-0-385-12197-2
 date_published: 1976-07
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q23038229"
   - "https://en.wikipedia.org/wiki/Patternmaster"
   - "https://openlibrary.org/works/OL35620W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?1413"

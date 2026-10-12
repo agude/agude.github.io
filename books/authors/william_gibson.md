@@ -1,11 +1,11 @@
 ---
 layout: author_page
 title: William Gibson
+wikidata_qid: Q188987
 pen_names:
 description: >
   Alex Gude's reviews of books written by William Gibson.
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q188987"
   - "https://en.wikipedia.org/wiki/William_Gibson"
   - "https://williamgibsonbooks.com/"
   - "https://www.goodreads.com/author/show/9226"

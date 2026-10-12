@@ -1,6 +1,7 @@
 ---
 layout: author_page
 title: Helen Hindpere
+wikidata_qid: Q115193536
 pen_names:
 description: >
   Alex Gude's reviews of books written by Helen Hindpere.

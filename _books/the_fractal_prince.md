@@ -10,7 +10,6 @@ wikidata_qid: Q11859870
 isbn: 978-1-4299-8663-2
 date_published: 2012-09-27
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q11859870"
   - "https://en.wikipedia.org/wiki/The_Fractal_Prince"
   - "https://openlibrary.org/works/OL17400059W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?1244664"

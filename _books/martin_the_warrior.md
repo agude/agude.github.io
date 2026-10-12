@@ -10,7 +10,6 @@ wikidata_qid: Q664389
 isbn: 978-0-09-176150-9
 date_published: 1993-10
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q664389"
   - "https://en.wikipedia.org/wiki/Martin_the_Warrior"
   - "https://openlibrary.org/works/OL465920W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?4169"

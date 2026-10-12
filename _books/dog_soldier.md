@@ -10,7 +10,6 @@ wikidata_qid: Q135006063
 isbn: null
 date_published: 2024-03-15
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q135006063"
   - "https://www.amazon.com/-/dp/B0CRBLQQHN"
 ---
 

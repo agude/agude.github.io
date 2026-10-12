@@ -10,7 +10,6 @@ wikidata_qid: Q607112
 isbn: 978-0-7653-7706-7
 date_published: 2006
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q607112"
   - "https://en.wikipedia.org/wiki/The_Three-Body_Problem_%28novel%29"
   - "https://openlibrary.org/works/OL17267881W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?1779018"

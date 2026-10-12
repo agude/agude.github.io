@@ -10,7 +10,6 @@ wikidata_qid: Q1112623
 isbn: null
 date_published: 1921-11-01
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q1112623"
   - "https://en.wikipedia.org/wiki/The_Nameless_City"
   - "https://www.isfdb.org/cgi-bin/title.cgi?41881"
   - "https://www.google.com/search?kgmid=/m/05qlc5"

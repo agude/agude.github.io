@@ -1,12 +1,12 @@
 ---
 layout: author_page
 title: Robert Greenberger
+wikidata_qid: Q7344933
 pen_names:
 description: >
   Alex Gude's reviews of books written by Robert Greenberger.
 same_as_urls:
   - https://en.wikipedia.org/wiki/Robert_Greenberger
-  - https://www.wikidata.org/wiki/Q7344933
   - https://www.amazon.com/stores/Robert-Greenberger/author/B001ILOB5U
   - https://www.fantasticfiction.com/g/robert-greenberger/
   - https://bobgreenberger.com/

@@ -10,7 +10,6 @@ wikidata_qid: Q123521638
 isbn: 978-1-250-83886-5
 date_published: 2021-04-19
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q123521638"
   - "https://openlibrary.org/works/OL24349461W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2846804"
   - "https://www.librarything.com/work/24717606"

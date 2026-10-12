@@ -80,6 +80,8 @@ module Jekyll
             'same_as_urls' => Jekyll::Infrastructure::FrontMatterUtils.get_list_from_string_or_array(
               page.data['same_as_urls'],
             ),
+            # Book reviews build the author's Wikidata sameAs link from this.
+            'wikidata_qid' => page.data['wikidata_qid'],
           }
           author_cache = @link_cache['authors']
 

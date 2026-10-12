@@ -11,7 +11,6 @@ wikidata_qid: Q18393778
 isbn: 978-0-345-53978-6
 date_published: 2014-01-28
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q18393778"
   - "https://en.wikipedia.org/wiki/Red_Rising"
   - "https://openlibrary.org/works/OL17076473W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?1664916"

@@ -10,7 +10,6 @@ wikidata_qid: Q837304
 isbn: 978-1-4052-0615-0
 date_published: 1934
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q837304"
   - "https://en.wikipedia.org/wiki/Cigars_of_the_Pharaoh"
   - "https://www.tintin.com/en/albums/cigars-of-the-pharaoh"
   - "https://openlibrary.org/works/OL151056W/Les_cigares_du_pharaon"

@@ -10,7 +10,6 @@ wikidata_qid: Q3557786
 isbn: 978-0-345-49657-7
 date_published: 2010-08
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q3557786"
   - "https://en.wikipedia.org/wiki/The_Evolutionary_Void"
   - "https://openlibrary.org/works/OL28237368M"
   - "https://www.isfdb.org/cgi-bin/title.cgi?982734"

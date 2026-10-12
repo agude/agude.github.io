@@ -11,7 +11,6 @@ wikidata_qid: Q2384854
 isbn: 978-0-87795-793-7
 date_published: 1986-03
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q2384854"
   - "https://en.wikipedia.org/wiki/Count_Zero"
   - "https://openlibrary.org/works/OL27256W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2195"

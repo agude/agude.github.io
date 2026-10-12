@@ -10,7 +10,6 @@ wikidata_qid: Q2294155
 isbn: 978-0-340-02876-6
 date_published: 1959-10
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q2294155"
   - "https://en.wikipedia.org/wiki/The_Sirens_of_Titan"
   - "https://openlibrary.org/works/OL98485W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?1205"

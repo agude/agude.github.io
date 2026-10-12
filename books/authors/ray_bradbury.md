@@ -1,12 +1,12 @@
 ---
 layout: author_page
 title: Ray Bradbury
+wikidata_qid: Q40640
 pen_names:
   - William Elliot
 description: >
   Alex Gude's reviews of books written by Ray Bradbury.
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q40640"
   - "https://en.wikipedia.org/wiki/Ray_Bradbury"
   - "https://raybradbury.com"
   - "https://www.goodreads.com/author/show/1630"

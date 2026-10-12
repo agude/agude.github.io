@@ -11,7 +11,6 @@ wikidata_qid: Q3549538
 isbn: 978-0-671-87596-1
 date_published: 1994-04
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q3549538"
   - "https://en.wikipedia.org/wiki/The_Short_Victorious_War"
   - "https://openlibrary.org/works/OL15401158W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?5860"

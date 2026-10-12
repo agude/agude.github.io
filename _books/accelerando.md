@@ -11,7 +11,6 @@ wikidata_qid: Q2300209
 isbn: 978-0-441-01284-8
 date_published: 2005-07-05
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q2300209"
   - "https://en.wikipedia.org/wiki/Accelerando"
   - "https://openlibrary.org/works/OL2465670W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?158237"

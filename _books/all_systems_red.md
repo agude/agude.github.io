@@ -10,7 +10,6 @@ wikidata_qid: Q53828903
 isbn: 978-0-7653-9753-9
 date_published: 2017-05-02
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q53828903"
   - "https://en.wikipedia.org/wiki/All_Systems_Red"
   - "https://openlibrary.org/works/OL17914663W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2161845"

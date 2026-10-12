@@ -10,7 +10,6 @@ wikidata_qid: Q131382897
 isbn: 978-0-316-70587-5
 date_published: 2022-04-28
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q131382897"
   - "https://www.isfdb.org/cgi-bin/title.cgi?3009985"
   - https://www.google.com/search?kgmid=/g/11rxz39s_r
 ---

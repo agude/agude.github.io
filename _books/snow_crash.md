@@ -11,7 +11,6 @@ wikidata_qid: Q768389
 isbn: 978-0-553-08853-3
 date_published: 1992-06
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q768389"
   - "https://en.wikipedia.org/wiki/Snow_Crash"
   - "https://openlibrary.org/works/OL38485W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?1182"

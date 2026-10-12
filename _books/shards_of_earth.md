@@ -10,7 +10,6 @@ wikidata_qid: Q131382888
 isbn: 978-1-5290-5191-9
 date_published: 2021-05-27
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q131382888"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2859162"
   - "https://www.amazon.com/Shards-Earth-Final-Architects-Trilogy/dp/0316705853"
   - "https://www.goodreads.com/book/show/55278507-shards-of-earth"

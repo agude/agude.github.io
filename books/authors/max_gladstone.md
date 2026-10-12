@@ -1,6 +1,7 @@
 ---
 layout: author_page
 title: Max Gladstone
+wikidata_qid: Q16203004
 pen_names:
 description: >
   Alex Gude's reviews of books written by Max Gladstone.
@@ -16,5 +17,4 @@ same_as_urls:
   - https://www.google.com/search?kgmid=/m/0tkdtlc
   - https://www.isfdb.org/cgi-bin/ea.cgi?135056
   - https://www.sfadb.com/Max_Gladstone
-  - https://www.wikidata.org/wiki/Q16203004
 ---

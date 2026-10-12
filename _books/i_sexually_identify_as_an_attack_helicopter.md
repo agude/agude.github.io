@@ -11,7 +11,6 @@ wikidata_qid: Q85768580
 isbn: null
 date_published: 2020-01-09
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q85768580"
   - "https://en.wikipedia.org/wiki/I_Sexually_Identify_as_an_Attack_Helicopter"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2853858"
   - "https://isabelfall.neocities.org/Isabel_Fall_-_I_Sexually_Identify_as_an_Attack_Helicopter.pdf"

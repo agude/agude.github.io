@@ -10,7 +10,6 @@ wikidata_qid: Q18205890
 isbn: 978-0-7653-2951-6
 date_published: 2014-07-15
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q18205890"
   - "https://en.wikipedia.org/wiki/The_Causal_Angel"
   - "https://openlibrary.org/works/OL19982984W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?1734148"

@@ -10,7 +10,6 @@ wikidata_qid: Q302026
 isbn: 978-0-316-12340-2
 date_published: 2010-10-07
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q302026"
   - "https://en.wikipedia.org/wiki/Surface_Detail"
   - "https://openlibrary.org/books/OL24500323M/Surface_Detail"
   - "https://www.isfdb.org/cgi-bin/title.cgi?1143220"

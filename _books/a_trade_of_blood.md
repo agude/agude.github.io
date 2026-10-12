@@ -12,7 +12,6 @@ wikidata_qid: Q140866199
 isbn: "978-0-593-72385-2"
 date_published: 2026-08-04
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q140866199"
   - "https://www.goodreads.com/book/show/102615935-a-trade-of-blood"
   - "https://www.penguinrandomhouse.com/books/735560/a-trade-of-blood-by-robert-jackson-bennett/"
   - "https://www.google.com/search?kgmid=/g/11mdxd0b02"

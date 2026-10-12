@@ -10,7 +10,6 @@ wikidata_qid: Q3205411
 isbn: 978-0-671-43595-0
 date_published: 1982-01
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q3205411"
   - "https://en.wikipedia.org/wiki/The_Sword_of_the_Lictor"
   - "https://openlibrary.org/works/OL14871972W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?1063"

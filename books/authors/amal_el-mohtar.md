@@ -1,13 +1,13 @@
 ---
 layout: author_page
 title: Amal El-Mohtar
+wikidata_qid: Q20631001
 pen_names:
 description: >
   Alex Gude's reviews of books written by Amal El-Mohtar.
 same_as_urls:
   - https://amalelmohtar.com/
   - https://en.wikipedia.org/wiki/Amal_El-Mohtar
-  - https://www.wikidata.org/wiki/Q20631001
   - https://id.loc.gov/authorities/names/nb2011031689.html
   - https://www.amazon.com/stores/Amal-El-Mohtar/author/B004LSTMT2
   - https://www.google.com/search?kgmid=/m/06bjqmg

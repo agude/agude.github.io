@@ -11,7 +11,6 @@ wikidata_qid: Q73742845
 isbn: 978-1-5344-3100-3
 date_published: 2019-07-16
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q73742845"
   - "https://en.wikipedia.org/wiki/This_Is_How_You_Lose_the_Time_War"
   - "https://openlibrary.org/works/OL20639540W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2567153"

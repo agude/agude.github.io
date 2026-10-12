@@ -1,11 +1,11 @@
 ---
 layout: author_page
 title: John Shirley
+wikidata_qid: Q1346126
 pen_names:
 description: >
   Alex Gude's reviews of books written by John Shirley.
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q1346126"
   - "https://en.wikipedia.org/wiki/John_Shirley"
   - "https://john-shirley.com/"
   - "https://www.goodreads.com/author/show/61958"

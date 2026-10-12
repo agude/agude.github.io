@@ -14,7 +14,6 @@ awards:
   - hugo
   - nebula
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q662029"
   - "https://en.wikipedia.org/wiki/Neuromancer"
   - "https://openlibrary.org/works/OL27258W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?1475"

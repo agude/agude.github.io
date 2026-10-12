@@ -10,7 +10,6 @@ wikidata_qid: Q76210
 isbn: 978-0-316-35856-9
 date_published: 1936
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q76210"
   - "https://en.wikipedia.org/wiki/The_Blue_Lotus"
   - "https://www.tintin.com/en/albums/the-blue-lotus"
   - "https://openlibrary.org/works/OL151051W"

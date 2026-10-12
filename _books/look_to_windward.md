@@ -10,7 +10,6 @@ wikidata_qid: Q884010
 isbn: 978-1-85723-981-2
 date_published: 2000-08-10
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q884010"
   - "https://en.wikipedia.org/wiki/Look_to_Windward"
   - "https://openlibrary.org/works/OL100773W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?6887"

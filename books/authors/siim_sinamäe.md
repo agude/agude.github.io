@@ -1,6 +1,7 @@
 ---
 layout: author_page
 title: Siim Sinamäe
+wikidata_qid: Q65261214
 pen_names:
 description: >
   Alex Gude's reviews of books written by Siim Sinamäe.

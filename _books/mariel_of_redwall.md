@@ -10,7 +10,6 @@ wikidata_qid: Q3063726
 isbn: 978-0-09-176405-0
 date_published: 1991-10
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q3063726"
   - "https://en.wikipedia.org/wiki/Mariel_of_Redwall"
   - "https://openlibrary.org/works/OL20421742W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?4167"

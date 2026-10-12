@@ -23,7 +23,7 @@ module Jekyll
               person.node_id document.url, kind: :person
               person.url
               person.name document.data['title']
-              person.same_as document.data['same_as_urls']
+              person.same_as document.data['same_as_urls'], wikidata_qid: document.data['wikidata_qid']
               person.alternate_names document.data['pen_names']
             end
           end

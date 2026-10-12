@@ -10,7 +10,6 @@ wikidata_qid: Q261728
 isbn: 978-0-333-45430-5
 date_published: 1987
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q261728"
   - "https://en.wikipedia.org/wiki/Consider_Phlebas"
   - "https://openlibrary.org/works/OL8368432W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2200"

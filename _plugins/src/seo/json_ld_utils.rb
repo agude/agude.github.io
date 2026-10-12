@@ -29,6 +29,29 @@ module Jekyll
         url.empty? ? nil : "#{url}##{kind}"
       end
 
+      WIKIDATA_ENTITY_URL_PREFIX = 'https://www.wikidata.org/wiki/'
+
+      # The Wikidata item URL for a QID (e.g. Q190159), or nil when blank.
+      # `wikidata_qid` front matter is the single source of this link.
+      def self.wikidata_entity_url(qid)
+        id = qid.to_s.strip
+        return nil if id.empty?
+
+        "#{WIKIDATA_ENTITY_URL_PREFIX}#{id}"
+      end
+
+      # sameAs for an entity whose front matter has `wikidata_qid` and
+      # `same_as_urls` (books and author pages): the Wikidata URL built from
+      # the QID, then the non-blank same_as_urls.
+      def self.same_as_list(urls, wikidata_qid)
+        list = [wikidata_entity_url(wikidata_qid)].compact
+        Array(urls).each do |u|
+          s = u.to_s.strip
+          list << s unless s.empty?
+        end
+        list
+      end
+
       # `@id` and `url` of the site owner, from `author.url` in _config.yml.
       # Every author/publisher reference to the owner carries these, so all
       # of them name one node.

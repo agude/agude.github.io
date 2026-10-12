@@ -10,7 +10,6 @@ wikidata_qid: Q467139
 isbn: 978-0-333-47110-4
 date_published: 1988-08
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q467139"
   - "https://en.wikipedia.org/wiki/The_Player_of_Games"
   - "https://openlibrary.org/works/OL100779W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?1380"

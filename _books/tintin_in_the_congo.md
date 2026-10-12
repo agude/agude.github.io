@@ -10,7 +10,6 @@ wikidata_qid: Q636870
 isbn: 978-2-203-09650-9
 date_published: 1931
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q636870"
   - "https://en.wikipedia.org/wiki/Tintin_in_the_Congo"
   - "https://www.tintin.com/en/albums/tintin-in-the-congo"
   - "https://openlibrary.org/books/OL8406613M/Tintin_in_the_Congo"

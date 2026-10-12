@@ -10,7 +10,6 @@ wikidata_qid: Q30612289
 isbn: 978-1-68068-059-1
 date_published: 2017-04-18
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q30612289"
   - "https://openlibrary.org/works/OL19742648W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2214429"
   - https://www.google.com/search?kgmid=/g/11ycf15x9r

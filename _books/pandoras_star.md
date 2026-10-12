@@ -10,7 +10,6 @@ wikidata_qid: Q18289391
 isbn: 978-0-345-46162-9
 date_published: 2004-02
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q18289391"
   - "https://openlibrary.org/works/OL474061W/Pandora's_Star"
   - "https://www.isfdb.org/cgi-bin/title.cgi?154552"
   - "https://www.librarything.com/work/48931"

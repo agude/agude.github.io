@@ -10,7 +10,6 @@ wikidata_qid: Q3736382
 isbn: 978-0-575-07717-1
 date_published: 2008-04-17
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q3736382"
   - "https://en.wikipedia.org/wiki/House_of_Suns"
   - "https://openlibrary.org/works/OL5724833W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?785389"

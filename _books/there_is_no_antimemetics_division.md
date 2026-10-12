@@ -11,7 +11,6 @@ wikidata_qid: Q123682427
 isbn: 978-0-593-98375-1
 date_published: 2025-11-11
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q123682427"
   - "https://en.wikipedia.org/wiki/There_Is_No_Antimemetics_Division"
   - "https://openlibrary.org/books/OL58038489M/There_Is_No_Antimemetics_Division"
   - "https://www.isfdb.org/cgi-bin/title.cgi?3501161"

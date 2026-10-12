@@ -10,7 +10,6 @@ wikidata_qid: Q2008211
 isbn: 978-0-356-02947-4
 date_published: 1969-03
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q2008211"
   - "https://en.wikipedia.org/wiki/The_Left_Hand_of_Darkness"
   - "https://openlibrary.org/works/OL59864W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?7662"

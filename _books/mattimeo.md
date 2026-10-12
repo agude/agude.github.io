@@ -10,7 +10,6 @@ wikidata_qid: Q683464
 isbn: 978-0-09-173898-3
 date_published: 1989-10
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q683464"
   - "https://en.wikipedia.org/wiki/Mattimeo"
   - "https://openlibrary.org/works/OL25672713W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?4166"

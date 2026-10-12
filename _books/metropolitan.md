@@ -10,7 +10,6 @@ wikidata_qid: Q3391713
 isbn: 978-0-06-105212-5
 date_published: 1995-04
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q3391713"
   - "https://en.wikipedia.org/wiki/Metropolitan_%28novel%29"
   - "https://openlibrary.org/works/OL20034143W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?611"

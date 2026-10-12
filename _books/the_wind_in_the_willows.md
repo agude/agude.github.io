@@ -11,7 +11,6 @@ wikidata_qid: Q936276
 isbn: 978-0-14-303909-9
 date_published: 1908-10-08
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q936276"
   - "https://en.wikipedia.org/wiki/The_Wind_in_the_Willows"
   - "https://openlibrary.org/works/OL28570037W/The_Wind_in_the_Willows"
   - "https://www.isfdb.org/cgi-bin/title.cgi?835"

@@ -34,8 +34,8 @@ module Jekyll
           'url' => author_url,
           'name' => credited_name,
         }
-        same_as_urls = author_data['same_as_urls']
-        entity['sameAs'] = same_as_urls if same_as_urls&.any?
+        same_as = Jekyll::SEO::JsonLdUtils.same_as_list(author_data['same_as_urls'], author_data['wikidata_qid'])
+        entity['sameAs'] = same_as if same_as.any?
         entity
       end
       private_class_method :resolve_author

@@ -10,7 +10,6 @@ wikidata_qid: Q728312
 isbn: 979-8-6302-4801-5
 date_published: 1884
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q728312"
   - "https://en.wikipedia.org/wiki/Flatland"
   - "https://openlibrary.org/works/OL118388W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?1933"

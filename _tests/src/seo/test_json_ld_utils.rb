@@ -456,4 +456,37 @@ class TestJsonLdUtils < Minitest::Test
       },
     }
   end
+
+  # --- wikidata_entity_url ---
+
+  def test_wikidata_entity_url_builds_item_url
+    assert_equal 'https://www.wikidata.org/wiki/Q190159', Jekyll::SEO::JsonLdUtils.wikidata_entity_url('Q190159')
+  end
+
+  def test_wikidata_entity_url_strips_whitespace
+    assert_equal 'https://www.wikidata.org/wiki/Q190159', Jekyll::SEO::JsonLdUtils.wikidata_entity_url(' Q190159 ')
+  end
+
+  def test_wikidata_entity_url_blank_returns_nil
+    [nil, '', '  '].each do |qid|
+      assert_nil Jekyll::SEO::JsonLdUtils.wikidata_entity_url(qid), "QID #{qid.inspect}"
+    end
+  end
+
+  # --- same_as_list ---
+  # A QID front-matter field is the single source of the Wikidata link; it
+  # comes first, followed by the cleaned same_as_urls.
+
+  def test_same_as_list_puts_wikidata_url_first
+    result = Jekyll::SEO::JsonLdUtils.same_as_list([' https://example.com/a ', nil, ''], 'Q42')
+    assert_equal ['https://www.wikidata.org/wiki/Q42', 'https://example.com/a'], result
+  end
+
+  def test_same_as_list_without_qid
+    assert_equal ['https://example.com/a'], Jekyll::SEO::JsonLdUtils.same_as_list(['https://example.com/a'], nil)
+  end
+
+  def test_same_as_list_empty
+    assert_equal [], Jekyll::SEO::JsonLdUtils.same_as_list(nil, nil)
+  end
 end

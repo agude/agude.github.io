@@ -1,11 +1,11 @@
 ---
 layout: author_page
 title: Kenneth Grahame
+wikidata_qid: Q314897
 pen_names:
 description: >
   Alex Gude's reviews of books written by Kenneth Grahame.
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q314897"
   - "https://en.wikipedia.org/wiki/Kenneth_Grahame"
   - "https://www.goodreads.com/author/show/3843"
   - "https://id.loc.gov/authorities/names/n50000823.html"

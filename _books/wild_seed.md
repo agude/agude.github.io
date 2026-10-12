@@ -10,7 +10,6 @@ wikidata_qid: Q8000801
 isbn: 978-0-385-15160-3
 date_published: 1980-07
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q8000801"
   - "https://en.wikipedia.org/wiki/Wild_Seed_%28novel%29"
   - "https://openlibrary.org/works/OL35627W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?842"

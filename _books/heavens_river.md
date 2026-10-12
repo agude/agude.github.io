@@ -10,7 +10,6 @@ wikidata_qid: Q134525266
 isbn: 978-1-68068-226-7
 date_published: 2021-01-24
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q134525266"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2789069"
   - "https://www.amazon.com/Heavens-River-Dennis-Taylor-ebook/dp/B08P3NTSSR"
   - https://www.google.com/search?kgmid=/g/11nz3v35n7

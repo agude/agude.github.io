@@ -1,13 +1,13 @@
 ---
 layout: author_page
 title: Philip K. Dick
+wikidata_qid: Q171091
 pen_names:
   - Richard Phillipps
   - Jack Dowland
 description: >
   Alex Gude's reviews of books written by Philip K. Dick.
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q171091"
   - "https://en.wikipedia.org/wiki/Philip_K._Dick"
   - "http://www.philipkdick.com/"
   - "https://www.goodreads.com/author/show/4764"

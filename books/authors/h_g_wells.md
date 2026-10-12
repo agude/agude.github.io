@@ -1,6 +1,7 @@
 ---
 layout: author_page
 title: H. G. Wells
+wikidata_qid: Q42511
 pen_names:
   - Charles Edward Prendick
   - Reginald Bliss
@@ -16,7 +17,6 @@ same_as_urls:
   - https://librivox.org/author/146/
   - https://sf-encyclopedia.com/entry/wells_h_g
   - https://en.wikipedia.org/wiki/H._G._Wells
-  - https://www.wikidata.org/wiki/Q42511
   - https://www.goodreads.com/author/show/880695.H_G_Wells
   - https://www.google.com/search?kgmid=/m/03hnd
 ---

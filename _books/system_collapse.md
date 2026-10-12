@@ -13,7 +13,6 @@ date_published: 2023-11-13
 awards:
   - locus
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q123521600"
   - "https://openlibrary.org/works/OL33402895W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?3229607"
   - "https://www.librarything.com/work/26774411"

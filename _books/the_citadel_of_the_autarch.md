@@ -10,7 +10,6 @@ wikidata_qid: Q3207442
 isbn: 978-0-671-45251-3
 date_published: 1983-01
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q3207442"
   - "https://en.wikipedia.org/wiki/The_Citadel_of_the_Autarch"
   - "https://openlibrary.org/works/OL14871898W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2234"
