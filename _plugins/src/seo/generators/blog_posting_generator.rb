@@ -16,7 +16,7 @@ module Jekyll
             schema.image document.data['image']
             schema.url
             schema.main_entity_of_page
-            schema.description_from_fields(field_priority: %w[excerpt description], truncate_words: 50)
+            schema.description_from_fields(field_priority: %w[description excerpt], truncate_words: 50)
             schema.article_body
             schema.word_count
             schema.keywords(document.data['categories'], document.data['tags'])

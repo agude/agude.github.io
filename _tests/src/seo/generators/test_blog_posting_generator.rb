@@ -29,6 +29,10 @@ class TestBlogPostingLdGenerator < Minitest::Test
     assert_equal expected, Jekyll::SEO::Generators::BlogPostingLdGenerator.generate_hash(doc, @site)
   end
 
+  # The meta description tag prefers front-matter description over the
+  # excerpt. JSON-LD uses the same source priority. The outputs are not
+  # required to be identical: JSON-LD truncates to 50 words and the meta
+  # tag applies typography.
   def test_generate_hash_with_excerpt_and_description
     doc = create_excerpt_and_description_doc
     expected = build_expected_excerpt_hash
@@ -61,6 +65,35 @@ class TestBlogPostingLdGenerator < Minitest::Test
     assert_minimal_hash_structure(actual_hash)
     assert_date_fields_present_and_valid(actual_hash)
     assert_expected_keys_only(actual_hash)
+  end
+
+  def test_description_falls_back_to_excerpt_without_front_matter
+    doc = create_doc(
+      { 'layout' => 'post', 'title' => 'Post', 'excerpt_output_override' => '<p>Only the excerpt.</p>' },
+      '/blog/post/',
+      '<p>Body.</p>',
+      '2024-01-01',
+      @post_collection,
+    )
+    result = Jekyll::SEO::Generators::BlogPostingLdGenerator.generate_hash(doc, @site)
+    assert_equal 'Only the excerpt.', result['description']
+  end
+
+  def test_description_falls_back_to_excerpt_when_front_matter_blank
+    doc = create_doc(
+      {
+        'layout' => 'post',
+        'title' => 'Post',
+        'excerpt_output_override' => '<p>Only the excerpt.</p>',
+        'description' => "   \n",
+      },
+      '/blog/post/',
+      '<p>Body.</p>',
+      '2024-01-01',
+      @post_collection,
+    )
+    result = Jekyll::SEO::Generators::BlogPostingLdGenerator.generate_hash(doc, @site)
+    assert_equal 'Only the excerpt.', result['description']
   end
 
   def test_article_body_and_word_count_exclude_book_link_preview
@@ -149,7 +182,7 @@ class TestBlogPostingLdGenerator < Minitest::Test
         'layout' => 'post',
         'title' => 'Post With Excerpt',
         'excerpt_output_override' => '<p>This is the <strong>excerpt</strong>.</p>',
-        'description' => 'This front matter description should be ignored for LD description.',
+        'description' => 'Hand-written description wins over the excerpt.',
         'tags' => %w[Example Test],
       },
       '/test/excerpt-post.html',
@@ -174,7 +207,7 @@ class TestBlogPostingLdGenerator < Minitest::Test
         '@type' => 'WebPage',
         '@id' => 'https://blog.example.com/test/excerpt-post.html',
       },
-      'description' => 'This is the excerpt.',
+      'description' => 'Hand-written description wins over the excerpt.',
       'articleBody' => 'Full content here.',
       'wordCount' => 3,
       'keywords' => 'Example, Test',
