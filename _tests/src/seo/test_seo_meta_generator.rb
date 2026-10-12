@@ -480,6 +480,38 @@ class TestSeoMetaGenerator < Minitest::Test
     assert_equal 'https://alexgude.com/books/test/', result['canonical']
   end
 
+  # --- Robots Tests ---
+
+  # GitHub Pages serves 404.html for every missing path, so a canonical
+  # pointing at /404.html is false. The test page is excluded from the
+  # sitemap but is still crawlable, so it needs noindex; its self-canonical
+  # is accurate and stays.
+  def test_404_page_is_noindex_without_canonical
+    doc = create_page_doc(title: '404: Page not found', layout: '404', url: '/404.html')
+    site = create_site(@site_config)
+    result = generate_meta(doc, site)
+
+    assert_equal 'noindex', result['robots']
+    assert_nil result['canonical']
+  end
+
+  def test_test_page_is_noindex_with_self_canonical
+    doc = create_page_doc(title: 'Test Page', layout: 'test-page', url: '/test/')
+    site = create_site(@site_config)
+    result = generate_meta(doc, site)
+
+    assert_equal 'noindex', result['robots']
+    assert_equal 'https://alexgude.com/test/', result['canonical']
+  end
+
+  def test_content_pages_have_no_robots_directive
+    doc = create_post_doc(title: 'Test Post')
+    site = create_site(@site_config)
+    result = generate_meta(doc, site)
+
+    assert_nil result['robots']
+  end
+
   # --- og:description Tests ---
 
   def test_og_description_uses_description

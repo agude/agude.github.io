@@ -96,9 +96,10 @@ The SEO subsystems communicate through `_includes/head.html`:
   `<script type="application/ld+json">` tags. Its dispatch is keyed by layout
   through `LAYOUT_GENERATORS`; an unknown layout raises.
 - `SeoMetaInjector` populates `site.data['seo_meta']` with title, Open Graph,
-  Twitter, description, and canonical values. Its layout knowledge is limited
-  to title suffixes (`LAYOUT_TITLE_SUFFIX`) and article classification
-  (`ARTICLE_LAYOUTS`). The
+  Twitter, description, canonical, and robots values. Its layout knowledge is
+  limited to title suffixes (`LAYOUT_TITLE_SUFFIX`), article classification
+  (`ARTICLE_LAYOUTS`), and indexing (`NOINDEX_LAYOUTS`,
+  `NO_CANONICAL_LAYOUTS`). The
   `test_every_known_layout_has_article_classification` test requires every
   layout in `LAYOUT_GENERATORS` to be explicitly classified.
 - `StandardSiteWellKnownGenerator` emits

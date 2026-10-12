@@ -6,6 +6,8 @@ require_relative '../../test_helper'
 #
 # Verifies the injector correctly stores SEO meta data for documents and pages.
 class TestSeoMetaInjector < Minitest::Test
+  SEO_META_INCLUDE = File.expand_path('../../../_includes/seo_meta.html', __dir__)
+
   def setup
     @site_config = {
       'url' => 'https://example.com',
@@ -307,4 +309,45 @@ class TestSeoMetaInjector < Minitest::Test
     refute site.data['seo_meta'].key?('/empty-layout/')
   end
 
+  # --- Rendered include (_includes/seo_meta.html) ---
+  #
+  # The generator tests check the meta hash; these check that the include
+  # actually prints it. A robots value that is stored but never rendered
+  # has no effect on crawlers.
+
+  def test_include_renders_noindex_and_omits_canonical_for_404
+    html = inject_and_render(layout: '404', title: '404: Page not found', url: '/404.html')
+
+    assert_includes html, '<meta name="robots" content="noindex"'
+    refute_includes html, 'rel="canonical"'
+    refute_includes html, 'property="og:url"'
+  end
+
+  def test_include_renders_noindex_and_self_canonical_for_test_page
+    html = inject_and_render(layout: 'test-page', title: 'Test Page', url: '/test/')
+
+    assert_includes html, '<meta name="robots" content="noindex"'
+    assert_includes html, '<link rel="canonical" href="https://example.com/test/"'
+  end
+
+  def test_include_omits_robots_for_content_pages
+    html = inject_and_render(layout: 'post', title: 'Test Post', url: '/blog/test-post/')
+
+    refute_includes html, 'name="robots"'
+    assert_includes html, '<link rel="canonical" href="https://example.com/blog/test-post/"'
+  end
+
+  private
+
+  def inject_and_render(layout:, title:, url:)
+    site = create_site(@site_config)
+    doc = create_doc({ 'layout' => layout, 'title' => title }, url, 'Content', '2024-01-01', nil)
+    Jekyll::SEO::SeoMetaInjector.inject_meta(doc, site)
+
+    Liquid::Template.parse(File.read(SEO_META_INCLUDE)).render!(
+      'site' => { 'data' => { 'seo_meta' => site.data['seo_meta'] } },
+      'page' => { 'url' => url },
+      'jekyll' => { 'version' => '0.0.0' },
+    )
+  end
 end

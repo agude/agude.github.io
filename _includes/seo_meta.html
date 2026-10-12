@@ -18,6 +18,9 @@
 <meta name="description" content="{{ seo.description | escape }}" />
 <meta property="og:description" content="{{ seo.description | escape }}" />
 {%- endif -%}
+{%- if seo.robots -%}
+<meta name="robots" content="{{ seo.robots }}" />
+{%- endif -%}
 {%- if seo.canonical -%}
 <link rel="canonical" href="{{ seo.canonical }}" />
 <meta property="og:url" content="{{ seo.canonical }}" />

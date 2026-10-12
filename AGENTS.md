@@ -52,9 +52,10 @@ Why they do not overlap:
       with `<script type="application/ld+json">` tags. Layout-keyed
       dispatch via `LAYOUT_GENERATORS`; unknown layout raises.
     - `SeoMetaInjector` populates `site.data['seo_meta']` with meta tag
-      values (title, og_*, twitter_*, description, canonical). Layout
-      knowledge limited to title suffixes (`LAYOUT_TITLE_SUFFIX`) and
-      article classification (`ARTICLE_LAYOUTS`). The cross-check test
+      values (title, og_*, twitter_*, description, canonical, robots).
+      Layout knowledge limited to title suffixes (`LAYOUT_TITLE_SUFFIX`),
+      article classification (`ARTICLE_LAYOUTS`), and indexing
+      (`NOINDEX_LAYOUTS`, `NO_CANONICAL_LAYOUTS`). The cross-check test
       `test_every_known_layout_has_article_classification` enforces that
       every layout in `LAYOUT_GENERATORS` is explicitly classified.
     - `StandardSiteWellKnownGenerator` emits

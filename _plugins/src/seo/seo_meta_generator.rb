@@ -19,6 +19,14 @@ module Jekyll
         'category' => 'Articles',
       }.freeze
 
+      # Layouts kept out of search results. The test page is excluded from
+      # the sitemap but still crawlable; 404.html is a real file.
+      NOINDEX_LAYOUTS = %w[404 test-page].freeze
+
+      # Layouts with no canonical URL. GitHub Pages serves 404.html for
+      # every missing path, so a canonical pointing at /404.html is false.
+      NO_CANONICAL_LAYOUTS = %w[404].freeze
+
       # Name suffixes stripped before computing surname / given names.
       NAME_SUFFIXES = %w[Jr. Jr Sr. Sr II III IV V].freeze
 
@@ -44,6 +52,7 @@ module Jekyll
           'og_locale' => locale,
           'description' => description,
           'canonical' => canonical_url,
+          'robots' => robots,
           'twitter_card' => twitter_card_type,
           'article_published_time' => article_published_time,
           'author' => author_name,
@@ -202,7 +211,13 @@ module Jekyll
       # --- URLs ---
 
       def canonical_url
+        return nil if NO_CANONICAL_LAYOUTS.include?(@data['layout'])
+
         make_absolute(@document.url)
+      end
+
+      def robots
+        'noindex' if NOINDEX_LAYOUTS.include?(@data['layout'])
       end
 
       def make_absolute(path)
