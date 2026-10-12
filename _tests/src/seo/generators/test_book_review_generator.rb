@@ -316,6 +316,18 @@ class TestBookReviewLdGenerator < Minitest::Test
     assert_match 'Series Without A Page', error.message
   end
 
+  def test_generate_hash_book_name_strips_title_markup
+    doc = create_doc(
+      { 'layout' => 'book', 'title' => 'First&nbsp;Part<br>Second Part', 'book_authors' => ['Author'] },
+      '/books/markup.html',
+      'Content',
+      '2024-01-01',
+      @books_collection,
+    )
+    result = Jekyll::SEO::Generators::BookReviewLdGenerator.generate_hash(doc, @site)
+    assert_equal "First\u00A0Part Second Part", result.dig('itemReviewed', 'name')
+  end
+
   private
 
   def author_pages

@@ -718,4 +718,43 @@ class TestJsonLdBuilder < Minitest::Test
     end
     refute result.key?('about')
   end
+
+  # --- name and page_name (display title -> plain-text name) ---
+
+  def test_name_converts_title_markup
+    result = Jekyll::SEO::JsonLdBuilder.build('Book') do |schema|
+      schema.name 'Clever(ly&nbsp;Terrible)<br>Code'
+    end
+    assert_equal "Clever(ly\u00A0Terrible) Code", result['name']
+  end
+
+  def test_name_blank_not_added
+    [nil, '', '<br>'].each do |value|
+      result = Jekyll::SEO::JsonLdBuilder.build('Book') { |schema| schema.name value }
+      refute result.key?('name'), "Blank name #{value.inspect} should omit name"
+    end
+  end
+
+  def test_page_name_converts_title_markup
+    result = Jekyll::SEO::JsonLdBuilder.build('WebPage') do |schema|
+      schema.page_name 'Clever(ly&nbsp;Terrible)<br>Code'
+    end
+    assert_equal "Clever(ly\u00A0Terrible) Code", result['name']
+  end
+
+  def test_page_name_appends_suffix
+    result = Jekyll::SEO::JsonLdBuilder.build('CollectionPage') do |schema|
+      schema.page_name 'Data Science', suffix: 'Articles'
+    end
+    assert_equal 'Data Science - Articles', result['name']
+  end
+
+  def test_page_name_blank_title_not_added
+    [nil, '', '  ', '<br>'].each do |title|
+      result = Jekyll::SEO::JsonLdBuilder.build('WebPage') do |schema|
+        schema.page_name title, suffix: 'Articles'
+      end
+      refute result.key?('name'), "Blank title #{title.inspect} should omit name"
+    end
+  end
 end

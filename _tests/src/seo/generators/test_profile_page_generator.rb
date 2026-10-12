@@ -103,6 +103,14 @@ class TestProfilePageLdGenerator < Minitest::Test
     refute result.key?('mainEntity'), 'Missing author should omit mainEntity'
   end
 
+  # Titles may contain <br> and &nbsp; for on-page display. JSON-LD names
+  # are plain text.
+  def test_generate_hash_name_is_plain_text
+    doc = create_linktree_doc(title: 'Clever(ly&nbsp;Terrible)<br>Code')
+    result = Jekyll::SEO::Generators::ProfilePageLdGenerator.generate_hash(doc, create_site(@site_config))
+    assert_equal "Clever(ly\u00A0Terrible) Code", result['name']
+  end
+
   private
 
   def create_linktree_doc(title: 'Linktree', description: nil)

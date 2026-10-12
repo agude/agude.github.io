@@ -112,9 +112,11 @@ module Jekyll
       end
 
       # Sets `about` to the BookSeries this document's page identifies.
-      def about_book_series(name)
+      # @param title [String] The series page's display title.
+      def about_book_series(title)
         page_url = @document && Jekyll::Infrastructure::UrlUtils.absolute_url(@document.url, @site)
-        entity = Jekyll::SEO::JsonLdUtils.build_book_series_entity(name, page_url)
+        series_name = Jekyll::Infrastructure::TextProcessingUtils.plain_title_text(title)
+        entity = Jekyll::SEO::JsonLdUtils.build_book_series_entity(series_name, page_url)
         @data['about'] = entity if entity
       end
 
@@ -314,12 +316,23 @@ module Jekyll
         set_if_present('inLanguage', value)
       end
 
+      # Sets `name` as plain text (see TextProcessingUtils.plain_title_text),
+      # so display titles with <br> or entities need no cleanup by callers.
       def name(value)
-        set_if_present('name', value)
+        set_if_present('name', Jekyll::Infrastructure::TextProcessingUtils.plain_title_text(value))
+      end
+
+      # Sets `name` from a display title, as plain text (see
+      # TextProcessingUtils.plain_title_text), with an optional suffix.
+      def page_name(title, suffix: nil)
+        text = Jekyll::Infrastructure::TextProcessingUtils.plain_title_text(title).strip
+        return if text.empty?
+
+        @data['name'] = suffix ? "#{text} - #{suffix}" : text
       end
 
       def headline(value)
-        set_if_present('headline', value)
+        set_if_present('headline', Jekyll::Infrastructure::TextProcessingUtils.plain_title_text(value))
       end
 
       # @gotcha Count the cleaned text, not `@document.content`. The injector

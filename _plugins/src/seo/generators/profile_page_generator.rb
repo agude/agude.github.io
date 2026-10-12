@@ -9,7 +9,7 @@ module Jekyll
       module ProfilePageLdGenerator
         def self.generate_hash(document, site)
           Jekyll::SEO::PersonJsonLdBuilder.build('ProfilePage', document: document, site: site) do |schema|
-            schema.name document.data['title']
+            schema.page_name document.data['title']
             schema.url
             schema.description
             schema.main_entity_person_with_social

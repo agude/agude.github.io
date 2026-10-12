@@ -190,6 +190,14 @@ class TestSeoMetaGenerator < Minitest::Test
     assert_includes result['title'], ' '
   end
 
+  def test_title_replaces_br_with_space
+    doc = create_post_doc(title: 'Line One<br>Line Two')
+    site = create_site(@site_config)
+    result = generate_meta(doc, site)
+
+    assert_equal 'Line One Line Two', result['title']
+  end
+
   def test_title_applies_typography
     doc = create_post_doc(title: "My Second Son's Language Development")
     site = create_site(@site_config)

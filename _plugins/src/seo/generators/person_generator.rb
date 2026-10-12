@@ -17,7 +17,7 @@ module Jekyll
           Jekyll::SEO::PersonJsonLdBuilder.build('ProfilePage', document: document, site: site) do |page|
             page.node_id document.url
             page.url
-            page.name document.data['title']
+            page.page_name document.data['title']
             page.description
             page.is_part_of_website
             page.main_entity('Person') do |schema|

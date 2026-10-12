@@ -9,8 +9,7 @@ module Jekyll
       module SeriesPageLdGenerator
         def self.generate_hash(document, site)
           Jekyll::SEO::JsonLdBuilder.build('CollectionPage', document: document, site: site) do |schema|
-            title = document.data['title'].to_s.strip
-            schema.name "#{title} - Book Reviews" unless title.empty?
+            schema.page_name document.data['title'], suffix: 'Book Reviews'
             schema.url
             schema.description
             schema.about_book_series document.data['title']

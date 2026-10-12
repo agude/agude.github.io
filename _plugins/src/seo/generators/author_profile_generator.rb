@@ -13,17 +13,16 @@ module Jekyll
       module AuthorProfileLdGenerator
         def self.generate_hash(document, site)
           Jekyll::SEO::PersonJsonLdBuilder.build('CollectionPage', document: document, site: site) do |page|
-            title = document.data['title'].to_s.strip
             page.node_id document.url
             page.url
-            page.name "#{title} - Book Reviews" unless title.empty?
+            page.page_name document.data['title'], suffix: 'Book Reviews'
             page.description
             page.site_author
             page.is_part_of_website
             page.about_entity('Person') do |person|
               person.node_id document.url, kind: :person
               person.url
-              person.name title
+              person.name document.data['title']
               person.same_as document.data['same_as_urls']
               person.alternate_names document.data['pen_names']
             end

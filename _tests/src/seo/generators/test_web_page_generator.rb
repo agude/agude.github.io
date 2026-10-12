@@ -69,4 +69,12 @@ class TestWebPageLdGenerator < Minitest::Test
     }
     assert_equal expected, result['isPartOf']
   end
+
+  # Titles may contain <br> and &nbsp; for on-page display. JSON-LD names
+  # are plain text.
+  def test_name_is_plain_text
+    doc = create_doc({ 'title' => 'Clever(ly&nbsp;Terrible)<br>Code', 'layout' => 'page-not-on-sidebar' }, '/files/clever.html')
+    result = Jekyll::SEO::Generators::WebPageLdGenerator.generate_hash(doc, @site)
+    assert_equal "Clever(ly\u00A0Terrible) Code", result['name']
+  end
 end

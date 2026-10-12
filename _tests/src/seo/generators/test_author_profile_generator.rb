@@ -151,6 +151,15 @@ class TestAuthorProfileLdGenerator < Minitest::Test
     assert_equal expected_about, result['about']
   end
 
+  # Titles may contain <br> and &nbsp; for on-page display. JSON-LD names
+  # are plain text.
+  def test_generate_hash_page_and_person_names_are_plain_text
+    result = generate(create_author_doc('title' => 'Jane&nbsp;Doe<br>Jr.'))
+
+    assert_equal "Jane\u00A0Doe Jr. - Book Reviews", result['name']
+    assert_equal "Jane\u00A0Doe Jr.", result.dig('about', 'name')
+  end
+
   private
 
   def create_author_doc(overrides = {})

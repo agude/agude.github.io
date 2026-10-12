@@ -165,6 +165,13 @@ module Jekyll
         title.to_s.gsub(%r{\s*<br\s*/?\s*>\s*}i, ' ')
       end
 
+      # Converts a display title to plain text for metadata (meta tags,
+      # JSON-LD). <br> becomes one space and entities such as &nbsp; are
+      # decoded, so "Line One<br>Line Two" does not run together.
+      def self.plain_title_text(title)
+        Nokogiri::HTML5.fragment(markdown_title_text(title)).text
+      end
+
       # Escapes characters that break Markdown link URLs: ( and ).
       def self.escape_url(url)
         url.to_s.gsub(/[()]/) { |m| "\\#{m}" }

@@ -99,6 +99,14 @@ class TestPageLdGenerator < Minitest::Test
     refute result.key?('author'), 'Missing author should omit field'
   end
 
+  # Titles may contain <br> and &nbsp; for on-page display. JSON-LD names
+  # are plain text.
+  def test_generate_hash_name_is_plain_text
+    doc = create_page_doc(title: 'Clever(ly&nbsp;Terrible)<br>Code', url: '/blog/clever/')
+    result = Jekyll::SEO::Generators::PageLdGenerator.generate_hash(doc, create_site(@site_config))
+    assert_equal "Clever(ly\u00A0Terrible) Code", result['name']
+  end
+
   private
 
   def create_page_doc(title:, url:, description: nil)

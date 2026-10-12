@@ -10,7 +10,7 @@ module Jekyll
       module WebPageLdGenerator
         def self.generate_hash(document, site)
           Jekyll::SEO::JsonLdBuilder.build('WebPage', document: document, site: site) do |schema|
-            schema.name document.data['title']
+            schema.page_name document.data['title']
             schema.url
             schema.description
             schema.site_author

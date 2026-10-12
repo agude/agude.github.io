@@ -86,6 +86,14 @@ class TestCategoryPageLdGenerator < Minitest::Test
     assert_equal 'Data Science & ML - Articles', result['name']
   end
 
+  # Titles may contain <br> and &nbsp; for on-page display. JSON-LD names
+  # are plain text.
+  def test_generate_hash_name_is_plain_text
+    doc = create_category_page_doc(title: 'Clever(ly&nbsp;Terrible)<br>Code')
+    result = Jekyll::SEO::Generators::CategoryPageLdGenerator.generate_hash(doc, create_site(@site_config))
+    assert_equal "Clever(ly\u00A0Terrible) Code - Articles", result['name']
+  end
+
   private
 
   def create_category_page_doc(title:, description: nil, category_title: nil)

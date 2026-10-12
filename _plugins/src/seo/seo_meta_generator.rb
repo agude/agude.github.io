@@ -116,11 +116,7 @@ module Jekyll
                 "SEO: Page '#{@document.relative_path || @document.url}' is missing a title"
         end
 
-        decode_html_entities(title)
-      end
-
-      def decode_html_entities(text)
-        Nokogiri::HTML5.fragment(text.to_s).text
+        Infrastructure::TextProcessingUtils.plain_title_text(title)
       end
 
       def site_title

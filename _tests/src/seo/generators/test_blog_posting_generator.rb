@@ -109,6 +109,20 @@ class TestBlogPostingLdGenerator < Minitest::Test
     assert_equal 4, result['wordCount']
   end
 
+  # Titles may contain <br> and &nbsp; for on-page display
+  # (TypographyUtils::ALLOWED_TITLE_ENTITIES). JSON-LD is plain text.
+  def test_headline_is_plain_text
+    doc = create_doc(
+      { 'layout' => 'post', 'title' => 'Clever(ly&nbsp;Terrible)<br>Code' },
+      '/blog/clever/',
+      '<p>Body.</p>',
+      '2024-01-01',
+      @post_collection,
+    )
+    result = Jekyll::SEO::Generators::BlogPostingLdGenerator.generate_hash(doc, @site)
+    assert_equal "Clever(ly\u00A0Terrible) Code", result['headline']
+  end
+
   def test_author_and_publisher_share_site_owner_id
     site = create_site(@site_config.merge('author' => { 'name' => 'Test Author', 'url' => '/resume/' }))
     doc = create_basic_post_doc

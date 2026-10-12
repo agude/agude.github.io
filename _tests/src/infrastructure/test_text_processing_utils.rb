@@ -440,4 +440,28 @@ class TestTextProcessingUtils < Minitest::Test
   def test_escape_url_handles_non_strings
     assert_equal '456', Jekyll::Infrastructure::TextProcessingUtils.escape_url(456)
   end
+
+  # --- Tests for plain_title_text ---
+  # Titles may contain <br> and &nbsp; for on-page display
+  # (TypographyUtils::ALLOWED_TITLE_ENTITIES). Metadata needs plain text.
+
+  def test_plain_title_text_replaces_br_with_single_space
+    assert_equal 'Line One Line Two', Jekyll::Infrastructure::TextProcessingUtils.plain_title_text('Line One<br>Line Two')
+    assert_equal 'Spectrum: From Analyst',
+                 Jekyll::Infrastructure::TextProcessingUtils.plain_title_text('Spectrum: <br/>From Analyst')
+    assert_equal 'A B', Jekyll::Infrastructure::TextProcessingUtils.plain_title_text('A <BR /> B')
+  end
+
+  def test_plain_title_text_decodes_entities
+    assert_equal "Clever(ly\u00A0Terrible) & Co",
+                 Jekyll::Infrastructure::TextProcessingUtils.plain_title_text('Clever(ly&nbsp;Terrible) &amp; Co')
+  end
+
+  def test_plain_title_text_leaves_plain_titles_unchanged
+    assert_equal 'Hyperion', Jekyll::Infrastructure::TextProcessingUtils.plain_title_text('Hyperion')
+  end
+
+  def test_plain_title_text_handles_nil
+    assert_equal '', Jekyll::Infrastructure::TextProcessingUtils.plain_title_text(nil)
+  end
 end

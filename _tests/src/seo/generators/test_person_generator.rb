@@ -446,6 +446,15 @@ class TestPersonLdGenerator < Minitest::Test
     refute result.key?('image'), 'Missing logo should omit image'
   end
 
+  # Titles may contain <br> and &nbsp; for on-page display. JSON-LD names
+  # are plain text.
+  def test_generate_hash_page_name_is_plain_text
+    doc = create_resume_doc
+    doc.data['title'] = 'Clever(ly&nbsp;Terrible)<br>Code'
+    result = Jekyll::SEO::Generators::PersonLdGenerator.generate_hash(doc, create_site(@site_config))
+    assert_equal "Clever(ly\u00A0Terrible) Code", result['name']
+  end
+
   private
 
   def generate_person(doc, site)
