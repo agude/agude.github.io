@@ -8,4 +8,5 @@ description: >
 same_as_urls:
   - https://www.goodreads.com/author/show/16871992.Siim_Sinam_e
   - https://nebulas.sfwa.org/nominees/siim-sinamae/
+  - https://www.google.com/search?kgmid=/g/11h0zktk17
 ---

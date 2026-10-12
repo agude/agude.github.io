@@ -9,4 +9,5 @@ same_as_urls:
   - https://www.imdb.com/name/nm15588472/
   - https://uk.linkedin.com/in/hindpere
   - https://nebulas.sfwa.org/nominees/helen-hindpere/
+  - https://www.google.com/search?kgmid=/g/11sgdjqwry
 ---
