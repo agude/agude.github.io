@@ -160,6 +160,10 @@ Read the named exemplar before modifying the corresponding subsystem:
   SimpleCov behavior. Factory methods have their own `@param` and `@return`
   documentation. Use the production pattern docs when writing tests for
   Finder/Renderer orchestration or render-mode behavior.
+  `_tests/src/seo/test_json_ld_rendered_site.rb` builds a small fixture site
+  with the real layouts, includes, and plugins in a separate Ruby process and
+  parses the written HTML; copy it when a test must cross the hook and
+  template boundary.
 - **CI/CD and hooks**: the header of `.github/workflows/jekyll.yml` documents
   workflow stages. The header of `_bin/pre-commit.sh` documents hook stages
   and the `git stash --keep-index` mechanism. Read them before modifying a
