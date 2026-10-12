@@ -187,11 +187,16 @@ module Jekyll
         @config['logo'] || @config.dig('defaults', 'image')
       end
 
+      # Alt text describes the page's own image, so it is dropped when the
+      # page falls back to the default image. Content sets it with the
+      # top-level `image_alt` key, the one the article and book cards read.
+      # The first nonblank of the nested and top-level values wins.
       def image_alt_text
-        return nil unless absolute_image_url
+        return nil unless page_image
 
         image = @data['image']
-        image['alt'] if image.is_a?(Hash)
+        nested = image['alt'] if image.is_a?(Hash)
+        [nested, @data['image_alt']].map { |alt| alt.to_s.strip }.find { |alt| !alt.empty? }
       end
 
       # --- URLs ---

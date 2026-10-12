@@ -404,6 +404,48 @@ class TestSeoMetaGenerator < Minitest::Test
     assert_equal 'Cover of Test Book', result['image_alt']
   end
 
+  # Content sets alt text with a top-level `image_alt` key (the same key the
+  # article and book cards read), not a nested `image: {path, alt}` hash.
+  def test_image_alt_from_image_alt_front_matter
+    doc = create_post_doc(title: 'Test Post')
+    doc.data['image'] = '/files/test/robot.png'
+    doc.data['image_alt'] = "A pencil drawing of a robot.\n"
+    site = create_site(@site_config)
+    result = generate_meta(doc, site)
+
+    assert_equal 'A pencil drawing of a robot.', result['image_alt']
+  end
+
+  def test_image_alt_blank_nested_alt_falls_back_to_image_alt
+    [nil, '', "  \n"].each do |nested_alt|
+      doc = create_post_doc(title: 'Test Post')
+      doc.data['image'] = { 'path' => '/files/test/robot.png', 'alt' => nested_alt }
+      doc.data['image_alt'] = 'A pencil drawing of a robot.'
+      result = generate_meta(doc, create_site(@site_config))
+
+      assert_equal 'A pencil drawing of a robot.', result['image_alt'], "nested alt #{nested_alt.inspect}"
+    end
+  end
+
+  def test_image_alt_prefers_nonblank_nested_alt
+    doc = create_post_doc(title: 'Test Post')
+    doc.data['image'] = { 'path' => '/files/test/robot.png', 'alt' => 'Nested alt.' }
+    doc.data['image_alt'] = 'Top-level alt.'
+    result = generate_meta(doc, create_site(@site_config))
+
+    assert_equal 'Nested alt.', result['image_alt']
+  end
+
+  def test_image_alt_ignored_when_falling_back_to_default_image
+    doc = create_post_doc(title: 'Test Post')
+    doc.data['image_alt'] = 'Alt text for an image this page does not have.'
+    site = create_site(@site_config.merge('logo' => '/files/headshot.jpg'))
+    result = generate_meta(doc, site)
+
+    assert_equal 'https://alexgude.com/files/headshot.jpg', result['image']
+    assert_nil result['image_alt']
+  end
+
   def test_image_alt_nil_when_no_explicit_alt
     doc = create_book_doc(title: 'Test Book', image: '/covers/test.jpg')
     site = create_site(@site_config)
