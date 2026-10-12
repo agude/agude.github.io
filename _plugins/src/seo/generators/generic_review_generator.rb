@@ -13,20 +13,30 @@ module Jekyll
           validate_item_name!(document, review_fm)
 
           Jekyll::SEO::JsonLdBuilder.build('Review', license: true, document: document, site: site) do |review|
+            # A review-post is a blog post: carry the CreativeWork fields
+            # BlogPostingLdGenerator emits, minus the Article-only ones.
+            review.headline document.data['title']
             review.site_author
-            review.date_published
             review.site_publisher
+            review.dates
+            review.image document.data['image']
             review.review_body_from_fields(field_priority: ['content'])
             review.url
+            review.main_entity_of_page
+            review.keywords(document.data['categories'], document.data['tags'])
+            review.encoding document.data['markdown_alternate_href']
+            add_item_reviewed(review, review_fm, document)
+          end
+        end
 
-            review.item_reviewed(review_fm['item_type'] || 'Product') do |item|
-              item.name review_fm['item_name']
-              item.image_url document.data['image']
-              item_url = review_fm['item_url']
-              item.url item_url if item_url && !item_url.to_s.strip.empty?
-              cleaned = clean_description(review_fm['item_description'])
-              item.description cleaned if cleaned
-            end
+        def self.add_item_reviewed(review, review_fm, document)
+          review.item_reviewed(review_fm['item_type'] || 'Product') do |item|
+            item.name review_fm['item_name']
+            item.image_url document.data['image']
+            item_url = review_fm['item_url']
+            item.url item_url if item_url && !item_url.to_s.strip.empty?
+            cleaned = clean_description(review_fm['item_description'])
+            item.description cleaned if cleaned
           end
         end
 

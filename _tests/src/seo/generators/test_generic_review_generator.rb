@@ -9,7 +9,11 @@ require_relative '../../../../_plugins/src/seo/generators/generic_review_generat
 #
 # `review-post` pages have no numeric rating. A Review without reviewRating
 # is valid schema.org. Google's review-snippet guidelines list reviewRating
-# as required, so these standalone pages do not meet that requirement.
+# as required, so these standalone pages do not meet that requirement. The
+# page is still a blog post, so the Review carries the CreativeWork fields a
+# BlogPosting would have (headline, image, dateModified, mainEntityOfPage,
+# keywords, encoding). articleBody is an Article property and does not apply
+# to Review; reviewBody, the full post text, fills that role.
 class TestGenericReviewLdGenerator < Minitest::Test
   def setup
     @site_config = {
@@ -43,9 +47,12 @@ class TestGenericReviewLdGenerator < Minitest::Test
       'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
       'author' => { '@type' => 'Person', 'name' => 'Reviewer Name', '@id' => 'https://myreviews.com/stuff/resume/#person', 'url' => 'https://myreviews.com/stuff/resume/' },
       'publisher' => { '@type' => 'Person', 'name' => 'Reviewer Name', '@id' => 'https://myreviews.com/stuff/resume/#person', 'url' => 'https://myreviews.com/stuff/resume/' },
+      'headline' => 'Review of My Gadget',
       'datePublished' => Time.parse('2024-05-01').xmlschema,
+      'dateModified' => Time.parse('2024-05-01').xmlschema,
       'reviewBody' => 'Post content',
       'url' => 'https://myreviews.com/stuff/reviews/my-gadget.html',
+      'mainEntityOfPage' => { '@type' => 'WebPage', '@id' => 'https://myreviews.com/stuff/reviews/my-gadget.html' },
       'itemReviewed' => {
         '@type' => 'Product',
         'name' => 'My Awesome Gadget',
@@ -79,9 +86,13 @@ class TestGenericReviewLdGenerator < Minitest::Test
       'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
       'author' => { '@type' => 'Person', 'name' => 'Reviewer Name', '@id' => 'https://myreviews.com/stuff/resume/#person', 'url' => 'https://myreviews.com/stuff/resume/' },
       'publisher' => { '@type' => 'Person', 'name' => 'Reviewer Name', '@id' => 'https://myreviews.com/stuff/resume/#person', 'url' => 'https://myreviews.com/stuff/resume/' },
+      'headline' => 'Full Review of Service X',
       'datePublished' => Time.parse('2024-05-02').xmlschema,
+      'dateModified' => Time.parse('2024-05-02').xmlschema,
+      'image' => { '@type' => 'ImageObject', 'url' => 'https://myreviews.com/stuff/images/service_x_logo.png' },
       'reviewBody' => 'Post content',
       'url' => 'https://myreviews.com/stuff/reviews/service-x.html',
+      'mainEntityOfPage' => { '@type' => 'WebPage', '@id' => 'https://myreviews.com/stuff/reviews/service-x.html' },
       'itemReviewed' => {
         '@type' => 'Service',
         'name' => 'Service X',
@@ -137,15 +148,66 @@ class TestGenericReviewLdGenerator < Minitest::Test
       'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
       'author' => { '@type' => 'Person', 'name' => 'Reviewer Name', '@id' => 'https://myreviews.com/stuff/resume/#person', 'url' => 'https://myreviews.com/stuff/resume/' },
       'publisher' => { '@type' => 'Person', 'name' => 'Reviewer Name', '@id' => 'https://myreviews.com/stuff/resume/#person', 'url' => 'https://myreviews.com/stuff/resume/' },
+      'headline' => 'Minimal Review',
       'datePublished' => Time.parse('2024-05-04').xmlschema,
+      'dateModified' => Time.parse('2024-05-04').xmlschema,
       'reviewBody' => 'Post content',
       'url' => 'https://myreviews.com/stuff/reviews/minimal.html',
+      'mainEntityOfPage' => { '@type' => 'WebPage', '@id' => 'https://myreviews.com/stuff/reviews/minimal.html' },
       'itemReviewed' => {
         '@type' => 'Product', # Default
         'name' => 'Basic Item',
       },
     }
     assert_equal expected, Jekyll::SEO::Generators::GenericReviewLdGenerator.generate_hash(doc, @site)
+  end
+
+  def test_generate_hash_includes_keywords_and_markdown_encoding
+    doc = create_doc(
+      {
+        'layout' => 'review-post',
+        'title' => 'Chair Review',
+        'review' => { 'item_name' => 'Chair' },
+        'categories' => ['Reviews'],
+        'tags' => ['chairs'],
+        'markdown_alternate_href' => '/reviews/chair.md',
+      },
+      '/reviews/chair.html',
+      '<p>Post content.</p>',
+      '2024-05-06',
+      @post_collection,
+    )
+    result = Jekyll::SEO::Generators::GenericReviewLdGenerator.generate_hash(doc, @site)
+
+    assert_equal 'Review', result['@type']
+    assert_equal 'Reviews, chairs', result['keywords']
+    expected_encoding = {
+      '@type' => 'MediaObject',
+      'encodingFormat' => 'text/markdown',
+      'contentUrl' => 'https://myreviews.com/stuff/reviews/chair.md',
+    }
+    assert_equal expected_encoding, result['encoding']
+  end
+
+  # The fixtures above have no last_modified_at, so dateModified equals
+  # datePublished there. A later edit date must win.
+  def test_generate_hash_date_modified_uses_last_modified_at
+    doc = create_doc(
+      {
+        'layout' => 'review-post',
+        'title' => 'Chair Review',
+        'review' => { 'item_name' => 'Chair' },
+        'last_modified_at' => Time.parse('2025-03-15'),
+      },
+      '/reviews/chair.html',
+      '<p>Post content.</p>',
+      '2024-05-06',
+      @post_collection,
+    )
+    result = Jekyll::SEO::Generators::GenericReviewLdGenerator.generate_hash(doc, @site)
+
+    assert_equal Time.parse('2024-05-06').xmlschema, result['datePublished']
+    assert_equal Time.parse('2025-03-15').xmlschema, result['dateModified']
   end
 
   # reviewBody is the review text itself, not the front-matter summary.
