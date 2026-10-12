@@ -132,6 +132,13 @@ share the canonical review's Book `@id`. A book's place in its series is the
 Book's `position`, never the shared BookSeries node's. A book whose `series`
 has no series page stops the build, like an unresolved author.
 
+Every book and author page requires `wikidata_qid`, the only place its QID
+is stored. The Book's and author Person's `sameAs` start with the Wikidata URL
+built from it (`JsonLdUtils.same_as_list`); `same_as_urls` holds the other
+links. The link cache carries the author's QID so book reviews build the same
+`sameAs` for credited authors. `FrontMatterValidator` stops the build on a
+missing or malformed QID, or on a Wikidata URL in `same_as_urls`.
+
 ## Code-resident topics
 
 Read the named exemplar before modifying the corresponding subsystem:

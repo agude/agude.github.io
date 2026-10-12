@@ -132,29 +132,6 @@ class TestBookReviewLdGenerator < Minitest::Test
     assert_nil result_hash.dig('itemReviewed', 'award')
   end
 
-  def test_generate_hash_book_review_non_array_same_as_urls_logs_warning
-    doc = create_doc(
-      {
-        'layout' => 'book',
-        'title' => 'Non Array SameAs',
-        'book_authors' => ['Author'],
-        'same_as_urls' => 'This is a string, not an array',
-      },
-      '/books/non-array-same-as.html',
-      'Content',
-      '2023-01-03',
-      @books_collection,
-    )
-    mock_logger = Minitest::Mock.new
-    mock_logger.expect(:warn, nil) { |p, m| p == 'JSON-LD:' && m.include?('not an Array') }
-    result_hash = nil
-    Jekyll.stub :logger, mock_logger do
-      result_hash = Jekyll::SEO::Generators::BookReviewLdGenerator.generate_hash(doc, @site)
-    end
-    mock_logger.verify
-    assert_nil result_hash.dig('itemReviewed', 'sameAs')
-  end
-
   def test_generate_hash_book_review_minimal_data
     doc = create_minimal_data_doc
     expected = build_expected_minimal_hash

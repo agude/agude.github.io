@@ -2,6 +2,7 @@
 
 require_relative '../../test_helper'
 require_relative '../../../_plugins/src/seo/book_author_entity_resolver'
+require_relative '../../../_plugins/src/seo/generators/author_profile_generator'
 
 # Tests for Jekyll::SEO::BookAuthorEntityResolver.
 class TestBookAuthorEntityResolver < Minitest::Test

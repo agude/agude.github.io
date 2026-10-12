@@ -229,13 +229,9 @@ module Jekyll
       end
 
       # Sets sameAs from `same_as_urls`. With `wikidata_qid:`, the Wikidata
-      # item URL built from it comes first.
+      # item URL built from it comes first. FrontMatterValidator requires
+      # `same_as_urls` to be a list.
       def same_as(urls, wikidata_qid: nil)
-        unless urls.nil? || urls.is_a?(Array)
-          log_invalid_array_type('same_as_urls', 'sameAs')
-          urls = nil
-        end
-
         list = Jekyll::SEO::JsonLdUtils.same_as_list(urls, wikidata_qid)
         @data['sameAs'] = list if list.any?
       end

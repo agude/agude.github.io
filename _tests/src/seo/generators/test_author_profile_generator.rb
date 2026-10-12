@@ -125,23 +125,6 @@ class TestAuthorProfileLdGenerator < Minitest::Test
     end
   end
 
-  def test_generate_hash_skips_invalid_same_as_urls_type_and_logs
-    doc = create_author_doc('same_as_urls' => 'not-an-array')
-
-    mock_logger = Minitest::Mock.new
-    mock_logger.expect(:warn, nil) do |prefix, message|
-      prefix == 'JSON-LD:' && message.include?('not an Array') && message.include?(doc.url)
-    end
-
-    result = nil
-    Jekyll.stub :logger, mock_logger do
-      result = generate(doc)
-    end
-
-    refute result['about'].key?('sameAs')
-    mock_logger.verify
-  end
-
   def test_generate_hash_blank_title_keeps_identity_only
     doc = create_doc(
       { 'layout' => 'author_page', 'title' => ' ', 'description' => '', 'same_as_urls' => [], 'pen_names' => [] },

@@ -13,16 +13,21 @@ module Jekyll
     # Ensures that collections and layouts have all required front matter
     # fields defined before rendering, raising fatal errors for missing fields.
     #
-    # @validator Missing required front matter fields for a collection.
+    # @validator Missing required front matter fields for a collection, and
+    #   a malformed or duplicated `wikidata_qid` on a book or author page.
     module FrontMatterValidator
       # Default configuration
       DEFAULT_REQUIRED_FIELDS_CONFIG = {
-        'books' => %w[title book_authors book_number],
+        'books' => %w[title book_authors book_number wikidata_qid],
         'posts' => %w[title date],
+        'author_page' => %w[title wikidata_qid],
         # Add other layouts or collection labels as needed:
         # 'my_layout' => ['field1', 'field2'],
         # 'my_collection' => ['fieldA', 'fieldB'],
       }.freeze
+
+      # A Wikidata item ID: "Q" and a number without leading zeros.
+      WIKIDATA_QID_PATTERN = /\AQ[1-9][0-9]*\z/
 
       # Class method to access the configuration.
       # This allows it to be stubbed for testing.
@@ -59,6 +64,7 @@ module Jekyll
 
         report_missing_fields(doc, doc_type_log, missing_fields)
         validate_title_entities(doc)
+        validate_wikidata(doc, doc_type_log) if config[config_key].include?('wikidata_qid')
       end
 
       # --- Private Helper Methods ---
@@ -105,11 +111,9 @@ module Jekyll
       def self.report_missing_fields(doc, doc_type_log, missing_fields)
         return if missing_fields.empty?
 
-        id = doc.data['path'] || doc.url || doc.relative_path || 'unknown path'
-        msg = "#{doc_type_log} '#{id}' is missing or has empty required front matter fields: " \
+        msg = "#{doc_type_log} '#{doc_id(doc)}' is missing or has empty required front matter fields: " \
               "#{missing_fields.join(', ')}."
-        Jekyll.logger.error 'FrontMatter Error:', msg
-        raise Jekyll::Errors::FatalException, msg
+        fail_validation(msg)
       end
 
       # Scans the title field for HTML named entities that prepare_display_title
@@ -128,11 +132,44 @@ module Jekyll
                           .reject { |e| allowed.include?(e) }
         return if violations.empty?
 
-        id = doc.data['path'] || doc.url || doc.relative_path || 'unknown path'
         entity_list = violations.map { |e| "&#{e};" }.join(', ')
-        msg = "Title in '#{id}' contains HTML entities that will be double-escaped and " \
+        msg = "Title in '#{doc_id(doc)}' contains HTML entities that will be double-escaped and " \
               "rendered as literal text: #{entity_list}. Use the character directly or a " \
               "typography shorthand (e.g. '---' for em dash, '--' for en dash)."
+        fail_validation(msg)
+      end
+
+      # `wikidata_qid` is the only source of the Wikidata link. Rejects a
+      # malformed QID (broken link), a non-list same_as_urls (read as a list
+      # downstream), and a Wikidata URL in same_as_urls (a second copy).
+      # Runs after the required-field check, so the QID is not blank.
+      def self.validate_wikidata(doc, doc_type_log)
+        id = doc_id(doc)
+        qid = doc.data['wikidata_qid']
+        unless qid.to_s.match?(WIKIDATA_QID_PATTERN)
+          msg = "#{doc_type_log} '#{id}' has wikidata_qid #{qid.to_s.inspect}, which is not a Wikidata item ID " \
+                '(Q followed by a number, e.g. Q190159).'
+          fail_validation(msg)
+        end
+
+        urls = doc.data['same_as_urls']
+        unless urls.nil? || urls.is_a?(Array)
+          fail_validation("#{doc_type_log} '#{id}' same_as_urls must be a list, got #{urls.inspect}.")
+        end
+
+        wikidata_urls = Array(urls).map(&:to_s).select { |u| u.include?('wikidata.org') }
+        return if wikidata_urls.empty?
+
+        msg = "#{doc_type_log} '#{id}' lists Wikidata in same_as_urls (#{wikidata_urls.join(', ')}). " \
+              'Remove it: the build generates the Wikidata link from wikidata_qid.'
+        fail_validation(msg)
+      end
+
+      def self.doc_id(doc)
+        doc.data['path'] || doc.url || doc.relative_path || 'unknown path'
+      end
+
+      def self.fail_validation(msg)
         Jekyll.logger.error 'FrontMatter Error:', msg
         raise Jekyll::Errors::FatalException, msg
       end

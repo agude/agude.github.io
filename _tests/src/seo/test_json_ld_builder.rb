@@ -546,19 +546,6 @@ class TestJsonLdBuilder < Minitest::Test
     assert_equal ['https://www.wikidata.org/wiki/Q190159'], result['sameAs']
   end
 
-  def test_same_as_wikidata_qid_kept_when_urls_not_an_array
-    mock_logger = Minitest::Mock.new
-    mock_logger.expect(:warn, nil) { |prefix, message| prefix == 'JSON-LD:' && message.include?('not an Array') }
-    result = nil
-    Jekyll.stub :logger, mock_logger do
-      result = Jekyll::SEO::JsonLdBuilder.build('Book') do |schema|
-        schema.same_as 'not-an-array', wikidata_qid: 'Q190159'
-      end
-    end
-    mock_logger.verify
-    assert_equal ['https://www.wikidata.org/wiki/Q190159'], result['sameAs']
-  end
-
   def test_same_as_blank_wikidata_qid_ignored
     result = Jekyll::SEO::JsonLdBuilder.build('Book') do |schema|
       schema.same_as ['https://en.wikipedia.org/wiki/Dune_(novel)'], wikidata_qid: ' '

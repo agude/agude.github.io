@@ -189,6 +189,102 @@ class TestFrontMatterValidator < Minitest::Test
     end
   end
 
+  # --- Tests for wikidata_qid (books) ---
+  #
+  # wikidata_qid is the single source of a book's Wikidata link: the JSON-LD
+  # generator builds https://www.wikidata.org/wiki/<QID> from it. Every book
+  # needs one, and same_as_urls must not repeat the link, or the two copies
+  # drift apart.
+
+  def test_default_config_requires_wikidata_qid_for_books
+    doc = create_book_doc('wikidata_qid' => nil)
+    err = assert_validation_error(doc)
+    assert_match 'missing or has empty required front matter fields: wikidata_qid', err.message
+  end
+
+  def test_valid_wikidata_qid_passes_default_config
+    doc = create_book_doc
+    Jekyll.stub :logger, @silent_logger_stub do
+      assert_nil Jekyll::SEO::FrontMatterValidator.validate_document(doc)
+    end
+  end
+
+  def test_malformed_wikidata_qid_raises_error
+    ['Q', 'q190159', '190159', 'Q0190159', 'Q190159 ', 'P50', 'https://www.wikidata.org/wiki/Q190159'].each do |qid|
+      err = assert_validation_error(create_book_doc('wikidata_qid' => qid))
+      assert_match 'wikidata_qid', err.message, "QID #{qid.inspect}"
+      assert_match qid.inspect, err.message, "QID #{qid.inspect}"
+    end
+  end
+
+  def test_wikidata_url_in_same_as_urls_raises_error
+    doc = create_book_doc(
+      'same_as_urls' => ['https://en.wikipedia.org/wiki/Dune_(novel)', 'https://www.wikidata.org/wiki/Q190159'],
+    )
+    err = assert_validation_error(doc)
+    assert_match 'same_as_urls', err.message
+    assert_match 'https://www.wikidata.org/wiki/Q190159', err.message
+    assert_match 'wikidata_qid', err.message
+  end
+
+  def test_wikidata_checks_skip_unconfigured_collections
+    with_validator_config({ @post_collection_label => @required_for_posts }) do
+      doc = create_book_doc('wikidata_qid' => 'bad', 'same_as_urls' => ['https://www.wikidata.org/wiki/Q1'])
+      Jekyll.stub :logger, @silent_logger_stub do
+        assert_nil Jekyll::SEO::FrontMatterValidator.validate_document(doc)
+      end
+    end
+  end
+
+  # same_as_urls must be a list. The link cache and JSON-LD builder read it
+  # as one, and a scalar would slip a Wikidata URL past the check above.
+  def test_scalar_same_as_urls_raises_error
+    [
+      create_book_doc('same_as_urls' => 'https://en.wikipedia.org/wiki/Dune_(novel)'),
+      create_author_page('same_as_urls' => 'https://www.wikidata.org/wiki/Q2'),
+    ].each do |doc|
+      err = assert_validation_error(doc)
+      assert_match 'same_as_urls must be a list', err.message
+    end
+  end
+
+  def test_empty_same_as_urls_passes
+    # make_pages.py author stubs write an empty `same_as_urls:` (nil).
+    [create_book_doc('same_as_urls' => nil), create_author_page('same_as_urls' => nil)].each do |doc|
+      Jekyll.stub :logger, @silent_logger_stub do
+        assert_nil Jekyll::SEO::FrontMatterValidator.validate_document(doc)
+      end
+    end
+  end
+
+  # Author pages follow the same rule: their wikidata_qid builds the
+  # author's Wikidata link on the author page and in every book review.
+
+  def test_default_config_requires_wikidata_qid_for_author_pages
+    err = assert_validation_error(create_author_page('wikidata_qid' => nil))
+    assert_match 'missing or has empty required front matter fields: wikidata_qid', err.message
+    assert_match "Page with layout 'author_page'", err.message
+  end
+
+  def test_valid_author_page_passes_default_config
+    Jekyll.stub :logger, @silent_logger_stub do
+      assert_nil Jekyll::SEO::FrontMatterValidator.validate_document(create_author_page)
+    end
+  end
+
+  def test_malformed_author_wikidata_qid_raises_error
+    err = assert_validation_error(create_author_page('wikidata_qid' => 'q188987'))
+    assert_match 'wikidata_qid', err.message
+    assert_match '"q188987"', err.message
+  end
+
+  def test_wikidata_url_in_author_same_as_urls_raises_error
+    page = create_author_page('same_as_urls' => ['https://www.wikidata.org/wiki/Q188987'])
+    err = assert_validation_error(page)
+    assert_match 'same_as_urls', err.message
+    assert_match 'https://www.wikidata.org/wiki/Q188987', err.message
+  end
+
   # --- Tests for title entity validation ---
   def test_title_without_entities_passes
     with_validator_config({ @post_collection_label => @required_for_posts }) do
@@ -481,6 +577,44 @@ class TestFrontMatterValidator < Minitest::Test
 
       assert_match 'missing or has empty required front matter fields: custom_field', err.message
       assert_match "Page with layout '#{page_layout}'", err.message
+    end
+  end
+
+  def create_book_doc(overrides = {})
+    data = {
+      'title' => 'Dune',
+      'book_authors' => ['Frank Herbert'],
+      'book_number' => 1,
+      'wikidata_qid' => 'Q190159',
+      'same_as_urls' => ['https://en.wikipedia.org/wiki/Dune_(novel)'],
+      'path' => 'dune.html',
+    }.merge(overrides)
+    create_doc(data, '/books/dune/', 'content', nil, MockCollection.new(nil, @book_collection_label))
+  end
+
+  def create_author_page(overrides = {})
+    page = MockPage.new(
+      @site,
+      '/books/authors/',
+      'william_gibson.md',
+      'william_gibson',
+      '/books/authors/william_gibson/',
+      'books/authors/william_gibson.md',
+    )
+    page.data = {
+      'layout' => 'author_page',
+      'title' => 'William Gibson',
+      'wikidata_qid' => 'Q188987',
+      'same_as_urls' => ['https://en.wikipedia.org/wiki/William_Gibson'],
+    }.merge(overrides)
+    page
+  end
+
+  def assert_validation_error(doc)
+    Jekyll.stub :logger, @silent_logger_stub do
+      assert_raises(Jekyll::Errors::FatalException) do
+        Jekyll::SEO::FrontMatterValidator.validate_document(doc)
+      end
     end
   end
 end
