@@ -244,14 +244,15 @@ def get_claim_time(entity: dict, prop_id: str) -> str | None:
 
 def extract_same_as_urls(
     entity: dict,
-    qid: str,
     property_map: list[tuple[str, str, str | None]],
 ) -> list[str]:
-    """Extract sameAs URLs from a Wikidata entity using a property map."""
-    urls: list[str] = []
+    """Extract sameAs URLs from a Wikidata entity using a property map.
 
-    # Wikidata itself
-    urls.append(f"https://www.wikidata.org/wiki/{qid}")
+    Omits the Wikidata URL itself: the site builds it from the wikidata_qid
+    front matter of books and author pages, and a Wikidata URL in
+    same_as_urls fails the build.
+    """
+    urls: list[str] = []
 
     # English Wikipedia from sitelinks
     sitelinks = entity.get("sitelinks", {})

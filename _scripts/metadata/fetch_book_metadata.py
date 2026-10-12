@@ -8,8 +8,9 @@
 Example: Q302026
 
 Given a Wikidata Q-ID or a book title, queries the Wikidata API and
-extracts isbn, date_published, and same_as_urls suitable for book front
-matter.
+extracts wikidata_qid, isbn, date_published, and same_as_urls suitable for
+book front matter. same_as_urls omits the Wikidata URL: the site builds it
+from wikidata_qid.
 
 Usage:
     # By Q-ID (preferred, unambiguous):
@@ -52,13 +53,14 @@ BOOK_PROPERTY_MAP: list[tuple[str, str, str | None]] = [
 
 
 def format_yaml(
+    qid: str,
     isbn: str | None,
     date_published: str | None,
     urls: list[str],
     title: str,
 ) -> str:
     """Format extracted data as YAML front matter fields."""
-    lines = [f"# {title}"]
+    lines = [f"# {title}", f"wikidata_qid: {yaml_quoted(qid)}"]
 
     if isbn:
         lines.append(f"isbn: {yaml_quoted(isbn)}")
@@ -103,9 +105,9 @@ def main() -> None:
     date_published = get_claim_time(entity, "P577")
 
     # sameAs URLs
-    urls = extract_same_as_urls(entity, qid, BOOK_PROPERTY_MAP)
+    urls = extract_same_as_urls(entity, BOOK_PROPERTY_MAP)
 
-    print(format_yaml(isbn, date_published, urls, title))
+    print(format_yaml(qid, isbn, date_published, urls, title))
 
 
 if __name__ == "__main__":

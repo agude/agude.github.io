@@ -60,17 +60,19 @@ work explicitly, and rerun the command with its QID:
 (cd _scripts/metadata && uv run fetch_book_metadata.py Q_WORK_ID)
 ```
 
-Use that same explicit QID with the stub command below. If no candidate is
-correct, do not select a fallback; continue without a QID and report that the
-metadata still needs manual entry.
+Use that same explicit QID with the stub command below. Every book requires
+`wikidata_qid`: the site builds the book's Wikidata link from it, and the
+build fails without it. If no candidate is correct, do not select a fallback
+and do not create the stub; report that the work needs a Wikidata item, and
+create the stub once one exists.
 
 Use the metadata scripts rather than an ad hoc Wikidata request. They include
 the required `User-Agent`; raw `requests` or `urllib` calls can receive a 403.
 
 ## Create the stub
 
-Run the script with the known details. Omit `--series` for a standalone work,
-and omit `--qid` only when no reliable work QID is available.
+Run the script with the known details. Omit `--series` for a standalone work.
+`--qid` is required and must be a Wikidata item ID such as `Q3400447`.
 
 ```bash
 uv run _scripts/skills/stub_book.py \
@@ -84,12 +86,13 @@ uv run _scripts/skills/stub_book.py \
 The script writes `_books/<snake_case_title>.md` by default. Use
 `--output _books/<filename>.md` or `-o _books/<filename>.md` only after
 confirming that the path is new.
-`--title` and `--author` are required; `--book-number` defaults to `1`.
+`--title`, `--author`, and `--qid` are required; `--book-number` defaults to
+`1`.
 It generates:
 
 - today’s `date`, the title, author, series, book number, `rating: null`,
   `is_anthology: false`, and the expected cover-image path;
-- `wikidata_qid` when `--qid` is supplied;
+- `wikidata_qid` from `--qid`;
 - a first paragraph that uses the book, author, and series Liquid tags; and
 - the standard capture blocks after that paragraph, including `this_series`
   only for a series work.
@@ -98,7 +101,7 @@ The opening paragraph is the excerpt. Keep capture blocks below it.
 
 ## Enrich the front matter
 
-When the file has a reliable QID, populate its metadata:
+Populate the metadata from the QID:
 
 ```bash
 (cd _scripts/metadata && uv run update_book_metadata.py \
@@ -130,6 +133,8 @@ Review the result before treating it as final:
   add verified Hugo, Nebula, or Locus awards for its contents to `awards`.
 - Check that `same_as_urls` came from a work-level QID. An edition QID often
   has fewer useful links.
+- Do not add the Wikidata URL to `same_as_urls`. The build generates it from
+  `wikidata_qid` and fails if `same_as_urls` lists one.
 
 ## Create supporting pages
 
@@ -146,8 +151,14 @@ For each new author page, fetch the person’s metadata:
 ```
 
 Select the person rather than a bibliography or disambiguation item. Copy the
-returned `pen_names` and `same_as_urls` into the author page under
-`books/authors/`. Preserve values already curated on an existing author page.
+returned `wikidata_qid`, `pen_names`, and `same_as_urls` into the author page
+under `books/authors/`. Preserve values already curated on an existing author
+page.
+
+Author pages require `wikidata_qid`, like books. `make_pages.py` leaves it
+blank, and the build fails until it is filled. The `same_as_urls` rule for
+books applies. If no person item exists, report that the author needs a
+Wikidata item.
 
 ## Validate and report
 

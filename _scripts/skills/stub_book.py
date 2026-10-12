@@ -36,6 +36,7 @@ from pathlib import Path
 _SCRIPT_DIR = Path(__file__).resolve().parent
 _PROJECT_ROOT = _SCRIPT_DIR.parent.parent  # _scripts/skills/ -> project root
 TEMPLATE_PATH = _PROJECT_ROOT / "_books" / "_template" / "book_template.md"
+_QID_PATTERN = re.compile(r"Q[1-9][0-9]*")
 _YAML_SPECIAL_CHARACTERS = frozenset(":#'\"[]{},&*?|>!%")
 
 
@@ -71,6 +72,19 @@ def yaml_scalar(value: str) -> str:
     if _needs_yaml_quoting(value):
         # JSON double-quoted strings are valid YAML and escape all string data.
         return json.dumps(value, ensure_ascii=False)
+    return value
+
+
+def wikidata_qid(value: str) -> str:
+    """Validate a Wikidata item ID for --qid.
+
+    Every book requires wikidata_qid: the site builds the book's Wikidata
+    link from it and fails the build when it is missing or malformed.
+    """
+    if not _QID_PATTERN.fullmatch(value):
+        raise argparse.ArgumentTypeError(
+            f"{value!r} is not a Wikidata item ID (Q followed by a number, e.g. Q617357)"
+        )
     return value
 
 
@@ -114,7 +128,7 @@ def build_front_matter(
     author: str,
     series: str | None,
     book_number: int,
-    qid: str | None,
+    qid: str,
 ) -> str:
     """Build YAML front matter content."""
     slug = slugify(title)
@@ -129,10 +143,8 @@ def build_front_matter(
         "is_anthology: false",
         "rating: null",
         f"image: /books/covers/{slug}.jpg",
+        f"wikidata_qid: {yaml_scalar(qid)}",
     ]
-
-    if qid:
-        lines.append(f"wikidata_qid: {yaml_scalar(qid)}")
 
     return "\n".join(lines)
 
@@ -219,8 +231,9 @@ def main() -> None:
     )
     parser.add_argument(
         "--qid",
-        default=None,
-        help="Wikidata Q-ID (written to front matter for later enrichment)",
+        required=True,
+        type=wikidata_qid,
+        help="Wikidata work Q-ID (required; the site builds the Wikidata link from it)",
     )
     parser.add_argument(
         "--output",

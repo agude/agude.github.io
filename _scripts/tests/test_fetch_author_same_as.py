@@ -10,18 +10,21 @@ from fetch_author_same_as import AUTHOR_PROPERTY_MAP, format_yaml
 class TestFormatYaml:
     def test_full_metadata(self):
         result = format_yaml(
-            urls=["https://www.wikidata.org/wiki/Q312579"],
+            qid="Q312579",
+            urls=["https://en.wikipedia.org/wiki/Iain_Banks"],
             pseudonyms=["Iain Banks"],
             title="Iain M. Banks",
         )
         assert "title: Iain M. Banks" in result
+        assert "wikidata_qid: Q312579" in result
         assert "pen_names:" in result
         assert "  - Iain Banks" in result
         assert "same_as_urls:" in result
-        assert "https://www.wikidata.org/wiki/Q312579" in result
+        assert "https://en.wikipedia.org/wiki/Iain_Banks" in result
 
     def test_no_pseudonyms(self):
         result = format_yaml(
+            qid="Q312579",
             urls=["https://example.com"],
             pseudonyms=[],
             title="Single Name Author",
@@ -31,6 +34,7 @@ class TestFormatYaml:
 
     def test_multiple_pseudonyms(self):
         result = format_yaml(
+            qid="Q312579",
             urls=["https://example.com"],
             pseudonyms=["Pen Name One", "Pen Name Two"],
             title="Real Name",
@@ -41,6 +45,7 @@ class TestFormatYaml:
 
     def test_multiple_urls(self):
         result = format_yaml(
+            qid="Q312579",
             urls=["https://one.com", "https://two.com"],
             pseudonyms=[],
             title="Author",
@@ -51,6 +56,7 @@ class TestFormatYaml:
 
     def test_title_needs_quoting(self):
         result = format_yaml(
+            qid="Q312579",
             urls=["https://example.com"],
             pseudonyms=[],
             title="Name: With Colon",
@@ -95,3 +101,21 @@ class TestMain:
         output = capsys.readouterr().err
         assert "Q1" in output
         assert "selected" not in output.lower()
+
+    def test_qid_output_has_wikidata_qid_and_no_wikidata_url(self, monkeypatch, capsys):
+        # The site builds the Wikidata link from wikidata_qid; a Wikidata URL
+        # in same_as_urls fails the build.
+        entity = {
+            "labels": {"en": {"value": "Iain Banks"}},
+            "sitelinks": {"enwiki": {"title": "Iain Banks"}},
+            "claims": {},
+        }
+        monkeypatch.setattr(sys, "argv", ["fetch_author_same_as.py", "Q312579"])
+
+        with patch("fetch_author_same_as.fetch_entity", return_value=entity):
+            fetch_author_same_as.main()
+
+        output = capsys.readouterr().out
+        assert "wikidata_qid: Q312579" in output
+        assert "https://en.wikipedia.org/wiki/Iain_Banks" in output
+        assert "wikidata.org" not in output

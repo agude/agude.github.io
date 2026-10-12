@@ -8,7 +8,9 @@
 Example: Q312579
 
 Given a Wikidata Q-ID or an author name, queries the Wikidata API and
-extracts same_as_urls and pen_names suitable for author page front matter.
+extracts wikidata_qid, same_as_urls, and pen_names suitable for author page
+front matter. same_as_urls omits the Wikidata URL: the site builds it from
+wikidata_qid.
 
 Usage:
     # By Q-ID (preferred, unambiguous):
@@ -57,9 +59,9 @@ AUTHOR_PROPERTY_MAP: list[tuple[str, str, str | None]] = [
 ]
 
 
-def format_yaml(urls: list[str], pseudonyms: list[str], title: str) -> str:
+def format_yaml(qid: str, urls: list[str], pseudonyms: list[str], title: str) -> str:
     """Format extracted data as YAML front matter fields."""
-    lines = [f"title: {yaml_quoted(title)}"]
+    lines = [f"title: {yaml_quoted(title)}", f"wikidata_qid: {yaml_quoted(qid)}"]
 
     if pseudonyms:
         lines.append("pen_names:")
@@ -90,10 +92,10 @@ def main() -> None:
 
     entity = fetch_entity(qid)
     title = entity.get("labels", {}).get("en", {}).get("value", "")
-    urls = extract_same_as_urls(entity, qid, AUTHOR_PROPERTY_MAP)
+    urls = extract_same_as_urls(entity, AUTHOR_PROPERTY_MAP)
     pseudonyms = get_claim_strings(entity, "P742")
 
-    print(format_yaml(urls, pseudonyms, title))
+    print(format_yaml(qid, urls, pseudonyms, title))
 
 
 if __name__ == "__main__":

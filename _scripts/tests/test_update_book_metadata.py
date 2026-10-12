@@ -339,3 +339,23 @@ class TestMetadataSelection:
         ]
         assert "awards" in fields_to_write
         assert "isbn" in fields_to_write
+
+
+class TestFetchMetadata:
+    def test_same_as_urls_exclude_wikidata_url(self):
+        # The site builds the Wikidata link from wikidata_qid; a Wikidata URL
+        # in same_as_urls fails the build.
+        entity = {
+            "sitelinks": {"enwiki": {"title": "Hyperion (Simmons novel)"}},
+            "claims": {"P212": [{"mainsnak": {"datavalue": {"value": "978-0-553-28368-3"}}}]},
+        }
+        with (
+            patch("update_book_metadata.fetch_entity", return_value=entity),
+            patch("update_book_metadata.fetch_awards", return_value=[]),
+        ):
+            metadata = update_book_metadata.fetch_metadata("Q302026")
+
+        assert metadata["wikidata_qid"] == "Q302026"
+        assert metadata["same_as_urls"] == [
+            "https://en.wikipedia.org/wiki/Hyperion_%28Simmons_novel%29"
+        ]

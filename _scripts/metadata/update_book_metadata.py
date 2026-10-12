@@ -176,7 +176,7 @@ def fetch_metadata(qid: str) -> dict:
     awards = fetch_awards(qid)
 
     # sameAs URLs
-    urls = extract_same_as_urls(entity, qid, BOOK_PROPERTY_MAP)
+    urls = extract_same_as_urls(entity, BOOK_PROPERTY_MAP)
 
     log.debug(
         "Fetched: isbn=%s date=%s awards=%s urls=%d",

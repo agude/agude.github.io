@@ -1,5 +1,7 @@
 """Tests for content/make_pages.py pure functions."""
 
+import make_pages
+import yaml
 from make_pages import extract_frontmatter, extract_metadata_from_books, normalize_filename
 
 
@@ -69,3 +71,13 @@ class TestExtractMetadataFromBooks:
         authors, series = extract_metadata_from_books(tmp_path)
         assert authors == []
         assert series == []
+
+
+class TestTemplates:
+    def test_author_template_has_wikidata_qid_field(self):
+        # Author pages require wikidata_qid. The stub leaves it blank so the
+        # build names the missing field until the QID is filled in.
+        page = make_pages.TEMPLATES["author"].format(item="Iain M. Banks")
+        fm = yaml.safe_load(page.strip("-\n"))
+        assert "wikidata_qid" in fm
+        assert fm["wikidata_qid"] is None

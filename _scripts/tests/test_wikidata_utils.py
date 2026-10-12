@@ -264,17 +264,19 @@ class TestGetClaimTime:
 
 
 class TestExtractSameAsUrls:
-    def test_includes_wikidata_url(self):
-        entity = {"sitelinks": {}, "claims": {}}
-        result = extract_same_as_urls(entity, "Q123", [])
-        assert "https://www.wikidata.org/wiki/Q123" in result
+    def test_excludes_wikidata_url(self):
+        # Books and authors build their Wikidata link from wikidata_qid at
+        # site build time; a Wikidata URL in same_as_urls fails the build.
+        entity = {"sitelinks": {"enwiki": {"title": "Test Article"}}, "claims": {}}
+        result = extract_same_as_urls(entity, [])
+        assert result == ["https://en.wikipedia.org/wiki/Test_Article"]
 
     def test_includes_wikipedia_url(self):
         entity = {
             "sitelinks": {"enwiki": {"title": "Test Article"}},
             "claims": {},
         }
-        result = extract_same_as_urls(entity, "Q123", [])
+        result = extract_same_as_urls(entity, [])
         assert "https://en.wikipedia.org/wiki/Test_Article" in result
 
     def test_wikipedia_title_with_spaces(self):
@@ -282,7 +284,7 @@ class TestExtractSameAsUrls:
             "sitelinks": {"enwiki": {"title": "The Left Hand of Darkness"}},
             "claims": {},
         }
-        result = extract_same_as_urls(entity, "Q123", [])
+        result = extract_same_as_urls(entity, [])
         assert "https://en.wikipedia.org/wiki/The_Left_Hand_of_Darkness" in result
 
     def test_applies_property_template(self):
@@ -291,7 +293,7 @@ class TestExtractSameAsUrls:
             "claims": {"P123": [{"mainsnak": {"datavalue": {"value": "12345"}}}]},
         }
         property_map = [("P123", "Test", "https://example.com/{value}")]
-        result = extract_same_as_urls(entity, "Q1", property_map)
+        result = extract_same_as_urls(entity, property_map)
         assert "https://example.com/12345" in result
 
     def test_deduplicates_urls(self):
@@ -306,7 +308,7 @@ class TestExtractSameAsUrls:
             ("P1", "First", None),
             ("P2", "Second", None),
         ]
-        result = extract_same_as_urls(entity, "Q1", property_map)
+        result = extract_same_as_urls(entity, property_map)
         assert result.count("https://example.com") == 1
 
 

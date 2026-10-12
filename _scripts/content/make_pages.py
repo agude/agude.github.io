@@ -31,6 +31,7 @@ TEMPLATES = {
     "author": """---
 layout: author_page
 title: {item}
+wikidata_qid:
 pen_names:
 description: >
     Alex Gude's reviews of books written by {item}.

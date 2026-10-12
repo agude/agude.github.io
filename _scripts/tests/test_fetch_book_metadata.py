@@ -10,19 +10,22 @@ from fetch_book_metadata import BOOK_PROPERTY_MAP, format_yaml
 class TestFormatYaml:
     def test_full_metadata(self):
         result = format_yaml(
+            qid="Q302026",
             isbn="978-0-553-28368-3",
             date_published="1989-05",
-            urls=["https://www.wikidata.org/wiki/Q302026"],
+            urls=["https://en.wikipedia.org/wiki/Hyperion_(Simmons_novel)"],
             title="Hyperion",
         )
         assert "# Hyperion" in result
+        assert "wikidata_qid: Q302026" in result
         assert "isbn: 978-0-553-28368-3" in result
         assert "date_published: 1989-05" in result
         assert "same_as_urls:" in result
-        assert "https://www.wikidata.org/wiki/Q302026" in result
+        assert "https://en.wikipedia.org/wiki/Hyperion_(Simmons_novel)" in result
 
     def test_no_isbn(self):
         result = format_yaml(
+            qid="Q302026",
             isbn=None,
             date_published="2020",
             urls=["https://example.com"],
@@ -33,6 +36,7 @@ class TestFormatYaml:
 
     def test_no_date(self):
         result = format_yaml(
+            qid="Q302026",
             isbn="978-0-123-45678-9",
             date_published=None,
             urls=["https://example.com"],
@@ -43,6 +47,7 @@ class TestFormatYaml:
 
     def test_no_urls(self):
         result = format_yaml(
+            qid="Q302026",
             isbn="978-0-123-45678-9",
             date_published="2020",
             urls=[],
@@ -52,6 +57,7 @@ class TestFormatYaml:
 
     def test_multiple_urls(self):
         result = format_yaml(
+            qid="Q302026",
             isbn=None,
             date_published=None,
             urls=["https://one.com", "https://two.com"],
@@ -63,6 +69,7 @@ class TestFormatYaml:
 
     def test_title_as_comment(self):
         result = format_yaml(
+            qid="Q302026",
             isbn=None,
             date_published=None,
             urls=[],
@@ -116,3 +123,24 @@ class TestMain:
             fetch_book_metadata.main()
 
         search_mock.assert_called_once_with("Q-not-valid")
+
+    def test_qid_output_has_wikidata_qid_and_no_wikidata_url(self, monkeypatch, capsys):
+        # The site builds the Wikidata link from wikidata_qid; a Wikidata URL
+        # in same_as_urls fails the build.
+        entity = {
+            "labels": {"en": {"value": "Hyperion"}},
+            "sitelinks": {"enwiki": {"title": "Hyperion (Simmons novel)"}},
+            "claims": {},
+        }
+        monkeypatch.setattr(sys, "argv", ["fetch_book_metadata.py", "Q302026"])
+
+        with (
+            patch("fetch_book_metadata.fetch_entity", return_value=entity),
+            patch("fetch_book_metadata.get_earliest_edition_isbn", return_value=None),
+        ):
+            fetch_book_metadata.main()
+
+        output = capsys.readouterr().out
+        assert "wikidata_qid: Q302026" in output
+        assert "https://en.wikipedia.org/wiki/Hyperion_%28Simmons_novel%29" in output
+        assert "wikidata.org" not in output

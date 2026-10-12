@@ -88,13 +88,13 @@ class TestBuildFrontMatter:
             author="Philip K. Dick",
             series=None,
             book_number=1,
-            qid=None,
+            qid="Q1",
         )
         assert "title: Ubik" in result
         assert "book_authors: Philip K. Dick" in result
         assert "series: null" in result
         assert "image: /books/covers/ubik.jpg" in result
-        assert "wikidata_qid" not in result
+        assert "wikidata_qid: Q1" in result
 
     def test_series_book_with_qid(self):
         result = build_front_matter(
@@ -115,7 +115,7 @@ class TestBuildFrontMatter:
             author="Vernor Vinge",
             series=None,
             book_number=1,
-            qid=None,
+            qid="Q1",
         )
         assert "image: /books/covers/a_fire_upon_the_deep.jpg" in result
 
@@ -140,7 +140,7 @@ class TestBuildFrontMatter:
             author=value,
             series=value,
             book_number=2,
-            qid=None,
+            qid="Q1",
         )
 
         parsed = yaml.safe_load(result)
@@ -231,6 +231,8 @@ class TestMain:
                 "New Book",
                 "--author",
                 "New Author",
+                "--qid",
+                "Q1",
                 "--output",
                 str(output_path),
             ],
@@ -254,6 +256,8 @@ class TestMain:
                 "New Book",
                 "--author",
                 "New Author",
+                "--qid",
+                "Q1",
                 "--output",
                 str(output_path),
             ],
@@ -263,3 +267,56 @@ class TestMain:
 
         assert output_path.exists()
         assert "title: New Book" in output_path.read_text()
+        assert "wikidata_qid: Q1" in output_path.read_text()
+
+    # Every book requires wikidata_qid; the site builds its Wikidata link
+    # from it. A stub without one would fail the build.
+    def test_missing_qid_exits_without_writing(self, tmp_path, monkeypatch):
+        output_path = tmp_path / "new_book.md"
+        monkeypatch.setattr(
+            sys,
+            "argv",
+            [
+                "stub_book.py",
+                "--title",
+                "New Book",
+                "--author",
+                "New Author",
+                "--output",
+                str(output_path),
+            ],
+        )
+
+        with pytest.raises(SystemExit) as error:
+            main()
+
+        assert error.value.code != 0
+        assert not output_path.exists()
+
+    @pytest.mark.parametrize(
+        "qid", ["q1", "1", "Q", "Q01", "P50", "https://www.wikidata.org/wiki/Q1"]
+    )
+    def test_malformed_qid_exits_without_writing(self, tmp_path, monkeypatch, capsys, qid):
+        output_path = tmp_path / "new_book.md"
+        monkeypatch.setattr(
+            sys,
+            "argv",
+            [
+                "stub_book.py",
+                "--title",
+                "New Book",
+                "--author",
+                "New Author",
+                "--qid",
+                qid,
+                "--output",
+                str(output_path),
+            ],
+        )
+
+        with pytest.raises(SystemExit) as error:
+            main()
+
+        assert error.value.code != 0
+        assert not output_path.exists()
+        assert "--qid" in capsys.readouterr().err
