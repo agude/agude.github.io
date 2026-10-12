@@ -5,6 +5,7 @@ from unittest.mock import patch
 
 import fetch_book_metadata
 from fetch_book_metadata import BOOK_PROPERTY_MAP, format_yaml
+from wikidata_utils import extract_same_as_urls
 
 
 class TestFormatYaml:
@@ -144,3 +145,35 @@ class TestMain:
         assert "wikidata_qid: Q302026" in output
         assert "https://en.wikipedia.org/wiki/Hyperion_%28Simmons_novel%29" in output
         assert "wikidata.org" not in output
+
+
+# Each property's URL template, checked against the property's Wikidata
+# label and formatter URL (P1630) on 2026-10-12. A wrong property ID puts
+# another site's identifier into this site's URL pattern.
+VERIFIED_BOOK_PROPERTIES = {
+    "P856": None,  # official website
+    "P8383": "https://www.goodreads.com/work/editions/{value}",  # Goodreads work ID
+    "P648": "https://openlibrary.org/works/{value}",  # Open Library ID
+    "P1274": "https://www.isfdb.org/cgi-bin/title.cgi?{value}",  # ISFDB title ID
+    "P1417": "https://www.britannica.com/{value}",  # Britannica Online ID
+    "P1085": "https://www.librarything.com/work/{value}",  # LibraryThing work ID
+    "P2671": "https://www.google.com/search?kgmid={value}",  # Google Knowledge Graph ID
+    "P646": "https://www.google.com/search?kgmid={value}",  # Freebase ID (Google KG MID)
+}
+
+
+class TestBookPropertyIds:
+    def test_every_property_is_verified(self):
+        assert {prop_id for prop_id, _, _ in BOOK_PROPERTY_MAP} == set(VERIFIED_BOOK_PROPERTIES)
+
+    def test_templates_match_verified_properties(self):
+        for prop_id, _, template in BOOK_PROPERTY_MAP:
+            assert template == VERIFIED_BOOK_PROPERTIES[prop_id], prop_id
+
+    def test_google_knowledge_graph_id_is_extracted(self):
+        entity = {
+            "sitelinks": {},
+            "claims": {"P2671": [{"mainsnak": {"datavalue": {"value": "/g/11b60frqhx"}}}]},
+        }
+        urls = extract_same_as_urls(entity, BOOK_PROPERTY_MAP)
+        assert urls == ["https://www.google.com/search?kgmid=/g/11b60frqhx"]

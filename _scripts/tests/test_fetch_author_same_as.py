@@ -5,6 +5,7 @@ from unittest.mock import patch
 
 import fetch_author_same_as
 from fetch_author_same_as import AUTHOR_PROPERTY_MAP, format_yaml
+from wikidata_utils import extract_same_as_urls
 
 
 class TestFormatYaml:
@@ -119,3 +120,41 @@ class TestMain:
         assert "wikidata_qid: Q312579" in output
         assert "https://en.wikipedia.org/wiki/Iain_Banks" in output
         assert "wikidata.org" not in output
+
+
+# Each property's URL template, checked against the property's Wikidata
+# label and formatter URL (P1630) on 2026-10-12. A wrong property ID puts
+# another site's identifier into this site's URL pattern.
+VERIFIED_AUTHOR_PROPERTIES = {
+    "P856": None,  # official website
+    "P2963": "https://www.goodreads.com/author/show/{value}",  # Goodreads author ID
+    "P244": "https://id.loc.gov/authorities/names/{value}.html",  # Library of Congress
+    "P648": "https://openlibrary.org/authors/{value}",  # Open Library ID
+    "P1233": "https://www.isfdb.org/cgi-bin/ea.cgi?{value}",  # ISFDB author ID
+    "P1417": "https://www.britannica.com/{value}",  # Britannica Online ID
+    "P345": "https://www.imdb.com/name/{value}/",  # IMDb ID
+    "P7400": "https://www.librarything.com/author/{value}",  # LibraryThing author ID
+    "P2949": "https://www.wikitree.com/wiki/{value}",  # WikiTree person ID
+    "P5357": "https://sf-encyclopedia.com/entry/{value}",  # Encyclopedia of Science Fiction ID
+    "P10883": "https://sf-encyclopedia.com/fe/{value}",  # The Encyclopedia of Fantasy ID
+    "P1263": "https://www.nndb.com/people/{value}/",  # NNDB people ID
+    "P2671": "https://www.google.com/search?kgmid={value}",  # Google Knowledge Graph ID
+    "P646": "https://www.google.com/search?kgmid={value}",  # Freebase ID (Google KG MID)
+}
+
+
+class TestAuthorPropertyIds:
+    def test_every_property_is_verified(self):
+        assert {prop_id for prop_id, _, _ in AUTHOR_PROPERTY_MAP} == set(VERIFIED_AUTHOR_PROPERTIES)
+
+    def test_templates_match_verified_properties(self):
+        for prop_id, _, template in AUTHOR_PROPERTY_MAP:
+            assert template == VERIFIED_AUTHOR_PROPERTIES[prop_id], prop_id
+
+    def test_google_knowledge_graph_id_is_extracted(self):
+        entity = {
+            "sitelinks": {},
+            "claims": {"P2671": [{"mainsnak": {"datavalue": {"value": "/g/11h0zktk17"}}}]},
+        }
+        urls = extract_same_as_urls(entity, AUTHOR_PROPERTY_MAP)
+        assert urls == ["https://www.google.com/search?kgmid=/g/11h0zktk17"]

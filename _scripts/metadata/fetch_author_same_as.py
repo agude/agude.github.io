@@ -36,26 +36,29 @@ from wikidata_utils import (
 )
 
 # Wikidata properties that map to useful author URLs.
+# Labels are the properties' Wikidata labels. Tests pin each ID to its
+# Wikidata formatter URL; check a new ID's label before adding it.
 # Each entry: (property_id, label, url_template or None)
 # When url_template is None, the claim value is already a full URL.
 AUTHOR_PROPERTY_MAP: list[tuple[str, str, str | None]] = [
     ("P856", "official website", None),
-    ("P2963", "Goodreads", "https://www.goodreads.com/author/show/{value}"),
+    ("P2963", "Goodreads author ID", "https://www.goodreads.com/author/show/{value}"),
     (
         "P244",
-        "Library of Congress",
+        "Library of Congress Authorities ID",
         "https://id.loc.gov/authorities/names/{value}.html",
     ),
-    ("P648", "Open Library", "https://openlibrary.org/authors/{value}"),
-    ("P1233", "ISFDB", "https://www.isfdb.org/cgi-bin/ea.cgi?{value}"),
-    ("P1417", "Britannica", "https://www.britannica.com/{value}"),
-    ("P345", "IMDb", "https://www.imdb.com/name/{value}/"),
-    ("P7400", "LibraryThing", "https://www.librarything.com/author/{value}"),
-    ("P2949", "WikiTree", "https://www.wikitree.com/wiki/{value}"),
-    ("P5491", "SFE (entry)", "https://sf-encyclopedia.com/entry/{value}"),
-    ("P4657", "SFE (fantasy)", "https://sf-encyclopedia.com/fe/{value}"),
-    ("P8947", "Google KG", "https://www.google.com/search?kgmid={value}"),
-    ("P2191", "NNDB", "https://www.nndb.com/people/{value}/"),
+    ("P648", "Open Library ID", "https://openlibrary.org/authors/{value}"),
+    ("P1233", "ISFDB author ID", "https://www.isfdb.org/cgi-bin/ea.cgi?{value}"),
+    ("P1417", "Britannica Online ID", "https://www.britannica.com/{value}"),
+    ("P345", "IMDb ID", "https://www.imdb.com/name/{value}/"),
+    ("P7400", "LibraryThing author ID", "https://www.librarything.com/author/{value}"),
+    ("P2949", "WikiTree person ID", "https://www.wikitree.com/wiki/{value}"),
+    ("P5357", "Encyclopedia of Science Fiction ID", "https://sf-encyclopedia.com/entry/{value}"),
+    ("P10883", "The Encyclopedia of Fantasy ID", "https://sf-encyclopedia.com/fe/{value}"),
+    ("P1263", "NNDB people ID", "https://www.nndb.com/people/{value}/"),
+    ("P2671", "Google Knowledge Graph ID", "https://www.google.com/search?kgmid={value}"),
+    ("P646", "Freebase ID", "https://www.google.com/search?kgmid={value}"),
 ]
 
 
