@@ -9,7 +9,7 @@ image: /books/covers/flowers_for_algernon.jpg
 awards:
   - hugo
   - nebula
-wikidata_qid: Q12246381
+wikidata_qid: Q122463813
 isbn: 978-0-330-02094-7
 date_published: 1966
 same_as_urls:

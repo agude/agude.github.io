@@ -6,7 +6,7 @@ series: War Horses
 book_number: 6
 rating: 3
 image: /books/covers/sunstone_imperative.jpg
-wikidata_qid: null
+wikidata_qid: Q140048358
 isbn: null
 date_published: 2026-01-10
 same_as_urls:

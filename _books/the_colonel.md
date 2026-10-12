@@ -6,7 +6,7 @@ series: Firefall
 book_number: 1.5
 rating: 5
 image: /books/covers/the_colonel.jpg
-wikidata_qid: null
+wikidata_qid: Q131472463
 isbn: 978-1-4668-7647-7
 date_published: 2014-07-29
 same_as_urls:
