@@ -11,8 +11,8 @@ wikidata_qid: Q901913
 isbn: 978-1-84149-155-4
 date_published: 2004-10
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q901913"
   - "https://en.wikipedia.org/wiki/The_Algebraist"
+  - "https://www.goodreads.com/work/editions/2465248"
   - "https://openlibrary.org/works/OL8368450W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?171135"
   - "https://www.librarything.com/work/12930"
