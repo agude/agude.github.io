@@ -114,7 +114,10 @@ plugin file.
 
 ## When changing a plugin
 
-1. Run `test-for-plugin` before editing to locate every existing test.
+1. Run `test-for-plugin` before editing to locate every existing test, and
+   `make doc-show OBJ=<Class>` to read the class's tagged docs (`@gotcha`,
+   `@validator`, `@pattern`, `@pipeline`). `make doc-index` lists every tagged
+   object.
 2. Add or update a test in the same relative directory. Use
    `test_<name>.rb` for the primary test or `test_<name>_<purpose>.rb` for a
    focused integration or edge-case suite.

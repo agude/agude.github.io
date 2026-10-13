@@ -23,6 +23,10 @@ Jekyll-based static site (alexgude.com) running in Docker.
 - **Scripts:** `make scripts` (List available Python scripts with descriptions).
 - **Test Scripts:** `make test-scripts` (Run Python script tests via pytest).
 - **Hooks:** `make hooks-install` (Install pre-commit hook).
+- **Code docs:** `make doc-index` (List code objects tagged `@validator`,
+  `@pipeline`, `@pattern`, or `@gotcha`) / `make doc-show OBJ=<Class>` or
+  `OBJ='<Class>#<method>'` (Print one docstring with its tags). Read the
+  tagged docs for a class before changing it.
 
 ### Content checks
 
