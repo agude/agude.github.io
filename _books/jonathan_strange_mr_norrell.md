@@ -13,13 +13,11 @@ date_published: 2004-09-08
 awards:
   - hugo
   - locus
-  - nebula
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q1474920"
   - "https://en.wikipedia.org/wiki/Jonathan_Strange_%26_Mr_Norrell"
+  - "http://www.jonathanstrange.com/"
   - "https://www.goodreads.com/work/editions/3921305"
   - "https://openlibrary.org/works/OL5703428W"
-  - "https://openlibrary.org/works/OL5703422W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?153332"
   - "https://www.librarything.com/work/1060"
   - "https://www.google.com/search?kgmid=/m/040t6s"
