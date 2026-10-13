@@ -291,19 +291,25 @@ check-liquid: image-build
 # Query YARD for code objects carrying a doc tag (default: any custom tag
 # declared in .yardopts — derived from it directly so a new --tag entry
 # doesn't need a matching Makefile edit).
-# Rebuilds the .yardoc registry each time; cheap (seconds) at this codebase's size.
+# --no-cache reparses the source each run; plain `yard list` passes -c and
+# reads a stale .yardoc registry. Takes a few seconds at this codebase's size.
 #   make doc-index
 #   make doc-index QUERY='has_tag?(:gotcha)'
 CUSTOM_TAG_QUERY := $(shell grep '^--tag ' .yardopts | sed -E 's/^--tag ([a-zA-Z_]+):.*/has_tag?(:\1)/' | paste -sd '|' - | sed 's/|/ || /g')
 QUERY ?= $(CUSTOM_TAG_QUERY)
 doc-index: image-build
-	@$(DOCKER_RUN) bundle exec yard list --query '$(QUERY)'
+	@$(DOCKER_RUN) bundle exec yard list --no-cache --query '$(QUERY)'
 
-# Print the full YARD docstring for one code object.
+# Print the full YARD docstring for one code object, including custom tags.
+# Plain `yard display` reads the cached .yardoc registry and does not read
+# .yardopts, so it shows stale text and omits @gotcha, @validator, etc. Running
+# Yardoc first in the same process reparses the source and registers the tags.
 #   make doc-show OBJ=Jekyll::Books::Core::BookLinkResolver
 #   make doc-show OBJ='Jekyll::Books::Core::BookLinkResolver#resolve'
 doc-show: image-build
-	@$(DOCKER_RUN) bundle exec yard display $(OBJ)
+	@$(DOCKER_RUN) bundle exec ruby -ryard -e \
+		'YARD::CLI::Yardoc.run("--no-cache", "--no-output", "--no-stats", "-q"); YARD::CLI::Display.run(*ARGV)' \
+		'$(OBJ)'
 
 # Install the custom pre-commit hook that runs formatters inside Docker.
 # This target must be run on the HOST machine.

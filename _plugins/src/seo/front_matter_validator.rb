@@ -13,8 +13,9 @@ module Jekyll
     # Ensures that collections and layouts have all required front matter
     # fields defined before rendering, raising fatal errors for missing fields.
     #
-    # @validator Missing required front matter fields for a collection, and
-    #   a malformed or duplicated `wikidata_qid` on a book or author page.
+    # @validator Missing required front matter fields for a collection; on a
+    #   book or author page, a malformed `wikidata_qid`, a `same_as_urls`
+    #   that is not a list, or a Wikidata URL in `same_as_urls`.
     module FrontMatterValidator
       # Default configuration
       DEFAULT_REQUIRED_FIELDS_CONFIG = {
