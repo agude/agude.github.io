@@ -119,25 +119,34 @@ a fragment, so one URI never names both a page and a thing:
 | Site owner    | `author.url` (`_config.yml`) + `#person` | `author.url`    |
 | WebSite       | site root + `#website`                   | site root       |
 
-Page nodes use the bare page URL as `@id` and keep page text (name,
-description); Person nodes carry identity only. `author.url` is required:
-`JsonLdUtils.site_owner_ref` stops the build without it. `/resume/` is a
-`ProfilePage` whose `mainEntity` is the site owner. Author pages are a
-`CollectionPage` whose `about` is the book author: the author wrote the
-books, not the site, so Google's `ProfilePage` (person affiliated with the
-site) does not apply.
+Only `/resume/` and author pages have page nodes with an `@id`. These nodes
+use the bare page URL and carry page text (name, description). A `Review` or
+`BlogPosting` identifies its page through `mainEntityOfPage`; other page nodes
+carry only `url`. Person nodes carry identity only.
+
+`author.url` is required: `JsonLdUtils.site_owner_ref` stops the build if it
+is missing. `/resume/` is a `ProfilePage` whose `mainEntity` is the site owner.
+An author page is a `CollectionPage` whose `about` is the book author.
+Google's `ProfilePage` classification is for a person affiliated with the
+site; the book author wrote the books, not the site, so that classification
+does not apply.
 
 The book-family URL comes from `BookIdentityResolver`, so archived reviews
 share the canonical review's Book `@id`. A book's place in its series is the
 Book's `position`, never the shared BookSeries node's. A book whose `series`
 has no series page stops the build, like an unresolved author.
 
-Every book and author page requires `wikidata_qid`, the only place its QID
-is stored. The Book's and author Person's `sameAs` start with the Wikidata URL
-built from it (`JsonLdUtils.same_as_list`); `same_as_urls` holds the other
-links. The link cache carries the author's QID so book reviews build the same
-`sameAs` for credited authors. `FrontMatterValidator` stops the build on a
-missing or malformed QID, or on a Wikidata URL in `same_as_urls`.
+Every book and author page requires `wikidata_qid`, the only field that stores
+its QID. `JsonLdUtils.same_as_list` builds the Wikidata URL from this QID and
+places it first in the Book's or author Person's `sameAs`; `same_as_urls`
+holds the other links. The link cache carries the author's QID so book reviews
+build the same `sameAs` for credited authors. `FrontMatterValidator` stops the
+build if the QID is missing or malformed, if a non-null `same_as_urls` value
+is not a list, or if `same_as_urls` contains a Wikidata URL.
+
+An archived review is distinct content, so its HTML canonical link points to
+its own URL. The front-matter `canonical_url` only groups reviews into a book
+family for book links and the Book `@id`.
 
 ## Code-resident topics
 
@@ -204,8 +213,7 @@ matches the change:
   domain-as-handle DNS wiring, the publish script, the well-known generator,
   link tags, CI flow, and operational procedures for orphaned records,
   outages, and secret rotation. Required for `_scripts/atproto/`, the
-  standard.site plugin, or publish steps in CI. The full design history is in
-  `bluesky.md` at the repository root.
+  standard.site plugin, or publish steps in CI.
 
 ## Content and plugin rules
 
@@ -237,7 +245,8 @@ single command runs all of them:
 | `make check-liquid`                         | Renders documents with strict Liquid checking.                                                                                                                         |
 | `make check`                                | Alias for `make check-links`; it does not run the other content checks.                                                                                                |
 | `make lint`                                 | Runs the repository lint checks.                                                                                                                                       |
-| `make format-md`                            | Formats Markdown through the repository formatter.                                                                                                                     |
+| `make format-md`                            | Formats every Markdown file in the repository. Do not use it to format a change; it rewrites unrelated files.                                                          |
+| `make prettier FILE.md ...`                 | Formats the named Markdown files with Prettier.                                                                                                                        |
 
 For a content or plugin change, run the targeted test first and then the
 checks that cover the changed behavior. Do not merge a branch straight into

@@ -85,6 +85,17 @@ cross-cutting test filenames intentionally allowlisted by the script:
 - `test_render_mode_coverage.rb`
 - `test_link_cache_structure.rb`
 - `test_architecture.rb`
+- `test_markdown_output_includes.rb` (shared `_includes/` rendered in Markdown
+  mode)
+- `test_json_ld_rendered_site.rb` (SEO output built with a fixture site)
+- `test_dark_mode_contrast.rb` (color contrast defined in
+  `_sass/_variables.scss`)
+- `test_skill_docs_paths.rb` and `test_skill_docs_yard_objects.rb` (paths and
+  YARD objects referenced by skill documentation)
+- `test_warning_filter.rb` (warning filtering in `_tests/test_helper.rb`)
+
+When adding a cross-cutting test, add its filename to `ALLOWED_ORPHANS` in
+`orphan-tests` and to this list.
 
 ## Plugin domains
 
@@ -94,7 +105,7 @@ The top-level directories under `_plugins/src/` are:
 | --- | --- |
 | `infrastructure/` | Low-level utilities such as logging, URL and text processing, and the link cache. |
 | `content/` | Site-domain logic for books, posts, authors, series, short stories, and markdown output. |
-| `seo/` | JSON-LD generators and front-matter validation. |
+| `seo/` | JSON-LD generators, SEO meta tags, front-matter validation, and standard.site output. |
 | `ui/` | Reusable components such as cards, ratings, citations, quotes, and tags. |
 
 The test tree generally mirrors the plugin tree. Root-level tests under

@@ -6,24 +6,26 @@ constraints that are not obvious from reading it.
 
 ## BacklinkBuilder scans raw Liquid, not rendered output
 
-`_plugins/src/infrastructure/link_cache/backlink_builder.rb` reads raw template
-text. Consequences:
+`_plugins/src/infrastructure/link_cache/backlink_builder.rb` parses each
+book's raw template text (`doc.content`) into a Liquid abstract syntax tree
+(AST). It walks the tree to find tags listed in `LINK_TAGS`. Malformed Liquid
+stops the build. This has several consequences:
 
 - `link=false` is invisible unless the scanner filters it explicitly.
   `LINK_FALSE_PATTERN` matches all three quoting styles (`'false'`, `"false"`,
   bare `false`), including mixed quoting like
-  `{% series_text 'Honor Harrington' link="false" %}`. When it matches inside a
-  tag the scanner skips it — no link rendered means no backlink.
-- **Both series tag names must be scanned.** `scan_quoted_series_tags` handles
-  `{% series_link "Name" %}` / `{% series_text "Name" %}`;
-  `scan_variable_series_tags` handles `{% series_link page.series %}` /
-  `{% series_text page.series %}` and resolves `page.series` from front matter.
-  `series_text` is used in 80+ places for a book referencing its own series.
-  Scanning only `series_link`, and only with quoted arguments, is what left
-  books like `field_of_dishonor.md` with no backlinks (#144).
-- `scan_book_links` is deliberately narrower — `book_link` is only ever used
-  with `page.title` (self-reference, filtered by `add_backlink`) or a quoted
-  title, so it needs no variable-path branch.
+  `{% series_text 'Honor Harrington' link="false" %}`. When the pattern matches
+  inside a tag, the scanner skips that tag so an unlinked mention creates no
+  backlink.
+- **Both series tag names must be scanned.** `LINK_TAGS` lists both
+  `series_link` and `series_text`, and `extract_series_link` handles a quoted
+  name or `page.series`, which it resolves from front matter. Books use
+  `series_text` in 80+ places to reference their own series. Scanning only
+  `series_link` with quoted arguments left books such as `field_of_dishonor.md`
+  without backlinks (#144).
+- `extract_book_link` needs no variable-path branch: `book_link` is only used
+  with `page.title` (a self-reference, which `add_link` drops) or a quoted
+  title.
 
 **Footnote previews never double-count.** BacklinkBuilder scans `doc.content`
 in the generator phase; `FootnotePreviewInjector` modifies `item.output` at
@@ -81,10 +83,12 @@ CSS-only (no JS) hover cards on cross-page book links.
   (a live Document map) is stored on `site.data` directly, **not** in
   `link_cache`, which stays pure serializable data.
 - **Leak stripping.** `TextProcessingUtils.strip_link_previews` removes
-  marker-delimited blocks; it is applied in `strip_tags`, SEO meta
-  descriptions, markdown mirrors/llms.txt, and a `feed.xml` override via the
-  registered `strip_link_previews` Liquid filter. Any new output surface needs
-  the same treatment.
+  marker-delimited blocks. It is used by `strip_tags` and `clean_text_from_html`.
+  Previews are stripped from SEO meta descriptions, JSON-LD `reviewBody` and
+  `articleBody`, Markdown mirrors, and `llms.txt`. The `feed.xml` override uses
+  the registered `strip_link_previews` Liquid filter;
+  `strip_feed_previews_hook.rb` handles every other `.xml` page. Apply the
+  same stripping to any new output surface.
 
 ### Preview CSS positioning
 

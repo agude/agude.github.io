@@ -17,7 +17,9 @@ Jekyll-based static site (alexgude.com) running in Docker.
 - **Lint:** `make lint` / `make format-all`.
 - **Lint Python:** `make lint-scripts` (Ruff check + format check) /
   `make format-scripts` (Ruff autofix + format).
-- **Format MD:** `make format-md` (Run Prettier on all Markdown files).
+- **Format MD:** `make prettier <file.md> ...` (Run Prettier on the named
+  files). Do not use `make format-md` to format a change: it runs Prettier on
+  every Markdown file in the repository and rewrites unrelated files.
 - **Scripts:** `make scripts` (List available Python scripts with descriptions).
 - **Test Scripts:** `make test-scripts` (Run Python script tests via pytest).
 - **Hooks:** `make hooks-install` (Install pre-commit hook).
@@ -63,7 +65,7 @@ Why they do not overlap:
       verification; head.html renders the matching link tags from
       `standard_site.publication_uri` (config) and
       `_data/standard_site.json` (CI-generated). See the skill reference
-      `atproto-standard-site.md` and `bluesky.md`.
+      `atproto-standard-site.md`.
   - `content/`: Domain logic (Books, Posts, Authors, Series, **Markdown Output**).
 - **AT Protocol publish:** `_scripts/atproto/publish.py` syncs posts and
   book reviews to `site.standard.document` records in CI (main only); the

@@ -33,6 +33,7 @@ series: Series Name  # or null
 book_number: 1
 rating: 4
 image: /books/covers/book_title.jpg
+wikidata_qid: Q12345  # required; the build fails without it
 awards:
   - hugo
   - nebula

@@ -1,11 +1,8 @@
 # AT Protocol / standard.site Integration
 
-How alexgude.com publishes to the AT Protocol (Bluesky's network) via
-the [standard.site](https://standard.site) lexicons. This is the
-operator's reference: what's wired where, and what to do when things
-change. Design rationale, the full hardening history, and recovery
-procedures live in `bluesky.md` at the repo root (excluded from the
-built site).
+This operator's reference describes how alexgude.com publishes to the AT
+Protocol (Bluesky's network) using the [standard.site](https://standard.site)
+lexicons. It explains how the pieces connect and what to do when they change.
 
 ## Identity
 

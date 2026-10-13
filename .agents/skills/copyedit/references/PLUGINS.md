@@ -12,6 +12,7 @@ Use this reference when editing Liquid tags in book reviews on alexgude.com.
 - [Series Text](#series-text)
 - [Short Story Links](#short-story-links)
 - [Short Story Titles (no link)](#short-story-titles-no-link)
+- [Media Titles](#media-titles)
 - [Rating Stars](#rating-stars)
 - [Citations](#citations)
 - [Cited Quotes](#cited-quotes)
@@ -28,7 +29,8 @@ behavior, read the corresponding source file or directory:
 - `_plugins/src/content/authors/tags/` --- author_link
 - `_plugins/src/content/series/tags/` --- series_link, series_text
 - `_plugins/src/content/short_stories/tags/` --- short_story_link, short_story_title
-- `_plugins/src/ui/tags/` --- citation, citedquote, rating_stars
+- `_plugins/src/ui/tags/` --- citation, citedquote, rating_stars, movie_title,
+  game_title, tv_show_title, units
 
 Use the **plugin-navigator** skill to navigate between plugin source files and
 their tests:
@@ -58,6 +60,7 @@ Output: `<cite class="book-title"><a href="...">Book Title</a></cite>`
 {% author_link "Full Name" possessive %}  # adds 's
 {% author_link "Full Name" link_text="Lastname" %}
 {% author_link "Full Name" link_text="Lastname" possessive %}
+{% author_link "Full Name" link=false %}  # styled name, no link
 ```
 
 Examples:
@@ -103,6 +106,19 @@ auto-detected from the name. Use `link=false` for unlinked styled spans.
 ```
 
 Output: `<cite class="short-story-title">Story Title</cite>`
+
+## Media Titles
+
+Movie, game, and TV show tags render styled titles without links:
+
+```liquid
+{% movie_title "The Matrix" %}
+{% game_title "Elden Ring" %}
+{% tv_show_title "The Wire" %}
+```
+
+The movie tag renders `<cite class="movie-title">The Matrix</cite>`. The game
+and TV show tags use the classes `game-title` and `tv-show-title`, respectively.
 
 ## Rating Stars
 
