@@ -301,14 +301,15 @@ doc-index: image-build
 	@$(DOCKER_RUN) bundle exec yard list --no-cache -q --query '$(QUERY)'
 
 # Print the full YARD docstring for one code object, including custom tags.
-# Plain `yard display` reads the cached .yardoc registry and does not read
-# .yardopts, so it shows stale text and omits @gotcha, @validator, etc. Running
+# Not `yard display`: it reads the cached .yardoc registry, ignores .yardopts
+# (so it omits @gotcha, @validator, etc.), and writes an HTML page to doc/,
+# which Jekyll then copies into _site/ and html-proofer fails on. Running
 # Yardoc first in the same process reparses the source and registers the tags.
 #   make doc-show OBJ=Jekyll::Books::Core::BookLinkResolver
 #   make doc-show OBJ='Jekyll::Books::Core::BookLinkResolver#resolve'
 doc-show: image-build
 	@$(DOCKER_RUN) bundle exec ruby -ryard -e \
-		'YARD::CLI::Yardoc.run("--no-cache", "--no-output", "--no-stats", "-q"); YARD::CLI::Display.run(*ARGV)' \
+		'YARD::CLI::Yardoc.run("--no-cache", "--no-output", "--no-stats", "-q"); object = YARD::Registry.at(ARGV[0]) or abort("No YARD object: #{ARGV[0]}"); puts object.format(format: :text)' \
 		'$(OBJ)'
 
 # Install the custom pre-commit hook that runs formatters inside Docker.
