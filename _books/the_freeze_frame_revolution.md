@@ -11,7 +11,6 @@ wikidata_qid: Q62604562
 isbn: 978-1-61696-252-4
 date_published: 2018-06
 same_as_urls:
-  - "https://www.wikidata.org/wiki/Q62604562"
   - "https://openlibrary.org/works/OL19359160W"
   - "https://www.isfdb.org/cgi-bin/title.cgi?2358638"
   - "https://www.librarything.com/work/20871867"
