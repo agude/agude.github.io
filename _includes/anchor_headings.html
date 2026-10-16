@@ -140,7 +140,9 @@
 
       {% assign anchorAttrs = include | optional: 'anchorAttrs' %}
       {% if anchorAttrs %}
-        {% capture anchor %}{{ anchor }} {{ anchorAttrs | replace: '%heading%', escaped_header | replace: '%html_id%', html_id }}{% endcapture %}
+        {% comment %} escaped_header keeps the heading's entities but not a raw quote, which would end the attribute. {% endcomment %}
+        {% assign attr_header = escaped_header | replace: '"', '&quot;' %}
+        {% capture anchor %}{{ anchor }} {{ anchorAttrs | replace: '%heading%', attr_header | replace: '%html_id%', html_id }}{% endcapture %}
       {% endif %}
 
       {% assign anchorBody = include | optional: 'anchorBody' %}
