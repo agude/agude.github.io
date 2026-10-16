@@ -12,7 +12,6 @@ module Jekyll
       # including the container, list items, and series explanations.
       class Renderer
         def initialize(context, page, backlinks)
-          @context = context
           @page = page
           @backlinks = backlinks
           @resolver = Jekyll::Books::Core::BookLinkResolver.new(context)

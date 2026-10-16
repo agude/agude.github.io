@@ -14,7 +14,6 @@ module Jekyll
         class ByTitleAlphaRenderer
           def initialize(context, data)
             @context = context
-            @site = context.registers[:site]
             @alpha_groups = data[:alpha_groups] || []
           end
 

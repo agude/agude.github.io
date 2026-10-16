@@ -15,7 +15,6 @@ module Jekyll
         class ByAuthorThenSeriesRenderer
           def initialize(context, data)
             @context = context
-            @site = context.registers[:site]
             @authors_data = data[:authors_data] || []
           end
 

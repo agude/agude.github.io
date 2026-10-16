@@ -12,7 +12,6 @@ module Jekyll
         # with book links and mention counts.
         class Renderer
           def initialize(context, ranked_list)
-            @context = context
             @ranked_list = ranked_list
             @resolver = Jekyll::Books::Core::BookLinkResolver.new(context)
           end

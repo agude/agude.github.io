@@ -12,7 +12,6 @@ module Jekyll
         class ForSeriesRenderer
           def initialize(context, data)
             @context = context
-            @site = context.registers[:site]
             @books = data[:books] || []
           end
 
