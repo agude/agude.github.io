@@ -11,7 +11,13 @@ regenerating after adding a review never discards recorded votes.
 
 import json
 import re
+import sys
 from pathlib import Path
+
+# `uv run` puts only this script's directory on sys.path.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "common"))
+
+from front_matter import split_front_matter
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 BOOKS_DIR = PROJECT_ROOT / "_books"
@@ -37,11 +43,10 @@ def parse_front_matter(content: str) -> dict:
 
     Hand-rolled to avoid a PyYAML dependency.
     """
-    parts = content.split("---", 2)
-    if len(parts) < 3:
+    split = split_front_matter(content)
+    if split is None:
         return {}, ""
-    fm_text = parts[1]
-    body = parts[2]
+    fm_text, body = split
     fm = {}
     current_key = None
     current_list = None

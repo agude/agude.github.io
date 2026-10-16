@@ -133,3 +133,21 @@ class TestMain:
         assert (books / "book_two.md").read_text() == (
             "---\ntitle: Book Two\nrating: 4\n---\n\nReview of Book Two.\n"
         )
+
+    def test_pushes_rating_for_triple_dash_title(self, tmp_path, monkeypatch):
+        build_tree(
+            tmp_path,
+            "  # 5 Stars\n  - A---B\n  - Book Two\n",
+            {"a_b": ("A---B", 3), "book_two": ("Book Two", 3)},
+        )
+        point_module_at(monkeypatch, push_ratings_from_ranking, tmp_path)
+
+        push_ratings_from_ranking.main()
+
+        books = tmp_path / "_books"
+        assert (books / "a_b.md").read_text() == (
+            "---\ntitle: A---B\nrating: 5\n---\n\nReview of A---B.\n"
+        )
+        assert (books / "book_two.md").read_text() == (
+            "---\ntitle: Book Two\nrating: 5\n---\n\nReview of Book Two.\n"
+        )

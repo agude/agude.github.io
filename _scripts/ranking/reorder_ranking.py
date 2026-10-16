@@ -28,6 +28,7 @@ import yaml
 # `uv run` puts only this script's directory on sys.path.
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "common"))
 
+from front_matter import split_front_matter
 from yaml_text import yaml_scalar
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -37,10 +38,10 @@ BY_RATING = REPO_ROOT / "books" / "by_rating.md"
 
 def read_front_matter(path):
     """Return the parsed YAML front matter of a Markdown file, or None if it has none."""
-    parts = path.read_text().split("---", 2)
-    if len(parts) < 3:
+    split = split_front_matter(path.read_text())
+    if split is None:
         return None
-    parsed = yaml.safe_load(parts[1])
+    parsed = yaml.safe_load(split[0])
     return parsed if isinstance(parsed, dict) else {}
 
 
@@ -101,9 +102,10 @@ def format_ranked_list(tiers):
 
 def rebuild_front_matter(path, new_ranked_list_text):
     """Replace the ranked_list in the front matter."""
-    text = path.read_text()
-    parts = text.split("---", 2)
-    front = parts[1]
+    split = split_front_matter(path.read_text())
+    if split is None:
+        sys.exit(f"Could not parse front matter in {path.name}")
+    front, body = split
 
     # Find ranked_list start and end
     lines = front.splitlines(keepends=True)
@@ -128,8 +130,7 @@ def rebuild_front_matter(path, new_ranked_list_text):
             new_lines.append(line)
 
     new_front = "".join(new_lines)
-    new_text = f"---{new_front}---{parts[2]}"
-    path.write_text(new_text)
+    path.write_text(f"---\n{new_front}---\n{body}")
 
 
 def main():

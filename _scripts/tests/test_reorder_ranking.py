@@ -88,8 +88,16 @@ class TestMain:
         )
 
 
+def front_matter_and_body(path) -> tuple[str, str]:
+    """Split a file at its delimiter lines, independently of the code under test."""
+    lines = path.read_text().splitlines(keepends=True)
+    assert lines[0] == "---\n"
+    end = lines.index("---\n", 1)
+    return "".join(lines[1:end]), "".join(lines[end + 1 :])
+
+
 def colon_titles_in_real_ranked_list() -> list[str]:
-    front = (REPO_ROOT / "books" / "by_rating.md").read_text().split("---", 2)[1]
+    front, _ = front_matter_and_body(REPO_ROOT / "books" / "by_rating.md")
     return [t for t in yaml.safe_load(front)["ranked_list"] if ": " in t]
 
 
@@ -111,7 +119,7 @@ def ranked_list_text(titles: list[str]) -> str:
 
 
 def read_ranked_list(root) -> list:
-    front = (root / "books" / "by_rating.md").read_text().split("---", 2)[1]
+    front, _ = front_matter_and_body(root / "books" / "by_rating.md")
     return yaml.safe_load(front)["ranked_list"]
 
 
@@ -126,6 +134,25 @@ class TestRankedListRoundTrip:
         result = read_ranked_list(tmp_path)
         assert result == ROUND_TRIP_TITLES
         assert all(isinstance(title, str) for title in result)
+
+    def test_rewrite_preserves_triple_dash_title(self, tmp_path, monkeypatch):
+        titles = ["Book One", "A---B", "Book Two"]
+        build_tree(
+            tmp_path,
+            "  # 5 Stars\n" + "".join(f"  - {title}\n" for title in titles),
+            {"book_one": ("Book One", 5), "a_b": ("A---B", 5), "book_two": ("Book Two", 5)},
+        )
+        point_module_at(monkeypatch, reorder_ranking, tmp_path)
+
+        reorder_ranking.main()
+
+        front, body = front_matter_and_body(tmp_path / "books" / "by_rating.md")
+        assert yaml.safe_load(front) == {
+            "title": "By Rating",
+            "ranked_list": titles,
+            "layout": "page",
+        }
+        assert body == "\nBody.\n"
 
 
 class TestUnresolvedEntries:
