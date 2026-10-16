@@ -117,14 +117,21 @@ module Jekyll
 
         # Detect and strip common leading whitespace from block content.
         # Returns [indent_size, dedented_content].
+        #
+        # When the content does not start with a newline, line 1 sits on the
+        # tag line and inherits its indent from the template, so it is
+        # excluded from both the minimum and the stripping. The minimum
+        # covers every other non-blank line, including unindented ones.
         def dedent(content)
           lines = content.lines
-          indents = lines.filter_map { |line| line[/^([ \t]+)/, 1]&.length if line =~ /\S/ }
+          tag_line = content.start_with?("\n") ? [] : lines.shift(1)
+          indents = lines.grep(/\S/).map { |line| line[/\A[ \t]*/].length }
           min_indent = indents.min || 0
           return [0, content] if min_indent.zero?
 
-          stripped = lines.map { |line| line =~ /\S/ ? line[min_indent..] : line }.join
-          [min_indent, stripped]
+          strip = /\A[ \t]{0,#{min_indent}}/
+          stripped = lines.map { |line| line =~ /\S/ ? line.sub(strip, '') : line }
+          [min_indent, (tag_line + stripped).join]
         end
 
         def resolve_params(context)

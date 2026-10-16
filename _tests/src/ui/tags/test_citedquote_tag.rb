@@ -455,4 +455,60 @@ class TestCitedQuoteTag < Minitest::Test
       )
     end
   end
+
+  # --- Tests for Mixed Indentation (inline first line) ---
+
+  def markdown_context
+    create_context({}, { site: @site, page: create_doc({}, '/test.html'), render_mode: :markdown })
+  end
+
+  def render_unstubbed(source, context)
+    Jekyll.stub :logger, @silent_logger_stub do
+      Liquid::Template.parse(source).render!(context)
+    end
+  end
+
+  def test_html_mode_keeps_inline_first_line_whole
+    output = render_unstubbed(
+      "{% citedquote author_last=\"Doe\" %}First line\n    Indented line{% endcitedquote %}", @context,
+    )
+    assert_includes output, 'First line'
+    assert_includes output, 'Indented line'
+    refute_match(/(?<!Firs)t line/, output)
+  end
+
+  def test_markdown_mode_keeps_inline_first_line_whole
+    output = render_unstubbed(
+      "{% citedquote author_last=\"Doe\" %}First line\n    Indented line{% endcitedquote %}", markdown_context,
+    )
+    assert_includes output, '> First line'
+    assert_includes output, '> Indented line'
+  end
+
+  def test_markdown_mode_inline_footnote_reindents_continuation_lines
+    output = render_unstubbed(
+      "[^fn]: {% citedquote author_last=\"Doe\" %}Quote first\n    Quote second\n    {% endcitedquote %}",
+      markdown_context,
+    )
+    lines = output.lines.map(&:rstrip)
+
+    assert_equal '[^fn]: > Quote first', lines.first
+    assert_includes lines, '    > Quote second'
+    lines[1..].each do |line|
+      next if line.strip.empty?
+
+      assert_match(/^    /, line, "Footnote continuation line must be indented 4 spaces: #{line.inspect}")
+    end
+  end
+
+  def test_less_indented_later_line_loses_no_characters
+    source = "{% citedquote author_last=\"Doe\" %}\n    Alpha line\n    Beta line\nGamma line\n{% endcitedquote %}"
+
+    html = render_unstubbed(source, @context)
+    markdown = render_unstubbed(source, markdown_context)
+
+    assert_includes html, 'Gamma line'
+    assert_includes markdown, '> Gamma line'
+    assert_includes markdown, 'Alpha line'
+  end
 end
