@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../test_helper'
+require 'yaml'
 
 # Meta-guard for the CI gates in _bin/. A checker that nothing runs, or that
 # nothing tests, is worse than no checker at all: it looks like coverage on
@@ -31,9 +32,69 @@ class TestBinScriptsAreWiredUp < Minitest::Test
                  "_bin checkers with no _tests/bin/test_<name>.rb:\n  #{missing.join("\n  ")}"
   end
 
+  # Every step's `run:` command across all jobs, with shell comments removed.
+  # Comments and step names are not commands, so naming a script there does
+  # not wire it up.
+  def run_commands(workflow_yaml)
+    jobs = YAML.safe_load(workflow_yaml).fetch('jobs')
+    jobs.values.flat_map { |job| job.fetch('steps', []) }
+        .filter_map { |step| step['run'] }
+        .map { |command| strip_shell_comments(command) }
+  end
+
+  # Shell starts a comment at a `#` that begins a word. Quotes are not parsed,
+  # so a quoted " #" is also cut; that can only make a wired script look
+  # unwired, which fails loudly.
+  def strip_shell_comments(command)
+    command.lines.map { |line| line.sub(/(?:^|\s)#.*/, '') }.join
+  end
+
+  def unwired_checkers(scripts, workflow_yaml)
+    commands = run_commands(workflow_yaml)
+    scripts.reject { |script| commands.any? { |command| command.include?("_bin/#{script}") } }
+  end
+
+  def test_unwired_checkers_ignores_comments_and_step_names
+    workflow_yaml = <<~YAML
+      # _bin/check_commented.rb is described here but never run.
+      on: push
+      jobs:
+        test:
+          runs-on: ubuntu-latest
+          steps:
+            - name: Run _bin/check_named.rb
+              run: echo skipped
+            - run: bundle exec ruby _bin/check_wired.rb
+    YAML
+    scripts = %w[check_commented.rb check_named.rb check_wired.rb]
+
+    assert_equal %w[check_commented.rb check_named.rb], unwired_checkers(scripts, workflow_yaml)
+  end
+
+  def test_unwired_checkers_ignores_shell_comments
+    workflow_yaml = <<~YAML
+      on: push
+      jobs:
+        test:
+          runs-on: ubuntu-latest
+          steps:
+            - run: |
+                # bundle exec ruby _bin/check_line_comment.rb
+                echo skipped
+            - run: |
+                echo skipped # _bin/check_trailing_comment.rb
+            - run: |
+                echo "#" && bundle exec ruby _bin/check_wired.rb
+                bundle exec ruby _bin/check_also_wired.rb # gate
+    YAML
+    scripts = %w[check_also_wired.rb check_line_comment.rb check_trailing_comment.rb check_wired.rb]
+
+    assert_equal %w[check_line_comment.rb check_trailing_comment.rb],
+                 unwired_checkers(scripts, workflow_yaml)
+  end
+
   def test_every_checker_runs_in_ci
-    workflow = File.read(WORKFLOW)
-    unwired = checker_scripts.reject { |script| workflow.include?("_bin/#{script}") }
+    unwired = unwired_checkers(checker_scripts, File.read(WORKFLOW))
 
     assert_empty unwired,
                  "_bin checkers never invoked by .github/workflows/jekyll.yml:\n  #{unwired.join("\n  ")}"
