@@ -17,14 +17,18 @@ node: the positional subject, value options, and bare flags that
 `LinkTagBase#parse_markup` (or `SeriesTextTag`) already parsed. It then applies
 the renderer's lookup rules:
 
-- `book_link`: archived reviews are skipped; `author=` picks among
-  same-titled books through `AuthorLookup`, as `BookLinkResolver` does; an
-  author with no matching book, or an ambiguous title with no `author=`,
-  links nowhere. `book_link` has no date option.
+- `book_link`: archived reviews are skipped. `BookCandidateSelector` picks
+  among same-titled books by `author=`, through `AuthorLookup`. An author with
+  no matching book, or an ambiguous title with no `author=`, links nowhere.
+  `book_link` has no date option.
 - `author_link`: the name resolves through the `authors` cache, so pen names
   reach the canonical page; `link=false` links nowhere.
-- `short_story_link`: `from_book=` is read as a literal in either quoting
-  style, apostrophes included.
+- `short_story_link`: `ShortStoryLocationSelector` picks the location. The
+  sole canonical location wins, then a story that appears in only one book,
+  then `from_book=`. So `from_book=` naming an archived review, or naming no
+  book that has the story, still links the canonical location.
+  `from_book=` is read as a literal in either quoting style, apostrophes
+  included.
 - `series_link`, `series_text`: a quoted name or `page.series`, which resolves
   from front matter; `series_text ... link=false` links nowhere. Books use
   `series_text` in 80+ places to reference their own series; scanning only
@@ -33,6 +37,21 @@ the renderer's lookup rules:
 - A variable subject (other than `page.series`) cannot be resolved without
   rendering and produces no edge. Earlier, a quoted option value elsewhere in
   the tag (`link_text="Label"`) was mistaken for the title.
+- A variable `author=` or `from_book=` stops the build with the file and the
+  tag. Reading it as absent recorded a backlink when the variable named an
+  author whose book was not the link's target. Quote the value instead.
+
+**The selection rules exist once.** `BookCandidateSelector` and
+`ShortStoryLocationSelector` in `infrastructure/link_cache/` are pure: they
+return the chosen entry or a reason symbol. `BookLinkResolver` and
+`ShortStoryResolver` call them and add logging or the ambiguity error;
+`LinkTagTargetResolver` calls them and records no edge. `link=` is false
+through `TagArgumentUtils.false_value?` in both the renderer and the builder,
+so `link=" false "` and `link="FALSE"` disable both. Before these were
+shared, the builder's copies drifted: it stripped `link=` values and the
+renderer did not, and it applied `from_book=` before the canonical location.
+`TestBacklinkRendererParity` renders each case and builds its backlinks from
+the same source.
 
 A tag node without `link_arguments` (a parse-only stub registered by
 `ensure_stub_tags_registered`) stops the build: the real tag must be loaded.

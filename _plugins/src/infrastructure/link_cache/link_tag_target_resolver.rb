@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
+require_relative '../tag_argument_utils'
 require_relative '../text_processing_utils'
-require_relative 'author_lookup'
+require_relative 'book_candidate_selector'
+require_relative 'short_story_location_selector'
 
 module Jekyll
   module Infrastructure
@@ -12,13 +14,20 @@ module Jekyll
       #
       # It reads the arguments the tag parsed (`link_arguments`) and applies
       # the same lookups as the tag's resolver: archived reviews are skipped,
-      # `author=` disambiguates books, pen names resolve to the canonical
-      # author page, `from_book=` picks a short story, and `link=false` links
-      # nowhere. Variable arguments cannot be resolved without rendering, so
-      # they produce no target, except `page.series` on series tags.
+      # pen names resolve to the canonical author page, and `link=false`
+      # links nowhere. The book-author and short-story location rules are
+      # not copied here: BookCandidateSelector and ShortStoryLocationSelector
+      # hold the one copy that the renderers also call.
+      #
+      # A variable subject cannot be resolved without rendering, so it
+      # produces no target, except `page.series` on series tags. A variable
+      # `author=` or `from_book=` stops the build: reading it as absent can
+      # record a backlink the rendered page does not have.
       class LinkTagTargetResolver
-        AuthorLookup = Jekyll::Infrastructure::LinkCache::AuthorLookup
-        private_constant :AuthorLookup
+        BookSelector = Jekyll::Infrastructure::LinkCache::BookCandidateSelector
+        LocationSelector = Jekyll::Infrastructure::LinkCache::ShortStoryLocationSelector
+        TagArgs = Jekyll::Infrastructure::TagArgumentUtils
+        private_constant :BookSelector, :LocationSelector, :TagArgs
 
         # @param link_cache [Hash] the site link cache.
         # @param url_to_doc [Hash] URL => book document or author page.
@@ -33,11 +42,11 @@ module Jekyll
         def targets(node, doc)
           case node.tag_name
           when 'book_link'
-            extract_book_link(link_arguments(node))
+            extract_book_link(link_arguments(node), node, doc)
           when 'series_link', 'series_text'
             extract_series_link(link_arguments(node), doc)
           when 'short_story_link'
-            extract_short_story_link(link_arguments(node))
+            extract_short_story_link(link_arguments(node), node, doc)
           when 'author_link'
             extract_author_link(link_arguments(node))
           end
@@ -53,10 +62,12 @@ module Jekyll
                 'load the tag before building backlinks.'
         end
 
-        # Mirrors BookLinkResolver: archived reviews are never targets, an
-        # author option picks among same-titled books, and an ambiguous
-        # title with no author option links nowhere (the renderer raises).
-        def extract_book_link(args)
+        # Mirrors BookLinkResolver: archived reviews are never targets, and
+        # BookCandidateSelector picks among same-titled books. An author
+        # mismatch, or an ambiguous title with no author option (the renderer
+        # raises), links nowhere.
+        def extract_book_link(args, node, doc)
+          author = literal_option(args, :author, node, doc)
           title = literal(args.subject)
           return nil unless title
 
@@ -64,20 +75,8 @@ module Jekyll
                  &.reject { |b| b['canonical_url']&.start_with?('/') }
           return nil unless locs&.any?
 
-          target = select_book(locs, literal(args.options[:author]))
-          target && [{ url: target['url'], type: 'book' }]
-        end
-
-        def select_book(locs, author)
-          return (locs.length == 1 ? locs.first : nil) if author.nil? || author.strip.empty?
-
-          authors = @link_cache['authors'] || {}
-          wanted = AuthorLookup.canonical_author(author, authors)
-          locs.find do |book|
-            Array(book['authors']).any? do |name|
-              AuthorLookup.canonical_author(name, authors)&.casecmp?(wanted)
-            end
-          end
+          target = BookSelector.select_book(locs, author, @link_cache['authors'])
+          target.is_a?(Hash) ? [{ url: target['url'], type: 'book' }] : nil
         end
 
         def extract_series_link(args, doc)
@@ -92,17 +91,17 @@ module Jekyll
           books.map { |book| { url: book.url, type: 'series' } }
         end
 
-        def extract_short_story_link(args)
+        # Mirrors ShortStoryResolver through ShortStoryLocationSelector.
+        def extract_short_story_link(args, node, doc)
+          from_book = literal_option(args, :from_book, node, doc)
           title = literal(args.subject)
           return nil unless title
 
           locs = @link_cache['short_stories'][normalize(title)]
-          return nil unless locs
+          return nil if locs.nil? || locs.empty?
 
-          target = find_target_story(locs, literal(args.options[:from_book]))
-          return nil unless target
-
-          [{ url: target['url'], type: 'short_story' }]
+          target = LocationSelector.select_location(locs, @link_cache['url_to_canonical_map'], from_book)
+          target.is_a?(Hash) ? [{ url: target['url'], type: 'short_story' }] : nil
         end
 
         # Mirrors AuthorLinkResolver: pen names resolve through the 'authors'
@@ -125,19 +124,27 @@ module Jekyll
           markup&.match(/\A(['"])(.*)\1\z/m)&.[](2)
         end
 
+        # The literal value of a value option, or nil when it is absent.
+        def literal_option(args, name, node, doc)
+          markup = args.options[name]
+          return nil if markup.nil?
+
+          literal(markup) || raise_variable_option(name, markup, node, doc)
+        end
+
+        def raise_variable_option(name, markup, node, doc)
+          raise Jekyll::Errors::FatalException,
+                "BacklinkBuilder: {% #{node.raw.strip} %} in #{doc.relative_path} sets #{name}= to " \
+                "the variable '#{markup}'. Backlinks are built without rendering, so they cannot " \
+                "follow it; use a quoted #{name}= value."
+        end
+
         # True when a `link=` option is the literal false, quoted or not.
+        # Shares TagArgumentUtils.false_value? with the renderer.
         def link_disabled?(markup)
           return false unless markup
 
-          (literal(markup) || markup).strip.casecmp?('false')
-        end
-
-        def find_target_story(locs, from_book)
-          if from_book && !from_book.strip.empty?
-            locs.find { |l| l['parent_book_title'].casecmp(from_book).zero? }
-          elsif locs.map { |l| l['url'] }.uniq.length == 1
-            locs.first
-          end
+          TagArgs.false_value?(literal(markup) || markup)
         end
 
         def normalize(title)

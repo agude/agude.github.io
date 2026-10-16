@@ -47,7 +47,7 @@ class TestLinkTagTargetResolver < Minitest::Test
   end
 
   def test_link_false_in_any_quoting_has_no_author_target
-    ['link=false', "link='false'", 'link="false"'].each do |option|
+    ['link=false', "link='false'", 'link="false"', 'link=" false "', 'link="FALSE"'].each do |option|
       assert_nil targets(%({% author_link "Ann Author" #{option} %})), option
     end
   end
@@ -58,6 +58,25 @@ class TestLinkTagTargetResolver < Minitest::Test
 
   def test_unknown_tag_has_no_target
     assert_nil targets('{% citation author_last="Doe" %}')
+  end
+
+  def test_variable_author_raises_naming_document_and_tag
+    @doc.relative_path = '_books/source.md'
+    error = assert_raises(Jekyll::Errors::FatalException) { targets('{% book_link "Dune" author=who %}') }
+    assert_includes error.message, '_books/source.md'
+    assert_includes error.message, '{% book_link "Dune" author=who %}'
+  end
+
+  def test_variable_from_book_raises_even_when_story_is_unknown
+    error = assert_raises(Jekyll::Errors::FatalException) do
+      targets('{% short_story_link "Unknown" from_book=book %}')
+    end
+    assert_includes error.message, 'from_book='
+  end
+
+  def test_quoted_options_do_not_raise
+    assert_equal [{ url: '/books/dune/', type: 'book' }], targets('{% book_link "Dune" author="Ann Author" %}')
+    assert_nil targets('{% short_story_link "Unknown" from_book="Dune" %}')
   end
 
   def test_stub_tag_node_raises
