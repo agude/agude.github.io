@@ -20,8 +20,11 @@ module Jekyll
         # @param context [Liquid::Context] The Liquid context.
         # @param series_heading_level [Integer] The HTML heading level for series titles. Defaults to 2.
         # @param generate_nav [Boolean] If true, generates and prepends an A-Z jump-link navigation.
+        # @param id_prefix [String, nil] Namespaces series heading ids as
+        #   `<id_prefix>--<series-slug>`. A page that lists the same series
+        #   more than once (by author) needs this to keep ids unique.
         # @return [String] The rendered HTML.
-        def self.render_book_groups_html(data, context, series_heading_level: 2, generate_nav: false)
+        def self.render_book_groups_html(data, context, series_heading_level: 2, generate_nav: false, id_prefix: nil)
           output = (data[:log_messages] || '').dup
           standalone_books = data[:standalone_books] || []
           series_groups = data[:series_groups] || []
@@ -34,6 +37,7 @@ module Jekyll
             context,
             series_heading_level,
             generate_nav,
+            id_prefix,
           )
           output + renderer.render
         end
@@ -63,6 +67,7 @@ module Jekyll
         def self._render_series_section(group, context, options)
           name = group[:name]
           slug = Jekyll::Infrastructure::TextProcessingUtils.slugify(name)
+          slug = "#{options[:id_prefix]}--#{slug}" if options[:id_prefix]
           _register_series_anchor(name, slug, options) if options[:generate_nav]
 
           heading_level = options[:series_hl]
@@ -96,17 +101,18 @@ module Jekyll
 
         # Helper class to render book groups HTML
         class BookGroupsRenderer
-          def initialize(standalone_books, series_groups, context, series_heading_level, generate_nav)
+          def initialize(standalone_books, series_groups, context, series_heading_level, generate_nav, id_prefix)
             @standalone_books = standalone_books
             @series_groups = series_groups
             @context = context
             @series_hl = (1..6).include?(series_heading_level.to_i) ? series_heading_level.to_i : 2
             @generate_nav = generate_nav
+            @id_prefix = id_prefix
             @anchors = {}
           end
 
           def render
-            options = { series_hl: @series_hl, generate_nav: @generate_nav, anchors: @anchors }
+            options = { series_hl: @series_hl, generate_nav: @generate_nav, anchors: @anchors, id_prefix: @id_prefix }
             content = Jekyll::Books::Lists::BookListRendererUtils._render_content_buffer(
               @standalone_books, @series_groups, @context, options,
             )

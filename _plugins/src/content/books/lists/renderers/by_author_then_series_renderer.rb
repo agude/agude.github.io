@@ -49,7 +49,7 @@ module Jekyll
             name = CGI.escapeHTML(author_data[:author_name])
             html = "<h2 class=\"book-list-headline\" id=\"#{slug}\">#{name}</h2>\n"
             html << render_standalone(author_data, slug)
-            html << render_series(author_data)
+            html << render_series(author_data, slug)
             html
           end
 
@@ -64,7 +64,7 @@ module Jekyll
             html << "</ul>\n"
           end
 
-          def render_series(author_data)
+          def render_series(author_data, slug)
             return '' unless author_data[:series_groups]&.any?
 
             data = {
@@ -76,6 +76,7 @@ module Jekyll
               data,
               @context,
               series_heading_level: 3,
+              id_prefix: slug,
             )
           end
 
