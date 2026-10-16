@@ -143,6 +143,9 @@ holds the other links. The link cache carries the author's QID so book reviews
 build the same `sameAs` for credited authors. `FrontMatterValidator` stops the
 build if the QID is missing or malformed, if a non-null `same_as_urls` value
 is not a list, or if `same_as_urls` contains a Wikidata URL.
+On a book, it also stops the build if `isbn` is set but not a string: YAML 1.1
+reads an unquoted `isbn: 0306406152` as an octal Integer with different digits,
+so quote the ISBN or write it with hyphens.
 
 An archived review is distinct content, so its HTML canonical link points to
 its own URL. The front-matter `canonical_url` only groups reviews into a book

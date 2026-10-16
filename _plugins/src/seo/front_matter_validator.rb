@@ -15,7 +15,9 @@ module Jekyll
     #
     # @validator Missing required front matter fields for a collection; on a
     #   book or author page, a malformed `wikidata_qid`, a `same_as_urls`
-    #   that is not a list, or a Wikidata URL in `same_as_urls`.
+    #   that is not a list, or a Wikidata URL in `same_as_urls`; on a book,
+    #   an `isbn` that YAML parsed as a non-string (an unquoted, unhyphenated
+    #   ISBN reads as an Integer, octal-looking ones with different digits).
     module FrontMatterValidator
       # Default configuration
       DEFAULT_REQUIRED_FIELDS_CONFIG = {
@@ -66,6 +68,7 @@ module Jekyll
         report_missing_fields(doc, doc_type_log, missing_fields)
         validate_title_entities(doc)
         validate_wikidata(doc, doc_type_log) if config[config_key].include?('wikidata_qid')
+        validate_isbn(doc) if config_key == 'books'
       end
 
       # --- Private Helper Methods ---
@@ -163,6 +166,19 @@ module Jekyll
 
         msg = "#{doc_type_log} '#{id}' lists Wikidata in same_as_urls (#{wikidata_urls.join(', ')}). " \
               'Remove it: the build generates the Wikidata link from wikidata_qid.'
+        fail_validation(msg)
+      end
+
+      # YAML 1.1 reads an unquoted `isbn: 0306406152` as an octal Integer with
+      # different digits, and the JSON-LD would publish them with no error.
+      # A set `isbn` must therefore be a String.
+      def self.validate_isbn(doc)
+        isbn = doc.data['isbn']
+        return if isbn.nil? || isbn.is_a?(String)
+
+        msg = "Document '#{doc_id(doc)}' has isbn #{isbn.inspect}, which YAML parsed as type " \
+              "#{isbn.class} and not as text, so its digits may be wrong. Quote the ISBN " \
+              '(isbn: "0306406152") or write it with hyphens (isbn: 978-0-306-40615-7).'
         fail_validation(msg)
       end
 
