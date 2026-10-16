@@ -101,7 +101,10 @@
     <script>
         const IMG_BASE = "../../";
 
+        // Title -> { slug, image } from the loaded state file.
         let BOOKS_DATA_MAP = {};
+        // Ordered { slug, title, elo } rows. The slug identifies a row
+        // everywhere; titles are display text only and may contain quotes.
         let ratedBooks = [];
 
         document.getElementById("file-input").addEventListener("change", handleFile);
@@ -127,8 +130,8 @@
             // Build the title -> image map (same shape as the original baked-in data)
             BOOKS_DATA_MAP = {};
             for (const [slug, data] of Object.entries(books)) {
-                if (data.title && data.image) {
-                    BOOKS_DATA_MAP[data.title] = { image: data.image };
+                if (data.title) {
+                    BOOKS_DATA_MAP[data.title] = { slug, image: data.image || '' };
                 }
             }
 
@@ -153,13 +156,20 @@
             const assignBtn = document.getElementById('assign-elo-btn');
             const resetBtn = document.getElementById('reset-calc-btn');
 
+            // slug -> 'beats' | 'loses' for the current selection.
+            const selection = new Map();
+
             assignBtn.addEventListener('click', handleAssignElo);
             resetBtn.addEventListener('click', resetCalculator);
+
+            function readStep() {
+                return parseInt(document.getElementById('step-elo').value, 10);
+            }
 
             function handleAssignElo() {
                 const initialList = document.getElementById('initial-list').value;
                 const baseElo = parseInt(document.getElementById('base-elo').value, 10);
-                const step = parseInt(document.getElementById('step-elo').value, 10);
+                const step = readStep();
                 const outputArea = document.getElementById('list-with-elo');
 
                 const titles = initialList.split('\n')
@@ -172,6 +182,8 @@
 
                 const middleIndex = Math.floor(titles.length / 2);
                 ratedBooks = titles.map((title, index) => ({
+                    // Pasted titles missing from the state file get a row key.
+                    slug: (BOOKS_DATA_MAP[title] || {}).slug || `row-${index}`,
                     title: title,
                     elo: baseElo - (index - middleIndex) * step
                 }));
@@ -184,13 +196,8 @@
 
             function populateSourceList() {
                 const sourceListContainer = document.getElementById('source-books-list');
-                sourceListContainer.innerHTML = '';
+                sourceListContainer.replaceChildren(...ratedBooks.map(book => createListItem(book)));
                 resetCalculator();
-
-                ratedBooks.forEach(book => {
-                    const item = createListItem(book, 'source');
-                    sourceListContainer.appendChild(item);
-                });
             }
 
             function imgPath(image) {
@@ -198,96 +205,127 @@
                 return IMG_BASE + image.replace(/^\//, "");
             }
 
-            function createListItem(book, type) {
+            function button(label, onClick, className = '') {
+                const btn = document.createElement('button');
+                btn.textContent = label;
+                if (className) btn.className = className;
+                btn.addEventListener('click', onClick);
+                return btn;
+            }
+
+            // Built with DOM calls, not innerHTML, so any title text is safe.
+            function createListItem(book) {
                 const item = document.createElement('div');
                 item.className = 'list-item';
-                item.dataset.title = book.title;
+                item.dataset.slug = book.slug;
                 item.dataset.elo = book.elo;
 
-                const bookData = BOOKS_DATA_MAP[book.title] || { image: '' };
-                const imageHtml = bookData.image ? `<img src="${imgPath(bookData.image)}" alt="${book.title}">` : '';
-
-                let actionsHtml = '';
-                if (type === 'source') {
-                    actionsHtml = `
-                        <div class="actions">
-                            <button class="add-beats-btn" onclick="addToSelection(this, 'beats')">Beats</button>
-                            <button class="add-loses-btn" onclick="addToSelection(this, 'loses')">Loses To</button>
-                        </div>`;
-                } else {
-                     actionsHtml = `<div class="actions"><button onclick="removeFromSelection(this)">Remove</button></div>`;
+                const image = (BOOKS_DATA_MAP[book.title] || {}).image;
+                if (image) {
+                    const img = document.createElement('img');
+                    img.src = imgPath(image);
+                    img.alt = book.title;
+                    item.appendChild(img);
                 }
 
-                item.innerHTML = `
-                    ${imageHtml}
-                    <div class="info">
-                        <strong>${book.title}</strong><br>
-                        <small>ELO: ${book.elo}</small>
-                    </div>
-                    <div style="flex-grow: 1;"></div>
-                    ${actionsHtml}
-                `;
+                const info = document.createElement('div');
+                info.className = 'info';
+                const name = document.createElement('strong');
+                name.textContent = book.title;
+                const elo = document.createElement('small');
+                elo.textContent = `ELO: ${book.elo}`;
+                info.append(name, document.createElement('br'), elo);
+
+                const spacer = document.createElement('div');
+                spacer.style.flexGrow = '1';
+
+                const actions = document.createElement('div');
+                actions.className = 'actions';
+                item.append(info, spacer, actions);
                 return item;
             }
 
-            window.addToSelection = (btn, type) => {
-                const sourceItem = btn.closest('.list-item');
-                const title = sourceItem.dataset.title;
-                const elo = parseInt(sourceItem.dataset.elo, 10);
+            function bookBySlug(slug) {
+                return ratedBooks.find(book => book.slug === slug);
+            }
 
-                const targetListId = type === 'beats' ? 'beats-list' : 'loses-to-list';
-                const targetList = document.getElementById(targetListId);
+            // Redraws the selection lists and the source-list buttons from
+            // `selection`, then recomputes the result.
+            function render() {
+                const lists = { beats: document.getElementById('beats-list'), loses: document.getElementById('loses-to-list') };
+                lists.beats.replaceChildren();
+                lists.loses.replaceChildren();
 
-                const newItem = createListItem({ title, elo }, 'selection');
-                targetList.appendChild(newItem);
-
-                sourceItem.classList.add('selected');
-                btn.parentElement.innerHTML = '<i>Selected</i>';
-
-                calculateNewElo();
-            };
-
-            window.removeFromSelection = (btn) => {
-                const selectionItem = btn.closest('.list-item');
-                const title = selectionItem.dataset.title;
-                selectionItem.remove();
-
-                const sourceItem = document.querySelector(`#source-books-list .list-item[data-title="${title}"]`);
-                if (sourceItem) {
-                    sourceItem.classList.remove('selected');
-                    sourceItem.querySelector('.actions').innerHTML = `
-                        <button class="add-beats-btn" onclick="addToSelection(this, 'beats')">Beats</button>
-                        <button class="add-loses-btn" onclick="addToSelection(this, 'loses')">Loses To</button>`;
+                for (const [slug, type] of selection) {
+                    const item = createListItem(bookBySlug(slug));
+                    item.querySelector('.actions').appendChild(button('Remove', () => {
+                        selection.delete(slug);
+                        render();
+                    }));
+                    lists[type].appendChild(item);
                 }
 
-                calculateNewElo();
-            };
+                document.querySelectorAll('#source-books-list .list-item').forEach(item => {
+                    const slug = item.dataset.slug;
+                    const actions = item.querySelector('.actions');
+                    item.classList.toggle('selected', selection.has(slug));
+                    if (selection.has(slug)) {
+                        const marker = document.createElement('i');
+                        marker.textContent = 'Selected';
+                        actions.replaceChildren(marker);
+                    } else {
+                        actions.replaceChildren(
+                            button('Beats', () => { selection.set(slug, 'beats'); render(); }, 'add-beats-btn'),
+                            button('Loses To', () => { selection.set(slug, 'loses'); render(); }, 'add-loses-btn'),
+                        );
+                    }
+                });
 
+                calculateNewElo();
+            }
+
+            // A side with no selections is unbounded: the result sits one
+            // configured step beyond the other side's extreme.
             function calculateNewElo() {
-                const beatsList = document.getElementById('beats-list');
-                const losesToList = document.getElementById('loses-to-list');
                 const resultEloEl = document.getElementById('result-elo');
                 const resultLogicEl = document.getElementById('result-logic');
                 const resultPosEl = document.getElementById('result-position');
 
-                const beatElos = [...beatsList.querySelectorAll('.list-item')].map(item => parseInt(item.dataset.elo, 10));
-                const losesToElos = [...losesToList.querySelectorAll('.list-item')].map(item => parseInt(item.dataset.elo, 10));
+                const elosOf = type => [...selection].filter(([, t]) => t === type).map(([slug]) => bookBySlug(slug).elo);
+                const beatElos = elosOf('beats');
+                const losesToElos = elosOf('loses');
+                const step = readStep();
 
-                const floorElo = beatElos.length > 0 ? Math.max(...beatElos) : 400;
-                const ceilingElo = losesToElos.length > 0 ? Math.min(...losesToElos) : 2000;
+                resultEloEl.style.color = '#1877f2';
+                resultPosEl.textContent = '';
 
-                if (floorElo > ceilingElo) {
-                    resultEloEl.textContent = 'Error';
-                    resultLogicEl.textContent = `Logical conflict: The item cannot beat a book with ELO ${floorElo} and lose to a book with ELO ${ceilingElo}.`;
-                    resultEloEl.style.color = '#f02849';
-                    resultPosEl.textContent = '';
+                let newElo;
+                if (beatElos.length === 0 && losesToElos.length === 0) {
+                    resultEloEl.textContent = '--';
+                    resultLogicEl.textContent = 'Select items to see a result.';
                     return;
+                } else if (losesToElos.length === 0) {
+                    const floorElo = Math.max(...beatElos);
+                    newElo = floorElo + step;
+                    resultLogicEl.textContent = `One step (${step}) above the highest "Beats" (${floorElo}).`;
+                } else if (beatElos.length === 0) {
+                    const ceilingElo = Math.min(...losesToElos);
+                    newElo = ceilingElo - step;
+                    resultLogicEl.textContent = `One step (${step}) below the lowest "Loses To" (${ceilingElo}).`;
+                } else {
+                    const floorElo = Math.max(...beatElos);
+                    const ceilingElo = Math.min(...losesToElos);
+                    if (floorElo > ceilingElo) {
+                        resultEloEl.textContent = 'Error';
+                        resultLogicEl.textContent = `Logical conflict: The item cannot beat a book with ELO ${floorElo} and lose to a book with ELO ${ceilingElo}.`;
+                        resultEloEl.style.color = '#f02849';
+                        return;
+                    }
+                    newElo = Math.round((floorElo + ceilingElo) / 2);
+                    resultLogicEl.textContent = `Average of highest "Beats" (${floorElo}) and lowest "Loses To" (${ceilingElo}).`;
                 }
 
-                const newElo = Math.round((floorElo + ceilingElo) / 2);
                 resultEloEl.textContent = newElo;
-                resultLogicEl.textContent = `Average of highest "Beats" (${floorElo}) and lowest "Loses To" (${ceilingElo}).`;
-                resultEloEl.style.color = '#1877f2';
 
                 // Show where it would slot in
                 let position = ratedBooks.length + 1;
@@ -301,22 +339,8 @@
             }
 
             function resetCalculator() {
-                document.getElementById('beats-list').innerHTML = '';
-                document.getElementById('loses-to-list').innerHTML = '';
-                document.getElementById('result-elo').textContent = '--';
-                document.getElementById('result-logic').textContent = 'Select items to see a result.';
-                document.getElementById('result-elo').style.color = '#1877f2';
-                document.getElementById('result-position').textContent = '';
-
-                document.querySelectorAll('#source-books-list .list-item').forEach(item => {
-                    item.classList.remove('selected');
-                    const actionsDiv = item.querySelector('.actions');
-                    if (actionsDiv) {
-                        actionsDiv.innerHTML = `
-                            <button class="add-beats-btn" onclick="addToSelection(this, 'beats')">Beats</button>
-                            <button class="add-loses-btn" onclick="addToSelection(this, 'loses')">Loses To</button>`;
-                    }
-                });
+                selection.clear();
+                render();
             }
         });
     </script>
