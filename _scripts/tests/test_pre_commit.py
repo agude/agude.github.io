@@ -166,6 +166,23 @@ def test_untracked_files_survive(repo):
     assert "notes.txt" not in repo.git("ls-files")
 
 
+def test_staged_change_with_only_untracked_files_commits(repo):
+    # The stash holds an untracked file but no unstaged tracked change, so the
+    # unstaged diff is empty and must not be applied.
+    repo.write("a.rb", replace_line(ORIGINAL, 3, "staged   "))
+    repo.git("add", "a.rb")
+    repo.write("notes.txt", "untracked\n")
+    before = repo.stash_commits()
+
+    result = repo.run_hook()
+
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert repo.read("notes.txt") == "untracked\n"
+    assert "notes.txt" not in repo.git("ls-files")
+    assert repo.stash_commits() == before
+    assert repo.git("show", ":a.rb") == replace_line(ORIGINAL, 3, "staged")
+
+
 def test_pre_existing_stash_is_untouched(repo):
     repo.write("a.rb", replace_line(ORIGINAL, 5, "someone else's work"))
     repo.git("stash", "push", "-q", "-m", "user stash")

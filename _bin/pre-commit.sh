@@ -15,8 +15,9 @@
 # touched:
 #   1. Untracked files are extracted from the stash's third parent.
 #   2. The unstaged diff (stash index -> stash working tree) is applied on
-#      top of the formatted files. `git stash pop` is not used: it merges the
-#      unformatted staged lines back in and conflicts with every fix.
+#      top of the formatted files, when it is not empty. `git stash pop` is
+#      not used: it merges the unformatted staged lines back in and conflicts
+#      with every fix.
 #   3. Only when both succeed is the stash dropped. Otherwise the hook fails,
 #      leaves the stash in place, and prints recovery commands naming it.
 # If `git stash push` fails, the hook aborts before running any formatter.
@@ -43,7 +44,11 @@ restore_unstaged() {
   if git rev-parse -q --verify "$HOOK_STASH^3" >/dev/null; then
     git archive "$HOOK_STASH^3" | tar -x || return 1
   fi
-  git diff --binary "$HOOK_STASH^2" "$HOOK_STASH" | git apply --whitespace=nowarn || return 1
+  # A stash holding only untracked files has an empty diff, which `git apply`
+  # rejects.
+  if ! git diff --quiet "$HOOK_STASH^2" "$HOOK_STASH"; then
+    git diff --binary "$HOOK_STASH^2" "$HOOK_STASH" | git apply --whitespace=nowarn || return 1
+  fi
   git stash drop -q "$(stash_ref "$HOOK_STASH")"
 }
 
