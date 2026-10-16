@@ -257,6 +257,32 @@ class TestFrontMatterValidator < Minitest::Test
     end
   end
 
+  # YAML 1.1 reads an unquoted `isbn: 0306406152` as an octal Integer with
+  # different digits, and the JSON-LD would publish them without any error.
+  def test_integer_isbn_raises_error_naming_the_path
+    err = assert_validation_error(create_book_doc('isbn' => 51_121_258))
+    assert_match 'dune.html', err.message
+    assert_match 'isbn', err.message
+    assert_match 'Quote the ISBN', err.message
+    assert_match 'hyphen', err.message
+  end
+
+  def test_string_isbn_passes
+    ['978-0-306-40615-7', '0306406152'].each do |isbn|
+      Jekyll.stub :logger, @silent_logger_stub do
+        assert_nil Jekyll::SEO::FrontMatterValidator.validate_document(create_book_doc('isbn' => isbn))
+      end
+    end
+  end
+
+  def test_nil_and_absent_isbn_pass
+    [create_book_doc('isbn' => nil), create_book_doc].each do |doc|
+      Jekyll.stub :logger, @silent_logger_stub do
+        assert_nil Jekyll::SEO::FrontMatterValidator.validate_document(doc)
+      end
+    end
+  end
+
   # Author pages follow the same rule: their wikidata_qid builds the
   # author's Wikidata link on the author page and in every book review.
 
