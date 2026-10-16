@@ -183,7 +183,11 @@ Read the named exemplar before modifying the corresponding subsystem:
 - **CI/CD and hooks**: the header of `.github/workflows/jekyll.yml` documents
   workflow stages. The header of `_bin/pre-commit.sh` documents hook stages
   and the `git stash --keep-index` mechanism. Read them before modifying a
-  workflow or commit hook.
+  workflow or commit hook. The hook restores unstaged work from the stash
+  commit it created, never by stash position, and leaves the stash with
+  recovery commands when the restore fails. `_scripts/tests/test_pre_commit.py`
+  runs it in a temporary repository with stub `docker` and `uv` executables;
+  run it with `make test-scripts` after any hook change.
 - **CI gates**: `_bin/check_*` scripts run as real subprocesses against
   throwaway fixture directories. The header of
   `_tests/bin/bin_script_helper.rb` documents the fixture builders and test
