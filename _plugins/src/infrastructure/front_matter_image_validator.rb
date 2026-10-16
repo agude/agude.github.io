@@ -23,6 +23,8 @@ module Jekyll
       # @param item [Jekyll::Document, Jekyll::Page] Carries the `image` field.
       # @param site [Jekyll::Site] Supplies the source directory.
       def self.validate(item, site)
+        return unless item.data.is_a?(Hash)
+
         path = image_path(item.data['image'])
         return if path.nil? || path.start_with?('http://', 'https://')
         return if File.file?(File.join(site.source, path))

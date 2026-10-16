@@ -59,6 +59,12 @@ class TestFrontMatterImageValidator < Minitest::Test
     Validator.validate(doc_with({}), @site)
   end
 
+  def test_item_without_hash_data_is_skipped
+    doc = doc_with({})
+    doc.data = nil
+    Validator.validate(doc, @site)
+  end
+
   def test_directory_is_not_an_image
     doc = doc_with('image' => '/books/covers')
     assert_raises(Jekyll::Errors::FatalException) { Validator.validate(doc, @site) }
