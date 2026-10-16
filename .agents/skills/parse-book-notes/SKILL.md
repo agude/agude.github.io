@@ -152,12 +152,11 @@ collisions. They do not write to the review.
 
 Finished reviews are post-pruning artifacts. Do not infer parse-stage capture
 shape from their missing author variants. After drafting, preview unused
-captures from the repository root:
+captures from the repository root. The script only reports unless given
+`--write`:
 
 ```bash
-uv run _scripts/content/jekyll_clean_captures.py \
-    _books/example_review.md \
-    --dry-run
+uv run _scripts/content/jekyll_clean_captures.py _books/example_review.md
 ```
 
 Remove only variants confirmed unused by the completed prose, then run

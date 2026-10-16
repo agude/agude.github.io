@@ -4,7 +4,9 @@
 # ///
 """Find and remove unused Liquid capture blocks from Markdown files.
 
-Example: _posts/some_post.md --dry-run
+Reports unused captures without changing files. Pass --write to remove them.
+
+Example: _posts/some_post.md
 """
 
 import argparse
@@ -13,39 +15,65 @@ import sys
 from glob import glob
 from pathlib import Path
 
+# A whole capture block, with or without whitespace control. Group 1 is the
+# variable name.
+CAPTURE_RE = re.compile(
+    r"{%-?\s*capture\s+([A-Za-z0-9_]+)\s*-?%}.*?{%-?\s*endcapture\s*-?%}", re.DOTALL
+)
+
+# Any Liquid output or tag region: {{ ... }}, {%- ... -%}, and so on.
+LIQUID_REGION_RE = re.compile(r"{{.*?}}|{%.*?%}", re.DOTALL)
+
+# A capture's opening tag defines its variable; it is not a use.
+CAPTURE_OPEN_RE = re.compile(r"\A{%-?\s*capture\b")
+
+IDENTIFIER_RE = re.compile(r"[A-Za-z_][A-Za-z0-9_-]*")
+
+
+def used_identifiers(content):
+    """Return every identifier that appears in a Liquid region of `content`.
+
+    Capture opening tags are skipped, so defining a variable never counts
+    as using it. Prose outside Liquid regions is ignored.
+    """
+    identifiers = set()
+    for region in LIQUID_REGION_RE.finditer(content):
+        text = region.group(0)
+        if CAPTURE_OPEN_RE.match(text):
+            continue
+        identifiers.update(IDENTIFIER_RE.findall(text))
+    return identifiers
+
 
 def find_unused_captures(content):
     """
-    Finds all capture blocks and checks if they are used in the content.
+    Finds all capture blocks whose variable is never read.
+
+    A variable is read if its name appears as an identifier in any Liquid
+    output or tag region, including inside other capture bodies.
 
     Returns:
         A list of (variable_name, full_match_object) tuples for unused captures.
     """
-    # Regex to find all capture blocks, including multi-line ones.
-    # It captures the variable name (group 1) and the full block (group 0).
-    capture_regex = re.compile(
-        r"({%\s*capture\s+([a-zA-Z0-9_]+)\s+%}.*?{%\s*endcapture\s*%})", re.DOTALL
-    )
+    used = used_identifiers(content)
+    return [
+        (match.group(1), match)
+        for match in CAPTURE_RE.finditer(content)
+        if match.group(1) not in used
+    ]
 
-    captures = list(capture_regex.finditer(content))
-    unused = []
 
-    for match in captures:
-        variable_name = match.group(2)
-
-        # To check for usage, we search the entire document *except* for the
-        # current capture block's definition.
-        search_content = content[: match.start()] + content[match.end() :]
-
-        # Check for usage in output tags: {{ my_variable }}
-        output_regex = re.compile(r"{{\s*" + re.escape(variable_name) + r"\s*}}")
-        # Check for usage as a tag parameter value: tag arg=my_variable
-        param_regex = re.compile(r"=\s*" + re.escape(variable_name) + r"(?:\s|%)")
-
-        if not output_regex.search(search_content) and not param_regex.search(search_content):
-            unused.append((variable_name, match))
-
-    return unused
+def remove_blocks(content, matches):
+    """Return `content` without the matched blocks and each block's newline."""
+    pieces = []
+    position = 0
+    for match in sorted(matches, key=lambda m: m.start()):
+        pieces.append(content[position : match.start()])
+        position = match.end()
+        if content.startswith("\n", position):
+            position += 1
+    pieces.append(content[position:])
+    return "".join(pieces)
 
 
 def process_file(file_path, dry_run=True):
@@ -64,7 +92,6 @@ def process_file(file_path, dry_run=True):
 
         print(f"Found {len(unused_captures)} unused captures in {path.name}:")
 
-        lines_to_remove = []
         for var, match in unused_captures:
             # Get the line numbers for the entire match
             start_line = content.count("\n", 0, match.start()) + 1
@@ -73,20 +100,11 @@ def process_file(file_path, dry_run=True):
                 f"line {start_line}" if start_line == end_line else f"lines {start_line}-{end_line}"
             )
             print(f"  - Unused variable '{var}' (on {line_info})")
-            lines_to_remove.append(match.group(1))
 
         if dry_run:
-            print("  (Dry run mode: No changes made)")
+            print("  (Dry run: no changes made; pass --write to remove them)")
         else:
-            # Remove the unused blocks from the content
-            new_content = content
-            for block in lines_to_remove:
-                # Also remove the newline character that follows the block
-                # to prevent empty lines from being left behind.
-                new_content = new_content.replace(block + "\n", "")
-
-            new_content = re.sub(r"\n{3,}", "\n\n", new_content)
-            path.write_text(new_content)
+            path.write_text(remove_blocks(content, [match for _, match in unused_captures]))
             print(f"  Cleaned up {path.name}")
 
     except FileNotFoundError:
@@ -95,7 +113,7 @@ def process_file(file_path, dry_run=True):
         print(f"An unexpected error occurred with {file_path}: {e}", file=sys.stderr)
 
 
-def main():
+def main(argv=None):
     parser = argparse.ArgumentParser(
         description="Find and remove unused Jekyll {% capture %} variables from markdown files.",
         formatter_class=argparse.RawTextHelpFormatter,
@@ -107,12 +125,12 @@ def main():
         help="One or more file paths to process. Supports shell globbing (e.g., 'posts/*.md').",
     )
     parser.add_argument(
-        "--dry-run",
+        "--write",
         action="store_true",
-        help="Show which variables would be removed without modifying files.",
+        help="Remove the unused captures. Without it, only report them.",
     )
 
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     # Expand glob patterns from the shell
     file_paths = []
@@ -124,11 +142,11 @@ def main():
         sys.exit(1)
 
     print("--- Starting Jekyll Capture Cleanup ---")
-    if args.dry_run:
-        print("--- Running in Dry Run Mode ---")
+    if not args.write:
+        print("--- Dry run: pass --write to remove captures ---")
 
     for file_path in file_paths:
-        process_file(file_path, dry_run=args.dry_run)
+        process_file(file_path, dry_run=not args.write)
         print("-" * 20)
 
 
