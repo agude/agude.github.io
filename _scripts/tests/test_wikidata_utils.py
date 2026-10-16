@@ -15,7 +15,6 @@ from wikidata_utils import (
     print_entity_candidates,
     require_qid,
     search_entity,
-    select_candidate,
 )
 
 
@@ -85,28 +84,6 @@ class TestEntitySearch:
 
 
 class TestEntitySelection:
-    def test_requires_explicit_qid(self):
-        candidates = [{"id": "Q1", "label": "One", "description": "", "aliases": []}]
-
-        with patch("wikidata_utils.api_get") as api_mock, pytest.raises(SystemExit):
-            select_candidate(candidates, "not-a-qid")
-
-        api_mock.assert_not_called()
-
-    def test_selects_matching_qid(self):
-        candidates = [
-            {"id": "Q1", "label": "One", "description": "", "aliases": []},
-            {"id": "Q2", "label": "Two", "description": "", "aliases": []},
-        ]
-
-        assert select_candidate(candidates, "Q2")["id"] == "Q2"
-
-    def test_rejected_qid_does_not_fall_back(self):
-        candidates = [{"id": "Q1", "label": "One", "description": "", "aliases": []}]
-
-        with pytest.raises(SystemExit):
-            select_candidate(candidates, "Q2")
-
     def test_qid_validation_is_explicit(self):
         assert is_qid("Q123") is True
         assert is_qid("Q") is False

@@ -13,7 +13,6 @@ from update_book_metadata import (
     _strip_field,
     extract_front_matter_keys,
     format_field,
-    strip_managed_fields,
 )
 
 
@@ -164,42 +163,6 @@ class TestStripField:
         front_matter = "title: Test\n"
         result = _strip_field(front_matter, "isbn")
         assert result == "title: Test\n"
-
-
-class TestStripManagedFields:
-    def test_strips_all_managed_fields(self):
-        front_matter = dedent("""\
-            title: Test
-            wikidata_qid: Q123
-            isbn: 978-0-123
-            date_published: 2020
-            awards:
-              - hugo
-            same_as_urls:
-              - https://example.com
-            rating: 5
-            """)
-        result = strip_managed_fields(front_matter)
-        assert "wikidata_qid" not in result
-        assert "isbn" not in result
-        assert "date_published" not in result
-        assert "awards" not in result
-        assert "same_as_urls" not in result
-        assert "title: Test" in result
-        assert "rating: 5" in result
-
-    def test_preserves_non_managed_fields(self):
-        front_matter = dedent("""\
-            title: Test Book
-            book_authors: Author Name
-            series: Test Series
-            rating: 5
-            """)
-        result = strip_managed_fields(front_matter)
-        assert "title: Test Book" in result
-        assert "book_authors: Author Name" in result
-        assert "series: Test Series" in result
-        assert "rating: 5" in result
 
 
 class TestManagedFieldsConstant:

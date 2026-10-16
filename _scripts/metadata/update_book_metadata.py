@@ -155,13 +155,6 @@ def _strip_field(front_matter: str, field: str) -> str:
     return "".join(lines[:start] + lines[end:])
 
 
-def strip_managed_fields(front_matter: str) -> str:
-    """Remove every managed field from front matter text."""
-    for field in MANAGED_FIELDS:
-        front_matter = _strip_field(front_matter, field)
-    return front_matter
-
-
 def format_field(key: str, value) -> str:
     """Format a single field as YAML text."""
     if key == "awards":
