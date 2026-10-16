@@ -29,7 +29,7 @@ module Jekyll
 
         @ambiguous = false
         @title_input = title_raw.to_s.strip
-        @book_filter = book_title_raw.to_s.strip if book_title_raw
+        @book_filter = book_title_raw&.to_s&.strip
         @norm_title = Text.normalize_title(@title_input)
         @log_output = ''
 
