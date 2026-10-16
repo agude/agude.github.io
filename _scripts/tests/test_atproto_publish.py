@@ -1953,3 +1953,64 @@ class TestDidFromPublicationUri:
     def test_rejects_non_did_uris(self, uri: str) -> None:
         with pytest.raises(publish.PublishError):
             publish.did_from_publication_uri(uri)
+
+
+# ---------------------------------------------------------------------------
+# CI wiring: branch dry run and main-only publish
+# ---------------------------------------------------------------------------
+
+
+WORKFLOW = Path(__file__).resolve().parents[2] / ".github" / "workflows" / "jekyll.yml"
+
+
+def _workflow_steps(job: str) -> list[dict]:
+    workflow = yaml.safe_load(WORKFLOW.read_text(encoding="utf-8"))
+    return workflow["jobs"][job]["steps"]
+
+
+def _step(steps: list[dict], name: str) -> dict:
+    matches = [s for s in steps if s.get("name") == name]
+    assert len(matches) == 1, f"expected one {name!r} step, found {len(matches)}"
+    return matches[0]
+
+
+class TestWorkflowDryRun:
+    def test_branch_ci_runs_the_dry_run_after_validate(self) -> None:
+        steps = _workflow_steps("test")
+        names = [s.get("name") for s in steps]
+        assert "Dry-run AT Protocol publish" in names
+        validate_at = names.index("Validate posts for AT Protocol publish")
+        assert names[validate_at + 1] == "Dry-run AT Protocol publish"
+
+        step = steps[validate_at + 1]
+        assert step["if"] == "github.ref != 'refs/heads/main'"
+        assert step["working-directory"] == "_scripts"
+        assert step["run"].split() == [
+            "uv",
+            "run",
+            "python",
+            "atproto/publish.py",
+            "publish",
+            "--posts-dir",
+            "../_posts",
+            "--books-dir",
+            "../_books",
+            "--data-out",
+            '"$RUNNER_TEMP/standard_site.json"',
+            "--dry-run",
+        ]
+        # Blocking: a failed dry run fails the branch.
+        assert "continue-on-error" not in step
+
+    def test_branch_dry_run_gets_no_secrets(self) -> None:
+        step = _step(_workflow_steps("test"), "Dry-run AT Protocol publish")
+        assert "env" not in step
+        text = yaml.safe_dump(step)
+        assert "secrets" not in text
+        assert "BSKY_" not in text
+
+    def test_real_publish_stays_main_only(self) -> None:
+        step = _step(_workflow_steps("build"), "Publish standard.site records")
+        assert step["if"] == "github.ref == 'refs/heads/main' && inputs.skip_publish != true"
+        assert "--dry-run" not in step["run"]
+        assert step["env"]["BSKY_APP_PASSWORD"] == "${{ secrets.BSKY_APP_PASSWORD }}"

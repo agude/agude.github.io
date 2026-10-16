@@ -265,6 +265,8 @@ checks that cover the changed behavior. Do not merge a branch straight into
 change can publish.
 
 The AT Protocol publish step runs on `main` only. Its PDS is the state store;
-the repository does not contain AT-URIs for individual documents. Read
+the repository does not contain AT-URIs for individual documents. Every other
+branch runs `publish --dry-run` in the `test` job as a blocking step. It needs
+no secrets, so a bsky.social outage fails branch CI; rerun the job. Read
 [AT Protocol / standard.site](references/atproto-standard-site.md) before
 changing publish behavior or operating the workflow.

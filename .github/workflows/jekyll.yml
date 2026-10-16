@@ -8,7 +8,11 @@
 #   5. `atproto/publish.py validate` — parses every post and book review
 #      for AT Protocol compatibility; no credentials or network required;
 #      runs on every branch.
-#   6. Build, then four site gates on every branch: the AT-path cross-check
+#   6. `atproto/publish.py publish --dry-run` — skipped on main; prints
+#      what a merge would publish. No secrets: it reads public records
+#      from bsky.social and refuses every write. Blocking, so a
+#      bsky.social outage fails branch CI; rerun the job.
+#   7. Build, then four site gates on every branch: the AT-path cross-check
 #      (validate --site-dir, both directions), HTML structure
 #      (_bin/check_html_structure.sh), feed XML (_bin/check_feeds.rb), and
 #      broken links (_bin/check_links.rb). (Only the `test` job's steps run
@@ -18,12 +22,12 @@
 # Main-only steps in the build job (gated on github.ref == refs/heads/main),
 # ordered so PDS records — an external, not-automatically-reversible
 # system — are only written after ALL site gates pass:
-#   7. `uv run python atproto/publish.py publish` — syncs _posts/ and
+#   8. `uv run python atproto/publish.py publish` — syncs _posts/ and
 #      _books/ (and the publication record from _config.yml) to the PDS
 #      and writes _data/standard_site.json. Requires the BSKY_APP_PASSWORD
 #      repo secret and a non-empty standard_site.publication_uri (an empty
 #      value is a hard failure — repo rule 5).
-#   8. A second Jekyll build embeds the per-document link tags, then all
+#   9. A second Jekyll build embeds the per-document link tags, then all
 #      four gates re-run against the artifact that actually deploys.
 #
 # Test-job concurrency is per-ref and cancels stale runs
@@ -96,6 +100,15 @@ jobs:
       - name: Validate posts for AT Protocol publish
         working-directory: _scripts
         run: uv run python atproto/publish.py validate --posts-dir ../_posts --books-dir ../_books
+
+      # Shows what a merge would publish. Needs no secrets: the dry run
+      # reads public records and refuses every write. Blocking, so a
+      # bsky.social outage fails branch CI (rerun the job); main skips it
+      # and keeps skip_publish for the real publish.
+      - name: Dry-run AT Protocol publish
+        if: github.ref != 'refs/heads/main'
+        working-directory: _scripts
+        run: uv run python atproto/publish.py publish --posts-dir ../_posts --books-dir ../_books --data-out "$RUNNER_TEMP/standard_site.json" --dry-run
 
       - name: Check for strict Liquid errors
         run: bundle exec ruby _bin/check_strict.rb
