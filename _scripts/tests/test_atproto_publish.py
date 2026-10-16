@@ -1808,3 +1808,148 @@ class TestWellKnownInSite:
     def test_no_expected_uri_skips_check(self, tmp_path: Path) -> None:
         posts, site = self._site(tmp_path)
         assert validate_documents(posts, site_dir=site) is True
+
+
+# ---------------------------------------------------------------------------
+# Credential-free dry run: read-only client
+# ---------------------------------------------------------------------------
+
+
+CONFIGURED_DID = "did:plc:y5qiqqtzjmlwggzuttldivxq"
+
+
+def _dry_run_transport(monkeypatch: pytest.MonkeyPatch) -> MockTransport:
+    """Serve the publication and an empty document list to main()."""
+    transport = MockTransport()
+    transport.routes["createSession"] = MockResponse(LOGIN_RESPONSE)
+    transport.routes["getRecord"] = MockResponse(PUB_RECORD_RESPONSE)
+    transport.routes["listRecords"] = MockResponse({"records": []})
+    monkeypatch.setattr(publish.requests, "Session", lambda: transport)
+    monkeypatch.setattr(publish, "load_config", lambda: TEST_CONFIG)
+    return transport
+
+
+def _run_main(argv: list[str]) -> int:
+    try:
+        publish.main(argv)
+    except SystemExit as exc:
+        return exc.code
+    return 0
+
+
+def _publish_argv(tmp_path: Path, data_out: Path, *extra: str) -> list[str]:
+    posts = tmp_path / "posts"
+    books = tmp_path / "books"
+    posts.mkdir(exist_ok=True)
+    books.mkdir(exist_ok=True)
+    return [
+        "publish",
+        "--posts-dir",
+        str(posts),
+        "--books-dir",
+        str(books),
+        "--data-out",
+        str(data_out),
+        *extra,
+    ]
+
+
+class TestCredentialFreeDryRun:
+    def test_dry_run_needs_no_credentials(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys
+    ) -> None:
+        monkeypatch.delenv("BSKY_HANDLE", raising=False)
+        monkeypatch.delenv("BSKY_APP_PASSWORD", raising=False)
+        transport = _dry_run_transport(monkeypatch)
+        data_out = tmp_path / "out.json"
+
+        code = _run_main(_publish_argv(tmp_path, data_out, "--dry-run"))
+
+        assert code == 0, capsys.readouterr().err
+        assert [c for c in transport.calls if "createSession" in c[1]] == []
+        assert [c for c in transport.calls if c[0] == "POST"] == []
+        assert not data_out.exists()
+
+    def test_dry_run_ignores_credentials_when_set(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys
+    ) -> None:
+        # The dry run must not depend on the caller's environment.
+        monkeypatch.setenv("BSKY_HANDLE", "handle.bsky.social")
+        monkeypatch.setenv("BSKY_APP_PASSWORD", "password")
+        transport = _dry_run_transport(monkeypatch)
+
+        code = _run_main(_publish_argv(tmp_path, tmp_path / "out.json", "--dry-run"))
+
+        assert code == 0, capsys.readouterr().err
+        assert [c for c in transport.calls if "createSession" in c[1]] == []
+
+    def test_publish_without_dry_run_still_requires_credentials(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys
+    ) -> None:
+        monkeypatch.delenv("BSKY_HANDLE", raising=False)
+        monkeypatch.delenv("BSKY_APP_PASSWORD", raising=False)
+        transport = _dry_run_transport(monkeypatch)
+
+        code = _run_main(_publish_argv(tmp_path, tmp_path / "out.json"))
+
+        assert code == 1
+        assert "BSKY_HANDLE" in capsys.readouterr().err
+        assert transport.calls == []
+
+
+class TestReadOnlyClient:
+    class HeaderRecordingTransport(MockTransport):
+        def __init__(self) -> None:
+            super().__init__()
+            self.get_headers: list[dict | None] = []
+
+        def get(self, url, params=None, headers=None, timeout=None):
+            self.get_headers.append(headers)
+            return super().get(url, params=params, headers=headers, timeout=timeout)
+
+    def test_list_records_sends_no_authorization(self) -> None:
+        transport = self.HeaderRecordingTransport()
+        client = AtprotoClient.read_only("https://bsky.social", CONFIGURED_DID, _session=transport)
+        transport.push({"records": [{"uri": DOC_URI, "value": {}}], "cursor": "c1"})
+        transport.push({"records": [{"uri": DOC_URI, "value": {}}]})
+
+        client.list_records("site.standard.document")
+
+        assert len(transport.get_headers) == 2
+        for headers in transport.get_headers:
+            assert "Authorization" not in (headers or {})
+        assert all(c[2]["repo"] == CONFIGURED_DID for c in transport.calls)
+
+    @pytest.mark.parametrize(
+        ("method", "args"),
+        [
+            ("create_record", ("site.standard.document", {})),
+            ("put_record", ("site.standard.document", "rk", {})),
+            ("delete_record", ("site.standard.document", "rk")),
+        ],
+    )
+    def test_writes_refused_before_any_request(self, method: str, args: tuple) -> None:
+        transport = MockTransport()
+        client = AtprotoClient.read_only("https://bsky.social", CONFIGURED_DID, _session=transport)
+
+        with pytest.raises(publish.PublishError, match=f"read-only client: refusing {method}"):
+            getattr(client, method)(*args)
+        assert transport.calls == []
+
+
+class TestDidFromPublicationUri:
+    def test_configured_uri(self) -> None:
+        uri = get_publication_uri(load_config())
+        assert publish.did_from_publication_uri(uri) == CONFIGURED_DID
+
+    @pytest.mark.parametrize(
+        "uri",
+        [
+            "at://alexgude.com/site.standard.publication/3mqrj32i3mm2t",
+            f"{CONFIGURED_DID}/site.standard.publication/3mqrj32i3mm2t",
+            "",
+        ],
+    )
+    def test_rejects_non_did_uris(self, uri: str) -> None:
+        with pytest.raises(publish.PublishError):
+            publish.did_from_publication_uri(uri)

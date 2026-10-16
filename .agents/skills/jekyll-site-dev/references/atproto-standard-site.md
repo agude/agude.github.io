@@ -52,14 +52,39 @@ lexicons. It explains how the pieces connect and what to do when they change.
 - **Delete/rename a post**: CI warns (`::warning::` annotation) about
   the orphaned record; clean up manually from `_scripts/`:
   `uv run python atproto/publish.py delete-orphans --posts-dir ../_posts --books-dir ../_books` (add `--yes` to delete).
-- **Local dry run** (needs `BSKY_HANDLE`/`BSKY_APP_PASSWORD` exported):
-  `uv run python atproto/publish.py publish ... --dry-run` — zero
-  writes, prints the plan.
+- **Local dry run** (no credentials): from `_scripts/`,
+  `uv run python atproto/publish.py publish --posts-dir ../_posts --books-dir ../_books --data-out ../_data/standard_site.json --dry-run`.
+  It never logs in, even when `BSKY_*` is set. It reads the publication
+  and document records through the public `getRecord` and `listRecords`
+  endpoints, using the DID in `standard_site.publication_uri`. Its client
+  refuses every write, so it cannot change the PDS, and it writes no data
+  file. It prints the plan and ends with the
+  `created=… updated=… unchanged=… orphaned=…` line.
 - **PDS outage blocking a deploy**: run the workflow manually
   (Actions tab) with `skip_publish: true`.
 - **Rotate the secret**: new app password at bsky.app → Settings →
   App Passwords (no DM access) → update the `BSKY_APP_PASSWORD` repo
   secret. Nothing else changes.
+
+## Credentials
+
+- **Dry run.** `publish --dry-run` needs no credentials. Never export
+  `BSKY_*` to run it.
+- **Writes.** `publish` writes, and runs only in CI on `main` with the
+  `BSKY_APP_PASSWORD` repo secret. For any other write, add a
+  `workflow_dispatch` input in the style of `skip_publish`, so the secret
+  stays in GitHub and the run is logged.
+- **Manual local writes.** `delete-orphans` and `init-publication` always
+  log in, `delete-orphans` without `--yes` included. For a command that
+  must write from a laptop, such as `delete-orphans --yes` or
+  `init-publication`, give the secret to that one command only. Use your
+  password manager's run-with-secrets wrapper, or
+  `BSKY_APP_PASSWORD="$(pass show …)" uv run …`. Do not `export` it in an
+  interactive shell, and do not put it in a `.env` file in the repository.
+- **Which password.** Always use an app password, never the account
+  password. Bluesky app passwords cannot be limited to reading, so treat
+  one as full write access, and revoke any app password created for
+  one-off local use.
 
 ## Gotchas
 
