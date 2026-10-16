@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # /// script
 # requires-python = ">=3.10"
-# dependencies = ["requests"]
+# dependencies = ["PyYAML", "requests"]
 # ///
 """Update a book review file's front matter with Wikidata metadata.
 
@@ -32,6 +32,7 @@ import re
 import sys
 from pathlib import Path
 
+import yaml
 from fetch_book_metadata import BOOK_PROPERTY_MAP
 from wikidata_utils import (
     EntityCandidate,
@@ -71,13 +72,6 @@ def search_book_entity(title: str, author: str) -> list[EntityCandidate]:
 # Fields this script manages, in output order.
 MANAGED_FIELDS = ("wikidata_qid", "isbn", "date_published", "awards", "same_as_urls")
 
-# Regex to match a managed field and any indented continuation lines
-# (e.g. same_as_urls list items).
-_MANAGED_RE = re.compile(
-    r"^(?:" + "|".join(MANAGED_FIELDS) + r"):.*(?:\n  - .*)*",
-    re.MULTILINE,
-)
-
 
 def extract_front_matter_keys(front_matter: str) -> dict[str, str]:
     """Extract top-level key: value pairs from front matter text.
@@ -88,7 +82,8 @@ def extract_front_matter_keys(front_matter: str) -> dict[str, str]:
     surrounding quotes.
     """
     result: dict[str, str] = {}
-    for match in re.finditer(r"^(\w+):\s*(.*)$", front_matter, re.MULTILINE):
+    # [ \t]*, not \s*: a blank value must not run on into the next line.
+    for match in re.finditer(r"^(\w+):[ \t]*(.*)$", front_matter, re.MULTILINE):
         key = match.group(1)
         val = match.group(2).strip()
         # Strip quotes.
@@ -117,23 +112,54 @@ def parse_file(path: str) -> tuple[str, str, str]:
     return front_matter, "---\n", body
 
 
-def strip_managed_fields(front_matter: str) -> str:
-    """Remove lines for managed fields from front matter text."""
-    result = _MANAGED_RE.sub("", front_matter)
-    # Clean up any resulting double blank lines.
-    while "\n\n\n" in result:
-        result = result.replace("\n\n\n", "\n\n")
-    return result
+def _is_continuation(line: str) -> bool:
+    """Return whether a line continues the previous top-level key's value.
+
+    That is any indented line, or a `-` list item at any indent (YAML allows
+    a block sequence at column 0 under its key).
+    """
+    return line[:1] in (" ", "\t") or line == "-" or line.startswith("- ")
+
+
+def _field_span(lines: list[str], field: str) -> tuple[int, int] | None:
+    """Return the [start, end) line range of a top-level field, or None.
+
+    The span is the key line plus every following continuation line. Blank
+    lines inside the value are included only when more of the value follows.
+    """
+    key = re.compile(rf"{re.escape(field)}:(?:[ \t]|$)")
+    for start, line in enumerate(lines):
+        if not key.match(line):
+            continue
+        end = start + 1
+        scan = end
+        while scan < len(lines):
+            if not lines[scan].strip():
+                scan += 1
+                continue
+            if not _is_continuation(lines[scan]):
+                break
+            scan += 1
+            end = scan
+        return start, end
+    return None
 
 
 def _strip_field(front_matter: str, field: str) -> str:
-    """Remove a single field (and any indented continuation) from front matter."""
-    pattern = re.compile(rf"^{field}:.*(?:\n  - .*)*\n?", re.MULTILINE)
-    result = pattern.sub("", front_matter)
-    # Collapse any double newlines left behind.
-    while "\n\n" in result:
-        result = result.replace("\n\n", "\n")
-    return result
+    """Remove a top-level field and its value lines; leave every other byte alone."""
+    lines = front_matter.splitlines(keepends=True)
+    span = _field_span(lines, field)
+    if span is None:
+        return front_matter
+    start, end = span
+    return "".join(lines[:start] + lines[end:])
+
+
+def strip_managed_fields(front_matter: str) -> str:
+    """Remove every managed field from front matter text."""
+    for field in MANAGED_FIELDS:
+        front_matter = _strip_field(front_matter, field)
+    return front_matter
 
 
 def format_field(key: str, value) -> str:
@@ -308,8 +334,16 @@ def main() -> None:
     # Ensure front matter ends with exactly one newline before we append.
     front_matter = front_matter.rstrip("\n") + "\n"
 
-    # Assemble and write.
+    # Assemble, validate, and write.
     updated_front_matter = front_matter + "\n".join(new_lines) + "\n"
+    try:
+        parsed = yaml.safe_load(updated_front_matter)
+    except yaml.YAMLError as error:
+        log.error("Rewritten front matter for %s does not parse; not writing: %s", args.file, error)
+        sys.exit(1)
+    if not isinstance(parsed, dict):
+        log.error("Rewritten front matter for %s is not a mapping; not writing", args.file)
+        sys.exit(1)
     output = "---\n" + updated_front_matter + closing + body
 
     with Path(args.file).open("w", encoding="utf-8") as f:
