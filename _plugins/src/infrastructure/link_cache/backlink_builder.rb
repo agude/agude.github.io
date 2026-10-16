@@ -100,11 +100,14 @@ module Jekyll
             var_name = node.instance_variable_get(:@to)
             links = @builder.send(:extract_links_from_capture, node.nodelist, @doc)
 
-            # Only track captures that have resolvable targets.
-            # Without this check, captures with no targets (self-referential links,
-            # unresolved books/authors) would point to the next valid capture's index,
-            # causing their prose usages to inflate that capture's count.
-            return if links.empty?
+            # A capture always rebinds its variable. One with no resolvable
+            # targets (plain text, unresolved books/authors) binds it to nil,
+            # so later {{ var }} usages attach to nothing: neither to an
+            # earlier capture of the same name nor to the next valid capture.
+            if links.empty?
+              @seen_captures[var_name] = nil
+              return
+            end
 
             update_capture_tracking(var_name)
             @capture_defs << { var_name: var_name, targets: links }
