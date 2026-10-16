@@ -13,6 +13,28 @@ module Jekyll
       module CitationUtils
         NBSP = "\u00A0" # Non-breaking space
 
+        # The citation parameters that _citation_parts reads. The citation
+        # and citedquote tags accept exactly these keys.
+        PARAMETER_NAMES = %w[
+          author_last
+          author_first
+          author_handle
+          work_title
+          container_title
+          url
+          editor
+          edition
+          volume
+          number
+          publisher
+          date
+          first_page
+          last_page
+          page
+          doi
+          access_date
+        ].freeze
+
         # --- Public API ---
 
         # Formats citation as plain text with Markdown formatting.

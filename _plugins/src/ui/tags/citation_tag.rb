@@ -41,7 +41,6 @@
 
 require 'jekyll'
 require 'liquid'
-require 'strscan' # StringScanner is appropriate for this parsing task
 require_relative '../citations/citation_utils'
 require_relative '../../infrastructure/tag_argument_utils'
 
@@ -58,27 +57,19 @@ module Jekyll
   module UI
     module Tags
       # Liquid tag for generating formatted citations from bibliographic data.
-      # Accepts multiple named parameters for citation components.
+      # Accepts the named parameters in CitationUtils::PARAMETER_NAMES. An
+      # unknown or repeated key raises Liquid::SyntaxError at parse time.
       class CitationTag < Liquid::Tag
         # Aliases for readability
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         CitationUtil = Jekyll::UI::Citations::CitationUtils
         private_constant :TagArgs, :CitationUtil
 
-        # Regex for parsing "key='value'" or "key=variable" arguments.
-        # - [\w-]+ : Matches the key (alphanumeric, underscore, hyphen).
-        # - \s*=\s* : Matches the equals sign with optional surrounding whitespace.
-        # - (value_pattern) : Captures the value.
-        #   - (['"])(?:(?!\3).)*\3 : Matches a quoted string. \3 backreferences the opening quote.
-        #   - | : OR
-        #   - \S+ : Matches one or more non-whitespace characters (for variables).
-        ARG_SYNTAX = /([\w-]+)\s*=\s*((['"])(?:(?!\3).)*\3|\S+)/o
-
         def initialize(tag_name, markup, tokens)
           super
-          @raw_markup = markup.strip # Store the raw markup, stripped of leading/trailing whitespace
-          @attributes_markup = {} # Hash to store the raw markup for each attribute's value
-          parse_markup(@raw_markup)
+          @attributes_markup = TagArgs.parse_named_arguments(
+            markup.strip, tag_name: 'citation', allowed: CitationUtil::PARAMETER_NAMES,
+          ).transform_keys(&:to_sym)
         end
 
         def render(context)
@@ -98,31 +89,6 @@ module Jekyll
           else
             CitationUtil.format_citation_html(resolved_params, site)
           end
-        end
-
-        private
-
-        def parse_markup(markup)
-          # Use StringScanner to parse the arguments
-          scanner = StringScanner.new(markup)
-
-          # Loop through the markup, matching key=value pairs
-          while scanner.scan(ARG_SYNTAX)
-            key = scanner[1]          # The captured key (e.g., "author_last")
-            value_markup = scanner[2] # The captured raw value markup (e.g., "'Doe'" or "page.author")
-
-            # Store the raw value markup, to be resolved later in the render context
-            @attributes_markup[key.to_sym] = value_markup
-
-            scanner.skip(/\s*/) # Skip any whitespace before the next argument
-          end
-
-          # After the loop, if the scanner is not at the end of the string,
-          # it means there was some unparseable text, indicating a syntax error.
-          return if scanner.eos?
-
-          raise Liquid::SyntaxError,
-                "Syntax Error in 'citation' tag: Invalid arguments near '#{scanner.rest}' in '#{markup}'"
         end
       end
     end
