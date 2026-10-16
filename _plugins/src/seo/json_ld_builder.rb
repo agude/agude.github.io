@@ -70,12 +70,12 @@ module Jekyll
       end
 
       def image(path)
-        entity = Jekyll::SEO::JsonLdUtils.build_image_object_entity(path, @site)
+        entity = Jekyll::SEO::JsonLdUtils.build_image_object_entity(path, @site, source: image_source)
         @data['image'] = entity if entity
       end
 
       def image_url(path)
-        url = Jekyll::Infrastructure::FrontMatterImage.absolute_url(path, @site)
+        url = Jekyll::Infrastructure::FrontMatterImage.absolute_url(path, @site, source: image_source)
         @data['image'] = url if url
       end
 
@@ -358,6 +358,11 @@ module Jekyll
       end
 
       private
+
+      # Names the document in image errors.
+      def image_source
+        Jekyll::Infrastructure::FrontMatterImage.source_name(@document)
+      end
 
       def nested_builder(type, key, &)
         child = self.class.new(type, document: @document, site: @site, is_root: false)

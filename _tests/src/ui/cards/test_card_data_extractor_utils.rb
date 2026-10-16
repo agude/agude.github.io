@@ -65,11 +65,21 @@ class TestCardDataExtractorUtils < Minitest::Test
     assert_equal 'Another Default', result[:raw_title]
   end
 
-  def test_extract_base_data_hash_form_image_uses_path
-    doc = create_doc({ 'title' => 'Blog Post', 'image' => { 'path' => '/assets/image.png', 'alt' => 'Alt' } }, '/a/')
-    result = extract_base_data_with_silent_logger(doc, @context_with_baseurl)
+  # Reversed on purpose: the {path, alt} hash form used to be accepted.
+  def test_extract_base_data_hash_form_image_raises_naming_the_file
+    doc = create_doc(
+      {
+        'title' => 'Blog Post',
+        'path' => '_posts/2024-01-01-a.md',
+        'image' => { 'path' => '/assets/image.png', 'alt' => 'Alt' },
+      },
+      '/a/',
+    )
+    error = assert_raises(Jekyll::Errors::FatalException) do
+      extract_base_data_with_silent_logger(doc, @context_with_baseurl)
+    end
 
-    assert_equal 'http://example.com/blog/assets/image.png', result[:absolute_image_url]
+    assert_includes error.message, '_posts/2024-01-01-a.md'
   end
 
   def test_extract_base_data_item_no_image

@@ -188,7 +188,8 @@ module Jekyll
       end
 
       def page_image
-        Jekyll::Infrastructure::FrontMatterImage.path(@data['image'], source: @document.url)
+        image = Jekyll::Infrastructure::FrontMatterImage
+        image.path(@data['image'], source: image.source_name(@document))
       end
 
       def default_image
@@ -198,13 +199,11 @@ module Jekyll
       # Alt text describes the page's own image, so it is dropped when the
       # page falls back to the default image. Content sets it with the
       # top-level `image_alt` key, the one the article and book cards read.
-      # The first nonblank of the nested and top-level values wins.
       def image_alt_text
         return nil unless page_image
 
-        image = @data['image']
-        nested = image['alt'] if image.is_a?(Hash)
-        [nested, @data['image_alt']].map { |alt| alt.to_s.strip }.find { |alt| !alt.empty? }
+        alt = @data['image_alt'].to_s.strip
+        alt.empty? ? nil : alt
       end
 
       # --- URLs ---

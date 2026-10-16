@@ -14,10 +14,11 @@ module Jekyll
     # `hide_lead_image: true` and a broken `image` would ship broken cards.
     # This check reads the file system and does not depend on rendering.
     #
-    # Absolute `http(s)` URLs are not checked. A hash-form image
-    # (`{path, alt}`) is checked by its `path`. A local reference is checked
+    # Absolute `http(s)` URLs are not checked. A local reference is checked
     # through FrontMatterImage.file_path, so a query, a fragment, or
-    # percent-encoding in a valid URL does not hide the file.
+    # percent-encoding in a valid URL does not hide the file. A value that
+    # is not a string, such as a `{path, alt}` hash, stops the build in
+    # FrontMatterImage.path.
     #
     # @validator Front-matter `image` that names a local file missing from
     #   the source tree, including on pages that hide their lead image.
@@ -28,7 +29,7 @@ module Jekyll
       def self.validate(item, site)
         return unless item.data.is_a?(Hash)
 
-        identifier = item.relative_path || item.url
+        identifier = FrontMatterImage.source_name(item)
         path = FrontMatterImage.path(item.data['image'], source: identifier)
         return if path.nil? || path.start_with?('http://', 'https://')
 

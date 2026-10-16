@@ -95,12 +95,13 @@ module Jekyll
       # --- ImageObject Schema Object Helper ---
 
       # Generates a Schema.org ImageObject.
-      # @param image_path_raw [String, Hash, nil] A front-matter image (see FrontMatterImage).
+      # @param image_path_raw [String, nil] A front-matter image (see FrontMatterImage).
       # @param site [Jekyll::Site] The Jekyll site object.
+      # @param source [String, nil] Names the document in error messages.
       # @return [Hash, nil] The Ruby Hash representing the ImageObject, or nil if path is empty.
       # Renamed from get_image_object
-      def self.build_image_object_entity(image_path_raw, site)
-        url = Jekyll::Infrastructure::FrontMatterImage.absolute_url(image_path_raw, site)
+      def self.build_image_object_entity(image_path_raw, site, source: nil)
+        url = Jekyll::Infrastructure::FrontMatterImage.absolute_url(image_path_raw, site, source: source)
         return nil unless url
 
         {

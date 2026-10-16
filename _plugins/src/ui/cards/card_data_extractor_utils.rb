@@ -144,7 +144,8 @@ module Jekyll
           end
 
           def absolute_image_url
-            Jekyll::Infrastructure::FrontMatterImage.absolute_url(@data_source['image'], @site, source: @item.url)
+            image = Jekyll::Infrastructure::FrontMatterImage
+            image.absolute_url(@data_source['image'], @site, source: image.source_name(@item))
           end
 
           def raw_title

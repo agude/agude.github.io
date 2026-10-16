@@ -47,12 +47,12 @@ class TestFrontMatterImageValidator < Minitest::Test
     Validator.validate(doc_with('image' => 'http://cdn.example.com/p.jpg'), @site)
   end
 
-  def test_hash_form_checks_path
-    Validator.validate(doc_with('image' => { 'path' => '/books/covers/dune.jpg', 'alt' => 'Dune' }), @site)
-
-    doc = doc_with('image' => { 'path' => '/books/covers/missing.jpg', 'alt' => 'Missing' })
+  # Reversed on purpose: a hash whose path existed used to pass.
+  def test_hash_form_raises_naming_the_document
+    doc = doc_with('image' => { 'path' => '/books/covers/dune.jpg', 'alt' => 'Dune' })
     error = assert_raises(Jekyll::Errors::FatalException) { Validator.validate(doc, @site) }
-    assert_includes error.message, '/books/covers/missing.jpg'
+    assert_includes error.message, '_books/dune.md'
+    assert_includes error.message, 'must be a string'
   end
 
   def test_unknown_image_shape_raises
