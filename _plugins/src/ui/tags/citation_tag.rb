@@ -44,23 +44,14 @@ require 'liquid'
 require_relative '../citations/citation_utils'
 require_relative '../../infrastructure/tag_argument_utils'
 
-# Module for Jekyll specific plugins
-# Defines a Liquid tag for generating citations.
-#
-# Syntax:
-# {% citation author_last="Doe" author_first="John" work_title="My Article" ... %}
-#
-# All parameters are optional and correspond to the keys expected by
-# CitationUtil.format_citation_html. Values can be string literals
 module Jekyll
-  # (in single or double quotes) or Liquid variables.
   module UI
     module Tags
       # Liquid tag for generating formatted citations from bibliographic data.
-      # Accepts the named parameters in CitationUtils::PARAMETER_NAMES. An
+      # Accepts the named parameters in CitationUtils::PARAMETER_NAMES, all
+      # optional. Each value is a quoted literal or a Liquid variable. An
       # unknown or repeated key raises Liquid::SyntaxError at parse time.
       class CitationTag < Liquid::Tag
-        # Aliases for readability
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         CitationUtil = Jekyll::UI::Citations::CitationUtils
         private_constant :TagArgs, :CitationUtil
@@ -73,13 +64,8 @@ module Jekyll
         end
 
         def render(context)
-          # Get the site object from the Liquid context registers
           site = context.registers[:site]
-
-          # Hash to hold the resolved values of the parameters
           resolved_params = {}
-
-          # Iterate over the stored attribute markups and resolve their actual values
           @attributes_markup.each do |key, value_markup|
             resolved_params[key] = TagArgs.resolve_value(value_markup, context)
           end
@@ -95,5 +81,4 @@ module Jekyll
   end
 end
 
-# Register the tag with Liquid
 Liquid::Template.register_tag('citation', Jekyll::UI::Tags::CitationTag)

@@ -21,7 +21,6 @@ module Jekyll
       # Liquid::SyntaxError at parse time.
       # Content between tags is required (cannot be empty or whitespace-only).
       class CitedQuoteTag < Liquid::Block
-        # Aliases for readability
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         QuoteUtils = Jekyll::UI::Quotes::CitedQuoteUtils
         CitationUtil = Jekyll::UI::Citations::CitationUtils
@@ -36,20 +35,14 @@ module Jekyll
         end
 
         def render(context)
-          # Get block content by calling super
           raw_content = super.to_s
-
-          # Validate content is not empty
           validate_content_present(raw_content)
 
           # Strip common leading whitespace so content can be indented
           # to match surrounding context (e.g. inside footnotes)
           indent, content = dedent(raw_content)
 
-          # Get the site object from the Liquid context registers
           site = context.registers[:site]
-
-          # Resolve all attribute values
           resolved_params = resolve_params(context)
 
           if context.registers[:render_mode] == :markdown
@@ -127,5 +120,4 @@ module Jekyll
   end
 end
 
-# Register the tag with Liquid
 Liquid::Template.register_tag('citedquote', Jekyll::UI::Tags::CitedQuoteTag)

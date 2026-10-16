@@ -11,7 +11,7 @@ module Jekyll
       # Utility module for formatting bibliographic citations as HTML.
       # Supports various citation components like authors, titles, publishers, and dates.
       module CitationUtils
-        NBSP = "\u00A0" # Non-breaking space
+        NBSP = "\u00A0"
 
         # The citation parameters that _citation_parts reads. The citation
         # and citedquote tags accept exactly these keys.
@@ -49,13 +49,12 @@ module Jekyll
         end
 
         def self.format_citation_html(params, _site = nil)
-          # Sanitize: Remove nils, then remove trailing periods from each part, then reject empty strings
+          # Drop each part's own trailing period: the join below supplies one.
           chomped_parts = _citation_parts(params).compact.map { |part_str| part_str.chomp('.') }
           active_parts = chomped_parts.select { |p| _present?(p) }
 
           return '' if active_parts.empty?
 
-          # Join active parts with ". " and add a single trailing period for the entire citation.
           final_citation_string = "#{active_parts.join('. ')}."
           final_citation_string = final_citation_string.gsub("#{ETAL_ABBR}.", ETAL_ABBR)
 
