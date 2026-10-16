@@ -94,11 +94,31 @@ class TestResumeExperienceTag < Minitest::Test
 
   # --- Syntax errors ---
 
+  def parse_error(markup)
+    assert_raises(Liquid::SyntaxError) { Liquid::Template.parse("{% resume_experience #{markup} %}") }.message
+  end
+
   def test_syntax_error_missing_required_param
-    err = assert_raises(Liquid::SyntaxError) do
-      render_tag('company="Acme" position="Dev"')
-    end
-    assert_match(/Missing required argument 'location'/, err.message)
+    assert_equal "Liquid syntax error: Syntax Error in 'resume_experience': Required argument 'location' is missing.",
+                 parse_error('company="Acme" position="Dev"')
+  end
+
+  def test_syntax_error_unknown_argument
+    assert_equal "Liquid syntax error: Syntax Error in 'resume_experience': Unknown argument 'title'.",
+                 parse_error('company="Acme" location="Remote" position="Dev" title="Lead"')
+  end
+
+  def test_syntax_error_duplicate_argument
+    assert_equal "Liquid syntax error: Syntax Error in 'resume_experience': Duplicate argument 'dates'.",
+                 parse_error('company="Acme" location="Remote" position="Dev" dates="2020" dates="2021"')
+  end
+
+  def test_empty_required_value_raises_at_render
+    markup = 'company="Acme" location=missing_var position=""'
+    err = assert_raises(Liquid::SyntaxError) { render_tag(markup) }
+    assert_equal "Liquid syntax error: Syntax Error in 'resume_experience': Missing required argument " \
+                 "'location' in '#{markup}'",
+                 err.message
   end
 
   # --- Optional dates ---
@@ -120,8 +140,8 @@ class TestResumeExperienceTag < Minitest::Test
   end
 
   def test_syntax_error_invalid_markup
-    assert_raises(Liquid::SyntaxError) do
-      Liquid::Template.parse('{% resume_experience not_valid_syntax %}')
-    end
+    assert_equal "Liquid syntax error: Syntax Error in 'resume_experience': " \
+                 "Invalid argument syntax near 'not_valid_syntax'.",
+                 parse_error('not_valid_syntax')
   end
 end

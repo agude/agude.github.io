@@ -2,7 +2,6 @@
 
 require 'jekyll'
 require 'liquid'
-require 'strscan'
 require_relative '../../infrastructure/tag_argument_utils'
 
 module Jekyll
@@ -17,19 +16,21 @@ module Jekyll
       #
       # Required: company, location, position
       # Optional: dates, position_2, dates_2
+      # An unknown, repeated, or missing key raises Liquid::SyntaxError at
+      # parse time. A required value that resolves empty raises at render.
       class ResumeExperienceTag < Liquid::Tag
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         private_constant :TagArgs
 
-        ARG_SYNTAX = /([\w-]+)\s*=\s*((['"])(?:(?!\3).)*\3|\S+)/o
-
-        REQUIRED_KEYS = %i[company location position].freeze
+        ALLOWED_KEYS = %w[company location position dates position_2 dates_2].freeze
+        REQUIRED_KEYS = %w[company location position].freeze
 
         def initialize(tag_name, markup, tokens)
           super
           @raw_markup = markup.strip
-          @attributes_markup = {}
-          parse_markup(@raw_markup)
+          @attributes_markup = TagArgs.parse_named_arguments(
+            @raw_markup, tag_name: 'resume_experience', allowed: ALLOWED_KEYS, required: REQUIRED_KEYS,
+          ).transform_keys(&:to_sym)
         end
 
         def render(context)
@@ -53,8 +54,11 @@ module Jekyll
           result
         end
 
+        # The parser guarantees each required key is present. This catches
+        # a value that resolves empty, such as an unset variable.
         def validate_required!(params)
-          REQUIRED_KEYS.each do |key|
+          REQUIRED_KEYS.each do |name|
+            key = name.to_sym
             next if params[key] && !params[key].to_s.empty?
 
             raise Liquid::SyntaxError,
@@ -100,22 +104,6 @@ module Jekyll
           return text.to_s unless converter
 
           converter.convert(text.to_s).strip
-        end
-
-        def parse_markup(markup)
-          scanner = StringScanner.new(markup)
-
-          while scanner.scan(ARG_SYNTAX)
-            key = scanner[1]
-            value_markup = scanner[2]
-            @attributes_markup[key.to_sym] = value_markup
-            scanner.skip(/\s*/)
-          end
-
-          return if scanner.eos?
-
-          raise Liquid::SyntaxError,
-                "Syntax Error in 'resume_experience': Invalid arguments near '#{scanner.rest}' in '#{markup}'"
         end
       end
     end
