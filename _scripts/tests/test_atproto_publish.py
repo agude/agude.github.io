@@ -831,8 +831,12 @@ class TestValidatePosts:
         assert validate_documents(tmp_path) is True
 
     def test_published_false_book_skips_title_check(self, tmp_path: Path) -> None:
-        self._post(tmp_path, "2025-01-01-draft.md", "---\ntitle: ''\npublished: false\n---\n")
-        assert validate_documents(tmp_path) is True
+        posts = tmp_path / "posts"
+        books = tmp_path / "books"
+        posts.mkdir()
+        books.mkdir()
+        (books / "draft.md").write_text("---\ntitle: ''\ndate: 2025-01-01\npublished: false\n---\n")
+        assert validate_documents(posts, books_dir=books) is True
 
     # --- Multiple errors all reported ---
 
@@ -1135,15 +1139,14 @@ class TestOverridesRaise:
             sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
         assert "2025-01-01-post.md" in str(exc_info.value)
 
-    def test_sync_reports_real_yaml_error(self, tmp_path: Path, capsys) -> None:
+    def test_sync_reports_real_yaml_error(self, tmp_path: Path) -> None:
         # Broken YAML used to be swallowed and misdiagnosed as a title error.
         (tmp_path / "2025-01-01-post.md").write_text("---\ntitle: [unclosed\n---\n")
         transport = MockTransport()
         client = make_client(transport)
-        with pytest.raises(publish.PublishError):
+        with pytest.raises(publish.PublishError, match="invalid YAML front matter") as exc_info:
             sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
-        err = capsys.readouterr().err
-        assert "title'" not in err  # not the misleading empty-title message
+        assert "2025-01-01-post.md" in str(exc_info.value)
 
 
 class TestSlugifyUnicode:
