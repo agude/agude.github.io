@@ -1,11 +1,13 @@
 """Tests for _scripts/metadata/update_book_metadata.py."""
 
+import datetime
 import sys
 from textwrap import dedent
 from unittest.mock import patch
 
 import pytest
 import update_book_metadata
+import yaml
 from update_book_metadata import (
     MANAGED_FIELDS,
     _strip_field,
@@ -93,6 +95,23 @@ class TestFormatField:
     def test_same_as_urls_quotes_special_chars(self):
         result = format_field("same_as_urls", ["https://example.com?foo=bar"])
         assert '"https://example.com?foo=bar"' in result
+
+
+class TestFormatFieldTypes:
+    @pytest.mark.parametrize("value", ["0316769487", "no", "null", "true", "123"])
+    def test_string_values_round_trip(self, value):
+        assert yaml.safe_load(format_field("isbn", value)) == {"isbn": value}
+
+    def test_award_slugs_round_trip(self):
+        parsed = yaml.safe_load(format_field("awards", ["hugo", "no"]))
+        assert parsed == {"awards": ["hugo", "no"]}
+
+    def test_full_date_keeps_date_type(self):
+        parsed = yaml.safe_load(format_field("date_published", "2021-03-02"))
+        assert parsed == {"date_published": datetime.date(2021, 3, 2)}
+
+    def test_year_keeps_integer_type(self):
+        assert yaml.safe_load(format_field("date_published", "1965")) == {"date_published": 1965}
 
 
 class TestStripField:
@@ -328,7 +347,7 @@ class TestMetadataSelection:
         fetch_mock.assert_called_once_with("Q1")
         content = book_file.read_text(encoding="utf-8")
         assert "wikidata_qid: Q1" in content
-        assert "isbn: 978-0-553-28368-3" in content
+        assert 'isbn: "978-0-553-28368-3"' in content
 
     def test_non_null_overwrites_existing(self):
         metadata = {"awards": ["hugo"], "isbn": "978-0-123"}

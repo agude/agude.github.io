@@ -1,6 +1,7 @@
 """Tests for content/make_pages.py pure functions."""
 
 import make_pages
+import pytest
 import yaml
 from make_pages import extract_frontmatter, extract_metadata_from_books, normalize_filename
 
@@ -77,7 +78,19 @@ class TestTemplates:
     def test_author_template_has_wikidata_qid_field(self):
         # Author pages require wikidata_qid. The stub leaves it blank so the
         # build names the missing field until the QID is filled in.
-        page = make_pages.TEMPLATES["author"].format(item="Iain M. Banks")
+        page = make_pages.TEMPLATES["author"].format(item="Iain M. Banks", title="Iain M. Banks")
         fm = yaml.safe_load(page.strip("-\n"))
         assert "wikidata_qid" in fm
         assert fm["wikidata_qid"] is None
+
+
+class TestWritePagesYaml:
+    @pytest.mark.parametrize("kind", ["author", "series"])
+    @pytest.mark.parametrize("item", ["No: A Story", "No", "null", "123", "Title # One"])
+    def test_title_round_trips(self, tmp_path, kind, item):
+        make_pages.write_pages([item], tmp_path, make_pages.TEMPLATES[kind])
+
+        (page,) = tmp_path.glob("*.md")
+        fm = yaml.safe_load(page.read_text(encoding="utf-8").strip("-\n"))
+        assert fm["title"] == item
+        assert item in fm["description"]

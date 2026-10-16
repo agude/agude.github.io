@@ -27,10 +27,15 @@ from pathlib import Path
 
 import yaml
 
+# `uv run` puts only this script's directory on sys.path.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "common"))
+
+from yaml_text import yaml_scalar
+
 TEMPLATES = {
     "author": """---
 layout: author_page
-title: {item}
+title: {title}
 wikidata_qid:
 pen_names:
 description: >
@@ -39,7 +44,7 @@ same_as_urls:
 ---""",
     "series": """---
 layout: series_page
-title: {item}
+title: {title}
 description: >
     Alex Gude's reviews of books written in the {item} series.
 ---""",
@@ -142,7 +147,7 @@ def write_pages(items: list[str], output_dir: Path, template: str) -> int:
         filepath = output_dir / f"{normalize_filename(item)}.md"
         if filepath.exists():
             continue
-        filepath.write_text(template.format(item=item), encoding="utf-8")
+        filepath.write_text(template.format(item=item, title=yaml_scalar(item)), encoding="utf-8")
         print(f"Created {filepath}")
         created += 1
     return created

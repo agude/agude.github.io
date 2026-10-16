@@ -1,9 +1,11 @@
 """Tests for metadata/fetch_book_metadata.py pure functions."""
 
+import datetime
 import sys
 from unittest.mock import patch
 
 import fetch_book_metadata
+import yaml
 from fetch_book_metadata import BOOK_PROPERTY_MAP, format_yaml
 from wikidata_utils import extract_same_as_urls
 
@@ -19,7 +21,7 @@ class TestFormatYaml:
         )
         assert "# Hyperion" in result
         assert "wikidata_qid: Q302026" in result
-        assert "isbn: 978-0-553-28368-3" in result
+        assert yaml.safe_load(result)["isbn"] == "978-0-553-28368-3"
         assert "date_published: 1989-05" in result
         assert "same_as_urls:" in result
         assert "https://en.wikipedia.org/wiki/Hyperion_(Simmons_novel)" in result
@@ -44,7 +46,7 @@ class TestFormatYaml:
             title="Test Book",
         )
         assert "date_published" not in result
-        assert "isbn: 978-0-123-45678-9" in result
+        assert yaml.safe_load(result)["isbn"] == "978-0-123-45678-9"
 
     def test_no_urls(self):
         result = format_yaml(
@@ -177,3 +179,24 @@ class TestBookPropertyIds:
         }
         urls = extract_same_as_urls(entity, BOOK_PROPERTY_MAP)
         assert urls == ["https://www.google.com/search?kgmid=/g/11b60frqhx"]
+
+
+class TestFormatYamlTypes:
+    def test_string_fields_round_trip_and_dates_keep_type(self):
+        result = format_yaml(
+            qid="Q302026",
+            isbn="0316769487",
+            date_published="1989-05-01",
+            urls=["https://example.com/a#frag", "https://example.com/?q=no"],
+            title="Hyperion",
+        )
+        parsed = yaml.safe_load(result)
+
+        assert parsed["wikidata_qid"] == "Q302026"
+        assert parsed["isbn"] == "0316769487"
+        assert parsed["same_as_urls"] == ["https://example.com/a#frag", "https://example.com/?q=no"]
+        assert parsed["date_published"] == datetime.date(1989, 5, 1)
+
+    def test_year_only_date_stays_a_year(self):
+        parsed = yaml.safe_load(format_yaml("Q1", None, "2020", [], "T"))
+        assert parsed["date_published"] == 2020

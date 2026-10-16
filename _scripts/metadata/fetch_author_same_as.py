@@ -23,6 +23,7 @@ Usage:
 from __future__ import annotations
 
 import sys
+from pathlib import Path
 
 from wikidata_utils import (
     extract_same_as_urls,
@@ -32,8 +33,12 @@ from wikidata_utils import (
     print_entity_candidates,
     resolve_qid,
     search_entity,
-    yaml_quoted,
 )
+
+# `uv run` puts only this script's directory on sys.path.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "common"))
+
+from yaml_text import yaml_scalar
 
 # Wikidata properties that map to useful author URLs.
 # Labels are the properties' Wikidata labels. Tests pin each ID to its
@@ -64,16 +69,16 @@ AUTHOR_PROPERTY_MAP: list[tuple[str, str, str | None]] = [
 
 def format_yaml(qid: str, urls: list[str], pseudonyms: list[str], title: str) -> str:
     """Format extracted data as YAML front matter fields."""
-    lines = [f"title: {yaml_quoted(title)}", f"wikidata_qid: {yaml_quoted(qid)}"]
+    lines = [f"title: {yaml_scalar(title)}", f"wikidata_qid: {yaml_scalar(qid)}"]
 
     if pseudonyms:
         lines.append("pen_names:")
         for name in pseudonyms:
-            lines.append(f"  - {yaml_quoted(name)}")
+            lines.append(f"  - {yaml_scalar(name)}")
 
     lines.append("same_as_urls:")
     for url in urls:
-        lines.append(f"  - {yaml_quoted(url)}")
+        lines.append(f"  - {yaml_scalar(url)}")
 
     return "\n".join(lines)
 

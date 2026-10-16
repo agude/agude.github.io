@@ -23,6 +23,7 @@ Usage:
 from __future__ import annotations
 
 import sys
+from pathlib import Path
 
 from wikidata_utils import (
     extract_same_as_urls,
@@ -34,8 +35,12 @@ from wikidata_utils import (
     print_entity_candidates,
     resolve_qid,
     search_entity,
-    yaml_quoted,
 )
+
+# `uv run` puts only this script's directory on sys.path.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "common"))
+
+from yaml_text import yaml_scalar
 
 # Wikidata properties that map to useful book URLs.
 # Labels are the properties' Wikidata labels. Tests pin each ID to its
@@ -60,18 +65,20 @@ def format_yaml(
     title: str,
 ) -> str:
     """Format extracted data as YAML front matter fields."""
-    lines = [f"# {title}", f"wikidata_qid: {yaml_quoted(qid)}"]
+    lines = [f"# {title}", f"wikidata_qid: {yaml_scalar(qid)}"]
 
     if isbn:
-        lines.append(f"isbn: {yaml_quoted(isbn)}")
+        lines.append(f"isbn: {yaml_scalar(isbn)}")
 
     if date_published:
-        lines.append(f"date_published: {yaml_quoted(date_published)}")
+        # A Wikidata date (YYYY, YYYY-MM, or YYYY-MM-DD), written unquoted
+        # so a full date stays a YAML date.
+        lines.append(f"date_published: {date_published}")
 
     if urls:
         lines.append("same_as_urls:")
         for url in urls:
-            lines.append(f"  - {yaml_quoted(url)}")
+            lines.append(f"  - {yaml_scalar(url)}")
 
     return "\n".join(lines)
 

@@ -26,53 +26,21 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import json
 import re
 import sys
 import unicodedata
 from datetime import date
 from pathlib import Path
 
+# `uv run` puts only this script's directory on sys.path.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "common"))
+
+from yaml_text import yaml_scalar
+
 _SCRIPT_DIR = Path(__file__).resolve().parent
 _PROJECT_ROOT = _SCRIPT_DIR.parent.parent  # _scripts/skills/ -> project root
 TEMPLATE_PATH = _PROJECT_ROOT / "_books" / "_template" / "book_template.md"
 _QID_PATTERN = re.compile(r"Q[1-9][0-9]*")
-_YAML_SPECIAL_CHARACTERS = frozenset(":#'\"[]{},&*?|>!%")
-
-
-def _needs_yaml_quoting(value: str) -> bool:
-    """Return whether a string could be misread as YAML syntax or a type."""
-    stripped_value = value.strip()
-    if not value or value != stripped_value:
-        return True
-    if any(char.isspace() and char != " " for char in value):
-        return True
-    if value[0].isdigit() or value[0] in "-+?:.@`":
-        return True
-    if any(char in value for char in _YAML_SPECIAL_CHARACTERS):
-        return True
-    return value.casefold() in {
-        "null",
-        "true",
-        "false",
-        "yes",
-        "no",
-        "on",
-        "off",
-        "~",
-        ".nan",
-        ".inf",
-        "+.inf",
-        "-.inf",
-    }
-
-
-def yaml_scalar(value: str) -> str:
-    """Serialize a string as a readable YAML scalar."""
-    if _needs_yaml_quoting(value):
-        # JSON double-quoted strings are valid YAML and escape all string data.
-        return json.dumps(value, ensure_ascii=False)
-    return value
 
 
 def wikidata_qid(value: str) -> str:

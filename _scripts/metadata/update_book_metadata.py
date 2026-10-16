@@ -44,8 +44,12 @@ from wikidata_utils import (
     print_entity_candidates,
     resolve_qid,
     search_entity,
-    yaml_quoted,
 )
+
+# `uv run` puts only this script's directory on sys.path.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "common"))
+
+from yaml_text import yaml_scalar
 
 log = logging.getLogger(__name__)
 
@@ -139,7 +143,7 @@ def format_field(key: str, value) -> str:
             return ""
         lines = [f"{key}:"]
         for award in value:
-            lines.append(f"  - {award}")
+            lines.append(f"  - {yaml_scalar(award)}")
         return "\n".join(lines)
 
     if value is None:
@@ -148,11 +152,16 @@ def format_field(key: str, value) -> str:
     if key == "same_as_urls":
         lines = [f"{key}:"]
         for url in value:
-            lines.append(f"  - {yaml_quoted(url)}")
+            lines.append(f"  - {yaml_scalar(url)}")
         return "\n".join(lines)
 
+    # A Wikidata date (YYYY, YYYY-MM, or YYYY-MM-DD), written unquoted so a
+    # full date stays a YAML date.
+    if key == "date_published":
+        return f"{key}: {value}"
+
     if isinstance(value, str):
-        return f"{key}: {yaml_quoted(value)}"
+        return f"{key}: {yaml_scalar(value)}"
 
     return f"{key}: {value}"
 

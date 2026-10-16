@@ -49,23 +49,6 @@ def _get_session() -> requests.Session:
     return _session
 
 
-# Characters that require quoting in YAML scalar values.
-_YAML_SPECIAL = {":", "#", "'", '"', "[", "]", "{", "}", ",", "&", "*", "?", "|", ">", "!", "%"}
-
-
-def _needs_yaml_quoting(value: str) -> bool:
-    """Return True if the value contains characters that need YAML quoting."""
-    return any(ch in value for ch in _YAML_SPECIAL)
-
-
-def yaml_quoted(value: str) -> str:
-    """Return the value quoted for YAML if necessary."""
-    if _needs_yaml_quoting(value):
-        escaped = value.replace("\\", "\\\\").replace('"', '\\"')
-        return f'"{escaped}"'
-    return value
-
-
 def api_get(params: dict[str, str]) -> dict:
     """Make a GET request to the Wikidata API and return parsed JSON."""
     params["format"] = "json"

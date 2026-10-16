@@ -5,7 +5,6 @@ from unittest.mock import patch
 import pytest
 from wikidata_utils import (
     AWARD_FAMILIES,
-    _needs_yaml_quoting,
     _resolve_award_family,
     extract_same_as_urls,
     fetch_awards,
@@ -17,7 +16,6 @@ from wikidata_utils import (
     require_qid,
     search_entity,
     select_candidate,
-    yaml_quoted,
 )
 
 
@@ -135,43 +133,6 @@ class TestEntitySelection:
         assert "a novel" in output
         assert "Alternate title" in output
         assert "selected" not in output.lower()
-
-
-class TestYamlQuoted:
-    def test_simple_string_unchanged(self):
-        assert yaml_quoted("hello") == "hello"
-
-    def test_string_with_colon_quoted(self):
-        assert yaml_quoted("foo: bar") == '"foo: bar"'
-
-    def test_string_with_hash_quoted(self):
-        assert yaml_quoted("test # comment") == '"test # comment"'
-
-    def test_string_with_quotes_escaped(self):
-        assert yaml_quoted('say "hello"') == '"say \\"hello\\""'
-
-    def test_url_with_special_chars(self):
-        result = yaml_quoted("https://example.com/path?query=1")
-        assert result.startswith('"')
-        assert result.endswith('"')
-
-    def test_backslash_not_special_in_yaml(self):
-        # Backslashes don't require quoting in YAML
-        assert yaml_quoted("path\\to\\file") == "path\\to\\file"
-
-
-class TestNeedsYamlQuoting:
-    def test_plain_string_no_quoting(self):
-        assert _needs_yaml_quoting("hello") is False
-
-    def test_colon_needs_quoting(self):
-        assert _needs_yaml_quoting("key: value") is True
-
-    def test_bracket_needs_quoting(self):
-        assert _needs_yaml_quoting("[item]") is True
-
-    def test_ampersand_needs_quoting(self):
-        assert _needs_yaml_quoting("foo & bar") is True
 
 
 class TestGetClaimStrings:
