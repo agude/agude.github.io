@@ -3,21 +3,13 @@
 require_relative '../../../test_helper'
 require_relative '../../../../_plugins/src/ui/tags/game_title_tag'
 
-# Tests for the game_title Liquid tag.
+# Tests for the game_title Liquid tag. Parsing and render modes are
+# tested on the CiteTitleTag base class in test_cite_title_tag.rb. This
+# file checks only the registered name and the CSS class.
 class TestGameTitleTag < Minitest::Test
-  def setup
-    @site = create_site
-    @html_context = create_context({}, { site: @site })
-    @md_context = create_context({}, { site: @site, render_mode: :markdown })
-  end
-
-  def test_game_title_html
-    output = Liquid::Template.parse('{% game_title "Elden Ring" %}').render!(@html_context)
+  def test_registered_tag_renders_game_title_class
+    context = create_context({}, { site: create_site })
+    output = Liquid::Template.parse('{% game_title "Elden Ring" %}').render!(context)
     assert_equal '<cite class="game-title">Elden Ring</cite>', output
-  end
-
-  def test_game_title_markdown
-    output = Liquid::Template.parse('{% game_title "Elden Ring" %}').render!(@md_context)
-    assert_equal '_Elden Ring_', output
   end
 end

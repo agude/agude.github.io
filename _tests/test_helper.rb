@@ -17,10 +17,9 @@
 #
 # Run tests: `make test` (all) or `make test TEST=_tests/src/path/to/test.rb`.
 #
-# SimpleCov: 95% line + branch coverage threshold, output to _coverage/.
-# Running a single test file with `make test TEST=...` may exit with code 2
-# because the threshold isn't met when only one file's coverage is
-# measured — this is expected and harmless.
+# SimpleCov writes to _coverage/. A full run fails below 95% line or 90%
+# branch coverage. A targeted `make test TEST=...` run sets COVERAGE_PARTIAL
+# and skips both thresholds, because it loads only part of the plugin code.
 #
 # A clean run prints nothing but progress dots and the result line. If you
 # add a test that logs, wrap the call in
@@ -63,12 +62,15 @@ SimpleCov.start do
   group 'Infrastructure', '_plugins/src/infrastructure'
   group 'CI Checkers', '_bin'
 
-  # Set a minimum coverage threshold. The build will fail if it drops below this.
-  # A targeted run (`make test TEST=...`, which sets COVERAGE_PARTIAL) measures
-  # only the files it loads, so the threshold applies to full runs only.
-  minimum_coverage 95 unless ENV['COVERAGE_PARTIAL']
-  # Enable branch coverage analysis
+  # Enable branch coverage analysis. This must come before minimum_coverage,
+  # which rejects a branch threshold while branch coverage is disabled.
   enable_coverage :branch
+
+  # Minimum coverage thresholds. The build fails if either drops below its
+  # number. A targeted run (`make test TEST=...`, which sets
+  # COVERAGE_PARTIAL) measures only the files it loads, so the thresholds
+  # apply to full runs only.
+  minimum_coverage line: 95, branch: 90 unless ENV['COVERAGE_PARTIAL']
 end
 
 require 'minitest/autorun'

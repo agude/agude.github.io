@@ -15,7 +15,6 @@ from urllib3.util.retry import Retry
 log = logging.getLogger(__name__)
 
 WIKIDATA_API = "https://www.wikidata.org/w/api.php"
-SPARQL_ENDPOINT = "https://query.wikidata.org/sparql"
 USER_AGENT = "alexgude-blog-scripts/0.1 (wikidata metadata fetcher)"
 
 # Shared session with retry/backoff configuration.
@@ -60,22 +59,6 @@ def api_get(params: dict[str, str]) -> dict:
     except requests.RequestException as exc:
         log.error("Wikidata API request failed: %s", exc)
         sys.exit(1)
-
-
-def sparql_query(query: str) -> list[dict]:
-    """Run a SPARQL query against Wikidata and return the result bindings."""
-    log.debug("SPARQL query: %s...", query[:80])
-    try:
-        resp = _get_session().get(
-            SPARQL_ENDPOINT,
-            params={"query": query, "format": "json"},
-            timeout=30,
-        )
-        resp.raise_for_status()
-        return resp.json().get("results", {}).get("bindings", [])
-    except requests.RequestException as exc:
-        log.error("SPARQL query failed: %s", exc)
-        return []
 
 
 def _candidate_aliases(result: dict) -> list[str]:
@@ -154,18 +137,6 @@ def require_qid(identifier: str) -> str:
         log.error("An explicit Wikidata Q-ID is required: %s", identifier)
         sys.exit(1)
     return identifier
-
-
-def select_candidate(candidates: list[EntityCandidate], identifier: str) -> EntityCandidate:
-    """Select only the candidate matching an explicitly supplied Q-ID."""
-    qid = require_qid(identifier)
-    for candidate in candidates:
-        if candidate["id"] == qid:
-            log.info("Selected entity: %s (%s)", qid, candidate["label"])
-            return candidate
-
-    log.error("Q-ID %s was not among the search candidates; no candidate selected", qid)
-    sys.exit(1)
 
 
 def fetch_entity(qid: str) -> dict:

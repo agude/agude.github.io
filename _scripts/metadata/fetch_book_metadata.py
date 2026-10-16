@@ -99,7 +99,7 @@ def main() -> None:
     title = entity.get("labels", {}).get("en", {}).get("value", "")
 
     # ISBN — try the work entity first (P212 then P957), then fall back
-    # to SPARQL over edition entities (P629).  Take the first available
+    # to the work's editions (P747).  Take the first available
     # ISBN regardless of type; old books only have ISBN-10.
     isbn_list = get_claim_strings(entity, "P212") or get_claim_strings(entity, "P957")
     isbn = isbn_list[0] if isbn_list else None

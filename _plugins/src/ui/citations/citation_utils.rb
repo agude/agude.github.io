@@ -31,9 +31,7 @@ module Jekyll
           generated_parts = _build_generators(params).map(&:call)
 
           # Sanitize: Remove nils, then remove trailing periods from each part, then reject empty strings
-          chomped_parts = generated_parts.compact.map do |part_str|
-            part_str.is_a?(String) ? part_str.chomp('.') : part_str
-          end
+          chomped_parts = generated_parts.compact.map { |part_str| part_str.chomp('.') }
           active_parts = chomped_parts.select { |p| _present?(p) }
 
           return '' if active_parts.empty?
@@ -132,17 +130,15 @@ module Jekyll
           !obj.nil? && !obj.to_s.strip.empty?
         end
 
+        # _escape_html and _render_inline do not check for blank input:
+        # every caller checks _present? first.
         def self._escape_html(str)
-          return nil unless _present?(str)
-
           CGI.escapeHTML(str.to_s)
         end
 
         ETAL_ABBR = '<abbr class="etal">et al.</abbr>'
 
         def self._render_inline(text)
-          return nil unless _present?(text)
-
           html = Kramdown::Document.new(text.to_s, input: 'kramdown').to_html
           html = html.gsub(%r{\A<p>(.*)</p>\s*\z}m, '\1').strip
           html = html.gsub(%r{<em>(et\s+al\.?)</em>}, '\1')
@@ -164,7 +160,7 @@ module Jekyll
           parts << _render_inline(first) if _present?(first)
           main = parts.join(', ')
           main += " (#{_escape_html(handle)})" if _present?(handle)
-          _present?(main) ? main : nil
+          main
         end
         private_class_method :_build_author_with_last_name
 

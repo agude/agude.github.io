@@ -3,21 +3,13 @@
 require_relative '../../../test_helper'
 require_relative '../../../../_plugins/src/ui/tags/tv_show_title_tag'
 
-# Tests for the tv_show_title Liquid tag.
+# Tests for the tv_show_title Liquid tag. Parsing and render modes are
+# tested on the CiteTitleTag base class in test_cite_title_tag.rb. This
+# file checks only the registered name and the CSS class.
 class TestTvShowTitleTag < Minitest::Test
-  def setup
-    @site = create_site
-    @html_context = create_context({}, { site: @site })
-    @md_context = create_context({}, { site: @site, render_mode: :markdown })
-  end
-
-  def test_tv_show_title_html
-    output = Liquid::Template.parse('{% tv_show_title "Breaking Bad" %}').render!(@html_context)
+  def test_registered_tag_renders_tv_show_title_class
+    context = create_context({}, { site: create_site })
+    output = Liquid::Template.parse('{% tv_show_title "Breaking Bad" %}').render!(context)
     assert_equal '<cite class="tv-show-title">Breaking Bad</cite>', output
-  end
-
-  def test_tv_show_title_markdown
-    output = Liquid::Template.parse('{% tv_show_title "Breaking Bad" %}').render!(@md_context)
-    assert_equal '_Breaking Bad_', output
   end
 end
