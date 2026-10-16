@@ -768,3 +768,111 @@ class TestBacklinkBuilder < BacklinkBuilderTestCase
     assert_equal 'book', dual[:type], 'book_link should upgrade priority over series_link'
   end
 end
+
+# Parity between rendered link tags and backlink edges: for each tag, the
+# URL the renderer links to must be the URL the backlink builder records,
+# and a tag that renders no link must record no edge.
+class TestBacklinkRendererParity < BacklinkBuilderTestCase
+  def setup
+    super
+    @target = create_doc(
+      { 'title' => 'Target', 'published' => true, 'book_authors' => ['Ann Author'] },
+      '/books/target.html',
+      'Target content.',
+    )
+    @author_page = create_doc(
+      { 'title' => 'Real Name', 'layout' => 'author_page', 'pen_names' => ['Pen Name'] },
+      '/books/authors/real-name/',
+    )
+  end
+
+  def test_book_link_with_link_text_targets_the_title
+    assert_parity("{% book_link 'Target' link_text=\"Label\" %}", '/books/target.html')
+  end
+
+  def test_author_link_with_link_false_has_no_edge
+    assert_parity('{% author_link "Real Name" link=false %}', nil)
+  end
+
+  def test_author_link_with_pen_name_targets_canonical_page
+    assert_parity('{% author_link "Pen Name" %}', '/books/authors/real-name/')
+  end
+
+  def test_author_link_with_possessive_flag_targets_same_page
+    assert_parity('{% author_link "Real Name" possessive %}', '/books/authors/real-name/')
+  end
+
+  def test_short_story_from_book_with_apostrophe_targets_that_book
+    stories = {
+      'the story' => [
+        { 'url' => '/books/first.html', 'slug' => 'the-story', 'parent_book_title' => 'First Book' },
+        { 'url' => '/books/target.html', 'slug' => 'the-story', 'parent_book_title' => "Target's Twin" },
+      ],
+    }
+    assert_parity(
+      %q({% short_story_link 'The Story' from_book="Target's Twin" %}),
+      '/books/target.html',
+      short_stories: stories,
+    )
+  end
+
+  def test_short_story_from_book_in_single_quotes_targets_that_book
+    stories = {
+      'the story' => [
+        { 'url' => '/books/first.html', 'slug' => 'the-story', 'parent_book_title' => 'First Book' },
+        { 'url' => '/books/target.html', 'slug' => 'the-story', 'parent_book_title' => 'Second Book' },
+      ],
+    }
+    assert_parity(
+      %q({% short_story_link "The Story" from_book='Second Book' %}),
+      '/books/target.html',
+      short_stories: stories,
+    )
+  end
+
+  def test_book_link_with_author_filter_targets_that_authors_book
+    twin_one = create_doc(
+      { 'title' => 'Twin', 'published' => true, 'book_authors' => ['First Author'] },
+      '/books/twin-one.html',
+      'One.',
+    )
+    twin_two = create_doc(
+      { 'title' => 'Twin', 'published' => true, 'book_authors' => ['Second Author'] },
+      '/books/twin-two.html',
+      'Two.',
+    )
+    assert_parity(
+      '{% book_link "Twin" author="Second Author" %}',
+      '/books/twin-two.html',
+      extra_books: [twin_one, twin_two],
+    )
+  end
+
+  private
+
+  # Compares page URLs: a short-story link renders `<book url>#<slug>`,
+  # and its edge points at the book page.
+  def assert_parity(markup, expected_url, short_stories: nil, extra_books: [])
+    source = create_doc({ 'title' => 'Source', 'published' => true }, '/books/source.html', "See #{markup}.")
+    site = create_site({}, { 'books' => [@target, source, *extra_books] }, [@author_page])
+    if short_stories
+      site.data['link_cache']['short_stories'] = short_stories
+      rebuild_backlinks(site)
+    end
+
+    rendered = rendered_href(markup, site, source)&.sub(/#.*\z/, '')
+    if expected_url
+      assert_equal expected_url, rendered, 'renderer target'
+    else
+      assert_nil rendered, 'renderer target'
+    end
+    edges = (site.data['link_cache']['forward_links'][source.url] || []).map { |link| link[:target].url }
+    assert_equal [expected_url].compact, edges, 'backlink edges'
+  end
+
+  def rendered_href(markup, site, page)
+    context = create_context({}, { site: site, page: page })
+    html = Jekyll.stub(:logger, silent_logger) { Liquid::Template.parse(markup).render!(context) }
+    html[/href="([^"]*)"/, 1]
+  end
+end

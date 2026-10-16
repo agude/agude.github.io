@@ -88,6 +88,15 @@ module Jekyll
           parse_markup(markup)
         end
 
+        # The parsed, unresolved argument markup, for callers that inspect a
+        # tag without rendering it (BacklinkBuilder). Values are raw markup:
+        # quoted literals keep their quotes, variables are bare names.
+        LinkArguments = Struct.new(:subject, :options, :flags, keyword_init: true)
+
+        def link_arguments
+          LinkArguments.new(subject: @subject_markup, options: @option_markup.dup, flags: @flags.dup)
+        end
+
         def render(context)
           resolver = self.class.resolver_class.new(context)
           args, kwargs = resolver_arguments(context)

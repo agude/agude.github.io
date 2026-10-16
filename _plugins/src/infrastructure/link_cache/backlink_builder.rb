@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative '../text_processing_utils'
 require_relative 'liquid_ast_walker'
+require_relative 'link_tag_target_resolver'
 
 module Jekyll
   module Infrastructure
@@ -23,7 +23,6 @@ module Jekyll
       #
       class BacklinkBuilder
         LINK_TYPE_PRIORITY = { 'book' => 4, 'author' => 3, 'short_story' => 2, 'series' => 1 }.freeze
-        LINK_FALSE_PATTERN = /link\s*=\s*(?:'false'|"false"|false)/
 
         # Link tag patterns for AST extraction
         LINK_TAGS = %w[book_link series_link series_text short_story_link author_link].freeze
@@ -56,6 +55,7 @@ module Jekyll
           return unless @link_cache['books']&.any? && @site.collections.key?('books')
 
           build_url_to_doc_map
+          @targets = LinkTagTargetResolver.new(@link_cache, @url_to_doc)
 
           @site.collections['books'].docs.each do |source_doc|
             scan_doc_with_ast(source_doc)
@@ -147,12 +147,8 @@ module Jekyll
           @site.collections['books'].docs.each { |doc| @url_to_doc[doc.url] = doc }
 
           # Author pages added by URL for unified lookup in add_link
-          @author_by_title = {}
           @site.pages.each do |page|
-            next unless page.data['layout'] == 'author_page'
-
-            @author_by_title[normalize(page.data['title'])] = page
-            @url_to_doc[page.url] = page
+            @url_to_doc[page.url] = page if page.data['layout'] == 'author_page'
           end
         end
 
@@ -194,83 +190,8 @@ module Jekyll
           tags.flat_map { |tag| extract_link_from_tag(tag, doc) }.compact
         end
 
-        # Extract link info from a tag node
         def extract_link_from_tag(node, doc)
-          tag_name = node.tag_name
-          return nil unless LINK_TAGS.include?(tag_name)
-
-          markup = node.instance_variable_get(:@markup) || ''
-
-          case tag_name
-          when 'book_link'
-            extract_book_link(markup)
-          when 'series_link', 'series_text'
-            extract_series_link(markup, doc)
-          when 'short_story_link'
-            extract_short_story_link(markup)
-          when 'author_link'
-            extract_author_link(markup)
-          end
-        end
-
-        def extract_book_link(markup)
-          title = extract_quoted_string(markup)
-          return nil unless title
-
-          locs = @link_cache['books'][normalize(title)]
-                 &.reject { |b| b['canonical_url']&.start_with?('/') }
-          return nil unless locs&.any?
-
-          [{ url: locs.first['url'], type: 'book' }]
-        end
-
-        def extract_series_link(markup, doc)
-          return nil if markup.match?(LINK_FALSE_PATTERN)
-
-          title = if markup.include?('page.series')
-                    doc.data['series']
-                  else
-                    extract_quoted_string(markup)
-                  end
-
-          return nil if title.nil? || title.to_s.strip.empty?
-
-          books = @link_cache['series_map'][normalize(title)]
-          return nil unless books&.any?
-
-          books.map { |book| { url: book.url, type: 'series' } }
-        end
-
-        def extract_short_story_link(markup)
-          title = extract_quoted_string(markup)
-          return nil unless title
-
-          from_book = markup.match(/from_book=["']([^"']+)["']/)&.[](1)
-
-          locs = @link_cache['short_stories'][normalize(title)]
-          return nil unless locs
-
-          target = find_target_story(locs, from_book)
-          return nil unless target
-
-          [{ url: target['url'], type: 'short_story' }]
-        end
-
-        def extract_author_link(markup)
-          title = extract_quoted_string(markup)
-          return nil unless title
-
-          author_page = @author_by_title[normalize(title)]
-          return nil unless author_page
-
-          [{ url: author_page.url, type: 'author' }]
-        end
-
-        def extract_quoted_string(markup)
-          # Match the opening quote, capture everything until the SAME closing quote.
-          # This allows apostrophes inside double-quoted strings and vice versa.
-          match = markup.match(/"([^"]+)"/) || markup.match(/'([^']+)'/)
-          match&.[](1)
+          @targets.targets(node, doc)
         end
 
         def extract_variable_name(node)
@@ -383,18 +304,6 @@ module Jekyll
           return unless new_value
 
           existing[key] = existing[key] ? [existing[key], new_value].min : new_value
-        end
-
-        def find_target_story(locs, from_book)
-          if from_book && !from_book.strip.empty?
-            locs.find { |l| l['parent_book_title'].casecmp(from_book).zero? }
-          elsif locs.map { |l| l['url'] }.uniq.length == 1
-            locs.first
-          end
-        end
-
-        def normalize(title)
-          Jekyll::Infrastructure::TextProcessingUtils.normalize_title(title)
         end
 
         def finalize_links

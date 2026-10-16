@@ -94,7 +94,7 @@ class TestBacklinkBuilderCaptures < BacklinkBuilderTestCase
 
   def test_series_text_with_link_false_in_capture_creates_no_forward_link
     # series_text with link=false should not create forward links even when in a capture.
-    # This tests the AST path handles LINK_FALSE_PATTERN correctly.
+    # This tests the AST path handles link=false correctly.
     book_with_capture = create_doc(
       { 'title' => 'Review', 'published' => true },
       '/books/review.html',

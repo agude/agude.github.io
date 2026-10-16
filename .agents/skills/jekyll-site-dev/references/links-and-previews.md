@@ -9,23 +9,33 @@ constraints that are not obvious from reading it.
 `_plugins/src/infrastructure/link_cache/backlink_builder.rb` parses each
 book's raw template text (`doc.content`) into a Liquid abstract syntax tree
 (AST). It walks the tree to find tags listed in `LINK_TAGS`. Malformed Liquid
-stops the build. This has several consequences:
+stops the build. It does not execute Liquid branches.
 
-- `link=false` is invisible unless the scanner filters it explicitly.
-  `LINK_FALSE_PATTERN` matches all three quoting styles (`'false'`, `"false"`,
-  bare `false`), including mixed quoting like
-  `{% series_text 'Honor Harrington' link="false" %}`. When the pattern matches
-  inside a tag, the scanner skips that tag so an unlinked mention creates no
-  backlink.
-- **Both series tag names must be scanned.** `LINK_TAGS` lists both
-  `series_link` and `series_text`, and `extract_series_link` handles a quoted
-  name or `page.series`, which it resolves from front matter. Books use
-  `series_text` in 80+ places to reference their own series. Scanning only
-  `series_link` with quoted arguments left books such as `field_of_dishonor.md`
-  without backlinks (#144).
-- `extract_book_link` needs no variable-path branch: `book_link` is only used
-  with `page.title` (a self-reference, which `add_link` drops) or a quoted
-  title.
+**Targets come from the tag's own parse, not a second parser.**
+`LinkTagTargetResolver` (same directory) reads `link_arguments` from each tag
+node: the positional subject, value options, and bare flags that
+`LinkTagBase#parse_markup` (or `SeriesTextTag`) already parsed. It then applies
+the renderer's lookup rules:
+
+- `book_link`: archived reviews are skipped; `author=` picks among
+  same-titled books through `AuthorLookup`, as `BookLinkResolver` does; an
+  author with no matching book, or an ambiguous title with no `author=`,
+  links nowhere. `book_link` has no date option.
+- `author_link`: the name resolves through the `authors` cache, so pen names
+  reach the canonical page; `link=false` links nowhere.
+- `short_story_link`: `from_book=` is read as a literal in either quoting
+  style, apostrophes included.
+- `series_link`, `series_text`: a quoted name or `page.series`, which resolves
+  from front matter; `series_text ... link=false` links nowhere. Books use
+  `series_text` in 80+ places to reference their own series; scanning only
+  `series_link` once left books such as `field_of_dishonor.md` without
+  backlinks (#144).
+- A variable subject (other than `page.series`) cannot be resolved without
+  rendering and produces no edge. Earlier, a quoted option value elsewhere in
+  the tag (`link_text="Label"`) was mistaken for the title.
+
+A tag node without `link_arguments` (a parse-only stub registered by
+`ensure_stub_tags_registered`) stops the build: the real tag must be loaded.
 
 **Footnote previews never double-count.** BacklinkBuilder scans `doc.content`
 in the generator phase; `FootnotePreviewInjector` modifies `item.output` at
@@ -48,19 +58,18 @@ wins) → date desc → title asc.
 Fall of Hyperion) have a `canonical_url` starting with `/`, and links must
 point at the canonical page rather than the old review. The filter
 (`canonical_url&.start_with?('/')`) belongs in `BookLinkResolver`,
-`Related::Finder`, `Books::Lists::Shared`, `BacklinkBuilder#extract_book_link`,
+`Related::Finder`, `Books::Lists::Shared`, `LinkTagTargetResolver`,
 and `ShortStoryBuilder` — the last two were missed originally.
 
 ## The apostrophe regression
 
-`extract_quoted_string` once used `/['"]([^'"]+)['"]/`, which truncated
+A quoted-string regex once used `/['"]([^'"]+)['"]/`, which truncated
 double-quoted titles at the first apostrophe (`"The Detective's Tale"` →
 `"The Detective"`), silently breaking ~27 titles (Ender's Game, Childhood's
-End, Dragon's Egg, …) for **both** forward links and backlinks.
-
-The fix tries the double-quote pattern first, then single-quote
-(`/"([^"]+)"/ || /'([^']+)'/`). All four link types share this code path; each
-has an apostrophe test. Keep them.
+End, Dragon's Egg, …) for **both** forward links and backlinks. Reading the
+tag's own parse removed that regex. Each link type still has an apostrophe
+test, and `TestBacklinkRendererParity` compares rendered targets with edges.
+Keep them.
 
 ## Hover previews
 
@@ -128,11 +137,11 @@ parser preserves the nesting; HTML5 breaks it.
 `check_reference_links.rb` (`make check-refs`, plus a CI step) fails the
 build on three problems in `[text][id]` / `[id]:` markdown reference links:
 
-| Problem | Why it is fatal |
-|---|---|
-| Undefined `[text][id]` | Kramdown emits the literal source text |
-| Duplicate `[id]:` | Kramdown keeps the **first** definition silently |
-| Orphaned `[id]:` | Usually a link that was set up and never attached |
+| Problem                | Why it is fatal                                   |
+| ---------------------- | ------------------------------------------------- |
+| Undefined `[text][id]` | Kramdown emits the literal source text            |
+| Duplicate `[id]:`      | Kramdown keeps the **first** definition silently  |
+| Orphaned `[id]:`       | Usually a link that was set up and never attached |
 
 - **No other gate can catch this class.** Worth knowing before reaching for
   one of them, because all three look like "strict mode" and none overlap:
@@ -154,7 +163,7 @@ build on three problems in `[text][id]` / `[id]:` markdown reference links:
   log-scraping was the only path the config offered. They also fire on
   shorthand `[id]` references — indistinguishable from editorial brackets in
   prose (`[sic]`, `[…]`). For the same reason the checker only reports
-  *undefined* for full-form `[text][id]`; shorthand refs are used solely to
+  _undefined_ for full-form `[text][id]`; shorthand refs are used solely to
   keep a definition from counting as orphaned.
 - **Scanning logic lives in `_bin/reference_link_scanner.rb`**, a pure module
   with no Jekyll dependency, tested by
