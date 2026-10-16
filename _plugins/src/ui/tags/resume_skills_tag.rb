@@ -2,7 +2,6 @@
 
 require 'jekyll'
 require 'liquid'
-require 'strscan'
 require_relative '../../infrastructure/tag_argument_utils'
 require_relative '../../infrastructure/text_processing_utils'
 
@@ -14,19 +13,20 @@ module Jekyll
       # Usage:
       #   {% resume_skills languages="Python, Scala, SQL" tools="NumPy, Spark, git" %}
       #
-      # Both parameters are required. Values may contain HTML (stripped in
-      # markdown mode, rendered via markdownify in HTML mode).
+      # Both parameters are required. An unknown, repeated, or missing key
+      # raises Liquid::SyntaxError at parse time. Values may contain HTML
+      # (stripped in markdown mode, rendered via markdownify in HTML mode).
       class ResumeSkillsTag < Liquid::Tag
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         private_constant :TagArgs
 
-        ARG_SYNTAX = /([\w-]+)\s*=\s*((['"])(?:(?!\3).)*\3|\S+)/o
+        KEYS = %w[languages tools].freeze
 
         def initialize(tag_name, markup, tokens)
           super
-          @raw_markup = markup.strip
-          @attributes_markup = {}
-          parse_markup(@raw_markup)
+          @attributes_markup = TagArgs.parse_named_arguments(
+            markup.strip, tag_name: 'resume_skills', allowed: KEYS, required: KEYS,
+          ).transform_keys(&:to_sym)
         end
 
         def render(context)
@@ -78,22 +78,6 @@ module Jekyll
 
         def strip_html(text)
           Jekyll::Infrastructure::TextProcessingUtils.strip_tags(text)
-        end
-
-        def parse_markup(markup)
-          scanner = StringScanner.new(markup)
-
-          while scanner.scan(ARG_SYNTAX)
-            key = scanner[1]
-            value_markup = scanner[2]
-            @attributes_markup[key.to_sym] = value_markup
-            scanner.skip(/\s*/)
-          end
-
-          return if scanner.eos?
-
-          raise Liquid::SyntaxError,
-                "Syntax Error in 'resume_skills': Invalid arguments near '#{scanner.rest}' in '#{markup}'"
         end
       end
     end

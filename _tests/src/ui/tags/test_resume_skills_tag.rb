@@ -60,11 +60,38 @@ class TestResumeSkillsTag < Minitest::Test
     refute_match(/<div/, output)
   end
 
+  # --- Variable resolution ---
+
+  def test_variable_resolution
+    @context['skills'] = { 'languages' => 'Ruby', 'tools' => 'Docker' }
+    output = render_tag('languages=skills.languages tools=skills.tools')
+    assert_includes output, '<div class="resume-languages">Ruby</div>'
+    assert_includes output, '<div class="resume-tools">Docker</div>'
+  end
+
   # --- Syntax errors ---
 
+  def parse_error(markup)
+    assert_raises(Liquid::SyntaxError) { Liquid::Template.parse("{% resume_skills #{markup} %}") }.message
+  end
+
   def test_syntax_error_invalid_markup
-    assert_raises(Liquid::SyntaxError) do
-      Liquid::Template.parse('{% resume_skills garbage %}')
-    end
+    assert_equal "Liquid syntax error: Syntax Error in 'resume_skills': Invalid argument syntax near 'garbage'.",
+                 parse_error('garbage')
+  end
+
+  def test_syntax_error_missing_required_param
+    assert_equal "Liquid syntax error: Syntax Error in 'resume_skills': Required argument 'tools' is missing.",
+                 parse_error('languages="Python"')
+  end
+
+  def test_syntax_error_unknown_argument
+    assert_equal "Liquid syntax error: Syntax Error in 'resume_skills': Unknown argument 'frameworks'.",
+                 parse_error('languages="Python" tools="git" frameworks="Rails"')
+  end
+
+  def test_syntax_error_duplicate_argument
+    assert_equal "Liquid syntax error: Syntax Error in 'resume_skills': Duplicate argument 'tools'.",
+                 parse_error('languages="Python" tools="git" tools="make"')
   end
 end

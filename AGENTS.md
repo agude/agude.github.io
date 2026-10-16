@@ -81,14 +81,16 @@ Why they do not overlap:
 
 - **`book-*` branches are active.** They mark books the owner is currently
   reading; never delete them during housekeeping.
-- **Do not merge a branch straight into `main`.** The content checks run in
-  CI on push and on PRs targeting `main`, so a direct `git merge` publishes
-  without any of them running. A malformed reference-link definition reached
-  production this way: two `[id]:` definitions got joined onto one line during
-  a prose rewrap, kramdown swallowed the second, and the live page rendered a
-  bare Wikipedia URL in the middle of a paragraph. Either open a PR, or run
-  `make check-links && make check-refs && make check-liquid` locally before
-  merging.
+- **Do not merge a branch straight into `main`.** CI runs the content checks
+  on push to any branch, and on `main` the same run deploys the site once they
+  pass. A direct `git merge` and push makes `main` the first place the merged
+  result is checked: a failure leaves `main` broken, with no deploy, until a
+  fix lands. A malformed reference-link definition reached production through
+  a direct merge: two `[id]:` definitions got joined onto one line during a
+  prose rewrap, kramdown swallowed the second, and the live page rendered a
+  bare Wikipedia URL in the middle of a paragraph. Before merging, either push
+  the branch and let its CI run pass (a PR shows that run), or run
+  `make check-links && make check-refs && make check-liquid` locally.
 
 ## Development Rules
 

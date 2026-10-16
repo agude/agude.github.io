@@ -130,7 +130,7 @@ Used in anthology reviews to rate individual stories.
 
 ## Citations
 
-Use `citation` for inline citations. At least one parameter is required.
+Use `citation` for inline citations.
 
 ```liquid
 {% citation
@@ -165,10 +165,13 @@ Use `citation` for inline citations. At least one parameter is required.
 | `url` | URL (used as link and blockquote cite) |
 | `access_date` | Access date for web sources |
 
+Any other parameter, or a parameter given twice, stops the build.
+
 ## Cited Quotes
 
-Use `citedquote` for attributed block quotes. It accepts all citation
-parameters above, and the content between its tags is processed as Markdown.
+Use `citedquote` for attributed block quotes. It accepts the citation
+parameters above and requires at least one. The content between its tags is
+processed as Markdown.
 
 ```liquid
 {% citedquote

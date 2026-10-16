@@ -28,31 +28,33 @@ class TestCitationTag < Minitest::Test
   # --- Tests for initialize (Argument Parsing - Syntax Errors) ---
   # These test if Liquid::Template.parse raises SyntaxError, which means initialize failed.
 
+  def parse_error(markup)
+    assert_raises(Liquid::SyntaxError) { Liquid::Template.parse("{% citation #{markup} %}") }.message
+  end
+
   def test_initialize_syntax_error_for_invalid_arguments_near
-    markup = "author_last=\"Doe\" title='Article' bad_arg_format"
-    err = assert_raises Liquid::SyntaxError do
-      Liquid::Template.parse("{% citation #{markup} %}")
-    end
-    assert_match "Invalid arguments near 'bad_arg_format'", err.message
+    assert_equal "Liquid syntax error: Syntax Error in 'citation': Invalid argument syntax near 'bad_arg_format'.",
+                 parse_error("author_last=\"Doe\" work_title='Article' bad_arg_format")
   end
 
   def test_initialize_syntax_error_for_equals_without_value
-    markup = 'author_last='
-    err = assert_raises Liquid::SyntaxError do
-      Liquid::Template.parse("{% citation #{markup} %}")
-    end
-    assert_match(
-      /Syntax Error in 'citation' tag: Invalid arguments near 'author_last=' in 'author_last='/,
-      err.message,
-    )
+    assert_equal "Liquid syntax error: Syntax Error in 'citation': Invalid argument syntax near 'author_last='.",
+                 parse_error('author_last=')
   end
 
   def test_initialize_syntax_error_for_value_without_key_equals
-    markup = '"JustAValue"' # Not key=value
-    err = assert_raises Liquid::SyntaxError do
-      Liquid::Template.parse("{% citation #{markup} %}")
-    end
-    assert_match "Invalid arguments near '\"JustAValue\"'", err.message
+    assert_equal "Liquid syntax error: Syntax Error in 'citation': Invalid argument syntax near '\"JustAValue\"'.",
+                 parse_error('"JustAValue"')
+  end
+
+  def test_initialize_syntax_error_for_unknown_argument
+    assert_equal "Liquid syntax error: Syntax Error in 'citation': Unknown argument 'title'.",
+                 parse_error("author_last=\"Doe\" title='Article'")
+  end
+
+  def test_initialize_syntax_error_for_duplicate_argument
+    assert_equal "Liquid syntax error: Syntax Error in 'citation': Duplicate argument 'author_last'.",
+                 parse_error("author_last='Doe' author_last='Roe'")
   end
 
   # --- Tests for render (Value Resolution and Delegation) ---

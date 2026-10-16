@@ -148,13 +148,15 @@ footnote bodies (`blockquote`, `figure`, `figcaption`, `div`, `ol`, `ul`, `li`,
 layout via `display: block`. `assert_phrasing_only` fails the build on
 unexpected block elements.
 
-**`footnote_preview_injector.rb` must stay on `Nokogiri::HTML` (HTML4).**
-HTML5's stricter `<p>` content model ejects `<figure>` from inside `<p>`, but
-kramdown produces `<p><figure>…</figure></p>` in footnote bodies. The HTML4
-parser preserves the nesting; HTML5 breaks it.
-`test_inject_figure_nested_in_paragraph` guards this. The other four
-`Nokogiri::HTML` call sites were migrated to HTML5 safely because they do
-`.text` extraction only.
+**`footnote_preview_injector.rb` parses with `Nokogiri::HTML5`, read-only.**
+It copies each footnote body out of the parsed tree and injects the preview by
+string replacement on the original HTML, so the page is never re-serialized.
+Kramdown can emit `<p><figure>…</figure></p>` in a footnote body. The HTML5
+parser closes the `<p>` before `<figure>` and makes the figure its sibling.
+The preview copies the whole footnote `<li>`, so no content is lost, and the
+empty `<p>` left behind becomes an empty `fnp-p` span.
+`test_inject_figure_nested_in_paragraph` guards this case. Every other
+Nokogiri parse in `_plugins/` also uses `Nokogiri::HTML5`.
 
 ## Reference links
 

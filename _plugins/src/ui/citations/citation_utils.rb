@@ -11,7 +11,29 @@ module Jekyll
       # Utility module for formatting bibliographic citations as HTML.
       # Supports various citation components like authors, titles, publishers, and dates.
       module CitationUtils
-        NBSP = "\u00A0" # Non-breaking space
+        NBSP = "\u00A0"
+
+        # The citation parameters that _citation_parts reads. The citation
+        # and citedquote tags accept exactly these keys.
+        PARAMETER_NAMES = %w[
+          author_last
+          author_first
+          author_handle
+          work_title
+          container_title
+          url
+          editor
+          edition
+          volume
+          number
+          publisher
+          date
+          first_page
+          last_page
+          page
+          doi
+          access_date
+        ].freeze
 
         # --- Public API ---
 
@@ -27,104 +49,46 @@ module Jekyll
         end
 
         def self.format_citation_html(params, _site = nil)
-          # Generate all parts
-          generated_parts = _build_generators(params).map(&:call)
-
-          # Sanitize: Remove nils, then remove trailing periods from each part, then reject empty strings
-          chomped_parts = generated_parts.compact.map { |part_str| part_str.chomp('.') }
+          # Drop each part's own trailing period: the join below supplies one.
+          chomped_parts = _citation_parts(params).compact.map { |part_str| part_str.chomp('.') }
           active_parts = chomped_parts.select { |p| _present?(p) }
 
           return '' if active_parts.empty?
 
-          # Join active parts with ". " and add a single trailing period for the entire citation.
           final_citation_string = "#{active_parts.join('. ')}."
           final_citation_string = final_citation_string.gsub("#{ETAL_ABBR}.", ETAL_ABBR)
 
           "<span markdown=\"0\" class=\"citation\">#{final_citation_string}</span>"
         end
 
-        def self._build_generators(params)
+        # Returns each citation part in output order, nil where a part is absent.
+        def self._citation_parts(params)
           [
-            _author_generator(params),
-            _work_container_generator(params),
-            _editor_generator(params),
-            _edition_generator(params),
-            _volume_number_generator(params),
-            _publisher_generator(params),
-            _date_generator(params),
-            _pages_generator(params),
-            _doi_generator(params),
-            _access_date_generator(params),
-          ]
-        end
-
-        def self._author_generator(params)
-          lambda {
             _generate_author_part(
               last: params[:author_last],
               first: params[:author_first],
               handle: params[:author_handle],
-            )
-          }
-        end
-        private_class_method :_author_generator
-
-        def self._work_container_generator(params)
-          lambda {
+            ),
             _generate_work_and_container_part(
               work: params[:work_title],
               container: params[:container_title],
               url: params[:url],
-            )
-          }
-        end
-        private_class_method :_work_container_generator
-
-        def self._editor_generator(params)
-          -> { _generate_editor_part(editor: params[:editor]) }
-        end
-        private_class_method :_editor_generator
-
-        def self._edition_generator(params)
-          -> { _generate_edition_part(edition: params[:edition]) }
-        end
-        private_class_method :_edition_generator
-
-        def self._volume_number_generator(params)
-          -> { _generate_volume_and_number_part(volume: params[:volume], number: params[:number]) }
-        end
-        private_class_method :_volume_number_generator
-
-        def self._publisher_generator(params)
-          -> { _generate_publisher_part(publisher: params[:publisher]) }
-        end
-        private_class_method :_publisher_generator
-
-        def self._date_generator(params)
-          -> { _generate_date_part(date: params[:date]) }
-        end
-        private_class_method :_date_generator
-
-        def self._pages_generator(params)
-          lambda {
+            ),
+            _generate_editor_part(editor: params[:editor]),
+            _generate_edition_part(edition: params[:edition]),
+            _generate_volume_and_number_part(volume: params[:volume], number: params[:number]),
+            _generate_publisher_part(publisher: params[:publisher]),
+            _generate_date_part(date: params[:date]),
             _generate_pages_part(
               first_page: params[:first_page],
               last_page: params[:last_page],
               page: params[:page],
-            )
-          }
+            ),
+            _generate_doi_part(doi: params[:doi]),
+            _generate_access_date_part(access_date: params[:access_date]),
+          ]
         end
-        private_class_method :_pages_generator
-
-        def self._doi_generator(params)
-          -> { _generate_doi_part(doi: params[:doi]) }
-        end
-        private_class_method :_doi_generator
-
-        def self._access_date_generator(params)
-          -> { _generate_access_date_part(access_date: params[:access_date]) }
-        end
-        private_class_method :_access_date_generator
+        private_class_method :_citation_parts
 
         def self._present?(obj)
           !obj.nil? && !obj.to_s.strip.empty?

@@ -14,7 +14,6 @@ module Jekyll
         class ByYearRenderer
           def initialize(context, data)
             @context = context
-            @site = context.registers[:site]
             @year_groups = data[:year_groups] || []
           end
 

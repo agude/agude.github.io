@@ -6,8 +6,14 @@ MOUNT := /workspace
 # Define Ruby version by reading .ruby-version file, ignoring comments/whitespace
 RUBY_VERSION := $(shell grep -v '^\#' .ruby-version)
 
-# Define Bundler version directly in the Makefile
-BUNDLER_VERSION := 2.6.8
+# Read the Bundler version from the BUNDLED WITH line of Gemfile.lock, the
+# same source ruby/setup-ruby uses in CI. Gemfile.lock is an image
+# prerequisite, so changing the version rebuilds the image. To change it,
+# edit that line and run `make lock`.
+BUNDLER_VERSION := $(shell awk '/^BUNDLED WITH/ { getline; print $$1 }' Gemfile.lock)
+ifeq ($(BUNDLER_VERSION),)
+$(error Could not read the BUNDLED WITH version from Gemfile.lock)
+endif
 
 # Define base image using the determined Ruby version
 BASE_RUBY_IMAGE := ruby:$(RUBY_VERSION)
@@ -88,7 +94,7 @@ deps-lock: .ruby-version # Dependency on .ruby-version
 # only runs when the Dockerfile or dependency manifests actually change.
 # Without it every target that depends on image-build paid ~40 lines of
 # BuildKit output just to confirm a cache hit.
-.jekyll-image.stamp: Dockerfile Gemfile Gemfile.lock .ruby-version # Removed .bundler-version dependency
+.jekyll-image.stamp: Dockerfile Gemfile Gemfile.lock .ruby-version
 	@echo "Building Docker image $(IMAGE) using Ruby $(RUBY_VERSION) and Bundler $(BUNDLER_VERSION)..."
 	@if [ ! -f .dockerignore ]; then \
 		echo "Warning: .dockerignore file not found. Build context might be large or include unwanted files."; \
@@ -109,7 +115,7 @@ image-build: .jekyll-image.stamp
 	}
 
 # Rebuild the Docker image without cache.
-image-rebuild: Dockerfile Gemfile Gemfile.lock .ruby-version # Removed .bundler-version dependency
+image-rebuild: Dockerfile Gemfile Gemfile.lock .ruby-version
 	@echo "Rebuilding Docker image $(IMAGE) with --no-cache using Ruby $(RUBY_VERSION) and Bundler $(BUNDLER_VERSION)..."
 	@if [ ! -f .dockerignore ]; then \
 		echo "Warning: .dockerignore file not found. Build context might be large or include unwanted files."; \
@@ -340,7 +346,12 @@ lint-fix: image-build
 	@docker build -f Dockerfile.prettier -t $(PRETTIER_IMAGE) .
 	@touch .prettier-image.stamp
 
+# Rebuild when the stamp outlived the image, as image-build does.
 prettier-image-build: .prettier-image.stamp
+	@docker image inspect $(PRETTIER_IMAGE) >/dev/null 2>&1 || { \
+		rm -f .prettier-image.stamp; \
+		$(MAKE) --no-print-directory .prettier-image.stamp; \
+	}
 
 # Rebuild without cache.
 prettier-image-rebuild: Dockerfile.prettier .prettierrc .prettierignore
@@ -349,7 +360,7 @@ prettier-image-rebuild: Dockerfile.prettier .prettierrc .prettierignore
 	@touch .prettier-image.stamp
 
 # Run Prettier on ALL Markdown files (respects .prettierignore).
-format-md: .prettier-image.stamp
+format-md: prettier-image-build
 	@echo "Running Prettier on all Markdown files..."
 	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) $(PRETTIER_IMAGE) \
 		prettier --write "**/*.md"
@@ -357,7 +368,7 @@ format-md: .prettier-image.stamp
 
 # Run Prettier on specific files: make prettier file.md _books/*.md
 PRETTIER_FILES := $(filter-out prettier,$(MAKECMDGOALS))
-prettier: .prettier-image.stamp
+prettier: prettier-image-build
 	@if [ -z "$(PRETTIER_FILES)" ]; then \
 		echo "Error: No files specified."; \
 		echo "Usage: make prettier <file1.md> <file2.md>"; \
