@@ -394,6 +394,34 @@ class TestSeoMetaGenerator < Minitest::Test
     assert_equal 'https://alexgude.com/files/headshot.jpg', result['image']
   end
 
+  def test_og_image_absolute_url_is_unchanged
+    doc = create_book_doc(title: 'Test Book', image: 'https://cdn.example.com/p.jpg')
+    result = generate_meta(doc, create_site(@site_config))
+
+    assert_equal 'https://cdn.example.com/p.jpg', result['image']
+  end
+
+  def test_og_image_local_path_gets_site_origin
+    doc = create_book_doc(title: 'Test Book', image: '/files/p.jpg')
+    result = generate_meta(doc, create_site(@site_config))
+
+    assert_equal 'https://alexgude.com/files/p.jpg', result['image']
+  end
+
+  def test_og_image_local_path_includes_baseurl
+    doc = create_book_doc(title: 'Test Book', image: '/files/p.jpg')
+    result = generate_meta(doc, create_site(@site_config.merge('baseurl' => '/blog')))
+
+    assert_equal 'https://alexgude.com/blog/files/p.jpg', result['image']
+  end
+
+  def test_og_image_hash_form_uses_path
+    doc = create_book_doc(title: 'Test Book', image: { 'path' => '/files/p.jpg', 'alt' => 'A picture' })
+    result = generate_meta(doc, create_site(@site_config))
+
+    assert_equal 'https://alexgude.com/files/p.jpg', result['image']
+  end
+
   # --- Image Alt Text Tests ---
 
   def test_image_alt_from_hash

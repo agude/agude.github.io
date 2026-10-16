@@ -65,6 +65,13 @@ class TestCardDataExtractorUtils < Minitest::Test
     assert_equal 'Another Default', result[:raw_title]
   end
 
+  def test_extract_base_data_hash_form_image_uses_path
+    doc = create_doc({ 'title' => 'Blog Post', 'image' => { 'path' => '/assets/image.png', 'alt' => 'Alt' } }, '/a/')
+    result = extract_base_data_with_silent_logger(doc, @context_with_baseurl)
+
+    assert_equal 'http://example.com/blog/assets/image.png', result[:absolute_image_url]
+  end
+
   def test_extract_base_data_item_no_image
     doc = create_doc({ 'title' => 'No Image Here' }, '/no-image.html')
     result = extract_base_data_with_silent_logger(doc, @context_no_baseurl)

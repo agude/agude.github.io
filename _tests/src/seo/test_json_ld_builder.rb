@@ -198,6 +198,26 @@ class TestJsonLdBuilder < Minitest::Test
     assert_equal expected, result['image']
   end
 
+  def test_image_hash_form_uses_path
+    result = Jekyll::SEO::JsonLdBuilder.build('Article', site: @site) do |schema|
+      schema.image({ 'path' => '/images/photo.jpg', 'alt' => 'A photo' })
+    end
+    assert_equal 'https://example.com/blog/images/photo.jpg', result.dig('image', 'url')
+  end
+
+  def test_image_url_hash_form_uses_path
+    result = Jekyll::SEO::JsonLdBuilder.build('Thing', site: @site) do |schema|
+      schema.image_url({ 'path' => '/images/photo.jpg', 'alt' => 'A photo' })
+    end
+    assert_equal 'https://example.com/blog/images/photo.jpg', result['image']
+  end
+
+  def test_image_of_unknown_shape_raises
+    assert_raises(Jekyll::Errors::FatalException) do
+      Jekyll::SEO::JsonLdBuilder.build('Article', site: @site) { |schema| schema.image(['/a.jpg']) }
+    end
+  end
+
   def test_image_nil_is_not_added
     result = Jekyll::SEO::JsonLdBuilder.build('Article', site: @site) do |schema|
       schema.image nil

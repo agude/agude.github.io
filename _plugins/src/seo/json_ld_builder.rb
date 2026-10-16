@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../infrastructure/url_utils'
+require_relative '../infrastructure/front_matter_image'
 require_relative '../infrastructure/front_matter_utils'
 require_relative '../infrastructure/text_processing_utils'
 require_relative 'json_ld_utils'
@@ -74,9 +75,8 @@ module Jekyll
       end
 
       def image_url(path)
-        return if path.nil? || path.to_s.strip.empty?
-
-        @data['image'] = Jekyll::Infrastructure::UrlUtils.absolute_url(path, @site)
+        url = Jekyll::Infrastructure::FrontMatterImage.absolute_url(path, @site)
+        @data['image'] = url if url
       end
 
       def authors(value)

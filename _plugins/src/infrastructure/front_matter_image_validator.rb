@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'jekyll'
+require_relative 'front_matter_image'
 
 module Jekyll
   module Infrastructure
@@ -25,7 +26,7 @@ module Jekyll
       def self.validate(item, site)
         return unless item.data.is_a?(Hash)
 
-        path = image_path(item.data['image'])
+        path = FrontMatterImage.path(item.data['image'], source: item.relative_path || item.url)
         return if path.nil? || path.start_with?('http://', 'https://')
         return if File.file?(File.join(site.source, path))
 
@@ -34,13 +35,6 @@ module Jekyll
               "FrontMatterImageValidator: '#{identifier}' sets image '#{path}', " \
               "but no file exists at #{File.join(site.source, path)}."
       end
-
-      def self.image_path(image)
-        value = image.is_a?(Hash) ? image['path'] : image
-        path = value.to_s.strip
-        path.empty? ? nil : path
-      end
-      private_class_method :image_path
     end
   end
 end

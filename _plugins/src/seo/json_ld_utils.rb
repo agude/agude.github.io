@@ -2,6 +2,7 @@
 
 require_relative '../infrastructure/text_processing_utils' # For cleaning/truncating text
 require_relative '../infrastructure/url_utils' # For absolute URLs
+require_relative '../infrastructure/front_matter_image'
 
 module Jekyll
   # Utility module for generating Schema.org JSON-LD structured data.
@@ -93,17 +94,17 @@ module Jekyll
       # --- ImageObject Schema Object Helper ---
 
       # Generates a Schema.org ImageObject.
-      # @param image_path_raw [String] The raw path to the image.
+      # @param image_path_raw [String, Hash, nil] A front-matter image (see FrontMatterImage).
       # @param site [Jekyll::Site] The Jekyll site object.
       # @return [Hash, nil] The Ruby Hash representing the ImageObject, or nil if path is empty.
       # Renamed from get_image_object
       def self.build_image_object_entity(image_path_raw, site)
-        image_path = image_path_raw.to_s.strip
-        return nil if image_path.empty?
+        url = Jekyll::Infrastructure::FrontMatterImage.absolute_url(image_path_raw, site)
+        return nil unless url
 
         {
           '@type' => 'ImageObject',
-          'url' => Jekyll::Infrastructure::UrlUtils.absolute_url(image_path, site),
+          'url' => url,
           # "height" and "width" could be added if a mechanism to fetch them exists
         }
       end

@@ -55,6 +55,13 @@ class TestFrontMatterImageValidator < Minitest::Test
     assert_includes error.message, '/books/covers/missing.jpg'
   end
 
+  def test_unknown_image_shape_raises
+    error = assert_raises(Jekyll::Errors::FatalException) do
+      Validator.validate(doc_with('image' => ['/books/covers/dune.jpg']), @site)
+    end
+    assert_includes error.message, '_books/dune.md'
+  end
+
   def test_no_image_passes
     Validator.validate(doc_with({}), @site)
   end

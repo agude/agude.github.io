@@ -3,6 +3,8 @@
 require 'nokogiri'
 require_relative '../infrastructure/typography_utils'
 require_relative '../infrastructure/text_processing_utils'
+require_relative '../infrastructure/front_matter_image'
+require_relative '../infrastructure/url_utils'
 
 module Jekyll
   module SEO
@@ -182,14 +184,11 @@ module Jekyll
         image = page_image || default_image
         return nil unless image
 
-        make_absolute(image)
+        Jekyll::Infrastructure::UrlUtils.absolute_url(image, @site)
       end
 
       def page_image
-        image = @data['image']
-        return nil unless image
-
-        image.is_a?(Hash) ? image['path'] : image
+        Jekyll::Infrastructure::FrontMatterImage.path(@data['image'], source: @document.url)
       end
 
       def default_image
@@ -213,19 +212,11 @@ module Jekyll
       def canonical_url
         return nil if NO_CANONICAL_LAYOUTS.include?(@data['layout'])
 
-        make_absolute(@document.url)
+        Jekyll::Infrastructure::UrlUtils.absolute_url(@document.url, @site)
       end
 
       def robots
         'noindex' if NOINDEX_LAYOUTS.include?(@data['layout'])
-      end
-
-      def make_absolute(path)
-        return nil unless path
-
-        base_url = @config['url'] || ''
-        baseurl = @config['baseurl'] || ''
-        "#{base_url}#{baseurl}#{path}"
       end
 
       # --- Twitter ---

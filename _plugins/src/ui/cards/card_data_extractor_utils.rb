@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../../infrastructure/url_utils'
+require_relative '../../infrastructure/front_matter_image'
 require_relative '../../infrastructure/plugin_logger_utils'
 
 # Utility module for extracting data from Jekyll documents for card rendering.
@@ -143,10 +144,7 @@ module Jekyll
           end
 
           def absolute_image_url
-            path = @data_source['image']
-            return nil unless path && !path.to_s.strip.empty?
-
-            Jekyll::Infrastructure::UrlUtils.absolute_url(path.to_s, @site)
+            Jekyll::Infrastructure::FrontMatterImage.absolute_url(@data_source['image'], @site, source: @item.url)
           end
 
           def raw_title
