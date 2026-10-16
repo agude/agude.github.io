@@ -548,24 +548,6 @@ def sync_documents(
 
     remote_publication = _verify_publication(client, publication_uri)
 
-    # --- Keep the publication record itself in sync with _config.yml ---
-    desired_pub = desired_publication_record(config)
-    remote_pub_value = remote_publication["value"]
-    pub_subset = {k: v for k, v in remote_pub_value.items() if k in PUBLICATION_MANAGED_FIELDS}
-    if pub_subset != desired_pub:
-        merged_pub = dict(remote_pub_value)
-        merged_pub.update(desired_pub)
-        if dry_run:
-            print("[dry-run] Would update publication record")
-        else:
-            client.put_record(
-                "site.standard.publication",
-                _extract_rkey(publication_uri),
-                merged_pub,
-                swap_cid=remote_publication.get("cid"),
-            )
-            print("Updated publication record from _config.yml")
-
     # --- Collect local documents ---
     # Shares _collect_documents with validate so the CI gate and the
     # publisher cannot drift; any per-document error aborts the sync.
@@ -577,6 +559,41 @@ def sync_documents(
             raise AssertionError("collector yielded no record and no errors")
         rec["site"] = publication_uri
         local[rec["path"]] = (doc_file, rec)
+
+    # --- Keep the publication record itself in sync with _config.yml ---
+    # Runs only after every local document validated, and only as a
+    # compare-and-swap: getRecord's cid is optional in the lexicon, and a
+    # write without it could overwrite a concurrent edit.
+    desired_pub = desired_publication_record(config)
+    remote_pub_value = remote_publication["value"]
+    pub_subset = {k: v for k, v in remote_pub_value.items() if k in PUBLICATION_MANAGED_FIELDS}
+    if pub_subset != desired_pub:
+        pub_cid = remote_publication.get("cid")
+        if not pub_cid:
+            raise PublishError(
+                "getRecord returned no cid for the publication record; "
+                "refusing a non-atomic overwrite"
+            )
+        merged_pub = dict(remote_pub_value)
+        merged_pub.update(desired_pub)
+        if dry_run:
+            print("[dry-run] Would update publication record")
+        else:
+            try:
+                client.put_record(
+                    "site.standard.publication",
+                    _extract_rkey(publication_uri),
+                    merged_pub,
+                    swap_cid=pub_cid,
+                )
+            except PublishError as exc:
+                hint = (
+                    " It changed on the PDS after it was read; rerun to retry."
+                    if "InvalidSwap" in str(exc)
+                    else ""
+                )
+                raise PublishError(f"Updating the publication record failed.{hint} {exc}") from exc
+            print("Updated publication record from _config.yml")
 
     # --- Fetch remote records ---
     # Only records belonging to our publication are managed; documents other

@@ -1549,6 +1549,52 @@ class TestPublicationRecordSync:
         put_calls = [c for c in transport.calls if "putRecord" in c[1]]
         assert put_calls == []
 
+    def test_drifted_publication_without_cid_is_not_written(self, tmp_path: Path) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+        stale = dict(PUB_RECORD_RESPONSE["value"], name="Old Name")
+        transport.routes["getRecord"] = MockResponse({"uri": PUB_URI, "value": stale})
+        transport.push({"records": []})  # listRecords, if the sync gets that far
+
+        with pytest.raises(publish.PublishError, match="cid"):
+            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
+
+        assert [c for c in transport.calls if "putRecord" in c[1]] == []
+
+    def test_invalid_local_document_blocks_publication_update(self, tmp_path: Path) -> None:
+        (tmp_path / "2025-01-01-post.md").write_text("---\ntitle: Post\nslug: custom\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        stale = dict(PUB_RECORD_RESPONSE["value"], name="Old Name")
+        transport.routes["getRecord"] = MockResponse(
+            {"uri": PUB_URI, "cid": "oldcid", "value": stale}
+        )
+        transport.push({})  # putRecord (publication), if attempted
+
+        with pytest.raises(publish.PublishError, match=r"2025-01-01-post\.md"):
+            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
+
+        assert [c for c in transport.calls if "putRecord" in c[1]] == []
+
+    def test_publication_swap_conflict_aborts_with_clear_message(self, tmp_path: Path) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+        stale = dict(PUB_RECORD_RESPONSE["value"], name="Old Name")
+        transport.routes["getRecord"] = MockResponse(
+            {"uri": PUB_URI, "cid": "oldcid", "value": stale}
+        )
+        transport.push(
+            {"error": "InvalidSwap", "message": "Record was at bafy-new"}, status_code=400
+        )
+
+        with pytest.raises(publish.PublishError) as exc_info:
+            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
+
+        message = str(exc_info.value)
+        assert "InvalidSwap" in message
+        assert "publication" in message
+        assert [c for c in transport.calls if "listRecords" in c[1]] == []
+
 
 class TestDocumentUpdateCAS:
     def test_update_passes_swap_cid(self, tmp_path: Path) -> None:

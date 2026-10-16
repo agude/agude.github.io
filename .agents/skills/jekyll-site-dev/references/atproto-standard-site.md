@@ -43,6 +43,12 @@ lexicons. It explains how the pieces connect and what to do when they change.
   [Content Authoring](content-authoring.md).
 - **Edit a post**: the record updates automatically (`putRecord` with
   compare-and-swap; unmanaged fields like `bskyPostRef` survive).
+- **Edit the site title, description, or URL** in `_config.yml`: `publish`
+  updates the publication record, but only after every local document
+  validates, and only with a compare-and-swap on the `cid` that
+  `getRecord` returned. A missing `cid` stops the sync rather than risk a
+  non-atomic overwrite. An `InvalidSwap` error means the record changed on
+  the PDS after it was read; rerun.
 - **Delete/rename a post**: CI warns (`::warning::` annotation) about
   the orphaned record; clean up manually from `_scripts/`:
   `uv run python atproto/publish.py delete-orphans --posts-dir ../_posts --books-dir ../_books` (add `--yes` to delete).
