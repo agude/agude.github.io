@@ -44,9 +44,10 @@ module Jekyll
       end
 
       def generate
+        title = build_title
         {
-          'title' => build_title,
-          'og_title' => build_title,
+          'title' => title,
+          'og_title' => title,
           'og_type' => og_type,
           'image' => absolute_image_url,
           'image_alt' => image_alt_text,
