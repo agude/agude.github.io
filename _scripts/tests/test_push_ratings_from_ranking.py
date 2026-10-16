@@ -1,8 +1,10 @@
-"""Tests for ranking/push_ratings_from_ranking.py pure functions."""
+"""Tests for ranking/push_ratings_from_ranking.py."""
 
 from textwrap import dedent
 
+import push_ratings_from_ranking
 from push_ratings_from_ranking import parse_ranked_list_with_tiers
+from ranking_tree import REPO_ROOT, build_tree, point_module_at
 
 
 class TestParseRankedListWithTiers:
@@ -102,3 +104,32 @@ class TestParseRankedListWithTiers:
         result = parse_ranked_list_with_tiers(f)
 
         assert len(result) == 2
+
+
+class TestRepositoryPaths:
+    def test_repo_root_is_repository_root(self):
+        assert push_ratings_from_ranking.REPO_ROOT == REPO_ROOT
+
+    def test_default_paths_exist(self):
+        assert push_ratings_from_ranking.BOOKS_DIR.is_dir()
+        assert push_ratings_from_ranking.BY_RATING.is_file()
+
+
+class TestMain:
+    def test_pushes_tier_ratings_into_book_files(self, tmp_path, monkeypatch):
+        build_tree(
+            tmp_path,
+            "  # 5 Stars\n  - Book One\n  # 4 Stars\n  - Book Two\n",
+            {"book_one": ("Book One", 3), "book_two": ("Book Two", 4)},
+        )
+        point_module_at(monkeypatch, push_ratings_from_ranking, tmp_path)
+
+        push_ratings_from_ranking.main()
+
+        books = tmp_path / "_books"
+        assert (books / "book_one.md").read_text() == (
+            "---\ntitle: Book One\nrating: 5\n---\n\nReview of Book One.\n"
+        )
+        assert (books / "book_two.md").read_text() == (
+            "---\ntitle: Book Two\nrating: 4\n---\n\nReview of Book Two.\n"
+        )
