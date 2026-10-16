@@ -64,7 +64,9 @@ SimpleCov.start do
   group 'CI Checkers', '_bin'
 
   # Set a minimum coverage threshold. The build will fail if it drops below this.
-  minimum_coverage 95
+  # A targeted run (`make test TEST=...`, which sets COVERAGE_PARTIAL) measures
+  # only the files it loads, so the threshold applies to full runs only.
+  minimum_coverage 95 unless ENV['COVERAGE_PARTIAL']
   # Enable branch coverage analysis
   enable_coverage :branch
 end

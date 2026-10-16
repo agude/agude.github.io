@@ -21,7 +21,7 @@ GROUP_ID := $(shell id -g)
 DOCKER_RUN_OPTS := --user $(USER_ID):$(GROUP_ID) -e HOME=/tmp
 
 # Define reusable Docker run command to reduce boilerplate
-DOCKER_RUN := docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE)
+DOCKER_RUN = docker run --rm $(DOCKER_RUN_OPTS) $(COVERAGE_ENV) -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE)
 
 # Allow overriding the test file/pattern via command line.
 # Defaults to finding all 'test_*.rb' files in the '_tests' directory,
@@ -31,6 +31,11 @@ DOCKER_RUN := docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) 
 #   make test TEST=_tests/plugins/test_link_cache_generator.rb
 #   make test TEST=$$(find _tests/plugins/utils -name 'test_*.rb')
 TEST ?= $(shell find _tests -type f -name 'test_*.rb' -not -name 'test_helper.rb')
+
+# A TEST given on the command line runs a subset, whose coverage cannot meet
+# the full-suite threshold; test_helper.rb skips the threshold when
+# COVERAGE_PARTIAL is set.
+COVERAGE_ENV := $(if $(filter command line,$(origin TEST)),-e COVERAGE_PARTIAL=1)
 
 # Where 'make rank' drops the ranking state file. The ELO tools have no
 # localStorage or query-param loading; the file gets picked through the page's
@@ -196,9 +201,6 @@ rank:
 	fi
 
 # Run Minitest tests located in _tests/ inside the Docker container.
-# Note: `make test TEST=...` for a subset of files may exit 2 even when
-# every test passes — SimpleCov's 95% threshold (test_helper.rb) isn't met
-# when only some files' coverage is measured. Expected and harmless.
 test: image-build # Depends on the Docker image being built/up-to-date
 	@echo "Running tests..."
 	@# Check if the TEST variable is empty.
