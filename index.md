@@ -17,7 +17,7 @@ high energy particle physicist at CERN and a [cosmologist][scp] at Lawrence
 Berkeley Labs.
 
 [insight]: https://web.archive.org/web/20200508104948/https://insightfellows.com/data-science
-[scp]: http://supernova.lbl.gov
+[scp]: https://supernova.lbl.gov
 
 I write about whatever catches my attention [here on this site][blog]; mostly
 that means data science, machine learning, deep learning, and software
