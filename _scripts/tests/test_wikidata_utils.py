@@ -305,22 +305,64 @@ class TestResolveAwardFamily:
             result = _resolve_award_family("Q999999")
             assert result is None
 
-    def test_max_depth_prevents_infinite_loop(self):
-        # Each entity points to another unknown entity
-        mock_entity = {
-            "claims": {"P361": [{"mainsnak": {"datavalue": {"value": {"id": "Q888888"}}}}]}
+    @staticmethod
+    def _entity(**parents: list[str]) -> dict:
+        """An entity whose claims point at parents, keyed by property."""
+        return {
+            "claims": {
+                prop: [{"mainsnak": {"datavalue": {"value": {"id": qid}}}} for qid in qids]
+                for prop, qids in parents.items()
+            }
         }
-        call_count = 0
 
-        def mock_fetch(qid):
-            nonlocal call_count
-            call_count += 1
-            return mock_entity
+    def _resolve(self, start: str, graph: dict[str, dict]) -> tuple[str | None, list[str]]:
+        """Resolve start against graph; return the result and the fetched Q-IDs."""
+        fetched: list[str] = []
 
-        with patch("wikidata_utils.fetch_entity", side_effect=mock_fetch):
-            result = _resolve_award_family("Q999999")
-            assert result is None
-            assert call_count <= 6  # Max depth is 5 + initial
+        def fetch(qid: str) -> dict:
+            fetched.append(qid)
+            return graph[qid]
+
+        with patch("wikidata_utils.fetch_entity", side_effect=fetch):
+            return _resolve_award_family(start), fetched
+
+    def _chain(self, hops: int) -> tuple[list[str], dict[str, dict]]:
+        """Unknown awards linked by P361, with Hugo (Q188914) at the given hop."""
+        qids = [f"Q{900000 + i}" for i in range(hops)]
+        parents = [*qids[1:], "Q188914"]
+        return qids, {
+            qid: self._entity(P361=[parent]) for qid, parent in zip(qids, parents, strict=True)
+        }
+
+    def test_cycle_stops_traversal(self):
+        graph = {
+            "Q999999": self._entity(P361=["Q888888"]),
+            "Q888888": self._entity(P361=["Q999999"]),
+        }
+        result, fetched = self._resolve("Q999999", graph)
+        assert result is None
+        assert fetched == ["Q999999", "Q888888"]
+
+    def test_chain_at_depth_limit_resolves(self):
+        qids, graph = self._chain(5)
+        result, fetched = self._resolve(qids[0], graph)
+        assert result == "hugo"
+        assert fetched == qids
+
+    def test_chain_past_depth_limit_stops(self):
+        qids, graph = self._chain(6)
+        result, fetched = self._resolve(qids[0], graph)
+        assert result is None
+        assert fetched == qids
+
+    def test_dead_end_branch_falls_through_to_next_property(self):
+        graph = {
+            "Q999999": self._entity(P361=["Q900000"], P279=["Q194285"]),
+            "Q900000": self._entity(),
+        }
+        result, fetched = self._resolve("Q999999", graph)
+        assert result == "nebula"
+        assert fetched == ["Q999999", "Q900000"]
 
 
 class TestFetchAwards:
