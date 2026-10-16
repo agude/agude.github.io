@@ -137,11 +137,11 @@ parser preserves the nesting; HTML5 breaks it.
 `check_reference_links.rb` (`make check-refs`, plus a CI step) fails the
 build on three problems in `[text][id]` / `[id]:` markdown reference links:
 
-| Problem                | Why it is fatal                                   |
-| ---------------------- | ------------------------------------------------- |
-| Undefined `[text][id]` | Kramdown emits the literal source text            |
-| Duplicate `[id]:`      | Kramdown keeps the **first** definition silently  |
-| Orphaned `[id]:`       | Usually a link that was set up and never attached |
+| Problem | Why it is fatal |
+|---|---|
+| Undefined `[text][id]` | Kramdown emits the literal source text |
+| Duplicate `[id]:` | Kramdown keeps the **first** definition silently |
+| Orphaned `[id]:` | Usually a link that was set up and never attached |
 
 - **No other gate can catch this class.** Worth knowing before reaching for
   one of them, because all three look like "strict mode" and none overlap:
