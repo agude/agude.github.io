@@ -1434,6 +1434,21 @@
       "elo": 1884,
       "matches": 1
     },
+    "a_trade_of_blood": {
+      "title": "A Trade of Blood",
+      "authors": [
+        "Robert Jackson Bennett"
+      ],
+      "series": "Shadow of the Leviathan",
+      "book_number": 3,
+      "rating": 3,
+      "image": "/books/covers/a_trade_of_blood.jpg",
+      "summary_raw": "In , the third book in 's series, Din and Ana travel to Lacanthim to stop a brewing clan war. Castus Armenta, heir to a powerful cattle clan, has been caught literally red-handed after the murder of Zansay Burav, the daughter of his family's only rival.",
+      "summary_extra": "The case isn't as simple as it seems. Castus and Zansay were having a tryst and planned to run away from their families. It's at first blush, so much so that lampshades the comparison through Ana, who calls the situation \"derivative\".",
+      "summary": "",
+      "elo": 1500,
+      "matches": 0
+    },
     "accelerando": {
       "title": "Accelerando",
       "authors": [
@@ -1922,6 +1937,21 @@
       "elo": 1500,
       "matches": 4
     },
+    "fugitive_telemetry": {
+      "title": "Fugitive Telemetry",
+      "authors": [
+        "Martha Wells"
+      ],
+      "series": "The Murderbot Diaries",
+      "book_number": 6,
+      "rating": 3,
+      "image": "/books/covers/fugitive_telemetry.jpg",
+      "summary_raw": "In it, Murderbot is reluctantly pulled into a murder investigation by Preservation Station security.",
+      "summary_extra": "As Murderbot and station security investigate, they discover the dead man was helping slaves escape from the Corporate Rim, smuggling them through various neutral stations.",
+      "summary": "",
+      "elo": 1500,
+      "matches": 0
+    },
     "grand_melee": {
       "title": "Grand Melee",
       "authors": [
@@ -2392,6 +2422,21 @@
       "elo": 1548,
       "matches": 3
     },
+    "platform_decay": {
+      "title": "Platform Decay",
+      "authors": [
+        "Martha Wells"
+      ],
+      "series": "The Murderbot Diaries",
+      "book_number": 8,
+      "rating": 3,
+      "image": "/books/covers/platform_decay.jpg",
+      "summary_raw": "It follows Murderbot and Three as they infiltrate a planetary torus to rescue Mensah's family from Barish-Estranza.",
+      "summary_extra": "The setup in is very similar to , which is great because that's one of the best Murderbot books. The mission gets more complicated when Murderbot discovers that Supervisor Leonide, from and , may have arranged the kidnapping because she needs Murderbot's help.",
+      "summary": "",
+      "elo": 1500,
+      "matches": 0
+    },
     "red_rising": {
       "title": "Red Rising",
       "authors": [
@@ -2582,8 +2627,8 @@
       "book_number": 1,
       "rating": 3,
       "image": "/books/covers/stories_of_your_life_and_others.jpg",
-      "summary_raw": "",
-      "summary_extra": "Every story is different, very different, but they all _feel_ the same.",
+      "summary_raw": "The concepts range from alien linguistics to the literal nature of God, but reading them together reveals a strict logical formula that sometimes lets the ideas overshadow the narratives.",
+      "summary_extra": "Was my nomination for this month's science fiction book club. I've wanted to read work for 2 reasons. First, I appreciate how short stories---like or ---can explore big ideas in a stripped-down way. Second, authors I love, like , speak incredibly highly of him.",
       "summary": "",
       "elo": 1500,
       "matches": 0
@@ -2617,6 +2662,21 @@
       "summary": "Culture book 9. Lededje seeks revenge for her own murder. Galactic conflict over virtual hells where the dead are tortured for eternity. Themes of consciousness and punishment.",
       "elo": 1932,
       "matches": 2
+    },
+    "system_collapse": {
+      "title": "System Collapse",
+      "authors": [
+        "Martha Wells"
+      ],
+      "series": "The Murderbot Diaries",
+      "book_number": 7,
+      "rating": 3,
+      "image": "/books/covers/system_collapse.jpg",
+      "summary_raw": "It picks up right where left off: Murderbot, ART, their humans, and a bunch of colonists are trapped on an alien-contaminated world while the Barish-Estranza Corporation tries to drag everyone into slavery.",
+      "summary_extra": "The corporate slavery and alien-contaminated world sound like heavy subjects, but has always had an element of escapism that keeps things from feeling oppressive. For the reader, that's the competence porn and tight action. For Murderbot, it's watching soap operas while trying to ignore its feelings. leans much more on the second and ignores the action. I almost put the book down during the first half, which reminded me of the ending of : Murderbot and its team walking through too many corridors while it tries to hide its debilitating PTSD from both the humans and the reader. Fortunately, the second half goes back to what works, with Murderbot causing mayhem and saving people.",
+      "summary": "",
+      "elo": 1500,
+      "matches": 0
     },
     "the_abyss_beyond_dreams": {
       "title": "The Abyss Beyond Dreams",
@@ -2752,6 +2812,21 @@
       "summary": "Void Trilogy book 1. 1200 years after Judas Unchained. Inside the Void, psychic Edeard's dreams spark a dangerous religion. Outside, factions race to find Inigo. Good start.",
       "elo": 1484,
       "matches": 3
+    },
+    "the_event": {
+      "title": "The Event",
+      "authors": [
+        "Henry Bean"
+      ],
+      "series": null,
+      "book_number": 1,
+      "rating": 4,
+      "image": "/books/covers/the_event.jpg",
+      "summary_raw": "A researcher who can barely keep his own life together.",
+      "summary_extra": "Takes the form of a fake academic report, published in [Jewish Currents][the_event], about a supernatural fire that engulfed Israel and Palestine. It explores how some topics can't be acknowledged or discussed: they can only be approached indirectly. The mysterious fire is one such subject. Little is known about it, people are starting to forget it, and they subconsciously avert their gaze when near it. This plays out at every scale, from satellites going blind to the armies of Egypt crossing into the fire, unaware that the troops ahead of them have been incinerated. The narrator has the same problem with his own life, unable to face his failures or the people he's hurt; it slowly leaks into his report. And the story itself, of course, is a way to address the [Israeli--Palestinian conflict][ip] obliquely.",
+      "summary": "",
+      "elo": 1700,
+      "matches": 0
     },
     "the_evolutionary_void": {
       "title": "The Evolutionary Void",
@@ -3341,6 +3416,7 @@
     "the_sword_of_the_lictor",
     "the_citadel_of_the_autarch",
     "the_shadow_of_the_torturer",
+    "the_event",
     "the_wind_in_the_willows",
     "a_canticle_for_leibowitz",
     "destination_moon",
@@ -3356,8 +3432,9 @@
     "night_without_stars",
     "field_of_dishonor",
     "on_basilisk_station",
+    "platform_decay",
+    "fugitive_telemetry",
     "rogue_protocol",
-    "a_drop_of_corruption",
     "the_honor_of_the_queen",
     "starquake",
     "the_abyss_beyond_dreams",
@@ -3369,9 +3446,11 @@
     "patternmaster",
     "valuable_humans_in_transit_and_other_stories",
     "dog_soldier",
+    "a_trade_of_blood",
     "honor_of_the_regiment",
     "mariel_of_redwall",
     "we_are_legion_we_are_bob",
+    "a_drop_of_corruption",
     "all_systems_red",
     "mossflower",
     "matter",
@@ -3387,6 +3466,7 @@
     "the_moon_is_a_harsh_mistress",
     "the_left_hand_of_darkness",
     "the_war_of_the_worlds",
+    "system_collapse",
     "fahrenheit_451",
     "the_darfsteller",
     "rogue_bolo",
