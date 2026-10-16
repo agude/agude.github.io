@@ -189,6 +189,12 @@ Read the named exemplar before modifying the corresponding subsystem:
   `_tests/bin/bin_script_helper.rb` documents the fixture builders and test
   approach. `test_bin_scripts_are_wired_up.rb` fails when a new `check_*`
   script has no test or is not invoked by the workflow.
+- **External links**: `.github/workflows/link-check.yml` runs Lychee monthly
+  with a JSON report. `_scripts/ci/lychee_report.py` decides the result: it
+  drops the `at://` parse errors, writes the issue body, and exits 0 (clean),
+  1 (broken links), or 2 (no usable report). Its tests run against real
+  Lychee reports in `_scripts/tests/fixtures/lychee/`; regenerate them with
+  the Lychee version that `lycheeverse/lychee-action@v2` installs.
 
 ## Policy and operational references
 
