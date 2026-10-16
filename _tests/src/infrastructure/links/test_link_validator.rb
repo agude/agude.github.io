@@ -316,4 +316,46 @@ class TestLinkValidator < Minitest::Test
     site = create_site({}, { 'books' => [@book] }, [@author_page, @series_page], [nil_doc])
     assert site.data['link_cache']
   end
+
+  # --- Code regions and href quoting ---
+
+  def test_link_inside_fenced_code_block_is_ignored
+    assert_no_raw_link_error("Example:\n\n```markdown\n[Book](/books/test-book.html)\n```\n")
+  end
+
+  def test_link_inside_indented_code_block_is_ignored
+    assert_no_raw_link_error("Example:\n\n    [Book](/books/test-book.html)\n\nAfter.\n")
+  end
+
+  def test_link_inside_inline_code_is_ignored
+    assert_no_raw_link_error("Write `[Book](/books/test-book.html)` like this.\n")
+  end
+
+  def test_single_quoted_href_is_detected
+    assert_raw_link_error("<a href='/books/test-book.html'>Read this</a>")
+  end
+
+  def test_unquoted_href_is_detected
+    assert_raw_link_error('<a href=/books/test-book.html>Read this</a>')
+  end
+
+  def test_link_after_code_block_is_still_detected
+    assert_raw_link_error("```\ncode\n```\n\nSee [it](/books/test-book.html).\n")
+  end
+
+  private
+
+  def build_with_post(content)
+    post = create_doc({ 'title' => 'Post' }, '/posts/post.html', content)
+    create_site({}, { 'books' => [@book] }, [@author_page, @series_page], [post])
+  end
+
+  def assert_no_raw_link_error(content)
+    assert build_with_post(content).data['link_cache']
+  end
+
+  def assert_raw_link_error(content)
+    error = assert_raises(Jekyll::Errors::FatalException) { build_with_post(content) }
+    assert_includes error.message, '/books/test-book.html'
+  end
 end
