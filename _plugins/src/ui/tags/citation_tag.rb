@@ -5,9 +5,7 @@
 #   -----------------------------------------------------------------------------
 #   Fill in the appropriate values for each parameter.
 #   Omit any parameters that are not applicable to the citation.
-#   The 'url' parameter will link the 'work_title'.
-#   If 'work_title' is absent but 'container_title' is present, and 'url' is given,
-#   the 'container_title' might be linked (depending on your Jekyll::UI::Citations::CitationUtils logic).
+#   The 'url' parameter links the 'work_title'. Without a 'work_title', 'url' is ignored.
 #   Styling of 'work_title' (quotes vs. italics) is inferred based on the
 #   presence or absence of 'container_title'.
 #
@@ -31,11 +29,12 @@
 #                         season/year (Spring YYYY).
 #   first_page=""         Starting page number or article identifier (e.g., "101", "A27").
 #   last_page=""          Ending page number, if it's a range (e.g., "115").
-#   page=""               A single page number if not a range and first_page/last_page are not suitable (e.g., "p. 5").
+#   page=""               A single page number if not a range and first_page/last_page are not suitable (e.g., "5").
+#                         The "p." prefix is added by the citation utility.
 #   doi=""                Digital Object Identifier (e.g., "10.1234/xyz.567"). Can also be used for arXiv IDs like
 #                         "arXiv:2301.00001".
-#   url=""                The primary URL for the citation. This URL will be used to link the work_title. If work_title
-#                         is absent, it might link container_title.
+#   url=""                The primary URL for the citation. It links the work_title, and is ignored when work_title
+#                         is absent.
 #   access_date=""        Date when an online resource was last accessed or verified (e.g., "January 15, 2023").
 # %}
 
