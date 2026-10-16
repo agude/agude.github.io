@@ -122,46 +122,10 @@ class TestCitedQuoteTag < Minitest::Test
     assert_match(/content is required/i, err.message)
   end
 
-  # --- Tests for render (HTML Structure) ---
-
-  def test_render_outputs_figure_wrapper
-    mock_output = '<figure class="cited-quote"><blockquote><p>text</p></blockquote></figure>'
-
-    Jekyll::UI::Quotes::CitedQuoteUtils.stub :render, mock_output do
-      output = render_tag('author_last="Doe"', 'Some quote')
-      assert_match(/<figure class="cited-quote">/, output)
-    end
-  end
-
-  def test_render_outputs_blockquote
-    mock_output = '<figure class="cited-quote"><blockquote><p>text</p></blockquote></figure>'
-
-    Jekyll::UI::Quotes::CitedQuoteUtils.stub :render, mock_output do
-      output = render_tag('author_last="Doe"', 'Some quote')
-      assert_match(/<blockquote>/, output)
-    end
-  end
-
-  def test_render_includes_cite_attribute_when_url_provided
-    mock_output = '<figure class="cited-quote"><blockquote cite="http://example.com"><p>text</p></blockquote></figure>'
-
-    Jekyll::UI::Quotes::CitedQuoteUtils.stub :render, mock_output do
-      output = render_tag('author_last="Doe" url="http://example.com"', 'Some quote')
-      assert_match(%r{cite="http://example\.com"}, output)
-    end
-  end
-
-  def test_render_outputs_figcaption
-    mock_output = '<figure class="cited-quote"><blockquote><p>text</p></blockquote>' \
-                  '<figcaption>—<span class="citation">Doe.</span></figcaption></figure>'
-
-    Jekyll::UI::Quotes::CitedQuoteUtils.stub :render, mock_output do
-      output = render_tag('author_last="Doe"', 'Some quote')
-      assert_match(/<figcaption>/, output)
-    end
-  end
-
   # --- Tests for render (Argument Resolution and Delegation) ---
+  #
+  # HTML structure is tested against the real renderer in
+  # test_citedquote_utils.rb.
 
   def test_render_delegates_to_citedquote_utils_with_resolved_params
     markup = 'author_last="Doe" work_title="Test Article"'
