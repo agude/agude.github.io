@@ -1,5 +1,6 @@
 """Tests for content/jekyll_clean_captures.py pure functions."""
 
+import pytest
 from jekyll_clean_captures import find_unused_captures, main, process_file
 
 
@@ -107,6 +108,49 @@ class TestCaptureUsageForms:
         content = "{% capture x %}a{% endcapture %}\n{{ x_long }}\n"
         assert [name for name, _ in find_unused_captures(content)] == ["x"]
 
+    def test_hyphenated_identifier_is_not_a_use(self):
+        content = "{% capture x %}a{% endcapture %}\n{{ x-y }}\n"
+        assert [name for name, _ in find_unused_captures(content)] == ["x"]
+
+
+class TestWhitespaceControlUsage:
+    """A whitespace-control hyphen next to a name is not part of the name."""
+
+    @pytest.mark.parametrize(
+        "usage",
+        ["{{x-}}", "{{-x-}}", "{{- x -}}", "{% if x-%}y{% endif %}", "{%- if x -%}y{% endif %}"],
+    )
+    def test_whitespace_control_form_is_a_use(self, usage):
+        content = "{% capture x %}value{% endcapture %}\n" + usage + "\n"
+        assert find_unused_captures(content) == []
+
+
+NESTED_OUTER_UNUSED = (
+    "{% capture outer %}{% capture inner %}Dune{% endcapture %}{% endcapture %}\n{{ inner }}\n"
+)
+NESTED_INNER_UNUSED = (
+    "{% capture outer %}{% capture inner %}Dune{% endcapture %}{% endcapture %}\n{{ outer }}\n"
+)
+
+
+class TestNestedCaptures:
+    """Nested blocks cannot be paired by the block pattern, so they are refused."""
+
+    @pytest.mark.parametrize("content", [NESTED_OUTER_UNUSED, NESTED_INNER_UNUSED])
+    def test_nested_capture_is_refused(self, content):
+        with pytest.raises(ValueError, match="nested"):
+            find_unused_captures(content)
+
+    @pytest.mark.parametrize("content", [NESTED_OUTER_UNUSED, NESTED_INNER_UNUSED])
+    def test_write_leaves_nested_file_unchanged(self, tmp_path, capsys, content):
+        path = tmp_path / "post.md"
+        path.write_text(content)
+
+        process_file(path, dry_run=False)
+
+        assert path.read_text() == content
+        assert str(path) in capsys.readouterr().err
+
 
 class TestProcessFileWrite:
     def test_write_removes_only_unused_block(self, tmp_path):
@@ -148,3 +192,17 @@ class TestMain:
         main(["--write", str(path)])
 
         assert path.read_text() == "Body.\n"
+
+    @pytest.mark.parametrize("args", [["--write"], []])
+    def test_nested_file_is_refused_with_nonzero_exit(self, tmp_path, capsys, args):
+        path = tmp_path / "post.md"
+        path.write_text(NESTED_OUTER_UNUSED)
+
+        with pytest.raises(SystemExit) as exit_info:
+            main([*args, str(path)])
+
+        assert exit_info.value.code == 1
+        assert path.read_text() == NESTED_OUTER_UNUSED
+        err = capsys.readouterr().err
+        assert str(path) in err
+        assert "nested" in err
