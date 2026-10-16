@@ -29,6 +29,8 @@ $sidebar-color-value: hsl(214, 52%, 42%) !default;
   --border-color: hsl(0, 0%, 90%);
   --code-color: hsl(354, 42%, 56%);
   --sidebar-color: #{$sidebar-color-value};
+  // Content links. Light mode uses the accent itself.
+  --link-color: #{$sidebar-color-value};
   // Sidebar is a fixed-dark surface in both color schemes, so the button
   // colors that live only inside it don't need a dark override.
   --share-button-color: hsl(0, 0%, 13%);
@@ -71,6 +73,10 @@ $sidebar-color-value: hsl(214, 52%, 42%) !default;
     --blockquote-color: hsl(0, 0%, 62%);
     --disabled-color: hsl(214, 8%, 38%);
     --hr-color: hsl(214, 10%, 26%);
+    // The accent (theme_color) is 2.8:1 on the dark page, so dark-mode
+    // links use a lighter tint of its hue that clears AA on both --body-bg
+    // and --card-bg.
+    --link-color: hsl(214, 52%, 65%);
     // --sidebar-color is unchanged: already dark, and it's the one token
     // driven by site.theme_color rather than a literal here.
   }
@@ -81,7 +87,7 @@ $body-color:         var(--body-color);
 $muted-color:        var(--muted-color);
 $border-color:       var(--border-color);
 $code-color:         var(--code-color);
-//$link-color:         hsl(205, 69%, 49%);
+$link-color:         var(--link-color);
 $sidebar-color:      var(--sidebar-color);
 $share-button-color: var(--share-button-color);
 $share-hover-color:  var(--share-hover-color);

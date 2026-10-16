@@ -2,6 +2,8 @@
 
 require_relative '../infrastructure/text_processing_utils' # For cleaning/truncating text
 require_relative '../infrastructure/url_utils' # For absolute URLs
+require_relative '../infrastructure/front_matter_image'
+require_relative '../infrastructure/rating_parser'
 
 module Jekyll
   # Utility module for generating Schema.org JSON-LD structured data.
@@ -93,17 +95,18 @@ module Jekyll
       # --- ImageObject Schema Object Helper ---
 
       # Generates a Schema.org ImageObject.
-      # @param image_path_raw [String] The raw path to the image.
+      # @param image_path_raw [String, nil] A front-matter image (see FrontMatterImage).
       # @param site [Jekyll::Site] The Jekyll site object.
+      # @param source [String, nil] Names the document in error messages.
       # @return [Hash, nil] The Ruby Hash representing the ImageObject, or nil if path is empty.
       # Renamed from get_image_object
-      def self.build_image_object_entity(image_path_raw, site)
-        image_path = image_path_raw.to_s.strip
-        return nil if image_path.empty?
+      def self.build_image_object_entity(image_path_raw, site, source: nil)
+        url = Jekyll::Infrastructure::FrontMatterImage.absolute_url(image_path_raw, site, source: source)
+        return nil unless url
 
         {
           '@type' => 'ImageObject',
-          'url' => Jekyll::Infrastructure::UrlUtils.absolute_url(image_path, site),
+          'url' => url,
           # "height" and "width" could be added if a mechanism to fetch them exists
         }
       end
@@ -175,11 +178,11 @@ module Jekyll
 
       # Generates a Schema.org Rating object.
       # @param rating_value_raw The raw rating value.
-      # @return [Hash, nil] The Ruby Hash representing the Rating object, or nil if rating is invalid.
-      # Renamed
-      def self.build_rating_entity(rating_value_raw, best_rating: '5', worst_rating: '1')
-        rating_value = rating_value_raw.to_i
-        return nil if rating_value <= 0
+      # @return [Hash, nil] The Rating object, or nil when there is no rating.
+      # @raise [Jekyll::Errors::FatalException] For a malformed rating (see RatingParser).
+      def self.build_rating_entity(rating_value_raw, best_rating: '5', worst_rating: '1', source: nil)
+        rating_value = Jekyll::Infrastructure::RatingParser.parse(rating_value_raw, source: source)
+        return nil unless rating_value
 
         {
           '@type' => 'Rating',

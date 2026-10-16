@@ -14,6 +14,7 @@ class TestCheckFeeds < Minitest::Test
   def test_valid_atom_feed_passes
     in_fixture_dir do |dir|
       write_fixture(dir, '_site/feed.xml', atom_feed(count: 3))
+      write_fixture(dir, '_site/feed/books.xml', atom_feed(count: 2))
 
       output, status = run_bin_script(SCRIPT, dir)
 
@@ -40,7 +41,8 @@ class TestCheckFeeds < Minitest::Test
       output, status = run_bin_script(SCRIPT, dir)
 
       refute_predicate status, :success?
-      assert_includes output, 'no feed XML files found'
+      assert_includes output, '_site/feed.xml'
+      assert_includes output, 'missing'
     end
   end
 
@@ -79,6 +81,7 @@ class TestCheckFeeds < Minitest::Test
   def test_non_feed_xml_is_ignored
     in_fixture_dir do |dir|
       write_fixture(dir, '_site/feed.xml', atom_feed(count: 1))
+      write_fixture(dir, '_site/feed/books.xml', atom_feed(count: 1))
       # sitemap.xml has no <feed>/<rss> root, so it must not be validated as
       # a feed — it legitimately has no <entry> elements.
       write_fixture(dir, '_site/sitemap.xml', "<?xml version=\"1.0\"?>\n<urlset><url><loc>/</loc></url></urlset>\n")
@@ -87,6 +90,70 @@ class TestCheckFeeds < Minitest::Test
 
       assert_predicate status, :success?, output
       refute_includes output, 'sitemap.xml'
+    end
+  end
+
+  # --- Declared feed list (A21) ---
+
+  def test_missing_expected_feed_fails_naming_it
+    in_fixture_dir do |dir|
+      write_fixture(dir, '_site/feed.xml', atom_feed(count: 2))
+
+      output, status = run_bin_script(SCRIPT, dir)
+
+      refute_predicate status, :success?
+      assert_includes output, 'feed/books.xml'
+    end
+  end
+
+  def test_truncated_expected_feed_fails
+    in_fixture_dir do |dir|
+      write_fixture(dir, '_site/feed.xml', atom_feed(count: 2))
+      write_fixture(dir, '_site/feed/books.xml', atom_feed(count: 2)[0, 80])
+
+      _output, status = run_bin_script(SCRIPT, dir)
+
+      refute_predicate status, :success?
+    end
+  end
+
+  def test_non_xml_expected_feed_fails
+    in_fixture_dir do |dir|
+      write_fixture(dir, '_site/feed.xml', atom_feed(count: 2))
+      write_fixture(dir, '_site/feed/books.xml', html_page)
+
+      output, status = run_bin_script(SCRIPT, dir)
+
+      refute_predicate status, :success?
+      assert_includes output, 'feed/books.xml'
+    end
+  end
+
+  def test_rss_at_expected_path_fails_as_not_atom
+    in_fixture_dir do |dir|
+      write_fixture(dir, '_site/feed.xml', atom_feed(count: 2))
+      write_fixture(
+        dir,
+        '_site/feed/books.xml',
+        "<?xml version=\"1.0\"?>\n<rss version=\"2.0\"><channel><item><title>A</title></item></channel></rss>\n",
+      )
+
+      output, status = run_bin_script(SCRIPT, dir)
+
+      refute_predicate status, :success?
+      assert_includes output, 'expected Atom'
+    end
+  end
+
+  def test_feed_element_outside_atom_namespace_fails
+    in_fixture_dir do |dir|
+      write_fixture(dir, '_site/feed.xml', atom_feed(count: 2))
+      write_fixture(dir, '_site/feed/books.xml', "<?xml version=\"1.0\"?>\n<feed><entry/></feed>\n")
+
+      output, status = run_bin_script(SCRIPT, dir)
+
+      refute_predicate status, :success?
+      assert_includes output, 'expected Atom'
     end
   end
 end

@@ -138,4 +138,24 @@ class TestTagArgumentUtils < Minitest::Test
     ctx = create_context({ 'flag' => true })
     assert_equal true, Jekyll::Infrastructure::TagArgumentUtils.resolve_boolean('flag', ctx)
   end
+
+  def test_resolve_boolean_padded_quoted_false_returns_false
+    ctx = create_context
+    assert_equal false, Jekyll::Infrastructure::TagArgumentUtils.resolve_boolean('" false "', ctx)
+    assert_equal false, Jekyll::Infrastructure::TagArgumentUtils.resolve_boolean("' FALSE'", ctx)
+  end
+
+  # --- false_value? ---
+
+  def test_false_value_ignores_case_and_surrounding_whitespace
+    ['false', 'FALSE', ' false ', "\tFalse\n", false].each do |value|
+      assert Jekyll::Infrastructure::TagArgumentUtils.false_value?(value), value.inspect
+    end
+  end
+
+  def test_false_value_rejects_everything_else
+    [nil, '', 'true', 'no', 'f alse', 'falsey', true, 0].each do |value|
+      refute Jekyll::Infrastructure::TagArgumentUtils.false_value?(value), value.inspect
+    end
+  end
 end

@@ -5,6 +5,7 @@ from pathlib import Path
 
 import publish
 import pytest
+import requests
 import yaml
 from publish import (
     AtprotoClient,
@@ -1549,6 +1550,52 @@ class TestPublicationRecordSync:
         put_calls = [c for c in transport.calls if "putRecord" in c[1]]
         assert put_calls == []
 
+    def test_drifted_publication_without_cid_is_not_written(self, tmp_path: Path) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+        stale = dict(PUB_RECORD_RESPONSE["value"], name="Old Name")
+        transport.routes["getRecord"] = MockResponse({"uri": PUB_URI, "value": stale})
+        transport.push({"records": []})  # listRecords, if the sync gets that far
+
+        with pytest.raises(publish.PublishError, match="cid"):
+            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
+
+        assert [c for c in transport.calls if "putRecord" in c[1]] == []
+
+    def test_invalid_local_document_blocks_publication_update(self, tmp_path: Path) -> None:
+        (tmp_path / "2025-01-01-post.md").write_text("---\ntitle: Post\nslug: custom\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        stale = dict(PUB_RECORD_RESPONSE["value"], name="Old Name")
+        transport.routes["getRecord"] = MockResponse(
+            {"uri": PUB_URI, "cid": "oldcid", "value": stale}
+        )
+        transport.push({})  # putRecord (publication), if attempted
+
+        with pytest.raises(publish.PublishError, match=r"2025-01-01-post\.md"):
+            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
+
+        assert [c for c in transport.calls if "putRecord" in c[1]] == []
+
+    def test_publication_swap_conflict_aborts_with_clear_message(self, tmp_path: Path) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+        stale = dict(PUB_RECORD_RESPONSE["value"], name="Old Name")
+        transport.routes["getRecord"] = MockResponse(
+            {"uri": PUB_URI, "cid": "oldcid", "value": stale}
+        )
+        transport.push(
+            {"error": "InvalidSwap", "message": "Record was at bafy-new"}, status_code=400
+        )
+
+        with pytest.raises(publish.PublishError) as exc_info:
+            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
+
+        message = str(exc_info.value)
+        assert "InvalidSwap" in message
+        assert "publication" in message
+        assert [c for c in transport.calls if "listRecords" in c[1]] == []
+
 
 class TestDocumentUpdateCAS:
     def test_update_passes_swap_cid(self, tmp_path: Path) -> None:
@@ -1762,3 +1809,281 @@ class TestWellKnownInSite:
     def test_no_expected_uri_skips_check(self, tmp_path: Path) -> None:
         posts, site = self._site(tmp_path)
         assert validate_documents(posts, site_dir=site) is True
+
+
+# ---------------------------------------------------------------------------
+# Credential-free dry run: read-only client
+# ---------------------------------------------------------------------------
+
+
+CONFIGURED_DID = "did:plc:y5qiqqtzjmlwggzuttldivxq"
+
+
+def _dry_run_transport(monkeypatch: pytest.MonkeyPatch) -> MockTransport:
+    """Serve the publication and an empty document list to main()."""
+    transport = MockTransport()
+    transport.routes["createSession"] = MockResponse(LOGIN_RESPONSE)
+    transport.routes["getRecord"] = MockResponse(PUB_RECORD_RESPONSE)
+    transport.routes["listRecords"] = MockResponse({"records": []})
+    monkeypatch.setattr(publish.requests, "Session", lambda: transport)
+    monkeypatch.setattr(publish, "load_config", lambda: TEST_CONFIG)
+    return transport
+
+
+def _run_main(argv: list[str]) -> int:
+    try:
+        publish.main(argv)
+    except SystemExit as exc:
+        return exc.code
+    return 0
+
+
+def _publish_argv(tmp_path: Path, data_out: Path, *extra: str) -> list[str]:
+    posts = tmp_path / "posts"
+    books = tmp_path / "books"
+    posts.mkdir(exist_ok=True)
+    books.mkdir(exist_ok=True)
+    return [
+        "publish",
+        "--posts-dir",
+        str(posts),
+        "--books-dir",
+        str(books),
+        "--data-out",
+        str(data_out),
+        *extra,
+    ]
+
+
+class TestCredentialFreeDryRun:
+    def test_dry_run_needs_no_credentials(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys
+    ) -> None:
+        monkeypatch.delenv("BSKY_HANDLE", raising=False)
+        monkeypatch.delenv("BSKY_APP_PASSWORD", raising=False)
+        transport = _dry_run_transport(monkeypatch)
+        data_out = tmp_path / "out.json"
+
+        code = _run_main(_publish_argv(tmp_path, data_out, "--dry-run"))
+
+        assert code == 0, capsys.readouterr().err
+        assert [c for c in transport.calls if "createSession" in c[1]] == []
+        assert [c for c in transport.calls if c[0] == "POST"] == []
+        assert not data_out.exists()
+
+    def test_dry_run_ignores_credentials_when_set(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys
+    ) -> None:
+        # The dry run must not depend on the caller's environment.
+        monkeypatch.setenv("BSKY_HANDLE", "handle.bsky.social")
+        monkeypatch.setenv("BSKY_APP_PASSWORD", "password")
+        transport = _dry_run_transport(monkeypatch)
+
+        code = _run_main(_publish_argv(tmp_path, tmp_path / "out.json", "--dry-run"))
+
+        assert code == 0, capsys.readouterr().err
+        assert [c for c in transport.calls if "createSession" in c[1]] == []
+
+    def test_publish_without_dry_run_still_requires_credentials(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys
+    ) -> None:
+        monkeypatch.delenv("BSKY_HANDLE", raising=False)
+        monkeypatch.delenv("BSKY_APP_PASSWORD", raising=False)
+        transport = _dry_run_transport(monkeypatch)
+
+        code = _run_main(_publish_argv(tmp_path, tmp_path / "out.json"))
+
+        assert code == 1
+        assert "BSKY_HANDLE" in capsys.readouterr().err
+        assert transport.calls == []
+
+
+class TestReadOnlyClient:
+    class HeaderRecordingTransport(MockTransport):
+        def __init__(self) -> None:
+            super().__init__()
+            self.get_headers: list[dict | None] = []
+
+        def get(self, url, params=None, headers=None, timeout=None):
+            self.get_headers.append(headers)
+            return super().get(url, params=params, headers=headers, timeout=timeout)
+
+    def test_list_records_sends_no_authorization(self) -> None:
+        transport = self.HeaderRecordingTransport()
+        client = AtprotoClient.read_only("https://bsky.social", CONFIGURED_DID, _session=transport)
+        transport.push({"records": [{"uri": DOC_URI, "value": {}}], "cursor": "c1"})
+        transport.push({"records": [{"uri": DOC_URI, "value": {}}]})
+
+        client.list_records("site.standard.document")
+
+        assert len(transport.get_headers) == 2
+        for headers in transport.get_headers:
+            assert "Authorization" not in (headers or {})
+        assert all(c[2]["repo"] == CONFIGURED_DID for c in transport.calls)
+
+    @pytest.mark.parametrize(
+        ("method", "args"),
+        [
+            ("create_record", ("site.standard.document", {})),
+            ("put_record", ("site.standard.document", "rk", {})),
+            ("delete_record", ("site.standard.document", "rk")),
+        ],
+    )
+    def test_writes_refused_before_any_request(self, method: str, args: tuple) -> None:
+        transport = MockTransport()
+        client = AtprotoClient.read_only("https://bsky.social", CONFIGURED_DID, _session=transport)
+
+        with pytest.raises(publish.PublishError, match=f"read-only client: refusing {method}"):
+            getattr(client, method)(*args)
+        assert transport.calls == []
+
+
+class TestAmbientCredentials:
+    """
+    The client's own requests.Session, as Requests prepares each request.
+    MockTransport replaces the session, so it cannot see what Requests adds
+    from the environment, such as a .netrc entry for the host.
+    """
+
+    class CaptureAdapter(requests.adapters.BaseAdapter):
+        def __init__(self) -> None:
+            super().__init__()
+            self.responses = {
+                "createSession": LOGIN_RESPONSE,
+                "getRecord": PUB_RECORD_RESPONSE,
+                "listRecords": {"records": []},
+                "createRecord": {"uri": DOC_URI},
+                "putRecord": {},
+            }
+            self.sent: dict[str, str | None] = {}
+
+        def send(self, request, **kwargs):
+            endpoint = request.url.split("?")[0].rsplit(".", 1)[1]
+            self.sent[endpoint] = request.headers.get("Authorization")
+            response = requests.Response()
+            response.status_code = 200
+            response._content = json.dumps(self.responses[endpoint]).encode()
+            response.request = request
+            return response
+
+        def close(self) -> None:
+            pass
+
+    @pytest.fixture
+    def adapter(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
+        netrc = tmp_path / "netrc"
+        netrc.write_text("machine bsky.social login netrc-user password netrc-pass\n")
+        netrc.chmod(0o600)
+        monkeypatch.setenv("NETRC", str(netrc))
+
+        adapter = self.CaptureAdapter()
+        real_session = requests.Session
+
+        def session_with_adapter():
+            session = real_session()
+            session.mount("https://", adapter)
+            return session
+
+        monkeypatch.setattr(publish.requests, "Session", session_with_adapter)
+        return adapter
+
+    def test_read_only_client_ignores_netrc(self, adapter) -> None:
+        client = AtprotoClient.read_only("https://bsky.social", CONFIGURED_DID)
+
+        client.get_record(CONFIGURED_DID, "site.standard.publication", "rkeypub")
+        client.list_records("site.standard.document")
+
+        assert adapter.sent == {"getRecord": None, "listRecords": None}
+
+    def test_logged_in_client_ignores_netrc(self, adapter) -> None:
+        client = AtprotoClient("https://bsky.social", "handle.bsky.social", "password")
+
+        client.list_records("site.standard.document")
+        client.create_record("site.standard.document", {})
+        client.put_record("site.standard.document", "rk", {}, swap_cid="cid1")
+
+        assert adapter.sent == {
+            "createSession": None,
+            "listRecords": "Bearer token-abc",
+            "createRecord": "Bearer token-abc",
+            "putRecord": "Bearer token-abc",
+        }
+
+
+class TestDidFromPublicationUri:
+    def test_configured_uri(self) -> None:
+        uri = get_publication_uri(load_config())
+        assert publish.did_from_publication_uri(uri) == CONFIGURED_DID
+
+    @pytest.mark.parametrize(
+        "uri",
+        [
+            "at://alexgude.com/site.standard.publication/3mqrj32i3mm2t",
+            f"{CONFIGURED_DID}/site.standard.publication/3mqrj32i3mm2t",
+            "",
+        ],
+    )
+    def test_rejects_non_did_uris(self, uri: str) -> None:
+        with pytest.raises(publish.PublishError):
+            publish.did_from_publication_uri(uri)
+
+
+# ---------------------------------------------------------------------------
+# CI wiring: branch dry run and main-only publish
+# ---------------------------------------------------------------------------
+
+
+WORKFLOW = Path(__file__).resolve().parents[2] / ".github" / "workflows" / "jekyll.yml"
+
+
+def _workflow_steps(job: str) -> list[dict]:
+    workflow = yaml.safe_load(WORKFLOW.read_text(encoding="utf-8"))
+    return workflow["jobs"][job]["steps"]
+
+
+def _step(steps: list[dict], name: str) -> dict:
+    matches = [s for s in steps if s.get("name") == name]
+    assert len(matches) == 1, f"expected one {name!r} step, found {len(matches)}"
+    return matches[0]
+
+
+class TestWorkflowDryRun:
+    def test_branch_ci_runs_the_dry_run_after_validate(self) -> None:
+        steps = _workflow_steps("test")
+        names = [s.get("name") for s in steps]
+        assert "Dry-run AT Protocol publish" in names
+        validate_at = names.index("Validate posts for AT Protocol publish")
+        assert names[validate_at + 1] == "Dry-run AT Protocol publish"
+
+        step = steps[validate_at + 1]
+        assert step["if"] == "github.ref != 'refs/heads/main'"
+        assert step["working-directory"] == "_scripts"
+        assert step["run"].split() == [
+            "uv",
+            "run",
+            "python",
+            "atproto/publish.py",
+            "publish",
+            "--posts-dir",
+            "../_posts",
+            "--books-dir",
+            "../_books",
+            "--data-out",
+            '"$RUNNER_TEMP/standard_site.json"',
+            "--dry-run",
+        ]
+        # Blocking: a failed dry run fails the branch.
+        assert "continue-on-error" not in step
+
+    def test_branch_dry_run_gets_no_secrets(self) -> None:
+        step = _step(_workflow_steps("test"), "Dry-run AT Protocol publish")
+        assert "env" not in step
+        text = yaml.safe_dump(step)
+        assert "secrets" not in text
+        assert "BSKY_" not in text
+
+    def test_real_publish_stays_main_only(self) -> None:
+        step = _step(_workflow_steps("build"), "Publish standard.site records")
+        assert step["if"] == "github.ref == 'refs/heads/main' && inputs.skip_publish != true"
+        assert "--dry-run" not in step["run"]
+        assert step["env"]["BSKY_APP_PASSWORD"] == "${{ secrets.BSKY_APP_PASSWORD }}"

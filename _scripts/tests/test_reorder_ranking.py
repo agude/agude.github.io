@@ -1,20 +1,12 @@
-"""Tests for ranking/reorder_ranking.py pure functions."""
+"""Tests for ranking/reorder_ranking.py."""
+
+import json
 
 import pytest
-from reorder_ranking import format_title_for_yaml, parse_ranked_list
-
-
-class TestFormatTitleForYaml:
-    def test_plain_title(self):
-        assert format_title_for_yaml("Hyperion") == "Hyperion"
-
-    def test_title_with_colon_gets_quoted(self):
-        result = format_title_for_yaml("Star Wars: A New Hope")
-        assert result == '"Star Wars: A New Hope"'
-
-    def test_title_starting_with_quote(self):
-        result = format_title_for_yaml('"Repent, Harlequin!"')
-        assert result.startswith('"')
+import reorder_ranking
+import yaml
+from ranking_tree import REPO_ROOT, build_tree, point_module_at
+from reorder_ranking import parse_ranked_list
 
 
 class TestParseRankedList:
@@ -62,3 +54,135 @@ class TestParseRankedList:
         path.write_text("No front matter at all.")
         with pytest.raises(SystemExit):
             parse_ranked_list(path)
+
+
+class TestRepositoryPaths:
+    def test_repo_root_is_repository_root(self):
+        assert reorder_ranking.REPO_ROOT == REPO_ROOT
+
+    def test_default_paths_exist(self):
+        assert reorder_ranking.BOOKS_DIR.is_dir()
+        assert reorder_ranking.BY_RATING.is_file()
+
+
+class TestMain:
+    def test_regroups_ranked_list_by_front_matter_rating(self, tmp_path, monkeypatch):
+        build_tree(
+            tmp_path,
+            "  # 5 Stars\n  - Book One\n  - Book Two\n  # 4 Stars\n  - Book Three\n",
+            {
+                "book_one": ("Book One", 4),
+                "book_two": ("Book Two", 5),
+                "book_three": ("Book Three", 5),
+            },
+        )
+        point_module_at(monkeypatch, reorder_ranking, tmp_path)
+
+        reorder_ranking.main()
+
+        assert (tmp_path / "books" / "by_rating.md").read_text() == (
+            "---\ntitle: By Rating\nranked_list:\n"
+            "  # 5 Stars\n  - Book Two\n  - Book Three\n"
+            "  # 4 Stars\n  - Book One\n"
+            "layout: page\n---\n\nBody.\n"
+        )
+
+
+def front_matter_and_body(path) -> tuple[str, str]:
+    """Split a file at its delimiter lines, independently of the code under test."""
+    lines = path.read_text().splitlines(keepends=True)
+    assert lines[0] == "---\n"
+    end = lines.index("---\n", 1)
+    return "".join(lines[1:end]), "".join(lines[end + 1 :])
+
+
+def colon_titles_in_real_ranked_list() -> list[str]:
+    front, _ = front_matter_and_body(REPO_ROOT / "books" / "by_rating.md")
+    return [t for t in yaml.safe_load(front)["ranked_list"] if ": " in t]
+
+
+ROUND_TRIP_TITLES = [
+    "No",
+    "Yes",
+    "null",
+    "Book #1",
+    "A: B",
+    'He said "hi"',
+    "'Quoted'",
+    "123",
+    *colon_titles_in_real_ranked_list(),
+]
+
+
+def ranked_list_text(titles: list[str]) -> str:
+    return "  # 5 Stars\n" + "".join(f"  - {json.dumps(t)}\n" for t in titles)
+
+
+def read_ranked_list(root) -> list:
+    front, _ = front_matter_and_body(root / "books" / "by_rating.md")
+    return yaml.safe_load(front)["ranked_list"]
+
+
+class TestRankedListRoundTrip:
+    def test_rewrite_preserves_every_title(self, tmp_path, monkeypatch):
+        books = {f"book_{i}": (json.dumps(t), 5) for i, t in enumerate(ROUND_TRIP_TITLES)}
+        build_tree(tmp_path, ranked_list_text(ROUND_TRIP_TITLES), books)
+        point_module_at(monkeypatch, reorder_ranking, tmp_path)
+
+        reorder_ranking.main()
+
+        result = read_ranked_list(tmp_path)
+        assert result == ROUND_TRIP_TITLES
+        assert all(isinstance(title, str) for title in result)
+
+    def test_rewrite_preserves_triple_dash_title(self, tmp_path, monkeypatch):
+        titles = ["Book One", "A---B", "Book Two"]
+        build_tree(
+            tmp_path,
+            "  # 5 Stars\n" + "".join(f"  - {title}\n" for title in titles),
+            {"book_one": ("Book One", 5), "a_b": ("A---B", 5), "book_two": ("Book Two", 5)},
+        )
+        point_module_at(monkeypatch, reorder_ranking, tmp_path)
+
+        reorder_ranking.main()
+
+        front, body = front_matter_and_body(tmp_path / "books" / "by_rating.md")
+        assert yaml.safe_load(front) == {
+            "title": "By Rating",
+            "ranked_list": titles,
+            "layout": "page",
+        }
+        assert body == "\nBody.\n"
+
+
+class TestUnresolvedEntries:
+    def test_unmatched_title_stops_before_writing(self, tmp_path, monkeypatch):
+        build_tree(
+            tmp_path,
+            ranked_list_text(["Book One", "Ghost Book"]),
+            {"book_one": ("Book One", 4)},
+        )
+        point_module_at(monkeypatch, reorder_ranking, tmp_path)
+        by_rating = tmp_path / "books" / "by_rating.md"
+        original = by_rating.read_text()
+
+        with pytest.raises(SystemExit) as excinfo:
+            reorder_ranking.main()
+
+        assert excinfo.value.code not in (0, None)
+        assert "Ghost Book" in str(excinfo.value.code)
+        assert by_rating.read_text() == original
+
+    def test_unrated_book_stops_before_writing(self, tmp_path, monkeypatch):
+        build_tree(tmp_path, ranked_list_text(["Book One"]), {"book_one": ("Book One", 4)})
+        book = tmp_path / "_books" / "book_one.md"
+        book.write_text("---\ntitle: Book One\n---\n\nNo rating.\n")
+        point_module_at(monkeypatch, reorder_ranking, tmp_path)
+        by_rating = tmp_path / "books" / "by_rating.md"
+        original = by_rating.read_text()
+
+        with pytest.raises(SystemExit) as excinfo:
+            reorder_ranking.main()
+
+        assert "Book One" in str(excinfo.value.code)
+        assert by_rating.read_text() == original

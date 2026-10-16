@@ -17,7 +17,10 @@
 #
 # at:// URIs (standard.site link tags) cause lychee parse errors
 # because the scheme is not HTTP. Lychee has no way to suppress
-# pre-parse failures, so the report is filtered after the run.
+# pre-parse failures, so _scripts/ci/lychee_report.py filters its JSON
+# report after the run. The script, not lychee's exit code, decides the
+# result: 0 clean, 1 broken links (issue opened), 2 no usable report
+# (lychee crashed or wrote nothing). Any non-zero result fails the run.
 name: External Link Check
 
 on:
@@ -72,30 +75,35 @@ jobs:
             --timeout 20
             --max-retries 2
             '_site/**/*.html'
+          format: json
+          output: ./lychee/out.json
           fail: false
 
-      - name: Filter at:// parse errors from report
-        if: steps.lychee.outputs.exit_code != 0
+      # always(): a crashed lychee step leaves no report, and the script
+      # turns that into exit 2 instead of a silent pass.
+      - name: Summarize lychee report
+        if: always()
+        id: report
         run: |
-          grep -v "Cannot parse 'at://" ./lychee/out.md > ./lychee/filtered.md || true
-          if grep -qE '^\[ERROR\]|^\[TIMEOUT\]|^\[[0-9]{3}\]' ./lychee/filtered.md; then
-            echo "has_errors=true" >> "$GITHUB_OUTPUT"
-          fi
-          mv ./lychee/filtered.md ./lychee/out.md
-        id: filter
+          set +e
+          python3 _scripts/ci/lychee_report.py ./lychee/out.json ./lychee/issue.md >> "$GITHUB_OUTPUT"
+          echo "exit_code=$?" >> "$GITHUB_OUTPUT"
 
       - name: Get report month
-        if: steps.filter.outputs.has_errors == 'true'
+        if: always() && steps.report.outputs.has_errors == 'true'
         id: date
         run: echo "month=$(date -u +%Y-%m)" >> "$GITHUB_OUTPUT"
 
       - name: Open issue with report
-        if: steps.filter.outputs.has_errors == 'true'
+        if: always() && steps.report.outputs.has_errors == 'true'
         uses: peter-evans/create-issue-from-file@v6
         with:
           title: "Broken external links — ${{ steps.date.outputs.month }}"
-          content-filepath: ./lychee/out.md
+          content-filepath: ./lychee/issue.md
 
-      - name: Fail run if links are broken
-        if: steps.filter.outputs.has_errors == 'true'
-        run: exit 1
+      # An unset exit_code (the script never ran) also fails here.
+      - name: Fail run if links are broken or the report is unusable
+        if: always() && steps.report.outputs.exit_code != '0'
+        run: |
+          echo "lychee_report.py exit code: '${{ steps.report.outputs.exit_code }}'"
+          exit 1

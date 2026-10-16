@@ -3,7 +3,7 @@
 require 'date'
 require_relative '../../../infrastructure/links/link_resolver_support'
 require_relative '../../../infrastructure/typography_utils'
-require_relative '../../../infrastructure/link_cache/author_lookup'
+require_relative '../../../infrastructure/link_cache/book_candidate_selector'
 require_relative 'book_preview_renderer'
 
 module Jekyll
@@ -14,9 +14,9 @@ module Jekyll
         include Jekyll::Infrastructure::Links::LinkResolverSupport
 
         Typography = Jekyll::Infrastructure::TypographyUtils
-        AuthorLookup = Jekyll::Infrastructure::LinkCache::AuthorLookup
+        BookSelector = Jekyll::Infrastructure::LinkCache::BookCandidateSelector
         PreviewRenderer = Jekyll::Books::Core::BookPreviewRenderer
-        private_constant :Typography, :AuthorLookup, :PreviewRenderer
+        private_constant :Typography, :BookSelector, :PreviewRenderer
 
         # Renders the book link/cite HTML directly from title and URL data.
         # Used when the book data is already known (e.g., from backlinks).
@@ -227,17 +227,18 @@ module Jekyll
           tracker[@norm_title][:sources] << page['url']
         end
 
+        # The author rule lives in BookCandidateSelector, which
+        # BacklinkBuilder shares; this method only logs and raises.
         def filter_candidates(candidates, author_filter)
           # Apply date filter first if provided
           candidates = filter_by_date(candidates) if @date_filter
           return log_date_mismatch if candidates.empty? && @date_filter
 
-          if author_filter && !author_filter.to_s.strip.empty?
-            filter_by_author(candidates, author_filter.to_s.strip)
-          elsif candidates.length > 1
-            raise_ambiguous_error(candidates)
-          else
-            candidates.first
+          authors = @site.data.dig('link_cache', 'authors') || {}
+          case (result = BookSelector.select_book(candidates, author_filter, authors))
+          when :ambiguous then raise_ambiguous_error(candidates)
+          when :author_mismatch then log_author_mismatch(author_filter.to_s.strip)
+          else result
           end
         end
 
@@ -279,22 +280,6 @@ module Jekyll
             identifiers: { Title: @title, DateFilter: @date_filter.to_s },
             level: :warn,
           )
-        end
-
-        def filter_by_author(candidates, author_filter)
-          ac = @site.data.dig('link_cache', 'authors') || {}
-          target = AuthorLookup.canonical_author(author_filter, ac)
-
-          found = candidates.find do |book|
-            book['authors'].any? do |auth|
-              bc = AuthorLookup.canonical_author(auth, ac)
-              bc && target && bc.casecmp(target).zero?
-            end
-          end
-
-          return log_author_mismatch(author_filter) unless found
-
-          found
         end
 
         def log_author_mismatch(author_filter)

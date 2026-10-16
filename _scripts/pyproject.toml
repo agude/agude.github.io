@@ -43,4 +43,4 @@ ignore = [
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["content", "diagnostics", "metadata", "ranking", "skills", "atproto"]
+pythonpath = ["common", "content", "diagnostics", "metadata", "ranking", "skills", "atproto", "ci"]

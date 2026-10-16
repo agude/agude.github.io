@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../markdown_code_region_parser'
+
 module Jekyll
   module Infrastructure
     module Links
@@ -7,10 +9,16 @@ module Jekyll
       #
       # Ensures all links to books, authors, and series use custom Liquid tags
       # rather than raw links, raising fatal errors if violations are found.
+      # Fenced, indented, and inline code is masked first, so code examples
+      # that show a raw link are not flagged. An `href` matches in double
+      # quotes, single quotes, or unquoted.
       #
       # @validator Raw Markdown/HTML links to items that should use custom
       #   tags.
       class LinkValidator
+        HTML_HREF = /<a\s+(?:[^>]*?\s+)?href\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/
+        private_constant :HTML_HREF
+
         def initialize(site, maps)
           @site = site
           @maps = maps
@@ -29,17 +37,29 @@ module Jekyll
         def check_doc(doc, found_raw_links)
           return unless doc.respond_to?(:content) && doc.content
 
-          check_regex(doc, /\[[^\]]+\]\(([^)\s]+)/, 'Markdown', found_raw_links)
-          check_regex(doc, /^ {0,3}\[[^\]]+\]:\s*<?(\S+?)>?(?:\s|$)/, 'Markdown (reference)', found_raw_links)
-          check_regex(doc, /<a\s+(?:[^>]*?\s+)?href="([^"]+)"/, 'HTML', found_raw_links)
+          text = mask_code(doc.content)
+          check_regex(doc, text, /\[[^\]]+\]\(([^)\s]+)/, 'Markdown', found_raw_links)
+          check_regex(doc, text, /^ {0,3}\[[^\]]+\]:\s*<?(\S+?)>?(?:\s|$)/, 'Markdown (reference)', found_raw_links)
+          check_regex(doc, text, HTML_HREF, 'HTML', found_raw_links)
         end
 
-        def check_regex(doc, regex, type, found_raw_links)
-          doc.content.scan(regex).each do |match|
-            url = match.first&.split('#')&.first
+        # Blanks out code regions, keeping newlines so line-anchored patterns
+        # and the remaining offsets are unchanged.
+        def mask_code(content)
+          masked = content.dup
+          Jekyll::Infrastructure::MarkdownCodeRegionParser.protected_code_ranges(content).each do |from, to|
+            masked[from...to] = content[from...to].gsub(/[^\n]/, ' ')
+          end
+          masked
+        end
+
+        def check_regex(doc, text, regex, type, found_raw_links)
+          text.scan(regex).each do |groups|
+            raw = groups.compact.first
+            url = raw&.split('#')&.first
             if url && known_url?(url)
               found_raw_links[doc.relative_path] ||= []
-              found_raw_links[doc.relative_path] << "#{type}: #{match.first}"
+              found_raw_links[doc.relative_path] << "#{type}: #{raw}"
             end
           end
         end

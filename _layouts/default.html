@@ -14,7 +14,8 @@ layout: compress
     {% include sidebar.html %}
 
     <main id="main-content" class="content container">
-      {% include anchor_headings.html h_min=2 html=content generateId=true anchorBody="<svg
+      {% include anchor_headings.html h_min=2 html=content generateId=true
+        anchorAttrs='aria-label="Permalink to %heading%"' anchorBody="<svg
         class='anchor-link-img' viewBox='0 0 16 16' version='1.1' width='16'
         height='32' aria-hidden='true'><path fill-rule='evenodd' d='M7.775
         3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0

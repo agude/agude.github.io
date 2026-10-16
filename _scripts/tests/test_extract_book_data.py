@@ -2,6 +2,7 @@
 
 import json
 
+import extract_book_data
 import pytest
 from extract_book_data import (
     carry_over_book,
@@ -10,6 +11,7 @@ from extract_book_data import (
     load_existing_state,
     parse_front_matter,
 )
+from ranking_tree import build_tree
 
 
 def seeded_book(**overrides):
@@ -120,6 +122,12 @@ class TestParseFrontMatter:
         fm, _ = parse_front_matter(content)
         assert fm["title"] == "Second"
 
+    def test_triple_dash_inside_value(self):
+        content = "---\ntitle: A---B\nrating: 5\n---\nBody.\n"
+        fm, body = parse_front_matter(content)
+        assert fm == {"title": "A---B", "rating": 5}
+        assert body == "Body.\n"
+
 
 class TestExtractParagraphs:
     def test_two_paragraphs(self):
@@ -166,3 +174,25 @@ class TestCleanLiquid:
     def test_empty_string(self):
         result = clean_liquid("")
         assert result == ""
+
+
+class TestMain:
+    def test_reads_triple_dash_title(self, tmp_path, monkeypatch):
+        build_tree(
+            tmp_path,
+            "  # 5 Stars\n  - A---B\n  # 4 Stars\n  - Book Two\n",
+            {"a_b": ("A---B", 5), "book_two": ("Book Two", 4)},
+        )
+        monkeypatch.setattr(extract_book_data, "BOOKS_DIR", tmp_path / "_books")
+        monkeypatch.setattr(
+            extract_book_data, "BY_RATING_FILE", tmp_path / "books" / "by_rating.md"
+        )
+        monkeypatch.setattr(extract_book_data, "OUTPUT_FILE", tmp_path / "state.json")
+
+        extract_book_data.main()
+
+        state = json.loads((tmp_path / "state.json").read_text())
+        book = state["books"]["a_b"]
+        assert (book["title"], book["rating"], book["elo"]) == ("A---B", 5, 1900)
+        assert book["summary_raw"] == "Review of A---B."
+        assert state["ranked_list"] == ["a_b", "book_two"]

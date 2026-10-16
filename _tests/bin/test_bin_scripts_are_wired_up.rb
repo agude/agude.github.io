@@ -13,7 +13,9 @@ class TestBinScriptsAreWiredUp < Minitest::Test
   WORKFLOW = File.join(REPO_ROOT, '.github/workflows/jekyll.yml')
 
   # pre-commit.sh is a local git hook, not a CI gate: it drives Docker and
-  # the git index, neither of which exists inside the test container.
+  # the git index, neither of which exists inside the test container. It is
+  # tested on the host instead, by _scripts/tests/test_pre_commit.py (run by
+  # `make test-scripts`), with stub docker and uv executables.
   UNTESTED = ['pre-commit.sh'].freeze
 
   def checker_scripts

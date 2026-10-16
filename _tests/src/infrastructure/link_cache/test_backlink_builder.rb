@@ -768,3 +768,354 @@ class TestBacklinkBuilder < BacklinkBuilderTestCase
     assert_equal 'book', dual[:type], 'book_link should upgrade priority over series_link'
   end
 end
+
+# Parity between rendered link tags and backlink edges: for each tag, the
+# URL the renderer links to must be the URL the backlink builder records,
+# and a tag that renders no link must record no edge. A `link=` value the
+# builder cannot read without rendering stops the build instead.
+class TestBacklinkRendererParity < BacklinkBuilderTestCase
+  def setup
+    super
+    @target = create_doc(
+      { 'title' => 'Target', 'published' => true, 'book_authors' => ['Ann Author'] },
+      '/books/target.html',
+      'Target content.',
+    )
+    @author_page = create_doc(
+      { 'title' => 'Real Name', 'layout' => 'author_page', 'pen_names' => ['Pen Name'] },
+      '/books/authors/real-name/',
+    )
+  end
+
+  def test_book_link_with_link_text_targets_the_title
+    assert_parity("{% book_link 'Target' link_text=\"Label\" %}", '/books/target.html')
+  end
+
+  def test_author_link_with_link_false_has_no_edge
+    assert_parity('{% author_link "Real Name" link=false %}', nil)
+  end
+
+  def test_author_link_with_pen_name_targets_canonical_page
+    assert_parity('{% author_link "Pen Name" %}', '/books/authors/real-name/')
+  end
+
+  def test_author_link_with_possessive_flag_targets_same_page
+    assert_parity('{% author_link "Real Name" possessive %}', '/books/authors/real-name/')
+  end
+
+  def test_short_story_from_book_with_apostrophe_targets_that_book
+    stories = {
+      'the story' => [
+        { 'url' => '/books/first.html', 'slug' => 'the-story', 'parent_book_title' => 'First Book' },
+        { 'url' => '/books/target.html', 'slug' => 'the-story', 'parent_book_title' => "Target's Twin" },
+      ],
+    }
+    assert_parity(
+      %q({% short_story_link 'The Story' from_book="Target's Twin" %}),
+      '/books/target.html',
+      short_stories: stories,
+    )
+  end
+
+  def test_short_story_from_book_in_single_quotes_targets_that_book
+    stories = {
+      'the story' => [
+        { 'url' => '/books/first.html', 'slug' => 'the-story', 'parent_book_title' => 'First Book' },
+        { 'url' => '/books/target.html', 'slug' => 'the-story', 'parent_book_title' => 'Second Book' },
+      ],
+    }
+    assert_parity(
+      %q({% short_story_link "The Story" from_book='Second Book' %}),
+      '/books/target.html',
+      short_stories: stories,
+    )
+  end
+
+  def test_author_link_with_padded_link_false_has_no_edge
+    assert_parity('{% author_link "Real Name" link=" false " %}', nil)
+  end
+
+  # Compatibility case: matched before false_value? was shared.
+  def test_author_link_with_uppercase_link_false_has_no_edge
+    assert_parity('{% author_link "Real Name" link="FALSE" %}', nil)
+  end
+
+  def test_series_text_with_padded_link_false_has_no_edge
+    assert_series_text_parity('link=" false "')
+  end
+
+  # Compatibility case: matched before false_value? was shared.
+  def test_series_text_with_uppercase_link_false_has_no_edge
+    assert_series_text_parity('link="FALSE"')
+  end
+
+  # Liquid literals are case-sensitive: the renderer reads unquoted FALSE
+  # as an unset variable and links, so the builder must not read it as false.
+  def test_author_link_with_unquoted_uppercase_link_false_stops_the_build
+    assert_link_option_rejected('{% author_link "Real Name" link=FALSE %}', rendered: '/books/authors/real-name/')
+  end
+
+  def test_series_text_with_unquoted_uppercase_link_false_stops_the_build
+    assert_link_option_rejected('{% series_text "Test Series" link=FALSE %}', rendered: '/series/test-series/')
+  end
+
+  # The renderer reads the variable's value, false, and links nowhere, so the
+  # builder must not read the variable name as an enabled link.
+  def test_author_link_with_variable_link_stops_the_build
+    assert_link_option_rejected(
+      '{% assign some_var = false %}{% author_link "Real Name" link=some_var %}', rendered: nil,
+    )
+  end
+
+  def test_series_text_with_variable_link_stops_the_build
+    assert_link_option_rejected(
+      '{% assign some_var = false %}{% series_text "Test Series" link=some_var %}', rendered: nil,
+    )
+  end
+
+  # Compatibility cases: the unquoted literals true, false, and nil, and a
+  # quoted "false", read the same on both sides.
+  def test_series_text_with_link_false_has_no_edge
+    assert_series_text_parity('link=false')
+  end
+
+  def test_author_link_with_link_true_targets_the_page
+    assert_parity('{% author_link "Real Name" link=true %}', '/books/authors/real-name/')
+  end
+
+  def test_series_text_with_link_true_links_on_both_sides
+    assert_series_text_links('link=true')
+  end
+
+  def test_author_link_with_link_nil_targets_the_page
+    assert_parity('{% author_link "Real Name" link=nil %}', '/books/authors/real-name/')
+  end
+
+  def test_series_text_with_link_nil_links_on_both_sides
+    assert_series_text_links('link=nil')
+  end
+
+  def test_author_link_with_quoted_link_false_has_no_edge
+    assert_parity('{% author_link "Real Name" link="false" %}', nil)
+  end
+
+  def test_series_text_with_quoted_link_false_has_no_edge
+    assert_series_text_parity('link="false"')
+  end
+
+  def test_short_story_prefers_canonical_location_over_from_book
+    assert_parity(
+      '{% short_story_link "The Story" from_book="Archived Target" %}',
+      '/books/target.html',
+      **archived_story_fixture,
+    )
+  end
+
+  def test_short_story_with_unmatched_from_book_uses_canonical_location
+    assert_parity(
+      '{% short_story_link "The Story" from_book="Missing Book" %}',
+      '/books/target.html',
+      **archived_story_fixture,
+    )
+  end
+
+  def test_book_link_with_author_filter_targets_that_authors_book
+    twin_one = create_doc(
+      { 'title' => 'Twin', 'published' => true, 'book_authors' => ['First Author'] },
+      '/books/twin-one.html',
+      'One.',
+    )
+    twin_two = create_doc(
+      { 'title' => 'Twin', 'published' => true, 'book_authors' => ['Second Author'] },
+      '/books/twin-two.html',
+      'Two.',
+    )
+    assert_parity(
+      '{% book_link "Twin" author="Second Author" %}',
+      '/books/twin-two.html',
+      extra_books: [twin_one, twin_two],
+    )
+  end
+
+  private
+
+  # One story in two books: the canonical Target review and, listed first,
+  # an archived review of it published under an earlier title.
+  def archived_story_fixture
+    archived = create_doc(
+      {
+        'title' => 'Archived Target',
+        'published' => true,
+        'book_authors' => ['Ann Author'],
+        'canonical_url' => '/books/target.html',
+      },
+      '/books/target/2020.html',
+      'Archived review.',
+    )
+    stories = {
+      'the story' => [
+        { 'url' => '/books/target/2020.html', 'slug' => 'the-story', 'parent_book_title' => 'Archived Target' },
+        { 'url' => '/books/target.html', 'slug' => 'the-story', 'parent_book_title' => 'Target' },
+      ],
+    }
+    { short_stories: stories, extra_books: [archived] }
+  end
+
+  # Compares page URLs: a short-story link renders `<book url>#<slug>`,
+  # and its edge points at the book page.
+  def assert_parity(markup, expected_url, short_stories: nil, extra_books: [])
+    source = create_doc({ 'title' => 'Source', 'published' => true }, '/books/source.html', "See #{markup}.")
+    site = create_site({}, { 'books' => [@target, source, *extra_books] }, [@author_page])
+    if short_stories
+      site.data['link_cache']['short_stories'] = short_stories
+      rebuild_backlinks(site)
+    end
+
+    rendered = rendered_href(markup, site, source)&.sub(/#.*\z/, '')
+    if expected_url
+      assert_equal expected_url, rendered, 'renderer target'
+    else
+      assert_nil rendered, 'renderer target'
+    end
+    assert_equal [expected_url].compact, edge_urls(site, source), 'backlink edges'
+  end
+
+  # A series_text edge points at each book in the series, but the rendered
+  # link points at the series page, so the URLs never match. Instead, check
+  # that the fixture links on both sides without `link=`, and on neither
+  # side with the given option.
+  def assert_series_text_parity(option)
+    assert_equal ['/series/test-series/', ['/books/series-book.html']],
+                 series_text_targets('{% series_text "Test Series" %}'),
+                 'fixture links when link= is absent'
+    assert_equal [nil, []], series_text_targets(%({% series_text "Test Series" #{option} %}))
+  end
+
+  def assert_series_text_links(option)
+    assert_equal ['/series/test-series/', ['/books/series-book.html']],
+                 series_text_targets(%({% series_text "Test Series" #{option} %}))
+  end
+
+  # A link= value the builder cannot read without rendering stops the build.
+  # +rendered+ is the renderer's href for the same markup: the answer the
+  # builder would otherwise have to guess.
+  def assert_link_option_rejected(markup, rendered:)
+    href = href_outside_backlinks(markup)
+    if rendered
+      assert_equal rendered, href, 'renderer target'
+    else
+      assert_nil href, 'renderer target'
+    end
+
+    error = assert_raises(Jekyll::Errors::FatalException) do
+      link_option_site(link_option_source("See #{markup}."))
+    end
+    assert_includes error.message, '_books/source.md'
+    assert_includes error.message, 'link='
+  end
+
+  # The renderer's href for +markup+, from a site whose documents do not
+  # contain it, so building the site's backlinks does not raise.
+  def href_outside_backlinks(markup)
+    source = link_option_source('No link tags.')
+    rendered_href(markup, link_option_site(source), source)
+  end
+
+  def link_option_source(content)
+    create_doc(
+      { 'title' => 'Source', 'published' => true, 'path' => '_books/source.md' },
+      '/books/source.html',
+      content,
+    )
+  end
+
+  def link_option_site(source)
+    series_book = create_doc(
+      { 'title' => 'Series Book', 'published' => true, 'series' => 'Test Series' },
+      '/books/series-book.html',
+      'Series content.',
+    )
+    series_page = create_doc({ 'title' => 'Test Series', 'layout' => 'series_page' }, '/series/test-series/')
+    create_site({}, { 'books' => [@target, series_book, source] }, [@author_page, series_page])
+  end
+
+  def series_text_targets(markup)
+    series_book = create_doc(
+      { 'title' => 'Series Book', 'published' => true, 'series' => 'Test Series' },
+      '/books/series-book.html',
+      'Series content.',
+    )
+    series_page = create_doc({ 'title' => 'Test Series', 'layout' => 'series_page' }, '/series/test-series/')
+    source = create_doc({ 'title' => 'Source', 'published' => true }, '/books/source.html', "See #{markup}.")
+    site = create_site({}, { 'books' => [series_book, source] }, [series_page])
+    [rendered_href(markup, site, source), edge_urls(site, source)]
+  end
+
+  def edge_urls(site, source)
+    (site.data['link_cache']['forward_links'][source.url] || []).map { |link| link[:target].url }
+  end
+
+  def rendered_href(markup, site, page)
+    context = create_context({}, { site: site, page: page })
+    html = Jekyll.stub(:logger, silent_logger) { Liquid::Template.parse(markup).render!(context) }
+    html[/href="([^"]*)"/, 1]
+  end
+end
+
+# A variable option cannot be resolved without rendering. Treating it as
+# absent can record a backlink that the rendered page does not have, so the
+# builder stops the build instead. These are unsupported-input tests, not
+# renderer-parity tests.
+class TestBacklinkVariableOptions < BacklinkBuilderTestCase
+  def setup
+    super
+    @target = create_doc(
+      { 'title' => 'Target', 'published' => true, 'book_authors' => ['Ann Author'] },
+      '/books/target.html',
+      'Target content.',
+    )
+  end
+
+  # The renderer resolves some_var, finds no book by Other Author, and links
+  # nowhere; reading the variable as absent picked the only candidate.
+  def test_book_link_with_variable_author_stops_the_build
+    error = assert_variable_option_rejected(
+      '{% assign some_var = "Other Author" %}See {% book_link "Target" author=some_var %}.',
+    )
+
+    assert_includes error.message, 'book_link'
+    assert_includes error.message, 'author=some_var'
+  end
+
+  def test_short_story_link_with_variable_from_book_stops_the_build
+    stories = {
+      'the story' => [{ 'url' => '/books/target.html', 'slug' => 'the-story', 'parent_book_title' => 'Target' }],
+    }
+    error = assert_variable_option_rejected(
+      '{% assign some_var = "Target" %}See {% short_story_link "The Story" from_book=some_var %}.',
+      short_stories: stories,
+    )
+
+    assert_includes error.message, 'short_story_link'
+    assert_includes error.message, 'from_book=some_var'
+  end
+
+  private
+
+  def assert_variable_option_rejected(content, short_stories: nil)
+    source = create_doc(
+      { 'title' => 'Source', 'published' => true, 'path' => '_books/source.md' },
+      '/books/source.html',
+      content,
+    )
+    error = assert_raises(Jekyll::Errors::FatalException) do
+      if short_stories
+        create_site_with_short_stories([@target, source], short_stories)
+      else
+        create_site({}, { 'books' => [@target, source] })
+      end
+    end
+    assert_includes error.message, '_books/source.md'
+    error
+  end
+end

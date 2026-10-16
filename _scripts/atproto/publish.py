@@ -5,7 +5,10 @@ Sync blog posts and book reviews to AT Protocol via standard.site lexicons.
 Subcommands
   publish          Sync _posts/ and _books/ to PDS document records (and the
                    publication record from _config.yml); write
-                   _data/standard_site.json. Requires publication_uri.
+                   _data/standard_site.json. Requires publication_uri and
+                   BSKY_HANDLE/BSKY_APP_PASSWORD. With --dry-run it needs no
+                   credentials: it never logs in, reads only public records,
+                   refuses every write, and writes no data file.
   validate         Check posts/books parse cleanly (no network, no creds);
                    with --site-dir, cross-check derived paths against the
                    built site in both directions.
@@ -92,6 +95,18 @@ def load_config(config_path: Path = _CONFIG_FILE) -> dict:
 
 def get_publication_uri(config: dict) -> str:
     return config.get("standard_site", {}).get("publication_uri", "") or ""
+
+
+def did_from_publication_uri(uri: str) -> str:
+    """
+    Return the DID authority of an at://did:.../... URI. A handle authority
+    is rejected: resolving it would need a lookup, and the committed URI
+    always names the DID.
+    """
+    m = re.match(r"\Aat://(did:[a-z]+:[^/]+)/", uri)
+    if not m:
+        raise PublishError(f"publication_uri does not name a DID: {uri!r}")
+    return m.group(1)
 
 
 # ---------------------------------------------------------------------------
@@ -282,11 +297,31 @@ class AtprotoClient:
         password: str,
         _session: Any = None,
     ) -> None:
+        self._init_transport(pds_url, _session)
+        self._login(handle, password)
+
+    @classmethod
+    def read_only(cls, pds_url: str, did: str, _session: Any = None) -> "AtprotoClient":
+        """
+        A client that never logs in and refuses every write. getRecord and
+        listRecords are public, so a dry run needs only the repo's DID.
+        """
+        client = cls.__new__(cls)
+        client._init_transport(pds_url, _session)
+        client.did = did
+        client._read_only = True
+        return client
+
+    def _init_transport(self, pds_url: str, session: Any) -> None:
         self._pds = pds_url.rstrip("/")
-        self._http = _session if _session is not None else requests.Session()
+        self._http = session if session is not None else requests.Session()
+        # Requests otherwise reads ~/.netrc (or $NETRC) and sends that entry's
+        # credentials, replacing the bearer token on writes and adding Basic
+        # auth to calls that must carry none.
+        self._http.trust_env = False
         self.did: str = ""
         self._jwt: str = ""
-        self._login(handle, password)
+        self._read_only = False
 
     def _login(self, handle: str, password: str) -> None:
         resp = self._retry_request(
@@ -321,7 +356,15 @@ class AtprotoClient:
         raise AssertionError("unreachable")
 
     def _auth(self) -> dict:
+        if self._read_only:
+            return {}
         return {"Authorization": f"Bearer {self._jwt}"}
+
+    def _refuse_write(self, method: str) -> None:
+        # Backstop for dry runs: a missed dry_run check in sync_documents
+        # must fail here, before any request reaches the PDS.
+        if self._read_only:
+            raise PublishError(f"read-only client: refusing {method}")
 
     def list_records(self, collection: str) -> list[dict]:
         """Fetch all records in a collection, following cursor pagination."""
@@ -354,6 +397,7 @@ class AtprotoClient:
 
     def create_record(self, collection: str, record: dict) -> str:
         """Create a record and return its AT-URI."""
+        self._refuse_write("create_record")
         resp = self._http.post(
             f"{self._pds}/xrpc/com.atproto.repo.createRecord",
             json={"repo": self.did, "collection": collection, "record": record},
@@ -379,6 +423,7 @@ class AtprotoClient:
 
     def delete_record(self, collection: str, rkey: str) -> None:
         """Delete a record. Only used by the manual delete-orphans command."""
+        self._refuse_write("delete_record")
         resp = self._http.post(
             f"{self._pds}/xrpc/com.atproto.repo.deleteRecord",
             json={"repo": self.did, "collection": collection, "rkey": rkey},
@@ -395,6 +440,7 @@ class AtprotoClient:
         atomic: the PDS rejects the write if the record changed since it
         was read (another standard.site client may edit concurrently).
         """
+        self._refuse_write("put_record")
         body: dict[str, Any] = {
             "repo": self.did,
             "collection": collection,
@@ -548,24 +594,6 @@ def sync_documents(
 
     remote_publication = _verify_publication(client, publication_uri)
 
-    # --- Keep the publication record itself in sync with _config.yml ---
-    desired_pub = desired_publication_record(config)
-    remote_pub_value = remote_publication["value"]
-    pub_subset = {k: v for k, v in remote_pub_value.items() if k in PUBLICATION_MANAGED_FIELDS}
-    if pub_subset != desired_pub:
-        merged_pub = dict(remote_pub_value)
-        merged_pub.update(desired_pub)
-        if dry_run:
-            print("[dry-run] Would update publication record")
-        else:
-            client.put_record(
-                "site.standard.publication",
-                _extract_rkey(publication_uri),
-                merged_pub,
-                swap_cid=remote_publication.get("cid"),
-            )
-            print("Updated publication record from _config.yml")
-
     # --- Collect local documents ---
     # Shares _collect_documents with validate so the CI gate and the
     # publisher cannot drift; any per-document error aborts the sync.
@@ -577,6 +605,41 @@ def sync_documents(
             raise AssertionError("collector yielded no record and no errors")
         rec["site"] = publication_uri
         local[rec["path"]] = (doc_file, rec)
+
+    # --- Keep the publication record itself in sync with _config.yml ---
+    # Runs only after every local document validated, and only as a
+    # compare-and-swap: getRecord's cid is optional in the lexicon, and a
+    # write without it could overwrite a concurrent edit.
+    desired_pub = desired_publication_record(config)
+    remote_pub_value = remote_publication["value"]
+    pub_subset = {k: v for k, v in remote_pub_value.items() if k in PUBLICATION_MANAGED_FIELDS}
+    if pub_subset != desired_pub:
+        pub_cid = remote_publication.get("cid")
+        if not pub_cid:
+            raise PublishError(
+                "getRecord returned no cid for the publication record; "
+                "refusing a non-atomic overwrite"
+            )
+        merged_pub = dict(remote_pub_value)
+        merged_pub.update(desired_pub)
+        if dry_run:
+            print("[dry-run] Would update publication record")
+        else:
+            try:
+                client.put_record(
+                    "site.standard.publication",
+                    _extract_rkey(publication_uri),
+                    merged_pub,
+                    swap_cid=pub_cid,
+                )
+            except PublishError as exc:
+                hint = (
+                    " It changed on the PDS after it was read; rerun to retry."
+                    if "InvalidSwap" in str(exc)
+                    else ""
+                )
+                raise PublishError(f"Updating the publication record failed.{hint} {exc}") from exc
+            print("Updated publication record from _config.yml")
 
     # --- Fetch remote records ---
     # Only records belonging to our publication are managed; documents other
@@ -892,7 +955,12 @@ def _dispatch(argv: list[str] | None = None) -> None:
     pub_p.add_argument("--posts-dir", required=True, type=Path)
     pub_p.add_argument("--books-dir", required=True, type=Path)
     pub_p.add_argument("--data-out", required=True, type=Path)
-    pub_p.add_argument("--dry-run", action="store_true")
+    pub_p.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Print the plan without credentials: never log in, read only public "
+        "records, refuse every write, and write no data file",
+    )
 
     sub.add_parser("init-publication", help="Create publication record (one-time)")
 
@@ -939,9 +1007,14 @@ def _dispatch(argv: list[str] | None = None) -> None:
             "refusing to publish with a blank partition key"
         )
 
-    handle = _get_env("BSKY_HANDLE")
-    password = _get_env("BSKY_APP_PASSWORD")
-    client = AtprotoClient(PDS_URL, handle, password)
+    # A dry run only reads public records, so it never logs in, even when
+    # BSKY_* is set: its behavior must not depend on the caller's shell.
+    if args.cmd == "publish" and args.dry_run:
+        client = AtprotoClient.read_only(PDS_URL, did_from_publication_uri(publication_uri))
+    else:
+        handle = _get_env("BSKY_HANDLE")
+        password = _get_env("BSKY_APP_PASSWORD")
+        client = AtprotoClient(PDS_URL, handle, password)
 
     if args.cmd == "publish":
         sync_documents(

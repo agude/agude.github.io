@@ -2,6 +2,7 @@
 
 require_relative '../../infrastructure/text_processing_utils'
 require_relative 'card_data_extractor_utils'
+require_relative '../../infrastructure/rating_parser'
 
 module Jekyll
   module UI
@@ -37,9 +38,9 @@ module Jekyll
           text.empty? ? nil : text
         end
 
-        def self.format_stars(rating)
-          rating_int = rating.to_i
-          return nil unless (1..5).include?(rating_int)
+        def self.format_stars(rating, source: nil)
+          rating_int = Jekyll::Infrastructure::RatingParser.parse(rating, source: source)
+          return nil unless rating_int
 
           ('★' * rating_int) + ('☆' * (5 - rating_int))
         end
@@ -48,7 +49,7 @@ module Jekyll
           title = Text.markdown_title_text(data[:title])
           line = "- [_#{Text.escape_link_text(title)}_](#{Text.escape_url(data[:url])})"
           line += " by #{format_card_authors(data)}" if data[:authors]&.any?
-          stars = format_stars(data[:rating])
+          stars = format_stars(data[:rating], source: data[:title])
           line += " --- #{stars}" if stars
           line += ": #{data[:description]}" if data[:description]
           line

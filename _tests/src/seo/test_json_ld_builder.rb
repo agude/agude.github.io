@@ -198,6 +198,34 @@ class TestJsonLdBuilder < Minitest::Test
     assert_equal expected, result['image']
   end
 
+  # Reversed on purpose: the {path, alt} hash form used to be accepted.
+  def test_image_hash_form_raises_naming_the_document
+    doc = create_doc({ 'path' => '_posts/2024-01-01-photo.md' }, '/blog/photo/')
+    error = assert_raises(Jekyll::Errors::FatalException) do
+      Jekyll::SEO::JsonLdBuilder.build('Article', document: doc, site: @site) do |schema|
+        schema.image({ 'path' => '/images/photo.jpg', 'alt' => 'A photo' })
+      end
+    end
+    assert_includes error.message, '_posts/2024-01-01-photo.md'
+  end
+
+  # Reversed on purpose: the {path, alt} hash form used to be accepted.
+  def test_image_url_hash_form_raises_naming_the_document
+    doc = create_doc({ 'path' => '_posts/2024-01-01-photo.md' }, '/blog/photo/')
+    error = assert_raises(Jekyll::Errors::FatalException) do
+      Jekyll::SEO::JsonLdBuilder.build('Thing', document: doc, site: @site) do |schema|
+        schema.image_url({ 'path' => '/images/photo.jpg', 'alt' => 'A photo' })
+      end
+    end
+    assert_includes error.message, '_posts/2024-01-01-photo.md'
+  end
+
+  def test_image_of_unknown_shape_raises
+    assert_raises(Jekyll::Errors::FatalException) do
+      Jekyll::SEO::JsonLdBuilder.build('Article', site: @site) { |schema| schema.image(['/a.jpg']) }
+    end
+  end
+
   def test_image_nil_is_not_added
     result = Jekyll::SEO::JsonLdBuilder.build('Article', site: @site) do |schema|
       schema.image nil
@@ -262,11 +290,10 @@ class TestJsonLdBuilder < Minitest::Test
     assert_equal expected, result['reviewRating']
   end
 
-  def test_rating_zero_not_added
-    result = Jekyll::SEO::JsonLdBuilder.build('Review') do |schema|
-      schema.rating 0
+  def test_rating_out_of_range_raises
+    assert_raises(Jekyll::Errors::FatalException) do
+      Jekyll::SEO::JsonLdBuilder.build('Review') { |schema| schema.rating 0 }
     end
-    refute result.key?('reviewRating')
   end
 
   # --- Series Method ---

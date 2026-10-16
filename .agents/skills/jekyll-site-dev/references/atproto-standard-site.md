@@ -23,7 +23,7 @@ lexicons. It explains how the pieces connect and what to do when they change.
 | Well-known generator | `_plugins/src/seo/standard_site_well_known_generator.rb` | Emits `_site/.well-known/site.standard.publication` (bare AT-URI, no trailing newline) |
 | Link tags | `_includes/head.html` | `rel="site.standard.publication"` on every page; `rel="site.standard.document"` on pages with an entry in the data file |
 | Data file | `_data/standard_site.json` | URL → AT-URI map, written by the publish step in CI, gitignored; absent locally and on branches (document tags simply don't render) |
-| CI wiring | `.github/workflows/jekyll.yml` (header comment is the authoritative doc) | Branch: validate + build + four site gates. Main only: publish → rebuild with tags → re-run gates → deploy → post-deploy `.well-known` smoke test |
+| CI wiring | `.github/workflows/jekyll.yml` (header comment is the authoritative doc) | Every branch: validate + build + four site gates. Branches other than main: blocking `publish --dry-run`, no secrets. Main only: publish → rebuild with tags → re-run gates → deploy → post-deploy `.well-known` smoke test |
 | Secret | `BSKY_APP_PASSWORD` repo secret | App password (created without DM access) for the owner's account |
 
 ## Path derivation (must match Jekyll exactly)
@@ -43,17 +43,57 @@ lexicons. It explains how the pieces connect and what to do when they change.
   [Content Authoring](content-authoring.md).
 - **Edit a post**: the record updates automatically (`putRecord` with
   compare-and-swap; unmanaged fields like `bskyPostRef` survive).
+- **Edit the site title, description, or URL** in `_config.yml`: `publish`
+  updates the publication record, but only after every local document
+  validates, and only with a compare-and-swap on the `cid` that
+  `getRecord` returned. A missing `cid` stops the sync rather than risk a
+  non-atomic overwrite. An `InvalidSwap` error means the record changed on
+  the PDS after it was read; rerun.
 - **Delete/rename a post**: CI warns (`::warning::` annotation) about
   the orphaned record; clean up manually from `_scripts/`:
   `uv run python atproto/publish.py delete-orphans --posts-dir ../_posts --books-dir ../_books` (add `--yes` to delete).
-- **Local dry run** (needs `BSKY_HANDLE`/`BSKY_APP_PASSWORD` exported):
-  `uv run python atproto/publish.py publish ... --dry-run` — zero
-  writes, prints the plan.
+- **Local dry run** (no credentials): from `_scripts/`,
+  `uv run python atproto/publish.py publish --posts-dir ../_posts --books-dir ../_books --data-out ../_data/standard_site.json --dry-run`.
+  It never logs in, even when `BSKY_*` is set. It reads the publication
+  and document records through the public `getRecord` and `listRecords`
+  endpoints, using the DID in `standard_site.publication_uri`. Its client
+  refuses every write, so it cannot change the PDS, and it writes no data
+  file. It prints the plan and ends with the
+  `created=… updated=… unchanged=… orphaned=…` line. Branch CI runs the
+  same dry run, as the blocking **Dry-run AT Protocol publish** step, on
+  every push to a branch other than `main`.
 - **PDS outage blocking a deploy**: run the workflow manually
   (Actions tab) with `skip_publish: true`.
+- **PDS outage failing branch CI**: the branch dry run reads
+  bsky.social, so an outage fails it. Rerun the job once bsky.social
+  recovers. `main` does not run the dry run, so deploys are not affected.
 - **Rotate the secret**: new app password at bsky.app → Settings →
   App Passwords (no DM access) → update the `BSKY_APP_PASSWORD` repo
   secret. Nothing else changes.
+
+## Credentials
+
+- **Dry run.** `publish --dry-run` needs no credentials. Never export
+  `BSKY_*` to run it.
+- **Writes.** `publish` writes, and runs only in CI on `main` with the
+  `BSKY_APP_PASSWORD` repo secret. For any other write, add a
+  `workflow_dispatch` input in the style of `skip_publish`, so the secret
+  stays in GitHub and the run is logged.
+- **Manual local writes.** `delete-orphans` and `init-publication` always
+  log in, `delete-orphans` without `--yes` included. For a command that
+  must write from a laptop, such as `delete-orphans --yes` or
+  `init-publication`, give the secret to that one command only. Use your
+  password manager's run-with-secrets wrapper, or
+  `BSKY_APP_PASSWORD="$(pass show …)" uv run …`. Do not `export` it in an
+  interactive shell, and do not put it in a `.env` file in the repository.
+- **Which password.** Always use an app password, never the account
+  password. Bluesky app passwords cannot be limited to reading, so treat
+  one as full write access, and revoke any app password created for
+  one-off local use.
+- **Ambient credentials.** The client ignores `~/.netrc`, `$NETRC`, and
+  proxy environment variables (`trust_env = False`). Requests would
+  otherwise send a matching `.netrc` entry, replacing the bearer token and
+  adding Basic auth to the dry run's public reads.
 
 ## Gotchas
 

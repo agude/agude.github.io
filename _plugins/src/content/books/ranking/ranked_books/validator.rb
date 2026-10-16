@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../../../../infrastructure/rating_parser'
+
 module Jekyll
   module Books
     module Ranking
@@ -50,12 +52,16 @@ module Jekyll
             raise Jekyll::Errors::FatalException, msg
           end
 
+          # A ranked list requires a rating, so nil is an error here too.
           def parse_rating(raw, title, index)
-            Integer(raw)
-          rescue ArgumentError, TypeError
+            rating = Jekyll::Infrastructure::RatingParser.parse(raw, error: ArgumentError)
+            return rating if rating
+
+            raise ArgumentError, 'a ranked book must have a rating'
+          rescue ArgumentError => e
             msg = "Jekyll::Books::Ranking::RankedBooks Validation Error: Title '#{title}' " \
                   "(position #{index + 1} in '#{@list_variable_markup}') " \
-                  "has invalid non-integer rating: '#{raw.inspect}'."
+                  "has invalid non-integer rating: '#{raw.inspect}'. #{e.message}"
             raise Jekyll::Errors::FatalException, msg
           end
         end

@@ -5,6 +5,7 @@ require 'liquid'
 require 'strscan'
 require_relative '../series_link_resolver'
 require_relative '../../../infrastructure/tag_argument_utils'
+require_relative '../../../infrastructure/links/link_tag_base'
 require_relative '../series_text_utils'
 require_relative '../../../infrastructure/links/markdown_link_formatter'
 require_relative '../../../infrastructure/links/link_helper_utils'
@@ -44,6 +45,14 @@ module Jekyll
           @link_markup = nil
 
           parse_arguments(markup)
+        end
+
+        # The parsed, unresolved argument markup, in the shape of
+        # LinkTagBase#link_arguments, for BacklinkBuilder.
+        def link_arguments
+          Jekyll::Infrastructure::Links::LinkTagBase::LinkArguments.new(
+            subject: @series_name_markup, options: { link: @link_markup }.compact, flags: {},
+          )
         end
 
         def render(context)

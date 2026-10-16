@@ -38,7 +38,7 @@ ranked_list:
   - Exit Strategy
   - Explorers on the Moon
   - Snow Crash
-  - Childhood's End
+  - "Childhood's End"
   - Excession
   - Roadside Picnic
   - A Desolation Called Peace
@@ -52,12 +52,12 @@ ranked_list:
   - The Wind in the Willows
   - A Canticle for Leibowitz
   - Destination Moon
-  - Dragon's Egg
+  - "Dragon's Egg"
   - Wild Seed
   - The Unconquerable
   - Burning Chrome
   - The Short Victorious War
-  - Pandora's Star
+  - "Pandora's Star"
   - Judas Unchained
   - Metropolitan
   # 3 Stars
@@ -121,11 +121,11 @@ ranked_list:
   - Mission of Gravity
   - Martin the Warrior
   - The Fractal Prince
-  - The Dragon's Banker
-  - Heaven's River
+  - "The Dragon's Banker"
+  - "Heaven's River"
   - Accelerando
-  - Gun, with Occasional Music
-  - Clay's Ark
+  - "Gun, with Occasional Music"
+  - "Clay's Ark"
   - Cigars of the Pharaoh
   - Flowers for Algernon
   - Close to Critical

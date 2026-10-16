@@ -175,4 +175,23 @@ class TestByAuthorThenSeriesRenderer < Minitest::Test
     # Series section should not appear
     refute_includes result, 'series-title'
   end
+
+  def test_series_shared_by_two_authors_gets_unique_ids
+    other_book = create_doc(
+      { 'title' => 'Other Series Book', 'published' => true, 'series' => 'Epic Saga' },
+      '/books/other-series.html',
+    )
+    data = {
+      authors_data: [
+        { author_name: 'Jane Doe', standalone_books: [], series_groups: [{ name: 'Epic Saga', books: [@series_book] }] },
+        { author_name: 'John Roe', standalone_books: [], series_groups: [{ name: 'Epic Saga', books: [other_book] }] },
+      ],
+    }
+    result = Jekyll::Books::Lists::Renderers::ByAuthorThenSeriesRenderer.new(@context, data).render
+
+    ids = result.scan(/id="([^"]*)"/).flatten
+    assert_equal ids.uniq, ids, "duplicate ids: #{ids.tally.select { |_, n| n > 1 }.keys}"
+    assert_includes ids, 'jane-doe--epic-saga'
+    assert_includes ids, 'john-roe--epic-saga'
+  end
 end

@@ -94,7 +94,7 @@ class TestBacklinkBuilderCaptures < BacklinkBuilderTestCase
 
   def test_series_text_with_link_false_in_capture_creates_no_forward_link
     # series_text with link=false should not create forward links even when in a capture.
-    # This tests the AST path handles LINK_FALSE_PATTERN correctly.
+    # This tests the AST path handles link=false correctly.
     book_with_capture = create_doc(
       { 'title' => 'Review', 'published' => true },
       '/books/review.html',
@@ -190,6 +190,14 @@ class TestBacklinkBuilderCaptures < BacklinkBuilderTestCase
       other_link[:count],
       'Usages of captures with no targets should not inflate other captures',
     )
+  end
+
+  def test_recapture_as_plain_text_drops_earlier_binding
+    assert_recaptured_usage_not_counted('{% capture x %}just text{% endcapture %}')
+  end
+
+  def test_recapture_with_unresolved_link_drops_earlier_binding
+    assert_recaptured_usage_not_counted('{% capture x %}{% book_link "Missing Book" %}{% endcapture %}')
   end
 
   def test_calculates_position_by_occurrence_order
@@ -695,5 +703,31 @@ class TestBacklinkBuilderCaptures < BacklinkBuilderTestCase
     refute_nil target_link
     # min_position should be from the early usage, not the late one
     assert target_link[:min_position] < 30, "min_position #{target_link[:min_position]} should be < 30% (early)"
+  end
+
+  private
+
+  # Captures a Target link into `x`, rebinds `x` with `recapture`, then uses
+  # `{{ x }}` twice. The usages belong to the second binding, so Target keeps
+  # its edge but gets no usage count.
+  def assert_recaptured_usage_not_counted(recapture)
+    source = create_doc(
+      { 'title' => 'Review', 'published' => true },
+      '/books/review.html',
+      <<~CONTENT,
+        {% capture x %}{% book_link "Target Book" %}{% endcapture %}
+        #{recapture}
+
+        Prose with {{ x }} and {{ x }}.
+      CONTENT
+    )
+    target = create_doc({ 'title' => 'Target Book', 'published' => true }, '/books/target.html', 'Content.')
+
+    site = create_site({}, { 'books' => [source, target] })
+    target_link = site.data['link_cache']['forward_links']['/books/review.html']
+                      .find { |l| l[:target].url == '/books/target.html' }
+
+    refute_nil target_link, 'the first capture still links to Target'
+    assert_nil target_link[:count], 'usages after the rebinding must not count toward Target'
   end
 end

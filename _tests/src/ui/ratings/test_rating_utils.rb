@@ -79,29 +79,29 @@ class TestRatingUtils < Minitest::Test
 
   def test_render_rating_stars_invalid_range_throws_error
     err0 = assert_raises(ArgumentError) { Jekyll::UI::Ratings::RatingUtils.render_rating_stars(0) }
-    assert_match(/Rating must be between 1 and 5/, err0.message)
+    assert_match(/expected an integer from 1 to 5/, err0.message)
 
     err6 = assert_raises(ArgumentError) { Jekyll::UI::Ratings::RatingUtils.render_rating_stars(6) }
-    assert_match(/Rating must be between 1 and 5/, err6.message)
+    assert_match(/expected an integer from 1 to 5/, err6.message)
 
     # Negative integers will also fail range check
     err_neg = assert_raises(ArgumentError) { Jekyll::UI::Ratings::RatingUtils.render_rating_stars(-1) }
-    assert_match(/Rating must be between 1 and 5/, err_neg.message)
+    assert_match(/expected an integer from 1 to 5/, err_neg.message)
   end
 
   def test_render_rating_stars_invalid_type_throws_error
     err_str = assert_raises(ArgumentError) { Jekyll::UI::Ratings::RatingUtils.render_rating_stars('invalid') }
-    assert_match(/Invalid rating input type/, err_str.message)
+    assert_match(/expected an integer from 1 to 5/, err_str.message)
 
     err_float = assert_raises(ArgumentError) { Jekyll::UI::Ratings::RatingUtils.render_rating_stars(3.5) }
-    assert_match(/Invalid rating input type/, err_float.message)
+    assert_match(/expected an integer from 1 to 5/, err_float.message)
 
     err_arr = assert_raises(ArgumentError) { Jekyll::UI::Ratings::RatingUtils.render_rating_stars([3]) }
-    assert_match(/Invalid rating input type/, err_arr.message)
+    assert_match(/expected an integer from 1 to 5/, err_arr.message)
 
-    # Negative integer *string* should fail type check now
+    # A negative integer string is not a string of digits.
     err_neg_str = assert_raises(ArgumentError) { Jekyll::UI::Ratings::RatingUtils.render_rating_stars('-1') }
-    assert_match(/Invalid rating input type/, err_neg_str.message)
+    assert_match(/expected an integer from 1 to 5/, err_neg_str.message)
   end
 
   def test_render_rating_stars_nil_input_returns_empty
@@ -145,5 +145,16 @@ class TestRatingUtils < Minitest::Test
     assert_match(/^<div class="book-rating star-rating-5"/, output_nil, 'Nil tag should default to div')
     assert_match(%r{</div>$}, output_nil)
     assert_stars(output_nil, 5, 0)
+  end
+
+  # --- Compatibility with strict parsing (A19b) ---
+
+  def test_nil_rating_renders_nothing
+    assert_equal '', Jekyll::UI::Ratings::RatingUtils.render_rating_stars(nil)
+  end
+
+  def test_five_as_integer_or_string_renders_the_same
+    assert_equal Jekyll::UI::Ratings::RatingUtils.render_rating_stars(5),
+                 Jekyll::UI::Ratings::RatingUtils.render_rating_stars('5')
   end
 end

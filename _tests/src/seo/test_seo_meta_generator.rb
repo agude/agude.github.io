@@ -394,18 +394,40 @@ class TestSeoMetaGenerator < Minitest::Test
     assert_equal 'https://alexgude.com/files/headshot.jpg', result['image']
   end
 
-  # --- Image Alt Text Tests ---
+  def test_og_image_absolute_url_is_unchanged
+    doc = create_book_doc(title: 'Test Book', image: 'https://cdn.example.com/p.jpg')
+    result = generate_meta(doc, create_site(@site_config))
 
-  def test_image_alt_from_hash
-    doc = create_book_doc(title: 'Test Book', image: { 'path' => '/covers/test.jpg', 'alt' => 'Cover of Test Book' })
-    site = create_site(@site_config)
-    result = generate_meta(doc, site)
-
-    assert_equal 'Cover of Test Book', result['image_alt']
+    assert_equal 'https://cdn.example.com/p.jpg', result['image']
   end
 
-  # Content sets alt text with a top-level `image_alt` key (the same key the
-  # article and book cards read), not a nested `image: {path, alt}` hash.
+  def test_og_image_local_path_gets_site_origin
+    doc = create_book_doc(title: 'Test Book', image: '/files/p.jpg')
+    result = generate_meta(doc, create_site(@site_config))
+
+    assert_equal 'https://alexgude.com/files/p.jpg', result['image']
+  end
+
+  def test_og_image_local_path_includes_baseurl
+    doc = create_book_doc(title: 'Test Book', image: '/files/p.jpg')
+    result = generate_meta(doc, create_site(@site_config.merge('baseurl' => '/blog')))
+
+    assert_equal 'https://alexgude.com/blog/files/p.jpg', result['image']
+  end
+
+  # Reversed on purpose: the {path, alt} hash form used to be accepted.
+  def test_og_image_hash_form_raises_naming_the_file
+    doc = create_book_doc(title: 'Test Book', image: { 'path' => '/files/p.jpg', 'alt' => 'A picture' })
+    doc.relative_path = '_books/test_book.md'
+    error = assert_raises(Jekyll::Errors::FatalException) { generate_meta(doc, create_site(@site_config)) }
+
+    assert_includes error.message, '_books/test_book.md'
+  end
+
+  # --- Image Alt Text Tests ---
+
+  # Content sets alt text with a top-level `image_alt` key, the same key the
+  # article and book cards read.
   def test_image_alt_from_image_alt_front_matter
     doc = create_post_doc(title: 'Test Post')
     doc.data['image'] = '/files/test/robot.png'
@@ -416,24 +438,15 @@ class TestSeoMetaGenerator < Minitest::Test
     assert_equal 'A pencil drawing of a robot.', result['image_alt']
   end
 
-  def test_image_alt_blank_nested_alt_falls_back_to_image_alt
-    [nil, '', "  \n"].each do |nested_alt|
+  def test_blank_image_alt_is_nil
+    [nil, '', "  \n"].each do |alt|
       doc = create_post_doc(title: 'Test Post')
-      doc.data['image'] = { 'path' => '/files/test/robot.png', 'alt' => nested_alt }
-      doc.data['image_alt'] = 'A pencil drawing of a robot.'
+      doc.data['image'] = '/files/test/robot.png'
+      doc.data['image_alt'] = alt
       result = generate_meta(doc, create_site(@site_config))
 
-      assert_equal 'A pencil drawing of a robot.', result['image_alt'], "nested alt #{nested_alt.inspect}"
+      assert_nil result['image_alt'], alt.inspect
     end
-  end
-
-  def test_image_alt_prefers_nonblank_nested_alt
-    doc = create_post_doc(title: 'Test Post')
-    doc.data['image'] = { 'path' => '/files/test/robot.png', 'alt' => 'Nested alt.' }
-    doc.data['image_alt'] = 'Top-level alt.'
-    result = generate_meta(doc, create_site(@site_config))
-
-    assert_equal 'Nested alt.', result['image_alt']
   end
 
   def test_image_alt_ignored_when_falling_back_to_default_image

@@ -3,6 +3,8 @@
 require 'nokogiri'
 require_relative '../infrastructure/typography_utils'
 require_relative '../infrastructure/text_processing_utils'
+require_relative '../infrastructure/front_matter_image'
+require_relative '../infrastructure/url_utils'
 
 module Jekyll
   module SEO
@@ -182,14 +184,12 @@ module Jekyll
         image = page_image || default_image
         return nil unless image
 
-        make_absolute(image)
+        Jekyll::Infrastructure::UrlUtils.absolute_url(image, @site)
       end
 
       def page_image
-        image = @data['image']
-        return nil unless image
-
-        image.is_a?(Hash) ? image['path'] : image
+        image = Jekyll::Infrastructure::FrontMatterImage
+        image.path(@data['image'], source: image.source_name(@document))
       end
 
       def default_image
@@ -199,13 +199,11 @@ module Jekyll
       # Alt text describes the page's own image, so it is dropped when the
       # page falls back to the default image. Content sets it with the
       # top-level `image_alt` key, the one the article and book cards read.
-      # The first nonblank of the nested and top-level values wins.
       def image_alt_text
         return nil unless page_image
 
-        image = @data['image']
-        nested = image['alt'] if image.is_a?(Hash)
-        [nested, @data['image_alt']].map { |alt| alt.to_s.strip }.find { |alt| !alt.empty? }
+        alt = @data['image_alt'].to_s.strip
+        alt.empty? ? nil : alt
       end
 
       # --- URLs ---
@@ -213,19 +211,11 @@ module Jekyll
       def canonical_url
         return nil if NO_CANONICAL_LAYOUTS.include?(@data['layout'])
 
-        make_absolute(@document.url)
+        Jekyll::Infrastructure::UrlUtils.absolute_url(@document.url, @site)
       end
 
       def robots
         'noindex' if NOINDEX_LAYOUTS.include?(@data['layout'])
-      end
-
-      def make_absolute(path)
-        return nil unless path
-
-        base_url = @config['url'] || ''
-        baseurl = @config['baseurl'] || ''
-        "#{base_url}#{baseurl}#{path}"
       end
 
       # --- Twitter ---

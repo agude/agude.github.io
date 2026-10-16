@@ -1,11 +1,13 @@
 """Tests for _scripts/metadata/update_book_metadata.py."""
 
+import datetime
 import sys
 from textwrap import dedent
 from unittest.mock import patch
 
 import pytest
 import update_book_metadata
+import yaml
 from update_book_metadata import (
     MANAGED_FIELDS,
     _strip_field,
@@ -93,6 +95,23 @@ class TestFormatField:
     def test_same_as_urls_quotes_special_chars(self):
         result = format_field("same_as_urls", ["https://example.com?foo=bar"])
         assert '"https://example.com?foo=bar"' in result
+
+
+class TestFormatFieldTypes:
+    @pytest.mark.parametrize("value", ["0316769487", "no", "null", "true", "123"])
+    def test_string_values_round_trip(self, value):
+        assert yaml.safe_load(format_field("isbn", value)) == {"isbn": value}
+
+    def test_award_slugs_round_trip(self):
+        parsed = yaml.safe_load(format_field("awards", ["hugo", "no"]))
+        assert parsed == {"awards": ["hugo", "no"]}
+
+    def test_full_date_keeps_date_type(self):
+        parsed = yaml.safe_load(format_field("date_published", "2021-03-02"))
+        assert parsed == {"date_published": datetime.date(2021, 3, 2)}
+
+    def test_year_keeps_integer_type(self):
+        assert yaml.safe_load(format_field("date_published", "1965")) == {"date_published": 1965}
 
 
 class TestStripField:
@@ -198,52 +217,6 @@ class TestManagedFieldsConstant:
         assert awards_idx < urls_idx
 
 
-class TestOnlyFlagBehavior:
-    """Tests for --only flag logic (tested via helper functions)."""
-
-    def test_only_awards_filters_to_awards(self):
-        only_fields = {"awards"}
-        candidates = [f for f in MANAGED_FIELDS if f in only_fields]
-        assert candidates == ["awards"]
-
-    def test_only_multiple_fields(self):
-        only_fields = {"awards", "isbn"}
-        candidates = [f for f in MANAGED_FIELDS if f in only_fields]
-        assert set(candidates) == {"isbn", "awards"}
-
-    def test_invalid_field_detected(self):
-        only_fields = {"awards", "invalid_field"}
-        invalid = only_fields - set(MANAGED_FIELDS)
-        assert invalid == {"invalid_field"}
-
-
-class TestNeverOverwriteWithNull:
-    """Tests for the never-overwrite-with-null logic."""
-
-    def test_null_skipped_when_existing(self):
-        metadata = {"awards": None, "isbn": "978-0-123"}
-        existing = {"awards": ""}  # awards key exists
-
-        # Should skip awards (would overwrite with null), include isbn
-        fields_to_write = [
-            f for f in ["awards", "isbn"] if metadata[f] is not None or f not in existing
-        ]
-        assert "awards" not in fields_to_write
-        assert "isbn" in fields_to_write
-
-    def test_null_allowed_when_not_existing(self):
-        metadata = {"awards": None, "isbn": None}
-        existing = {}  # No existing fields
-
-        # Both would be candidates (null but not overwriting)
-        fields_to_write = [
-            f for f in ["awards", "isbn"] if metadata[f] is not None or f not in existing
-        ]
-        # But format_field returns "" for awards=None, so it gets filtered later
-        assert "awards" in fields_to_write
-        assert "isbn" in fields_to_write
-
-
 class TestMetadataSelection:
     def test_search_does_not_select_a_candidate(self, tmp_path, monkeypatch, capsys):
         book_file = tmp_path / "book.md"
@@ -328,17 +301,7 @@ class TestMetadataSelection:
         fetch_mock.assert_called_once_with("Q1")
         content = book_file.read_text(encoding="utf-8")
         assert "wikidata_qid: Q1" in content
-        assert "isbn: 978-0-553-28368-3" in content
-
-    def test_non_null_overwrites_existing(self):
-        metadata = {"awards": ["hugo"], "isbn": "978-0-123"}
-        existing = {"awards": "", "isbn": "old-isbn"}
-
-        fields_to_write = [
-            f for f in ["awards", "isbn"] if metadata[f] is not None or f not in existing
-        ]
-        assert "awards" in fields_to_write
-        assert "isbn" in fields_to_write
+        assert 'isbn: "978-0-553-28368-3"' in content
 
 
 class TestFetchMetadata:
@@ -359,3 +322,152 @@ class TestFetchMetadata:
         assert metadata["same_as_urls"] == [
             "https://en.wikipedia.org/wiki/Hyperion_%28Simmons_novel%29"
         ]
+
+
+NEW_METADATA = {
+    "wikidata_qid": "Q1",
+    "isbn": "978-0-553-28368-3",
+    "date_published": "1989-05-26",
+    "awards": ["hugo"],
+    "same_as_urls": ["https://new.example/one", "https://new.example/two"],
+}
+
+
+def run_main(monkeypatch, book_file, *flags, metadata=None):
+    """Run main() on `book_file` with fetch_metadata mocked; return the mock."""
+    monkeypatch.setattr(sys, "argv", ["update_book_metadata.py", str(book_file), *flags])
+    with patch(
+        "update_book_metadata.fetch_metadata", return_value=dict(metadata or NEW_METADATA)
+    ) as fetch_mock:
+        update_book_metadata.main()
+    return fetch_mock
+
+
+def front_matter_of(book_file) -> dict:
+    return yaml.safe_load(book_file.read_text(encoding="utf-8").split("---", 2)[1])
+
+
+class TestMainFrontMatterParsing:
+    def test_blank_qid_does_not_swallow_next_field(self, tmp_path, monkeypatch):
+        book_file = tmp_path / "book.md"
+        original = "---\ntitle: Hyperion\nwikidata_qid:\nisbn: 978-0-553-28368-3\n---\nText.\n"
+        book_file.write_text(original, encoding="utf-8")
+        monkeypatch.setattr(sys, "argv", ["update_book_metadata.py", str(book_file)])
+
+        with (
+            patch("update_book_metadata.search_book_entity", return_value=[]) as search_mock,
+            patch("update_book_metadata.fetch_metadata") as fetch_mock,
+            pytest.raises(SystemExit),
+        ):
+            update_book_metadata.main()
+
+        # A blank QID means "search", not "use the next line as the QID".
+        search_mock.assert_called_once()
+        fetch_mock.assert_not_called()
+        assert book_file.read_text(encoding="utf-8") == original
+
+    @pytest.mark.parametrize("indent", ["", "  ", "    "])
+    def test_list_fields_are_replaced_at_any_indent(self, tmp_path, monkeypatch, indent):
+        book_file = tmp_path / "book.md"
+        book_file.write_text(
+            "---\ntitle: Hyperion\n"
+            f"awards:\n{indent}- locus\n{indent}- nebula\n"
+            f"same_as_urls:\n{indent}- https://old.example/one\n{indent}- https://old.example/two\n"
+            "rating: 5\n---\nText.\n",
+            encoding="utf-8",
+        )
+
+        run_main(monkeypatch, book_file, "--qid", "Q1", "--only", "awards,same_as_urls")
+
+        fm = front_matter_of(book_file)
+        assert fm["awards"] == ["hugo"]
+        assert fm["same_as_urls"] == NEW_METADATA["same_as_urls"]
+        assert fm["title"] == "Hyperion"
+        assert fm["rating"] == 5
+        assert "old.example" not in book_file.read_text(encoding="utf-8")
+
+    def test_comments_and_unmanaged_fields_are_preserved(self, tmp_path, monkeypatch):
+        book_file = tmp_path / "book.md"
+        head = "---\n# Review metadata\ntitle: Hyperion\n\n# Ratings\nrating: 5\n"
+        book_file.write_text(head + "awards:\n  - locus\n---\nText.\n", encoding="utf-8")
+
+        run_main(monkeypatch, book_file, "--qid", "Q1", "--only", "awards")
+
+        assert book_file.read_text(encoding="utf-8") == head + "awards:\n  - hugo\n---\nText.\n"
+
+    def test_unparseable_result_leaves_file_unchanged(self, tmp_path, monkeypatch):
+        book_file = tmp_path / "book.md"
+        original = "---\ntitle: [unclosed\n---\nText.\n"
+        book_file.write_text(original, encoding="utf-8")
+
+        with pytest.raises(SystemExit) as excinfo:
+            run_main(monkeypatch, book_file, "--qid", "Q1")
+
+        assert excinfo.value.code not in (0, None)
+        assert book_file.read_text(encoding="utf-8") == original
+
+
+class TestMainFieldSelection:
+    """Field selection, tested through main() on real files."""
+
+    def test_only_writes_just_the_named_fields(self, tmp_path, monkeypatch):
+        book_file = tmp_path / "book.md"
+        book_file.write_text("---\ntitle: Hyperion\nisbn: old\n---\nText.\n", encoding="utf-8")
+
+        run_main(monkeypatch, book_file, "--qid", "Q1", "--only", "awards,isbn")
+
+        fm = front_matter_of(book_file)
+        assert fm == {"title": "Hyperion", "isbn": "978-0-553-28368-3", "awards": ["hugo"]}
+
+    def test_unknown_only_field_exits_without_fetching(self, tmp_path, monkeypatch):
+        book_file = tmp_path / "book.md"
+        original = "---\ntitle: Hyperion\n---\nText.\n"
+        book_file.write_text(original, encoding="utf-8")
+
+        monkeypatch.setattr(
+            sys,
+            "argv",
+            ["update_book_metadata.py", str(book_file), "--qid", "Q1", "--only", "awards,bogus"],
+        )
+
+        with (
+            patch("update_book_metadata.fetch_metadata") as fetch_mock,
+            pytest.raises(SystemExit) as excinfo,
+        ):
+            update_book_metadata.main()
+
+        assert excinfo.value.code == 1
+        fetch_mock.assert_not_called()
+        assert book_file.read_text(encoding="utf-8") == original
+
+    def test_force_never_overwrites_existing_value_with_null(self, tmp_path, monkeypatch):
+        book_file = tmp_path / "book.md"
+        book_file.write_text(
+            "---\ntitle: Hyperion\nawards:\n  - locus\nisbn: old\n---\nText.\n", encoding="utf-8"
+        )
+
+        run_main(
+            monkeypatch,
+            book_file,
+            "--qid",
+            "Q1",
+            "--force",
+            metadata={**NEW_METADATA, "awards": None},
+        )
+
+        fm = front_matter_of(book_file)
+        assert fm["awards"] == ["locus"]
+        assert fm["isbn"] == "978-0-553-28368-3"
+
+    def test_default_mode_adds_only_missing_fields(self, tmp_path, monkeypatch):
+        book_file = tmp_path / "book.md"
+        book_file.write_text(
+            "---\ntitle: Hyperion\nwikidata_qid: Q1\nisbn: old\n---\nText.\n", encoding="utf-8"
+        )
+
+        run_main(monkeypatch, book_file)
+
+        fm = front_matter_of(book_file)
+        assert fm["isbn"] == "old"
+        assert fm["awards"] == ["hugo"]
+        assert fm["date_published"] == datetime.date(1989, 5, 26)

@@ -155,6 +155,16 @@ class TestShortStoryResolver < Minitest::Test
     assert_equal 'NonExistent Story', data[:display_text]
   end
 
+  def test_resolve_data_does_not_reuse_previous_book_filter
+    resolver = Jekyll::ShortStories::ShortStoryResolver.new(@context)
+    first, second = Jekyll.stub :logger, @silent_logger_stub do
+      [resolver.resolve_data('Duplicate Story', 'Book Two'), resolver.resolve_data('Duplicate Story', nil)]
+    end
+
+    assert_equal :found, first[:status]
+    assert_equal :ambiguous, second[:status], 'a call without from_book must not reuse the earlier filter'
+  end
+
   def test_resolve_data_ambiguous
     data = resolve_data_util('Duplicate Story')
     assert_equal :ambiguous, data[:status]

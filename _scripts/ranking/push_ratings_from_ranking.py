@@ -15,19 +15,23 @@ import re
 import sys
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
+# `uv run` puts only this script's directory on sys.path.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "common"))
+
+from front_matter import split_front_matter
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
 BOOKS_DIR = REPO_ROOT / "_books"
 BY_RATING = REPO_ROOT / "books" / "by_rating.md"
 
 
 def parse_ranked_list_with_tiers(path):
     """Return list of (title, star_rating) from ranked_list."""
-    text = path.read_text()
-    parts = text.split("---", 2)
-    if len(parts) < 3:
+    split = split_front_matter(path.read_text())
+    if split is None:
         sys.exit("Could not parse front matter in by_rating.md")
 
-    front = parts[1]
+    front, _ = split
     books = []
     current_stars = None
     in_list = False

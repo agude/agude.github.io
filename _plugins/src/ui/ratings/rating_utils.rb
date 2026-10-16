@@ -2,6 +2,7 @@
 
 require 'jekyll' # For potential future Jekyll context, though not directly used by this method
 require 'cgi'    # For CGI.escapeHTML if it were needed (not in current stars logic)
+require_relative '../../infrastructure/rating_parser'
 
 module Jekyll
   # Utility module for generating HTML star rating displays.
@@ -41,48 +42,9 @@ module Jekyll
         # @return [Integer] The validated rating as an integer.
         # @raise [ArgumentError] if rating is invalid.
         def self._validate_and_convert_rating(rating)
-          rating_int = _convert_to_integer(rating)
-          _validate_range(rating_int)
-          rating_int
-        end
+          raise ArgumentError, 'Invalid rating input: nil.' if rating.nil?
 
-        # Converts rating to integer if it's a valid type.
-        #
-        # @param rating [Integer, String] The rating value to convert.
-        # @return [Integer] The rating as an integer.
-        # @raise [ArgumentError] if rating type is invalid.
-        def self._convert_to_integer(rating)
-          if rating.is_a?(Integer)
-            rating
-          elsif rating.is_a?(String) && rating.match?(/\A\d+\z/)
-            _parse_string_rating(rating)
-          else
-            raise ArgumentError,
-                  "Invalid rating input type: '#{rating.inspect}' (#{rating.class}). " \
-                  "Expected Integer(1-5), String('1'-'5'), or nil."
-          end
-        end
-
-        # Parses a string rating to integer.
-        #
-        # @param rating [String] The rating string to parse.
-        # @return [Integer] The parsed rating.
-        # @raise [ArgumentError] if string cannot be converted.
-        def self._parse_string_rating(rating)
-          Integer(rating)
-        rescue ArgumentError
-          raise ArgumentError, "Invalid rating input: Cannot convert string '#{rating}' to Integer."
-        end
-
-        # Validates that rating is in the 1-5 range.
-        #
-        # @param rating_int [Integer] The rating to validate.
-        # @raise [ArgumentError] if rating is out of range.
-        def self._validate_range(rating_int)
-          return if (1..5).include?(rating_int)
-
-          raise ArgumentError,
-                "Invalid rating value: #{rating_int}. Rating must be between 1 and 5 (inclusive)."
+          Jekyll::Infrastructure::RatingParser.parse(rating, error: ArgumentError)
         end
 
         # Generates the HTML for star rating display.

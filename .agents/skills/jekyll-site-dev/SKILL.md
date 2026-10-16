@@ -183,12 +183,22 @@ Read the named exemplar before modifying the corresponding subsystem:
 - **CI/CD and hooks**: the header of `.github/workflows/jekyll.yml` documents
   workflow stages. The header of `_bin/pre-commit.sh` documents hook stages
   and the `git stash --keep-index` mechanism. Read them before modifying a
-  workflow or commit hook.
+  workflow or commit hook. The hook restores unstaged work from the stash
+  commit it created, never by stash position, and leaves the stash with
+  recovery commands when the restore fails. `_scripts/tests/test_pre_commit.py`
+  runs it in a temporary repository with stub `docker` and `uv` executables;
+  run it with `make test-scripts` after any hook change.
 - **CI gates**: `_bin/check_*` scripts run as real subprocesses against
   throwaway fixture directories. The header of
   `_tests/bin/bin_script_helper.rb` documents the fixture builders and test
   approach. `test_bin_scripts_are_wired_up.rb` fails when a new `check_*`
   script has no test or is not invoked by the workflow.
+- **External links**: `.github/workflows/link-check.yml` runs Lychee monthly
+  with a JSON report. `_scripts/ci/lychee_report.py` decides the result: it
+  drops the `at://` parse errors, writes the issue body, and exits 0 (clean),
+  1 (broken links), or 2 (no usable report). Its tests run against real
+  Lychee reports in `_scripts/tests/fixtures/lychee/`; regenerate them with
+  the Lychee version that `lycheeverse/lychee-action@v2` installs.
 
 ## Policy and operational references
 
@@ -255,6 +265,8 @@ checks that cover the changed behavior. Do not merge a branch straight into
 change can publish.
 
 The AT Protocol publish step runs on `main` only. Its PDS is the state store;
-the repository does not contain AT-URIs for individual documents. Read
+the repository does not contain AT-URIs for individual documents. Every other
+branch runs `publish --dry-run` in the `test` job as a blocking step. It needs
+no secrets, so a bsky.social outage fails branch CI; rerun the job. Read
 [AT Protocol / standard.site](references/atproto-standard-site.md) before
 changing publish behavior or operating the workflow.

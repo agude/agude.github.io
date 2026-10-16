@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../infrastructure/url_utils'
+require_relative '../infrastructure/front_matter_image'
 require_relative '../infrastructure/front_matter_utils'
 require_relative '../infrastructure/text_processing_utils'
 require_relative 'json_ld_utils'
@@ -69,14 +70,13 @@ module Jekyll
       end
 
       def image(path)
-        entity = Jekyll::SEO::JsonLdUtils.build_image_object_entity(path, @site)
+        entity = Jekyll::SEO::JsonLdUtils.build_image_object_entity(path, @site, source: image_source)
         @data['image'] = entity if entity
       end
 
       def image_url(path)
-        return if path.nil? || path.to_s.strip.empty?
-
-        @data['image'] = Jekyll::Infrastructure::UrlUtils.absolute_url(path, @site)
+        url = Jekyll::Infrastructure::FrontMatterImage.absolute_url(path, @site, source: image_source)
+        @data['image'] = url if url
       end
 
       def authors(value)
@@ -94,7 +94,7 @@ module Jekyll
       end
 
       def rating(value)
-        entity = Jekyll::SEO::JsonLdUtils.build_rating_entity(value)
+        entity = Jekyll::SEO::JsonLdUtils.build_rating_entity(value, source: @document&.url)
         @data['reviewRating'] = entity if entity
       end
 
@@ -358,6 +358,11 @@ module Jekyll
       end
 
       private
+
+      # Names the document in image errors.
+      def image_source
+        Jekyll::Infrastructure::FrontMatterImage.source_name(@document)
+      end
 
       def nested_builder(type, key, &)
         child = self.class.new(type, document: @document, site: @site, is_root: false)

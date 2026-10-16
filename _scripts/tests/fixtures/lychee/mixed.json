@@ -1,0 +1,68 @@
+{
+  "total": 4,
+  "unique": 4,
+  "successful": 1,
+  "unknown": 0,
+  "unsupported": 0,
+  "timeouts": 0,
+  "redirects": 0,
+  "remaps": 0,
+  "excludes": 0,
+  "errors": 3,
+  "cached": 0,
+  "success_map": {},
+  "error_map": {
+    "_site/mixed/index.html": [
+      {
+        "url": "http://127.0.0.1:8765/missing.html",
+        "status": {
+          "text": "Rejected status code: 404 Not Found",
+          "code": 404
+        },
+        "span": {
+          "line": 3,
+          "column": 10
+        },
+        "duration": {
+          "secs": 0,
+          "nanos": 100804109
+        }
+      },
+      {
+        "url": "error:",
+        "status": {
+          "text": "Error building URL for \"at://did:plc:abc123/site.standard.document/3kxyz\" (Attribute: Some(\"href\")): Cannot parse 'at://did:plc:abc123/site.standard.document/3kxyz' into a URL: invalid port number",
+          "details": "Cannot parse 'at://did:plc:abc123/site.standard.document/3kxyz' into a URL: invalid port number"
+        },
+        "span": {
+          "line": 1,
+          "column": 54
+        }
+      },
+      {
+        "url": "http://127.0.0.1:9/closed",
+        "status": {
+          "text": "Network error: Connection refused - server may be down or port blocked (error sending request for url (http://127.0.0.1:9/closed))",
+          "details": "Connection refused - server may be down or port blocked"
+        },
+        "span": {
+          "line": 4,
+          "column": 10
+        },
+        "duration": {
+          "secs": 0,
+          "nanos": 47738902
+        }
+      }
+    ]
+  },
+  "timeout_map": {},
+  "suggestion_map": {},
+  "redirect_map": {},
+  "excluded_map": {},
+  "duration": {
+    "secs": 0,
+    "nanos": 115219844
+  },
+  "detailed_stats": false
+}

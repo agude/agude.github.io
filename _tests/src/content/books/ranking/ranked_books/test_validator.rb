@@ -120,4 +120,30 @@ class TestRankedBooksValidator < Minitest::Test
 
     assert_includes error.message, 'invalid non-integer rating'
   end
+
+  # --- Strict rating parsing (A19b) ---
+
+  def rated(rating)
+    create_doc({ 'title' => 'Rated', 'published' => true, 'rating' => rating }, '/books/rated.html')
+  end
+
+  def test_rejects_fractional_rating_instead_of_truncating
+    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new('list')
+
+    error = assert_raises(Jekyll::Errors::FatalException) { validator.validate('Rated', 0, rated(4.9)) }
+    assert_includes error.message, 'Rated'
+  end
+
+  def test_rejects_malformed_string_ratings
+    ['4.9', '', '4 stars'].each do |raw|
+      validator = Jekyll::Books::Ranking::RankedBooks::Validator.new('list')
+      error = assert_raises(Jekyll::Errors::FatalException, raw.inspect) { validator.validate('Rated', 0, rated(raw)) }
+      assert_includes error.message, 'Rated'
+    end
+  end
+
+  def test_accepts_integer_and_digit_string_ratings
+    assert_equal 5, Jekyll::Books::Ranking::RankedBooks::Validator.new('list').validate('Rated', 0, rated(5))
+    assert_equal 5, Jekyll::Books::Ranking::RankedBooks::Validator.new('list').validate('Rated', 0, rated('5'))
+  end
 end

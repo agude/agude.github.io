@@ -17,8 +17,22 @@ require_relative '../test_helper'
 #
 # --disabled-color is intentionally excluded: it styles inactive nav
 # letters, a disabled affordance WCAG exempts from contrast minimums.
+#
+# Content links are checked through whatever token `.themed .content a`
+# uses in _sass/_layout.scss (LINK below), on both the page and the
+# hover-card background. Tokens whose value is the `$sidebar-color-value`
+# interpolation resolve to `theme_color` in _config.yml, the value
+# main.scss injects at build time.
 class TestDarkModeContrast < Minitest::Test
   VARIABLES_PATH = File.expand_path('../../_sass/_variables.scss', __dir__)
+  LAYOUT_PATH = File.expand_path('../../_sass/_layout.scss', __dir__)
+  CONFIG_PATH = File.expand_path('../../_config.yml', __dir__)
+
+  # The Sass interpolation main.scss fills with theme_color.
+  ACCENT_INTERPOLATION = "\#{$sidebar-color-value}"
+
+  # Placeholder for the token content links use, read from _layout.scss.
+  LINK = :content_link
 
   AA_NORMAL_TEXT = 4.5
 
@@ -29,6 +43,8 @@ class TestDarkModeContrast < Minitest::Test
     %w[--heading-color --body-bg],
     %w[--emphasis-color --body-bg],
     %w[--blockquote-color --body-bg],
+    [LINK, '--body-bg'],
+    [LINK, '--card-bg'],
   ].freeze
 
   # [mode, fg, bg] => minimum acceptable ratio. Absent from this map means
@@ -51,6 +67,7 @@ class TestDarkModeContrast < Minitest::Test
       tokens = mode == 'light' ? light_tokens : dark_tokens
 
       PAIRS.each do |fg, bg|
+        fg = content_link_token if fg == LINK
         ratio = contrast_ratio(tokens.fetch(fg), tokens.fetch(bg))
         minimum = KNOWN_GAPS.fetch([mode, fg, bg], AA_NORMAL_TEXT)
 
@@ -73,6 +90,25 @@ class TestDarkModeContrast < Minitest::Test
     @light_tokens ||= parse_root_block(source[/:root\s*\{(#{ROOT_BLOCK_BODY})\}/m, 1])
   end
 
+  # The custom property behind `.themed .content a { color: ... }`, read
+  # through the Sass variable it names (`$x: var(--token)` in
+  # _variables.scss; Sass treats `-` and `_` in names as equal).
+  def content_link_token
+    rule = File.read(LAYOUT_PATH)[/\.themed \.content a\b[^{]*\{\s*color:\s*([^;]+);/, 1]
+    raise 'No color rule for .themed .content a in _layout.scss' unless rule
+
+    value = rule.strip
+    if value.start_with?('$')
+      name = Regexp.escape(value[1..]).gsub(/\\-|_/, '[-_]')
+      value = source[/^\$#{name}:\s*([^;]+);/, 1] or raise "Sass variable #{rule} not found"
+    end
+    value[/\Avar\((--[\w-]+)\)\z/, 1] or raise "Unexpected link color #{value.inspect}"
+  end
+
+  def theme_color
+    @theme_color ||= YAML.safe_load_file(CONFIG_PATH).fetch('theme_color')
+  end
+
   def dark_tokens
     @dark_tokens ||= begin
       dark_block = source[/@media \(prefers-color-scheme: dark\)\s*\{\s*:root\s*\{(#{ROOT_BLOCK_BODY})\}\s*\}/m, 1]
@@ -83,7 +119,8 @@ class TestDarkModeContrast < Minitest::Test
   def parse_root_block(block)
     tokens = {}
     block.scan(/(--[\w-]+):\s*([^;]+);/) do |name, value|
-      tokens[name] = value.strip
+      value = value.strip
+      tokens[name] = value == ACCENT_INTERPOLATION ? theme_color : value
     end
     tokens
   end

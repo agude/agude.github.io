@@ -4,6 +4,8 @@ import sys
 from unittest.mock import patch
 
 import fetch_author_same_as
+import pytest
+import yaml
 from fetch_author_same_as import AUTHOR_PROPERTY_MAP, format_yaml
 from wikidata_utils import extract_same_as_urls
 
@@ -158,3 +160,19 @@ class TestAuthorPropertyIds:
         }
         urls = extract_same_as_urls(entity, AUTHOR_PROPERTY_MAP)
         assert urls == ["https://www.google.com/search?kgmid=/g/11h0zktk17"]
+
+
+class TestFormatYamlTypes:
+    @pytest.mark.parametrize("value", ["no", "null", "123", "true", "Name: Colon", 'Say "hi"'])
+    def test_string_fields_round_trip(self, value):
+        result = format_yaml(
+            qid="Q312579",
+            urls=["https://example.com/a#frag"],
+            pseudonyms=[value],
+            title=value,
+        )
+        parsed = yaml.safe_load(result)
+
+        assert parsed["title"] == value
+        assert parsed["pen_names"] == [value]
+        assert parsed["same_as_urls"] == ["https://example.com/a#frag"]
