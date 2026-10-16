@@ -340,7 +340,12 @@ lint-fix: image-build
 	@docker build -f Dockerfile.prettier -t $(PRETTIER_IMAGE) .
 	@touch .prettier-image.stamp
 
+# Rebuild when the stamp outlived the image, as image-build does.
 prettier-image-build: .prettier-image.stamp
+	@docker image inspect $(PRETTIER_IMAGE) >/dev/null 2>&1 || { \
+		rm -f .prettier-image.stamp; \
+		$(MAKE) --no-print-directory .prettier-image.stamp; \
+	}
 
 # Rebuild without cache.
 prettier-image-rebuild: Dockerfile.prettier .prettierrc .prettierignore
@@ -349,7 +354,7 @@ prettier-image-rebuild: Dockerfile.prettier .prettierrc .prettierignore
 	@touch .prettier-image.stamp
 
 # Run Prettier on ALL Markdown files (respects .prettierignore).
-format-md: .prettier-image.stamp
+format-md: prettier-image-build
 	@echo "Running Prettier on all Markdown files..."
 	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) $(PRETTIER_IMAGE) \
 		prettier --write "**/*.md"
@@ -357,7 +362,7 @@ format-md: .prettier-image.stamp
 
 # Run Prettier on specific files: make prettier file.md _books/*.md
 PRETTIER_FILES := $(filter-out prettier,$(MAKECMDGOALS))
-prettier: .prettier-image.stamp
+prettier: prettier-image-build
 	@if [ -z "$(PRETTIER_FILES)" ]; then \
 		echo "Error: No files specified."; \
 		echo "Usage: make prettier <file1.md> <file2.md>"; \
