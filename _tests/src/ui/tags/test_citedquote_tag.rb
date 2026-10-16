@@ -31,25 +31,36 @@ class TestCitedQuoteTag < Minitest::Test
 
   # --- Tests for initialize (Argument Parsing - Syntax Errors) ---
 
+  def parse_error(markup)
+    assert_raises(Liquid::SyntaxError) do
+      Liquid::Template.parse("{% citedquote #{markup} %}text{% endcitedquote %}")
+    end.message
+  end
+
   def test_syntax_error_when_no_citation_params_provided
-    err = assert_raises Liquid::SyntaxError do
-      Liquid::Template.parse('{% citedquote %}Some quote text{% endcitedquote %}')
-    end
-    assert_match(/at least one citation parameter/i, err.message)
+    assert_equal "Liquid syntax error: Syntax Error in 'citedquote' tag: At least one citation parameter " \
+                 'is required. Use markdown > for unattributed quotes.',
+                 parse_error('')
   end
 
   def test_syntax_error_for_invalid_argument_format
-    err = assert_raises Liquid::SyntaxError do
-      Liquid::Template.parse('{% citedquote invalid_format %}text{% endcitedquote %}')
-    end
-    assert_match(/Invalid arguments/i, err.message)
+    assert_equal "Liquid syntax error: Syntax Error in 'citedquote': Invalid argument syntax near 'invalid_format'.",
+                 parse_error('invalid_format')
   end
 
   def test_syntax_error_for_equals_without_value
-    err = assert_raises Liquid::SyntaxError do
-      Liquid::Template.parse('{% citedquote author_last= %}text{% endcitedquote %}')
-    end
-    assert_match(/Invalid arguments/i, err.message)
+    assert_equal "Liquid syntax error: Syntax Error in 'citedquote': Invalid argument syntax near 'author_last='.",
+                 parse_error('author_last=')
+  end
+
+  def test_syntax_error_for_unknown_argument
+    assert_equal "Liquid syntax error: Syntax Error in 'citedquote': Unknown argument 'title'.",
+                 parse_error('author_last="Doe" title="Article"')
+  end
+
+  def test_syntax_error_for_duplicate_argument
+    assert_equal "Liquid syntax error: Syntax Error in 'citedquote': Duplicate argument 'author_last'.",
+                 parse_error('author_last="Doe" author_last="Roe"')
   end
 
   def test_valid_with_single_param

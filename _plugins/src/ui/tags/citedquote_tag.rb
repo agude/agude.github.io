@@ -2,7 +2,6 @@
 
 require 'jekyll'
 require 'liquid'
-require 'strscan'
 require_relative '../quotes/citedquote_utils'
 require_relative '../citations/citation_utils'
 require_relative '../../infrastructure/tag_argument_utils'
@@ -17,8 +16,9 @@ module Jekyll
       # Quote content here (processed as Markdown)
       # {% endcitedquote %}
       #
-      # All citation parameters from the citation tag are supported.
-      # At least one citation parameter is required.
+      # Accepts the named parameters in CitationUtils::PARAMETER_NAMES, and
+      # at least one is required. An unknown or repeated key raises
+      # Liquid::SyntaxError at parse time.
       # Content between tags is required (cannot be empty or whitespace-only).
       class CitedQuoteTag < Liquid::Block
         # Aliases for readability
@@ -27,14 +27,11 @@ module Jekyll
         CitationUtil = Jekyll::UI::Citations::CitationUtils
         private_constant :TagArgs, :QuoteUtils, :CitationUtil
 
-        # Regex for parsing "key='value'" or "key=variable" arguments.
-        ARG_SYNTAX = /([\w-]+)\s*=\s*((['"])(?:(?!\3).)*\3|\S+)/o
-
         def initialize(tag_name, markup, tokens)
           super
-          @raw_markup = markup.strip
-          @attributes_markup = {}
-          parse_markup(@raw_markup)
+          @attributes_markup = TagArgs.parse_named_arguments(
+            markup.strip, tag_name: 'citedquote', allowed: CitationUtil::PARAMETER_NAMES,
+          ).transform_keys(&:to_sym)
           validate_has_citation_params
         end
 
@@ -63,22 +60,6 @@ module Jekyll
         end
 
         private
-
-        def parse_markup(markup)
-          scanner = StringScanner.new(markup)
-
-          while scanner.scan(ARG_SYNTAX)
-            key = scanner[1]
-            value_markup = scanner[2]
-            @attributes_markup[key.to_sym] = value_markup
-            scanner.skip(/\s*/)
-          end
-
-          return if scanner.eos?
-
-          raise Liquid::SyntaxError,
-                "Syntax Error in 'citedquote' tag: Invalid arguments near '#{scanner.rest}' in '#{markup}'"
-        end
 
         def validate_has_citation_params
           return unless @attributes_markup.empty?
