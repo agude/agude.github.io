@@ -6,8 +6,14 @@ MOUNT := /workspace
 # Define Ruby version by reading .ruby-version file, ignoring comments/whitespace
 RUBY_VERSION := $(shell grep -v '^\#' .ruby-version)
 
-# Define Bundler version directly in the Makefile
-BUNDLER_VERSION := 2.6.8
+# Read the Bundler version from the BUNDLED WITH line of Gemfile.lock, the
+# same source ruby/setup-ruby uses in CI. Gemfile.lock is an image
+# prerequisite, so changing the version rebuilds the image. To change it,
+# edit that line and run `make lock`.
+BUNDLER_VERSION := $(shell awk '/^BUNDLED WITH/ { getline; print $$1 }' Gemfile.lock)
+ifeq ($(BUNDLER_VERSION),)
+$(error Could not read the BUNDLED WITH version from Gemfile.lock)
+endif
 
 # Define base image using the determined Ruby version
 BASE_RUBY_IMAGE := ruby:$(RUBY_VERSION)
@@ -88,7 +94,7 @@ deps-lock: .ruby-version # Dependency on .ruby-version
 # only runs when the Dockerfile or dependency manifests actually change.
 # Without it every target that depends on image-build paid ~40 lines of
 # BuildKit output just to confirm a cache hit.
-.jekyll-image.stamp: Dockerfile Gemfile Gemfile.lock .ruby-version # Removed .bundler-version dependency
+.jekyll-image.stamp: Dockerfile Gemfile Gemfile.lock .ruby-version
 	@echo "Building Docker image $(IMAGE) using Ruby $(RUBY_VERSION) and Bundler $(BUNDLER_VERSION)..."
 	@if [ ! -f .dockerignore ]; then \
 		echo "Warning: .dockerignore file not found. Build context might be large or include unwanted files."; \
@@ -109,7 +115,7 @@ image-build: .jekyll-image.stamp
 	}
 
 # Rebuild the Docker image without cache.
-image-rebuild: Dockerfile Gemfile Gemfile.lock .ruby-version # Removed .bundler-version dependency
+image-rebuild: Dockerfile Gemfile Gemfile.lock .ruby-version
 	@echo "Rebuilding Docker image $(IMAGE) with --no-cache using Ruby $(RUBY_VERSION) and Bundler $(BUNDLER_VERSION)..."
 	@if [ ! -f .dockerignore ]; then \
 		echo "Warning: .dockerignore file not found. Build context might be large or include unwanted files."; \
