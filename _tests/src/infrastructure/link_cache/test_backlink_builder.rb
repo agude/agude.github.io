@@ -771,7 +771,8 @@ end
 
 # Parity between rendered link tags and backlink edges: for each tag, the
 # URL the renderer links to must be the URL the backlink builder records,
-# and a tag that renders no link must record no edge.
+# and a tag that renders no link must record no edge. A `link=` value the
+# builder cannot read without rendering stops the build instead.
 class TestBacklinkRendererParity < BacklinkBuilderTestCase
   def setup
     super
@@ -846,6 +847,60 @@ class TestBacklinkRendererParity < BacklinkBuilderTestCase
   # Compatibility case: matched before false_value? was shared.
   def test_series_text_with_uppercase_link_false_has_no_edge
     assert_series_text_parity('link="FALSE"')
+  end
+
+  # Liquid literals are case-sensitive: the renderer reads unquoted FALSE
+  # as an unset variable and links, so the builder must not read it as false.
+  def test_author_link_with_unquoted_uppercase_link_false_stops_the_build
+    assert_link_option_rejected('{% author_link "Real Name" link=FALSE %}', rendered: '/books/authors/real-name/')
+  end
+
+  def test_series_text_with_unquoted_uppercase_link_false_stops_the_build
+    assert_link_option_rejected('{% series_text "Test Series" link=FALSE %}', rendered: '/series/test-series/')
+  end
+
+  # The renderer reads the variable's value, false, and links nowhere, so the
+  # builder must not read the variable name as an enabled link.
+  def test_author_link_with_variable_link_stops_the_build
+    assert_link_option_rejected(
+      '{% assign some_var = false %}{% author_link "Real Name" link=some_var %}', rendered: nil,
+    )
+  end
+
+  def test_series_text_with_variable_link_stops_the_build
+    assert_link_option_rejected(
+      '{% assign some_var = false %}{% series_text "Test Series" link=some_var %}', rendered: nil,
+    )
+  end
+
+  # Compatibility cases: the unquoted literals true, false, and nil, and a
+  # quoted "false", read the same on both sides.
+  def test_series_text_with_link_false_has_no_edge
+    assert_series_text_parity('link=false')
+  end
+
+  def test_author_link_with_link_true_targets_the_page
+    assert_parity('{% author_link "Real Name" link=true %}', '/books/authors/real-name/')
+  end
+
+  def test_series_text_with_link_true_links_on_both_sides
+    assert_series_text_links('link=true')
+  end
+
+  def test_author_link_with_link_nil_targets_the_page
+    assert_parity('{% author_link "Real Name" link=nil %}', '/books/authors/real-name/')
+  end
+
+  def test_series_text_with_link_nil_links_on_both_sides
+    assert_series_text_links('link=nil')
+  end
+
+  def test_author_link_with_quoted_link_false_has_no_edge
+    assert_parity('{% author_link "Real Name" link="false" %}', nil)
+  end
+
+  def test_series_text_with_quoted_link_false_has_no_edge
+    assert_series_text_parity('link="false"')
   end
 
   def test_short_story_prefers_canonical_location_over_from_book
@@ -934,6 +989,54 @@ class TestBacklinkRendererParity < BacklinkBuilderTestCase
                  series_text_targets('{% series_text "Test Series" %}'),
                  'fixture links when link= is absent'
     assert_equal [nil, []], series_text_targets(%({% series_text "Test Series" #{option} %}))
+  end
+
+  def assert_series_text_links(option)
+    assert_equal ['/series/test-series/', ['/books/series-book.html']],
+                 series_text_targets(%({% series_text "Test Series" #{option} %}))
+  end
+
+  # A link= value the builder cannot read without rendering stops the build.
+  # +rendered+ is the renderer's href for the same markup: the answer the
+  # builder would otherwise have to guess.
+  def assert_link_option_rejected(markup, rendered:)
+    href = href_outside_backlinks(markup)
+    if rendered
+      assert_equal rendered, href, 'renderer target'
+    else
+      assert_nil href, 'renderer target'
+    end
+
+    error = assert_raises(Jekyll::Errors::FatalException) do
+      link_option_site(link_option_source("See #{markup}."))
+    end
+    assert_includes error.message, '_books/source.md'
+    assert_includes error.message, 'link='
+  end
+
+  # The renderer's href for +markup+, from a site whose documents do not
+  # contain it, so building the site's backlinks does not raise.
+  def href_outside_backlinks(markup)
+    source = link_option_source('No link tags.')
+    rendered_href(markup, link_option_site(source), source)
+  end
+
+  def link_option_source(content)
+    create_doc(
+      { 'title' => 'Source', 'published' => true, 'path' => '_books/source.md' },
+      '/books/source.html',
+      content,
+    )
+  end
+
+  def link_option_site(source)
+    series_book = create_doc(
+      { 'title' => 'Series Book', 'published' => true, 'series' => 'Test Series' },
+      '/books/series-book.html',
+      'Series content.',
+    )
+    series_page = create_doc({ 'title' => 'Test Series', 'layout' => 'series_page' }, '/series/test-series/')
+    create_site({}, { 'books' => [@target, series_book, source] }, [@author_page, series_page])
   end
 
   def series_text_targets(markup)

@@ -37,9 +37,14 @@ the renderer's lookup rules:
 - A variable subject (other than `page.series`) cannot be resolved without
   rendering and produces no edge. Earlier, a quoted option value elsewhere in
   the tag (`link_text="Label"`) was mistaken for the title.
-- A variable `author=` or `from_book=` stops the build with the file and the
-  tag. Reading it as absent recorded a backlink when the variable named an
-  author whose book was not the link's target. Quote the value instead.
+- A variable `author=`, `from_book=`, or `link=` stops the build with the file
+  and the tag. Reading `author=` as absent recorded a backlink when the
+  variable named an author whose book was not the link's target. Reading
+  `link=some_var` as text recorded a backlink when the variable was `false`,
+  and reading unquoted `link=FALSE` as false recorded none although the
+  renderer links: Liquid literals are case-sensitive, so `FALSE` is an unset
+  variable. For `link=`, the unquoted literals `true`, `false`, and `nil` are
+  values. Quote any other value.
 
 **The selection rules exist once.** `BookCandidateSelector` and
 `ShortStoryLocationSelector` in `infrastructure/link_cache/` are pure: they

@@ -21,13 +21,18 @@ module Jekyll
       #
       # A variable subject cannot be resolved without rendering, so it
       # produces no target, except `page.series` on series tags. A variable
-      # `author=` or `from_book=` stops the build: reading it as absent can
-      # record a backlink the rendered page does not have.
+      # `author=`, `from_book=`, or `link=` stops the build: guessing its
+      # value can record a backlink the rendered page does not have, or miss
+      # one it does. For `link=`, the unquoted Liquid literals `true`,
+      # `false`, and `nil` are values, not variables.
       class LinkTagTargetResolver
         BookSelector = Jekyll::Infrastructure::LinkCache::BookCandidateSelector
         LocationSelector = Jekyll::Infrastructure::LinkCache::ShortStoryLocationSelector
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
-        private_constant :BookSelector, :LocationSelector, :TagArgs
+        # The unquoted values Liquid reads as literals rather than variable
+        # names. Liquid literals are case-sensitive, so `FALSE` is a variable.
+        LINK_LITERALS = %w[true false nil].freeze
+        private_constant :BookSelector, :LocationSelector, :TagArgs, :LINK_LITERALS
 
         # @param link_cache [Hash] the site link cache.
         # @param url_to_doc [Hash] URL => book document or author page.
@@ -44,11 +49,11 @@ module Jekyll
           when 'book_link'
             extract_book_link(link_arguments(node), node, doc)
           when 'series_link', 'series_text'
-            extract_series_link(link_arguments(node), doc)
+            extract_series_link(link_arguments(node), node, doc)
           when 'short_story_link'
             extract_short_story_link(link_arguments(node), node, doc)
           when 'author_link'
-            extract_author_link(link_arguments(node))
+            extract_author_link(link_arguments(node), node, doc)
           end
         end
 
@@ -79,8 +84,8 @@ module Jekyll
           target.is_a?(Hash) ? [{ url: target['url'], type: 'book' }] : nil
         end
 
-        def extract_series_link(args, doc)
-          return nil if link_disabled?(args.options[:link])
+        def extract_series_link(args, node, doc)
+          return nil if link_disabled?(args.options[:link], node, doc)
 
           title = args.subject == 'page.series' ? doc.data['series'] : literal(args.subject)
           return nil if title.nil? || title.to_s.strip.empty?
@@ -106,8 +111,8 @@ module Jekyll
 
         # Mirrors AuthorLinkResolver: pen names resolve through the 'authors'
         # cache to the canonical page, and link=false renders no link.
-        def extract_author_link(args)
-          return nil if link_disabled?(args.options[:link])
+        def extract_author_link(args, node, doc)
+          return nil if link_disabled?(args.options[:link], node, doc)
 
           name = literal(args.subject)
           return nil unless name
@@ -139,12 +144,17 @@ module Jekyll
                 "follow it; use a quoted #{name}= value."
         end
 
-        # True when a `link=` option is the literal false, quoted or not.
-        # Shares TagArgumentUtils.false_value? with the renderer.
-        def link_disabled?(markup)
+        # True when a `link=` option reads as false. A quoted value gives its
+        # content, and an unquoted Liquid literal gives itself. Any other
+        # unquoted markup is a variable, which stops the build. Shares
+        # TagArgumentUtils.false_value? with the renderer.
+        def link_disabled?(markup, node, doc)
           return false unless markup
 
-          TagArgs.false_value?(literal(markup) || markup)
+          value = literal(markup) || (markup if LINK_LITERALS.include?(markup))
+          raise_variable_option(:link, markup, node, doc) if value.nil?
+
+          TagArgs.false_value?(value)
         end
 
         def normalize(title)
