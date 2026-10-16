@@ -5,6 +5,7 @@ from pathlib import Path
 
 import publish
 import pytest
+import requests
 import yaml
 from publish import (
     AtprotoClient,
@@ -1935,6 +1936,78 @@ class TestReadOnlyClient:
         with pytest.raises(publish.PublishError, match=f"read-only client: refusing {method}"):
             getattr(client, method)(*args)
         assert transport.calls == []
+
+
+class TestAmbientCredentials:
+    """
+    The client's own requests.Session, as Requests prepares each request.
+    MockTransport replaces the session, so it cannot see what Requests adds
+    from the environment, such as a .netrc entry for the host.
+    """
+
+    class CaptureAdapter(requests.adapters.BaseAdapter):
+        def __init__(self) -> None:
+            super().__init__()
+            self.responses = {
+                "createSession": LOGIN_RESPONSE,
+                "getRecord": PUB_RECORD_RESPONSE,
+                "listRecords": {"records": []},
+                "createRecord": {"uri": DOC_URI},
+                "putRecord": {},
+            }
+            self.sent: dict[str, str | None] = {}
+
+        def send(self, request, **kwargs):
+            endpoint = request.url.split("?")[0].rsplit(".", 1)[1]
+            self.sent[endpoint] = request.headers.get("Authorization")
+            response = requests.Response()
+            response.status_code = 200
+            response._content = json.dumps(self.responses[endpoint]).encode()
+            response.request = request
+            return response
+
+        def close(self) -> None:
+            pass
+
+    @pytest.fixture
+    def adapter(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
+        netrc = tmp_path / "netrc"
+        netrc.write_text("machine bsky.social login netrc-user password netrc-pass\n")
+        netrc.chmod(0o600)
+        monkeypatch.setenv("NETRC", str(netrc))
+
+        adapter = self.CaptureAdapter()
+        real_session = requests.Session
+
+        def session_with_adapter():
+            session = real_session()
+            session.mount("https://", adapter)
+            return session
+
+        monkeypatch.setattr(publish.requests, "Session", session_with_adapter)
+        return adapter
+
+    def test_read_only_client_ignores_netrc(self, adapter) -> None:
+        client = AtprotoClient.read_only("https://bsky.social", CONFIGURED_DID)
+
+        client.get_record(CONFIGURED_DID, "site.standard.publication", "rkeypub")
+        client.list_records("site.standard.document")
+
+        assert adapter.sent == {"getRecord": None, "listRecords": None}
+
+    def test_logged_in_client_ignores_netrc(self, adapter) -> None:
+        client = AtprotoClient("https://bsky.social", "handle.bsky.social", "password")
+
+        client.list_records("site.standard.document")
+        client.create_record("site.standard.document", {})
+        client.put_record("site.standard.document", "rk", {}, swap_cid="cid1")
+
+        assert adapter.sent == {
+            "createSession": None,
+            "listRecords": "Bearer token-abc",
+            "createRecord": "Bearer token-abc",
+            "putRecord": "Bearer token-abc",
+        }
 
 
 class TestDidFromPublicationUri:

@@ -90,6 +90,10 @@ lexicons. It explains how the pieces connect and what to do when they change.
   password. Bluesky app passwords cannot be limited to reading, so treat
   one as full write access, and revoke any app password created for
   one-off local use.
+- **Ambient credentials.** The client ignores `~/.netrc`, `$NETRC`, and
+  proxy environment variables (`trust_env = False`). Requests would
+  otherwise send a matching `.netrc` entry, replacing the bearer token and
+  adding Basic auth to the dry run's public reads.
 
 ## Gotchas
 

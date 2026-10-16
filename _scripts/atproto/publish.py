@@ -315,6 +315,10 @@ class AtprotoClient:
     def _init_transport(self, pds_url: str, session: Any) -> None:
         self._pds = pds_url.rstrip("/")
         self._http = session if session is not None else requests.Session()
+        # Requests otherwise reads ~/.netrc (or $NETRC) and sends that entry's
+        # credentials, replacing the bearer token on writes and adding Basic
+        # auth to calls that must carry none.
+        self._http.trust_env = False
         self.did: str = ""
         self._jwt: str = ""
         self._read_only = False
