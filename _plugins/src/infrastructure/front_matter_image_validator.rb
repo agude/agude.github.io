@@ -15,7 +15,9 @@ module Jekyll
     # This check reads the file system and does not depend on rendering.
     #
     # Absolute `http(s)` URLs are not checked. A hash-form image
-    # (`{path, alt}`) is checked by its `path`.
+    # (`{path, alt}`) is checked by its `path`. A local reference is checked
+    # through FrontMatterImage.file_path, so a query, a fragment, or
+    # percent-encoding in a valid URL does not hide the file.
     #
     # @validator Front-matter `image` that names a local file missing from
     #   the source tree, including on pages that hide their lead image.
@@ -26,14 +28,16 @@ module Jekyll
       def self.validate(item, site)
         return unless item.data.is_a?(Hash)
 
-        path = FrontMatterImage.path(item.data['image'], source: item.relative_path || item.url)
-        return if path.nil? || path.start_with?('http://', 'https://')
-        return if File.file?(File.join(site.source, path))
-
         identifier = item.relative_path || item.url
+        path = FrontMatterImage.path(item.data['image'], source: identifier)
+        return if path.nil? || path.start_with?('http://', 'https://')
+
+        file = File.join(site.source, FrontMatterImage.file_path(path, source: identifier))
+        return if File.file?(file)
+
         raise Jekyll::Errors::FatalException,
               "FrontMatterImageValidator: '#{identifier}' sets image '#{path}', " \
-              "but no file exists at #{File.join(site.source, path)}."
+              "but no file exists at #{file}."
       end
     end
   end

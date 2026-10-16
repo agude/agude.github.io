@@ -76,6 +76,55 @@ class TestFrontMatterImageValidator < Minitest::Test
     doc = doc_with('image' => '/books/covers')
     assert_raises(Jekyll::Errors::FatalException) { Validator.validate(doc, @site) }
   end
+
+  # The browser requests the URL, so the file on disk is the path with its
+  # query and fragment removed and its percent-encoding decoded.
+  def test_percent_encoded_reference_passes
+    assert_image_passes('/files/a%20b.png', file: 'files/a b.png')
+  end
+
+  def test_reference_with_query_passes
+    assert_image_passes('/files/a b.png?v=1', file: 'files/a b.png')
+  end
+
+  def test_encoded_reference_with_query_passes
+    assert_image_passes('/files/a%20b.png?v=1', file: 'files/a b.png')
+  end
+
+  def test_encoded_reference_with_fragment_passes
+    assert_image_passes('/files/a%20b.png#x', file: 'files/a b.png')
+  end
+
+  # Compatibility case: a literal space already named the file.
+  def test_literal_space_reference_passes
+    assert_image_passes('/files/a b.png', file: 'files/a b.png')
+  end
+
+  # Compatibility case. Only `a+b.png` exists, so form decoding, which
+  # turns `+` into a space, would raise.
+  def test_literal_plus_reference_passes
+    assert_image_passes('/files/a+b.png', file: 'files/a+b.png')
+  end
+
+  def test_encoded_plus_reference_passes
+    assert_image_passes('/files/a%2Bb.png', file: 'files/a+b.png')
+  end
+
+  def test_missing_file_with_query_still_raises
+    doc = doc_with('image' => '/files/missing.png?v=1')
+    error = assert_raises(Jekyll::Errors::FatalException) { Validator.validate(doc, @site) }
+    assert_includes error.message, '/files/missing.png?v=1'
+  end
+
+  private
+
+  # Creates only `file`, so a wrong decoding cannot find another file.
+  def assert_image_passes(image, file:)
+    path = File.join(@source, file)
+    FileUtils.mkdir_p(File.dirname(path))
+    File.write(path, 'png')
+    Validator.validate(doc_with('image' => image), @site)
+  end
 end
 
 # Tests for the :pre_render hook registration.

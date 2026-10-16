@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'jekyll'
+require 'uri'
 require_relative 'url_utils'
 
 module Jekyll
@@ -24,6 +25,21 @@ module Jekyll
 
         stripped = raw.strip
         stripped.empty? ? nil : stripped
+      end
+
+      # The source-relative file a local image reference names, for checks
+      # that read the file system. Consumers that emit the URL keep `path`:
+      # the browser requests it exactly as written.
+      #
+      # The query and fragment are removed at the first literal `?` or `#`
+      # before decoding, so an encoded `%3F` or `%23` stays part of the
+      # file name. The rest is percent-decoded once. A literal `+` or space
+      # is kept: this is a URL path, not form data.
+      #
+      # @return [String, nil] The decoded path, or nil when blank.
+      def self.file_path(value, source: nil)
+        image_path = path(value, source: source)
+        image_path && URI::DEFAULT_PARSER.unescape(image_path.sub(/[?#].*\z/m, ''))
       end
 
       # @return [String, nil] The absolute URL of the image, or nil when blank.
