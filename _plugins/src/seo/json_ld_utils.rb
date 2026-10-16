@@ -3,6 +3,7 @@
 require_relative '../infrastructure/text_processing_utils' # For cleaning/truncating text
 require_relative '../infrastructure/url_utils' # For absolute URLs
 require_relative '../infrastructure/front_matter_image'
+require_relative '../infrastructure/rating_parser'
 
 module Jekyll
   # Utility module for generating Schema.org JSON-LD structured data.
@@ -176,11 +177,11 @@ module Jekyll
 
       # Generates a Schema.org Rating object.
       # @param rating_value_raw The raw rating value.
-      # @return [Hash, nil] The Ruby Hash representing the Rating object, or nil if rating is invalid.
-      # Renamed
-      def self.build_rating_entity(rating_value_raw, best_rating: '5', worst_rating: '1')
-        rating_value = rating_value_raw.to_i
-        return nil if rating_value <= 0
+      # @return [Hash, nil] The Rating object, or nil when there is no rating.
+      # @raise [Jekyll::Errors::FatalException] For a malformed rating (see RatingParser).
+      def self.build_rating_entity(rating_value_raw, best_rating: '5', worst_rating: '1', source: nil)
+        rating_value = Jekyll::Infrastructure::RatingParser.parse(rating_value_raw, source: source)
+        return nil unless rating_value
 
         {
           '@type' => 'Rating',

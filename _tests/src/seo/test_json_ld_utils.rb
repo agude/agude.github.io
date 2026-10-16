@@ -274,11 +274,10 @@ class TestJsonLdUtils < Minitest::Test
     assert_equal expected, Jekyll::SEO::JsonLdUtils.build_rating_entity(3, best_rating: '10', worst_rating: '0')
   end
 
-  def test_build_rating_entity_invalid_or_zero
-    assert_nil Jekyll::SEO::JsonLdUtils.build_rating_entity(0)
-    assert_nil Jekyll::SEO::JsonLdUtils.build_rating_entity(-1)
-    assert_nil Jekyll::SEO::JsonLdUtils.build_rating_entity('abc')
-    assert_nil Jekyll::SEO::JsonLdUtils.build_rating_entity(nil)
+  def test_build_rating_entity_out_of_range_or_non_numeric_raises
+    [0, -1, 6, 'abc'].each do |raw|
+      assert_raises(Jekyll::Errors::FatalException, raw.inspect) { Jekyll::SEO::JsonLdUtils.build_rating_entity(raw) }
+    end
   end
 
   # --- Tests for build_book_series_entity ---
@@ -488,5 +487,26 @@ class TestJsonLdUtils < Minitest::Test
 
   def test_same_as_list_empty
     assert_equal [], Jekyll::SEO::JsonLdUtils.same_as_list(nil, nil)
+  end
+
+  # --- build_rating_entity: strict parsing (A19b) ---
+
+  def test_build_rating_entity_rejects_text_after_the_number
+    assert_raises(Jekyll::Errors::FatalException) { Jekyll::SEO::JsonLdUtils.build_rating_entity('4 stars') }
+  end
+
+  def test_build_rating_entity_rejects_fractions_and_blank
+    ['4.9', '', 4.9].each do |raw|
+      assert_raises(Jekyll::Errors::FatalException, raw.inspect) { Jekyll::SEO::JsonLdUtils.build_rating_entity(raw) }
+    end
+  end
+
+  def test_build_rating_entity_nil_omits_rating
+    assert_nil Jekyll::SEO::JsonLdUtils.build_rating_entity(nil)
+  end
+
+  def test_build_rating_entity_accepts_five
+    assert_equal '5', Jekyll::SEO::JsonLdUtils.build_rating_entity(5)['ratingValue']
+    assert_equal '5', Jekyll::SEO::JsonLdUtils.build_rating_entity('5')['ratingValue']
   end
 end

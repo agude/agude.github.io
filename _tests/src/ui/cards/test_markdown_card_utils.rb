@@ -187,12 +187,12 @@ class TestMarkdownCardUtils < Minitest::Test
                  Jekyll::UI::Cards::MarkdownCardUtils.format_stars(1)
   end
 
-  def test_format_stars_zero_returns_nil
-    assert_nil Jekyll::UI::Cards::MarkdownCardUtils.format_stars(0)
-  end
-
-  def test_format_stars_six_returns_nil
-    assert_nil Jekyll::UI::Cards::MarkdownCardUtils.format_stars(6)
+  def test_format_stars_out_of_range_raises
+    [0, 6].each do |raw|
+      assert_raises(Jekyll::Errors::FatalException, raw.inspect) do
+        Jekyll::UI::Cards::MarkdownCardUtils.format_stars(raw)
+      end
+    end
   end
 
   def test_format_stars_string_coercion
@@ -342,5 +342,28 @@ class TestMarkdownCardUtils < Minitest::Test
     assert_equal '### Trilogy', lines[0]
     assert_match(/Entry/, lines[1])
     assert_equal 2, lines.length
+  end
+
+  # --- format_stars: strict parsing (A19b) ---
+
+  def test_format_stars_rejects_text_after_the_number
+    assert_raises(Jekyll::Errors::FatalException) { Jekyll::UI::Cards::MarkdownCardUtils.format_stars('4 stars') }
+  end
+
+  def test_format_stars_rejects_fractions_and_blank
+    ['4.9', '', 4.9].each do |raw|
+      assert_raises(Jekyll::Errors::FatalException, raw.inspect) do
+        Jekyll::UI::Cards::MarkdownCardUtils.format_stars(raw)
+      end
+    end
+  end
+
+  def test_format_stars_nil_omits_rating
+    assert_nil Jekyll::UI::Cards::MarkdownCardUtils.format_stars(nil)
+  end
+
+  def test_format_stars_accepts_integer_and_digit_string
+    assert_equal "\u2605" * 5, Jekyll::UI::Cards::MarkdownCardUtils.format_stars(5)
+    assert_equal "\u2605" * 5, Jekyll::UI::Cards::MarkdownCardUtils.format_stars('5')
   end
 end

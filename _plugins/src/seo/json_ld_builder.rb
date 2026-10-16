@@ -94,7 +94,7 @@ module Jekyll
       end
 
       def rating(value)
-        entity = Jekyll::SEO::JsonLdUtils.build_rating_entity(value)
+        entity = Jekyll::SEO::JsonLdUtils.build_rating_entity(value, source: @document&.url)
         @data['reviewRating'] = entity if entity
       end
 

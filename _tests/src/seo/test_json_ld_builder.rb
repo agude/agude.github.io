@@ -282,11 +282,10 @@ class TestJsonLdBuilder < Minitest::Test
     assert_equal expected, result['reviewRating']
   end
 
-  def test_rating_zero_not_added
-    result = Jekyll::SEO::JsonLdBuilder.build('Review') do |schema|
-      schema.rating 0
+  def test_rating_out_of_range_raises
+    assert_raises(Jekyll::Errors::FatalException) do
+      Jekyll::SEO::JsonLdBuilder.build('Review') { |schema| schema.rating 0 }
     end
-    refute result.key?('reviewRating')
   end
 
   # --- Series Method ---
