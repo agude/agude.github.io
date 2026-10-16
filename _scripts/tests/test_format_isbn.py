@@ -96,3 +96,22 @@ class TestCommandLine:
         out = capsys.readouterr().out
         assert "isbn: 0316769487 -> isbn: 978-0-316-76948-8" in out
         assert "1/1 files would change." in out
+
+    def test_octal_looking_isbn10_is_formatted(self, tmp_path: Path, monkeypatch, capsys):
+        # YAML 1.1 reads an unquoted 0306406152 as octal, so the digits must
+        # come from the raw front matter text.
+        path = tmp_path / "book.md"
+        path.write_bytes(b"---\ntitle: T\nisbn: 0306406152\n---\nBody\n")
+
+        self.run(monkeypatch, str(path))
+
+        assert path.read_bytes() == b"---\ntitle: T\nisbn: 978-0-306-40615-7\n---\nBody\n"
+        assert "1/1 files changed." in capsys.readouterr().out
+
+    def test_unquoted_integer_isbn13_is_formatted(self, tmp_path: Path, monkeypatch, capsys):
+        path = tmp_path / "book.md"
+        path.write_bytes(b"---\ntitle: T\nisbn: 9780306406157\n---\nBody\n")
+
+        self.run(monkeypatch, str(path))
+
+        assert path.read_bytes() == b"---\ntitle: T\nisbn: 978-0-306-40615-7\n---\nBody\n"

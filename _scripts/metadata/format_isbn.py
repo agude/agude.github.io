@@ -57,7 +57,8 @@ def extract_isbn(path: str, fm_text: str) -> str | None:
     """Extract the ISBN value from front matter text.
 
     Tries yaml.safe_load first; falls back to regex if the YAML is
-    malformed (e.g. tabs instead of spaces).
+    malformed (e.g. tabs instead of spaces). When YAML parses the value as a
+    non-string (an int, or an octal misread), returns the raw text instead.
     """
     try:
         front_matter = yaml.safe_load(fm_text)
@@ -76,7 +77,17 @@ def extract_isbn(path: str, fm_text: str) -> str | None:
         return None
 
     value = front_matter["isbn"]
-    return str(value) if value is not None else None
+    if value is None:
+        return None
+    if isinstance(value, str):
+        return value
+
+    # YAML 1.1 turns an unquoted 0306406152 into an octal int, losing the
+    # digits. Read the scalar's original text instead of str(value).
+    isbn_match = ISBN_LINE_RE.search(fm_text)
+    if not isbn_match:
+        return None
+    return isbn_match.group(2).strip().strip("\"'")
 
 
 def process_file(path: str, dry_run: bool) -> bool:
