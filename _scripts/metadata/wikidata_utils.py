@@ -6,6 +6,7 @@ from __future__ import annotations
 import logging
 import sys
 import urllib.parse
+from collections import deque
 from typing import TextIO, TypedDict
 
 import requests
@@ -316,32 +317,40 @@ def resolve_qid(identifier: str) -> str:
     return require_qid(identifier)
 
 
-def _resolve_award_family(award_qid: str, seen: set[str] | None = None) -> str | None:
+MAX_AWARD_DEPTH = 5
+
+
+def _resolve_award_family(award_qid: str) -> str | None:
     """Resolve an award Q-ID to a family slug by traversing the hierarchy.
 
-    Follows P361 (part of) and P279 (subclass of) up to 5 levels to find
-    a known award family. Returns None if no family is found.
+    Searches breadth-first through P361 (part of) and P279 (subclass of)
+    parents. The award itself is depth 0; ancestors up to depth 5 are
+    examined, and ancestors deeper than that are ignored. The nearest known
+    award family wins; at equal depth, P361 parents come before P279 parents.
+    Returns None if no family is found within that depth.
     """
-    if seen is None:
-        seen = set()
+    visited = {award_qid}
+    queue: deque[tuple[str, int]] = deque([(award_qid, 0)])
 
-    if award_qid in seen or len(seen) > 5:
-        log.debug("Award hierarchy limit reached for %s", award_qid)
-        return None
-    seen.add(award_qid)
+    while queue:
+        qid, depth = queue.popleft()
 
-    if award_qid in AWARD_FAMILIES:
-        log.debug("Resolved %s to family %s", award_qid, AWARD_FAMILIES[award_qid])
-        return AWARD_FAMILIES[award_qid]
+        if qid in AWARD_FAMILIES:
+            log.debug("Resolved %s to family %s", qid, AWARD_FAMILIES[qid])
+            return AWARD_FAMILIES[qid]
 
-    entity = fetch_entity(award_qid)
+        if depth == MAX_AWARD_DEPTH:
+            log.debug("Award hierarchy depth limit reached at %s", qid)
+            continue
 
-    for prop in ("P361", "P279"):
-        for parent_qid in get_claim_entity_ids(entity, prop):
-            log.debug("Traversing %s -> %s via %s", award_qid, parent_qid, prop)
-            result = _resolve_award_family(parent_qid, seen)
-            if result:
-                return result
+        entity = fetch_entity(qid)
+        for prop in ("P361", "P279"):
+            for parent_qid in get_claim_entity_ids(entity, prop):
+                if parent_qid in visited:
+                    continue
+                log.debug("Traversing %s -> %s via %s", qid, parent_qid, prop)
+                visited.add(parent_qid)
+                queue.append((parent_qid, depth + 1))
 
     return None
 

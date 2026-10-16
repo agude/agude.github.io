@@ -330,7 +330,9 @@ class TestResolveAwardFamily:
         qids, graph = self._chain(6)
         result, fetched = self._resolve(qids[0], graph)
         assert result is None
-        assert fetched == qids
+        # The depth-5 node is checked but not fetched: its parents would be
+        # past the limit.
+        assert fetched == qids[:5]
 
     def test_dead_end_branch_falls_through_to_next_property(self):
         graph = {
@@ -340,6 +342,51 @@ class TestResolveAwardFamily:
         result, fetched = self._resolve("Q999999", graph)
         assert result == "nebula"
         assert fetched == ["Q999999", "Q900000"]
+
+    def test_dead_end_chain_does_not_exhaust_search(self):
+        # The limit is on depth, not on how many nodes were visited: a long
+        # dead-end P361 chain must not hide a known P279 parent of the root.
+        dead = [f"Q{900000 + i}" for i in range(5)]
+        graph = {"Q999999": self._entity(P361=[dead[0]], P279=["Q194285"])}
+        for qid, parent in zip(dead, [*dead[1:], None], strict=True):
+            graph[qid] = self._entity(P361=[parent] if parent else [])
+        result, _ = self._resolve("Q999999", graph)
+        assert result == "nebula"
+
+    def test_nearest_family_wins(self):
+        # Locus is at depth 4 via P361; Nebula is at depth 2 via P279.
+        graph = {
+            "Q999999": self._entity(P361=["Q900001"], P279=["Q900010"]),
+            "Q900001": self._entity(P361=["Q900002"]),
+            "Q900002": self._entity(P361=["Q900003"]),
+            "Q900003": self._entity(P361=["Q754655"]),
+            "Q900010": self._entity(P279=["Q194285"]),
+        }
+        result, _ = self._resolve("Q999999", graph)
+        assert result == "nebula"
+
+    def test_p361_preferred_at_equal_depth(self):
+        graph = {"Q999999": self._entity(P279=["Q194285"], P361=["Q188914"])}
+        result, _ = self._resolve("Q999999", graph)
+        assert result == "hugo"
+
+    def test_family_at_depth_five_via_p279_resolves(self):
+        qids = [f"Q{900000 + i}" for i in range(5)]
+        graph = {
+            qid: self._entity(P279=[parent])
+            for qid, parent in zip(qids, [*qids[1:], "Q188914"], strict=True)
+        }
+        result, _ = self._resolve(qids[0], graph)
+        assert result == "hugo"
+
+    def test_family_at_depth_six_via_p279_returns_none(self):
+        qids = [f"Q{900000 + i}" for i in range(6)]
+        graph = {
+            qid: self._entity(P279=[parent])
+            for qid, parent in zip(qids, [*qids[1:], "Q188914"], strict=True)
+        }
+        result, _ = self._resolve(qids[0], graph)
+        assert result is None
 
 
 class TestFetchAwards:
