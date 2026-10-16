@@ -1,6 +1,9 @@
-"""Tests for metadata/format_isbn.py pure functions."""
+"""Tests for metadata/format_isbn.py."""
 
-from format_isbn import extract_isbn, format_isbn
+import sys
+from pathlib import Path
+
+from format_isbn import extract_isbn, format_isbn, main
 
 
 class TestFormatIsbn:
@@ -50,3 +53,46 @@ class TestExtractIsbn:
         fm = "title: Test\nisbn: 123\nfoo:\tbar\n"
         result = extract_isbn("test.md", fm)
         assert result == "123"
+
+
+class TestCommandLine:
+    # The body repeats the isbn line, and has trailing spaces and non-ASCII
+    # text, so a rewrite that strays outside the front matter shows up.
+    ORIGINAL = (
+        "---\n"
+        'title: "The Catcher in the Rye"\n'
+        "isbn: 0316769487\n"
+        "rating: 4\n"
+        "---\n"
+        "The body repeats the line:\n"
+        "isbn: 0316769487\n"
+        "Trailing spaces stay.   \n"
+        "Unicode stays: café — “quoted”\n"
+    )
+
+    def run(self, monkeypatch, *args: str) -> None:
+        monkeypatch.setattr(sys, "argv", ["format_isbn.py", *args])
+        main()
+
+    def test_rewrites_only_the_front_matter_isbn(self, tmp_path: Path, monkeypatch, capsys):
+        path = tmp_path / "book.md"
+        path.write_bytes(self.ORIGINAL.encode())
+
+        self.run(monkeypatch, str(path))
+
+        expected = self.ORIGINAL.replace(
+            "isbn: 0316769487\nrating", "isbn: 978-0-316-76948-8\nrating", 1
+        )
+        assert path.read_bytes() == expected.encode()
+        assert "1/1 files changed." in capsys.readouterr().out
+
+    def test_dry_run_leaves_file_unchanged(self, tmp_path: Path, monkeypatch, capsys):
+        path = tmp_path / "book.md"
+        path.write_bytes(self.ORIGINAL.encode())
+
+        self.run(monkeypatch, "--dry-run", str(path))
+
+        assert path.read_bytes() == self.ORIGINAL.encode()
+        out = capsys.readouterr().out
+        assert "isbn: 0316769487 -> isbn: 978-0-316-76948-8" in out
+        assert "1/1 files would change." in out
