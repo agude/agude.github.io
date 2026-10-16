@@ -24,6 +24,14 @@ class TestSplitFrontMatter:
     def test_empty_block(self):
         assert split_front_matter("---\n---\nBody.\n") == ("", "Body.\n")
 
+    def test_empty_block_stops_at_first_closing_line(self):
+        text = "---\n---\nBody\n---\nTail\n"
+        assert split_front_matter(text) == ("", "Body\n---\nTail\n")
+
+    def test_body_triple_dash_line_stays_in_body(self):
+        text = "---\na: 1\n---\nb\n---\nc\n"
+        assert split_front_matter(text) == ("a: 1\n", "b\n---\nc\n")
+
     def test_missing_closing_line(self):
         assert split_front_matter("---\ntitle: Hyperion\n\nBody.\n") is None
 

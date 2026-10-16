@@ -12,7 +12,10 @@ import re
 
 # Only a line that is exactly `---` (trailing spaces allowed) opens or closes
 # the block, so `---` inside a value or an indented block scalar does not.
-_FRONT_MATTER_RE = re.compile(r"\A---[ \t]*\n(.*?\n)?---[ \t]*(?:\n|\Z)", re.DOTALL)
+# The closing line is the first such line after the opening one. The content
+# group is lazy (`??`) so an empty block closes at once instead of running on
+# to a later `---` line in the body.
+_FRONT_MATTER_RE = re.compile(r"\A---[ \t]*\n(.*?\n)??---[ \t]*(?:\n|\Z)", re.DOTALL)
 
 
 def split_front_matter(text: str) -> tuple[str, str] | None:
