@@ -28,4 +28,66 @@ class TestMarkdownHtmlRegionParser < Minitest::Test
     assert_equal [false, true], pairs.map(&:last)
     assert_empty Parser.tag_pairs('<details><details></details>', 'details')
   end
+
+  def test_nested_same_name_tags_form_one_region
+    outer = '<div class="outer"><div class="inner">x</div> tail</div>'
+
+    assert_equal [outer], protected_text("#{outer}\n\nAfter.\n")
+  end
+
+  def test_html_inside_fenced_code_is_not_a_region
+    source = "```html\n<div>literal</div>\n```\n\n<div>raw</div>\n"
+
+    assert_equal ['<div>raw</div>'], protected_text(source)
+  end
+
+  def test_inline_code_containing_div_is_not_a_region
+    source = "Use `<div>` here.\n\n<section>raw</section>\n"
+
+    assert_equal ['<section>raw</section>'], protected_text(source)
+  end
+
+  def test_indented_code_containing_div_is_not_a_region
+    source = "<div>raw</div>\n\n    <div>code</div>\n"
+
+    assert_equal ['<div>raw</div>'], protected_text(source)
+  end
+
+  def test_unclosed_tag_is_not_a_region
+    source = "<div>never closed\n\n<section>raw</section>\n"
+
+    assert_equal ['<section>raw</section>'], protected_text(source)
+  end
+
+  # Tag pairing cannot tell which opening tag is the unclosed one, so no
+  # region of that tag name is protected from the first unbalanced tag on.
+  def test_unclosed_tag_leaves_earlier_same_name_regions_unprotected
+    assert_empty Parser.protected_ranges("<div>closed</div>\n\n<div>never closed\n")
+  end
+
+  def test_unclosed_details_protects_the_rest_of_the_text
+    source = "<details><summary>Open</summary>\n\n<div>after</div>\n"
+
+    assert_equal [source], protected_text(source)
+  end
+
+  # Code is found in the text with earlier raw regions blanked, so a
+  # backtick or fence marker inside raw HTML does not hide later HTML.
+  def test_backtick_inside_raw_html_does_not_open_a_code_span
+    source = 'Text <div>a ` b</div> c <div>d</div> e `'
+
+    assert_equal ['<div>a ` b</div>', '<div>d</div>'], protected_text(source)
+  end
+
+  def test_fence_marker_inside_raw_html_does_not_open_a_fence
+    source = "<div>\n```\n</div>\n\n<section>x</section>\n"
+
+    assert_equal ["<div>\n```\n</div>", '<section>x</section>'], protected_text(source)
+  end
+
+  private
+
+  def protected_text(source)
+    Parser.protected_ranges(source).map { |start_index, end_index| source[start_index...end_index] }
+  end
 end
