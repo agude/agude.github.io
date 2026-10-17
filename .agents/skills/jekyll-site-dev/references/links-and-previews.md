@@ -123,6 +123,10 @@ CSS-only (no JS) hover cards on cross-page book links.
   `strip_feed_previews_hook.rb` handles every other `.xml` page. Apply the
   same stripping to any new output surface.
 
+`JsonLdBuilder` cleans article text once per instance for `articleBody` and
+`wordCount`, including empty results. Description field precedence remains
+independent of this cache.
+
 ### Preview CSS positioning
 
 `_sass/_previews.scss`. Hidden by default; revealed on `a:hover` /
@@ -163,11 +167,11 @@ Nokogiri parse in `_plugins/` also uses `Nokogiri::HTML5`.
 `check_reference_links.rb` (`make check-refs`, plus a CI step) fails the
 build on three problems in `[text][id]` / `[id]:` markdown reference links:
 
-| Problem | Why it is fatal |
-|---|---|
-| Undefined `[text][id]` | Kramdown emits the literal source text |
-| Duplicate `[id]:` | Kramdown keeps the **first** definition silently |
-| Orphaned `[id]:` | Usually a link that was set up and never attached |
+| Problem                | Why it is fatal                                   |
+| ---------------------- | ------------------------------------------------- |
+| Undefined `[text][id]` | Kramdown emits the literal source text            |
+| Duplicate `[id]:`      | Kramdown keeps the **first** definition silently  |
+| Orphaned `[id]:`       | Usually a link that was set up and never attached |
 
 - **No other gate can catch this class.** Worth knowing before reaching for
   one of them, because all three look like "strict mode" and none overlap:
