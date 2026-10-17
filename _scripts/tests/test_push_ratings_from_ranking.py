@@ -240,3 +240,24 @@ class TestEscapedTitles:
         push_ratings_from_ranking.main()
 
         assert book.read_text() == f"---\ntitle: {yaml_title}\nrating: 5\n---\n\nReview.\n"
+
+
+class TestRepeatedTitles:
+    def test_repeated_title_stops_before_any_write(self, tmp_path, monkeypatch):
+        # Book One is listed under 5 Stars and again, differently cased,
+        # under 3 Stars. Book Two comes first, so a write would happen
+        # before the repeat is reached.
+        build_tree(
+            tmp_path,
+            "  # 5 Stars\n  - Book Two\n  - Book One\n  # 3 Stars\n  - book one\n",
+            {"book_one": ("Book One", 3), "book_two": ("Book Two", 4)},
+        )
+        point_module_at(monkeypatch, push_ratings_from_ranking, tmp_path)
+        before = {path: path.read_text() for path in book_files(tmp_path)}
+
+        with pytest.raises(SystemExit) as excinfo:
+            push_ratings_from_ranking.main()
+
+        assert excinfo.value.code not in (0, None)
+        assert "Book One" in str(excinfo.value.code)
+        assert {path: path.read_text() for path in book_files(tmp_path)} == before

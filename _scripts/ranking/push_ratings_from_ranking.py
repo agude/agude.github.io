@@ -11,7 +11,8 @@ The star tier is determined by the YAML comments (# 5 Stars, # 4 Stars, etc.)
 in the ranked_list. Each book under a comment gets that rating pushed to its
 front matter.
 
-Stops before writing anything if two book files share a title.
+Stops before writing anything if two book files share a title or a title
+appears twice in the ranked_list.
 """
 
 import re
@@ -85,6 +86,22 @@ def parse_ranked_list_with_tiers(path):
     return list(zip(titles, stars, strict=True))
 
 
+def repeated_titles(books):
+    """Return titles that appear more than once in books, ignoring case.
+
+    Each repeated title is returned once, spelled as it first appears.
+    """
+    first_spelling = {}
+    repeated = []
+    for title, _stars in books:
+        key = title.lower()
+        if key not in first_spelling:
+            first_spelling[key] = title
+        elif first_spelling[key] not in repeated:
+            repeated.append(first_spelling[key])
+    return repeated
+
+
 def update_rating(book, new_rating):
     """Update the rating: field of a BookFile. Returns (old, new) or None if unchanged."""
     m = re.search(r"^(rating:\s*)(\d+)", book.text, re.MULTILINE)
@@ -105,6 +122,10 @@ def main():
 
     books = parse_ranked_list_with_tiers(BY_RATING)
     print(f"Parsed {len(books)} books from by_rating.md\n")
+    repeated = repeated_titles(books)
+    if repeated:
+        listing = "\n".join(f"  - {title}" for title in repeated)
+        sys.exit(f"Titles listed more than once in by_rating.md; nothing was changed:\n{listing}")
     index = build_title_index(BOOKS_DIR)
 
     changed = 0
