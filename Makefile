@@ -246,13 +246,14 @@ test-cov: image-build clean-coverage
 	@echo "To view on Linux, run: xdg-open _coverage/index.html"
 
 # Run coverage and generate a machine-readable summary for LLM agents.
-test-summary: image-build clean-coverage test-cov
+test-summary: image-build clean-coverage
 	@echo "Running tests and generating coverage report..."
-	@# First, run the tests with coverage enabled to generate _coverage/coverage.json.
-	@# We pipe stdout to /dev/null to hide the minitest output and keep the summary clean.
+	@# First, run the tests once with coverage enabled to generate
+	@# _coverage/coverage.json. The Minitest output stays visible because it
+	@# is the only place a failing test is reported.
 	@$(DOCKER_RUN) bundle exec ruby -I _plugins -I _tests \
 		-e "require 'test_helper'; ARGV.each { |f| load f }" \
-		$(TEST) > /dev/null
+		$(TEST)
 	@echo "---"
 	@echo "Generating machine-readable coverage summary..."
 	@# Then, run the Rake task to parse the JSON and create the summary file.
