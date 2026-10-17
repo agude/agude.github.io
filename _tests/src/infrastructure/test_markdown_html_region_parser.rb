@@ -89,6 +89,26 @@ class TestMarkdownHtmlRegionParser < Minitest::Test
   # region made the parser quadratic in the number of regions.
   def test_code_ranges_are_not_recomputed_for_each_plain_region
     source = Array.new(50) { |i| "Paragraph #{i}.\n\n<div class=\"note\">\nInner #{i}.\n</div>\n\n" }.join
+
+    assert_equal [50, 1], ranges_and_code_scans(source)
+  end
+
+  def test_code_ranges_are_not_recomputed_for_each_quoted_region
+    source = Array.new(50) { |i| "> Quote #{i}.\n>\n> <div class=\"note\">Inner #{i}.</div>\n\n" }.join
+
+    assert_equal [50, 1], ranges_and_code_scans(source)
+  end
+
+  def test_code_ranges_are_not_recomputed_after_closed_inline_code
+    source = Array.new(50) { |i| "Use `code #{i}` then <div class=\"note\">Inner #{i}.</div>\n\n" }.join
+
+    assert_equal [50, 1], ranges_and_code_scans(source)
+  end
+
+  private
+
+  # Returns the number of protected ranges and of whole-text code scans.
+  def ranges_and_code_scans(source)
     code_parser = Jekyll::Infrastructure::MarkdownCodeRegionParser
     original = code_parser.method(:protected_code_ranges)
     calls = 0
@@ -98,12 +118,8 @@ class TestMarkdownHtmlRegionParser < Minitest::Test
     end
 
     ranges = code_parser.stub(:protected_code_ranges, counting) { Parser.protected_ranges(source) }
-
-    assert_equal 50, ranges.length
-    assert_equal 1, calls
+    [ranges.length, calls]
   end
-
-  private
 
   def protected_text(source)
     Parser.protected_ranges(source).map { |start_index, end_index| source[start_index...end_index] }

@@ -43,6 +43,26 @@ class TestMarkdownMaskedCodeRanges < Minitest::Test
     assert_after_mask(text, [0, text.index('</div>') + 6], text.index('<section>'), in_code: true)
   end
 
+  def test_quoted_indented_html_after_blank_quote_line_is_code
+    text = "> <div>a</div>\n>\n>     <section>b</section>\n"
+
+    assert_after_mask(text, [2, text.index('</div>') + 6], text.index('<section>'), in_code: true)
+  end
+
+  # Blanking a region inside a quote's leading whitespace indents the rest
+  # of the line.
+  def test_masked_region_after_quote_marker_can_make_later_html_indented_code
+    text = "> <div>a</div>    <section>b</section>\n"
+
+    assert_after_mask(text, [2, text.index('</div>') + 6], text.index('<section>'), in_code: true)
+  end
+
+  def test_code_span_around_html_after_masked_region_is_code
+    text = 'Text <div>a</div> `b <section>c</section> d`'
+
+    assert_after_mask(text, [5, text.index('</div>') + 6], text.index('<section>'), in_code: true)
+  end
+
   def test_skips_recompute_when_position_cannot_be_code
     text = "<div>x</div>\n\n<section>y</section>\n"
     calls = 0
