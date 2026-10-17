@@ -85,6 +85,24 @@ class TestMarkdownHtmlRegionParser < Minitest::Test
     assert_equal ["<div>\n```\n</div>", '<section>x</section>'], protected_text(source)
   end
 
+  # Finding code ranges scans the whole text. Doing it again after every
+  # region made the parser quadratic in the number of regions.
+  def test_code_ranges_are_not_recomputed_for_each_plain_region
+    source = Array.new(50) { |i| "Paragraph #{i}.\n\n<div class=\"note\">\nInner #{i}.\n</div>\n\n" }.join
+    code_parser = Jekyll::Infrastructure::MarkdownCodeRegionParser
+    original = code_parser.method(:protected_code_ranges)
+    calls = 0
+    counting = lambda do |text|
+      calls += 1
+      original.call(text)
+    end
+
+    ranges = code_parser.stub(:protected_code_ranges, counting) { Parser.protected_ranges(source) }
+
+    assert_equal 50, ranges.length
+    assert_equal 1, calls
+  end
+
   private
 
   def protected_text(source)

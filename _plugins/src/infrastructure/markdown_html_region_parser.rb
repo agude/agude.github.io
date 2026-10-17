@@ -1,10 +1,17 @@
 # frozen_string_literal: true
 
-require_relative 'markdown_code_region_parser'
+require_relative 'markdown_masked_code_ranges'
 
 module Jekyll
   module Infrastructure
     # Finds HTML ranges whose source must remain opaque to Markdown conversion.
+    #
+    # protected_ranges scans the HTML tokens once. Before the scan it pairs
+    # every opening tag with its closing tag (balanced_region_ends), so
+    # finding where a region ends is a lookup, not a rescan of the rest of
+    # the text. Code detection runs on the text with earlier regions blanked
+    # (MarkdownMaskedCodeRanges), so a backtick or fence marker inside raw
+    # HTML does not hide later HTML.
     module MarkdownHtmlRegionParser
       HTML_TOKEN_RE = %r{<!--.*?-->|</?[a-z][^>]*>}im
       # CommonMark block HTML tag families, excluding thematic-break `hr`
@@ -75,63 +82,126 @@ module Jekyll
       ].freeze
 
       def self.protected_ranges(text, raw_tags: RAW_BLOCK_TAGS, markdown_div_classes: [])
-        code_ranges = MarkdownCodeRegionParser.protected_code_ranges(text)
+        tokens = html_tokens(text)
+        region_ends = balanced_region_ends(tokens)
+        code = MarkdownMaskedCodeRanges.new(text)
+        options = { text_length: text.length, raw_tags: raw_tags, markdown_div_classes: markdown_div_classes }
         ranges = []
         state = { position: 0, skipped_wrapper_end: nil }
 
-        text.to_enum(:scan, HTML_TOKEN_RE).each do
-          match = Regexp.last_match
-          next if ignored_token?(match.begin(0), state, code_ranges)
+        tokens.each_with_index do |token, index|
+          next if ignored_token?(token[:begin], state, code)
 
-          range = protected_range_for_token(text, match, state, raw_tags, markdown_div_classes)
+          range = protected_range_for_token(token, region_ends[index], state, options)
           next unless range
 
           ranges << range
           state[:position] = range[1]
-          code_ranges = code_ranges_outside_raw_html(text, ranges)
+          code.mask(*range)
         end
 
         ranges
       end
 
-      def self.ignored_token?(position, state, code_ranges)
+      # Every HTML comment and tag in the text, in order.
+      def self.html_tokens(text)
+        text.to_enum(:scan, HTML_TOKEN_RE).map do
+          match = Regexp.last_match
+          comment = match[0].start_with?('<!--')
+          { begin: match.begin(0), end: match.end(0), comment: comment, tag: comment ? nil : parse_tag(match[0]) }
+        end
+      end
+      private_class_method :html_tokens
+
+      # Maps the index of each opening tag to the end of its closing tag,
+      # when tag_pairs on the text from that opening tag would pair it: the
+      # opening tag has a closing tag and every tag of the same name from
+      # there to the end of the text is balanced. Other tokens are absent.
+      def self.balanced_region_ends(tokens)
+        tag_indices_by_name(tokens).each_value.with_object({}) do |indices, ends|
+          closing_by_opening = pair_tags(tokens, indices)
+          balanced_after = balanced_after_tags(tokens, indices, closing_by_opening)
+          closing_by_opening.each do |opening, closing|
+            ends[opening] = tokens[closing][:end] if balanced_after[closing]
+          end
+        end
+      end
+      private_class_method :balanced_region_ends
+
+      # Token indices of the tags tag_pairs counts, grouped by tag name:
+      # closing tags and opening tags that are not self-closing.
+      def self.tag_indices_by_name(tokens)
+        tokens.each_with_index.with_object(Hash.new { |hash, name| hash[name] = [] }) do |(token, index), groups|
+          tag = token[:tag]
+          next unless tag
+          next if !tag[:closing] && tag[:self_closing]
+
+          groups[tag[:name]] << index
+        end
+      end
+      private_class_method :tag_indices_by_name
+
+      # Pairs the opening and closing tags of one name the way tag_pairs
+      # does: a closing tag closes the most recent unclosed opening tag.
+      def self.pair_tags(tokens, indices)
+        stack = []
+        indices.each_with_object({}) do |index, closing_by_opening|
+          if tokens[index][:tag][:closing]
+            opening = stack.pop
+            closing_by_opening[opening] = index if opening
+          else
+            stack << index
+          end
+        end
+      end
+      private_class_method :pair_tags
+
+      # For each tag of one name, whether walking that name's later tags
+      # with an empty stack ends with an empty stack. Walking from a closing
+      # tag skips it, since it has nothing to close; walking from an opening
+      # tag continues after its closing tag, or fails if it has none.
+      def self.balanced_after_tags(tokens, indices, closing_by_opening)
+        balanced_after = {}
+        balanced_from_next = true
+        indices.reverse_each do |index|
+          balanced_after[index] = balanced_from_next
+          next if tokens[index][:tag][:closing]
+
+          closing = closing_by_opening[index]
+          balanced_from_next = closing ? balanced_after[closing] : false
+        end
+        balanced_after
+      end
+      private_class_method :balanced_after_tags
+
+      def self.ignored_token?(position, state, code)
         position < state[:position] ||
           (state[:skipped_wrapper_end] && position < state[:skipped_wrapper_end]) ||
-          in_code_range?(position, code_ranges)
+          code.in_code?(position)
       end
       private_class_method :ignored_token?
 
-      def self.protected_range_for_token(text, match, state, raw_tags, markdown_div_classes)
-        token = match[0]
-        return [match.begin(0), match.end(0)] if token.start_with?('<!--')
+      def self.protected_range_for_token(token, region_end, state, options)
+        return [token[:begin], token[:end]] if token[:comment]
 
-        tag = parse_tag(token)
+        tag = token[:tag]
         return nil unless tag && opening_tag?(tag)
 
-        track_supported_container(text, match.begin(0), tag, state)
-        return nil if state[:skipped_wrapper_end] && match.begin(0) < state[:skipped_wrapper_end]
+        state[:skipped_wrapper_end] = region_end if chatgpt_wrapper?(tag)
+        return nil if state[:skipped_wrapper_end] && token[:begin] < state[:skipped_wrapper_end]
+        # An unclosed details element protects the rest of the text.
+        return (region_end ? nil : [token[:begin], options[:text_length]]) if tag[:name] == 'details'
 
-        if tag[:name] == 'details'
-          return [match.begin(0), text.length] if tag_pairs(text[match.begin(0)..], 'details').empty?
-
-          return nil
-        end
-
-        return nil unless raw_tags.include?(tag[:name])
-        return nil if markdown_enabled?(tag[:attributes])
-        return nil if supported_div_wrapper?(tag, markdown_div_classes)
-
-        ending = raw_html_region_end(text, match.begin(0), tag[:name])
-        [match.begin(0), ending] if ending
+        [token[:begin], region_end] if region_end && raw_region_tag?(tag, options)
       end
       private_class_method :protected_range_for_token
 
-      def self.track_supported_container(text, position, tag, state)
-        return unless chatgpt_wrapper?(tag)
-
-        state[:skipped_wrapper_end] = raw_html_region_end(text, position, 'div')
+      def self.raw_region_tag?(tag, options)
+        options[:raw_tags].include?(tag[:name]) &&
+          !markdown_enabled?(tag[:attributes]) &&
+          !supported_div_wrapper?(tag, options[:markdown_div_classes])
       end
-      private_class_method :track_supported_container
+      private_class_method :raw_region_tag?
 
       def self.tag_pairs(text, name)
         stack = []
@@ -153,13 +223,6 @@ module Jekyll
         pairs.sort_by(&:first)
       end
 
-      def self.raw_html_region_end(text, opening_start, tag_name)
-        tag_pairs(text[opening_start..], tag_name).first&.then do |pair|
-          opening_start + pair[3]
-        end
-      end
-      private_class_method :raw_html_region_end
-
       def self.parse_tag(token)
         match = token.match(%r{\A<(/)?([a-z][\w:-]*)(?=[\s/>])([^>]*)>\z}im)
         return nil unless match
@@ -177,20 +240,6 @@ module Jekyll
         !tag[:closing] && !tag[:self_closing]
       end
       private_class_method :opening_tag?
-
-      def self.in_code_range?(position, code_ranges)
-        code_ranges.any? { |start_index, end_index| position >= start_index && position < end_index }
-      end
-      private_class_method :in_code_range?
-
-      def self.code_ranges_outside_raw_html(text, ranges)
-        masked = text.dup
-        ranges.reverse_each do |start_index, end_index|
-          masked[start_index...end_index] = masked[start_index...end_index].gsub(/[^\r\n]/, ' ')
-        end
-        MarkdownCodeRegionParser.protected_code_ranges(masked)
-      end
-      private_class_method :code_ranges_outside_raw_html
 
       def self.markdown_enabled?(attributes)
         match = attributes.match(/(?<![\w:-])markdown\s*=\s*(?:(['"])(.*?)\1|([^\s>]+))/i)
