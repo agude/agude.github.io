@@ -4,7 +4,7 @@ import sys
 from unittest.mock import patch
 
 import list_editions as list_editions_module
-from list_editions import format_editions, list_editions, pick_selected_isbn
+from list_editions import format_editions, list_editions
 
 
 class TestListEditions:
@@ -37,7 +37,7 @@ class TestListEditions:
         }
         with (
             patch("list_editions.fetch_entity", return_value=work_entity),
-            patch("list_editions.api_get", return_value=api_response),
+            patch("wikidata_utils.api_get", return_value=api_response),
         ):
             result = list_editions("Q0")
 
@@ -71,35 +71,10 @@ class TestListEditions:
         }
         with (
             patch("list_editions.fetch_entity", return_value=work_entity),
-            patch("list_editions.api_get", return_value=api_response),
+            patch("wikidata_utils.api_get", return_value=api_response),
         ):
             result = list_editions("Q0")
             assert result == [{"qid": "Q1", "label": "", "isbn": None, "is_english": False}]
-
-
-class TestPickSelectedIsbn:
-    def test_prefers_english_edition(self):
-        editions = [
-            {"qid": "Q1", "label": "French", "isbn": "978-2-000-00000-0", "is_english": False},
-            {"qid": "Q2", "label": "English", "isbn": "978-0-000-00000-0", "is_english": True},
-        ]
-        assert pick_selected_isbn(editions) == "978-0-000-00000-0"
-
-    def test_falls_back_to_first_isbn(self):
-        editions = [
-            {"qid": "Q1", "label": "French", "isbn": "978-2-000-00000-0", "is_english": False},
-            {"qid": "Q2", "label": "German", "isbn": "978-3-000-00000-0", "is_english": False},
-        ]
-        assert pick_selected_isbn(editions) == "978-2-000-00000-0"
-
-    def test_no_isbns_returns_none(self):
-        editions = [
-            {"qid": "Q1", "label": "No ISBN", "isbn": None, "is_english": False},
-        ]
-        assert pick_selected_isbn(editions) is None
-
-    def test_empty_list_returns_none(self):
-        assert pick_selected_isbn([]) is None
 
 
 class TestFormatEditions:

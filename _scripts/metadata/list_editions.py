@@ -12,7 +12,7 @@ editions (P747) of the work and prints each edition's Q-ID, label,
 language, and ISBN. Flags the edition that
 `update_book_metadata.py`/`get_earliest_edition_isbn` would select, so a
 mismatch (e.g. a foreign-language ISBN) can be caught and corrected by
-hand.
+hand. Both use the same edition fetch and selection rule.
 
 Usage:
     # By Q-ID (preferred, unambiguous):
@@ -27,65 +27,19 @@ from __future__ import annotations
 import sys
 
 from wikidata_utils import (
-    ENGLISH_LANGUAGE_QID,
-    api_get,
+    fetch_editions,
     fetch_entity,
-    get_claim_entity_ids,
-    get_claim_strings,
     is_qid,
     print_entity_candidates,
     resolve_qid,
     search_entity,
+    select_edition_isbn,
 )
 
 
 def list_editions(work_qid: str) -> list[dict]:
     """Return per-edition ISBN/language/label info for a work's editions."""
-    work = fetch_entity(work_qid)
-    edition_qids = get_claim_entity_ids(work, "P747")
-    if not edition_qids:
-        return []
-
-    editions = []
-    for i in range(0, len(edition_qids), 50):
-        batch = edition_qids[i : i + 50]
-        data = api_get(
-            {
-                "action": "wbgetentities",
-                "ids": "|".join(batch),
-                "props": "claims|labels",
-                "languages": "en",
-            }
-        )
-        for qid in batch:
-            entity = data.get("entities", {}).get(qid, {})
-            isbn_list = get_claim_strings(entity, "P212") or get_claim_strings(entity, "P957")
-            language_qids = get_claim_entity_ids(entity, "P407")
-            editions.append(
-                {
-                    "qid": qid,
-                    "label": entity.get("labels", {}).get("en", {}).get("value", ""),
-                    "isbn": isbn_list[0] if isbn_list else None,
-                    "is_english": ENGLISH_LANGUAGE_QID in language_qids,
-                }
-            )
-    return editions
-
-
-def pick_selected_isbn(editions: list[dict]) -> str | None:
-    """Pick the ISBN that get_earliest_edition_isbn would select.
-
-    Prefers English-language editions; falls back to the first ISBN found.
-    """
-    fallback = None
-    for ed in editions:
-        if ed["isbn"] is None:
-            continue
-        if fallback is None:
-            fallback = ed["isbn"]
-        if ed["is_english"]:
-            return ed["isbn"]
-    return fallback
+    return list(fetch_editions(fetch_entity(work_qid)))
 
 
 def format_editions(work_qid: str, editions: list[dict], selected_isbn: str | None) -> str:
@@ -114,7 +68,7 @@ def main() -> None:
     qid = resolve_qid(arg)
 
     editions = list_editions(qid)
-    selected_isbn = pick_selected_isbn(editions)
+    selected_isbn = select_edition_isbn(editions)
     print(format_editions(qid, editions, selected_isbn))
 
 

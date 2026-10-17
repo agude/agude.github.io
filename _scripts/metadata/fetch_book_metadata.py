@@ -106,7 +106,7 @@ def main() -> None:
 
     if not isbn:
         print("No ISBN on work entity, querying editions...", file=sys.stderr)
-        isbn = get_earliest_edition_isbn(qid)
+        isbn = get_earliest_edition_isbn(entity)
 
     # Publication date (P577)
     date_published = get_claim_time(entity, "P577")

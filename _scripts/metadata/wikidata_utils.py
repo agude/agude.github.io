@@ -7,6 +7,7 @@ import logging
 import sys
 import urllib.parse
 from collections import deque
+from collections.abc import Iterable, Iterator
 from typing import TextIO, TypedDict
 
 import requests
@@ -259,57 +260,70 @@ AWARD_FAMILIES: dict[str, str] = {
 ENGLISH_LANGUAGE_QID = "Q1860"
 
 
-def get_earliest_edition_isbn(work_qid: str) -> str | None:
-    """Find an ISBN from the editions of a work via the Wikidata API.
+# The most IDs one wbgetentities request accepts.
+ENTITY_BATCH_SIZE = 50
 
-    Uses P747 (has edition or translation) on the work entity to find
-    edition Q-IDs, fetches them in batches, and returns an ISBN found on an
-    English-language (P407) edition if one exists, otherwise the first ISBN
-    found in any language. Prefers ISBN-13 (P212) over ISBN-10 (P957).
+
+def fetch_editions(work: dict) -> Iterator[dict]:
+    """Yield the editions (P747) of a work entity, in claim order.
+
+    Each edition is a dict with its Q-ID, English label, ISBN (ISBN-13
+    (P212) before ISBN-10 (P957), or None), and whether it is an
+    English-language (P407) edition. Editions are fetched one batch at a
+    time, so a caller that stops early skips the remaining requests.
     """
-    # Get edition Q-IDs from the work entity.
-    work = fetch_entity(work_qid)
     edition_qids = get_claim_entity_ids(work, "P747")
-
-    if not edition_qids:
-        log.debug("No editions found for %s", work_qid)
-        return None
-
-    log.debug("Checking %d editions for ISBN", len(edition_qids))
-
-    fallback_isbn = None
-
-    # Fetch editions in batches of 50 (API limit).
-    for i in range(0, len(edition_qids), 50):
-        batch = edition_qids[i : i + 50]
+    log.debug("Fetching %d editions", len(edition_qids))
+    for i in range(0, len(edition_qids), ENTITY_BATCH_SIZE):
+        batch = edition_qids[i : i + ENTITY_BATCH_SIZE]
         data = api_get(
             {
                 "action": "wbgetentities",
                 "ids": "|".join(batch),
-                "props": "claims",
+                "props": "claims|labels",
+                "languages": "en",
             }
         )
         for qid in batch:
             entity = data.get("entities", {}).get(qid, {})
             isbn_list = get_claim_strings(entity, "P212") or get_claim_strings(entity, "P957")
-            if not isbn_list:
-                continue
-            if fallback_isbn is None:
-                fallback_isbn = isbn_list[0]
-            language_qids = get_claim_entity_ids(entity, "P407")
-            if ENGLISH_LANGUAGE_QID in language_qids:
-                log.debug(
-                    "Found English-language ISBN %s in edition %s",
-                    isbn_list[0],
-                    qid,
-                )
-                return isbn_list[0]
+            yield {
+                "qid": qid,
+                "label": entity.get("labels", {}).get("en", {}).get("value", ""),
+                "isbn": isbn_list[0] if isbn_list else None,
+                "is_english": ENGLISH_LANGUAGE_QID in get_claim_entity_ids(entity, "P407"),
+            }
 
-    if fallback_isbn:
-        log.debug("No English-language edition found; using ISBN %s", fallback_isbn)
-        return fallback_isbn
 
-    return None
+def select_edition_isbn(editions: Iterable[dict]) -> str | None:
+    """Return the ISBN of the first English edition that has one.
+
+    Falls back to the first ISBN of any edition, or None if no edition has
+    an ISBN. Stops reading `editions` at the first English ISBN.
+    """
+    fallback = None
+    for edition in editions:
+        if edition["isbn"] is None:
+            continue
+        if edition["is_english"]:
+            log.debug(
+                "Found English-language ISBN %s in edition %s", edition["isbn"], edition["qid"]
+            )
+            return edition["isbn"]
+        if fallback is None:
+            fallback = edition["isbn"]
+    if fallback:
+        log.debug("No English-language edition found; using ISBN %s", fallback)
+    return fallback
+
+
+def get_earliest_edition_isbn(work: dict) -> str | None:
+    """Find an ISBN among the editions of a work entity.
+
+    Returns an ISBN found on an English-language edition if one exists,
+    otherwise the first ISBN found in any language.
+    """
+    return select_edition_isbn(fetch_editions(work))
 
 
 def resolve_qid(identifier: str) -> str:
@@ -320,15 +334,24 @@ def resolve_qid(identifier: str) -> str:
 MAX_AWARD_DEPTH = 5
 
 
-def _resolve_award_family(award_qid: str) -> str | None:
+def _cached_entity(qid: str, cache: dict[str, dict]) -> dict:
+    """Return the entity for `qid`, fetching it only if `cache` lacks it."""
+    if qid not in cache:
+        cache[qid] = fetch_entity(qid)
+    return cache[qid]
+
+
+def _resolve_award_family(award_qid: str, cache: dict[str, dict] | None = None) -> str | None:
     """Resolve an award Q-ID to a family slug by traversing the hierarchy.
 
     Searches breadth-first through P361 (part of) and P279 (subclass of)
     parents. The award itself is depth 0; ancestors up to depth 5 are
     examined, and ancestors deeper than that are ignored. The nearest known
     award family wins; at equal depth, P361 parents come before P279 parents.
-    Returns None if no family is found within that depth.
+    Returns None if no family is found within that depth. Entities are read
+    through `cache`, so awards that share ancestors fetch them once.
     """
+    cache = {} if cache is None else cache
     visited = {award_qid}
     queue: deque[tuple[str, int]] = deque([(award_qid, 0)])
 
@@ -343,7 +366,7 @@ def _resolve_award_family(award_qid: str) -> str | None:
             log.debug("Award hierarchy depth limit reached at %s", qid)
             continue
 
-        entity = fetch_entity(qid)
+        entity = _cached_entity(qid, cache)
         for prop in ("P361", "P279"):
             for parent_qid in get_claim_entity_ids(entity, prop):
                 if parent_qid in visited:
@@ -355,29 +378,29 @@ def _resolve_award_family(award_qid: str) -> str | None:
     return None
 
 
-def fetch_awards(book_qid: str) -> list[str]:
-    """Fetch award slugs for a book from Wikidata.
+def fetch_awards(book: dict) -> list[str]:
+    """Fetch award slugs for a book entity from Wikidata.
 
-    Queries P166 (award received) and resolves each to a known award family.
-    Returns a sorted, deduplicated list of award slugs.
+    Reads P166 (award received) and resolves each award to a known award
+    family. Returns a sorted, deduplicated list of award slugs.
     """
-    log.debug("Fetching awards for %s", book_qid)
-    entity = fetch_entity(book_qid)
-    award_qids = get_claim_entity_ids(entity, "P166")
+    award_qids = get_claim_entity_ids(book, "P166")
 
     if not award_qids:
-        log.debug("No awards (P166) found for %s", book_qid)
+        log.debug("No awards (P166) found for %s", book.get("id"))
         return []
 
-    log.debug("Found %d award claims", len(award_qids))
+    log.debug("Found %d award claims for %s", len(award_qids), book.get("id"))
 
+    cache: dict[str, dict] = {}
     slugs: set[str] = set()
     for award_qid in award_qids:
-        slug = _resolve_award_family(award_qid)
+        slug = _resolve_award_family(award_qid, cache)
         if slug:
             slugs.add(slug)
         else:
-            label = fetch_entity(award_qid).get("labels", {}).get("en", {}).get("value", award_qid)
+            award = _cached_entity(award_qid, cache)
+            label = award.get("labels", {}).get("en", {}).get("value", award_qid)
             log.info("Unknown award family: %s (%s)", label, award_qid)
 
     log.debug("Resolved awards: %s", sorted(slugs))

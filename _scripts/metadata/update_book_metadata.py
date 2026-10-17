@@ -195,13 +195,13 @@ def fetch_metadata(qid: str) -> dict:
     isbn = isbn_list[0] if isbn_list else None
     if not isbn:
         log.info("No ISBN on work entity, querying editions...")
-        isbn = get_earliest_edition_isbn(qid)
+        isbn = get_earliest_edition_isbn(entity)
 
     # Publication date
     date_published = get_claim_time(entity, "P577")
 
     # Awards
-    awards = fetch_awards(qid)
+    awards = fetch_awards(entity)
 
     # sameAs URLs
     urls = extract_same_as_urls(entity, BOOK_PROPERTY_MAP)

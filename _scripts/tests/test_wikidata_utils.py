@@ -15,6 +15,7 @@ from wikidata_utils import (
     print_entity_candidates,
     require_qid,
     search_entity,
+    select_edition_isbn,
 )
 
 
@@ -399,8 +400,9 @@ class TestFetchAwards:
                 ]
             }
         }
-        with patch("wikidata_utils.fetch_entity", return_value=mock_book_entity):
-            result = fetch_awards("Q123")
+        with patch("wikidata_utils.fetch_entity") as mock_fetch:
+            result = fetch_awards(mock_book_entity)
+            mock_fetch.assert_not_called()
             assert result == ["hugo", "nebula"]
 
     def test_deduplicates_same_family(self):
@@ -413,14 +415,16 @@ class TestFetchAwards:
                 ]
             }
         }
-        with patch("wikidata_utils.fetch_entity", return_value=mock_book_entity):
-            result = fetch_awards("Q123")
+        with patch("wikidata_utils.fetch_entity") as mock_fetch:
+            result = fetch_awards(mock_book_entity)
+            mock_fetch.assert_not_called()
             assert result == ["hugo"]
 
     def test_no_awards_returns_empty_list(self):
         mock_book_entity = {"claims": {}}
-        with patch("wikidata_utils.fetch_entity", return_value=mock_book_entity):
-            result = fetch_awards("Q123")
+        with patch("wikidata_utils.fetch_entity") as mock_fetch:
+            result = fetch_awards(mock_book_entity)
+            mock_fetch.assert_not_called()
             assert result == []
 
     def test_unknown_awards_logged_and_skipped(self):
@@ -435,10 +439,11 @@ class TestFetchAwards:
             "claims": {},
             "labels": {"en": {"value": "Unknown Award"}},
         }
-        with patch("wikidata_utils.fetch_entity") as mock_fetch:
-            mock_fetch.side_effect = [mock_book_entity, mock_unknown_entity, mock_unknown_entity]
-            result = fetch_awards("Q123")
+        with patch("wikidata_utils.fetch_entity", return_value=mock_unknown_entity) as mock_fetch:
+            result = fetch_awards(mock_book_entity)
             assert result == []
+            # The label lookup reuses the entity fetched for the hierarchy.
+            mock_fetch.assert_called_once_with("Q999999")
 
 
 class TestGetEarliestEditionIsbn:
@@ -471,11 +476,8 @@ class TestGetEarliestEditionIsbn:
                 },
             }
         }
-        with (
-            patch("wikidata_utils.fetch_entity", return_value=work_entity),
-            patch("wikidata_utils.api_get", return_value=api_response),
-        ):
-            result = get_earliest_edition_isbn("Q0")
+        with patch("wikidata_utils.api_get", return_value=api_response):
+            result = get_earliest_edition_isbn(work_entity)
             assert result == "978-0-000-00000-0"
 
     def test_falls_back_to_first_isbn_when_no_english_edition(self):
@@ -490,11 +492,8 @@ class TestGetEarliestEditionIsbn:
                 },
             }
         }
-        with (
-            patch("wikidata_utils.fetch_entity", return_value=work_entity),
-            patch("wikidata_utils.api_get", return_value=api_response),
-        ):
-            result = get_earliest_edition_isbn("Q0")
+        with patch("wikidata_utils.api_get", return_value=api_response):
+            result = get_earliest_edition_isbn(work_entity)
             assert result == "978-2-000-00000-0"
 
     def test_edition_without_language_claim_used_as_fallback(self):
@@ -508,11 +507,8 @@ class TestGetEarliestEditionIsbn:
                 },
             }
         }
-        with (
-            patch("wikidata_utils.fetch_entity", return_value=work_entity),
-            patch("wikidata_utils.api_get", return_value=api_response),
-        ):
-            result = get_earliest_edition_isbn("Q0")
+        with patch("wikidata_utils.api_get", return_value=api_response):
+            result = get_earliest_edition_isbn(work_entity)
             assert result == "978-0-000-00000-0"
 
     def test_edition_without_language_not_treated_as_english(self):
@@ -532,11 +528,8 @@ class TestGetEarliestEditionIsbn:
                 },
             }
         }
-        with (
-            patch("wikidata_utils.fetch_entity", return_value=work_entity),
-            patch("wikidata_utils.api_get", return_value=api_response),
-        ):
-            result = get_earliest_edition_isbn("Q0")
+        with patch("wikidata_utils.api_get", return_value=api_response):
+            result = get_earliest_edition_isbn(work_entity)
             assert result == "978-0-222-22222-2"
 
     def test_isbn10_fallback_when_no_isbn13(self):
@@ -551,18 +544,58 @@ class TestGetEarliestEditionIsbn:
                 },
             }
         }
-        with (
-            patch("wikidata_utils.fetch_entity", return_value=work_entity),
-            patch("wikidata_utils.api_get", return_value=api_response),
-        ):
-            result = get_earliest_edition_isbn("Q0")
+        with patch("wikidata_utils.api_get", return_value=api_response):
+            result = get_earliest_edition_isbn(work_entity)
             assert result == "0-000-00000-0"
 
     def test_no_editions_returns_none(self):
         work_entity = self._work_entity([])
-        with patch("wikidata_utils.fetch_entity", return_value=work_entity):
-            result = get_earliest_edition_isbn("Q0")
+        with patch("wikidata_utils.api_get") as mock_api:
+            result = get_earliest_edition_isbn(work_entity)
+            mock_api.assert_not_called()
             assert result is None
+
+    def test_english_isbn_in_first_batch_skips_later_batches(self):
+        # 60 editions need two requests of 50; the first edition is English.
+        qids = [f"Q{100 + i}" for i in range(60)]
+        english = {
+            "claims": {
+                "P212": [{"mainsnak": {"datavalue": {"value": "978-0-000-00000-0"}}}],
+                "P407": [{"mainsnak": {"datavalue": {"value": {"id": "Q1860"}}}}],
+            }
+        }
+        api_response = {"entities": {qids[0]: english}}
+        with patch("wikidata_utils.api_get", return_value=api_response) as mock_api:
+            result = get_earliest_edition_isbn(self._work_entity(qids))
+
+        assert result == "978-0-000-00000-0"
+        assert mock_api.call_count == 1
+        assert mock_api.call_args.args[0]["ids"] == "|".join(qids[:50])
+
+
+class TestSelectEditionIsbn:
+    def test_prefers_english_edition(self):
+        editions = [
+            {"qid": "Q1", "label": "French", "isbn": "978-2-000-00000-0", "is_english": False},
+            {"qid": "Q2", "label": "English", "isbn": "978-0-000-00000-0", "is_english": True},
+        ]
+        assert select_edition_isbn(editions) == "978-0-000-00000-0"
+
+    def test_falls_back_to_first_isbn(self):
+        editions = [
+            {"qid": "Q1", "label": "French", "isbn": "978-2-000-00000-0", "is_english": False},
+            {"qid": "Q2", "label": "German", "isbn": "978-3-000-00000-0", "is_english": False},
+        ]
+        assert select_edition_isbn(editions) == "978-2-000-00000-0"
+
+    def test_no_isbns_returns_none(self):
+        editions = [
+            {"qid": "Q1", "label": "No ISBN", "isbn": None, "is_english": False},
+        ]
+        assert select_edition_isbn(editions) is None
+
+    def test_empty_list_returns_none(self):
+        assert select_edition_isbn([]) is None
 
 
 class TestAwardFamiliesMapping:
