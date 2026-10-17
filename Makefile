@@ -65,7 +65,7 @@ OPEN := $(shell command -v xdg-open 2>/dev/null || command -v open 2>/dev/null)
 .PHONY: image-build image-rebuild deps-lock hooks-install prettier-image-build prettier-image-rebuild format-md prettier rank
 
 # Internal targets
-.PHONY: all clean-coverage
+.PHONY: all clean-coverage prepare-build
 
 # Tier 4: Backward compatibility aliases
 .PHONY: image refresh coverage coverage-summary lock drafts profile check check-strict install-hook format-all
@@ -136,24 +136,32 @@ clean-coverage:
 	@echo "Cleaning coverage report..."
 	@rm -rf _coverage
 
-# Build the site for production. Depends on image-build and clean.
-build: image-build clean
+# Keep conversion caches by mode, but always discard _site and incremental
+# metadata. The preparer fingerprints dependencies before reusing conversions.
+prepare-build: image-build
+	@$(DOCKER_RUN) ruby _bin/prepare_build.rb $(CACHE_MODE)
+
+# Build the site for production, rendering every page into a fresh _site.
+build: CACHE_MODE := production
+build: prepare-build
 	@echo "Building site for production..."
 	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) -e JEKYLL_ENV=production $(IMAGE) \
-		bundle exec jekyll build
+		bundle exec jekyll build --config _config.yml,.jekyll-cache/production.yml
 
-# Profile the site build. Depends on image-build and clean.
-serve-profile: image-build clean
+# Profile separately so its configuration cannot displace another mode's cache.
+serve-profile: CACHE_MODE := profile
+serve-profile: prepare-build
 	@echo "Profiling Jekyll build..."
 	@echo "Output will be in '_site' and Liquid profiles in '_profile/'."
-	@$(DOCKER_RUN) bundle exec jekyll build --profile
+	@$(DOCKER_RUN) bundle exec jekyll build --profile --config _config.yml,.jekyll-cache/profile.yml
 
 # Serves the site for local development, with live reloading.
 # This target contains the solution to the '0.0.0.0' URL issue in browsers.
-serve: image-build clean
+serve: CACHE_MODE := serve
+serve: prepare-build
 	@echo "Serving site at http://localhost:4000..."
 	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) -p 4000:4000 -p 35729:35729 -e JEKYLL_ENV=docker $(IMAGE) \
-		bundle exec jekyll serve --config _config.yml,_config_docker.yml --watch --incremental --livereload
+		bundle exec jekyll serve --config _config.yml,_config_docker.yml,.jekyll-cache/serve.yml --watch --incremental --livereload
 #
 # WHY THIS COMMAND IS STRUCTURED THIS WAY:
 #
@@ -172,12 +180,13 @@ serve: image-build clean
 # The `-e JEKYLL_ENV=docker` flag helps ensure this file-based configuration is
 # properly loaded and respected by the Jekyll `serve` command.
 
-# Serve the site with drafts. Depends on image-build and clean.
+# Serve drafts with a separate conversion cache and a full initial render.
 # Uses same logic to avoid 0.0.0.0 bug as serve
-serve-drafts: image-build clean
+serve-drafts: CACHE_MODE := serve-drafts
+serve-drafts: prepare-build
 	@echo "Serving site with drafts at http://localhost:4000..."
 	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) -p 4000:4000 -p 35729:35729 -e JEKYLL_ENV=docker $(IMAGE) \
-		bundle exec jekyll serve --config _config.yml,_config_docker.yml --drafts --future --watch --incremental --livereload
+		bundle exec jekyll serve --config _config.yml,_config_docker.yml,.jekyll-cache/serve-drafts.yml --drafts --future --watch --incremental --livereload
 
 # Interactive session within the image. Depends on image-build existing.
 debug: image-build
