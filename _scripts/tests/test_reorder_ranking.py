@@ -5,7 +5,15 @@ import json
 import pytest
 import reorder_ranking
 import yaml
-from ranking_tree import REPO_ROOT, build_tree, point_module_at
+from ranking_tree import (
+    REPO_ROOT,
+    book_files,
+    build_family_tree,
+    build_tree,
+    count_reads,
+    point_module_at,
+    write_book,
+)
 from reorder_ranking import parse_ranked_list
 
 
@@ -185,4 +193,52 @@ class TestUnresolvedEntries:
             reorder_ranking.main()
 
         assert "Book One" in str(excinfo.value.code)
+        assert by_rating.read_text() == original
+
+
+class TestBookLookup:
+    def test_title_resolves_to_canonical_review_not_archive(self, tmp_path, monkeypatch):
+        # The canonical review is rated 5 and the archive 4. Hyperion moves to
+        # 5 Stars only if its rating comes from the canonical review.
+        build_family_tree(
+            tmp_path, "  # 4 Stars\n  - Dune\n  - Hyperion\n  # 3 Stars\n  - Foundation\n"
+        )
+        point_module_at(monkeypatch, reorder_ranking, tmp_path)
+
+        reorder_ranking.main()
+
+        assert (tmp_path / "books" / "by_rating.md").read_text() == (
+            "---\ntitle: By Rating\nranked_list:\n"
+            "  # 5 Stars\n  - Hyperion\n"
+            "  # 4 Stars\n  - Dune\n"
+            "  # 3 Stars\n  - Foundation\n"
+            "layout: page\n---\n\nBody.\n"
+        )
+
+    def test_reads_each_book_file_once(self, tmp_path, monkeypatch):
+        build_family_tree(
+            tmp_path, "  # 5 Stars\n  - Hyperion\n  # 4 Stars\n  - Dune\n  - Foundation\n"
+        )
+        point_module_at(monkeypatch, reorder_ranking, tmp_path)
+        reads = count_reads(monkeypatch)
+
+        reorder_ranking.main()
+
+        files = book_files(tmp_path)
+        assert {path: reads[path] for path in files} == dict.fromkeys(files, 1)
+
+    def test_duplicate_title_stops_before_writing(self, tmp_path, monkeypatch):
+        build_family_tree(tmp_path, "  # 5 Stars\n  - Hyperion\n  - Dune\n")
+        write_book(tmp_path / "_books", "dune_copy", "Dune", 2)
+        point_module_at(monkeypatch, reorder_ranking, tmp_path)
+        by_rating = tmp_path / "books" / "by_rating.md"
+        original = by_rating.read_text()
+
+        with pytest.raises(SystemExit) as excinfo:
+            reorder_ranking.main()
+
+        message = str(excinfo.value.code)
+        assert excinfo.value.code not in (0, None)
+        assert "dune.md" in message
+        assert "dune_copy.md" in message
         assert by_rating.read_text() == original

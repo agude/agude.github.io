@@ -1,10 +1,20 @@
 """Tests for ranking/push_ratings_from_ranking.py."""
 
+import sys
 from textwrap import dedent
 
 import push_ratings_from_ranking
+import pytest
 from push_ratings_from_ranking import parse_ranked_list_with_tiers
-from ranking_tree import REPO_ROOT, build_tree, point_module_at
+from ranking_tree import (
+    REPO_ROOT,
+    book_files,
+    build_family_tree,
+    build_tree,
+    count_reads,
+    point_module_at,
+    write_book,
+)
 
 
 class TestParseRankedListWithTiers:
@@ -151,3 +161,48 @@ class TestMain:
         assert (books / "book_two.md").read_text() == (
             "---\ntitle: Book Two\nrating: 5\n---\n\nReview of Book Two.\n"
         )
+
+
+class TestBookLookup:
+    def test_title_resolves_to_canonical_review_not_archive(self, tmp_path, monkeypatch):
+        build_family_tree(tmp_path, "  # 3 Stars\n  - Hyperion\n")
+        point_module_at(monkeypatch, push_ratings_from_ranking, tmp_path)
+        archive = tmp_path / "_books" / "hyperion" / "review-2023-10-17.md"
+        archive_before = archive.read_text()
+
+        push_ratings_from_ranking.main()
+
+        assert (tmp_path / "_books" / "hyperion.md").read_text() == (
+            "---\ntitle: Hyperion\nrating: 3\n---\n\nReview of Hyperion.\n"
+        )
+        assert archive.read_text() == archive_before
+
+    @pytest.mark.parametrize("dry_run", [False, True])
+    def test_reads_each_book_file_once(self, tmp_path, monkeypatch, dry_run):
+        build_family_tree(
+            tmp_path, "  # 5 Stars\n  - Hyperion\n  - Dune\n  # 2 Stars\n  - Foundation\n"
+        )
+        point_module_at(monkeypatch, push_ratings_from_ranking, tmp_path)
+        if dry_run:
+            monkeypatch.setattr(sys, "argv", [push_ratings_from_ranking.__file__, "--dry-run"])
+        reads = count_reads(monkeypatch)
+
+        push_ratings_from_ranking.main()
+
+        files = book_files(tmp_path)
+        assert {path: reads[path] for path in files} == dict.fromkeys(files, 1)
+
+    def test_duplicate_title_stops_before_any_write(self, tmp_path, monkeypatch):
+        build_family_tree(tmp_path, "  # 5 Stars\n  - Foundation\n  - Dune\n")
+        write_book(tmp_path / "_books", "dune_copy", "Dune", 2)
+        point_module_at(monkeypatch, push_ratings_from_ranking, tmp_path)
+        before = {path: path.read_text() for path in book_files(tmp_path)}
+
+        with pytest.raises(SystemExit) as excinfo:
+            push_ratings_from_ranking.main()
+
+        message = str(excinfo.value.code)
+        assert excinfo.value.code not in (0, None)
+        assert "dune.md" in message
+        assert "dune_copy.md" in message
+        assert {path: path.read_text() for path in book_files(tmp_path)} == before
