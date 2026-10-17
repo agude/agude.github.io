@@ -21,6 +21,9 @@ module Jekyll
       # This class handles the data retrieval logic for finding related books.
       # It does not produce any HTML output.
       #
+      # @gotcha Selection contains live documents, so it belongs outside the
+      #   serializable link_cache. HTML and Markdown share results by page URL
+      #   and limit; :site, :post_read clears them before each build.
       class Finder
         DEFAULT_MAX_BOOKS = 3
         LINK_TIERS = {
@@ -45,13 +48,18 @@ module Jekyll
           return { logs: @logs, books: [] } unless prerequisites_met?
           return { logs: @logs, books: [] } unless cache_valid?
 
+          results = @site.data['related_books_cache'] ||= {}
+          results[[page_url, @max_books]] ||= select_books
+        end
+
+        private
+
+        def select_books
           find_related_books
           final_books = @candidate_books.uniq(&:url).slice(0, @max_books)
 
           { logs: @logs, books: final_books }
         end
-
-        private
 
         def page_url
           Jekyll::Infrastructure::PageUrl.fetch(@page)
@@ -295,4 +303,8 @@ module Jekyll
       end
     end
   end
+end
+
+Jekyll::Hooks.register :site, :post_read do |site|
+  site.data.delete('related_books_cache')
 end

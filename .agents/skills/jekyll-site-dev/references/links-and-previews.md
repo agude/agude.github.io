@@ -78,6 +78,11 @@ capture plus a `the_detectives_tale` capture is count 2).
 Ranking within a tier: count desc → position asc (earlier in the document
 wins) → date desc → title asc.
 
+HTML and Markdown share the selected list and its logs through
+`site.data['related_books_cache']`, keyed by page URL and result limit.
+The `:site, :post_read` hook clears it on each build. These values contain
+live documents, so they stay outside the serializable `link_cache`.
+
 **Archived re-reviews must be filtered.** Re-reviewed books (only Hyperion and
 Fall of Hyperion) have a `canonical_url` starting with `/`, and links must
 point at the canonical page rather than the old review. The filter
