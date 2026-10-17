@@ -2,11 +2,15 @@
 
 # Benchmark for Jekyll::Infrastructure::MarkdownHtmlRegionParser.protected_ranges.
 #
-# This is a benchmark, not a test. It builds Markdown with N repeated
-# `<div class="note">` regions for N in SIZES, times protected_ranges on each
-# input, and prints the median time per N and the ratio to the previous N.
-# A returned range count other than N means the timing does not cover the
-# expected work, and the script exits with status 1.
+# This is a benchmark, not a test. For each layout in LAYOUTS it builds
+# Markdown with N repeated `<div class="note">` regions for N in SIZES, times
+# protected_ranges on each input, and prints the median time per N and the
+# ratio to the previous N. A returned range count other than N means the
+# timing does not cover the expected work, and the script exits with status 1.
+#
+# The layouts differ in what surrounds each region, because code detection
+# reruns only when a region could be inside code: plain paragraphs, a
+# blockquote, and a paragraph with closed inline code before the region.
 #
 # Method: one warm-up call per N (its time is discarded), then REPETITIONS
 # timed calls. The median of the timed calls is reported. This file loads only
@@ -26,6 +30,12 @@ require_relative '../../_plugins/src/infrastructure/markdown_html_region_parser'
 module BenchHtmlRegionParser
   # Number of repeated regions per input.
   SIZES = [25, 50, 100, 200].freeze
+  # One repeated unit of Markdown per layout; each unit holds one region.
+  LAYOUTS = {
+    'plain' => ->(i) { "Paragraph #{i} with *emphasis*.\n\n<div class=\"note\">\nInner text #{i}.\n</div>\n\n" },
+    'quoted' => ->(i) { "> Quote #{i}.\n>\n> <div class=\"note\">Inner text #{i}.</div>\n\n" },
+    'inline-code-before' => ->(i) { "Use `code #{i}` then <div class=\"note\">Inner text #{i}.</div>\n\n" },
+  }.freeze
   # Timed calls per size, after one discarded warm-up call.
   REPETITIONS = 5
   HEADER_FORMAT = '%<count>-6s %<median>-14s %<ratio>-14s %<ranges>-16s %<check>s'
@@ -33,10 +43,8 @@ module BenchHtmlRegionParser
 
   module_function
 
-  def build_markdown(count)
-    (0...count).map do |i|
-      "Paragraph #{i} with *emphasis*.\n\n<div class=\"note\">\nInner text #{i}.\n</div>\n\n"
-    end.join
+  def build_markdown(layout, count)
+    (0...count).map { |i| LAYOUTS.fetch(layout).call(i) }.join
   end
 
   # Returns [elapsed_seconds, number_of_ranges].
@@ -52,8 +60,8 @@ module BenchHtmlRegionParser
     sorted[sorted.length / 2]
   end
 
-  def measure(count)
-    markdown = build_markdown(count)
+  def measure(layout, count)
+    markdown = build_markdown(layout, count)
     all = Array.new(REPETITIONS + 1) { time_once(markdown) }
     timed = all.drop(1) # The first call is the warm-up and is not timed.
     {
@@ -85,15 +93,22 @@ module BenchHtmlRegionParser
     end
   end
 
-  def run
+  def run_layout(layout)
     rows = []
     SIZES.each do |count|
-      row = measure(count)
+      row = measure(layout, count)
       previous = rows.last
       row[:ratio] = previous ? row[:median] / previous[:median] : nil
       rows << row
     end
+    puts "Layout: #{layout}"
     print_table(rows)
+    puts
+    rows
+  end
+
+  def run
+    rows = LAYOUTS.keys.flat_map { |layout| run_layout(layout) }
     rows.all? { |row| row[:ok] }
   end
 end
