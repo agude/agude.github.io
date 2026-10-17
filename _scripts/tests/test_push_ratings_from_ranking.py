@@ -115,6 +115,22 @@ class TestParseRankedListWithTiers:
 
         assert len(result) == 2
 
+    def test_decodes_yaml_escapes_in_titles(self, tmp_path):
+        f = tmp_path / "ranking.md"
+        f.write_text(
+            dedent("""\
+            ---
+            ranked_list:
+              # 5 Stars
+              - 'Don''t'
+              - "He said \\"hi\\""
+            ---
+            """)
+        )
+        result = parse_ranked_list_with_tiers(f)
+
+        assert result == [("Don't", 5), ('He said "hi"', 5)]
+
 
 class TestRepositoryPaths:
     def test_repo_root_is_repository_root(self):
@@ -206,3 +222,21 @@ class TestBookLookup:
         assert "dune.md" in message
         assert "dune_copy.md" in message
         assert {path: path.read_text() for path in book_files(tmp_path)} == before
+
+
+class TestEscapedTitles:
+    # Titles are decoded as YAML on both sides, so a quoted title in the
+    # ranked list matches the same quoted title in the book file.
+    @pytest.mark.parametrize(
+        "yaml_title",
+        ["'Don''t'", '"He said \\"hi\\""'],
+    )
+    def test_pushes_rating_for_escaped_title(self, tmp_path, monkeypatch, yaml_title):
+        build_tree(tmp_path, f"  # 5 Stars\n  - {yaml_title}\n", {})
+        book = tmp_path / "_books" / "escaped.md"
+        book.write_text(f"---\ntitle: {yaml_title}\nrating: 3\n---\n\nReview.\n")
+        point_module_at(monkeypatch, push_ratings_from_ranking, tmp_path)
+
+        push_ratings_from_ranking.main()
+
+        assert book.read_text() == f"---\ntitle: {yaml_title}\nrating: 5\n---\n\nReview.\n"

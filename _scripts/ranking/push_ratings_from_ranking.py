@@ -18,6 +18,8 @@ import re
 import sys
 from pathlib import Path
 
+import yaml
+
 # `uv run` puts only this script's directory on sys.path.
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "common"))
 
@@ -30,13 +32,25 @@ BY_RATING = REPO_ROOT / "books" / "by_rating.md"
 
 
 def parse_ranked_list_with_tiers(path):
-    """Return list of (title, star_rating) from ranked_list."""
+    """Return list of (title, star_rating) from ranked_list.
+
+    Titles are read as YAML, like the titles in the book files, so quoting
+    and escapes decode the same way on both sides. Each title's rating comes
+    from the nearest `# N Stars` comment above it, which YAML drops, so the
+    comments are read from the lines.
+    """
     split = split_front_matter(path.read_text())
     if split is None:
         sys.exit("Could not parse front matter in by_rating.md")
 
     front, _ = split
-    books = []
+    parsed = yaml.safe_load(front)
+    titles = (parsed if isinstance(parsed, dict) else {}).get("ranked_list") or []
+    non_strings = [title for title in titles if not isinstance(title, str)]
+    if non_strings:
+        sys.exit(f"ranked_list entries that are not strings: {non_strings}")
+
+    stars = []
     current_stars = None
     in_list = False
 
@@ -57,18 +71,18 @@ def parse_ranked_list_with_tiers(path):
         if stripped.startswith("- "):
             if current_stars is None:
                 sys.exit("Found book entry before any # N Stars comment")
-            title = stripped[2:].strip()
-            if (title.startswith('"') and title.endswith('"')) or (
-                title.startswith("'") and title.endswith("'")
-            ):
-                title = title[1:-1]
-            books.append((title, current_stars))
+            stars.append(current_stars)
         elif stripped == "":
             continue
         else:
             break
 
-    return books
+    if len(stars) != len(titles):
+        sys.exit(
+            f"ranked_list has {len(titles)} titles but {len(stars)} '- ' lines; "
+            "write one title per line"
+        )
+    return list(zip(titles, stars, strict=True))
 
 
 def update_rating(book, new_rating):
