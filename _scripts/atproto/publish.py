@@ -762,7 +762,10 @@ def _reverse_sweep_errors(site_dir: Path, record_paths: set[str]) -> list[str]:
             name = index_file.parent.name
             if skip_re.match(name):
                 continue
-            head = index_file.read_text(encoding="utf-8", errors="replace")[:600]
+            # A redirect stub's refresh tag sits in the first few hundred
+            # characters; reading only that prefix keeps large pages cheap.
+            with index_file.open(encoding="utf-8", errors="replace") as handle:
+                head = handle.read(600)
             if 'http-equiv="refresh"' in head:
                 continue
             path_str = f"/{section}/{name}/"

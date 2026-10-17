@@ -1334,6 +1334,52 @@ class TestReverseSweep:
         site = self._site(tmp_path, {"/blog/my-post/": "<!DOCTYPE html>"})
         assert validate_documents(posts, site_dir=site) is True
 
+    def test_large_pages_are_read_by_prefix(self, tmp_path: Path, monkeypatch) -> None:
+        # The sweep only needs the first 600 characters to spot a redirect
+        # stub; it must not read whole pages.
+        padding = "x" * 10_000_000
+        stub = '<!DOCTYPE html><meta http-equiv="refresh" content="0; url=/blog/new/">'
+        site = self._site(
+            tmp_path,
+            {
+                "/blog/old-slug/": stub + padding,
+                "/blog/orphan-page/": "<!DOCTYPE html>" + padding,
+                "/blog/my-post/": "<!DOCTYPE html>" + padding,
+            },
+        )
+        chars_read: dict[Path, int] = {}
+        original_open = Path.open
+
+        class CountingFile:
+            def __init__(self, path: Path, handle) -> None:
+                self._path = path
+                self._handle = handle
+
+            def read(self, size: int = -1) -> str:
+                data = self._handle.read(size)
+                chars_read[self._path] = chars_read.get(self._path, 0) + len(data)
+                return data
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *exc_info) -> None:
+                self._handle.close()
+
+        def counting_open(self: Path, *args, **kwargs):
+            handle = original_open(self, *args, **kwargs)
+            return CountingFile(self, handle) if self.name == "index.html" else handle
+
+        monkeypatch.setattr(Path, "open", counting_open)
+
+        errors = publish._reverse_sweep_errors(site, {"/blog/my-post/"})
+
+        assert len(errors) == 1
+        assert "/blog/orphan-page/" in errors[0]
+        index_files = sorted(site.glob("*/*/index.html"))
+        assert sorted(chars_read) == index_files
+        assert all(count <= 600 for count in chars_read.values()), chars_read
+
 
 class TestDeleteOrphans:
     def _dirs(self, tmp_path: Path) -> tuple[Path, Path]:
