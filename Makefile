@@ -65,7 +65,7 @@ OPEN := $(shell command -v xdg-open 2>/dev/null || command -v open 2>/dev/null)
 .PHONY: image-build image-rebuild deps-lock hooks-install prettier-image-build prettier-image-rebuild format-md prettier rank
 
 # Internal targets
-.PHONY: all clean-coverage prepare-build
+.PHONY: all clean-coverage
 
 # Tier 4: Backward compatibility aliases
 .PHONY: image refresh coverage coverage-summary lock drafts profile check check-strict install-hook format-all
@@ -138,27 +138,28 @@ clean-coverage:
 
 # Keep conversion caches by mode, but always discard _site and incremental
 # metadata. The preparer fingerprints dependencies before reusing conversions.
-prepare-build: image-build
-	@$(DOCKER_RUN) ruby _bin/prepare_build.rb $(CACHE_MODE)
+# Each target runs it in its own recipe: make runs a shared prerequisite only
+# once per invocation, so `make build serve` would not prepare serve's mode.
+PREPARE_BUILD = $(DOCKER_RUN) ruby _bin/prepare_build.rb
 
 # Build the site for production, rendering every page into a fresh _site.
-build: CACHE_MODE := production
-build: prepare-build
+build: image-build
+	@$(PREPARE_BUILD) production
 	@echo "Building site for production..."
 	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) -e JEKYLL_ENV=production $(IMAGE) \
 		bundle exec jekyll build --config _config.yml,.jekyll-cache/production.yml
 
 # Profile separately so its configuration cannot displace another mode's cache.
-serve-profile: CACHE_MODE := profile
-serve-profile: prepare-build
+serve-profile: image-build
+	@$(PREPARE_BUILD) profile
 	@echo "Profiling Jekyll build..."
 	@echo "Output will be in '_site' and Liquid profiles in '_profile/'."
 	@$(DOCKER_RUN) bundle exec jekyll build --profile --config _config.yml,.jekyll-cache/profile.yml
 
 # Serves the site for local development, with live reloading.
 # This target contains the solution to the '0.0.0.0' URL issue in browsers.
-serve: CACHE_MODE := serve
-serve: prepare-build
+serve: image-build
+	@$(PREPARE_BUILD) serve
 	@echo "Serving site at http://localhost:4000..."
 	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) -p 4000:4000 -p 35729:35729 -e JEKYLL_ENV=docker $(IMAGE) \
 		bundle exec jekyll serve --config _config.yml,_config_docker.yml,.jekyll-cache/serve.yml --watch --incremental --livereload
@@ -182,8 +183,8 @@ serve: prepare-build
 
 # Serve drafts with a separate conversion cache and a full initial render.
 # Uses same logic to avoid 0.0.0.0 bug as serve
-serve-drafts: CACHE_MODE := serve-drafts
-serve-drafts: prepare-build
+serve-drafts: image-build
+	@$(PREPARE_BUILD) serve-drafts
 	@echo "Serving site with drafts at http://localhost:4000..."
 	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) -p 4000:4000 -p 35729:35729 -e JEKYLL_ENV=docker $(IMAGE) \
 		bundle exec jekyll serve --config _config.yml,_config_docker.yml,.jekyll-cache/serve-drafts.yml --drafts --future --watch --incremental --livereload

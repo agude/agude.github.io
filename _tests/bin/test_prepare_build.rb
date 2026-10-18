@@ -2,10 +2,20 @@
 
 require_relative '../test_helper'
 require_relative '../../_bin/prepare_build'
+require 'open3'
 require 'tmpdir'
 
 # Conversion caches are safe only with full renders and dependency invalidation.
 class TestPrepareBuild < Minitest::Test
+  REPO_ROOT = File.expand_path('../..', __dir__)
+  # Each Makefile target and the mode whose cache overlay its Jekyll command reads.
+  TARGET_MODES = {
+    'build' => 'production',
+    'serve' => 'serve',
+    'serve-drafts' => 'serve-drafts',
+    'serve-profile' => 'profile',
+  }.freeze
+
   def setup
     @root = Dir.mktmpdir('build-cache')
     %w[Gemfile.lock Dockerfile .ruby-version _config.yml _config_docker.yml _plugins/nested/example.rb].each do |path|
@@ -101,5 +111,32 @@ class TestPrepareBuild < Minitest::Test
 
     assert_raises(ArgumentError) { BuildCache.prepare(@root, '../escape') }
     assert_path_exists cache_marker
+  end
+
+  # Make runs a target at most once per invocation. A preparer shared by the
+  # build targets would prepare only the first mode on the command line.
+  def test_one_make_invocation_prepares_every_mode_before_its_jekyll_command
+    commands = make_dry_run(*TARGET_MODES.keys)
+
+    TARGET_MODES.each_value do |mode|
+      prepare = commands.index { |line| line.include?("_bin/prepare_build.rb #{mode}") }
+      jekyll = commands.index { |line| line.include?(".jekyll-cache/#{mode}.yml") }
+
+      refute_nil prepare, "No preparer runs for #{mode}:\n#{commands.join}"
+      refute_nil jekyll, "No Jekyll command reads the #{mode} overlay:\n#{commands.join}"
+      assert_operator prepare, :<, jekyll, "#{mode} starts Jekyll before preparing"
+      refute commands[prepare...jekyll].any? { |line| line.match?(/bundle exec jekyll (build|serve)/) },
+             "Another Jekyll command runs between preparing #{mode} and using it"
+    end
+  end
+
+  # The commands `make -n` would run. `-o image-build` skips that recipe:
+  # it calls $(MAKE), so a dry run still executes it, and without Docker it
+  # deletes the image stamp.
+  def make_dry_run(*targets)
+    env = { 'MAKEFLAGS' => nil, 'MAKELEVEL' => nil }
+    output, status = Open3.capture2e(env, 'make', '-n', '-o', 'image-build', *targets, chdir: REPO_ROOT)
+    assert status.success?, "make -n failed:\n#{output}"
+    output.lines
   end
 end

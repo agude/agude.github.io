@@ -39,8 +39,13 @@ retain conversion caches in separate directories under `.jekyll-cache/`:
 `production`, `serve`, `serve-drafts`, and `profile`.
 
 Before Jekyll starts, `_bin/prepare_build.rb` removes `_site` and
-`.jekyll-metadata`. Every invocation starts with a full render, including
-preview targets that use incremental rendering while the server runs.
+`.jekyll-metadata`. Each target calls it as the first command of its own
+recipe, not as a shared prerequisite: make runs a prerequisite once per
+invocation, so `make build serve` would prepare only `production`.
+`test_one_make_invocation_prepares_every_mode_before_its_jekyll_command`
+checks this with `make -n`. Every invocation starts with a full render,
+including preview targets that use incremental rendering while the server
+runs.
 `make check-links` therefore checks fresh output. CI still builds from its
 fresh checkout; the workflow does not restore site conversion caches.
 `make clean` remains a full reset of output, all conversion caches, and
