@@ -136,24 +136,33 @@ clean-coverage:
 	@echo "Cleaning coverage report..."
 	@rm -rf _coverage
 
-# Build the site for production. Depends on image-build and clean.
-build: image-build clean
+# Keep conversion caches by mode, but always discard _site and incremental
+# metadata. The preparer fingerprints dependencies before reusing conversions.
+# Each target runs it in its own recipe: make runs a shared prerequisite only
+# once per invocation, so `make build serve` would not prepare serve's mode.
+PREPARE_BUILD = $(DOCKER_RUN) ruby _bin/prepare_build.rb
+
+# Build the site for production, rendering every page into a fresh _site.
+build: image-build
+	@$(PREPARE_BUILD) production
 	@echo "Building site for production..."
 	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) -e JEKYLL_ENV=production $(IMAGE) \
-		bundle exec jekyll build
+		bundle exec jekyll build --config _config.yml,.jekyll-cache/production.yml
 
-# Profile the site build. Depends on image-build and clean.
-serve-profile: image-build clean
+# Profile separately so its configuration cannot displace another mode's cache.
+serve-profile: image-build
+	@$(PREPARE_BUILD) profile
 	@echo "Profiling Jekyll build..."
 	@echo "Output will be in '_site' and Liquid profiles in '_profile/'."
-	@$(DOCKER_RUN) bundle exec jekyll build --profile
+	@$(DOCKER_RUN) bundle exec jekyll build --profile --config _config.yml,.jekyll-cache/profile.yml
 
 # Serves the site for local development, with live reloading.
 # This target contains the solution to the '0.0.0.0' URL issue in browsers.
-serve: image-build clean
+serve: image-build
+	@$(PREPARE_BUILD) serve
 	@echo "Serving site at http://localhost:4000..."
 	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) -p 4000:4000 -p 35729:35729 -e JEKYLL_ENV=docker $(IMAGE) \
-		bundle exec jekyll serve --config _config.yml,_config_docker.yml --watch --incremental --livereload
+		bundle exec jekyll serve --config _config.yml,_config_docker.yml,.jekyll-cache/serve.yml --watch --incremental --livereload
 #
 # WHY THIS COMMAND IS STRUCTURED THIS WAY:
 #
@@ -172,12 +181,13 @@ serve: image-build clean
 # The `-e JEKYLL_ENV=docker` flag helps ensure this file-based configuration is
 # properly loaded and respected by the Jekyll `serve` command.
 
-# Serve the site with drafts. Depends on image-build and clean.
+# Serve drafts with a separate conversion cache and a full initial render.
 # Uses same logic to avoid 0.0.0.0 bug as serve
-serve-drafts: image-build clean
+serve-drafts: image-build
+	@$(PREPARE_BUILD) serve-drafts
 	@echo "Serving site with drafts at http://localhost:4000..."
 	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) -p 4000:4000 -p 35729:35729 -e JEKYLL_ENV=docker $(IMAGE) \
-		bundle exec jekyll serve --config _config.yml,_config_docker.yml --drafts --future --watch --incremental --livereload
+		bundle exec jekyll serve --config _config.yml,_config_docker.yml,.jekyll-cache/serve-drafts.yml --drafts --future --watch --incremental --livereload
 
 # Interactive session within the image. Depends on image-build existing.
 debug: image-build
@@ -246,13 +256,14 @@ test-cov: image-build clean-coverage
 	@echo "To view on Linux, run: xdg-open _coverage/index.html"
 
 # Run coverage and generate a machine-readable summary for LLM agents.
-test-summary: image-build clean-coverage test-cov
+test-summary: image-build clean-coverage
 	@echo "Running tests and generating coverage report..."
-	@# First, run the tests with coverage enabled to generate _coverage/coverage.json.
-	@# We pipe stdout to /dev/null to hide the minitest output and keep the summary clean.
+	@# First, run the tests once with coverage enabled to generate
+	@# _coverage/coverage.json. The Minitest output stays visible because it
+	@# is the only place a failing test is reported.
 	@$(DOCKER_RUN) bundle exec ruby -I _plugins -I _tests \
 		-e "require 'test_helper'; ARGV.each { |f| load f }" \
-		$(TEST) > /dev/null
+		$(TEST)
 	@echo "---"
 	@echo "Generating machine-readable coverage summary..."
 	@# Then, run the Rake task to parse the JSON and create the summary file.

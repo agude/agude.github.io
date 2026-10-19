@@ -221,11 +221,7 @@ module Jekyll
       def article_body
         return unless @document
 
-        text = Jekyll::SEO::JsonLdUtils.extract_descriptive_text(
-          @document,
-          field_priority: ['content'],
-        )
-        set_if_present('articleBody', text)
+        set_if_present('articleBody', cleaned_article_text)
       end
 
       # Sets sameAs from `same_as_urls`. With `wikidata_qid:`, the Wikidata
@@ -338,10 +334,7 @@ module Jekyll
       def word_count
         return unless @document
 
-        text = Jekyll::SEO::JsonLdUtils.extract_descriptive_text(
-          @document,
-          field_priority: ['content'],
-        )
+        text = cleaned_article_text
         return unless text
 
         count = text.split.size
@@ -358,6 +351,16 @@ module Jekyll
       end
 
       private
+
+      # A builder owns one rendered document; nil also means extraction finished.
+      def cleaned_article_text
+        return @cleaned_article_text if defined?(@cleaned_article_text)
+
+        @cleaned_article_text = Jekyll::SEO::JsonLdUtils.extract_descriptive_text(
+          @document,
+          field_priority: ['content'],
+        )
+      end
 
       # Names the document in image errors.
       def image_source

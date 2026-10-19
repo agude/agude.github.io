@@ -209,6 +209,10 @@ Read the named exemplar before modifying the corresponding subsystem:
 These documents describe policy rather than implementation. Read the one that
 matches the change:
 
+- [Build Performance](references/build-performance.md) — measured decisions
+  about HTML compression and build caches. Required when changing build or
+  serve targets.
+
 - [Book Families & `canonical_url`](references/book-families.md) — re-review
   workflow and canonical URL rules. Required for book reviews, especially
   re-reviews.

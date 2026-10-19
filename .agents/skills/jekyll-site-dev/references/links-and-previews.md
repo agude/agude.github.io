@@ -78,6 +78,11 @@ capture plus a `the_detectives_tale` capture is count 2).
 Ranking within a tier: count desc → position asc (earlier in the document
 wins) → date desc → title asc.
 
+HTML and Markdown share the selected list and its logs through
+`site.data['related_books_cache']`, keyed by page URL and result limit.
+The `:site, :post_read` hook clears it on each build. These values contain
+live documents, so they stay outside the serializable `link_cache`.
+
 **Archived re-reviews must be filtered.** Re-reviewed books (only Hyperion and
 Fall of Hyperion) have a `canonical_url` starting with `/`, and links must
 point at the canonical page rather than the old review. The filter
@@ -123,6 +128,10 @@ CSS-only (no JS) hover cards on cross-page book links.
   `strip_feed_previews_hook.rb` handles every other `.xml` page. Apply the
   same stripping to any new output surface.
 
+`JsonLdBuilder` cleans article text once per instance for `articleBody` and
+`wordCount`, including empty results. Description field precedence remains
+independent of this cache.
+
 ### Preview CSS positioning
 
 `_sass/_previews.scss`. Hidden by default; revealed on `a:hover` /
@@ -163,11 +172,11 @@ Nokogiri parse in `_plugins/` also uses `Nokogiri::HTML5`.
 `check_reference_links.rb` (`make check-refs`, plus a CI step) fails the
 build on three problems in `[text][id]` / `[id]:` markdown reference links:
 
-| Problem | Why it is fatal |
-|---|---|
-| Undefined `[text][id]` | Kramdown emits the literal source text |
-| Duplicate `[id]:` | Kramdown keeps the **first** definition silently |
-| Orphaned `[id]:` | Usually a link that was set up and never attached |
+| Problem                | Why it is fatal                                   |
+| ---------------------- | ------------------------------------------------- |
+| Undefined `[text][id]` | Kramdown emits the literal source text            |
+| Duplicate `[id]:`      | Kramdown keeps the **first** definition silently  |
+| Orphaned `[id]:`       | Usually a link that was set up and never attached |
 
 - **No other gate can catch this class.** Worth knowing before reaching for
   one of them, because all three look like "strict mode" and none overlap:

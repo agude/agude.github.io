@@ -7,6 +7,7 @@ from unittest.mock import patch
 import fetch_book_metadata
 import yaml
 from fetch_book_metadata import BOOK_PROPERTY_MAP, format_yaml
+from wikidata_fake import BOOK_GRAPH, FakeWikidataApi
 from wikidata_utils import extract_same_as_urls
 
 
@@ -147,6 +148,16 @@ class TestMain:
         assert "wikidata_qid: Q302026" in output
         assert "https://en.wikipedia.org/wiki/Hyperion_%28Simmons_novel%29" in output
         assert "wikidata.org" not in output
+
+    def test_fetches_work_entity_once_with_isbn_fallback(self, monkeypatch, capsys):
+        api = FakeWikidataApi(BOOK_GRAPH)
+        monkeypatch.setattr(sys, "argv", ["fetch_book_metadata.py", "Q1"])
+
+        with patch("wikidata_utils.api_get", side_effect=api):
+            fetch_book_metadata.main()
+
+        assert 'isbn: "978-0-000-00000-0"' in capsys.readouterr().out
+        assert dict(api.fetched) == {"Q1": 1, "Q10": 1, "Q11": 1}
 
 
 # Each property's URL template, checked against the property's Wikidata

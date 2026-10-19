@@ -15,19 +15,17 @@ Algorithm:
      and interleaves promoted/demoted books naturally).
   5. Rewrite the ranked_list in by_rating.md.
 
-Stops without writing if any ranked title has no matching book file or the
-book has no rating.
+Stops without writing if any ranked title has no matching book file, the
+book has no rating, or two book files share a title.
 """
 
-import re
 import sys
 from pathlib import Path
-
-import yaml
 
 # `uv run` puts only this script's directory on sys.path.
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "common"))
 
+from book_index import build_title_index, parse_front_matter
 from front_matter import split_front_matter
 from yaml_text import yaml_scalar
 
@@ -36,18 +34,9 @@ BOOKS_DIR = REPO_ROOT / "_books"
 BY_RATING = REPO_ROOT / "books" / "by_rating.md"
 
 
-def read_front_matter(path):
-    """Return the parsed YAML front matter of a Markdown file, or None if it has none."""
-    split = split_front_matter(path.read_text())
-    if split is None:
-        return None
-    parsed = yaml.safe_load(split[0])
-    return parsed if isinstance(parsed, dict) else {}
-
-
 def parse_ranked_list(path):
     """Return ordered list of book titles from the ranked_list front matter."""
-    front_matter = read_front_matter(path)
+    front_matter = parse_front_matter(path.read_text())
     if front_matter is None:
         sys.exit("Could not parse front matter in by_rating.md")
 
@@ -56,38 +45,6 @@ def parse_ranked_list(path):
     if non_strings:
         sys.exit(f"ranked_list entries that are not strings: {non_strings}")
     return titles
-
-
-def get_rating_from_file(book_path):
-    """Read rating: from a book's front matter."""
-    text = book_path.read_text()
-    m = re.search(r"^rating:\s*(\d+)", text, re.MULTILINE)
-    if m:
-        return int(m.group(1))
-    return None
-
-
-def _title_matches(path, title):
-    file_title = (read_front_matter(path) or {}).get("title")
-    return isinstance(file_title, str) and file_title.lower() == title.lower()
-
-
-def find_book_file(title):
-    """Find the book file for a given title by matching the title: field."""
-    for path in BOOKS_DIR.glob("*.md"):
-        if _title_matches(path, title):
-            return path
-
-    # Check subdirectories (for canonical books like hyperion/)
-    for subdir in BOOKS_DIR.iterdir():
-        if subdir.is_dir() and subdir.name != "_template":
-            for path in subdir.glob("*.md"):
-                # Skip archived reviews (they have canonical_url)
-                if "canonical_url" in (read_front_matter(path) or {}):
-                    continue
-                if _title_matches(path, title):
-                    return path
-    return None
 
 
 def format_ranked_list(tiers):
@@ -141,15 +98,13 @@ def main():
     print(f"Found {len(titles)} books in ranked_list\n")
 
     # Step 2: Map each title to its global rank and new rating
+    index = build_title_index(BOOKS_DIR)
     books = []  # (global_rank, title, new_rating)
     missing = []
 
     for rank, title in enumerate(titles):
-        path = find_book_file(title)
-        if path is None:
-            missing.append(title)
-            continue
-        rating = get_rating_from_file(path)
+        book = index.get(title.lower())
+        rating = None if book is None else book.rating
         if rating is None:
             missing.append(title)
             continue

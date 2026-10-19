@@ -39,8 +39,26 @@ class TestCardRendererUtils < Minitest::Test
 
     assert_match(/<li class="image-card">/, output)
     assert_match(/<div class="card-element custom-image-class">/, output)
-    assert_match %r{<a href="/item/image-item">\s*<img src="/images/pic.jpg" alt="A picture" />\s*</a>}, output
+    assert_match %r{<a href="/item/image-item">\s*<img src="/images/pic.jpg" alt="A picture" loading="lazy" decoding="async" />\s*</a>}, output
     assert_match %r{<a href="/item/image-item">\s*<strong>Image Card Title</strong>\s*</a>}, output
+  end
+
+  # Index pages such as /books/by-rating/ list over a hundred cards. The
+  # browser must not fetch covers below the fold on page load.
+  def test_render_card_image_loads_lazily
+    card_data = {
+      base_class: 'book-card',
+      url: '/books/dune/',
+      title_html: '<strong>Dune</strong>',
+      image_url: '/books/covers/dune.jpg',
+      image_alt: 'Book cover of Dune.',
+      image_div_class: 'card-book-cover',
+    }
+    output = Jekyll::UI::Cards::CardRendererUtils.render_card(card_data: card_data)
+    img = Nokogiri::HTML5.fragment(output).at_css('img')
+
+    assert_equal 'lazy', img['loading']
+    assert_equal 'async', img['decoding']
   end
 
   def test_render_card_with_image_alt_escaping
@@ -54,7 +72,7 @@ class TestCardRendererUtils < Minitest::Test
     }
     output = Jekyll::UI::Cards::CardRendererUtils.render_card(card_data: card_data)
     expected_alt = 'Alt with &quot;quotes&quot; &amp; &lt;tags&gt;'
-    assert_match %r{<img src="/images/pic.jpg" alt="#{expected_alt}" />}, output
+    assert_match %r{<img src="/images/pic.jpg" alt="#{expected_alt}" loading="lazy" decoding="async" />}, output
   end
 
   def test_render_card_with_description_and_simple_wrapper
@@ -185,7 +203,7 @@ class TestCardRendererUtils < Minitest::Test
       image_div_class: 'custom-image-class',
     }
     output = Jekyll::UI::Cards::CardRendererUtils.render_card(card_data: card_data)
-    assert_match %r{<img src="/images/pic.jpg" alt="" />}, output # Expect empty alt attribute
+    assert_match %r{<img src="/images/pic.jpg" alt="" loading="lazy" decoding="async" />}, output # Expect empty alt attribute
   end
 
   # --- Semantic HTML tests (cards as list items) ---

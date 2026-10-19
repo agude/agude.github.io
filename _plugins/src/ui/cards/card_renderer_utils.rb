@@ -71,7 +71,8 @@ module Jekyll
             alt = CGI.escapeHTML(@card_data[:image_alt] || '')
             html = "  <div class=\"card-element #{@card_data[:image_div_class]}\">\n"
             html << "    <a href=\"#{@card_data[:url]}\">\n"
-            html << "      <img src=\"#{url}\" alt=\"#{alt}\" />\n"
+            # Index pages list over a hundred cards; load covers as they scroll into view.
+            html << "      <img src=\"#{url}\" alt=\"#{alt}\" loading=\"lazy\" decoding=\"async\" />\n"
             html << "    </a>\n"
             html << "  </div>\n"
             html

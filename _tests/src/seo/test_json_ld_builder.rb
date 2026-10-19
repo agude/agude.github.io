@@ -657,6 +657,63 @@ class TestJsonLdBuilder < Minitest::Test
     assert_equal result['articleBody'].split.size, result['wordCount']
   end
 
+  def test_article_text_and_description_keep_their_own_sources
+    content = '<p>Some <em>emphasised</em> prose &amp; a link.</p>' \
+              '<!--book-preview--><span>Hidden preview words</span><!--/book-preview-->'
+    doc = create_doc({ 'description' => 'A separate description.' }, '/test.html', content)
+    result = Jekyll::SEO::JsonLdBuilder.build('BlogPosting', document: doc) do |schema|
+      schema.article_body
+      schema.word_count
+      schema.description_from_fields(field_priority: %w[description content])
+    end
+
+    assert_equal 'Some emphasised prose & a link.', result['articleBody']
+    assert_equal 6, result['wordCount']
+    assert_equal 'A separate description.', result['description']
+  end
+
+  def test_article_body_and_word_count_strip_previews_once
+    utils = Jekyll::Infrastructure::TextProcessingUtils
+    original = utils.method(:strip_link_previews)
+    calls = 0
+    counter = lambda do |text|
+      calls += 1
+      original.call(text)
+    end
+    doc = create_doc({}, '/test.html', '<p>Two words.</p>')
+
+    utils.stub(:strip_link_previews, counter) do
+      Jekyll::SEO::JsonLdBuilder.build('BlogPosting', document: doc) do |schema|
+        schema.article_body
+        schema.word_count
+      end
+    end
+
+    assert_equal 1, calls
+  end
+
+  def test_markup_only_article_is_cleaned_once_in_either_field_order
+    utils = Jekyll::Infrastructure::TextProcessingUtils
+    original = utils.method(:strip_link_previews)
+    calls = 0
+    counter = lambda do |text|
+      calls += 1
+      original.call(text)
+    end
+    doc = create_doc({}, '/test.html', '<div></div>')
+
+    utils.stub(:strip_link_previews, counter) do
+      result = Jekyll::SEO::JsonLdBuilder.build('BlogPosting', document: doc) do |schema|
+        schema.word_count
+        schema.article_body
+      end
+      refute result.key?('articleBody')
+      refute result.key?('wordCount')
+    end
+
+    assert_equal 1, calls
+  end
+
   def test_word_count_not_added_without_document
     result = Jekyll::SEO::JsonLdBuilder.build('BlogPosting', &:word_count)
 

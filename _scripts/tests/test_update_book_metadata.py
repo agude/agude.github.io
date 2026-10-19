@@ -14,6 +14,7 @@ from update_book_metadata import (
     extract_front_matter_keys,
     format_field,
 )
+from wikidata_fake import BOOK_GRAPH, FakeWikidataApi
 
 
 class TestExtractFrontMatterKeys:
@@ -285,6 +286,24 @@ class TestFetchMetadata:
         assert metadata["same_as_urls"] == [
             "https://en.wikipedia.org/wiki/Hyperion_%28Simmons_novel%29"
         ]
+
+    def test_fetches_each_entity_once(self):
+        # The work has no ISBN, so the ISBN comes from its editions; two of
+        # its awards share a parent; one award has no known family.
+        api = FakeWikidataApi(BOOK_GRAPH)
+        with patch("wikidata_utils.api_get", side_effect=api):
+            metadata = update_book_metadata.fetch_metadata("Q1")
+
+        assert metadata == {
+            "wikidata_qid": "Q1",
+            "isbn": "978-0-000-00000-0",
+            "date_published": "1989-05-26",
+            "awards": ["hugo"],
+            "same_as_urls": ["https://en.wikipedia.org/wiki/Fixture_Novel"],
+        }
+        assert dict(api.fetched) == dict.fromkeys(
+            ["Q1", "Q10", "Q11", "Q20", "Q21", "Q22", "Q30"], 1
+        )
 
 
 NEW_METADATA = {

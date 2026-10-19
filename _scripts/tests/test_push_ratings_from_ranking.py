@@ -1,10 +1,20 @@
 """Tests for ranking/push_ratings_from_ranking.py."""
 
+import sys
 from textwrap import dedent
 
 import push_ratings_from_ranking
+import pytest
 from push_ratings_from_ranking import parse_ranked_list_with_tiers
-from ranking_tree import REPO_ROOT, build_tree, point_module_at
+from ranking_tree import (
+    REPO_ROOT,
+    book_files,
+    build_family_tree,
+    build_tree,
+    count_reads,
+    point_module_at,
+    write_book,
+)
 
 
 class TestParseRankedListWithTiers:
@@ -105,6 +115,22 @@ class TestParseRankedListWithTiers:
 
         assert len(result) == 2
 
+    def test_decodes_yaml_escapes_in_titles(self, tmp_path):
+        f = tmp_path / "ranking.md"
+        f.write_text(
+            dedent("""\
+            ---
+            ranked_list:
+              # 5 Stars
+              - 'Don''t'
+              - "He said \\"hi\\""
+            ---
+            """)
+        )
+        result = parse_ranked_list_with_tiers(f)
+
+        assert result == [("Don't", 5), ('He said "hi"', 5)]
+
 
 class TestRepositoryPaths:
     def test_repo_root_is_repository_root(self):
@@ -151,3 +177,87 @@ class TestMain:
         assert (books / "book_two.md").read_text() == (
             "---\ntitle: Book Two\nrating: 5\n---\n\nReview of Book Two.\n"
         )
+
+
+class TestBookLookup:
+    def test_title_resolves_to_canonical_review_not_archive(self, tmp_path, monkeypatch):
+        build_family_tree(tmp_path, "  # 3 Stars\n  - Hyperion\n")
+        point_module_at(monkeypatch, push_ratings_from_ranking, tmp_path)
+        archive = tmp_path / "_books" / "hyperion" / "review-2023-10-17.md"
+        archive_before = archive.read_text()
+
+        push_ratings_from_ranking.main()
+
+        assert (tmp_path / "_books" / "hyperion.md").read_text() == (
+            "---\ntitle: Hyperion\nrating: 3\n---\n\nReview of Hyperion.\n"
+        )
+        assert archive.read_text() == archive_before
+
+    @pytest.mark.parametrize("dry_run", [False, True])
+    def test_reads_each_book_file_once(self, tmp_path, monkeypatch, dry_run):
+        build_family_tree(
+            tmp_path, "  # 5 Stars\n  - Hyperion\n  - Dune\n  # 2 Stars\n  - Foundation\n"
+        )
+        point_module_at(monkeypatch, push_ratings_from_ranking, tmp_path)
+        if dry_run:
+            monkeypatch.setattr(sys, "argv", [push_ratings_from_ranking.__file__, "--dry-run"])
+        reads = count_reads(monkeypatch)
+
+        push_ratings_from_ranking.main()
+
+        files = book_files(tmp_path)
+        assert {path: reads[path] for path in files} == dict.fromkeys(files, 1)
+
+    def test_duplicate_title_stops_before_any_write(self, tmp_path, monkeypatch):
+        build_family_tree(tmp_path, "  # 5 Stars\n  - Foundation\n  - Dune\n")
+        write_book(tmp_path / "_books", "dune_copy", "Dune", 2)
+        point_module_at(monkeypatch, push_ratings_from_ranking, tmp_path)
+        before = {path: path.read_text() for path in book_files(tmp_path)}
+
+        with pytest.raises(SystemExit) as excinfo:
+            push_ratings_from_ranking.main()
+
+        message = str(excinfo.value.code)
+        assert excinfo.value.code not in (0, None)
+        assert "dune.md" in message
+        assert "dune_copy.md" in message
+        assert {path: path.read_text() for path in book_files(tmp_path)} == before
+
+
+class TestEscapedTitles:
+    # Titles are decoded as YAML on both sides, so a quoted title in the
+    # ranked list matches the same quoted title in the book file.
+    @pytest.mark.parametrize(
+        "yaml_title",
+        ["'Don''t'", '"He said \\"hi\\""'],
+    )
+    def test_pushes_rating_for_escaped_title(self, tmp_path, monkeypatch, yaml_title):
+        build_tree(tmp_path, f"  # 5 Stars\n  - {yaml_title}\n", {})
+        book = tmp_path / "_books" / "escaped.md"
+        book.write_text(f"---\ntitle: {yaml_title}\nrating: 3\n---\n\nReview.\n")
+        point_module_at(monkeypatch, push_ratings_from_ranking, tmp_path)
+
+        push_ratings_from_ranking.main()
+
+        assert book.read_text() == f"---\ntitle: {yaml_title}\nrating: 5\n---\n\nReview.\n"
+
+
+class TestRepeatedTitles:
+    def test_repeated_title_stops_before_any_write(self, tmp_path, monkeypatch):
+        # Book One is listed under 5 Stars and again, differently cased,
+        # under 3 Stars. Book Two comes first, so a write would happen
+        # before the repeat is reached.
+        build_tree(
+            tmp_path,
+            "  # 5 Stars\n  - Book Two\n  - Book One\n  # 3 Stars\n  - book one\n",
+            {"book_one": ("Book One", 3), "book_two": ("Book Two", 4)},
+        )
+        point_module_at(monkeypatch, push_ratings_from_ranking, tmp_path)
+        before = {path: path.read_text() for path in book_files(tmp_path)}
+
+        with pytest.raises(SystemExit) as excinfo:
+            push_ratings_from_ranking.main()
+
+        assert excinfo.value.code not in (0, None)
+        assert "Book One" in str(excinfo.value.code)
+        assert {path: path.read_text() for path in book_files(tmp_path)} == before
