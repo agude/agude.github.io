@@ -7,7 +7,7 @@ source 'https://rubygems.org'
 gem 'jekyll', '~> 4.3'
 
 # Add plugins explicitly since we are not using the github-pages gem
-gem 'jekyll-feed', '~> 0.17.0'
+gem 'jekyll-feed', '~> 0.18.0'
 gem 'jekyll-redirect-from', '~> 0.17.0'
 gem 'jekyll-sitemap', '~> 1.4.0'
 
