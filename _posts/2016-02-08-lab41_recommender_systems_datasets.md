@@ -130,7 +130,7 @@ dense dataset that has explicit ratings.
 The dataset is [available here][bc_data].
 
 [bc]: http://www.bookcrossing.com/
-[bc_data]: https://grouplens.org/datasets/book-crossing/
+[bc_data]: https://web.archive.org/web/20261019093043/https://grouplens.org/datasets/book-crossing/
 
 ### Last.fm
 

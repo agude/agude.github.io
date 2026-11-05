@@ -61,7 +61,7 @@ useful for cars. For more details on the ResNet architecture, see my reading
 group blog post.
 
 [resnet]: https://arxiv.org/abs/1512.03385
-[in]: https://image-net.org/
+[in]: https://web.archive.org/web/20261025173406/https://image-net.org/
 [transfer]: https://cs231n.github.io/transfer-learning/
 
 [^he]:
@@ -81,7 +81,7 @@ group blog post.
       work_title="ImageNet: A Large-Scale Hierarchical Image Database"
       container_title="CVPR09"
       date="2009"
-      url="https://www.image-net.org/static_files/papers/imagenet_cvpr09.pdf"
+      url="https://web.archive.org/web/20261019112940/https://www.image-net.org/static_files/papers/imagenet_cvpr09.pdf"
     %}
 
 Our third method of feature extraction was a [fine-tuned][transfer] ResNet50.

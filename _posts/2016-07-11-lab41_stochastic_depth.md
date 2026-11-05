@@ -118,7 +118,7 @@ on CIFAR-10 and find that it produces an even better result, the first time a
 
 [cifar10]: https://cave.cs.toronto.edu/kriz/learning-features-2009-TR.pdf
 [cifar100]: https://cave.cs.toronto.edu/kriz/learning-features-2009-TR.pdf
-[svhn]: http://ufldl.stanford.edu/housenumbers/nips2011_housenumbers.pdf
+[svhn]: https://web.archive.org/web/20130918070109/http://ufldl.stanford.edu/housenumbers/nips2011_housenumbers.pdf
 
 The main idea behind stochastic depth is relatively simple, remove some layers
 when training to make the network train as if it were shallow, but the results
