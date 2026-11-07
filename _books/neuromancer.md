@@ -134,7 +134,7 @@ her into a junkie who gets killed trying to pawn stolen goods. I want him to
 turn his life around but he can't.
 
 Molly is the opposite. She's cool, under control, deadly; you know this as
-soon as you meet her. Molly, too, is tragic. She's in control now, she's
+soon as you meet her. But Molly, too, is tragic. She's in control now, she's
 strong now, because of the abuse she went through, the loss she's had to live
 with. She's consciously traded her humanity for augments and implants to get
 that control, but she's still a tool for others to use.
@@ -175,8 +175,8 @@ with the other things he borrows for {{ hyperion }}: decks, hacking,
 neon-colored shapes, a cowboy _literally_ named Gibson. But he is also
 extending the underlying idea: Johnny is of both worlds simultaneously, a mind
 in cyberspace and a body in the real. Case despises his body and wants to
-become more virtual. Johnny yearns to be more human. They're moving in
-opposite directions while asking the same question.
+become more virtual. Johnny yearns to be more human. They're looking at the
+same problem from opposite sides.
 
 Other authors have played with these same ideas: {{ stephensons_lastname }} {{
 snow_crash }} takes cyberspace and commercializes it. {{ bankss_lastname }} {{
@@ -185,7 +185,7 @@ strosss_lastname }} {{ accelerando }} and {{ rajaniemis_lastname }} {{
 jean_le_flambeur }} blur the line entirely: brains extended beyond the body,
 minds in simulations, multiple copies of the same person. {{ vinges_lastname
 }} {{ a_fire_upon_the_deep }} explores a related idea: a person with many
-bodies. All asking the same question: what makes you human?
+bodies. All asking: what makes you human?
 
 ### Power: What It Costs You
 
