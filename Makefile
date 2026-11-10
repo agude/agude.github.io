@@ -24,7 +24,9 @@ BASE_RUBY_IMAGE := ruby:$(RUBY_VERSION)
 # container, which prevents certain permission errors with Jekyll and Bundler.
 USER_ID := $(shell id -u)
 GROUP_ID := $(shell id -g)
-DOCKER_RUN_OPTS := --user $(USER_ID):$(GROUP_ID) -e HOME=/tmp
+# Ruby's JIT accelerates the render pipeline; set to 0 to compare runtimes.
+RUBY_YJIT_ENABLE ?= 1
+DOCKER_RUN_OPTS := --user $(USER_ID):$(GROUP_ID) -e HOME=/tmp -e RUBY_YJIT_ENABLE=$(RUBY_YJIT_ENABLE)
 
 # Define reusable Docker run command to reduce boilerplate
 DOCKER_RUN = docker run --rm $(DOCKER_RUN_OPTS) $(COVERAGE_ENV) -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE)

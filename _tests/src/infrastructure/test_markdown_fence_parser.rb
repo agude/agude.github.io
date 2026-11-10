@@ -35,6 +35,12 @@ class TestMarkdownFenceParser < Minitest::Test
     assert_nil Parser.fence_start("```ruby `invalid`\n")
   end
 
+  def test_inline_markers_and_short_runs_do_not_open_fences
+    ['ordinary prose', '`inline`', '``inline``', '~~text~~', 'text ```ruby', '> text ~~~'].each do |line|
+      assert_nil Parser.fence_start("#{line}\n"), line
+    end
+  end
+
   def test_tab_indented_list_fence_has_an_exact_closing_boundary
     lines = ["1. item\n", "\n", "\t```html\n", "\tcode\t\n", "\t````\n", "After\n"]
     fence = Parser.fence_start(lines[2], lines: lines, line_index: 2)

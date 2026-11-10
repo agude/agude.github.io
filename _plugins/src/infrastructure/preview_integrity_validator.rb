@@ -25,11 +25,12 @@ module Jekyll
     #   (escaped tag debris abutting a raw preview comment marker).
     module PreviewIntegrityValidator
       # A raw preview marker not immediately preceded by '>' or not
-      # immediately followed by '<'. 40 chars of context are captured for
-      # the error message.
+      # immediately followed by '<'. Extract diagnostic context only after
+      # finding a violation: a leading .{0,40} repeats the search at every
+      # character of every valid page.
       LEAK_PATTERNS = [
-        %r{.{0,40}[^>]<!--/?(?:book|footnote)-preview-->}m,
-        %r{<!--/?(?:book|footnote)-preview-->[^<].{0,40}}m,
+        %r{[^>]<!--/?(?:book|footnote)-preview-->},
+        %r{<!--/?(?:book|footnote)-preview-->[^<]},
       ].freeze
       private_constant :LEAK_PATTERNS
 
@@ -40,12 +41,14 @@ module Jekyll
         return unless html.include?('-preview-->')
 
         LEAK_PATTERNS.each do |pattern|
-          match = html[pattern]
+          match = pattern.match(html)
           next unless match
 
+          context_start = [match.begin(0) - 40, 0].max
+          context = html[context_start...(match.end(0) + 40)]
           raise Jekyll::Errors::FatalException,
                 "PreviewIntegrityValidator: mangled hover-preview markup in #{identifier}: " \
-                "#{match.inspect}. Preview markup was split by the markdown parser — " \
+                "#{context.inspect}. Preview markup was split by the markdown parser — " \
                 'usually a newline inside single-line preview output (see BookPreviewRenderer).'
         end
       end

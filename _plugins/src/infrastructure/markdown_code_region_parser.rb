@@ -7,6 +7,7 @@ module Jekyll
     # Finds source ranges for Markdown block and inline code.
     module MarkdownCodeRegionParser
       FenceParser = Jekyll::Infrastructure::MarkdownFenceParser
+      INDENTED_CODE_CANDIDATE_RE = /\A(?: {0,3}>[ \t]?)*(?:\t| {4})/
 
       # Returns character ranges for fenced and indented source code blocks.
       # Consumers use the same ranges so conversion and whitespace cleanup
@@ -110,6 +111,9 @@ module Jekyll
       private_class_method :line_offsets
 
       def self.indented_code_start?(lines, line_index)
+        # Reject ordinary prose before allocating blockquote prefixes.
+        return false unless lines[line_index].match?(INDENTED_CODE_CANDIDATE_RE)
+
         prefix, content = code_line_content(lines[line_index])
         return false unless indented_code_line?(content)
         return true if line_index.zero?

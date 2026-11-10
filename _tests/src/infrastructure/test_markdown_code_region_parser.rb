@@ -16,4 +16,11 @@ class TestMarkdownCodeRegionParser < Minitest::Test
     prose = "1. First.\n\n    Continue with emphasis.\n"
     assert_empty Parser.protected_code_ranges(prose)
   end
+
+  def test_indented_code_after_nested_quotes_and_with_tabs
+    ['', '> ', '> > ', '   > > '].product(['    ', "\t"]).each do |prefix, indentation|
+      input = "#{prefix}#{indentation}code\n"
+      assert_equal [[0, input.length]], Parser.code_block_ranges(input), input.inspect
+    end
+  end
 end

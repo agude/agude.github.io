@@ -142,3 +142,100 @@ assertions, with 99.59% line and 90.65% branch coverage. `make lint`,
 `make check-links`, `make check-refs`, and `make check-liquid` passed. An
 obsolete file seeded in `_site` before `make check-links` was removed by its
 build, confirming that the link checker sees fresh output.
+
+## Preview-integrity validation
+
+`PreviewIntegrityValidator` checks that each raw book or footnote preview
+marker is preceded by `>` and followed by `<` when those adjacent characters
+exist. Keep this validation enabled for every HTML page.
+
+Search for the violating marker and its adjacent character first. Extract up
+to 40 characters on each side only when reporting an error. A leading
+`.{0,40}` in the detection regex repeats the context search across valid
+pages and makes successful validation expensive.
+
+Measured on 2026-11-09 against the same 425 generated HTML files, three
+serial validator-only runs took 0.585, 0.492, and 0.755 seconds before the
+change and 0.0183, 0.0178, and 0.0177 seconds afterward. The test matrix
+covers opening and closing markers for both preview types, newlines,
+Unicode, and markers at string boundaries. Error messages retain the page
+identifier and surrounding source.
+
+Serial `make build` runs on the same branch used the original validator,
+then the optimized validator. Each variant ran once after its plugin change
+invalidated conversion caches, followed by three warm builds. Image building
+was excluded; every page still rendered.
+
+| Measurement                      | Original | Optimized |
+| -------------------------------- | -------: | --------: |
+| Jekyll compile, cold conversions | 16.899 s |  16.374 s |
+| Jekyll compile, warm median      | 12.392 s |  12.156 s |
+| Whole command, warm median       | 14.835 s |  14.770 s |
+
+Warm Jekyll runs were 12.392, 12.296, 12.461 seconds before and 12.156,
+11.782, 12.784 seconds afterward. The median compile reduction was 1.9%;
+Docker startup and host load make whole-command differences noisy. These
+samples establish a small compile improvement, not a uniform latency saving.
+
+Verification: all 1,423 generated files matched after normalizing generated
+sidebar and feed timestamps. `make test` passed 2,821 tests and 7,696
+assertions; `make lint`, `make check-links`, `make check-refs`, and
+`make check-liquid` passed. The final focused validator run passed 11 tests
+and 128 assertions.
+
+## Ruby execution and Markdown/HTML fast paths
+
+The November 2026 follow-up keeps all rendering and validation enabled and
+reduces work within those stages:
+
+- `MarkdownFenceParser.fence_start` rejects lines without a three-backtick
+  or three-tilde run before parsing containers. Eligible lines still use
+  the full fence parser, including list and blockquote rules.
+- `MarkdownCodeRegionParser` rejects lines without a possible code indent
+  before allocating blockquote prefixes. Differential checks found identical
+  protected ranges in 281 repository documents and 1,000 generated inputs.
+- `HtmlCompressionFilter` handles the layout's whitespace-only settings in
+  Ruby, preserving its literal `<pre`/`</pre>` splitting and whitespace
+  behavior. `_layouts/compress.html` retains the upstream implementation
+  for nonempty endings, startings, comments, or clippings, and for blank-line
+  or profile modes. Tests compare both implementations, including malformed
+  tags, ignored environments, and preformatted content.
+- Local Docker commands enable Ruby YJIT by default. Use
+  `make build RUBY_YJIT_ENABLE=0` for an interpreter-only comparison. The
+  CI build job also enables it for both Jekyll builds. No content, validators,
+  compression options, Markdown twins, or startup renders are skipped.
+
+### Follow-up measurements
+
+Measured on 2026-11-09 with Ruby 3.4.10. The baseline restores the original
+tracked plugin/layout source and disables YJIT. The candidate uses all three
+plugin optimizations, the compressor fast path, and YJIT.
+
+Four serial production builds per variant measured one cold conversion
+cache followed by three warm runs. Cold compile time fell from 15.266 to
+12.746 seconds (16.5%). Warm medians in that series were 10.996 and 9.991
+seconds; host-load variation warranted an alternating comparison.
+
+The alternating comparison retained a separate matching conversion cache
+and dependency fingerprint for each variant. It ran three warm builds per
+variant in baseline/candidate, candidate/baseline, baseline/candidate order.
+Every invocation still used the normal preparer to remove `_site` and
+incremental metadata and render every page.
+
+| Alternating warm-build median | Original | Optimized | Reduction |
+| ----------------------------- | -------: | --------: | --------: |
+| Jekyll compile                | 10.382 s |   8.702 s |     16.2% |
+| Whole `make build` command    | 12.457 s |  11.075 s |     11.1% |
+| Ruby process CPU time         | 10.997 s |   9.408 s |     14.4% |
+
+Compile runs were 10.300, 10.713, 10.382 seconds before and 8.988, 8.702,
+8.490 seconds afterward. Ruby CPU time includes process startup; compile
+time is Jekyll's own elapsed-time report. Median warm peak RSS increased
+from 152,596 to 184,684 KiB (about 31 MiB) with the candidate.
+
+All 1,423 generated files matched the baseline after normalizing only the
+generated sidebar and feed timestamps.
+
+Final validation passed: `make test` (2,827 tests, 7,744 assertions, 99.59%
+line and 90.62% branch coverage), `make lint`, `make check-links`,
+`make check-refs`, and `make check-liquid`.

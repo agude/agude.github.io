@@ -47,6 +47,28 @@ class TestPreviewIntegrityValidator < Minitest::Test
     html = '<pre class="highlight"><code>&lt;!--book-preview--&gt;debris&lt;/span&gt;</code></pre>'
     Validator.validate(html, '/test/')
   end
+
+  def test_all_markers_check_both_adjacent_characters
+    %w[book footnote].product(['', '/']).each do |kind, closing|
+      marker = "<!--#{closing}#{kind}-preview-->"
+      [nil, '>', '<', "\n", 'é'].product([nil, '<', '>', "\n", 'é']).each do |before, after|
+        html = "#{before}#{marker}#{after}"
+        invalid = (before && before != '>') || (after && after != '<')
+        if invalid
+          assert_raises(Jekyll::Errors::FatalException, html.inspect) { Validator.validate(html, '/test/') }
+        else
+          assert_silent { Validator.validate(html, '/test/') }
+        end
+      end
+    end
+  end
+
+  def test_error_includes_context_around_a_late_violation
+    html = "#{'é' * 1000}<p>before&lt;/span&gt;<!--/book-preview--><a>after</a>"
+    error = assert_raises(Jekyll::Errors::FatalException) { Validator.validate(html, '/test/') }
+    assert_includes error.message, 'before&lt;/span&gt;<!--/book-preview--><a>after</a>'
+    assert_operator error.message.length, :<, 500
+  end
 end
 
 # Tests for the :post_render hook registration.

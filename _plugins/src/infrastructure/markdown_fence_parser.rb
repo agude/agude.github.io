@@ -8,6 +8,9 @@ module Jekyll
       private_constant :Fence
 
       def self.fence_start(line, lines: [], line_index: 0)
+        # Most prose lines have no fence. Avoid parsing their containers.
+        return nil unless line.include?('```') || line.include?('~~~')
+
         allow_indented = indented_fence_candidate?(line) && list_context?(lines, line_index)
         fence = parse_fence_line(line, allow_indented: allow_indented)
         return nil unless fence
