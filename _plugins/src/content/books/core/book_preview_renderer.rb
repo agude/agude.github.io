@@ -27,7 +27,13 @@ module Jekyll
         private_constant :Typography, :Text, :Logger, :Ratings
 
         MAX_AUTHORS_BEFORE_ETAL = 3
-        private_constant :MAX_AUTHORS_BEFORE_ETAL
+        # The cover is 5rem wide (_previews.scss): 80px below the 38em
+        # breakpoint, 100px above it, where the root font size grows.
+        # ImageDimensionsInjector keeps this instead of the configured
+        # cover `sizes`, which describes the 300px lead cover. `auto`
+        # cannot help: the preview is hidden when the browser picks a file.
+        COVER_SIZES = '(min-width: 38em) 100px, 80px'
+        private_constant :MAX_AUTHORS_BEFORE_ETAL, :COVER_SIZES
 
         # --- Class-level lede extraction (shared by all resolvers) ---
 
@@ -115,7 +121,7 @@ module Jekyll
           escaped_image = CGI.escapeHTML(@image.to_s)
           escaped_title = CGI.escapeHTML(@canonical_title.to_s)
           %(<img class="book-link-preview-cover" src="#{escaped_image}" ) +
-            %(alt="Cover of #{escaped_title}" loading="lazy" decoding="async" />)
+            %(alt="Cover of #{escaped_title}" loading="lazy" decoding="async" sizes="#{COVER_SIZES}" />)
         end
 
         def author_html

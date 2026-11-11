@@ -47,6 +47,18 @@ jobs:
           bundler-cache: true
           cache-version: 0
 
+      # ImageDerivatives encodes WebP cover copies with ImageMagick.
+      - name: Install ImageMagick
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq imagemagick
+
+      # Shared with jekyll.yml's build job (same key).
+      - name: Restore image derivative cache
+        uses: actions/cache@v6
+        with:
+          path: .jekyll-cache/image-derivatives
+          key: image-derivatives-${{ hashFiles('books/covers/**', '_plugins/src/infrastructure/image_derivatives.rb', '_config.yml') }}
+          restore-keys: image-derivatives-
+
       - name: Build with Jekyll
         run: bundle exec jekyll build
         env:

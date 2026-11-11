@@ -40,6 +40,12 @@ the other two are blind to:
   duplicate `[id]:`, orphaned `[id]:`. All three fail the build.
 - **`make check-liquid`** — strict-Liquid render of every document.
 
+`make check-images` is a fourth, layout-level check: it builds the site and
+measures every image slot in headless Chromium, failing when a `srcset`
+image's `sizes` or candidate widths do not fit the slot. CI runs it; run it
+locally after changing image CSS, layouts, or `image_derivatives`. It needs
+`uv` on the host.
+
 Why they do not overlap:
 `.claude/skills/jekyll-site-dev/references/links-and-previews.md`.
 

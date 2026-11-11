@@ -12,10 +12,12 @@
 #      what a merge would publish. No secrets: it reads public records
 #      from bsky.social and refuses every write. Blocking, so a
 #      bsky.social outage fails branch CI; rerun the job.
-#   7. Build, then four site gates on every branch: the AT-path cross-check
+#   7. Build, then five site gates on every branch: the AT-path cross-check
 #      (validate --site-dir, both directions), HTML structure
-#      (_bin/check_html_structure.sh), feed XML (_bin/check_feeds.rb), and
-#      broken links (_bin/check_links.rb). (Only the `test` job's steps run
+#      (_bin/check_html_structure.sh), feed XML (_bin/check_feeds.rb),
+#      broken links (_bin/check_links.rb), and responsive image sizes
+#      (_scripts/ci/check_image_sizes.py, headless Chromium from
+#      Playwright). (Only the `test` job's steps run
 #      on every branch; `build` runs everywhere too but `deploy` only runs
 #      for main via the `needs:`/`if:` chain.)
 #
@@ -27,8 +29,19 @@
 #      and writes _data/standard_site.json. Requires the BSKY_APP_PASSWORD
 #      repo secret and a non-empty standard_site.publication_uri (an empty
 #      value is a hard failure — repo rule 5).
-#   9. A second Jekyll build embeds the per-document link tags, then all
-#      four gates re-run against the artifact that actually deploys.
+#   9. A second Jekyll build embeds the per-document link tags, then the
+#      first four gates re-run against the artifact that actually deploys.
+#      The rebuild changes only link tags, so the image check is not
+#      re-run.
+#
+# Both jobs install ImageMagick from apt: the build's ImageDerivatives
+# generator encodes WebP cover copies with it, and the Ruby tests encode
+# real fixture images. The build job restores `.jekyll-cache/image-derivatives`
+# with actions/cache (key: hash of books/covers/**, the generator, and
+# _config.yml, which sets the widths), so only new or changed covers are
+# encoded; a full miss adds about a minute. An exact key hit never saves,
+# so every input that changes the outputs must be in the key.
+# link-check.yml shares the same cache key.
 #
 # Test-job concurrency is per-ref and cancels stale runs
 # (`test-${{ github.ref }}`); the deploy job's `group: pages` lock is scoped
@@ -74,6 +87,10 @@ jobs:
         with:
           bundler-cache: true
           cache-version: 0
+
+      # ImageDerivatives encodes WebP cover copies with ImageMagick.
+      - name: Install ImageMagick
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq imagemagick
 
       - name: Run linter
         run: bundle exec rubocop
@@ -143,12 +160,25 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v10.3.3
 
+      # ImageDerivatives encodes WebP cover copies with ImageMagick.
+      - name: Install ImageMagick
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq imagemagick
+
+      # Encoded cover copies; ImageDerivatives re-encodes only what its
+      # manifest marks stale, so a partial (restore-keys) hit still helps.
+      - name: Restore image derivative cache
+        uses: actions/cache@v6
+        with:
+          path: .jekyll-cache/image-derivatives
+          key: image-derivatives-${{ hashFiles('books/covers/**', '_plugins/src/infrastructure/image_derivatives.rb', '_config.yml') }}
+          restore-keys: image-derivatives-
+
       - name: Build with Jekyll
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
 
-      # All four site gates must pass BEFORE the publish step below may
+      # All five site gates must pass BEFORE the publish step below may
       # write records to the PDS: records are an external,
       # not-automatically-reversible system. The cross-check is a superset
       # of the test job's credential-free validate step (keep the two
@@ -165,6 +195,14 @@ jobs:
 
       - name: Check for broken links
         run: bundle exec ruby _bin/check_links.rb
+
+      # Measures every image slot at each CSS breakpoint and density
+      # (`make check-images`).
+      - name: Check responsive image sizes
+        working-directory: _scripts
+        run: |
+          uv run --group browser playwright install --with-deps --only-shell chromium
+          uv run --group browser python ci/check_image_sizes.py ../_site --baseurl "${{ steps.pages.outputs.base_path }}"
 
       - name: Publish standard.site records
         if: github.ref == 'refs/heads/main' && inputs.skip_publish != true

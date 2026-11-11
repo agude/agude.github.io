@@ -68,6 +68,32 @@ image cannot be sized. Rules for authors:
   aspect ratio. Size or crop images with CSS, for example a class with
   `max-width`, or `aspect-ratio` with `object-fit`.
 
+Book covers also get `srcset` and `sizes`: `ImageDerivatives`
+(`image_derivatives` in `_config.yml`) builds WebP copies, at the widths set
+there, of every file in `books/covers/` at build time, and the injector
+offers them. Add a new cover as a JPEG or PNG; any other file in that directory
+stops the build, as do two covers whose names differ only in extension
+(`dune.jpg` and `dune.png` would share `dune-300.webp`). The original stays
+the `src` and the source of the size. The configured `sizes` describes the
+lead cover; a template whose cover slot differs sets its own `sizes`, which
+the injector keeps (the book-link preview cover, 5rem).
+
+The widths and `sizes` come from measurement, not from reading the CSS.
+`make check-images` (`_scripts/ci/check_image_sizes.py`) loads one or two
+pages per image slot in headless Chromium at each breakpoint in
+`_sass/_variables.scss` and at 1x, 2x, and 3x, and records each image's
+slot width, its `sizes` width, and the width of the file the browser chose,
+decoded from the file rather than read from its `srcset` descriptor. Hover
+previews are revealed first, and a slot that is never visible fails the
+check.
+It prints every slot's width range, which is where a new `srcset` should get
+its widths: the narrowest slot at 1x to the widest at 2x. For `srcset`
+images it fails when `sizes` is more than 5% under or 10% over the slot,
+when the chosen file is too narrow for 2x and the source is wider, or when
+it is over twice the slot at the screen's density, or when a `srcset`
+descriptor differs from its file's width. A change to cover CSS
+that moves a slot fails CI until the widths or `sizes` follow.
+
 Lead images (`#lead-image`, `.book-cover-lead`) also carry
 `fetchpriority="high"`: measured in November 2026, they are the Largest
 Contentful Paint element on post and book pages.

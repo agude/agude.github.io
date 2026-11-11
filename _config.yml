@@ -159,6 +159,17 @@ sass:
     sass_dir: _sass
     style: compressed
 
+# Smaller WebP copies of book covers, offered through srcset. Widths and
+# sizes come from `make check-images`, which measures every cover slot:
+# card covers span 123-352 CSS px, and the lead cover is 15em (240 px below
+# 38em, 300 px above, as the root font size changes). 150 serves the
+# narrowest cards at 1x; 750 serves the widest at 2x. Built and cached by
+# ImageDerivatives (_plugins/src/infrastructure/).
+image_derivatives:
+  - source_dir: books/covers
+    widths: [150, 300, 600, 750]
+    sizes: "(min-width: 38em) 300px, 240px"
+
 # Compress HTML https://jch.penibelst.de/
 compress_html:
     clippings: []

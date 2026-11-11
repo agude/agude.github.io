@@ -254,17 +254,18 @@ pipeline, update the matching document in `references/`.
 Run commands from the repository root. The content checks are separate; no
 single command runs all of them:
 
-| Command                                     | Checks                                                                                                            |
-| ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `make test`                                 | All Ruby tests in `_tests/`. Fails below 95% line or 90% branch coverage.                                         |
-| `make test TEST=_tests/src/path/to/test.rb` | One Ruby test file. The coverage thresholds apply to full runs only, so the exit status reflects the tests alone. |
-| `make check-links`                          | Builds the site, then runs html-proofer for broken links, missing images, and empty `alt` attributes.             |
-| `make check-refs`                           | Finds undefined, duplicate, and orphaned Markdown reference links.                                                |
-| `make check-liquid`                         | Renders documents with strict Liquid checking.                                                                    |
-| `make check`                                | Alias for `make check-links`; it does not run the other content checks.                                           |
-| `make lint`                                 | Runs the repository lint checks.                                                                                  |
-| `make format-md`                            | Formats every Markdown file in the repository. Do not use it to format a change; it rewrites unrelated files.     |
-| `make prettier FILE.md ...`                 | Formats the named Markdown files with Prettier.                                                                   |
+| Command                                     | Checks                                                                                                              |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `make test`                                 | All Ruby tests in `_tests/`. Fails below 95% line or 90% branch coverage.                                           |
+| `make test TEST=_tests/src/path/to/test.rb` | One Ruby test file. The coverage thresholds apply to full runs only, so the exit status reflects the tests alone.   |
+| `make check-links`                          | Builds the site, then runs html-proofer for broken links, missing images, and empty `alt` attributes.               |
+| `make check-refs`                           | Finds undefined, duplicate, and orphaned Markdown reference links.                                                  |
+| `make check-liquid`                         | Renders documents with strict Liquid checking.                                                                      |
+| `make check-images`                         | Builds the site and measures image slots in headless Chromium; fails on `srcset` images that do not fit their slot. |
+| `make check`                                | Alias for `make check-links`; it does not run the other content checks.                                             |
+| `make lint`                                 | Runs the repository lint checks.                                                                                    |
+| `make format-md`                            | Formats every Markdown file in the repository. Do not use it to format a change; it rewrites unrelated files.       |
+| `make prettier FILE.md ...`                 | Formats the named Markdown files with Prettier.                                                                     |
 
 For a content or plugin change, run the targeted test first and then the
 checks that cover the changed behavior. Do not merge a branch straight into

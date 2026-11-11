@@ -50,6 +50,8 @@ def setup_site_with_strict_config
     # Load the default config and then override it with strict settings
     config = Jekyll.configuration({})
     config['plugin_log_level'] = 'error'
+    # Encoding images is irrelevant to a Liquid check and needs ImageMagick.
+    config['image_derivatives'] = nil
     config['liquid'] = {
       'error_mode' => 'strict',
       'strict_variables' => true,

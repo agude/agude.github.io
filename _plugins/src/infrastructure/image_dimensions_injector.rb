@@ -29,6 +29,13 @@ module Jekyll
     # stylesheet's `height: auto` it would not change the aspect ratio
     # anyway. Size images with CSS.
     #
+    # An image with WebP copies from ImageDerivatives also gains `srcset`
+    # and `sizes` from `site.data['image_srcsets']`. Its `src` stays the
+    # original, which sets the aspect ratio and serves browsers without
+    # `srcset`. A `sizes` already on the tag is kept: a template whose slot
+    # differs from the configured one (the book-link preview cover) states
+    # its own.
+    #
     # Hook order: FootnotePreviewInjector also runs at default
     # `:post_render` priority. Either order gives the same output, because a
     # footnote preview copies its `<img>` from the same page and every copy
@@ -42,7 +49,8 @@ module Jekyll
     #
     # @validator An `<img>` with no `src`, a remote or relative `src`, a
     #   `src` naming a file missing from the source tree or one
-    #   ImageDimensions cannot size, or an author-set `width` or `height`.
+    #   ImageDimensions cannot size, an author-set `width` or `height`, or
+    #   an author-set `srcset` on an image with derivatives.
     #   html-proofer would catch a missing file only after the build; this
     #   stops the build at the page that references it.
     module ImageDimensionsInjector
@@ -101,10 +109,31 @@ module Jekyll
         set = %w[width height].select { |name| attributes.key?(name) }
         fail_with(source, src, "sets #{set.join(' and ')}; size images with CSS instead") if set.any?
 
-        width, height = ImageDimensions.of(local_file(src, site, source))
-        tag.sub(%r{\s*/?>\z}) { |close| %( width="#{width}" height="#{height}"#{close}) }
+        file = local_file(src, site, source)
+        width, height = ImageDimensions.of(file)
+        added = { 'width' => width, 'height' => height }.merge(srcset_attributes(attributes, file, site, src, source))
+        text = added.map { |name, value| %( #{name}="#{value}") }.join
+        tag.sub(%r{\s*/?>\z}) { |close| "#{text}#{close}" }
       end
       private_class_method :sized_tag
+
+      # @return [Hash{String => String}] `srcset` and `sizes` from
+      #   ImageDerivatives, or empty for an image without derivatives. A
+      #   lazy image gets `sizes="auto, ..."` so the browser can pick by
+      #   its laid-out width; `auto` is invalid on an eager image. Only
+      #   `srcset` when the tag already has `sizes`.
+      def self.srcset_attributes(attributes, file, site, src, source)
+        key = File.expand_path(file).delete_prefix(File.expand_path(site.source))
+        derived = (site.data['image_srcsets'] || {})[key]
+        return {} unless derived
+
+        fail_with(source, src, 'sets srcset; ImageDerivatives supplies it') if attributes.key?('srcset')
+        return { 'srcset' => derived['srcset'] } if attributes.key?('sizes')
+
+        lazy = attributes['loading'].to_s.strip.casecmp?('lazy')
+        { 'srcset' => derived['srcset'], 'sizes' => lazy ? "auto, #{derived['sizes']}" : derived['sizes'] }
+      end
+      private_class_method :srcset_attributes
 
       # @return [String] The absolute source path of a local image.
       def self.local_file(src, site, source)

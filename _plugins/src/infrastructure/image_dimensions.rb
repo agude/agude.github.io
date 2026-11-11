@@ -24,8 +24,9 @@ module Jekyll
     # format starts with `<`.
     #
     # Sizes are memoized per path for one build, because a cover appears on
-    # many pages (its book, cards, previews). The memo is cleared at the
-    # start of every render, so `make serve` never reuses a stale size.
+    # many pages (its book, cards, previews). The memo is cleared when the
+    # site resets, before generators run, so neither ImageDerivatives nor a
+    # page in a `make serve` rebuild reuses a stale size.
     #
     # @validator An image file that is unreadable, in an unsupported format,
     #   truncated before its size, or zero pixels wide or high, and an SVG
@@ -58,8 +59,8 @@ module Jekyll
           fail_with(file, "cannot be read (#{e.message})")
         end
 
-        # Forgets every size. Runs before each render; tests call it between
-        # cases that reuse a path.
+        # Forgets every size. Runs at the start of each build; tests call it
+        # between cases that reuse a path.
         def reset
           @sizes = {}
         end
@@ -119,6 +120,6 @@ module Jekyll
   end
 end
 
-Jekyll::Hooks.register :site, :pre_render do |_site, _payload|
+Jekyll::Hooks.register :site, :after_reset do |_site|
   Jekyll::Infrastructure::ImageDimensions.reset
 end

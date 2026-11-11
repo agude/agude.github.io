@@ -93,6 +93,47 @@ class TestImageDimensionsInjector < Minitest::Test
     assert_raises_naming('<img src="/files/post/plot.png" width="1" height="1">', 'sets width and height')
   end
 
+  # --- srcset from ImageDerivatives ---
+
+  def with_srcset
+    @site.data['image_srcsets'] = {
+      '/files/post/plot.png' => { 'srcset' => '/d/plot-250.webp 250w, /d/plot-500.webp 500w', 'sizes' => '250px' },
+    }
+  end
+
+  def test_image_with_derivatives_gains_srcset_and_sizes
+    with_srcset
+    assert_equal '<img src="/files/post/plot.png" width="640" height="480" ' \
+                 'srcset="/d/plot-250.webp 250w, /d/plot-500.webp 500w" sizes="250px">',
+                 inject('<img src="/files/post/plot.png">')
+  end
+
+  # sizes="auto" lets the browser use the laid-out width, but is valid
+  # only on a lazy image.
+  def test_lazy_image_gets_auto_sizes
+    with_srcset
+    assert_includes inject('<img src="https://alexgude.com/files/post/plot.png" loading="lazy">'),
+                    'sizes="auto, 250px"'
+  end
+
+  def test_image_without_derivatives_gets_no_srcset
+    with_srcset
+    refute_includes inject('<img src="/files/post/a%20b.png">'), 'srcset'
+  end
+
+  # A template whose slot differs from the configured one sets its own.
+  def test_template_sizes_is_kept
+    with_srcset
+    assert_equal '<img src="/files/post/plot.png" loading="lazy" sizes="80px" width="640" height="480" ' \
+                 'srcset="/d/plot-250.webp 250w, /d/plot-500.webp 500w">',
+                 inject('<img src="/files/post/plot.png" loading="lazy" sizes="80px">')
+  end
+
+  def test_author_set_srcset_raises
+    with_srcset
+    assert_raises_naming('<img src="/files/post/plot.png" srcset="/x.png 1x">', 'sets srcset')
+  end
+
   # --- Quote-aware tag scanning ---
 
   def test_greater_than_inside_alt_is_not_the_tag_end

@@ -6,7 +6,7 @@ require 'fileutils'
 require 'open3'
 require 'rbconfig'
 require 'yaml'
-require_relative '../../support/image_fixture'
+require 'src/infrastructure/image_derivatives'
 
 # Integration test: builds a fixture book page with the real layouts,
 # includes, and plugins, and checks how its cover images load. The build
@@ -58,8 +58,12 @@ class TestBookCoverLoadingRendered < Minitest::Test
       title: Fixture Saga
       ---
     MARKDOWN
-    'books/covers/first_book.jpg' => ImageFixture.jpeg(600, 900),
-    'books/covers/second_book.jpg' => ImageFixture.jpeg(500, 800),
+  }.freeze
+
+  # Real, decodable JPEGs, so ImageDerivatives can encode them.
+  COVERS = {
+    'books/covers/first_book.jpg' => [600, 900],
+    'books/covers/second_book.jpg' => [500, 800],
   }.freeze
 
   CONFIG = {
@@ -74,6 +78,7 @@ class TestBookCoverLoadingRendered < Minitest::Test
     'defaults' => [{ 'scope' => { 'path' => '', 'type' => 'books' }, 'values' => { 'layout' => 'book' } }],
     'plugins' => %w[jekyll-feed jekyll-redirect-from jekyll-sitemap],
     'standard_site' => { 'publication_uri' => 'at://did:plc:fixture/site.standard.publication/fixture' },
+    'image_derivatives' => [{ 'source_dir' => 'books/covers', 'widths' => [300, 600], 'sizes' => '300px' }],
     'plugin_log_level' => 'error',
     'quiet' => true,
   }.freeze
@@ -82,7 +87,12 @@ class TestBookCoverLoadingRendered < Minitest::Test
                  "Jekyll::Site.new(Jekyll.configuration('source' => ARGV[0], 'destination' => ARGV[1])).process"
 
   def self.page
-    @page ||= Nokogiri::HTML5(build_fixture_site)
+    @page ||= Nokogiri::HTML5(File.read(File.join(destination, 'books', 'first_book', 'index.html')))
+  end
+
+  # @return [String] The built site's directory.
+  def self.destination
+    @destination ||= build_fixture_site
   end
 
   def self.build_fixture_site
@@ -95,12 +105,20 @@ class TestBookCoverLoadingRendered < Minitest::Test
       FileUtils.mkdir_p(File.dirname(full))
       File.binwrite(full, content)
     end
+    COVERS.each { |path, size| write_cover(File.join(source, path), *size) }
 
     destination = File.join(source, '_site')
     output, status = Open3.capture2e(RbConfig.ruby, '-e', BUILD_SCRIPT, source, destination, chdir: REPO_ROOT)
     raise "Fixture site build failed:\n#{output}" unless status.success?
 
-    File.read(File.join(destination, 'books', 'first_book', 'index.html'))
+    destination
+  end
+
+  def self.write_cover(path, width, height)
+    FileUtils.mkdir_p(File.dirname(path))
+    command = Jekyll::Infrastructure::ImageDerivatives.send(:imagemagick)
+    output, status = Open3.capture2e(command, '-size', "#{width}x#{height}", 'xc:#336699', path)
+    raise "Could not write fixture cover #{path}:\n#{output}" unless status.success?
   end
 
   def test_lead_cover_loads_eagerly
@@ -133,5 +151,23 @@ class TestBookCoverLoadingRendered < Minitest::Test
     refute_nil card, 'fixture should render a related-book card with a cover'
     assert_equal 'lazy', card['loading']
     assert_equal 'async', card['decoding']
+  end
+
+  # The eager lead cover gets a fixed `sizes`; the lazy card cover lets the
+  # browser use its laid-out width. A source no wider than 600 px stands in
+  # for the skipped 600 px copy.
+  def test_covers_offer_webp_derivatives
+    lead = self.class.page.at_css('img.book-cover-lead')
+    card = self.class.page.at_css('.book-card img[src$="/books/covers/second_book.jpg"]')
+
+    assert_equal '/books/covers/derived/first_book-300.webp 300w, /books/covers/first_book.jpg 600w', lead['srcset']
+    assert_equal '300px', lead['sizes']
+    assert_equal '/books/covers/derived/second_book-300.webp 300w, /books/covers/second_book.jpg 500w', card['srcset']
+    assert_equal 'auto, 300px', card['sizes']
+  end
+
+  def test_derivatives_are_published
+    derived = File.join(self.class.destination, 'books', 'covers', 'derived')
+    assert_equal %w[first_book-300.webp second_book-300.webp], Dir.children(derived).sort
   end
 end

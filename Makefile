@@ -307,6 +307,15 @@ check-liquid: image-build
 	@echo "Checking all documents for strict Liquid compliance..."
 	@$(DOCKER_RUN) bundle exec ruby _bin/check_strict.rb
 
+# Measure every image slot in headless Chromium at each CSS breakpoint and
+# at 1x/2x/3x density. Fails when a srcset image's `sizes` or candidate
+# widths do not fit its slot; prints each slot's width range. Runs on the
+# host through uv, not in Docker: the Jekyll image has no browser.
+check-images: build
+	@echo "Measuring image slots in headless Chromium..."
+	@cd _scripts && uv run --group browser playwright install --only-shell chromium
+	@cd _scripts && uv run --group browser python ci/check_image_sizes.py ../_site
+
 # Query YARD for code objects carrying a doc tag (default: any custom tag
 # declared in .yardopts — derived from it directly so a new --tag entry
 # doesn't need a matching Makefile edit).

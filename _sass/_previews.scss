@@ -89,9 +89,12 @@
   // overflow must stay visible so the ::before bridge is not clipped.
 }
 
+// rem, not em: previews inside card text would otherwise shrink with its
+// smaller font, and BookPreviewRenderer's `sizes` (80px, 100px from 38em)
+// assumes the root font size.
 img.book-link-preview-cover {
   float: right;
-  width: 5em;
+  width: 5rem;
   height: auto;
   margin: 0 0 0.4em 0.6em;
 }
