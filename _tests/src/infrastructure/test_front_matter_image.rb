@@ -7,6 +7,7 @@ require 'open3'
 require 'rbconfig'
 require 'yaml'
 require 'src/infrastructure/front_matter_image'
+require_relative '../../support/image_fixture'
 
 # Tests for FrontMatterImage, the shared reading of a front-matter `image`.
 class TestFrontMatterImage < Minitest::Test
@@ -186,11 +187,11 @@ class TestFrontMatterImageHashBuild < Minitest::Test
     {
       '_books/hash_image.md' => book,
       'books/authors/fixture_author.md' => AUTHOR,
-      'files/cover.jpg' => 'jpg',
-      'files/headshot.jpg' => 'jpg',
+      'files/cover.jpg' => ImageFixture.jpeg(600, 900),
+      'files/headshot.jpg' => ImageFixture.jpeg(400, 400),
     }.each do |path, body|
       FileUtils.mkdir_p(File.join(source, File.dirname(path)))
-      File.write(File.join(source, path), body)
+      File.binwrite(File.join(source, path), body)
     end
   end
 end

@@ -6,6 +6,7 @@ require 'fileutils'
 require 'open3'
 require 'rbconfig'
 require 'yaml'
+require_relative '../../support/image_fixture'
 
 # Integration test: builds a fixture book page with the real layouts,
 # includes, and plugins, and checks how its cover images load. The build
@@ -57,8 +58,8 @@ class TestBookCoverLoadingRendered < Minitest::Test
       title: Fixture Saga
       ---
     MARKDOWN
-    'books/covers/first_book.jpg' => 'not a real image',
-    'books/covers/second_book.jpg' => 'not a real image',
+    'books/covers/first_book.jpg' => ImageFixture.jpeg(600, 900),
+    'books/covers/second_book.jpg' => ImageFixture.jpeg(500, 800),
   }.freeze
 
   CONFIG = {
@@ -92,7 +93,7 @@ class TestBookCoverLoadingRendered < Minitest::Test
     FILES.each do |path, content|
       full = File.join(source, path)
       FileUtils.mkdir_p(File.dirname(full))
-      File.write(full, content)
+      File.binwrite(full, content)
     end
 
     destination = File.join(source, '_site')
@@ -114,6 +115,16 @@ class TestBookCoverLoadingRendered < Minitest::Test
   # so it is fetched ahead of other images.
   def test_lead_cover_is_high_priority
     assert_equal 'high', self.class.page.at_css('img.book-cover-lead')['fetchpriority']
+  end
+
+  # Width and height let the browser reserve each cover's box before the
+  # file loads (ImageDimensionsInjector).
+  def test_covers_carry_intrinsic_size
+    lead = self.class.page.at_css('img.book-cover-lead')
+    card = self.class.page.at_css('.book-card img[src$="/books/covers/second_book.jpg"]')
+
+    assert_equal %w[600 900], [lead['width'], lead['height']]
+    assert_equal %w[500 800], [card['width'], card['height']]
   end
 
   def test_related_card_cover_loads_lazily

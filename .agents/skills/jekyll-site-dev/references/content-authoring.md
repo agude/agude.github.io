@@ -48,6 +48,30 @@ Simple formatting tags for non-book creative works. Emit
 Accepts quoted strings or Liquid variables (`{% game_title page.title %}`).
 Base class: `ui/tags/cite_title_tag.rb`.
 
+## Images Get Their Size at Build Time
+
+`ImageDimensionsInjector` (`_plugins/src/infrastructure/`) adds `width` and
+`height` to every `<img>` in the HTML output: lead images, figures, cards,
+previews, and images written in Markdown or raw HTML. The browser then
+reserves each image's box before the file loads. The build stops when an
+image cannot be sized. Rules for authors:
+
+- Host every image in the repository and reference it by root-relative
+  path (`/files/post/plot.png`) or the site's own absolute URL. A remote,
+  `data:`, or relative `src` stops the build.
+- Use a raster format FastImage reads (PNG, GIF, JPEG, WebP, AVIF) or SVG.
+- An SVG needs an absolute `width` and `height` on its root `<svg>`
+  element (px, pt, mm, and so on). Matplotlib and Inkscape exports have
+  them. A percentage or missing size stops the build.
+- Do not set `width` or `height` on an `<img>`; that stops the build. The
+  stylesheet's `img { height: auto; }` keeps every image at its file's
+  aspect ratio. Size or crop images with CSS, for example a class with
+  `max-width`, or `aspect-ratio` with `object-fit`.
+
+Lead images (`#lead-image`, `.book-cover-lead`) also carry
+`fetchpriority="high"`: measured in November 2026, they are the Largest
+Contentful Paint element on post and book pages.
+
 ## Kramdown Abbreviations Need Prettier Protection
 
 Kramdown abbreviation definitions (`*[CERN]: European Organization...`)

@@ -20,6 +20,9 @@ gem 'logger', '~> 1.7'
 # For parsing HTML in custom plugins
 gem 'nokogiri', '~> 1.19'
 
+# Raster image sizes (and EXIF orientation) for <img> width/height
+gem 'fastimage', '~> 2.4'
+
 # Tests
 group :development, :test do
   gem "html-proofer", "~> 5.2"
