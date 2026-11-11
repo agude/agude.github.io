@@ -311,3 +311,13 @@ a[href^="#fnref:"] {
     animation-iteration-count: 1 !important;
   }
 }
+
+// Cross-document view transitions: content cross-fades between pages
+// on same-origin navigation. Gated on no-preference so users who ask for
+// reduced motion get instant swaps. Unknown at-rule; Dart Sass passes it
+// through to CSS unchanged. Browsers without support ignore it.
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+}

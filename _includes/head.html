@@ -14,6 +14,26 @@
   <!-- Ubuntu Mono is self-hosted via _sass/_fonts.scss; no third-party font request. -->
   <link rel="stylesheet" href="/assets/css/main.css" type="text/css">
 
+  {% comment %} Speculation Rules: prefetch same-site pages on hover/pointerdown
+     (moderate eagerness). Browsers without support ignore the script. {% endcomment %}
+  <script type="speculationrules">
+  {
+    "prefetch": [{
+      "where": {
+        "and": [
+          { "href_matches": "/*" },
+          { "not": { "href_matches": "/*.md" } },
+          { "not": { "href_matches": "/*.xml" } },
+          { "not": { "href_matches": "/files/*" } },
+          { "not": { "selector_matches": "[rel~=nofollow]" } },
+          { "not": { "selector_matches": ".do-not-prefetch" } }
+        ]
+      },
+      "eagerness": "moderate"
+    }]
+  }
+  </script>
+
   <!-- Icons -->
   <link rel="icon" href="{{ site.baseurl }}/public/favicon.ico" sizes="any">
   <link rel="icon" href="{{ site.baseurl }}/public/favicon.svg" type="image/svg+xml">

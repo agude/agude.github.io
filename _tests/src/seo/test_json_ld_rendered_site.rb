@@ -169,6 +169,18 @@ class TestJsonLdRenderedSite < Minitest::Test
     assert_equal series_page.dig('about', '@id'), series['@id']
   end
 
+  # head.html also emits a speculation rules script. This class already owns
+  # the rendered head.html boundary and the fixture site, so the check lives
+  # here rather than in a separate fixture build.
+  def test_speculation_rules_json_parses_after_html_parsing
+    scripts = parse_page('books/first_book/index.html').css('script[type="speculationrules"]')
+    assert_equal 1, scripts.size, 'expected one speculation rules script'
+
+    prefetch = JSON.parse(scripts.first.text).dig('prefetch', 0)
+    assert_equal 'moderate', prefetch['eagerness']
+    assert_includes prefetch.dig('where', 'and'), { 'href_matches' => '/*' }
+  end
+
   private
 
   def parse_page(relative_path)

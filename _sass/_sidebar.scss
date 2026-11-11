@@ -20,6 +20,11 @@
     flex-direction: column;
     padding-top: 4rem;
     padding-bottom: 1rem;
+    // Named so the fixed sidebar stays put during cross-document view
+    // transitions. Desktop only: on mobile the sidebar scrolls with the
+    // page, and a named snapshot would slide in from its old offset.
+    // Exactly one .sidebar per page (rendered once in _layouts/default.html).
+    view-transition-name: sidebar;
   }
 }
 
