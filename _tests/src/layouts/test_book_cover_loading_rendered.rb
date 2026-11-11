@@ -110,6 +110,12 @@ class TestBookCoverLoadingRendered < Minitest::Test
     assert_nil lead['loading'], 'the lead cover must not be lazy-loaded'
   end
 
+  # The lead cover is the Largest Contentful Paint element on book pages,
+  # so it is fetched ahead of other images.
+  def test_lead_cover_is_high_priority
+    assert_equal 'high', self.class.page.at_css('img.book-cover-lead')['fetchpriority']
+  end
+
   def test_related_card_cover_loads_lazily
     card = self.class.page.at_css('.book-card img[src$="/books/covers/second_book.jpg"]')
 
