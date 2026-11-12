@@ -23,6 +23,9 @@ _coverage
 _prompts
 _plans
 
+# Git worktrees (nested checkouts)
+.worktrees/
+
 # Jekyll
 _site
 .sass-cache

@@ -200,6 +200,7 @@ exclude:
     - redirect.json
     - vendor
     - .claude
+    - .worktrees/
 
 redirect_from:
     json: false
