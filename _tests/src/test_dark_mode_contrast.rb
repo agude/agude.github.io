@@ -2,10 +2,12 @@
 
 require_relative '../test_helper'
 
-# Parses the light and dark :root custom-property blocks in
-# _sass/_variables.scss and checks WCAG AA contrast (>=4.5:1) for the pairs
-# that carry text: body, muted, code, heading, emphasis (strong/thead/
-# post-title), abbr, and blockquote foregrounds against their backgrounds.
+# Parses the :root custom-property block in _sass/_variables.scss and checks
+# WCAG AA contrast (>=4.5:1) for the pairs that carry text: body, muted,
+# code, heading, emphasis (strong/thead/post-title), abbr, and blockquote
+# foregrounds against their backgrounds. A `light-dark(<light>, <dark>)`
+# value supplies one color per mode; a plain value applies to both. A
+# `var(--other)` value takes --other's color in the same mode.
 #
 # The dark palette (added for dark mode) must pass all pairs. Three
 # light-mode pairs are pre-existing site colors that already fall short of
@@ -64,7 +66,7 @@ class TestDarkModeContrast < Minitest::Test
     failures = []
 
     %w[light dark].each do |mode|
-      tokens = mode == 'light' ? light_tokens : dark_tokens
+      tokens = mode_tokens(mode)
 
       PAIRS.each do |fg, bg|
         fg = content_link_token if fg == LINK
@@ -86,8 +88,37 @@ class TestDarkModeContrast < Minitest::Test
     @source ||= File.read(VARIABLES_PATH)
   end
 
-  def light_tokens
-    @light_tokens ||= parse_root_block(source[/:root\s*\{(#{ROOT_BLOCK_BODY})\}/m, 1])
+  # { '--name' => { 'light' => value, 'dark' => value } } for every token
+  # in the :root block.
+  def root_tokens
+    @root_tokens ||= begin
+      block = source[/:root\s*\{(#{ROOT_BLOCK_BODY})\}/m, 1]
+      raise 'No :root block in _variables.scss' unless block
+
+      resolve_references(parse_root_block(block))
+    end
+  end
+
+  # Replaces a value that is `var(--other)` with --other's value in the
+  # same mode, so an alias token (`--link-color: var(--accent-color)`)
+  # carries a parseable color.
+  def resolve_references(tokens)
+    tokens.transform_values do |values|
+      values.to_h do |mode, value|
+        seen = []
+        while (name = value[/\Avar\((--[\w-]+)\)\z/, 1])
+          raise "Circular var() reference: #{seen.push(name).join(' -> ')}" if seen.include?(name)
+
+          seen << name
+          value = tokens.fetch(name) { raise "Undefined token #{name}" }.fetch(mode)
+        end
+        [mode, value]
+      end
+    end
+  end
+
+  def mode_tokens(mode)
+    root_tokens.transform_values { |values| values.fetch(mode) }
   end
 
   # The custom property behind `.themed .content a { color: ... }`, read
@@ -109,20 +140,32 @@ class TestDarkModeContrast < Minitest::Test
     @theme_color ||= YAML.safe_load_file(CONFIG_PATH).fetch('theme_color')
   end
 
-  def dark_tokens
-    @dark_tokens ||= begin
-      dark_block = source[/@media \(prefers-color-scheme: dark\)\s*\{\s*:root\s*\{(#{ROOT_BLOCK_BODY})\}\s*\}/m, 1]
-      light_tokens.merge(parse_root_block(dark_block))
-    end
-  end
-
   def parse_root_block(block)
     tokens = {}
     block.scan(/(--[\w-]+):\s*([^;]+);/) do |name, value|
-      value = value.strip
-      tokens[name] = value == ACCENT_INTERPOLATION ? theme_color : value
+      light, dark = split_light_dark(value.strip)
+      tokens[name] = { 'light' => resolve_accent(light), 'dark' => resolve_accent(dark) }
     end
     tokens
+  end
+
+  # `light-dark(a, b)` => [a, b]; any other value => [value, value]. Splits
+  # on the first top-level comma, since hsl() arguments contain commas.
+  def split_light_dark(value)
+    inner = value[/\Alight-dark\((.*)\)\z/m, 1]
+    return [value, value] unless inner
+
+    depth = 0
+    inner.each_char.with_index do |char, index|
+      depth += 1 if char == '('
+      depth -= 1 if char == ')'
+      return [inner[0...index].strip, inner[(index + 1)..].strip] if char == ',' && depth.zero?
+    end
+    raise "light-dark() without two arguments: #{value.inspect}"
+  end
+
+  def resolve_accent(value)
+    value == ACCENT_INTERPOLATION ? theme_color : value
   end
 
   def contrast_ratio(fg_value, bg_value)

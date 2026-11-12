@@ -46,6 +46,12 @@ image's `sizes` or candidate widths do not fit the slot. CI runs it; run it
 locally after changing image CSS, layouts, or `image_derivatives`. It needs
 `uv` on the host.
 
+`make check-colors` is a fifth, also browser-based: it loads every page in
+the light and dark color schemes and fails when a probed color does not
+switch. The color tokens are `light-dark()` values, so a lost or overridden
+`color-scheme` silently pins them to light; the Ruby contrast test cannot see
+that. CI runs it; run it locally after changing colors or `color-scheme`.
+
 Why they do not overlap:
 `.claude/skills/jekyll-site-dev/references/links-and-previews.md`.
 

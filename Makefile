@@ -59,7 +59,7 @@ OPEN := $(shell command -v xdg-open 2>/dev/null || command -v open 2>/dev/null)
 .PHONY: serve build test test-scripts lint lint-scripts format-scripts clean debug scripts
 
 # Tier 2: Command variants
-.PHONY: serve-drafts serve-profile test-cov test-summary lint-fix check-links check-refs check-liquid doc-index doc-show
+.PHONY: serve-drafts serve-profile test-cov test-summary lint-fix check-links check-refs check-liquid check-images check-colors doc-index doc-show
 
 # Tier 3: Domain operations
 .PHONY: image-build image-rebuild deps-lock hooks-install prettier-image-build prettier-image-rebuild format-md prettier rank
@@ -315,6 +315,16 @@ check-images: build
 	@echo "Measuring image slots in headless Chromium..."
 	@cd _scripts && uv run --group browser playwright install --only-shell chromium
 	@cd _scripts && uv run --group browser python ci/check_image_sizes.py ../_site
+
+# Load every styled page in headless Chromium with the light and then the
+# dark color scheme. Fails when a probed color (text, links, code, cards,
+# rules) does not change between schemes, or the page background is not
+# white / theme_color_dark: catches a lost or overridden `color-scheme`,
+# which the light-dark() tokens depend on. Runs on the host through uv.
+check-colors: build
+	@echo "Checking light and dark color schemes in headless Chromium..."
+	@cd _scripts && uv run --group browser playwright install --only-shell chromium
+	@cd _scripts && uv run --group browser python ci/check_color_scheme.py ../_site
 
 # Query YARD for code objects carrying a doc tag (default: any custom tag
 # declared in .yardopts — derived from it directly so a new --tag entry

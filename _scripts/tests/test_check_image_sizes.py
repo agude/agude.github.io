@@ -5,14 +5,18 @@ cover the checks applied to its measurements, the viewport widths derived
 from the stylesheet, and how pages are sampled per slot.
 """
 
+import asyncio
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 from check_image_sizes import (
+    SITE_ORIGIN,
     VARIABLES_SCSS,
     Measurement,
     problems,
     report,
+    route_handler,
     sample_pages,
     slot_key,
     viewport_widths,
@@ -141,3 +145,20 @@ def test_sample_pages_takes_a_few_pages_per_slot(tmp_path):
         ".card img": ["/a/", "/b/"],
         "#lead-image": ["/"],
     }
+
+
+def test_route_handler_serves_percent_encoded_paths(tmp_path):
+    page = tmp_path / "books" / "hergé" / "index.html"
+    page.parent.mkdir(parents=True)
+    page.write_text("<p>Tintin</p>", encoding="utf-8")
+    served = {}
+
+    async def fulfill(**kwargs):
+        served.update(kwargs)
+
+    route = SimpleNamespace(
+        request=SimpleNamespace(url=f"{SITE_ORIGIN}/books/herg%C3%A9/"), fulfill=fulfill
+    )
+    asyncio.run(route_handler(tmp_path, "", (SITE_ORIGIN,))(route))
+
+    assert served == {"path": str(page.resolve())}

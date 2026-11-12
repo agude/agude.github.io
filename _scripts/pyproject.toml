@@ -5,8 +5,8 @@ requires-python = ">=3.12"
 
 [dependency-groups]
 dev = ["pytest", "pyyaml", "requests", "isbnlib", "ruff>=0.16"]
-# Headless Chromium for ci/check_image_sizes.py; kept out of `dev` so
-# script tests and lint do not download a browser.
+# Headless Chromium for ci/check_image_sizes.py and ci/check_color_scheme.py;
+# kept out of `dev` so script tests and lint do not download a browser.
 browser = ["playwright>=1.65"]
 
 [tool.ruff]

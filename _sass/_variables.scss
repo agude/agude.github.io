@@ -5,81 +5,71 @@ $headline-font-family: Georgia, "Times New Roman", Times, serif;
 
 $root-line-height: 1.5;
 
-// Color tokens live on :root as CSS custom properties so a
-// `prefers-color-scheme: dark` media query (in main.scss) can swap them at
-// paint time. The Sass variables below all resolve to `var(--…)`, so every
-// partial that already references e.g. `$body-color` keeps working
-// unchanged and picks up dark mode for free.
+// Color tokens live on :root as CSS custom properties. Each scheme-dependent
+// token is `light-dark(<light>, <dark>)`, resolved against the inherited
+// `color-scheme`, so no `prefers-color-scheme` media query is needed. The
+// Sass variables below all resolve to `var(--…)`, so every partial that
+// references e.g. `$body-color` picks up dark mode for free.
 //
-// $sidebar-color-value is the one exception: main.scss's `@use ... with`
-// injects `site.theme_color` (_config.yml) into it, so :root can bake the
-// configured accent color into --sidebar-color without drift.
+// light-dark() resolves on the element that uses the var(), from that
+// element's `color-scheme`. Setting `color-scheme: dark` on a subtree (or
+// `light`/`dark` on :root for a manual toggle) switches every token there.
+//
+// Unsupported browsers (pre-2024) treat each light-dark() token as invalid
+// at use time and fall back to `unset`; no fallback is shipped (Baseline:
+// Widely available).
+//
+// The dark values are AA-checked starting points, not final taste — see
+// _tests/src/test_dark_mode_contrast.rb for the pairs it enforces.
+//
+// $sidebar-color-value is injected by assets/css/main.scss's `@use ... with`
+// from `site.theme_color` (_config.yml), so :root bakes the configured
+// accent color into --sidebar-color and light-mode --accent-color without
+// drift.
 $sidebar-color-value: hsl(214, 52%, 42%) !default;
 
 :root {
   // Opt into the browser's native light/dark UI (scrollbars, form
-  // controls) matching whichever palette below is active.
+  // controls) and select the light-dark() branch below.
   color-scheme: light dark;
 
-  --body-bg: white;
-  --body-color: hsl(0, 0%, 32%);
+  --body-bg: light-dark(white, hsl(214, 15%, 12%));
+  --body-color: light-dark(hsl(0, 0%, 32%), hsl(0, 0%, 78%));
   // Was `color.adjust($body-color, $lightness: 20%)`; Sass color functions
   // can't operate on a var(), so the result is materialized directly.
-  --muted-color: hsl(0, 0%, 52%);
-  --border-color: hsl(0, 0%, 90%);
-  --code-color: hsl(354, 42%, 56%);
+  --muted-color: light-dark(hsl(0, 0%, 52%), hsl(0, 0%, 60%));
+  --border-color: light-dark(hsl(0, 0%, 90%), hsl(214, 10%, 26%));
+  --code-color: light-dark(hsl(354, 42%, 56%), hsl(354, 55%, 70%));
+  // Already dark, so the same in both schemes.
   --sidebar-color: #{$sidebar-color-value};
-  // Content links. Light mode uses the accent itself.
-  --link-color: #{$sidebar-color-value};
+  // Accent for text: content links and resume section headings. Light mode
+  // uses theme_color itself. It is 2.8:1 on the dark page, so dark mode uses
+  // a lighter tint of its hue that clears AA on both --body-bg and --card-bg.
+  --accent-color: light-dark(#{$sidebar-color-value}, hsl(214, 52%, 65%));
+  --link-color: var(--accent-color);
   // Sidebar is a fixed-dark surface in both color schemes, so the button
-  // colors that live only inside it don't need a dark override.
+  // colors that live only inside it don't need a dark value.
   --share-button-color: hsl(0, 0%, 13%);
   --share-hover-color: hsl(0, 0%, 53%);
-  // Shared light neutral surface (code blocks, linktree items).
-  --code-bg: #f9f9f9;
-  // Shared light hairline border (cards, abbreviations, blockquotes, linktree).
-  --hairline-color: #e5e5e5;
+  // Shared neutral surface (code blocks, linktree items).
+  --code-bg: light-dark(#f9f9f9, hsl(214, 12%, 17%));
+  // Shared hairline border (cards, abbreviations, blockquotes, linktree).
+  --hairline-color: light-dark(#e5e5e5, hsl(214, 10%, 26%));
   // Hover-preview card surface. Same as --body-bg in light mode; dark mode
   // lifts it above the page instead of relying on the box-shadow.
-  --card-bg: white;
+  --card-bg: light-dark(white, hsl(214, 15%, 18%));
   // Foreground accents that sit darker than body text in light mode and
-  // must flip lighter than body text in dark mode.
-  --heading-color: #313131;
+  // flip lighter than body text in dark mode.
+  --heading-color: light-dark(#313131, hsl(0, 0%, 88%));
   // Shared by strong, thead/tfoot, and .page-title/.post-title.
-  --emphasis-color: #303030;
-  --blockquote-color: #7a7a7a;
+  --emphasis-color: light-dark(#303030, hsl(0, 0%, 86%));
+  --blockquote-color: light-dark(#7a7a7a, hsl(0, 0%, 62%));
   // Inactive alpha-nav letters: intentionally low-contrast (disabled
   // affordance), so excluded from the contrast test.
-  --disabled-color: #cccccc;
+  --disabled-color: light-dark(#cccccc, hsl(214, 8%, 38%));
   // <hr> top line; its bottom "emboss" edge uses --body-bg so it stays
   // invisible against the page in both schemes.
-  --hr-color: #eeeeee;
-}
-
-// AA-checked starting points, not final taste — see
-// _tests/src/test_dark_mode_contrast.rb for the pairs it enforces.
-@media (prefers-color-scheme: dark) {
-  :root {
-    --body-bg: hsl(214, 15%, 12%);
-    --body-color: hsl(0, 0%, 78%);
-    --muted-color: hsl(0, 0%, 60%);
-    --border-color: hsl(214, 10%, 26%);
-    --code-color: hsl(354, 55%, 70%);
-    --code-bg: hsl(214, 12%, 17%);
-    --hairline-color: hsl(214, 10%, 26%);
-    --card-bg: hsl(214, 15%, 18%);
-    --heading-color: hsl(0, 0%, 88%);
-    --emphasis-color: hsl(0, 0%, 86%);
-    --blockquote-color: hsl(0, 0%, 62%);
-    --disabled-color: hsl(214, 8%, 38%);
-    --hr-color: hsl(214, 10%, 26%);
-    // The accent (theme_color) is 2.8:1 on the dark page, so dark-mode
-    // links use a lighter tint of its hue that clears AA on both --body-bg
-    // and --card-bg.
-    --link-color: hsl(214, 52%, 65%);
-    // --sidebar-color is unchanged: already dark, and it's the one token
-    // driven by site.theme_color rather than a literal here.
-  }
+  --hr-color: light-dark(#eeeeee, hsl(214, 10%, 26%));
 }
 
 $body-bg:            var(--body-bg);
@@ -87,6 +77,7 @@ $body-color:         var(--body-color);
 $muted-color:        var(--muted-color);
 $border-color:       var(--border-color);
 $code-color:         var(--code-color);
+$accent-color:       var(--accent-color);
 $link-color:         var(--link-color);
 $sidebar-color:      var(--sidebar-color);
 $share-button-color: var(--share-button-color);

@@ -12,12 +12,13 @@
 #      what a merge would publish. No secrets: it reads public records
 #      from bsky.social and refuses every write. Blocking, so a
 #      bsky.social outage fails branch CI; rerun the job.
-#   7. Build, then five site gates on every branch: the AT-path cross-check
+#   7. Build, then six site gates on every branch: the AT-path cross-check
 #      (validate --site-dir, both directions), HTML structure
 #      (_bin/check_html_structure.sh), feed XML (_bin/check_feeds.rb),
-#      broken links (_bin/check_links.rb), and responsive image sizes
-#      (_scripts/ci/check_image_sizes.py, headless Chromium from
-#      Playwright). (Only the `test` job's steps run
+#      broken links (_bin/check_links.rb), responsive image sizes
+#      (_scripts/ci/check_image_sizes.py), and light/dark color switching
+#      (_scripts/ci/check_color_scheme.py); the last two use headless
+#      Chromium from Playwright. (Only the `test` job's steps run
 #      on every branch; `build` runs everywhere too but `deploy` only runs
 #      for main via the `needs:`/`if:` chain.)
 #
@@ -203,6 +204,12 @@ jobs:
         run: |
           uv run --group browser playwright install --with-deps --only-shell chromium
           uv run --group browser python ci/check_image_sizes.py ../_site --baseurl "${{ steps.pages.outputs.base_path }}"
+
+      # Loads every page in the light and dark color schemes and fails when
+      # a probed color does not switch (`make check-colors`).
+      - name: Check light and dark color schemes
+        working-directory: _scripts
+        run: uv run --group browser python ci/check_color_scheme.py ../_site --baseurl "${{ steps.pages.outputs.base_path }}"
 
       - name: Publish standard.site records
         if: github.ref == 'refs/heads/main' && inputs.skip_publish != true

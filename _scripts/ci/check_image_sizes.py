@@ -51,6 +51,7 @@ from collections import defaultdict
 from dataclasses import dataclass
 from html.parser import HTMLParser
 from pathlib import Path
+from urllib.parse import unquote
 
 EXIT_CLEAN = 0
 EXIT_FAILED = 1
@@ -368,7 +369,8 @@ def route_handler(site: Path, baseurl: str, origins: tuple[str, ...]):
     """Serve `_site/` for requests to `origins`; every other request gets 404.
 
     The production origin is served too, because absolute `src` values name
-    it; no request leaves the machine.
+    it; no request leaves the machine. Paths are percent-decoded, so pages
+    with non-ASCII names (`/books/authors/hergé/`) resolve to their files.
     """
     root = site.resolve()
 
@@ -378,7 +380,7 @@ def route_handler(site: Path, baseurl: str, origins: tuple[str, ...]):
         if origin is None:
             await route.fulfill(status=404, body="")
             return
-        path = url[len(origin) :].split("?")[0].split("#")[0].removeprefix(baseurl)
+        path = unquote(url[len(origin) :].split("?")[0].split("#")[0]).removeprefix(baseurl)
         file = (root / path.lstrip("/")).resolve()
         if file.is_dir():
             file = file / "index.html"

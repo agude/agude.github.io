@@ -52,9 +52,11 @@
     margin-bottom: 0.3em;
   }
 
+  // $accent-color, not $sidebar-color: the same blue in light mode, and a
+  // lighter tint in dark mode, where $sidebar-color is 2.8:1 on the page.
   h2 {
     font-size: $h3-font-size;
-    color: $sidebar-color;
+    color: $accent-color;
     overflow: hidden;
     margin-top: 0.6em;
     margin-bottom: 0.3em;
@@ -64,7 +66,7 @@
     content: '';
     display: inline-block;
     vertical-align: middle;
-    border-bottom: 0.1rem solid $sidebar-color;
+    border-bottom: 0.1rem solid $accent-color;
     width: 100%;
     margin-right: -100%;
   }
@@ -156,6 +158,10 @@
       color: $sidebar-color !important;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
+    }
+
+    h2:after {
+      border-bottom-color: $sidebar-color !important;
     }
 
     .resume-header-grid {
