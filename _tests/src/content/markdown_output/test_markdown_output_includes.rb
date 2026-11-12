@@ -46,7 +46,7 @@ class TestMarkdownOutputIncludes < Minitest::Test
     output = render_include('figure.html', parameters, :html)
 
     assert_includes output, '<figure>'
-    assert_includes output, '<figcaption>A chart caption</figcaption>'
+    assert_includes output, '<figcaption markdown="span">A chart caption</figcaption>'
     assert_includes output, '<img src="/images/figure.png" alt="A chart"'
   end
 

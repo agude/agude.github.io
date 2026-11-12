@@ -226,7 +226,7 @@ confess) plot below:
     phi star distribution to the distributions predicted by various QCD Monte
     Carlo simulations.'
   caption='A plot showing the final result comparing the
-    measured \(\phi^*\) distribution to the distributions predicted by various
+    measured $$\phi^*$$ distribution to the distributions predicted by various
     QCD Monte Carlo simulations.'
 %}
 

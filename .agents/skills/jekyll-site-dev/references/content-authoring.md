@@ -147,6 +147,13 @@ Write math in `$$...$$`: inline inside a paragraph, display when the
 during the kramdown pass, and browsers render MathML natively. There is no
 MathJax, no script, no CDN, and no front-matter switch.
 
+Math converts only where kramdown parses Markdown. Figure captions work
+(`figure.html` marks `<figcaption markdown="span">`); raw HTML blocks do
+not. `_bin/raw_tex_check.rb`, run by `make check-links`, fails on raw TeX
+in page text outside code and MathML: a delimiter (`$$`, `\(`, `\[`) or a
+command (`\phi`). MathJax's `\(...\)` form is not supported; kramdown reads
+`\(` as an escaped parenthesis.
+
 - It supports a small TeX subset: letters, numbers, basic operators, `_`
   and `^`, `\frac`, `\sqrt`, `\binom`, `\left`/`\right`, `\textrm`, `\,`,
   `\{ \}`, and the names in its `SYMBOLS` and `FUNCTIONS` tables. Anything

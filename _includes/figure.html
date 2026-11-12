@@ -14,7 +14,7 @@
   {% comment %} The caption {% endcomment %}
   {% assign caption = include | optional: 'caption' %}
   {% if caption %}
-  <figcaption>{{ caption }}</figcaption>
+  <figcaption markdown="span">{{ caption }}</figcaption>
   {% endif %}
 </figure>
 {% endif %}

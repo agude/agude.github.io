@@ -3,6 +3,7 @@
 
 require 'html-proofer'
 require_relative 'heading_outline_check'
+require_relative 'raw_tex_check'
 require_relative 'subresource_integrity_check'
 
 options = {
@@ -18,9 +19,10 @@ options = {
 
   # v5 requires explicitly listing checks if you want to limit them.
   # Added Favicon and OpenGraph for broader validation coverage.
-  # HeadingOutline and SubresourceIntegrity are this site's own checks
-  # (heading_outline_check.rb, subresource_integrity_check.rb).
-  checks: %w[Links Images Scripts Favicon OpenGraph HeadingOutline SubresourceIntegrity],
+  # HeadingOutline, RawTex, and SubresourceIntegrity are this site's own
+  # checks (heading_outline_check.rb, raw_tex_check.rb,
+  # subresource_integrity_check.rb).
+  checks: %w[Links Images Scripts Favicon OpenGraph HeadingOutline RawTex SubresourceIntegrity],
 
   # Standard Jekyll defaults
   assume_extension: true,

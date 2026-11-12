@@ -192,6 +192,55 @@ class TestCheckLinks < Minitest::Test
     end
   end
 
+  def test_raw_tex_in_page_text_fails
+    # TeX inside raw HTML never reaches the math converter; without MathJax
+    # it shows as raw TeX.
+    in_fixture_dir do |dir|
+      valid_site(dir, body: '<figure><figcaption>The measured \(\phi^*\) distribution.</figcaption></figure>')
+
+      output, status = run_bin_script(SCRIPT, dir)
+
+      refute_predicate status, :success?
+      assert_includes output, "raw TeX '\\('"
+      assert_includes output, 'The measured \(\phi^*\) distribution.'
+    end
+  end
+
+  def test_unconverted_dollar_math_fails
+    in_fixture_dir do |dir|
+      valid_site(dir, body: '<div><p>Where $$x^2$$ grows.</p></div>')
+
+      output, status = run_bin_script(SCRIPT, dir)
+
+      refute_predicate status, :success?
+      assert_includes output, "raw TeX '$$'"
+    end
+  end
+
+  def test_escaped_tex_command_fails
+    # kramdown turns Markdown `\(\phi^*\)` into `(\phi^*)`: no delimiter left.
+    in_fixture_dir do |dir|
+      valid_site(dir, body: '<figcaption>The measured (\\phi^*) distribution.</figcaption>')
+
+      output, status = run_bin_script(SCRIPT, dir)
+
+      refute_predicate status, :success?
+      assert_includes output, "raw TeX '\\phi'"
+    end
+  end
+
+  def test_tex_in_code_and_mathml_passes
+    in_fixture_dir do |dir|
+      body = '<pre><code>$$\frac{a}{b}$$</code></pre><p>Use <code>\(x\)</code> or ' \
+             '<math><mtext>$$</mtext></math>.</p><script>var s = "\\\\(";</script>'
+      valid_site(dir, body: body)
+
+      output, status = run_bin_script(SCRIPT, dir)
+
+      assert_predicate status, :success?, output
+    end
+  end
+
   MATHJAX = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js'
 
   def test_external_script_with_sri_passes
