@@ -79,6 +79,21 @@ img {
   border-radius: 5px;
 }
 
+// Math: MathML converted at build time (TexToMathml). Math fonts have a
+// smaller x-height than the body font, so math is scaled up to match it;
+// 1.244 is the scale MathJax applied to the same text. A wide display
+// equation scrolls inside its wrapper instead of widening the page.
+math {
+  font-family: "Gude Math", math;
+  font-size: 1.244em;
+}
+
+.math-display {
+  margin-bottom: 1rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
 // Tables
 table {
   margin-bottom: 1.2em;

@@ -35,7 +35,9 @@ Jekyll-based static site (alexgude.com) running in Docker.
 the other two are blind to:
 
 - **`make check-links`** — builds the site, then runs html-proofer over
-  `_site/` for broken links, missing images, and empty `alt`.
+  `_site/` for broken links, missing images, and empty `alt`, plus two
+  custom checks in `_bin/`: heading outline (one `<h1>`, no skipped levels)
+  and Subresource Integrity on external scripts and stylesheets.
 - **`make check-refs`** — markdown reference links: undefined `[text][id]`,
   duplicate `[id]:`, orphaned `[id]:`. All three fail the build.
 - **`make check-liquid`** — strict-Liquid render of every document.

@@ -9,7 +9,6 @@ image: /files/fate-dice-statistics/alphonse-mucha-fate-1920.jpg
 image_alt: >
   An oil painting titled 'Fate', painted in 1920 by Alphonse Mucha. It depicts
   a woman in a white robe holding an oil lamp.
-use_latex: True
 categories:
   - data-science
   - fun-and-games

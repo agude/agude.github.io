@@ -4,7 +4,14 @@ version = "0.0.0"
 requires-python = ">=3.12"
 
 [dependency-groups]
-dev = ["pytest", "pyyaml", "requests", "isbnlib", "ruff>=0.16"]
+dev = [
+    "pytest",
+    "pyyaml",
+    "requests",
+    "isbnlib",
+    "ruff>=0.16",
+    "fonttools[woff]>=4.50",
+]
 # Headless Chromium for ci/check_image_sizes.py and ci/check_color_scheme.py;
 # kept out of `dev` so script tests and lint do not download a browser.
 browser = ["playwright>=1.65"]
@@ -46,4 +53,4 @@ ignore = [
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["common", "content", "diagnostics", "metadata", "ranking", "skills", "atproto", "ci"]
+pythonpath = ["common", "content", "diagnostics", "metadata", "ranking", "skills", "atproto", "ci", "fonts"]

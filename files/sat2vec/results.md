@@ -20,9 +20,9 @@ correct, while the **bolded** word pair is the one that is actually correct.
 
 [post]: {% post_url 2016-07-11-SAT2Vec %}
 
-### Sorted by ranking of the correct answer
+## Sorted by ranking of the correct answer
 
-#### Ranked First
+### Ranked First
 
 | authenticity : counterfeit |  Distance |
 | :------------------------- | --------: |
@@ -88,7 +88,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | dismantle : longer   |     0.821 |
 | wilt : higher        |     0.857 |
 
-#### Ranked Second
+### Ranked Second
 
 | embarrass : humiliate |  Distance |
 | :-------------------- | --------: |
@@ -154,7 +154,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | wicked : insinuate |     0.866 |
 | strict : pamper    |     0.875 |
 
-#### Ranked Third
+### Ranked Third
 
 | maceration : liquid    |  Distance |
 | :--------------------- | --------: |
@@ -260,7 +260,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | hothead : prudent     |     0.929 |
 | saint : notorious     |     1.064 |
 
-#### Ranked Forth
+### Ranked Forth
 
 | invariable : change        |  Distance |
 | :------------------------- | --------: |
@@ -286,7 +286,7 @@ correct, while the **bolded** word pair is the one that is actually correct.
 | **doctor : cure**    | **1.064** |
 | decision : vacillate |     1.155 |
 
-#### Ranked Fifth
+### Ranked Fifth
 
 | braggart : modesty         |  Distance |
 | :------------------------- | --------: |

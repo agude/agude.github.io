@@ -82,9 +82,4 @@
   {%- endif -%}
   <!-- End JSON-LD Structured Data -->
 
-  {% assign use_latex = page | optional: 'use_latex' %}
-  {% if use_latex %}
-    <!-- MathJax -->
-    {% include mathjax.html %}
-  {% endif %}
 </head>

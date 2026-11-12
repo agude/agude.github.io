@@ -41,7 +41,7 @@ data is from [Caltrain's developer site][dev].
 [rendered]: https://github.com/agude/agude.github.io/blob/master{{ file_dir }}/{{ notebook_uri }}
 [dev]: http://www.caltrain.com/developer.html
 
-# Saturday
+## Saturday
 
 The top schedule is the new July 15th one, the old schedule is below. Click to
 enlarge.
@@ -58,7 +58,7 @@ There is also an interesting pair of northbound trains that leave very close
 together. These are required to keep the number of trains heading up the
 peninsula the same as the number heading down.
 
-# Sunday
+## Sunday
 
 Again, the top schedule is the new one, the bottom one is the old schedule.
 

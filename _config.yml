@@ -154,6 +154,14 @@ require_front_matter: true
 # https://github.com/jekyll/jekyll/issues/7478#issuecomment-454346783.
 theme: null
 
+# Math: $$...$$ becomes MathML at build time via TexToMathml
+# (_plugins/src/infrastructure/tex_to_mathml.rb); no JavaScript. The plugin
+# registers under kramdown's `mathjax` engine name, replacing kramdown's
+# built-in engine: Jekyll requires a `kramdown-math-<name>` gem for any
+# other name.
+kramdown:
+  math_engine: mathjax
+
 # SASS
 sass:
     sass_dir: _sass

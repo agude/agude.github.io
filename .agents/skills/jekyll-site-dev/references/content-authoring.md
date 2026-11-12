@@ -116,6 +116,76 @@ so the hidden footnote-preview copy of a code block gets no tab stop.
 - Do not set `tabindex`, `role`, or `aria-label` on a `<pre>`; that stops
   the build.
 
+## Headings, Icons, and External Scripts
+
+Three markup rules are enforced; each fails CI.
+
+- **Heading outline** (`_bin/heading_outline_check.rb`, an html-proofer
+  check run by `make check-links`): a page has exactly one `<h1>`, the
+  `<h1>` is its first heading, and no heading skips a level going down.
+  Going up any number of levels is fine. Post and book layouts render the
+  title as the `<h1>`, so sections in Markdown start at `##`, never `#`.
+  The Markdown test page (`test/index.html`) is exempt. This runs over
+  `_site/` rather than as a build hook because it applies to every page,
+  and the plugin tests' fixture sites and fake pages have no outline.
+- **Inline SVG** (`InlineSvgValidator`, a `:post_render` build hook): every
+  inline `<svg>` has `aria-hidden="true"`, or `role="img"` with an
+  `aria-label` if it means something on its own. The icon includes in
+  `_includes/icon-*.svg` are decorative and carry `aria-hidden="true"`.
+- **Subresource Integrity** (`_bin/subresource_integrity_check.rb`, run by
+  `make check-links`): an external `<script src>` or stylesheet needs
+  `integrity` and `crossorigin`. html-proofer's own `check_sri` is a no-op
+  here, because `check_links.rb` ignores every http(s) URL and html-proofer
+  skips ignored URLs before checking SRI. The site loads no external
+  scripts today; the check keeps a new one from arriving without a hash.
+
+## Math Is MathML, Converted at Build Time
+
+Write math in `$$...$$`: inline inside a paragraph, display when the
+`$$` lines stand alone. `TexToMathml`
+(`_plugins/src/infrastructure/tex_to_mathml.rb`) converts it to MathML
+during the kramdown pass, and browsers render MathML natively. There is no
+MathJax, no script, no CDN, and no front-matter switch.
+
+- It supports a small TeX subset: letters, numbers, basic operators, `_`
+  and `^`, `\frac`, `\sqrt`, `\binom`, `\left`/`\right`, `\textrm`, `\,`,
+  `\{ \}`, and the names in its `SYMBOLS` and `FUNCTIONS` tables. Anything
+  else stops the build, naming the expression and line. Extend the
+  converter rather than adding a math library.
+- It registers under kramdown's `mathjax` engine name, replacing kramdown's
+  built-in engine, because Jekyll requires a `kramdown-math-<name>` gem for
+  any other name (`kramdown.math_engine` in `_config.yml`).
+- Plain `( ) [ ]` get `stretchy="false"`: TeX stretches only `\left`/`\right`
+  delimiters, but MathML stretches fence characters by default, and Firefox
+  then grows them to the height of a neighboring fraction.
+- An operator that is a whole script (`M_\pm`, `e^-`) gets
+  `lspace="0" rspace="0"`; otherwise it keeps its infix spacing and leaves
+  a gap after the script.
+- A display equation is wrapped in `<div class="math-display">`, which
+  scrolls when the equation is wider than the column. Firefox and WebKit do
+  not scroll a `<math>` element itself.
+- Math renders in "Gude Math", a 32 KB self-hosted subset of Latin Modern
+  Math (`assets/fonts/gude-math-latin-modern-subset.woff2`, declared in
+  `_sass/_fonts.scss`), so it looks the same on every platform and does not
+  depend on a system math font. Browsers download it only on pages with
+  `<math>`. `_scripts/fonts/subset_math_font.py` builds it from the CTAN OTF:
+  it keeps the MATH table (stretchy radicals and brackets), takes its
+  character list from the non-ASCII characters in `tex_to_mathml.rb` plus
+  ASCII, the radical sign, and the math-italic letters, and renames the font
+  as the GUST Font License asks.
+- **License.** The GUST Font License is LPPL 1.3c, whose clause 6 governs
+  modified versions. The script writes the required notices into the font's
+  name table (original copyright, new name, a description of the changes,
+  non-support by the original authors, where the original is), and
+  `LICENSE.md` lists both fonts and their licenses.
+- **Adding a symbol to the converter means rebuilding the font.**
+  `_scripts/tests/test_subset_math_font.py` (`make test-scripts`) fails until
+  the committed font covers every character the converter can emit.
+- `math { font-size: 1.244em }` in `_sass/_base.scss` matches the size
+  MathJax used: math fonts have a smaller x-height than the body font.
+- Checked in Chromium, Firefox, and WebKit, light and dark, against MathJax
+  renders, at 390 px wide, and with no system math font installed.
+
 ## Kramdown Abbreviations Need Prettier Protection
 
 Kramdown abbreviation definitions (`*[CERN]: European Organization...`)

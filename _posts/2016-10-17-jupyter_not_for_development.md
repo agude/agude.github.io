@@ -23,7 +23,7 @@ this:
 
 [jpy]: https://jupyter.org/
 
-### 1. Version Control
+## 1. Version Control
 
 Version controlling notebooks is a mess; in addition to code, they also
 contain data and output, which results in a high number of changes every time
@@ -32,7 +32,7 @@ numbering update every run and so flag the notebook as changed to the version
 control system. Further, JSON is already hard to `diff`, and adding these
 superfluous changes makes it harder still.
 
-### 2. Modularity
+## 2. Modularity
 
 Other code can not easily call code defined in notebooks. This leads to lots
 of duplicated code, and means that notebooks need to either appear at the end
@@ -40,7 +40,7 @@ of the pipeline or write to disk to pass on data. This lack of modularity also
 makes it difficult to write unit tests to verify the correctness of notebook
 code.
 
-### 3. Complex History
+## 3. Complex History
 
 Notebooks have complicated history; they cache the results of previous cells
 including set variables. Notebooks are so flexible that you will often add and

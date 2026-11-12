@@ -16,3 +16,16 @@
   font-display: swap;
   src: url("../fonts/ubuntu-mono-v19-latin-700.woff2") format("woff2");
 }
+
+// Math font: a subset of Latin Modern Math, renamed as its license asks,
+// built by _scripts/fonts/subset_math_font.py. Without it, math renders in
+// whatever math font the platform has (Cambria Math, STIX Two Math) or, on
+// systems with none, a fallback that can drop radicals and brackets. The
+// browser only downloads it on pages that contain <math>.
+@font-face {
+  font-family: "Gude Math";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/gude-math-latin-modern-subset.woff2") format("woff2");
+}

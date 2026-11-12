@@ -2,6 +2,8 @@
 # frozen_string_literal: true
 
 require 'html-proofer'
+require_relative 'heading_outline_check'
+require_relative 'subresource_integrity_check'
 
 options = {
   # v5 removed 'disable_external'. We must use ignore_urls to skip them.
@@ -16,7 +18,9 @@ options = {
 
   # v5 requires explicitly listing checks if you want to limit them.
   # Added Favicon and OpenGraph for broader validation coverage.
-  checks: %w[Links Images Scripts Favicon OpenGraph],
+  # HeadingOutline and SubresourceIntegrity are this site's own checks
+  # (heading_outline_check.rb, subresource_integrity_check.rb).
+  checks: %w[Links Images Scripts Favicon OpenGraph HeadingOutline SubresourceIntegrity],
 
   # Standard Jekyll defaults
   assume_extension: true,
