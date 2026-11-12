@@ -98,6 +98,24 @@ Lead images (`#lead-image`, `.book-cover-lead`) also carry
 `fetchpriority="high"`: measured in November 2026, they are the Largest
 Contentful Paint element on post and book pages.
 
+## Code Blocks Are Labeled Scroll Regions
+
+`CodeBlockRegionInjector` (`_plugins/src/infrastructure/`) adds
+`tabindex="0" role="region" aria-label="..."` to every `<pre>` in the HTML
+output, so a keyboard user can focus a code block and scroll it sideways.
+It runs at `:post_render` priority `:low`, after `FootnotePreviewInjector`,
+so the hidden footnote-preview copy of a code block gets no tab stop.
+`_sass/_code.scss` draws the focus ring around the `.highlight` block in
+`--accent-color`. Rules for authors:
+
+- Give a fence a language from `LANGUAGE_NAMES` in the injector. The label
+  is the language's spoken name plus "code" ("Python code"). A language
+  missing from the map stops the build; add it with its spoken name.
+- An untagged fence, `plaintext`, `text`, or a raw `<pre>` gets
+  "Code block".
+- Do not set `tabindex`, `role`, or `aria-label` on a `<pre>`; that stops
+  the build.
+
 ## Kramdown Abbreviations Need Prettier Protection
 
 Kramdown abbreviation definitions (`*[CERN]: European Organization...`)

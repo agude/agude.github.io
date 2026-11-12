@@ -43,6 +43,18 @@ pre code {
     margin-bottom: 0;
   }
 
+  // Code blocks are focusable scroll regions (CodeBlockRegionInjector).
+  // The browser's default ring is lost on the dark block, so draw the ring
+  // around the whole block, over the page background.
+  pre:focus-visible {
+    outline: none;
+  }
+
+  &:has(> pre:focus-visible) {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+  }
+
   // Triple backticks (code fencing) doubles the .highlight elements
   .highlight {
     padding: 0;

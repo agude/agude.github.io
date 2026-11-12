@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require 'jekyll'
-require 'cgi'
 require_relative 'front_matter_image'
+require_relative 'html_attributes'
 require_relative 'image_dimensions'
 
 module Jekyll
@@ -66,11 +66,8 @@ module Jekyll
         | <[a-z][^\s/>]*(?:[^>"']|"[^"]*"|'[^']*')*>
       }xim
       IMG_START = /<img\b/i
-      # One attribute inside a start tag: name, then an optional double-,
-      # single-, or unquoted value.
-      ATTRIBUTE = %r{([^\s"'>/=]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+)))?}
       REMOTE_URL = %r{\A(?:[a-z][a-z0-9+.-]*:|//)}i
-      private_constant :TOKEN, :IMG_START, :ATTRIBUTE, :REMOTE_URL
+      private_constant :TOKEN, :IMG_START, :REMOTE_URL
 
       # @param item [Jekyll::Document, Jekyll::Page]
       # @return [Boolean] True for HTML output that may contain an <img>, in
@@ -90,20 +87,8 @@ module Jekyll
         end
       end
 
-      # @return [Hash{String => String, nil}] Lowercased attribute names to
-      #   entity-decoded values; nil for a bare attribute. The first
-      #   occurrence of a name wins, as in an HTML parser.
-      def self.parse_attributes(tag)
-        body = tag.sub(/\A<img/i, '').sub(%r{/?>\z}, '')
-        body.scan(ATTRIBUTE).each_with_object({}) do |(name, *values), attributes|
-          value = values.compact.first
-          attributes[name.downcase] = value && CGI.unescapeHTML(value) unless attributes.key?(name.downcase)
-        end
-      end
-      private_class_method :parse_attributes
-
       def self.sized_tag(tag, site, source)
-        attributes = parse_attributes(tag)
+        attributes = HtmlAttributes.parse(tag)
         src = attributes['src']
         fail_with(source, nil, "#{tag} has no src") unless src
         set = %w[width height].select { |name| attributes.key?(name) }
