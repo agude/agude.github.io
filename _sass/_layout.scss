@@ -18,6 +18,9 @@ footer {
 .content {
   padding-top:    4rem;
   padding-bottom: 4rem;
+  // Break long URLs instead of overflowing. Not `anywhere`: that lowers
+  // min-content width and lets table cells split ordinary words.
+  overflow-wrap: break-word;
 }
 
 @media (min-width: $sidebar-appear-breakpoint) {
