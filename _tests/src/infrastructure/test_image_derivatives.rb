@@ -265,8 +265,8 @@ class TestImageDerivatives < Minitest::Test
   def test_front_matter_image_problems_raise
     write_image('files/a/anim.gif', 600, 400)
     {
-      'https://example.com/x.jpg' => 'is not a local root-relative path',
-      'files/a/lead.jpg' => 'is not a local root-relative path',
+      'https://example.com/x.jpg' => 'is remote; host the image under files/',
+      'files/a/lead.jpg' => 'is relative; use a root-relative path',
       '/files/a/anim.gif' => 'is not a JPEG, PNG, or SVG',
       '/files/a/missing.jpg' => 'names no file',
     }.each do |image, problem|

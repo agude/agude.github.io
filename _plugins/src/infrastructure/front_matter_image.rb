@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'jekyll'
-require 'uri'
 require_relative 'url_utils'
 
 module Jekyll
@@ -43,23 +42,10 @@ module Jekyll
         file.to_s.empty? ? item.url : file
       end
 
-      # The source-relative file a local image reference names, for checks
-      # that read the file system. Consumers that emit the URL keep `path`:
-      # the browser requests it exactly as written.
-      #
-      # The query and fragment are removed at the first literal `?` or `#`
-      # before decoding, so an encoded `%3F` or `%23` stays part of the
-      # file name. The rest is percent-decoded once. A literal `+` or space
-      # is kept: this is a URL path, not form data.
-      #
-      # @return [String, nil] The decoded path, or nil when blank.
-      def self.file_path(value, source: nil)
-        image_path = path(value, source: source)
-        image_path && URI::DEFAULT_PARSER.unescape(image_path.sub(/[?#].*\z/m, ''))
-      end
-
       # @return [String, nil] The absolute URL of the image, or nil when blank.
-      #   Absolute http(s) URLs are returned unchanged.
+      #   An absolute http(s) URL would be returned unchanged, but
+      #   FrontMatterImageValidator rejects remote images on every rendered
+      #   document and page, so in a build the result is always on the site.
       def self.absolute_url(value, site, source: nil)
         image_path = path(value, source: source)
         image_path && UrlUtils.absolute_url(image_path, site)

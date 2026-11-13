@@ -2,11 +2,12 @@
 
 require 'jekyll'
 require_relative 'front_matter_image'
+require_relative 'local_image'
 
 module Jekyll
   module Infrastructure
-    # Fails the build when a document's front-matter `image` names a local
-    # file that does not exist.
+    # Fails the build when a document's front-matter `image` is not a local
+    # file that exists.
     #
     # The `image` value feeds the lead image, the card on index and related
     # pages, and the SEO and JSON-LD image URLs. html-proofer only sees it
@@ -14,16 +15,19 @@ module Jekyll
     # `hide_lead_image: true` and a broken `image` would ship broken cards.
     # This check reads the file system and does not depend on rendering.
     #
-    # Absolute `http(s)` URLs are not checked. A local reference is checked
-    # through FrontMatterImage.file_path, so a query, a fragment, or
-    # percent-encoding in a valid URL does not hide the file. A value that
-    # is not a string, such as a `{path, alt}` hash, stops the build in
-    # FrontMatterImage.path.
+    # The reference is resolved by LocalImage, so the site's own URL prefix,
+    # a query, a fragment, or percent-encoding does not hide the file. A
+    # remote or relative reference fails: the image is shown as an `<img>`
+    # (lead image or card), and ImageDimensionsInjector stops the build on
+    # either, but only on pages that render it; this check covers every
+    # page. A value that is not a string, such as a `{path, alt}` hash,
+    # stops the build in FrontMatterImage.path.
     #
-    # @validator Front-matter `image` that names a local file missing from
-    #   the source tree, including on pages that hide their lead image.
+    # @validator Front-matter `image` that is remote or relative, or that
+    #   names a local file missing from the source tree, including on pages
+    #   that hide their lead image.
     module FrontMatterImageValidator
-      # Raises when the item's local image does not exist under the source.
+      # Raises when the item's image is not a local file that exists.
       # @param item [Jekyll::Document, Jekyll::Page] Carries the `image` field.
       # @param site [Jekyll::Site] Supplies the source directory.
       def self.validate(item, site)
@@ -31,14 +35,14 @@ module Jekyll
 
         identifier = FrontMatterImage.source_name(item)
         path = FrontMatterImage.path(item.data['image'], source: identifier)
-        return if path.nil? || path.start_with?('http://', 'https://')
+        return if path.nil?
 
-        file = File.join(site.source, FrontMatterImage.file_path(path, source: identifier))
-        return if File.file?(file)
+        image = LocalImage.resolve(path, site)
+        return if image.found?
 
+        problem = LocalImage::PROBLEMS.fetch(image.status) { "names no file; looked for #{image.file}" }
         raise Jekyll::Errors::FatalException,
-              "FrontMatterImageValidator: '#{identifier}' sets image '#{path}', " \
-              "but no file exists at #{file}."
+              "FrontMatterImageValidator: '#{identifier}' sets image '#{path}', which #{problem}."
       end
     end
   end

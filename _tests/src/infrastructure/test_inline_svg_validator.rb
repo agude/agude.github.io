@@ -46,6 +46,15 @@ class TestInlineSvgValidator < Minitest::Test
     assert_raises(Jekyll::Errors::FatalException) { validate(%(<svg data-x='aria-hidden="true"'></svg>)) }
   end
 
+  # A custom element whose name starts with `svg-` is not an <svg>.
+  def test_custom_element_named_like_svg_is_ignored
+    assert_nil validate('<svg-icon name="globe"></svg-icon>')
+  end
+
+  def test_svg_quoted_in_another_tags_attribute_is_ignored
+    assert_nil validate(%(<div data-icon='<svg viewBox="0 0 1 1"></svg>'></div>))
+  end
+
   def test_svg_in_comment_and_script_is_ignored
     assert_nil validate('<!-- <svg></svg> --><script>"<svg>"</script>')
   end

@@ -3,7 +3,9 @@
 require 'jekyll'
 require_relative 'front_matter_image'
 require_relative 'html_attributes'
+require_relative 'html_scan'
 require_relative 'image_dimensions'
+require_relative 'local_image'
 
 module Jekyll
   module Infrastructure
@@ -16,11 +18,9 @@ module Jekyll
     # images written in post Markdown or raw HTML. The stylesheet sets
     # `img { height: auto; }`, so CSS widths keep the intrinsic aspect ratio.
     #
-    # Resolution of `src`:
-    # - Whitespace is stripped; the site's own `url` and `baseurl` prefixes
-    #   are removed, so `https://alexgude.com/files/x.png` is local.
-    # - The query, fragment, and percent-encoding are handled by
-    #   FrontMatterImage.file_path.
+    # `src` is resolved by LocalImage: the site's own `url` and `baseurl`
+    # prefixes are removed, and the query, fragment, and percent-encoding
+    # are handled.
     #
     # Every image must be local and sized here. A remote image would get no
     # size, and no CSS fallback reserves its box, so it stops the build;
@@ -57,19 +57,14 @@ module Jekyll
     #   stops the build at the page that references it.
     module ImageDimensionsInjector
       # One token per match: a comment, a raw-text element, an <img> start
-      # tag, or any other start tag. Every start tag is consumed whole, with
-      # its quoted attributes, so markup quoted inside an attribute value
-      # (`data-example='<img src="...">'`) is never read as a tag. Quoted
-      # values may contain '>'.
-      TOKEN = %r{
-        <!--.*?-->
-        | <(?<raw>script|style|textarea)\b.*?</\k<raw>\s*>
-        | (?<img><img\b(?:[^>"']|"[^"]*"|'[^']*')*>)
-        | <[a-z][^\s/>]*(?:[^>"']|"[^"]*"|'[^']*')*>
-      }xim
+      # tag, or any other start tag (HtmlScan).
+      TOKEN = /
+        #{HtmlScan::SKIPPED}
+        | (?<img>#{HtmlScan.start_tag('img')})
+        | #{HtmlScan::OTHER_START_TAG}
+      /xi
       IMG_START = /<img\b/i
-      REMOTE_URL = %r{\A(?:[a-z][a-z0-9+.-]*:|//)}i
-      private_constant :TOKEN, :IMG_START, :REMOTE_URL
+      private_constant :TOKEN, :IMG_START
 
       # @param item [Jekyll::Document, Jekyll::Page]
       # @return [Boolean] True for HTML output that may contain an <img>, in
@@ -127,26 +122,12 @@ module Jekyll
 
       # @return [String] The absolute source path of a local image.
       def self.local_file(src, site, source)
-        path = strip_prefix(src.strip, site.config['url'])
-        fail_with(source, src, 'is remote; host the image under files/') if path.match?(REMOTE_URL)
-        fail_with(source, src, 'is relative; use a root-relative path') unless path.start_with?('/')
+        image = LocalImage.resolve(src, site)
+        return image.file if image.found?
 
-        relative = FrontMatterImage.file_path(strip_prefix(path, site.config['baseurl']), source: source)
-        file = File.join(site.source, relative)
-        return file if File.file?(file)
-
-        fail_with(source, src, "names no file at #{file}")
+        fail_with(source, src, LocalImage::PROBLEMS.fetch(image.status) { "names no file at #{image.file}" })
       end
       private_class_method :local_file
-
-      def self.strip_prefix(path, prefix)
-        prefix = prefix.to_s.chomp('/')
-        return path if prefix.empty?
-        return path.delete_prefix(prefix) if path.start_with?("#{prefix}/")
-
-        path
-      end
-      private_class_method :strip_prefix
 
       # @param src [String, nil] Named as `<img src="...">`; nil when the
       #   problem text already shows the tag.

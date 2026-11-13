@@ -2,6 +2,7 @@
 
 require 'jekyll'
 require_relative 'html_attributes'
+require_relative 'html_scan'
 
 module Jekyll
   module Infrastructure
@@ -51,17 +52,15 @@ module Jekyll
       }.freeze
 
       # One token per match: a comment, a raw-text element, a `<pre>` start
-      # tag with its optional Rouge wrapper, or any other start tag. Every
-      # start tag is consumed whole, with its quoted attributes, so markup
-      # quoted inside an attribute value is never read as a tag.
-      TOKEN = %r{
-        <!--.*?-->
-        | <(?<raw>script|style|textarea)\b.*?</\k<raw>\s*>
+      # tag with its optional Rouge wrapper, or any other start tag
+      # (HtmlScan).
+      TOKEN = /
+        #{HtmlScan::SKIPPED}
         | (?<wrapper><div\sclass="language-(?<language>[^"\s]+)\shighlighter-rouge">\s*
             <div\sclass="highlight">\s*)?
-          (?<pre><pre\b(?:[^>"']|"[^"]*"|'[^']*')*>)
-        | <[a-z][^\s/>]*(?:[^>"']|"[^"]*"|'[^']*')*>
-      }xim
+          (?<pre>#{HtmlScan.start_tag('pre')})
+        | #{HtmlScan::OTHER_START_TAG}
+      /xi
       PRE_START = /<pre\b/i
       ADDED = %w[tabindex role aria-label].freeze
       DEFAULT_LABEL = 'Code block'

@@ -42,9 +42,30 @@ class TestFrontMatterImageValidator < Minitest::Test
     assert_includes error.message, '/files/missing.png'
   end
 
-  def test_absolute_http_image_is_ignored
-    Validator.validate(doc_with('image' => 'https://cdn.example.com/p.jpg'), @site)
-    Validator.validate(doc_with('image' => 'http://cdn.example.com/p.jpg'), @site)
+  # Reversed on purpose: remote images used to be ignored. Every page shows
+  # its image as an <img>, which ImageDimensionsInjector rejects when remote.
+  def test_remote_image_raises
+    %w[https://cdn.example.com/p.jpg http://cdn.example.com/p.jpg //cdn.example.com/p.jpg].each do |image|
+      error = assert_raises(Jekyll::Errors::FatalException) { Validator.validate(doc_with('image' => image), @site) }
+      assert_includes error.message, "sets image '#{image}', which is remote; host the image under files/"
+    end
+  end
+
+  # Rendered as an <img>, a relative src stops the build in
+  # ImageDimensionsInjector; the validator catches it on every page.
+  def test_relative_image_raises
+    error = assert_raises(Jekyll::Errors::FatalException) do
+      Validator.validate(doc_with('image' => 'books/covers/dune.jpg'), @site)
+    end
+    assert_includes error.message, "sets image 'books/covers/dune.jpg', which is relative; use a root-relative path"
+  end
+
+  def test_site_url_prefix_is_checked_as_local
+    site = create_site({ 'source' => @source, 'url' => 'https://alexgude.com' })
+    Validator.validate(doc_with('image' => 'https://alexgude.com/books/covers/dune.jpg'), site)
+    assert_raises(Jekyll::Errors::FatalException) do
+      Validator.validate(doc_with('image' => 'https://alexgude.com/books/covers/gone.jpg'), site)
+    end
   end
 
   # Reversed on purpose: a hash whose path existed used to pass.

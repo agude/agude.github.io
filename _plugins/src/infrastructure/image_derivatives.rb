@@ -8,6 +8,7 @@ require 'jekyll'
 require 'open3'
 require_relative 'front_matter_image'
 require_relative 'image_dimensions'
+require_relative 'local_image'
 
 module Jekyll
   module Infrastructure
@@ -152,25 +153,24 @@ module Jekyll
 
           collection.docs.filter_map do |doc|
             source = FrontMatterImage.source_name(doc)
-            image = FrontMatterImage.file_path(doc.data['image'], source: source)
-            next unless image
-            next if File.extname(image) == '.svg'
-
-            front_matter_source(site, image, source)
+            image = FrontMatterImage.path(doc.data['image'], source: source)
+            image && front_matter_source(site, image, source)
           end.uniq.sort
         end
 
+        # @return [String, nil] The source-relative path, or nil for an SVG.
         def front_matter_source(site, image, source)
-          unless image.start_with?('/') && !image.start_with?('//')
-            fail_with("image '#{image}' in #{source} is not a local root-relative path")
-          end
-          relative = image.delete_prefix('/')
-          unless source_image?(relative)
+          resolved = LocalImage.resolve(image, site)
+          problem = LocalImage::PROBLEMS[resolved.status]
+          fail_with("image '#{image}' in #{source} #{problem}") if problem
+          return nil if File.extname(resolved.relative) == '.svg'
+
+          unless source_image?(resolved.relative)
             fail_with("image '#{image}' in #{source} is not a JPEG, PNG, or SVG (.jpg, .jpeg, .png, or .svg)")
           end
-          fail_with("image '#{image}' in #{source} names no file") unless File.file?(File.join(site.source, relative))
+          fail_with("image '#{image}' in #{source} names no file") unless resolved.found?
 
-          relative
+          resolved.relative
         end
 
         def source_image?(name)

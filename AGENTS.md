@@ -66,7 +66,10 @@ Why they do not overlap:
 - **Plugins:** `_plugins/src/` (Domain-Driven Design).
   - `infrastructure/`: Low-level utils (Logger, Text, URL), **Link Cache**,
     `GeneratedStaticFile`, `MarkdownWhitespaceNormalizer`,
-    `MarkdownLinkFormatter`.
+    `MarkdownLinkFormatter`. Post-render hooks that rewrite tags share
+    `HtmlScan` (start-tag tokenizer that skips comments and raw text) and
+    `HtmlAttributes` (read or remove attributes); image checks share
+    `LocalImage` (what counts as a local image and which file it names).
   - `ui/`: Generic components (Cards, Ratings, Citations,
     `MarkdownCardUtils`).
   - `seo/`: Three subsystems all read by (or emitting for) `_includes/head.html`:

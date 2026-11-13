@@ -52,6 +52,20 @@ class TestEagerCardImages < Minitest::Test
     assert_equal [nil], loading(apply(html)).last(1)
   end
 
+  def test_card_markup_quoted_in_an_attribute_is_not_a_card
+    html = %(<div data-example='#{card('x').gsub("'", '"')}'></div><img id="lead-image" src="/l.png">#{card('a')})
+
+    # The lead image comes first, so the real card stays lazy.
+    assert_equal [nil, 'lazy'], loading(apply(html))
+  end
+
+  # A commented-out card is neither a card nor counted as one.
+  def test_commented_out_card_is_not_counted
+    html = "<!-- #{card('x')} -->#{card('a')}"
+
+    assert_equal [nil], loading(apply(html))
+  end
+
   def test_non_card_images_after_the_first_card_are_untouched
     html = %(#{card('a')}<img src="/files/x.png" alt="X" loading="lazy">#{card('b')}#{card('c')})
 

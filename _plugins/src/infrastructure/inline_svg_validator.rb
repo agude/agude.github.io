@@ -2,6 +2,7 @@
 
 require 'jekyll'
 require_relative 'html_attributes'
+require_relative 'html_scan'
 
 module Jekyll
   module Infrastructure
@@ -21,11 +22,13 @@ module Jekyll
     # @validator An inline `<svg>` without `aria-hidden="true"` and
     #   without both `role="img"` and a non-empty `aria-label`.
     module InlineSvgValidator
-      TOKEN = %r{
-        <!--.*?-->
-        | <(?<raw>script|style|textarea)\b.*?</\k<raw>\s*>
-        | (?<svg><svg\b(?:[^>"']|"[^"]*"|'[^']*')*>)
-      }xim
+      # A comment, a raw-text element, an <svg> start tag, or any other
+      # start tag (HtmlScan).
+      TOKEN = /
+        #{HtmlScan::SKIPPED}
+        | (?<svg>#{HtmlScan.start_tag('svg')})
+        | #{HtmlScan::OTHER_START_TAG}
+      /xi
       SVG_START = /<svg\b/i
       private_constant :TOKEN, :SVG_START
 

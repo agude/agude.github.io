@@ -2,6 +2,7 @@
 
 require 'jekyll'
 require_relative 'front_matter_image'
+require_relative 'html_scan'
 
 module Jekyll
   module Infrastructure
@@ -35,19 +36,27 @@ module Jekyll
       EAGER_COUNT = 2
 
       # A comment, a raw-text element, a card image with the markup before
-      # it, or any other <img> start tag. Start tags are matched with their
-      # quoted attributes, as in ImageDimensionsInjector.
-      TOKEN = %r{
-        <!--.*?-->
-        | <(?<raw>script|style|textarea)\b.*?</\k<raw>\s*>
-        | (?<prefix><div\ class="card-element\ [^"]*">\s*<a\b(?:[^>"']|"[^"]*"|'[^']*')*>\s*)
-          (?<card><img\b(?:[^>"']|"[^"]*"|'[^']*')*>)
-        | <img\b(?:[^>"']|"[^"]*"|'[^']*')*>
-      }xim
+      # it, any other <img> start tag, or any other start tag (HtmlScan).
+      TOKEN = /
+        #{HtmlScan::SKIPPED}
+        | (?<prefix><div\ class="card-element\ [^"]*">\s*#{HtmlScan.start_tag('a')}\s*)
+          (?<card>#{HtmlScan.start_tag('img')})
+        | (?<img>#{HtmlScan.start_tag('img')})
+        | #{HtmlScan::OTHER_START_TAG}
+      /xi
       # Any <img> inside a card's image wrapper, whatever comes between. The
-      # text wrapper (`card-text`) is excluded: its excerpt can hold a
-      # book-link preview, whose cover is an <img> but not a card image.
-      LOOSE_CARD_IMAGE = %r{<div\ class="card-element\ (?!card-text")[^"]*">(?:(?!</div>).)*?<img\b}im
+      # wrapper is found with the shared tokenizer, so a wrapper inside a
+      # comment, a script, or an attribute value is not counted. The span
+      # after it is not tokenized: a commented-out or quoted `<img` there
+      # still counts and stops the build with a false mismatch, which is
+      # loud rather than silent. The text wrapper (`card-text`) is excluded:
+      # its excerpt can hold a book-link preview, whose cover is an <img>
+      # but not a card image.
+      LOOSE_CARD_IMAGE = %r{
+        #{HtmlScan::SKIPPED}
+        | (?<loose><div\ class="card-element\ (?!card-text")[^"]*">(?:(?!</div>).)*?<img\b)
+        | #{HtmlScan::OTHER_START_TAG}
+      }xim
       LAZY = /\s+loading="lazy"/
       AUTO_SIZES = /(\ssizes=")auto,\s*/
       private_constant :TOKEN, :LOOSE_CARD_IMAGE, :LAZY, :AUTO_SIZES
@@ -69,7 +78,7 @@ module Jekyll
         output = html.gsub(TOKEN) do
           match = Regexp.last_match
           cards += 1 if match[:card]
-          image = match[0].match?(/\A<img\b/i) || match[:card]
+          image = match[:img] || match[:card]
           next match[0] unless image && remaining.positive?
 
           remaining = 0 if first && !match[:card]
@@ -84,7 +93,7 @@ module Jekyll
       end
 
       def self.check_cards_recognized(html, cards, source)
-        found = html.scan(LOOSE_CARD_IMAGE).size
+        found = html.to_enum(:scan, LOOSE_CARD_IMAGE).count { Regexp.last_match[:loose] }
         return if cards == found
 
         where = source ? " in '#{source}'" : ''
