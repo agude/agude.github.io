@@ -34,7 +34,7 @@ favorites that I read in 2023:
 
 ## <cite class="book-title">Blindsight</cite> by <span class="author-name">Peter Watts</span>
 
-<cite class="book-title">Blindsight</cite> does a great job of exploring the
+{% book_link "Blindsight" %} does a great job of exploring the
 nature of consciousness and intelligence. Watts keeps the tension high and the
 plot moving quickly in this thought-provoking sci-fi novel. My favorite book
 of the year!
@@ -45,9 +45,8 @@ of the year!
 
 ## <span class="book-series">The Chronicle of the Fallers</span> by <span class="author-name">Peter F. Hamilton</span>
 
-Hamilton is known for his space opera, but <cite class="book-title">The Abyss
-Beyond Dreams</cite> is more urban fantasy set during the Russian Revolution
-(in space) and <cite class="book-title">Night Without Stars</cite> is a
+Hamilton is known for his space opera, but {% book_link "The Abyss Beyond Dreams" %} is more urban fantasy set during the Russian Revolution
+(in space) and {% book_link "Night Without Stars" %} is a
 thriller set during the Cold War (again, in space). Both feature Commonwealth
 citizens with special knowledge as _"Outside Context Problems"_, pulling the
 stories into science fiction territory.
@@ -61,7 +60,7 @@ stories into science fiction territory.
 
 I enjoyed the sequel to {% book_link "Hyperion" %} the most of the two books
 because it tied the personal story of the pilgrims to a much broader galactic
-conflict. Interestingly, you can see a lot of ideas in the Hyperion Cantos
+conflict. Interestingly, you can see a lot of ideas in the {% series_link "Hyperion Cantos" %}
 that Hamilton later adopted in his Commonwealth Saga including wormholes, a
 breakaway-but-helpful AI, and different factions of scheming AI who either
 want to eradicate the humans or uplift them.
@@ -83,8 +82,7 @@ Epic space opera with a massive cast of characters and incredible pacing.
 
 1980s mech sci-fi re-imagined for the 21st century. Warren's self-published
 series takes a few books to really find its feet, but once it does, it's a
-quick, fun, nostalgic read. The third book, <cite class="book-title">Serpent
-Valley</cite>, exemplifies the series.
+quick, fun, nostalgic read. The third book, {% book_link "Serpent Valley" %}, exemplifies the series.
 
 {% if render_mode != 'markdown' %}<ul class="card-grid">{% endif %}
 {% book_card_lookup title="Serpent Valley" date="2023-11-30" %}
