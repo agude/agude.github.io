@@ -135,14 +135,20 @@ details>summary {
   margin-bottom: 1rem;
 }
 
+// The alt text after `/` drops the arrow, which screen readers announce
+// as "black right-pointing triangle", and keeps the word: posts tell
+// readers to click "Show". Browsers without alt-text support drop that
+// declaration and keep the plain one.
 summary::after {
   content: " ▶ Show";
+  content: " ▶ Show" / "Show";
   color: $sidebar-color;
   display: block;
 }
 
-details[open] summary:after {
+details[open] summary::after {
   content: " ▼ Hide";
+  content: " ▼ Hide" / "Hide";
 }
 
 // Nowrap utility
