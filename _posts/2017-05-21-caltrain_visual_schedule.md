@@ -23,10 +23,10 @@ traveling from Paris to Lyon as a function of the time of day (x-axis). The
 schedule elegantly packs a lot of information into a small space: the speed
 and direction of trains are indicated by their slope, and when lines cross it
 indicates that the trains pass each other. The schedule is such an iconic
-visualization that [Tufte][tufte] used it as the cover of _The Visual Display
-of Quantitative Information_.
+visualization that [Tufte][tufte] used it as the cover of
+{% book_link "The Visual Display of Quantitative Information" %}.
 
-[^lmgd]: The full title is _La Méthode Graphique Dans les Sciences Expérimentales et Principalement en Physiologie et en Médecine_, or roughly _The Graphical Method in Experimental Sciences and Mainly in Physiology and Medicine_.
+[^lmgd]: The full title is {% book_link "La Méthode Graphique Dans les Sciences Expérimentales et Principalement en Physiologie et en Médecine" %}, or roughly _The Graphical Method in Experimental Sciences and Mainly in Physiology and Medicine_.
 
 [^ibry]: The caption in Marey's book reads: _"Graphique de la marche des trains sur un chemin de fer, d'après la méthode de Ibry"_ or _"Graph showing the progress of trains on a railway, according to the method of Ibry"_. Unfortunately, little else is known of Ibry, and so this type of chart is often named for Marey instead.
 
