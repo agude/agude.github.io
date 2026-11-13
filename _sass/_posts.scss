@@ -41,7 +41,7 @@
 }
 
 .post-tag {
-  font-family: $code-font-family;
+  @include code-font;
   font-weight: bold;
   white-space: nowrap;
 }

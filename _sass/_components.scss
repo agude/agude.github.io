@@ -176,7 +176,7 @@ details[open] summary::after {
 // ChatGPT include
 .chatgpt-prompt-only,
 .chatgpt-output-only {
-  font-family: $code-font-family;
+  @include code-font;
 }
 
 // OMEMO QR Code Images

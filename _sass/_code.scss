@@ -4,7 +4,7 @@
 
 code,
 pre {
-  font-family: $code-font-family;
+  @include code-font;
 }
 
 code {

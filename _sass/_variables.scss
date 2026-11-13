@@ -1,5 +1,19 @@
 $root-font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
 $code-font-family: "Ubuntu Mono", Menlo, Monaco, Consolas, "Lucida Console", monospace;
+
+// Code font. Use this mixin, not `font-family: $code-font-family`, so the
+// fallback adjustment travels with the family.
+//
+// Ubuntu Mono advances 0.5em per character; Menlo and DejaVu Sans Mono
+// advance about 0.6em, Consolas 0.55em. `ch-width 0.5` scales a fallback
+// to 0.5em per character, so code lines keep their width and do not
+// rewrap when the web font swaps in. Glyph heights still change a
+// little. Not `from-font`: while the web font loads, that reads the
+// fallback's own metric and adjusts nothing.
+@mixin code-font {
+  font-family: $code-font-family;
+  font-size-adjust: ch-width 0.5;
+}
 $site-title-font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
 $headline-font-family: Georgia, "Times New Roman", Times, serif;
 
