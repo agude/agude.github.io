@@ -45,7 +45,8 @@ the other two are blind to:
 
 `make check-images` is a fourth, layout-level check: it builds the site and
 measures every image slot in headless Chromium, failing when a `srcset`
-image's `sizes` or candidate widths do not fit the slot. CI runs it; run it
+image's `sizes` or candidate widths do not fit the slot, or when a page's
+Largest Contentful Paint element is a lazy image. CI runs it; run it
 locally after changing image CSS, layouts, or `image_derivatives`. It needs
 `uv` on the host.
 

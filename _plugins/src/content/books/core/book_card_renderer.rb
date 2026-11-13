@@ -19,6 +19,17 @@ module Jekyll
       # - render: returns the full HTML card string
       class BookCardRenderer
         DEFAULT_TITLE_FOR_BOOK_CARD = 'Untitled Book'
+        # The card cover's width, measured in Chromium (November 2026) and
+        # held by `make check-images`: half the column on narrow screens,
+        # a quarter of the content width beside the text on wide ones,
+        # 197px once the content stops growing. ImageDimensionsInjector
+        # keeps this instead of the configured cover `sizes`, which describes
+        # the lead cover. Lazy cards prefix `auto, ` (CardRendererUtils), so
+        # the browser uses the laid-out width; this value is what eager cards
+        # (EagerCardImages) and browsers without `auto` use.
+        COVER_SIZES = '(min-width: 82.5em) 197px, (min-width: 64em) calc(25vw - 133px), ' \
+                      '(min-width: 48em) calc(50vw - 218px), (min-width: 38em) calc(50vw - 28px), ' \
+                      'calc(50vw - 22px)'
 
         # Aliases for readability
         Logger = Jekyll::Infrastructure::PluginLoggerUtils
@@ -218,6 +229,7 @@ module Jekyll
             image_url: @base[:absolute_image_url],
             image_alt: alt,
             image_div_class: 'card-book-cover',
+            image_sizes: COVER_SIZES,
             title_html: title,
             extra_elements_html: extras,
             description_html: desc,

@@ -18,6 +18,9 @@ module Jekyll
         #   :image_url [String, nil] URL for the card image.
         #   :image_alt [String] Alt text for the image (should be pre-escaped if containing special chars).
         #   :image_div_class [String] Class for the image container div, e.g., "card-image", "card-book-cover".
+        #   :image_sizes [String, nil] The image slot's `sizes`, without `auto`. The card writes
+        #                              `auto, <sizes>`, valid because it is lazy; ImageDimensionsInjector
+        #                              removes it when the image gets no `srcset`.
         #   :title_html [String] Pre-rendered HTML for the title (e.g., "<strong>Title</strong>").
         #   :description_html [String, nil] Pre-rendered HTML for the description.
         #   :description_wrapper_html_open [String, nil] HTML to prepend before description (e.g., "<br>", "<div>").
@@ -71,8 +74,10 @@ module Jekyll
             alt = CGI.escapeHTML(@card_data[:image_alt] || '')
             html = "  <div class=\"card-element #{@card_data[:image_div_class]}\">\n"
             html << "    <a href=\"#{@card_data[:url]}\">\n"
-            # Index pages list over a hundred cards; load covers as they scroll into view.
-            html << "      <img src=\"#{url}\" alt=\"#{alt}\" loading=\"lazy\" decoding=\"async\" />\n"
+            # Index pages list over a hundred cards; load covers as they scroll
+            # into view. EagerCardImages makes the first ones on a card-list page eager.
+            sizes = @card_data[:image_sizes] ? %( sizes="auto, #{@card_data[:image_sizes]}") : ''
+            html << "      <img src=\"#{url}\" alt=\"#{alt}\" loading=\"lazy\" decoding=\"async\"#{sizes} />\n"
             html << "    </a>\n"
             html << "  </div>\n"
             html

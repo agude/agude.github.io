@@ -14,6 +14,16 @@ module Jekyll
     # - extract_data: returns a frozen hash of raw card data (no HTML)
     # - render: returns the full HTML card string
     class ArticleCardRenderer
+      # The card image's width, measured in Chromium (November 2026) and held
+      # by `make check-images`: half the column on narrow screens, a third
+      # of the content width beside the text on wide ones, 266px once the
+      # content stops growing. ImageDimensionsInjector keeps this instead of
+      # the configured post-image `sizes`, which describes the lead image.
+      # Lazy cards prefix `auto, ` (CardRendererUtils).
+      IMAGE_SIZES = '(min-width: 82.5em) 266px, (min-width: 64em) calc((100vw - 524px) / 3), ' \
+                    '(min-width: 48em) calc(50vw - 218px), (min-width: 38em) calc(50vw - 28px), ' \
+                    'calc(50vw - 22px)'
+
       def self.render(post_object, context)
         new(post_object, context).render
       end
@@ -74,6 +84,7 @@ module Jekyll
           image_url: data[:image_url],
           image_alt: data[:image_alt],
           image_div_class: 'card-image',
+          image_sizes: IMAGE_SIZES,
           title_html: format_title_html(data[:title]),
           description_html: data[:excerpt],
           description_wrapper_html_open: "<br>\n",

@@ -56,7 +56,7 @@ jobs:
         uses: actions/cache@v6
         with:
           path: .jekyll-cache/image-derivatives
-          key: image-derivatives-${{ hashFiles('books/covers/**', '_plugins/src/infrastructure/image_derivatives.rb', '_config.yml') }}
+          key: image-derivatives-${{ hashFiles('books/covers/**', 'files/**/*.jpg', 'files/**/*.jpeg', 'files/**/*.png', '_plugins/src/infrastructure/image_derivatives.rb', '_config.yml') }}
           restore-keys: image-derivatives-
 
       - name: Build with Jekyll

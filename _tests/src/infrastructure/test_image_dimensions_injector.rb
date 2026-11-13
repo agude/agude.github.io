@@ -129,6 +129,25 @@ class TestImageDimensionsInjector < Minitest::Test
                  inject('<img src="/files/post/plot.png" loading="lazy" sizes="80px">')
   end
 
+  # `sizes` without `srcset` is invalid HTML; a template writes it before
+  # knowing whether the image has derivatives.
+  def test_template_sizes_is_removed_when_no_srcset_is_added
+    with_srcset
+    assert_equal '<img src="/files/post/a%20b.png" loading="lazy" width="30" height="20">',
+                 inject('<img src="/files/post/a%20b.png" loading="lazy" sizes="auto, 80px">')
+  end
+
+  def test_author_srcset_and_sizes_are_kept_without_derivatives
+    with_srcset
+    assert_includes inject('<img src="/files/post/a%20b.png" srcset="/x.png 2x" sizes="80px">'), 'sizes="80px"'
+  end
+
+  # The srcset table is keyed by file path; a query on `src` still finds it.
+  def test_query_on_src_still_finds_derivatives
+    with_srcset
+    assert_includes inject('<img src="/files/post/plot.png?v=2">'), 'srcset="/d/plot-250.webp 250w'
+  end
+
   def test_author_set_srcset_raises
     with_srcset
     assert_raises_naming('<img src="/files/post/plot.png" srcset="/x.png 1x">', 'sets srcset')

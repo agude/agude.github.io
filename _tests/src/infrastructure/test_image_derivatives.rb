@@ -27,7 +27,13 @@ class TestImageDerivatives < Minitest::Test
 
   # Writes a real, decodable JPEG.
   def write_jpeg(name, width, height)
-    path = File.join(@covers, name)
+    write_image(File.join('books', 'covers', name), width, height)
+  end
+
+  # Writes a real, decodable image at a source-relative path.
+  def write_image(relative, width, height)
+    path = File.join(@source, relative)
+    FileUtils.mkdir_p(File.dirname(path))
     _out, status = Open3.capture2e(imagemagick, '-size', "#{width}x#{height}", 'xc:#336699', path)
     assert status.success?, 'ImageMagick could not write a fixture JPEG'
     Jekyll::Infrastructure::ImageDimensions.reset
@@ -82,6 +88,18 @@ class TestImageDerivatives < Minitest::Test
     File.write(File.join(@covers, 'notes.txt'), 'x')
     error = assert_raises(Jekyll::Errors::FatalException) { Derivatives.build(site) }
     assert_includes error.message, 'books/covers/notes.txt is not a JPEG or PNG'
+  end
+
+  # The CI cache key globs lowercase extensions only.
+  def test_uppercase_extension_raises
+    write_jpeg('DUNE.JPG', 1000, 1500)
+    error = assert_raises(Jekyll::Errors::FatalException) { Derivatives.build(site) }
+    assert_includes error.message, 'books/covers/DUNE.JPG is not a JPEG or PNG (.jpg, .jpeg, or .png)'
+
+    FileUtils.rm(File.join(@covers, 'DUNE.JPG'))
+    write_image('files/a/lead.PNG', 600, 400)
+    error = assert_raises(Jekyll::Errors::FatalException) { Derivatives.build(site_with_posts('/files/a/lead.PNG')) }
+    assert_includes error.message, 'is not a JPEG, PNG, or SVG'
   end
 
   def test_sources_sharing_a_stem_raise
@@ -204,6 +222,94 @@ class TestImageDerivatives < Minitest::Test
     assert_includes error.message, 'needs ImageMagick with WebP support'
   ensure
     Derivatives.instance_variable_set(:@imagemagick, nil)
+  end
+
+  # --- front_matter entries ---
+
+  POSTS_SPEC = { 'front_matter' => 'posts', 'widths' => [250, 500], 'sizes' => '800px' }.freeze
+
+  Doc = Struct.new(:relative_path, :data)
+  Collection = Struct.new(:docs)
+
+  # A site whose posts collection holds documents with these `image` values.
+  def site_with_posts(*images, spec: POSTS_SPEC)
+    test_site = site(spec)
+    docs = images.each_with_index.map { |image, i| Doc.new("_posts/post-#{i}.md", { 'image' => image }) }
+    test_site.collections['posts'] = Collection.new(docs)
+    test_site
+  end
+
+  def test_front_matter_entry_derives_each_documents_image_once
+    write_image('files/a/lead.jpg', 1000, 500)
+    write_image('files/b/plot.png', 400, 300)
+    File.write(File.join(@source, 'files', 'a', 'data.csv'), 'x')
+    test_site = site_with_posts('/files/a/lead.jpg', '/files/a/lead.jpg?v=2', '/files/b/plot.png', nil, '/files/c/d.svg')
+
+    srcsets = Derivatives.build(test_site)
+
+    assert_equal(
+      {
+        '/files/a/lead.jpg' => {
+          'srcset' => '/files/a/derived/lead-250.webp 250w, /files/a/derived/lead-500.webp 500w',
+          'sizes' => '800px',
+        },
+        '/files/b/plot.png' => {
+          'srcset' => '/files/b/derived/plot-250.webp 250w, /files/b/plot.png 400w',
+          'sizes' => '800px',
+        },
+      },
+      srcsets,
+    )
+  end
+
+  def test_front_matter_image_problems_raise
+    write_image('files/a/anim.gif', 600, 400)
+    {
+      'https://example.com/x.jpg' => 'is not a local root-relative path',
+      'files/a/lead.jpg' => 'is not a local root-relative path',
+      '/files/a/anim.gif' => 'is not a JPEG, PNG, or SVG',
+      '/files/a/missing.jpg' => 'names no file',
+    }.each do |image, problem|
+      error = assert_raises(Jekyll::Errors::FatalException) { Derivatives.build(site_with_posts(image)) }
+      assert_includes error.message, problem
+      assert_includes error.message, '_posts/post-0.md'
+    end
+  end
+
+  def test_unknown_front_matter_collection_raises
+    error = assert_raises(Jekyll::Errors::FatalException) do
+      Derivatives.build(site(POSTS_SPEC.merge('front_matter' => 'missing')))
+    end
+    assert_includes error.message, "front_matter collection 'missing' does not exist"
+  end
+
+  def test_entry_with_both_or_neither_source_raises
+    [SPEC.merge('front_matter' => 'posts'), SPEC.except('source_dir')].each do |spec|
+      error = assert_raises(Jekyll::Errors::FatalException) { Derivatives.build(site(spec)) }
+      assert_includes error.message, 'exactly one of source_dir and front_matter'
+    end
+  end
+
+  def test_image_in_two_entries_raises
+    write_jpeg('dune.jpg', 1000, 1500)
+    test_site = create_site({ 'source' => @source, 'image_derivatives' => [SPEC, POSTS_SPEC] })
+    test_site.collections['posts'] = Collection.new([Doc.new('_posts/p.md', { 'image' => '/books/covers/dune.jpg' })])
+
+    error = assert_raises(Jekyll::Errors::FatalException) { Derivatives.build(test_site) }
+    assert_includes error.message, 'books/covers/dune.jpg is in more than one entry'
+  end
+
+  # Same directory, two entries: the outputs would collide all the same.
+  def test_sources_sharing_a_stem_across_entries_raise
+    write_image('files/a/dune.jpg', 1000, 1500)
+    write_image('files/a/dune.png', 1000, 1500)
+    notes = POSTS_SPEC.merge('front_matter' => 'notes')
+    test_site = create_site({ 'source' => @source, 'image_derivatives' => [POSTS_SPEC, notes] })
+    test_site.collections['posts'] = Collection.new([Doc.new('_posts/p.md', { 'image' => '/files/a/dune.jpg' })])
+    test_site.collections['notes'] = Collection.new([Doc.new('_notes/n.md', { 'image' => '/files/a/dune.png' })])
+
+    error = assert_raises(Jekyll::Errors::FatalException) { Derivatives.build(test_site) }
+    assert_includes error.message, 'files/a/dune.jpg and files/a/dune.png would share derivative names'
   end
 
   def test_generator_stores_srcsets_in_site_data

@@ -33,8 +33,10 @@ module Jekyll
     # and `sizes` from `site.data['image_srcsets']`. Its `src` stays the
     # original, which sets the aspect ratio and serves browsers without
     # `srcset`. A `sizes` already on the tag is kept: a template whose slot
-    # differs from the configured one (the book-link preview cover) states
-    # its own.
+    # differs from the configured one (the book-link preview cover, cards)
+    # states its own. A template `sizes` on an image that gets no `srcset`
+    # (an SVG, or a file outside every ImageDerivatives entry) is removed:
+    # `sizes` without `srcset` is invalid HTML.
     #
     # Hook order: FootnotePreviewInjector also runs at default
     # `:post_render` priority. Either order gives the same output, because a
@@ -96,7 +98,10 @@ module Jekyll
 
         file = local_file(src, site, source)
         width, height = ImageDimensions.of(file)
-        added = { 'width' => width, 'height' => height }.merge(srcset_attributes(attributes, file, site, src, source))
+        srcset = srcset_attributes(attributes, file, site, src, source)
+        orphan_sizes = srcset.empty? && attributes.key?('sizes') && !attributes.key?('srcset')
+        tag = HtmlAttributes.remove(tag, 'sizes') if orphan_sizes
+        added = { 'width' => width, 'height' => height }.merge(srcset)
         text = added.map { |name, value| %( #{name}="#{value}") }.join
         tag.sub(%r{\s*/?>\z}) { |close| "#{text}#{close}" }
       end

@@ -629,6 +629,7 @@ class TestBookCardRenderer < Minitest::Test
       image_url: base_data[:absolute_image_url],
       image_alt: "Book cover of #{base_data[:raw_title]}.",
       image_div_class: 'card-book-cover',
+      image_sizes: Jekyll::Books::Core::BookCardRenderer::COVER_SIZES,
       title_html: "<strong><cite class=\"book-title\">#{title}</cite></strong>",
       extra_elements_html: extra_elements,
       description_html: description,

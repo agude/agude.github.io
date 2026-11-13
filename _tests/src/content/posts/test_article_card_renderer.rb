@@ -51,6 +51,7 @@ class TestArticleCardRenderer < Minitest::Test
       image_url: mock_base_data_from_extractor[:absolute_image_url],
       image_alt: 'Custom Alt', # This comes from @post_object.data['image_alt']
       image_div_class: 'card-image',
+      image_sizes: Jekyll::Posts::ArticleCardRenderer::IMAGE_SIZES,
       title_html: "<strong>#{mock_prepared_title}</strong>",
       description_html: mock_description_html_from_desc_extractor,
       description_wrapper_html_open: "<br>\n",

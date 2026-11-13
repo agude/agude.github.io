@@ -177,6 +177,12 @@ image_derivatives:
   - source_dir: books/covers
     widths: [150, 300, 600, 750]
     sizes: "(min-width: 38em) 300px, 240px"
+  # Post lead images. `sizes` is the #lead-image slot (measured): the
+  # column width, 840px once the content stops growing. Article cards state
+  # their own `sizes` (ArticleCardRenderer).
+  - front_matter: posts
+    widths: [150, 300, 600, 900, 1200, 1680]
+    sizes: "(min-width: 82.5em) 840px, (min-width: 64em) calc(100vw - 480px), (min-width: 48em) calc(100vw - 420px), (min-width: 38em) calc(100vw - 40px), calc(100vw - 32px)"
 
 # Compress HTML https://jch.penibelst.de/
 compress_html:

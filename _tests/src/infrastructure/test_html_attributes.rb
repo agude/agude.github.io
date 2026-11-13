@@ -31,4 +31,16 @@ class TestHtmlAttributes < Minitest::Test
     assert_empty attributes('<br/>')
     assert_equal({ 'class' => 'x' }, attributes("<pre\n  class=\"x\"\n>"))
   end
+
+  # --- remove ---
+
+  def test_remove_drops_the_attribute_and_its_leading_space
+    assert_equal '<img src="/a.png" alt="A" />',
+                 Jekyll::Infrastructure::HtmlAttributes.remove('<img src="/a.png" sizes="auto, 80px" alt="A" />', 'sizes')
+  end
+
+  def test_remove_leaves_text_inside_another_value
+    tag = %(<img alt="chart sizes=large" SIZES='80px' title=sizes>)
+    assert_equal '<img alt="chart sizes=large" title=sizes>', Jekyll::Infrastructure::HtmlAttributes.remove(tag, 'sizes')
+  end
 end

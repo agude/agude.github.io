@@ -68,15 +68,29 @@ image cannot be sized. Rules for authors:
   aspect ratio. Size or crop images with CSS, for example a class with
   `max-width`, or `aspect-ratio` with `object-fit`.
 
-Book covers also get `srcset` and `sizes`: `ImageDerivatives`
-(`image_derivatives` in `_config.yml`) builds WebP copies, at the widths set
-there, of every file in `books/covers/` at build time, and the injector
-offers them. Add a new cover as a JPEG or PNG; any other file in that directory
-stops the build, as do two covers whose names differ only in extension
-(`dune.jpg` and `dune.png` would share `dune-300.webp`). The original stays
-the `src` and the source of the size. The configured `sizes` describes the
-lead cover; a template whose cover slot differs sets its own `sizes`, which
-the injector keeps (the book-link preview cover, 5rem).
+Book covers and post lead images also get `srcset` and `sizes`:
+`ImageDerivatives` (`image_derivatives` in `_config.yml`) builds WebP
+copies at build time, at the widths set there, and the injector offers them.
+An entry names its images one of two ways:
+
+- `source_dir: books/covers`: every file in the directory. Add a new cover
+  as a JPEG or PNG with a lowercase extension (`.jpg`, `.jpeg`, `.png`); any
+  other file there, `Cover.JPG` included, stops the build.
+- `front_matter: posts`: the front-matter `image` of every post. It must be
+  a local, root-relative JPEG or PNG with a lowercase extension (`.jpg`,
+  `.jpeg`, `.png`); an `.svg` is skipped, and anything else, an uppercase
+  extension included, stops the build. Post images share `files/<post>/` with plots and data,
+  which is why they are listed by front matter and not by directory.
+
+Copies go to a `derived/` directory next to each source. Two sources in one
+directory whose names differ only in extension stop the build (`dune.jpg`
+and `dune.png` would share `dune-300.webp`), as does an image in two
+entries. Extensions are lowercase because the CI cache key globs
+`files/**/*.jpg` and the like, which are case-sensitive. The original stays the `src` and the source of the size. The
+configured `sizes` describes the lead slot (lead cover, `#lead-image`); a
+template whose slot differs sets its own `sizes`, which the injector keeps:
+the book-link preview cover (5rem), and the card images
+(`BookCardRenderer::COVER_SIZES`, `ArticleCardRenderer::IMAGE_SIZES`).
 
 The widths and `sizes` come from measurement, not from reading the CSS.
 `make check-images` (`_scripts/ci/check_image_sizes.py`) loads one or two
@@ -97,6 +111,26 @@ that moves a slot fails CI until the widths or `sizes` follow.
 Lead images (`#lead-image`, `.book-cover-lead`) also carry
 `fetchpriority="high"`: measured in November 2026, they are the Largest
 Contentful Paint element on post and book pages.
+
+Card images load lazily, with `sizes="auto, <slot sizes>"`, except the
+first two on a card-list page: `EagerCardImages` (a `:post_render` hook in
+`_plugins/src/infrastructure/`) removes `loading="lazy"` and the `auto, `
+prefix from them. The rule is structural, not by layout: a card-list page is
+any page whose first `<img>` is a card image. Today that is the book and
+blog indexes and the topic, author, and series pages, and also a post with
+`hide_lead_image: true` whose first image is an inline card. A page whose
+first image is anything else, such as a lead image, keeps every card lazy.
+Measured in November 2026, the Largest Contentful Paint element of a
+card-list page is its first or second card, and lazy loading delayed it: a
+lazy image waits for layout.
+
+A card that states `sizes` but whose image has no derivatives (an SVG, or a
+file outside every entry) loses its `sizes` in the injector: `sizes`
+without `srcset` is invalid HTML.
+`make check-images` fails when any sampled page's Largest Contentful Paint
+element is a lazy image, and when a page gives no reading at all. It
+samples two pages per URL directory and first-image slot, and waits for
+network idle, because a lazy image does not delay `load`.
 
 ## Code Blocks Are Labeled Scroll Regions
 

@@ -6,20 +6,33 @@ require 'fileutils'
 require 'json'
 require 'jekyll'
 require 'open3'
+require_relative 'front_matter_image'
 require_relative 'image_dimensions'
 
 module Jekyll
   module Infrastructure
-    # Builds smaller WebP copies of the images in configured directories and
-    # publishes them, so pages can offer them through `srcset` instead of
-    # the full-size originals.
+    # Builds smaller WebP copies of configured images and publishes them,
+    # so pages can offer them through `srcset` instead of the full-size
+    # originals.
     #
-    # Configuration (`_config.yml`):
+    # Configuration (`_config.yml`), one entry per image set:
     #
     #   image_derivatives:
-    #     - source_dir: books/covers   # images to derive from
+    #     - source_dir: books/covers   # every image in a directory
     #       widths: [300, 600]         # output widths in pixels
     #       sizes: 300px               # the `sizes` value pages use
+    #     - front_matter: posts        # the `image` of every post
+    #       widths: [300, 600]
+    #       sizes: 800px
+    #
+    # A `source_dir` must hold only JPEGs and PNGs. A `front_matter` entry
+    # names a collection; each document's front-matter `image` must be a
+    # local JPEG or PNG, or an SVG, which needs no copies and is skipped.
+    # Extensions must be lowercase (`.jpg`, `.jpeg`, `.png`, `.svg`): the CI
+    # cache key hashes `files/**/*.jpg` and the like, and that glob is
+    # case-sensitive, so a `.JPG` source would never refresh the cache.
+    # Post images share directories with plots and data files, which is why
+    # they are listed by front matter rather than by directory.
     #
     # With no `image_derivatives` key nothing is generated, and
     # ImageDimensionsInjector adds no `srcset`.
@@ -39,9 +52,11 @@ module Jekyll
     # otherwise `convert` (version 6, as on Ubuntu runners).
     #
     # @validator A configured `source_dir` that is missing or holds a file
-    #   that is not a JPEG or PNG, two sources whose names differ only in
-    #   extension, invalid `widths` or `sizes`, no
-    #   ImageMagick with WebP support, or a failed encode.
+    #   that is not a JPEG or PNG; a `front_matter` collection that does not
+    #   exist, or a document `image` that is remote, missing, or not a JPEG,
+    #   PNG, or SVG; two sources in one directory whose names differ only in
+    #   extension; one image in two entries; invalid `widths` or `sizes`;
+    #   no ImageMagick with WebP support; or a failed encode.
     module ImageDerivatives
       CACHE_DIR = File.join('.jekyll-cache', 'image-derivatives')
       DERIVED_DIR = 'derived'
@@ -67,6 +82,7 @@ module Jekyll
 
           cache_root = File.join(site.source, CACHE_DIR)
           entries = specs.flat_map { |spec| plan(site, spec, cache_root) }
+          check_names(entries)
           encode_stale(entries.flat_map { |entry| entry[:outputs] }, cache_root)
           publish(site, entries, cache_root)
         end
@@ -74,52 +90,104 @@ module Jekyll
         # @return [Array<Hash>] One entry per source: `{ source:, url:,
         #   width:, outputs:, sizes: }`.
         def plan(site, spec, cache_root)
-          source_dir, widths, sizes = validate_spec(spec)
-          absolute_dir = File.join(site.source, source_dir)
-          fail_with("source_dir '#{source_dir}' does not exist") unless File.directory?(absolute_dir)
+          label, widths, sizes = validate_spec(spec)
+          relatives = spec.key?('front_matter') ? front_matter_sources(site, label) : directory_sources(site, label)
 
-          stems = {}
-          Dir.children(absolute_dir).sort.filter_map do |name|
-            file = File.join(absolute_dir, name)
-            next if File.directory?(file)
-
-            unless SOURCE_EXTENSIONS.include?(File.extname(name).downcase)
-              fail_with("#{source_dir}/#{name} is not a JPEG or PNG")
-            end
-            claim_stem(stems, name, source_dir)
-
-            plan_source(file, "#{source_dir}/#{name}", widths, sizes, cache_root)
+          relatives.map do |relative|
+            plan_source(File.join(site.source, relative), relative, widths, sizes, cache_root)
           end
         end
 
         private
 
-        def validate_spec(spec)
-          fail_with("each entry needs source_dir, widths, and sizes; got #{spec.inspect}") unless spec.is_a?(Hash)
-
-          source_dir = spec['source_dir'].to_s.delete_prefix('/').chomp('/')
-          widths = spec['widths']
-          sizes = spec['sizes'].to_s.strip
-          fail_with("source_dir is missing in #{spec.inspect}") if source_dir.empty?
-          unless widths.is_a?(Array) && !widths.empty? && widths.all? { |w| w.is_a?(Integer) && w.positive? }
-            fail_with("widths for '#{source_dir}' must be a list of positive integers")
+        # Across every entry: no image twice, and no two sources whose
+        # outputs would share a name.
+        def check_names(entries)
+          entries.group_by { |entry| entry[:url] }.each do |url, group|
+            fail_with("#{url.delete_prefix('/')} is in more than one entry") if group.size > 1
           end
-          fail_with("sizes for '#{source_dir}' is missing") if sizes.empty?
-
-          [source_dir, widths.sort.uniq, sizes]
+          stems = {}
+          entries.each { |entry| claim_stem(stems, entry[:url].delete_prefix('/')) }
         end
 
-        # Output names drop the extension, so `dune.jpg` and `dune.png`
-        # would write and publish the same `dune-300.webp`.
-        def claim_stem(stems, name, source_dir)
-          stem = File.basename(name, '.*')
-          if (other = stems[stem])
+        def validate_spec(spec)
+          unless spec.is_a?(Hash)
+            fail_with("each entry needs source_dir or front_matter, widths, and sizes; got #{spec.inspect}")
+          end
+          if spec.key?('source_dir') == spec.key?('front_matter')
+            fail_with("each entry needs exactly one of source_dir and front_matter; got #{spec.inspect}")
+          end
+
+          label = (spec['source_dir'] || spec['front_matter']).to_s.delete_prefix('/').chomp('/')
+          widths = spec['widths']
+          sizes = spec['sizes'].to_s.strip
+          fail_with("source_dir or front_matter is empty in #{spec.inspect}") if label.empty?
+          unless widths.is_a?(Array) && !widths.empty? && widths.all? { |w| w.is_a?(Integer) && w.positive? }
+            fail_with("widths for '#{label}' must be a list of positive integers")
+          end
+          fail_with("sizes for '#{label}' is missing") if sizes.empty?
+
+          [label, widths.sort.uniq, sizes]
+        end
+
+        # @return [Array<String>] Source-relative paths of every file in the directory.
+        def directory_sources(site, source_dir)
+          absolute_dir = File.join(site.source, source_dir)
+          fail_with("source_dir '#{source_dir}' does not exist") unless File.directory?(absolute_dir)
+
+          Dir.children(absolute_dir).sort.filter_map do |name|
+            next if File.directory?(File.join(absolute_dir, name))
+
+            fail_with("#{source_dir}/#{name} is not a JPEG or PNG (.jpg, .jpeg, or .png)") unless source_image?(name)
+
+            "#{source_dir}/#{name}"
+          end
+        end
+
+        # @return [Array<String>] Source-relative paths of the collection's
+        #   front-matter images, without duplicates or SVGs.
+        def front_matter_sources(site, label)
+          collection = site.collections[label]
+          fail_with("front_matter collection '#{label}' does not exist") unless collection
+
+          collection.docs.filter_map do |doc|
+            source = FrontMatterImage.source_name(doc)
+            image = FrontMatterImage.file_path(doc.data['image'], source: source)
+            next unless image
+            next if File.extname(image) == '.svg'
+
+            front_matter_source(site, image, source)
+          end.uniq.sort
+        end
+
+        def front_matter_source(site, image, source)
+          unless image.start_with?('/') && !image.start_with?('//')
+            fail_with("image '#{image}' in #{source} is not a local root-relative path")
+          end
+          relative = image.delete_prefix('/')
+          unless source_image?(relative)
+            fail_with("image '#{image}' in #{source} is not a JPEG, PNG, or SVG (.jpg, .jpeg, .png, or .svg)")
+          end
+          fail_with("image '#{image}' in #{source} names no file") unless File.file?(File.join(site.source, relative))
+
+          relative
+        end
+
+        def source_image?(name)
+          SOURCE_EXTENSIONS.include?(File.extname(name))
+        end
+
+        # Output names drop the extension, so `dune.jpg` and `dune.png` in
+        # one directory would write and publish the same `dune-300.webp`.
+        def claim_stem(stems, relative)
+          key = File.join(File.dirname(relative), File.basename(relative, '.*'))
+          if (other = stems[key])
             fail_with(
-              "#{source_dir}/#{other} and #{source_dir}/#{name} would share derivative " \
-              "names (#{stem}-<width>.webp); rename one",
+              "#{other} and #{relative} would share derivative names " \
+              "(#{File.basename(key)}-<width>.webp); rename one",
             )
           end
-          stems[stem] = name
+          stems[key] = relative
         end
 
         def plan_source(file, relative, widths, sizes, cache_root)

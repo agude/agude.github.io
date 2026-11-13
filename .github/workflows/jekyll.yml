@@ -38,10 +38,16 @@
 # Both jobs install ImageMagick from apt: the build's ImageDerivatives
 # generator encodes WebP cover copies with it, and the Ruby tests encode
 # real fixture images. The build job restores `.jekyll-cache/image-derivatives`
-# with actions/cache (key: hash of books/covers/**, the generator, and
-# _config.yml, which sets the widths), so only new or changed covers are
-# encoded; a full miss adds about a minute. An exact key hit never saves,
-# so every input that changes the outputs must be in the key.
+# with actions/cache (key: hash of books/covers/**, the JPEGs and PNGs under
+# files/**, where post front-matter images live, the generator, and
+# _config.yml, which sets the widths), so only new or changed images are
+# encoded; a full miss adds about a minute. Post text is not in the key, so
+# editing a post does not save a new cache. A post that starts using an
+# image already in files/ does not change the key; that one image is then
+# encoded on each run until the next image change saves a new cache. An
+# exact key hit never saves, so every input that changes the outputs must be
+# in the key. ImageDerivatives rejects uppercase extensions, which these
+# case-sensitive globs would miss.
 # link-check.yml shares the same cache key.
 #
 # Test-job concurrency is per-ref and cancels stale runs
@@ -171,7 +177,7 @@ jobs:
         uses: actions/cache@v6
         with:
           path: .jekyll-cache/image-derivatives
-          key: image-derivatives-${{ hashFiles('books/covers/**', '_plugins/src/infrastructure/image_derivatives.rb', '_config.yml') }}
+          key: image-derivatives-${{ hashFiles('books/covers/**', 'files/**/*.jpg', 'files/**/*.jpeg', 'files/**/*.png', '_plugins/src/infrastructure/image_derivatives.rb', '_config.yml') }}
           restore-keys: image-derivatives-
 
       - name: Build with Jekyll

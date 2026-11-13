@@ -33,6 +33,12 @@ visible at any viewport fails the check, so no slot goes unmeasured.
 Images without `srcset` and SVGs are reported, never failed. The report
 lists each slot's width range and the widths a `srcset` for it would need.
 
+It also fails when the Largest Contentful Paint element is an image with
+`loading="lazy"`: a lazy image waits for layout, which delays the paint.
+This is read at 1x on a sample of pages: PAGES_PER_GROUP pages for each
+URL directory and first-image slot, which together stand for a layout
+(book pages open with `img.book-cover-lead`, author pages with a card).
+
 Exit codes: 0 when every check passes, 1 when any fails, 2 on bad input.
 
 Usage:
@@ -68,6 +74,7 @@ DPRS = (1, 2, 3)
 # Above 2x the eye gains little for the bytes, so 3x screens need only 2x.
 MAX_USEFUL_DPR = 2
 PAGES_PER_SLOT = 2
+PAGES_PER_GROUP = 2
 IMAGES_PER_SLOT = 3
 
 TOLERANCE = 0.05
@@ -121,6 +128,17 @@ class Measurement:
     mismatches: tuple[str, ...] = ()
 
 
+@dataclass(frozen=True)
+class LargestPaint:
+    """The Largest Contentful Paint element of one page at one viewport width."""
+
+    page: str
+    viewport: int
+    # "img.book-cover-lead", "h1", ...; None when the browser reported none.
+    element: str | None
+    lazy: bool
+
+
 def problems(m: Measurement) -> list[str]:
     """Return why this measurement fails the check; empty when it passes."""
     if not m.has_srcset or m.vector or m.slot_width <= 0:
@@ -167,12 +185,19 @@ class _SlotScanner(HTMLParser):
         super().__init__(convert_charrefs=True)
         self.stack: list[list[str]] = []
         self.slots: set[str] = set()
+        # Slots with an image that is not lazy, whose `sizes` is compared.
+        self.eager_slots: set[str] = set()
+        self.first: str | None = None
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         values = dict(attrs)
         classes = (values.get("class") or "").split()
         if tag == "img":
-            self.slots.add(slot_key(values.get("id"), classes, reversed(self.stack)))
+            slot = slot_key(values.get("id"), classes, reversed(self.stack))
+            self.slots.add(slot)
+            if (values.get("loading") or "").strip().lower() != "lazy":
+                self.eager_slots.add(slot)
+            self.first = self.first or slot
         elif tag not in VOID_ELEMENTS:
             self.stack.append(classes)
 
@@ -195,9 +220,8 @@ def slot_key(img_id, img_classes, ancestor_classes) -> str:
     return "img"
 
 
-def sample_pages(site: Path, per_slot: int = PAGES_PER_SLOT) -> dict[str, list[str]]:
-    """Return slot key -> up to `per_slot` page paths that contain it."""
-    pages: dict[str, list[str]] = defaultdict(list)
+def scan_pages(site: Path):
+    """Yield (page path, _SlotScanner) for every page with an <img>, in path order."""
     for file in sorted(site.rglob("index.html")):
         text = file.read_text(encoding="utf-8", errors="replace")
         if "<img" not in text:
@@ -205,11 +229,38 @@ def sample_pages(site: Path, per_slot: int = PAGES_PER_SLOT) -> dict[str, list[s
         scanner = _SlotScanner()
         scanner.feed(text)
         path = "/" + str(file.parent.relative_to(site)).removeprefix(".") + "/"
-        path = path.replace("//", "/")
+        yield path.replace("//", "/"), scanner
+
+
+def sample_pages(site: Path, per_slot: int = PAGES_PER_SLOT) -> dict[str, list[str]]:
+    """Return slot key -> up to `per_slot` page paths that contain it.
+
+    A lazy image with `sizes="auto, ..."` declares nothing to compare, so
+    when a slot's first pages hold only lazy images, the first page where
+    that slot has an eager image is added: card slots are sampled on posts,
+    where every card is lazy, and on a card-list page, where the first are
+    eager (EagerCardImages).
+    """
+    pages: dict[str, list[str]] = defaultdict(list)
+    eager_found: set[str] = set()
+    for path, scanner in scan_pages(site):
         for slot in scanner.slots:
-            if len(pages[slot]) < per_slot:
+            eager = slot in scanner.eager_slots
+            if len(pages[slot]) < per_slot or (eager and slot not in eager_found):
                 pages[slot].append(path)
+                eager_found.update([slot] if eager else [])
     return dict(pages)
+
+
+def sample_paint_pages(site: Path, per_group: int = PAGES_PER_GROUP) -> list[str]:
+    """Return up to `per_group` pages per URL directory and first-image slot."""
+    groups: dict[tuple[str, str | None], list[str]] = defaultdict(list)
+    for path, scanner in scan_pages(site):
+        directory = path.rstrip("/").rpartition("/")[0] + "/"
+        group = groups[(directory, scanner.first)]
+        if len(group) < per_group:
+            group.append(path)
+    return sorted(path for paths in groups.values() for path in paths)
 
 
 SLOT_KEY_JS = """
@@ -233,37 +284,6 @@ MEASURE_JS = (
   const slotKey = """
     + SLOT_KEY_JS
     + """;
-  const splitTop = s => {
-    const out = []; let depth = 0, start = 0;
-    for (let i = 0; i < s.length; i++) {
-      if (s[i] === '(') depth++;
-      else if (s[i] === ')') depth--;
-      else if (s[i] === ',' && depth === 0) { out.push(s.slice(start, i)); start = i + 1; }
-    }
-    out.push(s.slice(start));
-    return out.map(x => x.trim()).filter(Boolean);
-  };
-  const lengthPx = len => {
-    const probe = document.createElement('div');
-    probe.style.cssText = 'position:absolute;visibility:hidden;width:' + len;
-    document.body.appendChild(probe);
-    const px = probe.getBoundingClientRect().width;
-    probe.remove();
-    return px;
-  };
-  const declared = () => {
-    const sizes = img.getAttribute('sizes');
-    if (!sizes) return null;
-    const entries = splitTop(sizes);
-    if (entries[0] === 'auto' && img.loading === 'lazy') return null;
-    for (const entry of entries) {
-      if (entry === 'auto') continue;
-      const m = entry.match(/^(.*\\))\\s*(\\S+)$/);
-      if (!m) return lengthPx(entry);
-      if (matchMedia(m[1]).matches) return lengthPx(m[2]);
-    }
-    return null;
-  };
   const candidates = (img.getAttribute('srcset') || '').split(',').map(c => c.trim().split(/\\s+/))
     .filter(c => c.length === 2 && c[1].endsWith('w'))
     .map(([url, w]) => [new URL(url, location.href).href, parseInt(w, 10)]);
@@ -271,7 +291,8 @@ MEASURE_JS = (
     slot: slotKey(img),
     src: img.getAttribute('src'),
     slot_width: img.getBoundingClientRect().width,
-    declared: declared(),
+    sizes: img.getAttribute('sizes'),
+    lazy: img.loading === 'lazy',
     has_srcset: candidates.length > 0,
     vector: /\\.svg([?#]|$)/i.test(img.currentSrc),
     candidates,
@@ -280,6 +301,101 @@ MEASURE_JS = (
     source_width: parseInt(img.getAttribute('width'), 10) || 0,
   };
 }
+"""
+)
+
+
+def split_sizes(sizes: str) -> list[tuple[str, str]]:
+    """Split a `sizes` value into (media condition, length) pairs.
+
+    Entries are split at top-level commas, so commas inside `min()` stay.
+    The length is an entry's last token: a function such as
+    `calc(50vw - 22px)`, whose spaces a whitespace split would break, or a
+    plain length. What precedes it is the media condition, empty when none.
+    """
+    entries, depth, start = [], 0, 0
+    for i, char in enumerate(sizes):
+        if char == "(":
+            depth += 1
+        elif char == ")":
+            depth -= 1
+        elif char == "," and depth == 0:
+            entries.append(sizes[start:i])
+            start = i + 1
+    entries.append(sizes[start:])
+
+    pairs = []
+    for entry in filter(None, (e.strip() for e in entries)):
+        if entry.endswith(")"):
+            depth, i = 0, len(entry) - 1
+            for i in range(len(entry) - 1, -1, -1):
+                if entry[i] == ")":
+                    depth += 1
+                elif entry[i] == "(":
+                    depth -= 1
+                    if depth == 0:
+                        break
+            start = len(re.search(r"^.*?(?=[a-z-]*$)", entry[:i], re.IGNORECASE).group(0))
+        else:
+            start = len(entry) - len(entry.split()[-1])
+        pairs.append((entry[:start].strip(), entry[start:]))
+    return pairs
+
+
+def sizes_to_resolve(sizes: str | None, lazy: bool) -> list[tuple[str, str]] | None:
+    """Return the `sizes` pairs the browser would consult, or None when none apply.
+
+    `auto` first on a lazy image means the laid-out width, so nothing is
+    declared; elsewhere `auto` is ignored.
+    """
+    if not sizes:
+        return None
+    pairs = split_sizes(sizes)
+    if pairs and pairs[0] == ("", "auto") and lazy:
+        return None
+    return [pair for pair in pairs if pair != ("", "auto")] or None
+
+
+# Returns the width of the first `sizes` entry whose media condition
+# matches, measured on a probe element, or null when none matches.
+RESOLVE_SIZES_JS = """
+pairs => {
+  for (const [condition, length] of pairs) {
+    if (condition && !matchMedia(condition).matches) continue;
+    const probe = document.createElement('div');
+    probe.style.cssText = 'position:absolute;visibility:hidden;width:' + length;
+    document.body.appendChild(probe);
+    const px = probe.getBoundingClientRect().width;
+    probe.remove();
+    return px;
+  }
+  return null;
+}
+"""
+
+
+# Resolves to the last Largest Contentful Paint entry's element. Buffered
+# entries arrive in the observer's first callback; a page whose paint the
+# browser did not record resolves to null after a short wait, which fails
+# the check rather than passing it.
+LARGEST_PAINT_JS = (
+    """
+() => new Promise(resolve => {
+  const slotKey = """
+    + SLOT_KEY_JS
+    + """;
+  const describe = entry => {
+    const element = entry && entry.element;
+    if (!element) return null;
+    if (element.tagName !== 'IMG') return {element: element.tagName.toLowerCase(), lazy: false};
+    return {element: slotKey(element) + ' ' + element.getAttribute('src'), lazy: element.loading === 'lazy'};
+  };
+  new PerformanceObserver(list => {
+    const entries = list.getEntries();
+    resolve(describe(entries[entries.length - 1]));
+  }).observe({type: 'largest-contentful-paint', buffered: true});
+  setTimeout(() => resolve(null), 2000);
+})
 """
 )
 
@@ -357,6 +473,8 @@ async def measure_page(context, page_path: str, slots: set[str], viewport: int, 
                     f"{page_path} @ {viewport}px {dpr}x: `{slot}` {src} never loaded"
                 ) from error
             data = await handle.evaluate(MEASURE_JS)
+            pairs = sizes_to_resolve(data.pop("sizes"), data.pop("lazy"))
+            data["declared"] = await page.evaluate(RESOLVE_SIZES_JS, pairs) if pairs else None
             results.append(
                 await to_measurement(page, data, cache, page=page_path, viewport=viewport, dpr=dpr)
             )
@@ -392,10 +510,28 @@ def route_handler(site: Path, baseurl: str, origins: tuple[str, ...]):
     return handle
 
 
+async def largest_paint(context, page_path: str, viewport: int) -> LargestPaint:
+    """Load a page and return its Largest Contentful Paint element.
+
+    Waits for the network to go idle, not for `load`: a lazy image does not
+    delay `load`, so at `load` the largest paint can still be text.
+    """
+    page = await context.new_page()
+    try:
+        await page.goto(SITE_ORIGIN + page_path, wait_until="networkidle")
+        found = await page.evaluate(LARGEST_PAINT_JS) or {"element": None, "lazy": False}
+        return LargestPaint(page=page_path, viewport=viewport, **found)
+    finally:
+        await page.close()
+
+
 async def measure_site(
-    site: Path, baseurl: str, site_url: str, sampled: dict[str, list[str]]
-) -> list[Measurement]:
-    """Measure the sampled pages at every viewport width and pixel density."""
+    site: Path, baseurl: str, site_url: str, sampled: dict[str, list[str]], paint_pages: list[str]
+) -> tuple[list[Measurement], list[LargestPaint]]:
+    """Measure the sampled pages at every viewport width and pixel density.
+
+    At 1x, also read the Largest Contentful Paint element of `paint_pages`.
+    """
     from playwright.async_api import async_playwright
 
     by_page: dict[str, set[str]] = defaultdict(set)
@@ -406,6 +542,7 @@ async def measure_site(
     handler = route_handler(site, baseurl, (SITE_ORIGIN, site_url.rstrip("/")))
     widths = viewport_widths(VARIABLES_SCSS.read_text())
     results: list[Measurement] = []
+    paints: list[LargestPaint] = []
     file_widths: dict[str, int] = {}
     limit = asyncio.Semaphore(4)
 
@@ -429,15 +566,34 @@ async def measure_site(
                 finally:
                     await context.close()
 
-        await asyncio.gather(*(run(w, d) for w in widths for d in DPRS))
+        async def paint(viewport: int) -> None:
+            async with limit:
+                context = await browser.new_context(
+                    viewport={"width": viewport, "height": VIEWPORT_HEIGHT}
+                )
+                await context.route("**/*", handler)
+                try:
+                    for path in paint_pages:
+                        paints.append(await largest_paint(context, baseurl + path, viewport))
+                finally:
+                    await context.close()
+
+        await asyncio.gather(
+            *(run(w, d) for w in widths for d in DPRS), *(paint(w) for w in widths)
+        )
         await browser.close()
-    return results
+    return results, paints
 
 
-def report(measurements: list[Measurement], sampled: dict[str, list[str]]) -> tuple[str, list[str]]:
+def report(
+    measurements: list[Measurement],
+    sampled: dict[str, list[str]],
+    paints: list[LargestPaint] = (),
+) -> tuple[str, list[str]]:
     """Return a per-slot summary table and the list of failures.
 
-    Every slot in `sampled` must have been measured at least once.
+    Every slot in `sampled` must have been measured at least once, and no
+    Largest Contentful Paint element in `paints` may be a lazy image.
     """
     by_slot: dict[str, list[Measurement]] = defaultdict(list)
     for m in measurements:
@@ -469,6 +625,17 @@ def report(measurements: list[Measurement], sampled: dict[str, list[str]]) -> tu
     for m in measurements:
         for problem in problems(m):
             failures.append(f"{m.page} @ {m.viewport}px {m.dpr}x `{m.slot}` {m.src}: {problem}")
+    for paint in paints:
+        if paint.element is None:
+            failures.append(
+                f"{paint.page} @ {paint.viewport}px: no Largest Contentful Paint reading, "
+                "so the lazy-image check could not run"
+            )
+        elif paint.lazy:
+            failures.append(
+                f"{paint.page} @ {paint.viewport}px: the Largest Contentful Paint element, "
+                f'`{paint.element}`, has loading="lazy"'
+            )
     return "\n".join(lines), sorted(set(failures))
 
 
@@ -488,16 +655,20 @@ def main(argv: list[str] | None = None) -> int:
         return EXIT_UNUSABLE
 
     sampled = sample_pages(args.site)
-    measurements = asyncio.run(
-        measure_site(args.site, args.baseurl.rstrip("/"), args.site_url, sampled)
+    paint_pages = sample_paint_pages(args.site)
+    measurements, paints = asyncio.run(
+        measure_site(args.site, args.baseurl.rstrip("/"), args.site_url, sampled, paint_pages)
     )
     if not measurements:
         print("error: measured no images", file=sys.stderr)
         return EXIT_UNUSABLE
 
-    table, failures = report(measurements, sampled)
+    table, failures = report(measurements, sampled, paints)
     print(table)
-    print(f"\n{len(measurements)} measurements, {len(failures)} failures")
+    print(
+        f"\n{len(measurements)} measurements, {len(paints)} paints on "
+        f"{len(paint_pages)} pages, {len(failures)} failures"
+    )
     for failure in failures:
         print(f"FAIL {failure}")
     return EXIT_FAILED if failures else EXIT_CLEAN

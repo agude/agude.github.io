@@ -61,6 +61,21 @@ class TestCardRendererUtils < Minitest::Test
     assert_equal 'async', img['decoding']
   end
 
+  def test_render_card_image_sizes
+    card_data = {
+      base_class: 'book-card',
+      url: '/books/dune/',
+      title_html: '<strong>Dune</strong>',
+      image_url: '/books/covers/dune.jpg',
+      image_alt: 'Book cover of Dune.',
+      image_div_class: 'card-book-cover',
+      image_sizes: '(min-width: 38em) 200px, 150px',
+    }
+    img = Nokogiri::HTML5.fragment(Jekyll::UI::Cards::CardRendererUtils.render_card(card_data: card_data)).at_css('img')
+
+    assert_equal 'auto, (min-width: 38em) 200px, 150px', img['sizes']
+  end
+
   def test_render_card_with_image_alt_escaping
     card_data = {
       base_class: 'image-card',

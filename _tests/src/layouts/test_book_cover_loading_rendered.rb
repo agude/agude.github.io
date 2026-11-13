@@ -14,7 +14,9 @@ require 'src/infrastructure/image_derivatives'
 # _tests/src/seo/test_json_ld_rendered_site.rb.
 #
 # The lead cover is the first image a reader sees, so it loads eagerly.
-# Card covers, here in the related-books section, load lazily.
+# Card covers, here in the related-books section, load lazily. On a page
+# that is a list of cards (the author page), the first two cards load
+# eagerly (EagerCardImages).
 class TestBookCoverLoadingRendered < Minitest::Test
   REPO_ROOT = File.expand_path('../../..', __dir__)
 
@@ -45,6 +47,19 @@ class TestBookCoverLoadingRendered < Minitest::Test
 
       Second Book is a fixture novel.
     MARKDOWN
+    '_books/third_book.md' => <<~MARKDOWN,
+      ---
+      title: Third Book
+      book_authors: Fixture Author
+      series: Fixture Saga
+      book_number: 3
+      rating: 2
+      image: /books/covers/third_book.jpg
+      wikidata_qid: Q4
+      ---
+
+      Third Book is a fixture novel.
+    MARKDOWN
     'books/authors/fixture_author.md' => <<~MARKDOWN,
       ---
       layout: author_page
@@ -64,6 +79,7 @@ class TestBookCoverLoadingRendered < Minitest::Test
   COVERS = {
     'books/covers/first_book.jpg' => [600, 900],
     'books/covers/second_book.jpg' => [500, 800],
+    'books/covers/third_book.jpg' => [400, 600],
   }.freeze
 
   CONFIG = {
@@ -87,7 +103,15 @@ class TestBookCoverLoadingRendered < Minitest::Test
                  "Jekyll::Site.new(Jekyll.configuration('source' => ARGV[0], 'destination' => ARGV[1])).process"
 
   def self.page
-    @page ||= Nokogiri::HTML5(File.read(File.join(destination, 'books', 'first_book', 'index.html')))
+    @page ||= parse('books/first_book/index.html')
+  end
+
+  def self.author_page
+    @author_page ||= parse('books/authors/fixture_author/index.html')
+  end
+
+  def self.parse(path)
+    Nokogiri::HTML5(File.read(File.join(destination, path)))
   end
 
   # @return [String] The built site's directory.
@@ -153,9 +177,15 @@ class TestBookCoverLoadingRendered < Minitest::Test
     assert_equal 'async', card['decoding']
   end
 
-  # The eager lead cover gets a fixed `sizes`; the lazy card cover lets the
-  # browser use its laid-out width. A source no wider than 600 px stands in
-  # for the skipped 600 px copy.
+  def test_first_two_cards_on_a_card_list_page_load_eagerly
+    loading = self.class.author_page.css('.book-card img').map { |img| img['loading'] }
+
+    assert_equal [nil, nil, 'lazy'], loading
+  end
+
+  # The lead cover gets the configured `sizes`; card covers state their
+  # own (BookCardRenderer), with `auto` only while lazy. A source no wider than 600 px
+  # stands in for the skipped 600 px copy.
   def test_covers_offer_webp_derivatives
     lead = self.class.page.at_css('img.book-cover-lead')
     card = self.class.page.at_css('.book-card img[src$="/books/covers/second_book.jpg"]')
@@ -163,11 +193,14 @@ class TestBookCoverLoadingRendered < Minitest::Test
     assert_equal '/books/covers/derived/first_book-300.webp 300w, /books/covers/first_book.jpg 600w', lead['srcset']
     assert_equal '300px', lead['sizes']
     assert_equal '/books/covers/derived/second_book-300.webp 300w, /books/covers/second_book.jpg 500w', card['srcset']
-    assert_equal 'auto, 300px', card['sizes']
+    sizes = Jekyll::Books::Core::BookCardRenderer::COVER_SIZES
+    assert_equal "auto, #{sizes}", card['sizes']
+    author_sizes = self.class.author_page.css('.book-card img').map { |img| img['sizes'] }
+    assert_equal [sizes, sizes, "auto, #{sizes}"], author_sizes
   end
 
   def test_derivatives_are_published
     derived = File.join(self.class.destination, 'books', 'covers', 'derived')
-    assert_equal %w[first_book-300.webp second_book-300.webp], Dir.children(derived).sort
+    assert_equal %w[first_book-300.webp second_book-300.webp third_book-300.webp], Dir.children(derived).sort
   end
 end
