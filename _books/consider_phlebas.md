@@ -20,7 +20,7 @@ same_as_urls:
 I've been meaning to read {% author_link page.book_authors link=false
 link_text="Banks" possessive %} {% series_text page.series link=false %} for
 more than two decades, so I was excited to finally get started. Unfortunately,
-<cite class="book-title">{{ page.title }}</cite> was not a great introduction.
+{% book_link page.title %} was not a great introduction.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 

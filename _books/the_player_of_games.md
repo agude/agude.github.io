@@ -18,10 +18,10 @@ same_as_urls:
 ---
 
 {% book_link page.title %}, by {% author_link page.book_authors link=false
-possessive %}, is the second novel in {% series_text page.series link=false
-%}. It tells the story of Jernau Morat Gurgeh, a master game player who is
-recruited to play Azad, an incredibly complex game that serves as the basis
-for the Empire of Azad's entire government.
+%}, is the second novel in {% series_text page.series link=false %}. It
+tells the story of Jernau Morat Gurgeh, a master game player who is recruited
+to play Azad, an incredibly complex game that serves as the basis for the
+Empire of Azad's entire government.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture this_series %}{% series_link page.series %} series{% endcapture %}
@@ -29,8 +29,8 @@ for the Empire of Azad's entire government.
 
 {% capture consider_phlebas %}{% book_link "Consider Phlebas" %}{% endcapture %}
 
-{% capture short_games %}<cite class="book-title">Games</cite>{% endcapture %}
-{% capture short_phlebas %}<cite class="book-title">Phlebas</cite>{% endcapture %}
+{% capture short_games %}{% book_link "The Player of Games" link_text="Games" %}{% endcapture %}
+{% capture short_phlebas %}{% book_link "Consider Phlebas" link_text="Phlebas" %}{% endcapture %}
 
 {{ this_book }} is set in the same universe as {{ consider_phlebas }}, but is
 otherwise unconnected. In fact, the two books could not be more different. {{

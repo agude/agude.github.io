@@ -19,10 +19,10 @@ same_as_urls:
 ---
 
 {% book_link page.title %} is a collection of short stories by {% author_link
-page.book_authors link=false %}. It contains some stories related to the <span
-class="book-series">{{ page.series }}</span> universe and some general science
-fiction tales. Although it has been considered utopian fiction, it comes
-across as rather bleak.
+page.book_authors link=false %}. It contains some stories related to the
+{% series_link page.series %} universe and some general science fiction
+tales. Although it has been considered utopian fiction, it comes across as
+rather bleak.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture this_series %}{% series_link page.series %}{% endcapture %}

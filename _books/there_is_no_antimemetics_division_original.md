@@ -17,15 +17,15 @@ same_as_urls:
   - "https://www.google.com/search?kgmid=/g/11n033mg8k"
 ---
 
-<cite class="book-title">There Is No Antimemetics Division</cite> is a book
-based in the [SCP][scp] universe. It explores the idea of anti-memes---ideas
-that either can't be thought, quickly drop out of your memory when you stop
-focusing on them, or are dangerous to think---and how you might contain a
-force you literally can't remember.
+{% book_link page.title link_text="There Is No Antimemetics Division" %} is a
+book based in the [SCP][scp] universe. It explores the idea of
+anti-memes---ideas that either can't be thought, quickly drop out of your
+memory when you stop focusing on them, or are dangerous to think---and how you
+might contain a force you literally can't remember.
 
 [scp]: https://en.wikipedia.org/wiki/SCP_Foundation
 
-{% capture this_book %}<cite class="book-title">There Is No Antimemetics Division</cite>{% endcapture %}
+{% capture this_book %}{% book_link page.title link_text="There Is No Antimemetics Division" %}{% endcapture %}
 
 {{ this_book }} was written serially as a collection of short stories. The
 stories in the first half of the book are loosely related and mainly serve to

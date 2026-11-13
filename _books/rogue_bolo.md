@@ -42,7 +42,7 @@ collection of two novellas featuring the sentient tanks.
 
 {% capture weber %}{% author_link "David Weber" %}{% endcapture %}
 {% capture keith %}{% author_link "William H. Keith" %}{% endcapture %}
-{% capture stirling %}{% author_link "S.M. Stirling" %}{% endcapture %}
+{% capture stirling %}{% author_link "S. M. Stirling" %}{% endcapture %}
 
 {% capture dragons_banker %}{% book_link "The Dragon's Banker" %}{% endcapture %}
 {% capture warrens %}{% author_link "Scott Warren" possessive %}{% endcapture %}

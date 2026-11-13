@@ -17,9 +17,9 @@ same_as_urls:
   - "https://www.google.com/search?kgmid=/m/0h0nb"
 ---
 
-{% book_link page.title %} is a classic sci-fi novel by <span
-class="author-name">{{ page.book_authors }}</span>. It is about first contact
-between humans and the mysterious Overlords, and the end of the human race.
+{% book_link page.title %} is a classic sci-fi novel by {% author_link
+page.book_authors link=false %}. It is about first contact between humans and
+the mysterious Overlords, and the end of the human race.
 
 {% capture this_book %}{% book_link page.title %}{% endcapture %}
 {% capture the_author %}{% author_link page.book_authors link=false %}{% endcapture %}
