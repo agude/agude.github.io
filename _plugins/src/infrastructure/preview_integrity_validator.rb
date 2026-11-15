@@ -24,15 +24,13 @@ module Jekyll
     # @validator Hover-preview markup split by the markdown parser
     #   (escaped tag debris abutting a raw preview comment marker).
     module PreviewIntegrityValidator
+      MARKER = '<!--/?(?:book|footnote)-preview-->'
       # A raw preview marker not immediately preceded by '>' or not
-      # immediately followed by '<'. Extract diagnostic context only after
-      # finding a violation: a leading .{0,40} repeats the search at every
-      # character of every valid page.
-      LEAK_PATTERNS = [
-        %r{[^>]<!--/?(?:book|footnote)-preview-->},
-        %r{<!--/?(?:book|footnote)-preview-->[^<]},
-      ].freeze
-      private_constant :LEAK_PATTERNS
+      # immediately followed by '<'. Context for the error message is sliced
+      # after a match: capturing it in the pattern (.{0,40}) retries the
+      # search at every character of every valid page.
+      LEAK_PATTERN = /[^>]#{MARKER}|#{MARKER}[^<]/
+      private_constant :MARKER, :LEAK_PATTERN
 
       # Raises when rendered HTML contains mangled preview markup.
       # @param html [String] The rendered page output.
@@ -40,17 +38,15 @@ module Jekyll
       def self.validate(html, identifier)
         return unless html.include?('-preview-->')
 
-        LEAK_PATTERNS.each do |pattern|
-          match = pattern.match(html)
-          next unless match
+        match = LEAK_PATTERN.match(html)
+        return unless match
 
-          context_start = [match.begin(0) - 40, 0].max
-          context = html[context_start...(match.end(0) + 40)]
-          raise Jekyll::Errors::FatalException,
-                "PreviewIntegrityValidator: mangled hover-preview markup in #{identifier}: " \
-                "#{context.inspect}. Preview markup was split by the markdown parser — " \
-                'usually a newline inside single-line preview output (see BookPreviewRenderer).'
-        end
+        context_start = [match.begin(0) - 40, 0].max
+        context = html[context_start...(match.end(0) + 40)]
+        raise Jekyll::Errors::FatalException,
+              "PreviewIntegrityValidator: mangled hover-preview markup in #{identifier}: " \
+              "#{context.inspect}. Preview markup was split by the markdown parser — " \
+              'usually a newline inside single-line preview output (see BookPreviewRenderer).'
       end
     end
   end
