@@ -23,7 +23,7 @@ lexicons. It explains how the pieces connect and what to do when they change.
 | Well-known generator | `_plugins/src/seo/standard_site_well_known_generator.rb` | Emits `_site/.well-known/site.standard.publication` (bare AT-URI, no trailing newline) |
 | Link tags | `_includes/head.html` | `rel="site.standard.publication"` on every page; `rel="site.standard.document"` on pages with an entry in the data file |
 | Data file | `_data/standard_site.json` | URL → AT-URI map, written by the publish step in CI, gitignored; absent locally and on branches (document tags simply don't render) |
-| CI wiring | `.github/workflows/jekyll.yml` (header comment is the authoritative doc) | Every branch: validate + build + five site gates. Branches other than main: blocking `publish --dry-run`, no secrets. Main only: publish → rebuild with tags → re-run gates → deploy → post-deploy `.well-known` smoke test |
+| CI wiring | `.github/workflows/jekyll.yml` (header comment is the authoritative doc) | Every branch: validate + build + six site gates (`test`, `build`, and `browser-checks` jobs). Branches other than main: blocking `publish --dry-run`, no secrets. Main only, in the `publish` job after every gate job: publish → rebuild with tags at the first build's `time:` → `check_rebuild_diff.rb` (only document link tags changed) → AT-path cross-check → deploy → post-deploy `.well-known` smoke test |
 | Secret | `BSKY_APP_PASSWORD` repo secret | App password (created without DM access) for the owner's account |
 
 ## Path derivation (must match Jekyll exactly)

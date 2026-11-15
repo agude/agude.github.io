@@ -163,7 +163,8 @@ reduce work inside those stages:
   with a space, tab, or `>`, the only characters that can begin indented
   code or a blockquote.
 - Docker commands set `RUBY_YJIT_ENABLE=1`; `make build RUBY_YJIT_ENABLE=0`
-  disables it for comparison. The CI build job sets it too. YJIT raises warm peak RSS by about 31 MiB.
+  disables it for comparison. Every CI job that runs Ruby sets it and fails
+  if YJIT is inactive. YJIT raises warm peak RSS by about 31 MiB.
 
 Measured on 2026-11-09 with Ruby 3.4.10: three warm builds per variant, in
 alternating order, each with its own warm conversion cache. The candidate
@@ -218,3 +219,15 @@ Measured 2026-11-14 under host load (builds about 1.6 times slower than the
 `protected_code_ranges` runs about five times per document, once for each
 consumer (whitespace normalizer, Markdown converter, link validator, masked
 ranges). Its remaining 0.65 s is the next target in that code.
+
+## CI layout (November 2026)
+
+The Jekyll builds were about 30 s of a roughly 8-minute run; the
+critical path was `test` (about 100 s) followed by the browser checks
+(about 200 s) in series. The workflow header documents the job graph:
+`test` and `build` run in parallel, the two browser checks run as a matrix
+on the uploaded site, and `publish` waits for all of them. Main's second
+build reuses the first build's `time:` and must differ only by document
+link tags (`_bin/check_rebuild_diff.rb`), which replaces re-running the
+HTML, feed, and link gates. The Markdown conversion cache is restored
+across runs; `_bin/prepare_build.rb` validates it by fingerprint.

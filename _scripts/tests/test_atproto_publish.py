@@ -2085,9 +2085,12 @@ class TestDidFromPublicationUri:
 WORKFLOW = Path(__file__).resolve().parents[2] / ".github" / "workflows" / "jekyll.yml"
 
 
+def _workflow_jobs() -> dict:
+    return yaml.safe_load(WORKFLOW.read_text(encoding="utf-8"))["jobs"]
+
+
 def _workflow_steps(job: str) -> list[dict]:
-    workflow = yaml.safe_load(WORKFLOW.read_text(encoding="utf-8"))
-    return workflow["jobs"][job]["steps"]
+    return _workflow_jobs()[job]["steps"]
 
 
 def _step(steps: list[dict], name: str) -> dict:
@@ -2132,7 +2135,16 @@ class TestWorkflowDryRun:
         assert "BSKY_" not in text
 
     def test_real_publish_stays_main_only(self) -> None:
-        step = _step(_workflow_steps("build"), "Publish standard.site records")
-        assert step["if"] == "github.ref == 'refs/heads/main' && inputs.skip_publish != true"
+        assert _workflow_jobs()["publish"]["if"] == "github.ref == 'refs/heads/main'"
+        step = _step(_workflow_steps("publish"), "Publish standard.site records")
+        assert step["if"] == "inputs.skip_publish != true"
         assert "--dry-run" not in step["run"]
         assert step["env"]["BSKY_APP_PASSWORD"] == "${{ secrets.BSKY_APP_PASSWORD }}"
+
+    def test_publish_waits_for_every_other_gate_job(self) -> None:
+        # PDS writes are not reversible: every job that gates the site must
+        # finish before the publish job starts.
+        jobs = _workflow_jobs()
+        gates = set(jobs) - {"publish", "deploy"}
+        assert set(jobs["publish"]["needs"]) == gates
+        assert jobs["deploy"]["needs"] == "publish"

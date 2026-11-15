@@ -20,10 +20,10 @@ module BinScriptHelper
 
   # Runs _bin/<script> with `dir` as its working directory.
   # Returns [combined stdout+stderr, Process::Status].
-  def run_bin_script(script, dir)
+  def run_bin_script(script, dir, *)
     path = File.join(REPO_ROOT, '_bin', script)
     command = script.end_with?('.sh') ? ['bash', path] : [RbConfig.ruby, path]
-    Open3.capture2e(*command, chdir: dir)
+    Open3.capture2e(*command, *, chdir: dir)
   end
 
   # Yields a fresh temporary directory containing an empty _site/.
