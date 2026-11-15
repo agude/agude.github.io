@@ -33,7 +33,8 @@ import re
 import sys
 import time
 from collections.abc import Callable
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime
+from datetime import time as dt_time
 from pathlib import Path
 from typing import Any
 from zoneinfo import ZoneInfo
@@ -53,6 +54,62 @@ READ_RETRIES = 3  # idempotent reads retry on transient failures; writes don't
 # cutoff uses the site timezone, and using UTC here would let an evening
 # build see "tomorrow's" post as publishable while Jekyll skips it.
 SITE_TZ = ZoneInfo("America/Los_Angeles")
+
+
+def is_future(instant: datetime, site_time: datetime | None = None) -> bool:
+    """
+    Whether Jekyll leaves a dated document out of the build.
+
+    Jekyll (future: false) does not write a post or collection document
+    whose date is after `site.time`, comparing whole seconds. CI fixes
+    `site.time` with a `time:` overlay and passes the same instant here
+    (--site-time), so the publisher and the build agree even when a run
+    crosses midnight. None means now, matching a build without the overlay.
+    """
+    now = site_time or datetime.now(SITE_TZ)
+    return int(instant.timestamp()) > int(now.timestamp())
+
+
+# Strings PyYAML leaves unparsed but Jekyll reads as times, such as
+# "2026-11-14 23:00:00 -0800" (an offset without a colon).
+_FRONT_MATTER_TIME_FORMATS = ("%Y-%m-%d %H:%M:%S %z", "%Y-%m-%d %H:%M %z")
+
+
+def document_instant(date_val: Any) -> datetime:
+    """
+    The instant Jekyll assigns to a front-matter or filename date.
+
+    Matches Jekyll 4.4 (SafeYAML, then Utils.parse_date): a bare date is
+    midnight in the site timezone; a time without an offset is UTC; a time
+    with an offset keeps it. Raises ValueError for anything else, so the
+    cutoff never guesses.
+    """
+    if isinstance(date_val, datetime):
+        return date_val if date_val.tzinfo else date_val.replace(tzinfo=UTC)
+    if isinstance(date_val, date):
+        return datetime.combine(date_val, dt_time(), SITE_TZ)
+    text = str(date_val).strip()
+    if re.fullmatch(r"\d{4}-\d{2}-\d{2}", text):
+        return datetime.combine(date.fromisoformat(text), dt_time(), SITE_TZ)
+    for fmt in _FRONT_MATTER_TIME_FORMATS:
+        try:
+            return datetime.strptime(text, fmt)
+        except ValueError:
+            pass
+    raise ValueError(
+        f"cannot tell when Jekyll publishes date {text!r}; use YYYY-MM-DD HH:MM:SS -ZZZZ"
+    )
+
+
+def parse_site_time(text: str) -> datetime:
+    """Parse --site-time: ISO 8601 with a UTC offset, as Jekyll's `time:` takes."""
+    try:
+        value = datetime.fromisoformat(text)
+    except ValueError as exc:
+        raise argparse.ArgumentTypeError(f"not an ISO 8601 timestamp: {text!r}") from exc
+    if value.tzinfo is None:
+        raise argparse.ArgumentTypeError(f"needs a UTC offset: {text!r}")
+    return value
 
 
 class PublishError(Exception):
@@ -136,7 +193,7 @@ def _slugify(name_slug: str) -> str:
     return "".join(out)
 
 
-def parse_post(path: Path) -> dict | None:
+def parse_post(path: Path, site_time: datetime | None = None) -> dict | None:
     """
     Parse a post file and return managed record fields, or None to skip.
 
@@ -177,8 +234,9 @@ def parse_post(path: Path) -> dict | None:
     # Jekyll builds with future: false, so a future-dated post has no page
     # yet; publishing a record for it would fail the site cross-check. The
     # reverse sweep picks it up once its date arrives and it is built.
-    published_at = record.get("publishedAt", "")
-    if published_at[:10] > datetime.now(SITE_TZ).strftime("%Y-%m-%d"):
+    if "publishedAt" in record and is_future(
+        document_instant(fm.get("date") or date_str), site_time
+    ):
         return None
 
     if "description" in fm and fm["description"] is not None:
@@ -233,7 +291,7 @@ def _to_publish_date(date_val: Any) -> str:
     return f"{str(date_val)[:10]}T00:00:00Z"
 
 
-def parse_book(path: Path, books_dir: Path) -> dict | None:
+def parse_book(path: Path, books_dir: Path, site_time: datetime | None = None) -> dict | None:
     """
     Parse a book review file and return managed record fields, or None to skip.
 
@@ -278,6 +336,10 @@ def parse_book(path: Path, books_dir: Path) -> dict | None:
 
     if "date" in fm and fm["date"] is not None and _can_derive_date(fm["date"]):
         record["publishedAt"] = _to_publish_date(fm["date"])
+        # Jekyll keeps a future-dated review in the collection but writes no
+        # page for it, so it gets no record yet; see parse_post.
+        if is_future(document_instant(fm["date"]), site_time):
+            return None
 
     return record
 
@@ -502,12 +564,14 @@ def _records_differ(local: dict, remote: dict) -> bool:
 
 
 def _document_sources(
-    posts_dir: Path, books_dir: Path | None
+    posts_dir: Path, books_dir: Path | None, site_time: datetime | None
 ) -> list[tuple[Path, Callable[[Path], dict | None]]]:
-    sources: list[tuple[Path, Callable[[Path], dict | None]]] = [(posts_dir, parse_post)]
+    sources: list[tuple[Path, Callable[[Path], dict | None]]] = [
+        (posts_dir, lambda f: parse_post(f, site_time))
+    ]
     if books_dir is not None:
         bd = books_dir
-        sources.append((bd, lambda f: parse_book(f, bd)))
+        sources.append((bd, lambda f: parse_book(f, bd, site_time)))
     return sources
 
 
@@ -535,7 +599,7 @@ def _require_dir(path: Path | None, label: str) -> bool:
     return False
 
 
-def _collect_documents(posts_dir: Path, books_dir: Path | None):
+def _collect_documents(posts_dir: Path, books_dir: Path | None, site_time: datetime | None = None):
     """
     Yield (doc_file, record_or_None, errors) for every candidate file.
 
@@ -545,7 +609,7 @@ def _collect_documents(posts_dir: Path, books_dir: Path | None):
     skipped (draft, re-review, non-post filename) or failed to parse.
     """
     seen_paths: dict[str, Path] = {}
-    for src_dir, parser in _document_sources(posts_dir, books_dir):
+    for src_dir, parser in _document_sources(posts_dir, books_dir, site_time):
         for doc_file in _source_files(src_dir):
             try:
                 rec = parser(doc_file)
@@ -581,6 +645,7 @@ def sync_documents(
     config: dict,
     books_dir: Path | None = None,
     dry_run: bool = False,
+    site_time: datetime | None = None,
 ) -> None:
     """Sync local posts (and books) to PDS document records; write data file."""
 
@@ -598,7 +663,7 @@ def sync_documents(
     # Shares _collect_documents with validate so the CI gate and the
     # publisher cannot drift; any per-document error aborts the sync.
     local: dict[str, tuple[Path, dict]] = {}
-    for doc_file, rec, errors in _collect_documents(posts_dir, books_dir):
+    for doc_file, rec, errors in _collect_documents(posts_dir, books_dir, site_time):
         if errors:
             raise PublishError("; ".join(f"{doc_file.name}: {msg}" for msg in errors))
         if rec is None:
@@ -783,6 +848,7 @@ def validate_documents(
     books_dir: Path | None = None,
     site_dir: Path | None = None,
     expected_publication_uri: str = "",
+    site_time: datetime | None = None,
 ) -> bool:
     """
     Validate all posts (and books) for AT Protocol compatibility.
@@ -805,7 +871,7 @@ def validate_documents(
     error_count = 0
     record_paths: set[str] = set()
 
-    for doc_file, rec, errors in _collect_documents(posts_dir, books_dir):
+    for doc_file, rec, errors in _collect_documents(posts_dir, books_dir, site_time):
         for msg in errors:
             print(f"ERROR: {doc_file.name}: {msg}", file=sys.stderr)
             error_count += 1
@@ -954,7 +1020,22 @@ def _dispatch(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="cmd", required=True)
 
-    pub_p = sub.add_parser("publish", help="Sync posts and books to PDS document records")
+    # publish and validate must apply the same cutoff as the build they
+    # check, so both take Jekyll's site.time from one definition.
+    site_time_p = argparse.ArgumentParser(add_help=False)
+    site_time_p.add_argument(
+        "--site-time",
+        type=parse_site_time,
+        default=None,
+        help="Jekyll's site.time for the build being checked (ISO 8601 with "
+        "offset); documents dated after it are skipped. Default: now",
+    )
+
+    pub_p = sub.add_parser(
+        "publish",
+        parents=[site_time_p],
+        help="Sync posts and books to PDS document records",
+    )
     pub_p.add_argument("--posts-dir", required=True, type=Path)
     pub_p.add_argument("--books-dir", required=True, type=Path)
     pub_p.add_argument("--data-out", required=True, type=Path)
@@ -969,6 +1050,7 @@ def _dispatch(argv: list[str] | None = None) -> None:
 
     val_p = sub.add_parser(
         "validate",
+        parents=[site_time_p],
         help="Validate posts and books for AT Protocol compatibility (no network, no credentials)",
     )
     val_p.add_argument("--posts-dir", required=True, type=Path)
@@ -993,6 +1075,7 @@ def _dispatch(argv: list[str] | None = None) -> None:
             books_dir=args.books_dir,
             site_dir=args.site_dir,
             expected_publication_uri=get_publication_uri(load_config()),
+            site_time=args.site_time,
         )
         if not ok:
             sys.exit(1)
@@ -1028,6 +1111,7 @@ def _dispatch(argv: list[str] | None = None) -> None:
             config,
             books_dir=args.books_dir,
             dry_run=args.dry_run,
+            site_time=args.site_time,
         )
     elif args.cmd == "delete-orphans":
         delete_orphans(

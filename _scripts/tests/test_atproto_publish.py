@@ -1,6 +1,8 @@
 """Tests for atproto/publish.py — all HTTP calls are mocked; no network access."""
 
+import argparse
 import json
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 import publish
@@ -1530,6 +1532,73 @@ class TestFutureDatedPosts:
         f.write_text("---\ntitle: Old\ndate: 2099-06-01\n---\n")
         assert parse_post(f) is None
 
+    def test_cutoff_compares_the_time_of_day(self, tmp_path: Path) -> None:
+        # Jekyll compares whole timestamps: a post scheduled for 23:00 is
+        # not built by a 10:00 run on the same day.
+        f = tmp_path / "2026-11-14-evening.md"
+        f.write_text("---\ntitle: Evening\ndate: 2026-11-14 23:00:00 -0800\n---\n")
+        morning = publish.parse_site_time("2026-11-14T10:00:00-08:00")
+        late = publish.parse_site_time("2026-11-14T23:00:00-08:00")
+        assert parse_post(f, morning) is None
+        assert parse_post(f, late) is not None
+
+    def test_cutoff_uses_the_given_time_not_now(self, tmp_path: Path) -> None:
+        f = tmp_path / "2026-11-15-midnight.md"
+        f.write_text("---\ntitle: Midnight\n---\n")
+        assert parse_post(f, publish.parse_site_time("2026-11-14T23:59:59-08:00")) is None
+        assert parse_post(f, publish.parse_site_time("2026-11-15T00:00:00-08:00")) is not None
+
+    def test_book_after_site_time_skipped(self, tmp_path: Path) -> None:
+        # Jekyll keeps a future-dated review in the collection but writes no page.
+        f = tmp_path / "later.md"
+        f.write_text("---\ntitle: Later\ndate: 2026-11-14 23:00:00 -0800\n---\n")
+        assert parse_book(f, tmp_path, publish.parse_site_time("2026-11-14T10:00:00-08:00")) is None
+        assert parse_book(f, tmp_path, publish.parse_site_time("2026-11-15T07:00:00Z")) is not None
+
+    @pytest.mark.parametrize(
+        ("value", "expected"),
+        [
+            # A bare date is midnight in the site timezone.
+            (date(2026, 11, 14), "2026-11-14T00:00:00-08:00"),
+            ("2026-11-14", "2026-11-14T00:00:00-08:00"),
+            # Jekyll reads a time without an offset as UTC.
+            (datetime(2026, 11, 14, 23, 0), "2026-11-14T23:00:00+00:00"),
+            # Offsets are kept, with or without a colon.
+            ("2026-11-14 23:00:00 -0800", "2026-11-14T23:00:00-08:00"),
+            (
+                datetime(2026, 11, 14, 23, 0, tzinfo=timezone(timedelta(hours=-5))),
+                "2026-11-14T23:00:00-05:00",
+            ),
+            # Daylight saving time: midnight on a July date is -07:00.
+            ("2026-07-04", "2026-07-04T00:00:00-07:00"),
+        ],
+    )
+    def test_document_instant_matches_jekyll(self, value: object, expected: str) -> None:
+        assert publish.document_instant(value) == datetime.fromisoformat(expected)
+
+    def test_document_instant_rejects_unknown_formats(self) -> None:
+        with pytest.raises(ValueError, match="cannot tell when Jekyll publishes"):
+            publish.document_instant("November 14, 2026")
+
+    def test_validate_applies_site_time_across_midnight(self, tmp_path: Path) -> None:
+        # A run whose build fixed site.time before midnight must not expect a
+        # page for a post dated the next day, even when validation runs after.
+        posts = tmp_path / "_posts"
+        posts.mkdir()
+        (posts / "2026-11-15-new.md").write_text("---\ntitle: New\n---\n")
+        site = tmp_path / "_site"
+        (site / "books").mkdir(parents=True)
+        (site / "blog").mkdir()
+        before_midnight = publish.parse_site_time("2026-11-14T23:58:00-08:00")
+        assert validate_documents(posts, site_dir=site, site_time=before_midnight)
+        after_midnight = publish.parse_site_time("2026-11-15T00:03:00-08:00")
+        assert not validate_documents(posts, site_dir=site, site_time=after_midnight)
+
+    @pytest.mark.parametrize("text", ["2026-11-14T23:58:00", "tomorrow"])
+    def test_site_time_requires_an_offset_timestamp(self, text: str) -> None:
+        with pytest.raises(argparse.ArgumentTypeError):
+            publish.parse_site_time(text)
+
 
 class TestPublicationVerification:
     def test_wrong_did_rejected(self, tmp_path: Path) -> None:
@@ -2136,3 +2205,21 @@ class TestWorkflowDryRun:
         assert step["if"] == "github.ref == 'refs/heads/main' && inputs.skip_publish != true"
         assert "--dry-run" not in step["run"]
         assert step["env"]["BSKY_APP_PASSWORD"] == "${{ secrets.BSKY_APP_PASSWORD }}"
+
+    def test_every_build_job_cutoff_uses_the_fixed_time(self) -> None:
+        # Both builds, both cross-checks, and publish must agree on which
+        # documents are due, or a document that becomes due mid-run gets a
+        # record without a page, or a page without a record.
+        steps = _workflow_steps("build")
+        names = [s.get("name") for s in steps]
+        assert names.index("Fix the build time") < names.index("Build with Jekyll")
+
+        overlay = '--config "_config.yml,$RUNNER_TEMP/build_time.yml"'
+        builds = [s["run"] for s in steps if "jekyll build" in s.get("run", "")]
+        assert len(builds) == 2
+        assert all(overlay in command for command in builds)
+
+        flag = '--site-time "${{ steps.build-time.outputs.value }}"'
+        commands = [s["run"] for s in steps if "atproto/publish.py" in s.get("run", "")]
+        assert len(commands) == 3
+        assert all(flag in command for command in commands)

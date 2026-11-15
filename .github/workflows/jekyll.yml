@@ -35,6 +35,12 @@
 #      The rebuild changes only link tags, so the image check is not
 #      re-run.
 #
+# The build job fixes one `time:` before the first build and shares it with
+# both builds (a config overlay), both cross-checks, and publish
+# (--site-time), so all of them agree on which future-dated documents are
+# due. The test job's validate and the branch dry run use the current clock:
+# they have no built site to agree with.
+#
 # Both jobs install ImageMagick from apt: the build's ImageDerivatives
 # generator encodes WebP cover copies with it, and the Ruby tests encode
 # real fixture images. The build job restores `.jekyll-cache/image-derivatives`
@@ -180,8 +186,22 @@ jobs:
           key: image-derivatives-${{ hashFiles('books/covers/**', 'files/**/*.jpg', 'files/**/*.jpeg', 'files/**/*.png', '_plugins/src/infrastructure/image_derivatives.rb', '_config.yml') }}
           restore-keys: image-derivatives-
 
+      # One cutoff for the whole run. Jekyll (future: false) leaves out
+      # documents dated after site.time, and the publisher skips the same
+      # documents. Without a fixed time, each build, cross-check, and publish
+      # reads the clock separately, and a document that becomes due between
+      # two of them gets a record without a page, or a page without a record.
+      # Both builds take this time through a config overlay; every
+      # publish.py call below takes it through --site-time.
+      - name: Fix the build time
+        id: build-time
+        run: |
+          value=$(TZ=$(ruby -ryaml -e 'print YAML.load_file("_config.yml").fetch("timezone")') date +%Y-%m-%dT%H:%M:%S%:z)
+          echo "value=$value" >> "$GITHUB_OUTPUT"
+          printf 'time: "%s"\n' "$value" > "$RUNNER_TEMP/build_time.yml"
+
       - name: Build with Jekyll
-        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        run: bundle exec jekyll build --config "_config.yml,$RUNNER_TEMP/build_time.yml" --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
 
@@ -189,10 +209,11 @@ jobs:
       # write records to the PDS: records are an external,
       # not-automatically-reversible system. The cross-check is a superset
       # of the test job's credential-free validate step (keep the two
-      # invocations' flags in sync).
+      # invocations' flags in sync, except --site-time, which only the
+      # build job has).
       - name: Cross-check AT record paths against built site
         working-directory: _scripts
-        run: uv run python atproto/publish.py validate --posts-dir ../_posts --books-dir ../_books --site-dir ../_site
+        run: uv run python atproto/publish.py validate --posts-dir ../_posts --books-dir ../_books --site-dir ../_site --site-time "${{ steps.build-time.outputs.value }}"
 
       - name: Validate HTML structure
         run: ./_bin/check_html_structure.sh
@@ -220,7 +241,7 @@ jobs:
       - name: Publish standard.site records
         if: github.ref == 'refs/heads/main' && inputs.skip_publish != true
         working-directory: _scripts
-        run: uv run python atproto/publish.py publish --posts-dir ../_posts --books-dir ../_books --data-out ../_data/standard_site.json
+        run: uv run python atproto/publish.py publish --posts-dir ../_posts --books-dir ../_books --data-out ../_data/standard_site.json --site-time "${{ steps.build-time.outputs.value }}"
         env:
           BSKY_HANDLE: alexgude.com
           BSKY_APP_PASSWORD: ${{ secrets.BSKY_APP_PASSWORD }}
@@ -230,14 +251,14 @@ jobs:
       # then re-runs every site gate against the artifact that deploys.
       - name: Rebuild with document link tags
         if: github.ref == 'refs/heads/main'
-        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        run: bundle exec jekyll build --config "_config.yml,$RUNNER_TEMP/build_time.yml" --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
 
       - name: Re-check final artifact
         if: github.ref == 'refs/heads/main'
         run: |
-          (cd _scripts && uv run python atproto/publish.py validate --posts-dir ../_posts --books-dir ../_books --site-dir ../_site)
+          (cd _scripts && uv run python atproto/publish.py validate --posts-dir ../_posts --books-dir ../_books --site-dir ../_site --site-time "${{ steps.build-time.outputs.value }}")
           ./_bin/check_html_structure.sh
           bundle exec ruby _bin/check_feeds.rb
           bundle exec ruby _bin/check_links.rb
