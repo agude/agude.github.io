@@ -55,6 +55,30 @@ READ_RETRIES = 3  # idempotent reads retry on transient failures; writes don't
 SITE_TZ = ZoneInfo("America/Los_Angeles")
 
 
+def site_date(site_time: datetime | None = None) -> str:
+    """
+    The site-timezone date (YYYY-MM-DD) of Jekyll's `site.time`.
+
+    Jekyll publishes a post when its date is not after `site.time`. CI fixes
+    `site.time` with a `time:` overlay and passes the same instant here
+    (--site-time), so a run that crosses midnight cannot publish a record
+    for a post its build excluded. None means now, which matches a build
+    without the overlay.
+    """
+    return (site_time or datetime.now(SITE_TZ)).astimezone(SITE_TZ).strftime("%Y-%m-%d")
+
+
+def parse_site_time(text: str) -> datetime:
+    """Parse --site-time: ISO 8601 with a UTC offset, as Jekyll's `time:` takes."""
+    try:
+        value = datetime.fromisoformat(text)
+    except ValueError as exc:
+        raise argparse.ArgumentTypeError(f"not an ISO 8601 timestamp: {text!r}") from exc
+    if value.tzinfo is None:
+        raise argparse.ArgumentTypeError(f"needs a UTC offset: {text!r}")
+    return value
+
+
 class PublishError(Exception):
     """Fatal pipeline error; main() converts it to a message and exit 1."""
 
@@ -136,7 +160,7 @@ def _slugify(name_slug: str) -> str:
     return "".join(out)
 
 
-def parse_post(path: Path) -> dict | None:
+def parse_post(path: Path, today: str | None = None) -> dict | None:
     """
     Parse a post file and return managed record fields, or None to skip.
 
@@ -178,7 +202,7 @@ def parse_post(path: Path) -> dict | None:
     # yet; publishing a record for it would fail the site cross-check. The
     # reverse sweep picks it up once its date arrives and it is built.
     published_at = record.get("publishedAt", "")
-    if published_at[:10] > datetime.now(SITE_TZ).strftime("%Y-%m-%d"):
+    if published_at[:10] > (today or site_date()):
         return None
 
     if "description" in fm and fm["description"] is not None:
@@ -502,9 +526,11 @@ def _records_differ(local: dict, remote: dict) -> bool:
 
 
 def _document_sources(
-    posts_dir: Path, books_dir: Path | None
+    posts_dir: Path, books_dir: Path | None, today: str
 ) -> list[tuple[Path, Callable[[Path], dict | None]]]:
-    sources: list[tuple[Path, Callable[[Path], dict | None]]] = [(posts_dir, parse_post)]
+    sources: list[tuple[Path, Callable[[Path], dict | None]]] = [
+        (posts_dir, lambda f: parse_post(f, today))
+    ]
     if books_dir is not None:
         bd = books_dir
         sources.append((bd, lambda f: parse_book(f, bd)))
@@ -535,7 +561,7 @@ def _require_dir(path: Path | None, label: str) -> bool:
     return False
 
 
-def _collect_documents(posts_dir: Path, books_dir: Path | None):
+def _collect_documents(posts_dir: Path, books_dir: Path | None, site_time: datetime | None = None):
     """
     Yield (doc_file, record_or_None, errors) for every candidate file.
 
@@ -545,7 +571,7 @@ def _collect_documents(posts_dir: Path, books_dir: Path | None):
     skipped (draft, re-review, non-post filename) or failed to parse.
     """
     seen_paths: dict[str, Path] = {}
-    for src_dir, parser in _document_sources(posts_dir, books_dir):
+    for src_dir, parser in _document_sources(posts_dir, books_dir, site_date(site_time)):
         for doc_file in _source_files(src_dir):
             try:
                 rec = parser(doc_file)
@@ -581,6 +607,7 @@ def sync_documents(
     config: dict,
     books_dir: Path | None = None,
     dry_run: bool = False,
+    site_time: datetime | None = None,
 ) -> None:
     """Sync local posts (and books) to PDS document records; write data file."""
 
@@ -598,7 +625,7 @@ def sync_documents(
     # Shares _collect_documents with validate so the CI gate and the
     # publisher cannot drift; any per-document error aborts the sync.
     local: dict[str, tuple[Path, dict]] = {}
-    for doc_file, rec, errors in _collect_documents(posts_dir, books_dir):
+    for doc_file, rec, errors in _collect_documents(posts_dir, books_dir, site_time):
         if errors:
             raise PublishError("; ".join(f"{doc_file.name}: {msg}" for msg in errors))
         if rec is None:
@@ -783,6 +810,7 @@ def validate_documents(
     books_dir: Path | None = None,
     site_dir: Path | None = None,
     expected_publication_uri: str = "",
+    site_time: datetime | None = None,
 ) -> bool:
     """
     Validate all posts (and books) for AT Protocol compatibility.
@@ -805,7 +833,7 @@ def validate_documents(
     error_count = 0
     record_paths: set[str] = set()
 
-    for doc_file, rec, errors in _collect_documents(posts_dir, books_dir):
+    for doc_file, rec, errors in _collect_documents(posts_dir, books_dir, site_time):
         for msg in errors:
             print(f"ERROR: {doc_file.name}: {msg}", file=sys.stderr)
             error_count += 1
@@ -964,6 +992,13 @@ def _dispatch(argv: list[str] | None = None) -> None:
         help="Print the plan without credentials: never log in, read only public "
         "records, refuse every write, and write no data file",
     )
+    pub_p.add_argument(
+        "--site-time",
+        type=parse_site_time,
+        default=None,
+        help="Jekyll's site.time for the build being published (ISO 8601 with "
+        "offset); posts dated after it are skipped. Default: now",
+    )
 
     sub.add_parser("init-publication", help="Create publication record (one-time)")
 
@@ -974,6 +1009,13 @@ def _dispatch(argv: list[str] | None = None) -> None:
     val_p.add_argument("--posts-dir", required=True, type=Path)
     val_p.add_argument("--books-dir", required=True, type=Path)
     val_p.add_argument("--site-dir", type=Path, default=None)
+    val_p.add_argument(
+        "--site-time",
+        type=parse_site_time,
+        default=None,
+        help="Jekyll's site.time for the build being published (ISO 8601 with "
+        "offset); posts dated after it are skipped. Default: now",
+    )
 
     del_p = sub.add_parser(
         "delete-orphans",
@@ -993,6 +1035,7 @@ def _dispatch(argv: list[str] | None = None) -> None:
             books_dir=args.books_dir,
             site_dir=args.site_dir,
             expected_publication_uri=get_publication_uri(load_config()),
+            site_time=args.site_time,
         )
         if not ok:
             sys.exit(1)
@@ -1028,6 +1071,7 @@ def _dispatch(argv: list[str] | None = None) -> None:
             config,
             books_dir=args.books_dir,
             dry_run=args.dry_run,
+            site_time=args.site_time,
         )
     elif args.cmd == "delete-orphans":
         delete_orphans(

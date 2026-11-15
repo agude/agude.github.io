@@ -44,7 +44,10 @@
 #      value is a hard failure — repo rule 5).
 #   8. A second Jekyll build embeds the per-document link tags. Both builds
 #      read the same `time:` overlay (the build job's `build-time` output),
-#      so `_bin/check_rebuild_diff.rb` can require the second build to
+#      and every `publish.py` call with a site directory, plus the publish
+#      itself, gets it as `--site-time`, so they agree on which posts are
+#      due even when a run crosses midnight. The shared time also lets
+#      `_bin/check_rebuild_diff.rb` require the second build to
 #      equal the gated first build apart from those tags. That carries the
 #      first build's gate results over to the deployed artifact; only the
 #      AT-path cross-check re-runs.
@@ -78,7 +81,11 @@
 # publishes would race the listRecords→createRecord cycle and could create
 # duplicate PDS records for the same post path. The deploy job's
 # `group: pages` lock is scoped to deployment only so it can't starve runs
-# on other branches.
+# on other branches. Locks serialize runs but do not order them, so an
+# older run can take a lock after a newer one released it. `publish` and
+# `deploy` therefore first check, while holding their lock, that the
+# commit is still main's head; a superseded run skips every later step and
+# the deploy, and the newer run publishes and deploys.
 name: Test and Deploy Jekyll site to Pages
 
 on:
@@ -283,7 +290,7 @@ jobs:
       # validate step (keep the two invocations' flags in sync).
       - name: Cross-check AT record paths against built site
         working-directory: _scripts
-        run: uv run python atproto/publish.py validate --posts-dir ../_posts --books-dir ../_books --site-dir ../_site
+        run: uv run python atproto/publish.py validate --posts-dir ../_posts --books-dir ../_books --site-dir ../_site --site-time "${{ needs.build.outputs.build-time }}"
 
       - name: Validate HTML structure
         run: ./_bin/check_html_structure.sh
@@ -350,27 +357,52 @@ jobs:
     concurrency:
       group: publish-${{ github.ref }}
       cancel-in-progress: false
+    outputs:
+      current: ${{ steps.current.outputs.value }}
     steps:
+      # The lock above serializes runs but does not order them: an older
+      # run can take it after a newer one has published. Holding the lock,
+      # skip the rest of this job and the deploy unless this commit is
+      # still main's head. The newer run publishes and deploys instead.
+      - name: Skip superseded commits
+        id: current
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          head=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/main" --jq .object.sha)
+          if [ "$head" = "$GITHUB_SHA" ]; then
+            echo "value=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::main is at $head; not publishing or deploying superseded $GITHUB_SHA"
+          fi
+
       - name: Checkout
+        if: steps.current.outputs.value == 'true'
         uses: actions/checkout@v7
 
       - name: Setup Ruby
+        if: steps.current.outputs.value == 'true'
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
           cache-version: 0
 
       - name: Confirm YJIT is active
+        if: steps.current.outputs.value == 'true'
         run: ruby -e 'abort "RUBY_YJIT_ENABLE is set but YJIT is not active" unless RubyVM::YJIT.enabled?'
 
       - name: Install uv
+        if: steps.current.outputs.value == 'true'
         uses: astral-sh/setup-uv@v10.3.3
 
       # ImageDerivatives encodes WebP cover copies with ImageMagick.
       - name: Install ImageMagick
+        if: steps.current.outputs.value == 'true'
         run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends imagemagick
 
       - name: Restore image derivative cache
+        if: steps.current.outputs.value == 'true'
         uses: actions/cache@v6
         with:
           path: .jekyll-cache/image-derivatives
@@ -378,6 +410,7 @@ jobs:
           restore-keys: image-derivatives-
 
       - name: Restore Markdown conversion cache
+        if: steps.current.outputs.value == 'true'
         uses: actions/cache/restore@v6
         with:
           path: |
@@ -387,15 +420,16 @@ jobs:
           restore-keys: jekyll-conversions-
 
       - name: Download the gated first build
+        if: steps.current.outputs.value == 'true'
         uses: actions/download-artifact@v8
         with:
           name: site
           path: ${{ runner.temp }}/first-site
 
       - name: Publish standard.site records
-        if: inputs.skip_publish != true
+        if: steps.current.outputs.value == 'true' && inputs.skip_publish != true
         working-directory: _scripts
-        run: uv run python atproto/publish.py publish --posts-dir ../_posts --books-dir ../_books --data-out ../_data/standard_site.json
+        run: uv run python atproto/publish.py publish --posts-dir ../_posts --books-dir ../_books --data-out ../_data/standard_site.json --site-time "${{ needs.build.outputs.build-time }}"
         env:
           BSKY_HANDLE: alexgude.com
           BSKY_APP_PASSWORD: ${{ secrets.BSKY_APP_PASSWORD }}
@@ -404,6 +438,7 @@ jobs:
       # not run yet), so main rebuilds to embed the per-document link tags,
       # at the first build's time.
       - name: Rebuild with document link tags
+        if: steps.current.outputs.value == 'true'
         run: |
           printf 'time: "%s"\n' "${{ needs.build.outputs.build-time }}" > "$RUNNER_TEMP/build_time.yml"
           ruby _bin/prepare_build.rb production
@@ -412,17 +447,20 @@ jobs:
           JEKYLL_ENV: production
 
       - name: Check the rebuild changed only document link tags
+        if: steps.current.outputs.value == 'true'
         run: bundle exec ruby _bin/check_rebuild_diff.rb "$RUNNER_TEMP/first-site" _site
 
       - name: Cross-check AT record paths against the final artifact
+        if: steps.current.outputs.value == 'true'
         working-directory: _scripts
-        run: uv run python atproto/publish.py validate --posts-dir ../_posts --books-dir ../_books --site-dir ../_site
+        run: uv run python atproto/publish.py validate --posts-dir ../_posts --books-dir ../_books --site-dir ../_site --site-time "${{ needs.build.outputs.build-time }}"
 
       # include-hidden-files is required: the action's tar excludes
       # dot-prefixed entries by default, which silently dropped
       # .well-known/site.standard.publication from the first deploy
       # while every _site-level gate stayed green.
       - name: Upload Pages artifact
+        if: steps.current.outputs.value == 'true'
         uses: actions/upload-pages-artifact@v5
         with:
           include-hidden-files: true
@@ -437,19 +475,37 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: publish
-    # This matches the publish job's condition: it uploaded the artifact.
-    if: github.ref == 'refs/heads/main'
+    # The publish job uploaded an artifact only for main's current head.
+    if: github.ref == 'refs/heads/main' && needs.publish.outputs.current == 'true'
     steps:
+      # Re-checked while holding the pages lock: a newer run may have
+      # deployed since this run's publish job checked.
+      - name: Skip superseded commits
+        id: current
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          head=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/main" --jq .object.sha)
+          if [ "$head" = "$GITHUB_SHA" ]; then
+            echo "value=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::main is at $head; not deploying superseded $GITHUB_SHA"
+          fi
+
       - name: Checkout
+        if: steps.current.outputs.value == 'true'
         uses: actions/checkout@v7
 
       - name: Deploy to GitHub Pages
+        if: steps.current.outputs.value == 'true'
         id: deployment
         uses: actions/deploy-pages@v5
 
       # Artifact-side proof that dot-path files actually deployed; the
       # build gates can only see _site/, not what the packaging step kept.
       - name: Smoke-test deployed .well-known
+        if: steps.current.outputs.value == 'true'
         run: |
           expected=$(grep -A2 '^standard_site:' _config.yml | grep publication_uri | sed 's/.*"\(at:[^"]*\)".*/\1/')
           echo "Expecting: $expected"

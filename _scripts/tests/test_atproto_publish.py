@@ -1,6 +1,8 @@
 """Tests for atproto/publish.py — all HTTP calls are mocked; no network access."""
 
+import argparse
 import json
+from datetime import UTC, datetime
 from pathlib import Path
 
 import publish
@@ -1530,6 +1532,35 @@ class TestFutureDatedPosts:
         f.write_text("---\ntitle: Old\ndate: 2099-06-01\n---\n")
         assert parse_post(f) is None
 
+    def test_cutoff_uses_the_given_date_not_now(self, tmp_path: Path) -> None:
+        f = tmp_path / "2026-11-15-midnight.md"
+        f.write_text("---\ntitle: Midnight\n---\n")
+        assert parse_post(f, today="2026-11-14") is None
+        assert parse_post(f, today="2026-11-15") is not None
+
+    def test_site_date_is_the_site_timezone_date(self) -> None:
+        # 07:30 UTC on the 15th is 23:30 Pacific on the 14th.
+        assert publish.site_date(datetime(2026, 11, 15, 7, 30, tzinfo=UTC)) == "2026-11-14"
+
+    def test_validate_applies_site_time_across_midnight(self, tmp_path: Path) -> None:
+        # A run whose build fixed site.time before midnight must not expect a
+        # page for a post dated the next day, even when validation runs after.
+        posts = tmp_path / "_posts"
+        posts.mkdir()
+        (posts / "2026-11-15-new.md").write_text("---\ntitle: New\n---\n")
+        site = tmp_path / "_site"
+        (site / "books").mkdir(parents=True)
+        (site / "blog").mkdir()
+        before_midnight = publish.parse_site_time("2026-11-14T23:58:00-08:00")
+        assert validate_documents(posts, site_dir=site, site_time=before_midnight)
+        after_midnight = publish.parse_site_time("2026-11-15T00:03:00-08:00")
+        assert not validate_documents(posts, site_dir=site, site_time=after_midnight)
+
+    @pytest.mark.parametrize("text", ["2026-11-14T23:58:00", "tomorrow"])
+    def test_site_time_requires_an_offset_timestamp(self, text: str) -> None:
+        with pytest.raises(argparse.ArgumentTypeError):
+            publish.parse_site_time(text)
+
 
 class TestPublicationVerification:
     def test_wrong_did_rejected(self, tmp_path: Path) -> None:
@@ -2137,7 +2168,7 @@ class TestWorkflowDryRun:
     def test_real_publish_stays_main_only(self) -> None:
         assert _workflow_jobs()["publish"]["if"] == "github.ref == 'refs/heads/main'"
         step = _step(_workflow_steps("publish"), "Publish standard.site records")
-        assert step["if"] == "inputs.skip_publish != true"
+        assert step["if"] == "steps.current.outputs.value == 'true' && inputs.skip_publish != true"
         assert "--dry-run" not in step["run"]
         assert step["env"]["BSKY_APP_PASSWORD"] == "${{ secrets.BSKY_APP_PASSWORD }}"
 
@@ -2148,3 +2179,27 @@ class TestWorkflowDryRun:
         gates = set(jobs) - {"publish", "deploy"}
         assert set(jobs["publish"]["needs"]) == gates
         assert jobs["deploy"]["needs"] == "publish"
+
+    @pytest.mark.parametrize("job", ["publish", "deploy"])
+    def test_superseded_commits_neither_publish_nor_deploy(self, job: str) -> None:
+        # The concurrency lock serializes runs but does not order them. The
+        # check runs first, while holding the lock, and gates every later step.
+        steps = _workflow_steps(job)
+        assert steps[0]["name"] == "Skip superseded commits"
+        assert steps[0]["id"] == "current"
+        for step in steps[1:]:
+            assert step["if"].startswith("steps.current.outputs.value == 'true'"), step["name"]
+
+    def test_deploy_needs_a_current_publish(self) -> None:
+        jobs = _workflow_jobs()
+        assert jobs["publish"]["outputs"]["current"] == "${{ steps.current.outputs.value }}"
+        assert "needs.publish.outputs.current == 'true'" in jobs["deploy"]["if"]
+
+    def test_every_site_cutoff_uses_the_build_time(self) -> None:
+        # Jekyll, validation, and publishing must agree on which posts are
+        # due, or a run crossing midnight writes records for unbuilt pages.
+        flag = '--site-time "${{ needs.build.outputs.build-time }}"'
+        steps = [s for job in ("site-checks", "publish") for s in _workflow_steps(job)]
+        commands = [s["run"] for s in steps if "atproto/publish.py" in s.get("run", "")]
+        assert len(commands) == 3
+        assert all(flag in command for command in commands)
