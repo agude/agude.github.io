@@ -3,9 +3,9 @@
 # Job graph. `test` and `build` start together; nothing waits for `test`
 # except `publish`, which is the only job that writes to an external system.
 #
-#   test ──────────────────────────────┐
-#   build ──┬── browser-checks (x2) ───┼── publish (main) ── deploy (main)
-#           └──────────────────────────┘
+#   test ─────────────────────────────┐
+#   build ──┬── site-checks ──────────┤
+#           └── browser-checks (x2) ──┴── publish (main) ── deploy (main)
 #
 # test (every branch):
 #   1. `bundle exec rubocop` (lint).
@@ -19,9 +19,12 @@
 #      from bsky.social and refuses every write. Blocking, so a
 #      bsky.social outage fails branch CI; rerun the job.
 #
-# build (every branch): builds the site, uploads it as the `site` artifact
-# as soon as it exists, then runs four gates: the AT-path cross-check
-# (validate --site-dir, both directions), HTML structure
+# build (every branch): builds the site and uploads it as the `site`
+# artifact. It runs no gates: a job's dependents start only when the whole
+# job ends, so gates here would delay the browser checks.
+#
+# site-checks (every branch): four gates over the `site` artifact: the
+# AT-path cross-check (validate --site-dir, both directions), HTML structure
 # (_bin/check_html_structure.sh), feed XML (_bin/check_feeds.rb), and
 # broken links (_bin/check_links.rb).
 #
@@ -196,9 +199,6 @@ jobs:
         id: pages
         uses: actions/configure-pages@v6
 
-      - name: Install uv
-        uses: astral-sh/setup-uv@v10.3.3
-
       # ImageDerivatives encodes WebP cover copies with ImageMagick.
       - name: Install ImageMagick
         run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends imagemagick
@@ -239,7 +239,7 @@ jobs:
         env:
           JEKYLL_ENV: production
 
-      # Uploaded before the gates below so browser-checks can start now.
+      # Downstream jobs start when this job ends, so it runs no gates.
       # Covers are already compressed, so archive compression only costs
       # time. include-hidden-files keeps .well-known/.
       - name: Upload site for downstream jobs
@@ -250,6 +250,34 @@ jobs:
           include-hidden-files: true
           compression-level: 0
           retention-days: 1
+
+  # Site checks - Run on EVERY branch against the build job's artifact
+  site-checks:
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      RUBY_YJIT_ENABLE: "1"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          cache-version: 0
+
+      - name: Confirm YJIT is active
+        run: ruby -e 'abort "RUBY_YJIT_ENABLE is set but YJIT is not active" unless RubyVM::YJIT.enabled?'
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v10.3.3
+
+      - name: Download site
+        uses: actions/download-artifact@v8
+        with:
+          name: site
+          path: _site
 
       # The cross-check is a superset of the test job's credential-free
       # validate step (keep the two invocations' flags in sync).
@@ -315,7 +343,7 @@ jobs:
   publish:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    needs: [test, build, browser-checks]
+    needs: [test, build, site-checks, browser-checks]
     env:
       RUBY_YJIT_ENABLE: "1"
     # Serialize per ref (no cancellation); see the header.

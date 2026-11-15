@@ -225,8 +225,10 @@ ranges). Its remaining 0.65 s is the next target in that code.
 The Jekyll builds were about 30 s of a roughly 8-minute run; the
 critical path was `test` (about 100 s) followed by the browser checks
 (about 200 s) in series. The workflow header documents the job graph:
-`test` and `build` run in parallel, the two browser checks run as a matrix
-on the uploaded site, and `publish` waits for all of them. Main's second
+`test` and `build` run in parallel; the HTML, feed, and link gates
+(`site-checks`) and the two browser checks run on the uploaded site; and
+`publish` waits for all of them. `build` runs no gates, because dependent
+jobs start only when a job ends. Main's second
 build reuses the first build's `time:` and must differ only by document
 link tags (`_bin/check_rebuild_diff.rb`), which replaces re-running the
 HTML, feed, and link gates. The Markdown conversion cache is restored
