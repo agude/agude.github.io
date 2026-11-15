@@ -13,25 +13,49 @@ image_alt: >
   painted in Caltrain's colors: silver with red, blue, and teal stripes.
   Double-decker passenger cars follow.
 categories:
+  - caltrain
   - data-visualization
 ---
 
-{% comment -%}
-TODO: Opening paragraph. It becomes the excerpt, so it must come before any
-capture block.
-{%- endcomment %}
+On January 27, 2026, [Caltrain _once again_ updated their
+schedule][caltrain_2026_schedule]. They've actually made several schedule
+changes since [I last wrote about them][update_post], but I haven't bothered
+to plot them because, even though I have already written the script to do so,
+it still takes a lot of work to process the data and adjust bounds, etc. But
+that's changed now.
+
+[caltrain_2026_schedule]: https://www.caltrain.com/news/caltrain-announces-new-schedule
+
+[first_post]: {% post_url 2017-05-21-caltrain_visual_schedule %}
+[update_post]: {% post_url 2017-10-07-caltrain_visual_schedule_updates %}
+[python_free]: {% post_url 2025-08-30-llms_make_python_free %}
+
+In the fall of 2025, Anthropic released [Opus 4.5][opus_45] and coding changed
+forever. At the time, I was writing about 95% of code by hand, with the rest
+being filled in a smart completions from older LLM models. Now I write
+[essentially no code by hand][python_free]. I figured it could probably take
+the tedium out of making these plots as well. So I told Opus 5.5:
+
+```
+It's time to update the Caltrain plots. See:
+
+- https://alexgude.com/blog/caltrain-visual-schedule.md
+- https://alexgude.com/blog/caltrain-visual-schedule-updates.md
+
+Create a library in this folder to do it and generate the same set of plots
+for the newest schedule.
+```
+
+And five minutes later it had taken my code, turned it into a library, pulled
+the new data, and made the plots. I spent another few turns iterating on some
+plot tweaks, but I never touched the code myself.
+
+[opus_45]: https://www.anthropic.com/news/claude-opus-4-5
 
 {% capture file_dir %}/files/caltrain-schedule{% endcapture %}
 {% capture apr2017 %}{{ file_dir }}/caltrain-20170308{% endcapture %}
 {% capture jul2017 %}{{ file_dir }}/caltrain-20170715{% endcapture %}
 {% capture now %}{{ file_dir }}/caltrain-20261113{% endcapture %}
-
-{% comment %}Earlier posts{% endcomment %}
-
-[first_post]: {% post_url 2017-05-21-caltrain_visual_schedule %}
-[update_post]: {% post_url 2017-10-07-caltrain_visual_schedule_updates %}
-
-{% comment %}Marey and Ibry, for the recap of the first post{% endcomment %}
 
 [marey]: https://en.wikipedia.org/wiki/%C3%89tienne-Jules_Marey
 [la_methode]: https://archive.org/details/lamthodegraphiq00maregoog

@@ -12,6 +12,7 @@ image_alt: >
   The train is grey with a bright red square painted on the front containing
   the letters 'SP' in white.
 categories:
+  - caltrain
   - data-visualization
 ---
 
