@@ -185,3 +185,36 @@ Liquid code kept as a fallback. It cut `compress.html` from about 1.05 s to
 0.75 s in `make serve-profile` (2026-11-14), about 3% of compile time. That
 did not justify a second compressor and 93 lines of equivalence tests.
 Keep the upstream Liquid layout; see also D4 above.
+
+## Measuring build changes
+
+Wall time on the development machine is unusable for changes under about
+10%: on 2026-11-14 the same build drifted from 17 s to 13.5 s within one
+series, and CPU time drifted with it, so unpaired medians are noise too.
+Use one of these instead:
+
+- **`make bench`** (`_bin/bench_build.rb`) runs production builds in one
+  container, alternating the `BENCH_VARIANTS` environment assignments and
+  rotating which variant goes first. Compare the **paired CPU change**:
+  each run against the first variant's run in the same round. It handles
+  environment toggles only; for a code change, use a probe.
+- **A temporary timing probe** for one function: a `_plugins/zz_*.rb` file
+  that prepends a module timing the method with
+  `CLOCK_THREAD_CPUTIME_ID` and prints totals in a `:site, :post_write`
+  hook. Adding it invalidates the conversion cache once. Delete it after.
+- **`make serve-profile`** for Liquid templates.
+
+### Attribution of the November 2026 changes
+
+Measured 2026-11-14 under host load (builds about 1.6 times slower than the
+2026-11-09 figures above):
+
+| Change                 | Method                           | Saving                                       |
+| ---------------------- | -------------------------------- | -------------------------------------------- |
+| YJIT                   | `make bench`, 5 paired rounds    | About 4% CPU (paired); unpaired −0.9%        |
+| Markdown parser guards | Probe on `protected_code_ranges` | 1.35–1.59 s to 0.63–0.70 s CPU (2,025 calls) |
+| Preview validator      | Validator-only runs (11-09)      | 0.49–0.76 s to 0.018 s                       |
+
+`protected_code_ranges` runs about five times per document, once for each
+consumer (whitespace normalizer, Markdown converter, link validator, masked
+ranges). Its remaining 0.65 s is the next target in that code.

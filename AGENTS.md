@@ -13,6 +13,8 @@ Jekyll-based static site (alexgude.com) running in Docker.
 - **Test:** `make test` (Runs all tests in `_tests/`).
 - **Test File:** `make test TEST=_tests/src/path/to/test.rb`
 - **Build:** `make build` (Production build to `_site/`).
+- **Benchmark:** `make bench BENCH_VARIANTS='A=0;A=1' RUNS=5` (Alternating
+  production builds; compare the paired CPU change, not wall time).
 - **Deps:** `make lock` (Update Gemfile.lock via Docker).
 - **Lint:** `make lint` / `make format-all`.
 - **Lint Python:** `make lint-scripts` (Ruff check + format check) /

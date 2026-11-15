@@ -61,7 +61,7 @@ OPEN := $(shell command -v xdg-open 2>/dev/null || command -v open 2>/dev/null)
 .PHONY: serve build test test-scripts lint lint-scripts format-scripts clean debug scripts
 
 # Tier 2: Command variants
-.PHONY: serve-drafts serve-profile test-cov test-summary lint-fix check-links check-refs check-liquid check-images check-colors doc-index doc-show
+.PHONY: serve-drafts serve-profile bench test-cov test-summary lint-fix check-links check-refs check-liquid check-images check-colors doc-index doc-show
 
 # Tier 3: Domain operations
 .PHONY: image-build image-rebuild deps-lock hooks-install prettier-image-build prettier-image-rebuild format-md prettier rank
@@ -157,6 +157,18 @@ serve-profile: image-build
 	@echo "Profiling Jekyll build..."
 	@echo "Output will be in '_site' and Liquid profiles in '_profile/'."
 	@$(DOCKER_RUN) bundle exec jekyll build --profile --config _config.yml,.jekyll-cache/profile.yml
+
+# Compare production builds by CPU time, which host load distorts far less
+# than wall time. BENCH_VARIANTS is a ';'-separated list of environment
+# assignments; runs alternate between them. Example:
+#   make bench BENCH_VARIANTS='RUBY_YJIT_ENABLE=0;RUBY_YJIT_ENABLE=1' RUNS=5
+BENCH_VARIANTS ?=
+RUNS ?= 5
+WARMUP ?= 1
+bench: image-build
+	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) -e JEKYLL_ENV=production \
+		-e BENCH_VARIANTS='$(BENCH_VARIANTS)' -e RUNS=$(RUNS) -e WARMUP=$(WARMUP) $(IMAGE) \
+		bundle exec ruby _bin/bench_build.rb
 
 # Serves the site for local development, with live reloading.
 # This target contains the solution to the '0.0.0.0' URL issue in browsers.
