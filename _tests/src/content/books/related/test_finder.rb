@@ -41,6 +41,21 @@ class TestRelatedBooksFinder < RelatedBookFinderTestCase
     assert_equal books[3].url, result[:books][2].url
   end
 
+  def test_books_after_site_time_are_excluded_even_when_past_now
+    # Jekyll does not write a book dated after site.time, so linking it
+    # would point at no page, whatever the wall clock says.
+    books, site = @helper.setup_series_books(3)
+    site.time = @test_time_now - (60 * 60 * 24 * 7.5)
+    finder = Jekyll::Books::Related::Finder.new(site, books[0], DEFAULT_MAX_BOOKS)
+    result = nil
+    Time.stub :now, @test_time_now do
+      result = finder.find
+    end
+
+    assert_includes result[:books].map(&:url), books[1].url
+    refute_includes result[:books].map(&:url), books[2].url
+  end
+
   def test_series_book2_of_4_returns_books_1_3_4
     books, site = @helper.setup_series_books(4)
     context = create_context({}, { site: site, page: books[1] })
