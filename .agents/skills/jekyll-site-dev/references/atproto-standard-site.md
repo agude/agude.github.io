@@ -103,9 +103,27 @@ lexicons. It explains how the pieces connect and what to do when they change.
 - `actions/upload-pages-artifact` drops dot-prefixed files unless
   `include-hidden-files: true` — that flag is load-bearing for
   `.well-known` (it was silently dropped on the first deploy).
-- The future-post cutoff and Jekyll's `future: false` both use the
-  site timezone (`America/Los_Angeles`); the constant in `publish.py`
-  must track `_config.yml`'s `timezone:` key.
+- The future-document cutoff matches Jekyll's `future: false`: posts and
+  book reviews dated after `site.time` get no page and no record. Both
+  compare whole timestamps, not dates. A bare date is midnight in the site
+  timezone (`America/Los_Angeles`; the `SITE_TZ` constant in `publish.py`
+  must track `_config.yml`'s `timezone:` key). An unquoted YAML timestamp
+  without an offset is UTC; a quoted timestamp without an offset uses the
+  site timezone. Explicit offsets are kept. `document_instant` accepts ISO
+  timestamps and raises on unsupported formats rather than guess. Shared
+  fixtures in `_scripts/tests/fixtures/atproto_dates.json` are checked by
+  both the Python publisher tests and a real Jekyll build in
+  `_tests/test_atproto_dates.rb`.
+- **One cutoff time per CI run.** The `build` job's **Fix the build time**
+  step fixes one UTC `time:` before the first build and writes it to a
+  config overlay. Both Jekyll builds read that overlay, and both
+  `validate --site-dir` cross-checks and `publish` take the same instant
+  through `--site-time`. Without it, a document that becomes due between
+  two steps gets a record without a page, or a page without a record, and
+  the cross-check fails. The `test` job's validate and the branch dry run
+  capture the current clock once per document scan: they have no built
+  site to agree with. To reproduce a CI cutoff locally, build with the same
+  `time:` overlay and pass the same `--site-time` to `validate`.
 - Other apps (Leaflet, pckt) may write `site.standard.document`
   records into the same PDS collection; everything here is scoped by
   `site == publication_uri` and must stay that way.

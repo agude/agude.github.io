@@ -17,7 +17,8 @@ module Jekyll
           @site = site
           @page = page
           @max_posts = max_posts || @site&.config&.dig('display_limits', 'related_posts') || DEFAULT_MAX_POSTS
-          @now_unix = Time.now.to_i
+          # Jekyll's own clock for "future" content; see Books::Related::Finder.
+          @now_unix = @site ? @site.time.to_i : Time.now.to_i
           @found_by_category = false
         end
 

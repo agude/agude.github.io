@@ -65,7 +65,8 @@ class TestRelatedBooksFinderCache < RelatedBookFinderTestCase
       write_rebuild_fixture(source)
       script = <<~RUBY
         require 'jekyll'
-        site = Jekyll::Site.new(Jekyll.configuration('source' => ARGV[0], 'quiet' => true))
+        # Without a destination, Jekyll writes to ./_site: the repository's.
+        site = Jekyll::Site.new(Jekyll.configuration('source' => ARGV[0], 'destination' => File.join(ARGV[0], '_site'), 'quiet' => true))
         site.process
         before = site.collections['books'].docs.find { |book| book.data['title'] == 'Current' }
         abort 'first selection wrong' unless Jekyll::Books::Related::Finder.new(site, before, 1).find[:books].first.data['title'] == 'Second'

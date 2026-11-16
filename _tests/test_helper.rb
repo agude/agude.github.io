@@ -347,6 +347,14 @@ class MockSite
                 :categories,
                 :static_files
 
+  attr_writer :time
+
+  # Jekyll's site.time. Unset, it reads the clock on each call, so tests
+  # that stub Time.now around a finder see the stubbed time.
+  def time
+    @time || Time.now
+  end
+
   def initialize(config, collections, pages, posts, baseurl, source, converters, data, categories)
     @config = config
     @collections = collections

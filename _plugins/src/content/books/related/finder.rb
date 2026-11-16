@@ -132,8 +132,11 @@ module Jekyll
           urls
         end
 
+        # Jekyll keeps future-dated books in the collection but does not
+        # write them, judging "future" by site.time. Use the same clock, or a
+        # book dated between site.time and now becomes a link to no page.
         def fetch_potential_books(urls_to_exclude)
-          now_unix = Time.now.to_i
+          now_unix = @site.time.to_i
           @site.collections['books'].docs.select do |book|
             valid_potential_book?(book, urls_to_exclude, now_unix)
           end.compact
