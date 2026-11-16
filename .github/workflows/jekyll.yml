@@ -196,7 +196,7 @@ jobs:
       - name: Fix the build time
         id: build-time
         run: |
-          value=$(TZ=$(ruby -ryaml -e 'print YAML.load_file("_config.yml").fetch("timezone")') date +%Y-%m-%dT%H:%M:%S%:z)
+          value=$(date -u +%Y-%m-%dT%H:%M:%SZ)
           echo "value=$value" >> "$GITHUB_OUTPUT"
           printf 'time: "%s"\n' "$value" > "$RUNNER_TEMP/build_time.yml"
 

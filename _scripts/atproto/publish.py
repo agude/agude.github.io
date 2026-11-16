@@ -70,19 +70,14 @@ def is_future(instant: datetime, site_time: datetime | None = None) -> bool:
     return int(instant.timestamp()) > int(now.timestamp())
 
 
-# Strings PyYAML leaves unparsed but Jekyll reads as times, such as
-# "2026-11-14 23:00:00 -0800" (an offset without a colon).
-_FRONT_MATTER_TIME_FORMATS = ("%Y-%m-%d %H:%M:%S %z", "%Y-%m-%d %H:%M %z")
-
-
 def document_instant(date_val: Any) -> datetime:
     """
     The instant Jekyll assigns to a front-matter or filename date.
 
     Matches Jekyll 4.4 (SafeYAML, then Utils.parse_date): a bare date is
-    midnight in the site timezone; a time without an offset is UTC; a time
-    with an offset keeps it. Raises ValueError for anything else, so the
-    cutoff never guesses.
+    midnight in the site timezone. Unquoted YAML timestamps without an
+    offset are UTC; quoted timestamps without an offset use the site
+    timezone. Explicit offsets are kept. Unsupported formats raise.
     """
     if isinstance(date_val, datetime):
         return date_val if date_val.tzinfo else date_val.replace(tzinfo=UTC)
@@ -91,14 +86,13 @@ def document_instant(date_val: Any) -> datetime:
     text = str(date_val).strip()
     if re.fullmatch(r"\d{4}-\d{2}-\d{2}", text):
         return datetime.combine(date.fromisoformat(text), dt_time(), SITE_TZ)
-    for fmt in _FRONT_MATTER_TIME_FORMATS:
-        try:
-            return datetime.strptime(text, fmt)
-        except ValueError:
-            pass
-    raise ValueError(
-        f"cannot tell when Jekyll publishes date {text!r}; use YYYY-MM-DD HH:MM:SS -ZZZZ"
-    )
+    try:
+        value = datetime.fromisoformat(text)
+    except ValueError as exc:
+        raise ValueError(
+            f"cannot tell when Jekyll publishes date {text!r}; use YYYY-MM-DD HH:MM:SS -ZZZZ"
+        ) from exc
+    return value if value.tzinfo else value.replace(tzinfo=SITE_TZ)
 
 
 def parse_site_time(text: str) -> datetime:
@@ -608,6 +602,7 @@ def _collect_documents(posts_dir: Path, books_dir: Path | None, site_time: datet
     and duplicate paths all surface here. record is None when the file is
     skipped (draft, re-review, non-post filename) or failed to parse.
     """
+    site_time = site_time or datetime.now(SITE_TZ)
     seen_paths: dict[str, Path] = {}
     for src_dir, parser in _document_sources(posts_dir, books_dir, site_time):
         for doc_file in _source_files(src_dir):

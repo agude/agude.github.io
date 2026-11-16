@@ -2,7 +2,7 @@
 
 import argparse
 import json
-from datetime import date, datetime, timedelta, timezone
+from datetime import datetime, timedelta
 from pathlib import Path
 
 import publish
@@ -1556,25 +1556,44 @@ class TestFutureDatedPosts:
         assert parse_book(f, tmp_path, publish.parse_site_time("2026-11-15T07:00:00Z")) is not None
 
     @pytest.mark.parametrize(
-        ("value", "expected"),
-        [
-            # A bare date is midnight in the site timezone.
-            (date(2026, 11, 14), "2026-11-14T00:00:00-08:00"),
-            ("2026-11-14", "2026-11-14T00:00:00-08:00"),
-            # Jekyll reads a time without an offset as UTC.
-            (datetime(2026, 11, 14, 23, 0), "2026-11-14T23:00:00+00:00"),
-            # Offsets are kept, with or without a colon.
-            ("2026-11-14 23:00:00 -0800", "2026-11-14T23:00:00-08:00"),
-            (
-                datetime(2026, 11, 14, 23, 0, tzinfo=timezone(timedelta(hours=-5))),
-                "2026-11-14T23:00:00-05:00",
-            ),
-            # Daylight saving time: midnight on a July date is -07:00.
-            ("2026-07-04", "2026-07-04T00:00:00-07:00"),
-        ],
+        "fixture",
+        json.loads((Path(__file__).parent / "fixtures/atproto_dates.json").read_text()),
+        ids=lambda fixture: fixture["date_yaml"],
     )
-    def test_document_instant_matches_jekyll(self, value: object, expected: str) -> None:
-        assert publish.document_instant(value) == datetime.fromisoformat(expected)
+    def test_yaml_dates_match_jekyll(self, tmp_path: Path, fixture: dict) -> None:
+        # The Ruby suite checks the same fixtures against actual Jekyll output.
+        text = f"---\ntitle: Fixture\ndate: {fixture['date_yaml']}\n---\n"
+        instant = datetime.fromisoformat(fixture["instant"])
+        post = tmp_path / f"{instant:%Y-%m-%d}-fixture.md"
+        book = tmp_path / "fixture.md"
+        post.write_text(text)
+        book.write_text(text)
+        date_value = yaml.safe_load(f"date: {fixture['date_yaml']}")["date"]
+        assert publish.document_instant(date_value) == instant
+        for seconds in (-1, 0, 1):
+            cutoff = instant + timedelta(seconds=seconds)
+            expected = seconds >= 0
+            assert (parse_post(post, cutoff) is not None) == expected
+            assert (parse_book(book, tmp_path, cutoff) is not None) == expected
+
+    def test_default_cutoff_is_fixed_for_the_document_scan(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        for name in ("alpha", "beta"):
+            (tmp_path / f"2026-11-15-{name}.md").write_text("---\ntitle: Fixture\n---\n")
+        before = publish.parse_site_time("2026-11-14T23:59:59-08:00")
+        after = before + timedelta(seconds=2)
+        clock_reads = []
+
+        class AdvancingDatetime(datetime):
+            @classmethod
+            def now(cls, tz=None):
+                clock_reads.append(tz)
+                return before if len(clock_reads) == 1 else after
+
+        monkeypatch.setattr(publish, "datetime", AdvancingDatetime)
+        assert list(publish._collect_documents(tmp_path, None)) == []
+        assert len(clock_reads) == 1
 
     def test_document_instant_rejects_unknown_formats(self) -> None:
         with pytest.raises(ValueError, match="cannot tell when Jekyll publishes"):
