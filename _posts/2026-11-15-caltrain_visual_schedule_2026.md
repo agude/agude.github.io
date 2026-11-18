@@ -174,10 +174,41 @@ Finally, the weekend is drastically different, see Saturday:
 
 [![Marey visual train schedule for Caltrain on Saturday in January 2026][saturday_2026]][saturday_2026]
 [![Marey visual train schedule for Caltrain on Saturday in July 2017][saturday_jul2017]][saturday_jul2017]
-[![Marey visual train schedule for Caltrain on Saturday in April 2017][saturday_apr2017]][saturday_apr2017]
 
-[saturday_apr2017]: {{ apr2017 }}/saturday.svg
-[saturday_jul2017]: {{ jul2017 }}/saturday.svg
 [saturday_2026]: {{ now }}/saturday.svg
+[saturday_jul2017]: {{ jul2017 }}/saturday.svg
 
-Wow! Double the number of trains! But in exchange we lose the local.
+Wow! Double the number of trains! But in exchange we lose the express.
+
+## All the Plots
+
+I made far more plots than I could fit in this post. Here is every one:
+
+| Chart                   | 2026                      | July 2017                    | April 2017                   |
+| :---------------------- | :------------------------ | :--------------------------- | :--------------------------- |
+| Weekday                 | [Jan 2026][weekday_2026]  | [Jul 2017][weekday_jul2017]  | [Apr 2017][weekday_apr2017]  |
+| Weekday with Gilroy     | [Jan 2026][gilroy_2026]   | [Jul 2017][gilroy_jul2017]   | [Apr 2017][gilroy_2017]      |
+| Weekday northbound      | [Jan 2026][north_2026]    | [Jul 2017][north_jul2017]    | [Apr 2017][north_apr2017]    |
+| Weekday southbound      | [Jan 2026][south_2026]    | [Jul 2017][south_jul2017]    | [Apr 2017][south_apr2017]    |
+| Weekday morning commute | [Jan 2026][morning_2026]  | [Jul 2017][morning_jul2017]  | [Apr 2017][morning_2017]     |
+| Weekday evening commute | [Jan 2026][evening_2026]  | [Jul 2017][evening_jul2017]  | [Apr 2017][evening_apr2017]  |
+| Saturday                | [Jan 2026][saturday_2026] | [Jul 2017][saturday_jul2017] | [Apr 2017][saturday_apr2017] |
+| Sunday                  | [Jan 2026][sunday_2026]   | [Jul 2017][sunday_jul2017]   | [Apr 2017][sunday_apr2017]   |
+
+[weekday_2026]: {{ now }}/weekday.svg
+[weekday_jul2017]: {{ jul2017 }}/weekday.svg
+[weekday_apr2017]: {{ apr2017 }}/weekday.svg
+[north_2026]: {{ now }}/weekday_north.svg
+[north_jul2017]: {{ jul2017 }}/weekday_north.svg
+[north_apr2017]: {{ apr2017 }}/weekday_north.svg
+[south_2026]: {{ now }}/weekday_south.svg
+[south_jul2017]: {{ jul2017 }}/weekday_south.svg
+[south_apr2017]: {{ apr2017 }}/weekday_south.svg
+[evening_2026]: {{ now }}/weekday_evening.svg
+[evening_jul2017]: {{ jul2017 }}/weekday_evening.svg
+[evening_apr2017]: {{ apr2017 }}/weekday_evening.svg
+[sunday_2026]: {{ now }}/sunday.svg
+[sunday_jul2017]: {{ jul2017 }}/sunday.svg
+[sunday_apr2017]: {{ apr2017 }}/sunday.svg
+[morning_jul2017]: {{ jul2017 }}/weekday_morning.svg
+[gilroy_jul2017]: {{ jul2017 }}/weekday_gilroy.svg
