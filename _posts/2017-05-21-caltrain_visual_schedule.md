@@ -2,7 +2,8 @@
 layout: post
 title: "Caltrain Visual Schedule"
 description: >
-  In 1878, Marey published a famous visual train schedule based on work by Ibry. What would it look like for Silicon Valley's Caltrain? Come find out!
+  In 1878, Marey published a famous visual train schedule based on work by
+  Ibry. What would it look like for Silicon Valley's Caltrain? Come find out!
 image: /files/caltrain-schedule/sp_3208_with_train_128_in_redwood_city_ca_in_august_1980_by_roger_puta.jpg
 hide_lead_image: True
 image_alt: >
@@ -27,9 +28,18 @@ indicates that the trains pass each other. The schedule is such an iconic
 visualization that [Tufte][tufte] used it as the cover of
 {% book_link "The Visual Display of Quantitative Information" %}.
 
-[^lmgd]: The full title is {% book_link "La Méthode Graphique Dans les Sciences Expérimentales et Principalement en Physiologie et en Médecine" %}, or roughly _The Graphical Method in Experimental Sciences and Mainly in Physiology and Medicine_.
+[^lmgd]:
+    The full title is {% book_link "La Méthode Graphique Dans les Sciences
+    Expérimentales et Principalement en Physiologie et en Médecine" %}, or
+    roughly _The Graphical Method in Experimental Sciences and Mainly in
+    Physiology and Medicine_.
 
-[^ibry]: The caption in Marey's book reads: _"Graphique de la marche des trains sur un chemin de fer, d'après la méthode de Ibry"_ or _"Graph showing the progress of trains on a railway, according to the method of Ibry"_. Unfortunately, little else is known of Ibry, and so this type of chart is often named for Marey instead.
+[^ibry]:
+    The caption in Marey's book reads: _"Graphique de la marche des trains sur
+    un chemin de fer, d'après la méthode de Ibry"_ or _"Graph showing the
+    progress of trains on a railway, according to the method of Ibry"_.
+    Unfortunately, little else is known of Ibry, and so this type of chart is
+    often named for Marey instead.
 
 [![Graph showing the progress of trains on a railway, according to the method
 of Ibry][schedule_image]][schedule_image]
@@ -75,7 +85,11 @@ mileposts][mileposts].[^note] Click the schedules for larger versions.
 
 [mileposts]: https://en.wikipedia.org/wiki/List_of_Caltrain_stations
 
-[^note]: The mileposts markers are off by up to 100m for stations south of [Lawrence][lawrence]. I tried to measure the actual track distances using [OpenStreetMap][osm] but found that I could not do so more accurately than the milepost numbers.
+[^note]:
+    The mileposts markers are off by up to 100m for stations south of
+    [Lawrence][lawrence]. I tried to measure the actual track distances using
+    [OpenStreetMap][osm] but found that I could not do so more accurately than
+    the milepost numbers.
 
 [lawrence]: https://en.wikipedia.org/wiki/Lawrence_station_(Caltrain)
 [osm]: https://www.openstreetmap.org/#map=11/37.5574/-122.3050&layers=T
