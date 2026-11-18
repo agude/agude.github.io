@@ -213,3 +213,15 @@ I made far more plots than I could fit in this post. Here is every one:
 [morning_jul2017]: {{ jul2017 }}/weekday_morning.svg
 [gilroy_jul2017]: {{ jul2017 }}/weekday_gilroy.svg
 [saturday_apr2017]: {{ apr2017 }}/saturday.svg
+
+## Other Writings on Caltrain
+
+If you enjoyed this article, here are all the other articles I wrote about
+[Caltrain][caltrain_topic]!
+
+[caltrain_topic]: {% link topics/caltrain.md %}
+
+{% display_category_posts
+  topic="caltrain"
+  exclude_current_page=true
+%}

@@ -129,3 +129,15 @@ north and southbound trips. Saturday has two more north bound, and one more
 southbound train than Sunday.
 
 [rs]: https://en.wikipedia.org/wiki/Rolling_stock
+
+## Other Writings on Caltrain
+
+If you enjoyed this article, here are all the other articles I wrote about
+[Caltrain][caltrain_topic]!
+
+[caltrain_topic]: {% link topics/caltrain.md %}
+
+{% display_category_posts
+  topic="caltrain"
+  exclude_current_page=true
+%}

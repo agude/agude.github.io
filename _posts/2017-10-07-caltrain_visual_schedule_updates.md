@@ -74,3 +74,15 @@ the first and last northbound trains have been removed, along with the final
 two southbound trains. Interestingly, the Sunday trains actually run a bit
 later under the new schedule, with the last train leaving Diridon at just past
 2200, instead of at 2100.
+
+## Other Writings on Caltrain
+
+If you enjoyed this article, here are all the other articles I wrote about
+[Caltrain][caltrain_topic]!
+
+[caltrain_topic]: {% link topics/caltrain.md %}
+
+{% display_category_posts
+  topic="caltrain"
+  exclude_current_page=true
+%}
