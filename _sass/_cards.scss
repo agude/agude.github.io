@@ -29,6 +29,13 @@
   }
 }
 
+// A card list next to an <hr> must not draw its own closing line. The post
+// layout places an <hr> right after the article, and footnotes start with one.
+.post > .card-grid:last-child > :last-child,
+.card-grid:has(+ hr) > :last-child {
+  border-bottom: none;
+}
+
 // Stacked layout image constraint (narrow screens)
 .card-image,
 .card-book-cover {
