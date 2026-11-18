@@ -22,78 +22,47 @@ categories:
 {% capture jul2017 %}{{ file_dir }}/caltrain-20170715{% endcapture %}
 {% capture now %}{{ file_dir }}/caltrain-20261113{% endcapture %}
 
-On January 27, 2026, [Caltrain _once again_ updated their
-schedule][caltrain_2026_schedule]. They've actually made several schedule
-changes since [I last wrote about them][update_post], but I haven't bothered
-to plot them because, even though I have already written the script to do so,
-it still takes a lot of work to process the data and adjust bounds, etc. But
-that's changed now.
-
-[caltrain_2026_schedule]: https://www.caltrain.com/news/caltrain-announces-new-schedule
+In 2017, I created some [_Marey/Ibry/Serjev_ visual schedules for
+Caltrain][first_post], just to have some fun tweaking plots. A few months
+later, I [updated them when Caltrain changed their
+schedule][update_post] to accommodate the upcoming [electrification
+program][caltrain_wiki]. Now, 9 years later, the electrification work is
+complete, so I updated the plots[^code] to see what changed.
 
 [first_post]: {% post_url 2017-05-21-caltrain_visual_schedule %}
 [update_post]: {% post_url 2017-10-07-caltrain_visual_schedule_updates %}
+[caltrain_wiki]: https://en.wikipedia.org/wiki/Caltrain_Modernization_Program
 
-In the fall of 2025, Anthropic released [Opus 4.5][opus_45] and coding changed
-forever. At the time, I was writing about 95% of code by hand, with the rest
-being filled in a smart completions from older LLM models. Now I write
-[essentially no code by hand][python_free]. I figured AI could probably take
-the tedium out of making these plots as well. So I told Opus 5.5:
+[^code]:
+    I had put off updating these plots because, even though all the code was
+    written, getting the new data, adjusting the code to handle any schema
+    changes, and then tweaking the plot layout was tedious. But now that AI is
+    so capable, I decided to see if Opus 5.5 could do the job with a simple
+    prompt:
 
-[opus_45]: https://www.anthropic.com/news/claude-opus-4-5
+    <div class="chatgpt-edit-block">
+    <div class="chatgpt-prompt-only" markdown="1">
+    > It's time to update the Caltrain plots. See:
+    >
+    > - https://alexgude.com/blog/caltrain-visual-schedule.md
+    > - https://alexgude.com/blog/caltrain-visual-schedule-updates.md
+    >
+    > Create a library in this folder to do it and generate the same set of
+    > plots for the newest schedule.
+    </div>
+    </div>
+
+    And 5 minutes later I had them. It took a few more turns of tweaking to
+    get them ready to publish, but the tedium was gone. Another example of how
+    [LLMs make Python (and most other code) free now][python_free].
 
 [python_free]: {% post_url 2025-08-30-llms_make_python_free %}
-
-```
-It's time to update the Caltrain plots. See:
-
-- https://alexgude.com/blog/caltrain-visual-schedule.md
-- https://alexgude.com/blog/caltrain-visual-schedule-updates.md
-
-Create a library in this folder to do it and generate the same set of plots
-for the newest schedule.
-```
-
-And five minutes later it had taken my code, turned it into a library, pulled
-the new data, and made the plots. I spent another few turns iterating on some
-plot tweaks, but I never touched the code myself.
-
-Here is what's changed in the intervening 9 years:
-
-[marey]: https://en.wikipedia.org/wiki/%C3%89tienne-Jules_Marey
-[la_methode]: https://archive.org/details/lamthodegraphiq00maregoog
-
-[ibry]: {{ file_dir }}/ibry-trainschedule.jpg
-
-{% comment %}Data and code{% endcomment %}
-
-[dev]: https://www.caltrain.com/developer-resources
-[gtfs_feed]: https://data.trilliumtransit.com/gtfs/caltrain-ca-us/caltrain-ca-us.zip
-[gtfs_ref]: https://gtfs.org/documentation/schedule/reference/
-[mileposts]: https://en.wikipedia.org/wiki/List_of_Caltrain_stations
 
 {% comment -%}
 TODO: Link to the code. The caltrain_schedule_2026 project has no public
 repository yet.
 [code]: https://github.com/agude/TODO
 {%- endcomment %}
-
-{% comment %}What changed on the line{% endcomment %}
-
-[caltrain]: https://en.wikipedia.org/wiki/Caltrain
-[schedules]: https://www.caltrain.com/schedules
-[pcep]: https://en.wikipedia.org/wiki/Electrification_of_Caltrain
-[atherton]: https://en.wikipedia.org/wiki/Atherton_station
-[broadway]: https://en.wikipedia.org/wiki/Broadway_station_(Caltrain)
-[college_park]: https://en.wikipedia.org/wiki/College_Park_station_(Caltrain)
-[gilroy]: https://en.wikipedia.org/wiki/Gilroy_station
-
-{% comment %}Lead image{% endcomment %}
-
-[peninsula_commute]: https://en.wikipedia.org/wiki/Peninsula_Commute
-[southern_pacific]: https://en.wikipedia.org/wiki/Southern_Pacific_Transportation_Company
-[lead_photo]: https://commons.wikimedia.org/wiki/File:Roger_Puta%27s_slides_of_two_Southern_Pacific_trains_in_Millbrae,_CA_in_January_1985._(30930157171).jpg
-[roger_puta]: https://commons.wikimedia.org/wiki/Category:Photographs_by_Roger_Puta
 
 ## Weekday
 
