@@ -184,16 +184,16 @@ Wow! Double the number of trains! But in exchange we lose the express.
 
 I made far more plots than I could fit in this post. Here is every one:
 
-| Chart                   | 2026                      | July 2017                    | April 2017                   |
-| :---------------------- | :------------------------ | :--------------------------- | :--------------------------- |
-| Weekday                 | [Jan 2026][weekday_2026]  | [Jul 2017][weekday_jul2017]  | [Apr 2017][weekday_apr2017]  |
-| Weekday with Gilroy     | [Jan 2026][gilroy_2026]   | [Jul 2017][gilroy_jul2017]   | [Apr 2017][gilroy_2017]      |
-| Weekday northbound      | [Jan 2026][north_2026]    | [Jul 2017][north_jul2017]    | [Apr 2017][north_apr2017]    |
-| Weekday southbound      | [Jan 2026][south_2026]    | [Jul 2017][south_jul2017]    | [Apr 2017][south_apr2017]    |
-| Weekday morning commute | [Jan 2026][morning_2026]  | [Jul 2017][morning_jul2017]  | [Apr 2017][morning_2017]     |
-| Weekday evening commute | [Jan 2026][evening_2026]  | [Jul 2017][evening_jul2017]  | [Apr 2017][evening_apr2017]  |
-| Saturday                | [Jan 2026][saturday_2026] | [Jul 2017][saturday_jul2017] | [Apr 2017][saturday_apr2017] |
-| Sunday                  | [Jan 2026][sunday_2026]   | [Jul 2017][sunday_jul2017]   | [Apr 2017][sunday_apr2017]   |
+| Chart           |         January 2026 |               July 2017 |              April 2017 |
+| :-------------- | -------------------: | ----------------------: | ----------------------: |
+| Weekday         |  [SVG][weekday_2026] |  [SVG][weekday_jul2017] |  [SVG][weekday_apr2017] |
+| With Gilroy     |   [SVG][gilroy_2026] |   [SVG][gilroy_jul2017] |      [SVG][gilroy_2017] |
+| Northbound      |    [SVG][north_2026] |    [SVG][north_jul2017] |    [SVG][north_apr2017] |
+| Southbound      |    [SVG][south_2026] |    [SVG][south_jul2017] |    [SVG][south_apr2017] |
+| Morning commute |  [SVG][morning_2026] |  [SVG][morning_jul2017] |     [SVG][morning_2017] |
+| Evening commute |  [SVG][evening_2026] |  [SVG][evening_jul2017] |  [SVG][evening_apr2017] |
+| Saturday        | [SVG][saturday_2026] | [SVG][saturday_jul2017] | [SVG][saturday_apr2017] |
+| Sunday          |   [SVG][sunday_2026] |   [SVG][sunday_jul2017] |   [SVG][sunday_apr2017] |
 
 [weekday_2026]: {{ now }}/weekday.svg
 [weekday_jul2017]: {{ jul2017 }}/weekday.svg
@@ -212,3 +212,4 @@ I made far more plots than I could fit in this post. Here is every one:
 [sunday_apr2017]: {{ apr2017 }}/sunday.svg
 [morning_jul2017]: {{ jul2017 }}/weekday_morning.svg
 [gilroy_jul2017]: {{ jul2017 }}/weekday_gilroy.svg
+[saturday_apr2017]: {{ apr2017 }}/saturday.svg
