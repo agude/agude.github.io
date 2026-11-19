@@ -21,6 +21,12 @@
 #   3. Only when both succeed is the stash dropped. Otherwise the hook fails,
 #      leaves the stash in place, and prints recovery commands naming it.
 # If `git stash push` fails, the hook aborts before running any formatter.
+#
+# Operation state: `git stash push` resets the worktree, which deletes the
+# state files of a commit that concludes a merge, cherry-pick, or revert
+# (MERGE_HEAD and friends). git commit reads them after this hook, so without
+# them the commit fails or loses its second parent. The hook copies them
+# before stashing and puts back any that went missing on exit.
 # Tests: _scripts/tests/test_pre_commit.py.
 
 # Configuration
@@ -32,6 +38,34 @@ OVERALL_EXIT=0
 
 # The stash commit this hook created; empty when it created none.
 HOOK_STASH=""
+
+# State files of an in-progress operation that the commit concludes.
+GIT_DIR_PATH=$(git rev-parse --git-dir)
+OPERATION_STATE_FILES=(MERGE_HEAD MERGE_MSG MERGE_MODE CHERRY_PICK_HEAD REVERT_HEAD)
+# Copies of those files taken before stashing; empty when none existed.
+SAVED_STATE_DIR=""
+
+save_operation_state() {
+  local name
+  for name in "${OPERATION_STATE_FILES[@]}"; do
+    [ -f "$GIT_DIR_PATH/$name" ] || continue
+    [ -n "$SAVED_STATE_DIR" ] || SAVED_STATE_DIR=$(mktemp -d) || return 1
+    cp -p "$GIT_DIR_PATH/$name" "$SAVED_STATE_DIR/$name" || return 1
+  done
+}
+
+restore_operation_state() {
+  [ -n "$SAVED_STATE_DIR" ] || return 0
+  local saved status=0
+  for saved in "$SAVED_STATE_DIR"/*; do
+    [ -e "$GIT_DIR_PATH/${saved##*/}" ] || cp -p "$saved" "$GIT_DIR_PATH/" || status=1
+  done
+  if [ "$status" -ne 0 ]; then
+    echo "❌ Could not restore operation state; copies are in $SAVED_STATE_DIR." >&2
+    return 1
+  fi
+  rm -rf "$SAVED_STATE_DIR"
+}
 
 # Prints the stash@{N} name of a stash commit.
 stash_ref() {
@@ -73,11 +107,16 @@ cleanup() {
     print_recovery
     status=1
   fi
+  restore_operation_state || status=1
   exit "$status"
 }
 trap cleanup EXIT
 
 if ! git diff --quiet || [ -n "$(git ls-files --others --exclude-standard)" ]; then
+  if ! save_operation_state; then
+    echo "❌ Could not save merge/cherry-pick state; not running formatters." >&2
+    exit 1
+  fi
   stash_before=$(git rev-parse -q --verify refs/stash)
   if ! git stash push --keep-index --include-untracked -m "pre-commit hook stash" -q; then
     echo "❌ git stash push failed; not running formatters." >&2
