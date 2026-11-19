@@ -71,10 +71,11 @@ The first thing you notice when comparing the new schedule (top) to the old
 schedule (bottom) is: there are a lot more trains! Two local trains an hour
 for almost the entire day, compared to just one earlier.
 
-And there is a new type of train: the "South County" that travels exclusively
-between Gilroy to Diridon. This is a consequence of the electrification of the
-northern half of the line. The Gilroy to Diridon leg uses the old diesel
-fleet, while Diridon to San Francisco uses the new electric trains.
+And there is a new type of train: the "South County", which travels
+exclusively between Gilroy and Diridon. This is a consequence of the
+electrification of the northern half of the line. The Gilroy to Diridon leg
+uses the old diesel fleet, while Diridon to San Francisco uses the new
+electric trains.
 
 [![Marey visual train schedule for Caltrain on weekdays in January 2026, including the South County Connector trains to Gilroy][gilroy_2026]][gilroy_2026]
 [![Marey visual train schedule for Caltrain on weekdays in April 2017, including the stations south of San Jose to Gilroy][gilroy_2017]][gilroy_2017]
@@ -88,22 +89,22 @@ smaller portion.
 ### Morning Commute
 
 The morning commute schedule has become much more regular. In 2017, there were
-several different flavors of limited and baby bullets, but they've been
-standardized in 2026 and so every limited stops at the same stations, and
-likewise every express does as well. It makes it much easier to figure out
-what train you need to take!
+several different flavors of limited and baby bullets (now called express),
+but they've been standardized in 2026 so every limited stops at the same
+stations, and every express does as well. It makes it much easier to figure
+out what train you need to take!
 
 The starting times have been standardized as well. The express always leaves
 San Francisco 20 minutes after the hour, and Diridon 22 minutes after, morning
 and evening. The locals follow a [clock-face schedule][wiki_clock], leaving at
-the same minute after the hour.
+the same minutes after the hour.
 
 [wiki_clock]: https://en.wikipedia.org/wiki/Clock-face_scheduling
 
-And Caltrain is hardly making use of their pass tracks for overtaking. They
-used to have bullets overtake slower trains regularly, but now it only happens
-once: when southbound Express 506 passes Local 108 at about 08:20 near
-Diridon.
+And Caltrain is hardly making use of their passing tracks for overtaking
+anymore. They used to have bullets overtake slower trains regularly, but now
+it only happens once: when southbound Express 506 passes Local 108 at about
+08:20 near Diridon.
 
 [![Marey visual train schedule for Caltrain during the weekday morning commute in January 2026][morning_2026]][morning_2026]
 [![Marey visual train schedule for Caltrain during the weekday morning commute in April 2017][morning_2017]][morning_2017]
@@ -116,7 +117,7 @@ Diridon.
 What allows all these changes? Electricity! The new electric trains accelerate
 much faster than the old diesel locomotives. This lets them make the trip much
 faster, or stop in more places and _still_ beat out the old trains. For
-example compare the new local train (solid blue line) with the old one
+example, compare the new local train (solid blue line) with the old one
 (dashed):
 
 [![Marey chart comparing Local train 101 in April 2017 and January 2026, from San Jose Diridon to San Francisco][local_comparison]][local_comparison]
@@ -128,7 +129,7 @@ whole minutes faster! The limited is just as drastic:
 
 Here I matched two trains with similar stop patterns, since 2017's limiteds
 varied from train to train. Notice the new train is 15 minutes faster _and_
-makes more stops! Finally, the express:
+makes more stops between Diridon and San Francisco! Finally, the express:
 
 [![Marey chart comparing Baby Bullet train 371 in April 2017 with Express train 519 in January 2026, from San Jose Diridon to San Francisco][express_comparison]][express_comparison]
 
