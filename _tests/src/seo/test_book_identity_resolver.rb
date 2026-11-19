@@ -56,6 +56,22 @@ class TestBookIdentityResolver < Minitest::Test
     assert_equal @canonical_review.url, resolve(@archived_review)
   end
 
+  def test_padded_local_canonical_url_still_becomes_book_identity
+    padded = create_doc(
+      {
+        'title' => 'Padded Review',
+        'book_authors' => ['Author'],
+        'canonical_url' => ' /books/canonical-review/ ',
+      },
+      '/books/padded-review/',
+    )
+    site = create_site({}, { 'books' => [@canonical_review, padded] })
+
+    identity = Jekyll::SEO::BookIdentityResolver.resolve(padded, site)
+
+    assert_equal @canonical_review.url, identity.strip
+  end
+
   def test_external_canonical_url_does_not_become_book_identity
     assert_equal @external_review.url, resolve(@external_review)
   end

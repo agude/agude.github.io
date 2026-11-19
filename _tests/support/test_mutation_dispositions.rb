@@ -164,7 +164,7 @@ class TestMutationDispositions < Minitest::Test
     entries = MutationDispositions.load_entries
 
     refute_empty entries
-    assert(entries.all? { |item| item.suite == 'html' })
+    assert(entries.all? { |item| PropertyTestSuites::SUITES.key?(item.suite) })
     assert(entries.all? { |item| MutationDispositions::DISPOSITIONS.include?(item.disposition) })
   end
 

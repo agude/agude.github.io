@@ -23,24 +23,49 @@ module PropertyTestSuites
     },
     'link-cache' => {
       'src/infrastructure/link_cache/test_book_candidate_selector' => {
-        'TestBookCandidateSelector' => ['Jekyll::Infrastructure::LinkCache::BookCandidateSelector.'],
+        'TestBookCandidateSelector' => %w[
+          Jekyll::Infrastructure::LinkCache::BookCandidateSelector.select_book
+          Jekyll::Infrastructure::LinkCache::BookCandidateSelector.written_by?
+        ],
       },
       'src/infrastructure/link_cache/test_book_candidate_selector_properties' => {
-        'TestBookCandidateSelectorProperties' => ['Jekyll::Infrastructure::LinkCache::BookCandidateSelector.'],
+        'TestBookCandidateSelectorProperties' => %w[
+          Jekyll::Infrastructure::LinkCache::BookCandidateSelector.select_book
+          Jekyll::Infrastructure::LinkCache::BookCandidateSelector.written_by?
+        ],
       },
       'src/infrastructure/link_cache/test_book_family_validator' => {
-        'TestBookFamilyValidator' => ['Jekyll::Infrastructure::LinkCache::BookFamilyValidator#'],
+        'TestBookFamilyValidator' => %w[
+          Jekyll::Infrastructure::LinkCache::BookFamilyValidator#initialize
+          Jekyll::Infrastructure::LinkCache::BookFamilyValidator#validate
+          Jekyll::Infrastructure::LinkCache::BookFamilyValidator#find_violations
+          Jekyll::Infrastructure::LinkCache::BookFamilyValidator#normalize_url
+          Jekyll::Infrastructure::LinkCache::BookFamilyValidator#raise_if_errors
+        ],
       },
       'src/infrastructure/link_cache/test_book_family_validator_properties' => {
-        'TestBookFamilyValidatorProperties' => ['Jekyll::Infrastructure::LinkCache::BookFamilyValidator#'],
+        'TestBookFamilyValidatorProperties' => %w[
+          Jekyll::Infrastructure::LinkCache::BookFamilyValidator#initialize
+          Jekyll::Infrastructure::LinkCache::BookFamilyValidator#validate
+          Jekyll::Infrastructure::LinkCache::BookFamilyValidator#find_violations
+          Jekyll::Infrastructure::LinkCache::BookFamilyValidator#normalize_url
+          Jekyll::Infrastructure::LinkCache::BookFamilyValidator#raise_if_errors
+        ],
       },
       'src/seo/test_book_identity_resolver' => {
-        'TestBookIdentityResolver' => ['Jekyll::SEO::BookIdentityResolver.'],
+        'TestBookIdentityResolver' => %w[
+          Jekyll::SEO::BookIdentityResolver.resolve
+          Jekyll::SEO::BookIdentityResolver.blank?
+          Jekyll::SEO::BookIdentityResolver.local_path?
+        ],
       },
       'src/infrastructure/test_link_cache_generator_properties' => {
         'TestLinkCacheGeneratorProperties' => %w[
-          Jekyll::Infrastructure::LinkCache::BookCandidateSelector.
-          Jekyll::SEO::BookIdentityResolver.
+          Jekyll::Infrastructure::LinkCache::BookCandidateSelector.select_book
+          Jekyll::Infrastructure::LinkCache::BookCandidateSelector.written_by?
+          Jekyll::SEO::BookIdentityResolver.resolve
+          Jekyll::SEO::BookIdentityResolver.blank?
+          Jekyll::SEO::BookIdentityResolver.local_path?
         ],
       },
     },

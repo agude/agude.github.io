@@ -225,6 +225,53 @@ class TestBookFamilyValidator < Minitest::Test
     assert_includes error.message, canonical.relative_path
   end
 
+  def test_error_message_names_each_violation_path_and_url
+    canonical = create_doc(
+      {
+        'title' => 'Hyperion',
+        'published' => true,
+        'canonical_url' => '/books/hyperion/',
+      },
+      '/books/hyperion/',
+    )
+    archived = create_doc(
+      {
+        'title' => 'Hyperion',
+        'published' => true,
+        'canonical_url' => '/books/hyperion/',
+      },
+      '/books/hyperion/old/',
+    )
+    validator = build_validator([canonical, archived])
+
+    error = assert_raises(Jekyll::Errors::FatalException) { validator.validate }
+    assert_includes error.message, "  - #{canonical.relative_path} (url: /books/hyperion/)\n"
+  end
+
+  def test_book_without_published_key_is_not_treated_as_unpublished
+    # A missing `published` key means the book is published, so the
+    # canonical page without it is still checked and reported.
+    canonical = create_doc(
+      { 'title' => 'Hyperion', 'canonical_url' => '/books/somewhere-else/' },
+      '/books/hyperion/',
+    )
+    # create_doc adds `published: true` by default; remove it to model
+    # front matter that has no `published` key.
+    canonical.data.delete('published')
+    archived = create_doc(
+      {
+        'title' => 'Hyperion',
+        'published' => true,
+        'canonical_url' => '/books/hyperion/',
+      },
+      '/books/hyperion/old/',
+    )
+    validator = build_validator([canonical, archived])
+
+    error = assert_raises(Jekyll::Errors::FatalException) { validator.validate }
+    assert_includes error.message, canonical.relative_path
+  end
+
   # --- Integration tests through create_site ---
 
   def test_integration_canonical_with_canonical_url_breaks_build

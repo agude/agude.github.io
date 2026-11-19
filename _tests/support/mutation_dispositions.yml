@@ -100,3 +100,165 @@
   key: '223573f8f16437a1'
   disposition: equivalent
   reason: 'Integer#equal? is identity, and CRuby stores Integers in fixnum range as immediate values, so equal? matches == for string offsets.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookCandidateSelector.select_book'
+  key: 'f55f13b76de613ea'
+  disposition: equivalent
+  reason: 'Removing only trailing whitespace leaves the filter non-empty exactly when strip does, and AuthorLookup.canonical_author strips its argument again, so the wanted author is the same.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookCandidateSelector.select_book'
+  key: 'cdc06ce87698cb4f'
+  disposition: equivalent
+  reason: 'Removing only leading whitespace leaves the filter non-empty exactly when strip does, and AuthorLookup.canonical_author strips its argument again, so the wanted author is the same.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookCandidateSelector.select_book'
+  key: '6f6720abd70741e6'
+  disposition: equivalent
+  reason: 'With one candidate candidates.first and candidates.last are the same book, and with several candidates the result is :ambiguous, so the no-filter result never depends on which end is read.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#find_violations'
+  key: 'd9d304f15b553d3b'
+  disposition: equivalent
+  reason: 'The key? guard above returns early when the books collection is absent, so Hash#fetch("books") returns the same collection as [].'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#find_violations'
+  key: '2fbf02ee8aea585c'
+  disposition: equivalent
+  reason: 'Jekyll::Document#[] returns data[key] (document.rb line 250 in Jekyll 4.4.1), so b["published"] reads the same value as b.data["published"].'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#find_violations'
+  key: '0126d3dbf81c93dd'
+  disposition: equivalent
+  reason: 'For every value that YAML front matter can produce, value == false and value.eql?(false) give the same result, because only false is equal to false.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#find_violations'
+  key: '29ab7adfa4132272'
+  disposition: equivalent
+  reason: 'false is a singleton in Ruby, so value.equal?(false) is true for exactly the values that value == false accepts.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#find_violations'
+  key: 'af19eef548d8f00d'
+  disposition: equivalent
+  reason: 'Jekyll sanitizes every book url to start with "/" (Jekyll::URL sanitizing), so a non-local canonical_url can never equal a book url and dropping the local-path filter changes no violation.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#find_violations'
+  key: 'fafe1bee576b8ed3'
+  disposition: equivalent
+  reason: 'Jekyll sanitizes every book url to start with "/" (Jekyll::URL sanitizing), so a non-local canonical_url can never equal a book url and removing the local-path select changes no violation.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#find_violations'
+  key: 'fb772f16cc588a89'
+  disposition: equivalent
+  reason: 'Jekyll::Document#[] returns data[key] (document.rb line 250 in Jekyll 4.4.1), so b["canonical_url"] in the target collection reads the same value as b.data["canonical_url"].'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#find_violations'
+  key: 'e888b01edd3ff9e0'
+  disposition: equivalent
+  reason: 'Replacing the local-path check with the truthy url keeps every canonical value, and a non-local value can never equal a book url because Jekyll sanitizes book urls to start with "/".'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#find_violations'
+  key: '4c075f012d8ad5c1'
+  disposition: equivalent
+  reason: 'Replacing the local-path check with true keeps every canonical value, and a non-local value can never equal a book url because Jekyll sanitizes book urls to start with "/".'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#find_violations'
+  key: 'e2c4fc6208a86c1b'
+  disposition: equivalent
+  reason: 'Replacing the local-path check with the truthy string "/" keeps every canonical value, and a non-local value can never equal a book url because Jekyll sanitizes book urls to start with "/".'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#find_violations'
+  key: '95d68e96236c4b90'
+  disposition: equivalent
+  reason: 'start_with?("") is true for every string, so it keeps every canonical value, and a non-local value can never equal a book url because Jekyll sanitizes book urls to start with "/".'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#find_violations'
+  key: '7264b880740429ad'
+  disposition: equivalent
+  reason: 'Jekyll::Document#[] returns data[key] (document.rb line 250 in Jekyll 4.4.1), so book["canonical_url"] reads the same value as book.data["canonical_url"].'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#raise_if_errors'
+  key: '5a0c7e24fc20f952'
+  disposition: equivalent
+  reason: 'Every error hash is built with a :path key, so error.fetch(:path) returns the same value as error[:path].'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#raise_if_errors'
+  key: 'd96def1b3cd57fc4'
+  disposition: equivalent
+  reason: 'Every error hash is built with a :url key, so error.fetch(:url) returns the same value as error[:url].'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#raise_if_errors'
+  key: 'c101040ea563a621'
+  disposition: equivalent
+  reason: 'Inside module Jekyll, Errors resolves to Jekyll::Errors because no Infrastructure or LinkCache Errors constant exists, so the mutated constant is the same class.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::SEO::BookIdentityResolver.blank?'
+  key: '1a5f3c0a46f069d9'
+  disposition: equivalent
+  reason: 'nil.to_s is an empty string, so dropping the nil check leaves the blank result unchanged for nil.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::SEO::BookIdentityResolver.blank?'
+  key: 'bc04addc5e18e145'
+  disposition: equivalent
+  reason: 'A literal nil as the left operand of || is falsy, so the nil check is skipped, which matches dropping it because nil.to_s is an empty string.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::SEO::BookIdentityResolver.blank?'
+  key: '5dc6e61a829241d9'
+  disposition: equivalent
+  reason: 'A literal false as the left operand of || is falsy, so the nil check is skipped, which matches dropping it because nil.to_s is an empty string.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::SEO::BookIdentityResolver.blank?'
+  key: '6b051929ad22aada'
+  disposition: equivalent
+  reason: 'self is the BookIdentityResolver class, which is never nil, so self.nil? is false and the nil check is skipped, which matches dropping it because nil.to_s is an empty string.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::SEO::BookIdentityResolver.blank?'
+  key: '5ee98ce01cefea2a'
+  disposition: equivalent
+  reason: 'A string is empty after lstrip exactly when it is empty after strip, because both remove all whitespace and NUL characters when nothing else is present.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::SEO::BookIdentityResolver.blank?'
+  key: '74f654082023d086'
+  disposition: equivalent
+  reason: 'A string is empty after rstrip exactly when it is empty after strip, because both remove all whitespace and NUL characters when nothing else is present.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::SEO::BookIdentityResolver.blank?'
+  key: 'f69412675e337cfd'
+  disposition: out_of_scope
+  reason: 'Only a value that is neither nil nor a String differs (NoMethodError instead of to_s conversion), and the resolver receives only document urls and canonical map strings.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::SEO::BookIdentityResolver.blank?'
+  key: 'b82a4fa4638ed5d3'
+  disposition: out_of_scope
+  reason: 'Only a value that is neither nil nor a String differs (to_str raises instead of converting with to_s), and the resolver receives only document urls and canonical map strings.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::SEO::BookIdentityResolver.local_path?'
+  key: '5dbe8fcfac33d3e3'
+  disposition: equivalent
+  reason: 'A string starts with "/" after lstrip exactly when it does after strip, because both remove the same leading whitespace and NUL characters, so the trailing whitespace that strip removes never affects start_with?.'
