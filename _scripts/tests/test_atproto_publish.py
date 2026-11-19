@@ -1787,6 +1787,56 @@ class TestReverseSweep:
         assert sorted(chars_read) == index_files
         assert all(count <= 600 for count in chars_read.values()), chars_read
 
+    def test_missing_section_is_reported_and_sweep_continues(self, tmp_path: Path) -> None:
+        # /blog/ is missing and sorts first; the sweep must still check
+        # /books/ and report its orphan rather than stop at the missing section.
+        site = tmp_path / "_site"
+        (site / "books" / "orphan-page").mkdir(parents=True)
+        (site / "books" / "orphan-page" / "index.html").write_text("<!DOCTYPE html>")
+        errors = publish._reverse_sweep_errors(site, set())
+        assert len(errors) == 2
+        assert "/blog/" in errors[0]
+        assert "/books/orphan-page/" in errors[1]
+
+    def test_listing_page_does_not_end_the_sweep(self, tmp_path: Path) -> None:
+        # "by-author" is a skipped listing page and sorts before "orphan-page";
+        # skipping it must not stop the sweep before the orphan is checked.
+        site = self._site(
+            tmp_path,
+            {"/books/by-author/": "<!DOCTYPE html>", "/books/orphan-page/": "<!DOCTYPE html>"},
+        )
+        errors = publish._reverse_sweep_errors(site, set())
+        assert len(errors) == 1
+        assert "/books/orphan-page/" in errors[0]
+
+    def test_redirect_stub_does_not_end_the_sweep(self, tmp_path: Path) -> None:
+        # "old-slug" sorts before "orphan-page", so the stub is read first;
+        # skipping it must not stop the sweep before the orphan is checked.
+        stub = '<!DOCTYPE html><meta http-equiv="refresh" content="0; url=/blog/new/">'
+        site = self._site(
+            tmp_path,
+            {"/blog/old-slug/": stub, "/blog/orphan-page/": "<!DOCTYPE html>"},
+        )
+        errors = publish._reverse_sweep_errors(site, set())
+        assert len(errors) == 1
+        assert "/blog/orphan-page/" in errors[0]
+
+    def test_non_utf8_bytes_do_not_stop_the_sweep(self, tmp_path: Path) -> None:
+        # Pages are read as UTF-8 with errors="replace": a stray byte must
+        # neither raise nor hide a redirect stub's refresh tag.
+        site = tmp_path / "_site"
+        (site / "books").mkdir(parents=True)
+        pages = {
+            "old-slug": b'<!DOCTYPE html><meta http-equiv="refresh" content="0; url=/blog/new/">\xff',
+            "orphan-page": b"<!DOCTYPE html><p>caf\xe9</p>",
+        }
+        for name, content in pages.items():
+            (site / "blog" / name).mkdir(parents=True)
+            (site / "blog" / name / "index.html").write_bytes(content)
+        errors = publish._reverse_sweep_errors(site, set())
+        assert len(errors) == 1
+        assert "/blog/orphan-page/" in errors[0]
+
 
 class TestDeleteOrphans:
     def _dirs(self, tmp_path: Path) -> tuple[Path, Path]:

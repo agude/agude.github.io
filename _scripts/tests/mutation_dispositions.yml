@@ -39,6 +39,7 @@ functions:
   x_delete_orphans: 7cabf8446a6a
   x_validate_documents: 54c02d48d6a2
   x_init_publication: eb374c4936b4
+  x__reverse_sweep_errors: c34f6c102622
 survivors:
 - mutant: atproto.publish.x_sync_documents__mutmut_4
   mutation: Wrap the empty-`publication_uri` message in `XX` markers
@@ -371,3 +372,54 @@ survivors:
   disposition: out_of_scope
   reason: The refusal still names the existing record URIs and `_config.yml`, both asserted by test_refuses_if_pds_already_has_publication,
     and only the word case of the instruction changes.
+- mutant: atproto.publish.x__reverse_sweep_errors__mutmut_5
+  mutation: Wrap the vacuous-sweep message in `XX` markers
+  disposition: out_of_scope
+  reason: The section path `/blog/` stays in the message, and test_missing_section_is_reported_and_sweep_continues
+    asserts it.
+- mutant: atproto.publish.x__reverse_sweep_errors__mutmut_6
+  mutation: Upper-case the vacuous-sweep message
+  disposition: out_of_scope
+  reason: The section path `/blog/` stays in the message, and test_missing_section_is_reported_and_sweep_continues
+    asserts it.
+- mutant: atproto.publish.x__reverse_sweep_errors__mutmut_16
+  mutation: Pass `encoding=None` when reading a built page
+  disposition: out_of_scope
+  reason: 'Without an explicit encoding the locale codec is used, which is UTF-8 on the CI runner and
+    every supported dev setup, so the 600-character head is identical there. Only a non-UTF-8 locale differs:
+    multi-byte characters would push a refresh tag past the window and report a redirect stub as an orphan,
+    which fails loudly.'
+- mutant: atproto.publish.x__reverse_sweep_errors__mutmut_18
+  mutation: Drop `encoding=` when reading a built page
+  disposition: out_of_scope
+  reason: Same as mutant 16.
+- mutant: atproto.publish.x__reverse_sweep_errors__mutmut_21
+  mutation: Change `"utf-8"` to `"UTF-8"` in the page `open`
+  disposition: equivalent
+  reason: Python codec names are case-insensitive, so both spellings select the same codec and decode
+    identically.
+- mutant: atproto.publish.x__reverse_sweep_errors__mutmut_34
+  mutation: Wrap the `add it to SWEPT_SECTIONS` hint in `XX` markers
+  disposition: out_of_scope
+  reason: The page path stays in the message, and test_redirect_stub_does_not_end_the_sweep asserts it;
+    only the hint wording changes.
+- mutant: atproto.publish.x__reverse_sweep_errors__mutmut_35
+  mutation: Lower-case `SWEPT_SECTIONS` in the hint
+  disposition: out_of_scope
+  reason: The page path stays in the message, and test_redirect_stub_does_not_end_the_sweep asserts it;
+    only the hint wording changes.
+- mutant: atproto.publish.x__reverse_sweep_errors__mutmut_36
+  mutation: Upper-case the `add it to SWEPT_SECTIONS` hint
+  disposition: out_of_scope
+  reason: The page path stays in the message, and test_redirect_stub_does_not_end_the_sweep asserts it;
+    only the hint wording changes.
+- mutant: atproto.publish.x__reverse_sweep_errors__mutmut_37
+  mutation: Wrap `being missed` in `XX` markers
+  disposition: out_of_scope
+  reason: The page path stays in the message, and test_redirect_stub_does_not_end_the_sweep asserts it;
+    only the closing wording changes.
+- mutant: atproto.publish.x__reverse_sweep_errors__mutmut_38
+  mutation: Upper-case `being missed`
+  disposition: out_of_scope
+  reason: The page path stays in the message, and test_redirect_stub_does_not_end_the_sweep asserts it;
+    only the closing wording changes.
