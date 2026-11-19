@@ -262,3 +262,177 @@
   key: '5dbe8fcfac33d3e3'
   disposition: equivalent
   reason: 'A string starts with "/" after lstrip exactly when it does after strip, because both remove the same leading whitespace and NUL characters, so the trailing whitespace that strip removes never affects start_with?.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder#add_link'
+  key: '4a9dad5b53a31f3f'
+  disposition: equivalent
+  reason: 'String#eql? and String#== return the same result for two String URLs, and both sides of the self-link check are always Strings, so the branch never differs.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder#merge_entry'
+  key: 'e804f6b1d758596a'
+  disposition: equivalent
+  reason: 'LINK_TYPE_PRIORITY.fetch(type) returns the same rank as [] for each of the four link types the builder passes, and an unknown type raises in both versions.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder#merge_entry'
+  key: 'bd43ec28a869197c'
+  disposition: equivalent
+  reason: 'Every entry is stored with a :type from the four known link types, so LINK_TYPE_PRIORITY.fetch(existing[:type]) returns the same rank as the [] lookup.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder#merge_entry'
+  key: '63831ccd23ab581e'
+  disposition: equivalent
+  reason: 'Every entry is built with a :type key, so existing.fetch(:type) returns the same value as existing[:type] for each entry that merge_entry receives.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder#merge_entry'
+  key: '93d515216cac2cda'
+  disposition: equivalent
+  reason: 'Every entry is built with a :count key, possibly holding nil, so existing.fetch(:count) returns the same value as existing[:count] for each entry that merge_entry receives.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanState#handle_capture'
+  key: '99591a76b258b4f5'
+  disposition: equivalent
+  reason: 'Object#__send__ and Object#send both invoke the private extract_links_from_capture method with the same arguments, so the call behaves identically.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanState#handle_capture'
+  key: '072182922e110eaa'
+  disposition: equivalent
+  reason: 'Removing the no-target branch leaves an unresolved capture as a definition with no targets, which register_captured_links skips, so its later usages still reach no link.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanState#handle_capture'
+  key: 'd41c00444fa7c771'
+  disposition: equivalent
+  reason: 'A condition that is always nil never takes the no-target branch, so an unresolved capture becomes a definition with no targets, which register_captured_links skips.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanState#handle_capture'
+  key: 'bb7f5cafa604b573'
+  disposition: equivalent
+  reason: 'A condition that is always false never takes the no-target branch, so an unresolved capture becomes a definition with no targets, which register_captured_links skips.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanState#handle_capture'
+  key: 'b4ca81ce4bc9ccd3'
+  disposition: equivalent
+  reason: 'Replacing the early return with nil lets an unresolved capture fall through to update_capture_tracking, which records an empty definition that register_captured_links skips.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanState#handle_capture'
+  key: '625fb23126fe254e'
+  disposition: equivalent
+  reason: 'Deleting the early return lets an unresolved capture fall through to update_capture_tracking, which records an empty definition that register_captured_links skips.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanState#handle_capture'
+  key: '647d629a12aaba18'
+  disposition: equivalent
+  reason: 'Deleting the whole no-target branch makes an unresolved capture a definition with no targets, which register_captured_links skips, so its later usages still reach no link.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanState#handle_capture'
+  key: '1456fcda1345cc4d'
+  disposition: equivalent
+  reason: 'The var_name key of a capture definition is never read, because register_captured_links uses only :targets, so renaming that key changes no link.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanState#handle_capture'
+  key: '0e768f1749db5a70'
+  disposition: equivalent
+  reason: 'The var_name value of a capture definition is never read, because register_captured_links uses only :targets, so setting that value to nil changes no link.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanState#handle_capture'
+  key: '1eba0e1cf2a9b9b7'
+  disposition: equivalent
+  reason: 'Removing the var_name key from a capture definition changes no link, because register_captured_links reads only the :targets key.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanResult#compute_usages'
+  key: 'bbecca9e46e8fb44'
+  disposition: equivalent
+  reason: 'With no prose variables the loop never runs, so removing the early return still yields the same empty hash.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanResult#compute_usages'
+  key: 'bac57051486f7c19'
+  disposition: equivalent
+  reason: 'A condition that is always nil skips the early return, and with no prose variables the loop never runs, so the same empty hash is returned.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanResult#compute_usages'
+  key: '46933eb887939a40'
+  disposition: equivalent
+  reason: 'A condition that is always false skips the early return, and with no prose variables the loop never runs, so the same empty hash is returned.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanResult#compute_usages'
+  key: '3cea3fb53765b731'
+  disposition: equivalent
+  reason: 'The nil value that replaces the return statement is discarded, so the method still reaches the loop and returns the same empty hash.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanResult#compute_usages'
+  key: 'a2eae7da916212df'
+  disposition: equivalent
+  reason: 'The expression {} that replaces the return statement is discarded, so the method still reaches the loop and returns the same empty hash.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanResult#compute_usages'
+  key: '0229559c78d0bbd7'
+  disposition: equivalent
+  reason: 'Without the early return, an empty prose_vars list makes the loop run zero times and the method returns the same empty hash.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanResult#compute_usages'
+  key: '975e9a85a855f281'
+  disposition: equivalent
+  reason: 'Replacing the nil-owner guard with nil stores positions of variables with no owning capture under a nil key, which register_captured_links never reads.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanResult#compute_usages'
+  key: 'ef074a61582d7f7b'
+  disposition: equivalent
+  reason: 'A prose variable is always a Hash, so the guard is always truthy and never skips one, which only adds unread positions under a nil key.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanResult#compute_usages'
+  key: '51e6894e83f95771'
+  disposition: equivalent
+  reason: 'Every prose variable has an :owning_capture_idx key, so fetch returns the same index as [] and the guard skips the same variables.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanResult#compute_usages'
+  key: '71217c0402054f19'
+  disposition: equivalent
+  reason: 'key? is true for every prose variable, so the guard stops skipping nil owners, and their positions go under a nil key that register_captured_links never reads.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanResult#compute_usages'
+  key: 'e0c42e874b83b837'
+  disposition: equivalent
+  reason: 'A guard that is always true never skips a variable, so nil-owner positions go under a nil key that register_captured_links never reads.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanResult#compute_usages'
+  key: 'a5f84ede2f9fa1d8'
+  disposition: equivalent
+  reason: 'Replacing next with nil lets nil-owner positions fall through to the usages assignment under a nil key that register_captured_links never reads.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanResult#compute_usages'
+  key: '5cb8dd14c9991b46'
+  disposition: equivalent
+  reason: 'Removing the nil-owner guard stores nil-owner positions under a nil key that register_captured_links never reads.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanResult#compute_usages'
+  key: 'b943fdf7034958f3'
+  disposition: equivalent
+  reason: 'Every prose variable has an :owning_capture_idx key, so fetch returns the same index as [] for each variable the guard keeps.'
