@@ -29,6 +29,12 @@ class TestMarkdownWhitespaceNormalizer < Minitest::Test
     assert_equal "Intro\n\n#{code}\nEnd\n", Normalizer.normalize(input)
   end
 
+  def test_preserves_literal_text_resembling_a_code_placeholder
+    source = "Text @@MDWHITESPACE_0@@.\n\n```\ncode\n```\n"
+
+    assert_equal source, Jekyll::Infrastructure::MarkdownWhitespaceNormalizer.normalize(source)
+  end
+
   def test_preserves_tilde_fenced_code_with_crlf
     code = "~~~text\r\nfirst  \r\n\r\n\r\nlast\t\r\n~~~\r\n"
     assert_equal "#{code}\nEnd\n", Normalizer.normalize("#{code}\nEnd \n")

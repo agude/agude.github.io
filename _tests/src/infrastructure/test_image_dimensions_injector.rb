@@ -42,6 +42,12 @@ class TestImageDimensionsInjector < Minitest::Test
                  inject('<img src="/files/post/plot.png" alt="Plot" />')
   end
 
+  def test_unquoted_final_value_keeps_its_slash
+    html = '<img src="/files/post/plot.png" alt=plot/>'
+
+    assert_equal '<img src="/files/post/plot.png" alt=plot/ width="640" height="480">', inject(html)
+  end
+
   def test_unclosed_tag
     assert_equal '<img src="/files/post/plot.png" width="640" height="480">',
                  inject('<img src="/files/post/plot.png">')
@@ -189,6 +195,17 @@ class TestImageDimensionsInjector < Minitest::Test
     refute Injector.applies_to?(page.new('.html', '<p>no images; <imgur></p>'))
     refute Injector.applies_to?(page.new('.xml', '<img src="/a.png">'))
     refute Injector.applies_to?(page.new('.html', nil))
+  end
+
+  def test_live_image_after_skipped_fragments_is_sized_and_skips_stay_unchanged
+    skipped = '<!-- <img src="/files/post/missing.png"> -->' \
+              "<script>\n<img src='/files/post/missing.png'>\n</script>" \
+              '<style>/* <img src="/files/post/missing.png"> */</style>' \
+              '<textarea><img src="/files/post/missing.png"></textarea>'
+    live = '<img alt="Revenue > expenses" src="/files/post/plot.png">'
+    sized = '<img alt="Revenue > expenses" src="/files/post/plot.png" width="640" height="480">'
+
+    assert_equal "#{skipped}#{sized}", inject("#{skipped}#{live}")
   end
 
   def test_image_inside_script_and_style_is_unchanged

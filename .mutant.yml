@@ -1,0 +1,9 @@
+usage: opensource
+jobs: 1
+integration:
+  name: minitest
+includes:
+  - _plugins
+  - _tests
+requires:
+  - ./_tests/support/mutation_tests.rb

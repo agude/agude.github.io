@@ -219,6 +219,9 @@ build on three problems in `[text][id]` / `[id]:` markdown reference links:
   adds the difference. Any transform that changes the line count (comments,
   fenced code, multi-line Liquid tags) must emit the same number of newlines
   it consumed.
+- **A closing code fence can be longer than its opener.** It uses the same
+  marker. The scanner masks references up to that closer and resumes
+  reporting at the original line numbers after it.
 - **A definition inside a paragraph splits it.** When fixing an undefined
   reference, put `[id]:` after the whole paragraph, not on the first blank
   line found — a definition block ends the paragraph and the remaining lines

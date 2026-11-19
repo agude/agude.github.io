@@ -60,6 +60,18 @@ class TestBookIdentityResolver < Minitest::Test
     assert_equal @external_review.url, resolve(@external_review)
   end
 
+  def test_missing_or_blank_review_url_has_no_identity
+    assert_nil resolve(nil)
+    assert_nil resolve(create_doc({}, ' '))
+  end
+
+  def test_missing_site_data_falls_back_to_review_url
+    resolver = Jekyll::SEO::BookIdentityResolver
+
+    assert_equal @archived_review.url, resolver.resolve(@archived_review, nil)
+    assert_equal @archived_review.url, resolver.resolve(@archived_review, Struct.new(:data).new({}))
+  end
+
   def test_antimemetics_reviews_keep_separate_book_identities
     refute_equal resolve(@original_antimemetics), resolve(@revised_antimemetics)
     assert_equal @original_antimemetics.url, resolve(@original_antimemetics)

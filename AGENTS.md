@@ -12,6 +12,11 @@ Jekyll-based static site (alexgude.com) running in Docker.
 - **Serve:** `make serve` (Live reload at localhost:4000).
 - **Test:** `make test` (Runs all tests in `_tests/`).
 - **Test File:** `make test TEST=_tests/src/path/to/test.rb`
+- **Ruby properties:** `make test-properties TARGET=html`. Choose `link-cache`,
+  `backlinks`, or `markdown` for another suite. Use `PROFILE=discovery` for
+  1,000 cases per property. Use `SEED`, `CASES`, and `FILTER` to replay a run.
+- **Ruby mutations:** `make test-mutations TARGET=html` uses the same suite
+  names. Mutant reports surviving changes and exits nonzero when any survive.
 - **Build:** `make build` (Production build to `_site/`).
 - **Deps:** `make lock` (Update Gemfile.lock via Docker).
 - **Lint:** `make lint` / `make format-all`.
@@ -68,7 +73,7 @@ Why they do not overlap:
     `GeneratedStaticFile`, `MarkdownWhitespaceNormalizer`,
     `MarkdownLinkFormatter`. Post-render hooks that rewrite tags share
     `HtmlScan` (start-tag tokenizer that skips comments and raw text) and
-    `HtmlAttributes` (read or remove attributes); image checks share
+    `HtmlAttributes` (read, add, or remove attributes); image checks share
     `LocalImage` (what counts as a local image and which file it names).
   - `ui/`: Generic components (Cards, Ratings, Citations,
     `MarkdownCardUtils`).

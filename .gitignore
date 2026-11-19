@@ -14,6 +14,7 @@ visual_book_ranker.html
 
 # Code Coverage
 _coverage
+.mutant/
 
 # YARD registry and generated HTML docs
 .yardoc

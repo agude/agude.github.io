@@ -46,7 +46,9 @@ other div/span wrappers remain intact.
 
 The final Markdown whitespace pass trims prose line endings and collapses
 excess blank lines, while preserving hard-break spaces and whitespace inside
-fenced or indented code blocks.
+fenced or indented code blocks. Its temporary placeholders use a prefix
+absent from the source, so literal text that resembles a placeholder
+survives the pass.
 
 The ChatGPT edit include keeps its compact HTML markup for HTML rendering. In
 Markdown mode it emits Prompt and Output labels with quoted content indented as

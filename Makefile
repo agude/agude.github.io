@@ -43,6 +43,11 @@ TEST ?= $(shell find _tests -type f -name 'test_*.rb' -not -name 'test_helper.rb
 # COVERAGE_PARTIAL is set.
 COVERAGE_ENV := $(if $(filter command line,$(origin TEST)),-e COVERAGE_PARTIAL=1)
 
+# Ruby discovery defaults. A seed override lets a failing run be replayed.
+TARGET ?= html
+PROFILE ?= quick
+CASES ?= $(if $(filter discovery,$(PROFILE)),1000,100)
+
 # Where 'make rank' drops the ranking state file. The ELO tools have no
 # localStorage or query-param loading; the file gets picked through the page's
 # file input, so it needs to sit somewhere the browser file picker opens into.
@@ -235,6 +240,16 @@ test: image-build # Depends on the Docker image being built/up-to-date
 		-e "require 'test_helper'; ARGV.each { |f| load f }" \
 		$(TEST)
 	@echo "Tests finished successfully."
+
+.PHONY: test-properties test-mutations
+test-properties: DOCKER_RUN_OPTS += -e COVERAGE_PARTIAL=1 -e PROPERTY_CASES="$(CASES)" $(if $(SEED),-e PROPERTY_SEED="$(SEED)")
+test-properties: image-build
+	@case "$(PROFILE)" in quick|discovery) ;; *) echo "Use PROFILE=quick or PROFILE=discovery." >&2; exit 2;; esac
+	@$(DOCKER_RUN) bundle exec ruby -I _tests _tests/support/property_test_suites.rb "$(TARGET)" $(if $(FILTER),--include "$(FILTER)")
+
+test-mutations: DOCKER_RUN_OPTS += -e MUTATION_TEST_TARGET="$(TARGET)" -e PROPERTY_CASES="$(CASES)" $(if $(SEED),-e PROPERTY_SEED="$(SEED)")
+test-mutations: image-build
+	@$(DOCKER_RUN) bundle exec ruby _tests/support/mutation_tests.rb
 
 # Run Python tests for repository scripts and skill-local generators.
 test-scripts:
