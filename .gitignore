@@ -14,6 +14,14 @@ visual_book_ranker.html
 
 # Code Coverage
 _coverage
+.mutant/
+
+# mutmut (make test-mutations-scripts): symlinks that let publish.py and the
+# workflow test find repo files from _scripts/mutants/, plus mutmut's output
+/_scripts/_config.yml
+/_scripts/.github
+/_scripts/mutants/
+/_scripts/.mutmut-cache
 
 # YARD registry and generated HTML docs
 .yardoc

@@ -192,6 +192,31 @@ class TestBacklinkBuilderCaptures < BacklinkBuilderTestCase
     )
   end
 
+  def test_capture_of_page_series_resolves_series_from_the_source_book
+    # page.series is read from the source book's front matter, so the capture
+    # must resolve against that book, not against a missing document.
+    source = create_doc(
+      { 'title' => 'Messiah Review', 'published' => true, 'series' => 'Dune' },
+      '/books/messiah-review.html',
+      <<~CONTENT,
+        {% capture series_ref %}{% series_link page.series %}{% endcapture %}
+
+        Part of {{ series_ref }}.
+      CONTENT
+    )
+    dune = create_doc({ 'title' => 'Dune', 'published' => true, 'series' => 'Dune' }, '/books/dune.html', 'Content.')
+    series_page = create_doc({ 'title' => 'Dune', 'layout' => 'series_page' }, '/series/dune.html')
+
+    site = create_site({}, { 'books' => [source, dune] }, [series_page])
+    dune_link = site.data['link_cache']['forward_links']['/books/messiah-review.html']
+                    .find { |l| l[:target].url == '/books/dune.html' }
+
+    refute_nil dune_link, 'page.series in a capture should link to the series book'
+    assert_equal 'series', dune_link[:type]
+    assert_equal 1, dune_link[:count]
+    assert_equal 0.0, dune_link[:min_position]
+  end
+
   def test_recapture_as_plain_text_drops_earlier_binding
     assert_recaptured_usage_not_counted('{% capture x %}just text{% endcapture %}')
   end

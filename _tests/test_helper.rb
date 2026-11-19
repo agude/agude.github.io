@@ -17,7 +17,9 @@
 #
 # Run tests: `make test` (all) or `make test TEST=_tests/src/path/to/test.rb`.
 #
-# SimpleCov writes to _coverage/. A full run fails below 95% line or 90%
+# SimpleCov writes to _coverage/. Mutant workers skip SimpleCov and Minitest
+# autorun because Mutant runs and reports each selected test itself.
+# A full run fails below 95% line or 90%
 # branch coverage. A targeted `make test TEST=...` run sets COVERAGE_PARTIAL
 # and skips both thresholds, because it loads only part of the plugin code.
 #
@@ -46,7 +48,7 @@ formatters = [
 ]
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(formatters)
 
-SimpleCov.start do
+SimpleCov.configure do
   # Use _coverage directory to prevent accidental shipping to production
   coverage_dir '_coverage'
 
@@ -72,8 +74,13 @@ SimpleCov.start do
   # apply to full runs only.
   minimum_coverage line: 95, branch: 90 unless ENV['COVERAGE_PARTIAL']
 end
+SimpleCov.start unless ENV['MUTATION_TEST_TARGET']
 
-require 'minitest/autorun'
+if ENV['MUTATION_TEST_TARGET']
+  require 'minitest'
+else
+  require 'minitest/autorun'
+end
 require 'minitest/mock'
 require 'jekyll'
 require 'time' # Needed for Time.parse if mocking dates

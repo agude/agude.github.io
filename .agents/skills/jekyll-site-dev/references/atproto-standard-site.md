@@ -124,6 +124,20 @@ lexicons. It explains how the pieces connect and what to do when they change.
   capture the current clock once per document scan: they have no built
   site to agree with. To reproduce a CI cutoff locally, build with the same
   `time:` overlay and pass the same `--site-time` to `validate`.
+- **The data file is written only by a sync that succeeds.** A failed sync
+  (any PDS error, invalid document, or swap conflict) raises before the
+  write and leaves `_data/standard_site.json` as it was; a dry run never
+  writes it. In CI the file does not exist before the publish step, so a
+  failed publish fails the `build` job and nothing deploys. Records created
+  before the failure are found by `listRecords` on the next run and mapped
+  then; no cleanup is needed. The sync state machine in
+  `_scripts/tests/test_atproto_publish_properties.py` asserts this.
+- **An empty local corpus is refused.** When the posts and books
+  directories yield no documents, `sync_documents` raises
+  `no local documents found` before any write and keeps the data file,
+  the same guard `delete_orphans` uses. Without it, an existing but wrong
+  `--posts-dir` would mark every remote record as an orphan and write `{}`,
+  removing every document link tag from the deployed site.
 - Other apps (Leaflet, pckt) may write `site.standard.document`
   records into the same PDS collection; everything here is scoped by
   `site == publication_uri` and must stay that way.

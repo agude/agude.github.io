@@ -213,6 +213,34 @@ class TestImageDerivatives < Minitest::Test
     assert_includes error.message, 'failed'
   end
 
+  # A failed encode leaves the old output on disk. The next build must still
+  # re-encode it, so the manifest must not record the failed encode's keys.
+  def test_failed_encode_leaves_changed_source_stale_for_the_next_build
+    write_jpeg('dune.jpg', 1000, 1500)
+    Derivatives.build(site)
+    write_jpeg('dune.jpg', 1000, 2000)
+
+    failing = ->(_outputs) { raise Jekyll::Errors::FatalException, 'ImageDerivatives: stub encode failed.' }
+    Derivatives.stub(:encode_all, failing) do
+      assert_raises(Jekyll::Errors::FatalException) { Derivatives.build(site) }
+    end
+    Derivatives.build(site)
+
+    assert_equal ['WEBP', 250, 500], webp_size(cache_file('dune-250.webp'))
+  end
+
+  # The manifest still holds the key of the deleted output, so only the
+  # existence check sends it back to the encoder.
+  def test_deleted_output_is_reencoded
+    write_jpeg('dune.jpg', 1000, 1500)
+    Derivatives.build(site)
+    FileUtils.rm(cache_file('dune-250.webp'))
+
+    Derivatives.build(site)
+
+    assert File.file?(cache_file('dune-250.webp')), 'a deleted output was not re-encoded'
+  end
+
   def test_missing_imagemagick_raises
     write_jpeg('dune.jpg', 1000, 1500)
     Derivatives.instance_variable_set(:@imagemagick, nil)

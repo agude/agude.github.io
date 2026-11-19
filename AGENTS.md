@@ -12,6 +12,38 @@ Jekyll-based static site (alexgude.com) running in Docker.
 - **Serve:** `make serve` (Live reload at localhost:4000).
 - **Test:** `make test` (Runs all tests in `_tests/`).
 - **Test File:** `make test TEST=_tests/src/path/to/test.rb`
+- **Ruby properties:** `make test-properties TARGET=html`. Choose `link-cache`,
+  `backlinks`, or `markdown` for another suite. Use `PROFILE=discovery` for
+  1,000 cases per property. A failure ends with a replay line of the form
+  `make test-properties TARGET=<suite> FILTER=<test_method> SEED=<s> CASES=<N+1>`,
+  where N is the successful-run count PropCheck reports. Each case depends on
+  the cases before it, so `CASES` must exceed N or the replay stops before the
+  failing case. A seed stops reproducing a failure once the generator changes,
+  so keep each confirmed shrunken input as a literal regression test.
+  Add `STATS=1` to print a report for each property: `property-stats` lines
+  with the test name, cases run, distinct inputs, and a count for each named
+  interaction, zero counts included. Interactions are declared on
+  `check_property` with `classify:` (input to interaction names) and
+  `interactions:` (every name to report). Stats are off by default and do not
+  change inputs, seeds, or results.
+- **Ruby mutations:** `make test-mutations TARGET=html` uses the same suite
+  names. With `TESTS=all` it passes only when every surviving mutant is listed
+  in `_tests/support/mutation_dispositions.yml`. It fails on an unlisted
+  survivor (printing its diff and key) and on a stale entry that matches no
+  survivor. Timeouts are printed for review and do not fail the run. Each entry
+  gives the suite, subject, a 16-digit key (SHA-256 of Mutant's mutated method
+  source, so line moves do not change it), a disposition (`equivalent` or
+  `out_of_scope`), and a one-sentence reason.
+  Only `PROFILE=quick` is accepted and `CASES` is rejected, so every run uses
+  the same 100 cases: Mutant's 5 s timeout counts a slow test as a kill.
+  Mutant runs in a scratch copy of the checkout (under the temp dir, without
+  `.git`, `_site`, `vendor`, caches, or `.mutant`), so a mutant that writes a
+  file cannot change the checkout; the session file is copied back into
+  `.mutant/results`. Each run sets the Minitest seed to `MUTATION_SEED`
+  (default `1`) and prints it in the header, so test order and kills repeat.
+  `TESTS=examples` loads only the example files and skips inline property
+  tests; it lists the same subjects as the default `TESTS=all`, prints its
+  survivors, and does not apply the dispositions or fail.
 - **Build:** `make build` (Production build to `_site/`).
 - **Deps:** `make lock` (Update Gemfile.lock via Docker).
 - **Lint:** `make lint` / `make format-all`.
@@ -22,6 +54,27 @@ Jekyll-based static site (alexgude.com) running in Docker.
   every Markdown file in the repository and rewrites unrelated files.
 - **Scripts:** `make scripts` (List available Python scripts with descriptions).
 - **Test Scripts:** `make test-scripts` (Run Python script tests via pytest).
+  The sync property tests (`_scripts/tests/test_atproto_publish_properties.py`)
+  run 100 examples by default. Set `ATPROTO_HYPOTHESIS_PROFILE=discovery` for
+  1,000 examples and `PYTEST_ADDOPTS=--hypothesis-show-statistics` to print
+  the per-interaction event counts, e.g.
+  `ATPROTO_HYPOTHESIS_PROFILE=discovery PYTEST_ADDOPTS=--hypothesis-show-statistics make test-scripts`.
+- **Script mutations:** `make test-mutations-scripts` runs mutmut over
+  `_scripts/atproto/` (the AT Protocol publisher). Only
+  `tests/test_atproto_publish.py` and `tests/test_atproto_publish_properties.py`
+  select tests, under `ATPROTO_HYPOTHESIS_PROFILE=quick`. It creates the
+  symlinks `_scripts/_config.yml` and `_scripts/.github` (gitignored) that
+  `publish.py` and the workflow test need under `_scripts/mutants/`, runs
+  mutmut, then runs `_scripts/ci/check_mutation_dispositions.py`. Narrow it
+  with `MUTANTS='atproto.publish.x_sync_documents*'`. Mutant names use the
+  `x_<function>__mutmut_<n>` form. The check gates only the functions listed
+  under `functions` in `_scripts/tests/mutation_dispositions.yml`: it fails on
+  a survivor that is not listed, a listed mutant that no longer survives, a
+  function whose source hash changed (mutmut renumbers mutants), or a
+  partly run function. Survivors in other functions are printed as
+  untriaged. To gate a function, triage its survivors, list them, and add the
+  function with the hash from `mutants/atproto/publish.py.meta`. `mutants/`
+  and `.mutmut-cache` are gitignored.
 - **Hooks:** `make hooks-install` (Install pre-commit hook).
 - **Code docs:** `make doc-index` (List code objects tagged `@validator`,
   `@pipeline`, `@pattern`, or `@gotcha`) / `make doc-show OBJ=<Class>` or

@@ -253,3 +253,37 @@ def test_no_unstaged_changes_creates_no_stash(repo):
     assert result.returncode == 0, result.stdout + result.stderr
     assert repo.git("show", ":a.rb") == replace_line(ORIGINAL, 3, "staged")
     assert repo.stash_commits() == []
+
+
+def test_merge_commit_keeps_its_second_parent(repo):
+    # `git stash push` resets the worktree, which deletes MERGE_HEAD. git
+    # commit reads MERGE_HEAD after the hook, so without restoring it the
+    # commit fails or loses the merged branch as a parent.
+    repo.git("checkout", "-q", "-b", "side")
+    repo.write("side.rb", "side\n")
+    repo.git("add", "side.rb")
+    repo.git("commit", "-q", "-m", "side")
+    repo.git("checkout", "-q", "main")
+    repo.write("main.rb", "main\n")
+    repo.git("add", "main.rb")
+    repo.git("commit", "-q", "-m", "main")
+    repo.git("merge", "-q", "--no-ff", "--no-commit", "side")
+    repo.write("notes.txt", "untracked\n")
+    hook = repo.root / ".git" / "hooks" / "pre-commit"
+    shutil.copy(HOOK, hook)
+    hook.chmod(0o755)
+
+    result = subprocess.run(
+        [REAL_GIT, "commit", "-q", "--no-edit"],
+        cwd=repo.root,
+        env=repo.env,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert len(repo.git("log", "-1", "--format=%P").split()) == 2
+    assert repo.git("log", "-1", "--format=%s").startswith("Merge branch 'side'")
+    assert repo.read("notes.txt") == "untracked\n"
+    assert not (repo.root / ".git" / "MERGE_HEAD").exists()

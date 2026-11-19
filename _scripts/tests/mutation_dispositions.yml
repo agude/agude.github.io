@@ -1,0 +1,153 @@
+# Surviving mutmut mutants of atproto/publish.py that are accepted, with the
+# reason for each. `make test-mutations-scripts` runs
+# ci/check_mutation_dispositions.py after mutmut. For every function listed
+# under `functions`, the check fails on:
+#   - a surviving mutant that is not listed under `survivors` (unlisted);
+#   - a listed mutant that no longer survives (stale);
+#   - a function whose source hash differs from the recorded one, because
+#     mutmut numbers mutants by position and a source change can renumber them;
+#   - a function whose mutants were only partly run.
+# Survivors in functions not listed under `functions` are counted and printed
+# as untriaged, but do not fail the check. Timeouts are printed, not gated.
+#
+# Fields:
+#   functions    mutmut function name (x_<name>) -> source hash from
+#                mutants/atproto/publish.py.meta (hash_by_function_name).
+#   mutant       Full mutmut mutant name.
+#   mutation     Short description of the change.
+#   disposition  equivalent: the mutant cannot change observable behavior.
+#                out_of_scope: the mutant changes wording only; tests assert
+#                the identifying content (a path, URI, rule, or record name),
+#                but do not pin prose.
+#   reason       One sentence, specific to this mutant.
+#
+# sync_documents triage (mutmut 3.8.1, quick profile, 234 mutants): before the
+# R11 tests, 163 killed, 70 survived, 1 timeout (mutant 192); after, 208
+# killed, 26 survived, 0 timeouts. Mutant 192 (`updated += 1` -> `updated = 1`)
+# was not a hang: the property failed and Hypothesis shrinking outran the
+# timeout. TestSummaryLine now kills it directly. The empty-corpus guard added
+# after R11 renumbered the later mutants by +6 and added survivors 50, 52, 53.
+
+functions:
+  x_sync_documents: 8d8fdde6836a
+survivors:
+- mutant: atproto.publish.x_sync_documents__mutmut_4
+  mutation: Wrap the empty-`publication_uri` message in `XX` markers
+  disposition: out_of_scope
+  reason: The rule text and the term `publication_uri` remain, and a test asserts the term.
+- mutant: atproto.publish.x_sync_documents__mutmut_9
+  mutation: Blank the `posts dir` label in `_require_dir`
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing path, which identifies the directory.
+- mutant: atproto.publish.x_sync_documents__mutmut_12
+  mutation: Wrap the `posts dir` label in `XX` markers
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing path.
+- mutant: atproto.publish.x_sync_documents__mutmut_13
+  mutation: Upper-case the `posts dir` label
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing path.
+- mutant: atproto.publish.x_sync_documents__mutmut_15
+  mutation: Blank the `books dir` label
+  disposition: out_of_scope
+  reason: The check still runs and the path is still printed. The missing-check gap is mutant 14, which
+    is killed.
+- mutant: atproto.publish.x_sync_documents__mutmut_18
+  mutation: Wrap the `books dir` label in `XX` markers
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing path.
+- mutant: atproto.publish.x_sync_documents__mutmut_19
+  mutation: Upper-case the `books dir` label
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing path.
+- mutant: atproto.publish.x_sync_documents__mutmut_21
+  mutation: Wrap the `missing input directory` message in `XX` markers
+  disposition: out_of_scope
+  reason: The rule words remain, and a test asserts them.
+- mutant: atproto.publish.x_sync_documents__mutmut_37
+  mutation: Change the separator between multiple errors for one file to `XX; XX`
+  disposition: out_of_scope
+  reason: Each file name and error still appears. No test or runbook text pins the separator.
+- mutant: atproto.publish.x_sync_documents__mutmut_39
+  mutation: Replace the `AssertionError` message with `None`
+  disposition: equivalent
+  reason: Dead branch. `_collect_documents` yields a `None` record only together with a non-empty error
+    list, and that list raises first.
+- mutant: atproto.publish.x_sync_documents__mutmut_40
+  mutation: Wrap the `AssertionError` message in `XX` markers
+  disposition: equivalent
+  reason: Same dead branch as mutant 39.
+- mutant: atproto.publish.x_sync_documents__mutmut_41
+  mutation: Upper-case the `AssertionError` message
+  disposition: equivalent
+  reason: Same dead branch as mutant 39.
+- mutant: atproto.publish.x_sync_documents__mutmut_50
+  mutation: Wrap the first part of the empty-corpus message in `XX` markers
+  disposition: out_of_scope
+  reason: The phrase `no local documents found` remains, and tests assert it.
+- mutant: atproto.publish.x_sync_documents__mutmut_52
+  mutation: Wrap the empty-corpus `--posts-dir/--books-dir` hint in `XX` markers
+  disposition: out_of_scope
+  reason: Only the hint wording changes; the refusal and the asserted phrase remain.
+- mutant: atproto.publish.x_sync_documents__mutmut_53
+  mutation: Upper-case the empty-corpus `--posts-dir/--books-dir` hint
+  disposition: out_of_scope
+  reason: Only the hint wording changes; the refusal and the asserted phrase remain.
+- mutant: atproto.publish.x_sync_documents__mutmut_68
+  mutation: Wrap the publication no-cid message in `XX` markers
+  disposition: out_of_scope
+  reason: The terms `getRecord` and `non-atomic` remain, and a test asserts them.
+- mutant: atproto.publish.x_sync_documents__mutmut_71
+  mutation: Wrap the `non-atomic overwrite` phrase in `XX` markers
+  disposition: out_of_scope
+  reason: Same as mutant 68.
+- mutant: atproto.publish.x_sync_documents__mutmut_77
+  mutation: Wrap the dry-run publication plan line in `XX` markers
+  disposition: out_of_scope
+  reason: The plan text remains, and a test asserts it.
+- mutant: atproto.publish.x_sync_documents__mutmut_95
+  mutation: Lower-case the publication-swap hint
+  disposition: out_of_scope
+  reason: The instruction to rerun is asserted. Capitalization is prose.
+- mutant: atproto.publish.x_sync_documents__mutmut_105
+  mutation: Wrap the `Updated publication record` line in `XX` markers
+  disposition: out_of_scope
+  reason: The success text remains, and a test asserts it.
+- mutant: atproto.publish.x_sync_documents__mutmut_125
+  mutation: Default a remote record's missing `path` to `None` instead of `""`
+  disposition: out_of_scope
+  reason: A record with no path is orphaned either way. Only the printed orphan text differs, and that
+    text is not a contract.
+- mutant: atproto.publish.x_sync_documents__mutmut_127
+  mutation: Drop the default from `value.get("path")`
+  disposition: out_of_scope
+  reason: Same as mutant 125.
+- mutant: atproto.publish.x_sync_documents__mutmut_130
+  mutation: Default a missing `path` to `"XXXX"`
+  disposition: out_of_scope
+  reason: Same as mutant 125.
+- mutant: atproto.publish.x_sync_documents__mutmut_138
+  mutation: Default a missing remote `cid` to `None` instead of `""`
+  disposition: equivalent
+  reason: '`None` and `""` are both falsy. The only consumer tests truthiness (`if not cid`) before use.'
+- mutant: atproto.publish.x_sync_documents__mutmut_140
+  mutation: Drop the default from `item.get("cid")`
+  disposition: equivalent
+  reason: Same as mutant 138.
+- mutant: atproto.publish.x_sync_documents__mutmut_170
+  mutation: Wrap the listRecords no-cid message in `XX` markers
+  disposition: out_of_scope
+  reason: The path and the words `non-atomic overwrite` remain.
+- mutant: atproto.publish.x_sync_documents__mutmut_228
+  mutation: Pass `encoding=None` to `write_text`
+  disposition: equivalent
+  reason: '`json.dumps` defaults to `ensure_ascii=True`, so the data file is always ASCII. The codec cannot
+    change its bytes.'
+- mutant: atproto.publish.x_sync_documents__mutmut_230
+  mutation: Drop `encoding=` from `write_text`
+  disposition: equivalent
+  reason: Same as mutant 228.
+- mutant: atproto.publish.x_sync_documents__mutmut_239
+  mutation: Change `"utf-8"` to `"UTF-8"`
+  disposition: equivalent
+  reason: Python codec names are case-insensitive. The bytes are identical.

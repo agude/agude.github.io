@@ -105,6 +105,12 @@ class TestReferenceLinkScanner < Minitest::Test
     assert_equal ['11: undefined reference link [docs]'], messages(result)
   end
 
+  def test_line_offset_defaults_to_zero
+    result = ReferenceLinkScanner.scan("See [the docs][docs].\n")
+
+    assert_equal ['1: undefined reference link [docs]'], messages(result)
+  end
+
   def test_multi_line_liquid_does_not_shift_later_line_numbers
     content = <<~MARKDOWN
       {% citation
@@ -184,6 +190,13 @@ class TestReferenceLinkScanner < Minitest::Test
 
       assert_equal [{ line: 7, message: 'undefined reference link [outside]' }], scan(content)
     end
+  end
+
+  def test_inline_code_as_link_text_still_leaves_the_reference_in_place
+    # The code span is neutralized to a word, so [label][missing] keeps its id.
+    result = scan("See [`code`][missing].\n")
+
+    assert_equal ['1: undefined reference link [missing]'], messages(result)
   end
 
   def test_brackets_inside_inline_code_are_not_references

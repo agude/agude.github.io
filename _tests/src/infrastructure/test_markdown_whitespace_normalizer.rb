@@ -35,6 +35,21 @@ class TestMarkdownWhitespaceNormalizer < Minitest::Test
     assert_equal source, Jekyll::Infrastructure::MarkdownWhitespaceNormalizer.normalize(source)
   end
 
+  def test_strips_a_whitespace_only_line_even_when_it_ends_in_two_spaces
+    # A blank line has no text for a hard break to follow, so its spaces go.
+    input = "Intro\n\n  \nNext\n"
+
+    assert_equal "Intro\n\nNext\n", Normalizer.normalize(input)
+  end
+
+  def test_restores_html_block_without_replacing_placeholder_like_prose
+    # Raw HTML is stashed under a placeholder. Prose that merely looks like the
+    # placeholder suffix must survive the restore step unchanged.
+    input = "<div>raw</div>\n\nSee _0@@ here \n"
+
+    assert_equal "<div>raw</div>\n\nSee _0@@ here\n", Normalizer.normalize(input)
+  end
+
   def test_preserves_tilde_fenced_code_with_crlf
     code = "~~~text\r\nfirst  \r\n\r\n\r\nlast\t\r\n~~~\r\n"
     assert_equal "#{code}\nEnd\n", Normalizer.normalize("#{code}\nEnd \n")

@@ -1,0 +1,642 @@
+# Alive mutants that are accepted, with the reason for each. `make test-mutations`
+# (TESTS=all) fails on any alive mutant that is not listed here, and on any
+# entry here that no alive mutant matches.
+#
+# Fields:
+#   suite        A key of PropertyTestSuites::SUITES (_tests/support/property_test_suites.rb).
+#   subject      A Mutant subject expression of that suite.
+#   key          The first 16 hex digits of SHA-256 over the mutated method source
+#                that Mutant reports (mutation_source in the session file). It has no
+#                line numbers. Quote it: an all-digit key would load as an integer.
+#                Shown as "UNLISTED SURVIVOR <subject> <key>" by a failing run.
+#   disposition  equivalent: no input changes the result, or no input in the
+#                documented domain does.
+#                out_of_scope: only malformed input or performance differs.
+#   reason       One sentence, specific to this mutation.
+#
+# Timed-out mutants are not listed here. A failing run prints them under
+# "TIMED OUT" for review; Mutant counts them as killed.
+
+- suite: 'html'
+  subject: 'Jekyll::Infrastructure::HtmlAttributes.parse'
+  key: 'e1b45fe54146adc3'
+  disposition: equivalent
+  reason: 'Removing the trailing delete_suffix(">") changes no scan result, because a ">" at the end of the tag is never part of a name, an unquoted value, or a quoted value (a quoted value needs a closing quote after it).'
+
+- suite: 'html'
+  subject: 'Jekyll::Infrastructure::HtmlAttributes.parse'
+  key: '355ffb14bc546396'
+  disposition: equivalent
+  reason: 'delete_suffix("") removes nothing, so it returns the same string for every input.'
+
+- suite: 'html'
+  subject: 'Jekyll::Infrastructure::HtmlAttributes.parse'
+  key: '80faa62bd0c5e064'
+  disposition: equivalent
+  reason: 'The three value groups in ATTRIBUTE are alternatives, so at most one is set and values.compact has at most one element, making .first and .last the same.'
+
+- suite: 'html'
+  subject: 'Jekyll::Infrastructure::HtmlAttributes.remove'
+  key: '9aec39103896b2fe'
+  disposition: equivalent
+  reason: 'The shorter head "<x" leaves the rest of the tag name for gsub, which cannot match inside a name because SPACED_ATTRIBUTE begins with whitespace, so the output is the same for every input the original accepts.'
+
+- suite: 'html'
+  subject: 'Jekyll::Infrastructure::HtmlAttributes.remove'
+  key: '8b65eaa53c792b6a'
+  disposition: equivalent
+  reason: 'With an empty head, gsub runs over the whole tag, and it removes the same attributes because the tag name holds no whitespace; the original differs only by raising on input with no tag name, which is not a start tag.'
+
+- suite: 'html'
+  subject: 'Jekyll::Infrastructure::HtmlAttributes.remove'
+  key: '861dc41af6dcc83a'
+  disposition: equivalent
+  reason: 'String#gsub converts a block result with to_s, and nil.to_s is "", so returning nil removes the attribute exactly as returning "" does.'
+
+- suite: 'html'
+  subject: 'Jekyll::Infrastructure::HtmlAttributes.remove'
+  key: '5c486d40561b35cf'
+  disposition: equivalent
+  reason: 'The unless form returns nil for a matching attribute, which gsub turns into "", and returns the attribute otherwise, the same result as the original if/else.'
+
+- suite: 'html'
+  subject: 'Jekyll::Infrastructure::HtmlAttributes.append'
+  key: '32649a7b60b0f168'
+  disposition: equivalent
+  reason: 'The closing-delimiter check only matters for "/>", because for any other closing the character at the offset is ">" or whitespace, which no attribute match ends with, so offset never moves.'
+
+- suite: 'html'
+  subject: 'Jekyll::Infrastructure::HtmlAttributes.append'
+  key: '905046207931fa01'
+  disposition: equivalent
+  reason: 'String#eql? and String#== compare the same way for these two strings, so eql?("/>") selects the same branch as ==.'
+
+- suite: 'html'
+  subject: 'Jekyll::Infrastructure::HtmlAttributes.append'
+  key: '635826d17d56f074'
+  disposition: equivalent
+  reason: 'A literal "/>" is always truthy, so the branch always runs, and as for any non-"/>" closing its offset never moves (see the closing-delimiter check).'
+
+- suite: 'html'
+  subject: 'Jekyll::Infrastructure::HtmlAttributes.append'
+  key: 'b4eb4757c59dfae1'
+  disposition: equivalent
+  reason: 'The branch always runs, and for any closing other than "/>" the offset never moves, so skipping the test changes no output.'
+
+- suite: 'html'
+  subject: 'Jekyll::Infrastructure::HtmlAttributes.append'
+  key: '21fb95ea4cbec10a'
+  disposition: equivalent
+  reason: 'Running the scan with no closing-delimiter check changes no output, because the offset moves only when the last unquoted value ends at the "/", which only a "/>" closing can produce.'
+
+- suite: 'html'
+  subject: 'Jekyll::Infrastructure::HtmlAttributes.append'
+  key: '2ca42576a19a08be'
+  disposition: equivalent
+  reason: 'Integer#eql? compares equal Integers as equal, the same as ==, so the offset check selects the same cases.'
+
+- suite: 'html'
+  subject: 'Jekyll::Infrastructure::HtmlAttributes.append'
+  key: '223573f8f16437a1'
+  disposition: equivalent
+  reason: 'Integer#equal? is identity, and CRuby stores Integers in fixnum range as immediate values, so equal? matches == for string offsets.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookCandidateSelector.select_book'
+  key: 'f55f13b76de613ea'
+  disposition: equivalent
+  reason: 'Removing only trailing whitespace leaves the filter non-empty exactly when strip does, and AuthorLookup.canonical_author strips its argument again, so the wanted author is the same.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookCandidateSelector.select_book'
+  key: 'cdc06ce87698cb4f'
+  disposition: equivalent
+  reason: 'Removing only leading whitespace leaves the filter non-empty exactly when strip does, and AuthorLookup.canonical_author strips its argument again, so the wanted author is the same.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookCandidateSelector.select_book'
+  key: '6f6720abd70741e6'
+  disposition: equivalent
+  reason: 'With one candidate candidates.first and candidates.last are the same book, and with several candidates the result is :ambiguous, so the no-filter result never depends on which end is read.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#find_violations'
+  key: 'd9d304f15b553d3b'
+  disposition: equivalent
+  reason: 'The key? guard above returns early when the books collection is absent, so Hash#fetch("books") returns the same collection as [].'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#find_violations'
+  key: '2fbf02ee8aea585c'
+  disposition: equivalent
+  reason: 'Jekyll::Document#[] returns data[key] (document.rb line 250 in Jekyll 4.4.1), so b["published"] reads the same value as b.data["published"].'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#find_violations'
+  key: '0126d3dbf81c93dd'
+  disposition: equivalent
+  reason: 'For every value that YAML front matter can produce, value == false and value.eql?(false) give the same result, because only false is equal to false.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#find_violations'
+  key: '29ab7adfa4132272'
+  disposition: equivalent
+  reason: 'false is a singleton in Ruby, so value.equal?(false) is true for exactly the values that value == false accepts.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#find_violations'
+  key: 'af19eef548d8f00d'
+  disposition: equivalent
+  reason: 'Jekyll sanitizes every book url to start with "/" (Jekyll::URL sanitizing), so a non-local canonical_url can never equal a book url and dropping the local-path filter changes no violation.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#find_violations'
+  key: 'fafe1bee576b8ed3'
+  disposition: equivalent
+  reason: 'Jekyll sanitizes every book url to start with "/" (Jekyll::URL sanitizing), so a non-local canonical_url can never equal a book url and removing the local-path select changes no violation.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#find_violations'
+  key: 'fb772f16cc588a89'
+  disposition: equivalent
+  reason: 'Jekyll::Document#[] returns data[key] (document.rb line 250 in Jekyll 4.4.1), so b["canonical_url"] in the target collection reads the same value as b.data["canonical_url"].'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#find_violations'
+  key: 'e888b01edd3ff9e0'
+  disposition: equivalent
+  reason: 'Replacing the local-path check with the truthy url keeps every canonical value, and a non-local value can never equal a book url because Jekyll sanitizes book urls to start with "/".'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#find_violations'
+  key: '4c075f012d8ad5c1'
+  disposition: equivalent
+  reason: 'Replacing the local-path check with true keeps every canonical value, and a non-local value can never equal a book url because Jekyll sanitizes book urls to start with "/".'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#find_violations'
+  key: 'e2c4fc6208a86c1b'
+  disposition: equivalent
+  reason: 'Replacing the local-path check with the truthy string "/" keeps every canonical value, and a non-local value can never equal a book url because Jekyll sanitizes book urls to start with "/".'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#find_violations'
+  key: '95d68e96236c4b90'
+  disposition: equivalent
+  reason: 'start_with?("") is true for every string, so it keeps every canonical value, and a non-local value can never equal a book url because Jekyll sanitizes book urls to start with "/".'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#find_violations'
+  key: '7264b880740429ad'
+  disposition: equivalent
+  reason: 'Jekyll::Document#[] returns data[key] (document.rb line 250 in Jekyll 4.4.1), so book["canonical_url"] reads the same value as book.data["canonical_url"].'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#raise_if_errors'
+  key: '5a0c7e24fc20f952'
+  disposition: equivalent
+  reason: 'Every error hash is built with a :path key, so error.fetch(:path) returns the same value as error[:path].'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#raise_if_errors'
+  key: 'd96def1b3cd57fc4'
+  disposition: equivalent
+  reason: 'Every error hash is built with a :url key, so error.fetch(:url) returns the same value as error[:url].'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#raise_if_errors'
+  key: 'c101040ea563a621'
+  disposition: equivalent
+  reason: 'Inside module Jekyll, Errors resolves to Jekyll::Errors because no Infrastructure or LinkCache Errors constant exists, so the mutated constant is the same class.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::SEO::BookIdentityResolver.blank?'
+  key: '1a5f3c0a46f069d9'
+  disposition: equivalent
+  reason: 'nil.to_s is an empty string, so dropping the nil check leaves the blank result unchanged for nil.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::SEO::BookIdentityResolver.blank?'
+  key: 'bc04addc5e18e145'
+  disposition: equivalent
+  reason: 'A literal nil as the left operand of || is falsy, so the nil check is skipped, which matches dropping it because nil.to_s is an empty string.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::SEO::BookIdentityResolver.blank?'
+  key: '5dc6e61a829241d9'
+  disposition: equivalent
+  reason: 'A literal false as the left operand of || is falsy, so the nil check is skipped, which matches dropping it because nil.to_s is an empty string.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::SEO::BookIdentityResolver.blank?'
+  key: '6b051929ad22aada'
+  disposition: equivalent
+  reason: 'self is the BookIdentityResolver class, which is never nil, so self.nil? is false and the nil check is skipped, which matches dropping it because nil.to_s is an empty string.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::SEO::BookIdentityResolver.blank?'
+  key: '5ee98ce01cefea2a'
+  disposition: equivalent
+  reason: 'A string is empty after lstrip exactly when it is empty after strip, because both remove all whitespace and NUL characters when nothing else is present.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::SEO::BookIdentityResolver.blank?'
+  key: '74f654082023d086'
+  disposition: equivalent
+  reason: 'A string is empty after rstrip exactly when it is empty after strip, because both remove all whitespace and NUL characters when nothing else is present.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::SEO::BookIdentityResolver.blank?'
+  key: 'f69412675e337cfd'
+  disposition: out_of_scope
+  reason: 'Only a value that is neither nil nor a String differs (NoMethodError instead of to_s conversion), and the resolver receives only document urls and canonical map strings.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::SEO::BookIdentityResolver.blank?'
+  key: 'b82a4fa4638ed5d3'
+  disposition: out_of_scope
+  reason: 'Only a value that is neither nil nor a String differs (to_str raises instead of converting with to_s), and the resolver receives only document urls and canonical map strings.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::SEO::BookIdentityResolver.local_path?'
+  key: '5dbe8fcfac33d3e3'
+  disposition: equivalent
+  reason: 'A string starts with "/" after lstrip exactly when it does after strip, because both remove the same leading whitespace and NUL characters, so the trailing whitespace that strip removes never affects start_with?.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#check_canonical_format'
+  key: '6f9691a49af26f2d'
+  disposition: equivalent
+  reason: 'The key? guard above returns early when the books collection is absent, so Hash#fetch("books") returns the same collection as [].'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#check_canonical_format'
+  key: '9118c08bc8d61388'
+  disposition: equivalent
+  reason: 'Jekyll::Document#[] returns data[key] (document.rb line 250 in Jekyll 4.4.1), so book["canonical_url"] reads the same value as book.data["canonical_url"].'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#check_canonical_format'
+  key: '45e2997954b96d21'
+  disposition: out_of_scope
+  reason: 'Only a canonical_url that is a non-String truthy value (a YAML number, list, or mapping) differs: it raises NoMethodError on strip instead of being skipped. Such front matter is malformed.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#check_canonical_format'
+  key: 'a6dbb50a3c6ec954'
+  disposition: equivalent
+  reason: 'YAML front matter produces plain String values, never a String subclass, so instance_of?(String) and is_a?(String) agree for every canonical_url.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#check_canonical_format'
+  key: '44c97632d74a58a5'
+  disposition: equivalent
+  reason: 'The method is defined inside module Jekyll, so the constant Errors::FatalException resolves to Jekyll::Errors::FatalException.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#canonical_format_problem'
+  key: 'f0e66650a6985998'
+  disposition: equivalent
+  reason: 'For two Strings, eql? and == both compare content, so !value.eql?(value.strip) and value != value.strip give the same result.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#canonical_format_problem'
+  key: '3e1f2342d4871cd0'
+  disposition: equivalent
+  reason: 'target and value are both Strings when compared, and for two Strings eql? and == both compare content.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder#add_link'
+  key: '4a9dad5b53a31f3f'
+  disposition: equivalent
+  reason: 'String#eql? and String#== return the same result for two String URLs, and both sides of the self-link check are always Strings, so the branch never differs.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder#merge_entry'
+  key: 'e804f6b1d758596a'
+  disposition: equivalent
+  reason: 'LINK_TYPE_PRIORITY.fetch(type) returns the same rank as [] for each of the four link types the builder passes, and an unknown type raises in both versions.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder#merge_entry'
+  key: 'bd43ec28a869197c'
+  disposition: equivalent
+  reason: 'Every entry is stored with a :type from the four known link types, so LINK_TYPE_PRIORITY.fetch(existing[:type]) returns the same rank as the [] lookup.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder#merge_entry'
+  key: '63831ccd23ab581e'
+  disposition: equivalent
+  reason: 'Every entry is built with a :type key, so existing.fetch(:type) returns the same value as existing[:type] for each entry that merge_entry receives.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder#merge_entry'
+  key: '93d515216cac2cda'
+  disposition: equivalent
+  reason: 'Every entry is built with a :count key, possibly holding nil, so existing.fetch(:count) returns the same value as existing[:count] for each entry that merge_entry receives.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanState#handle_capture'
+  key: '99591a76b258b4f5'
+  disposition: equivalent
+  reason: 'Object#__send__ and Object#send both invoke the private extract_links_from_capture method with the same arguments, so the call behaves identically.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanState#handle_capture'
+  key: '072182922e110eaa'
+  disposition: equivalent
+  reason: 'Removing the no-target branch leaves an unresolved capture as a definition with no targets, which register_captured_links skips, so its later usages still reach no link.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanState#handle_capture'
+  key: 'd41c00444fa7c771'
+  disposition: equivalent
+  reason: 'A condition that is always nil never takes the no-target branch, so an unresolved capture becomes a definition with no targets, which register_captured_links skips.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanState#handle_capture'
+  key: 'bb7f5cafa604b573'
+  disposition: equivalent
+  reason: 'A condition that is always false never takes the no-target branch, so an unresolved capture becomes a definition with no targets, which register_captured_links skips.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanState#handle_capture'
+  key: 'b4ca81ce4bc9ccd3'
+  disposition: equivalent
+  reason: 'Replacing the early return with nil lets an unresolved capture fall through to update_capture_tracking, which records an empty definition that register_captured_links skips.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanState#handle_capture'
+  key: '625fb23126fe254e'
+  disposition: equivalent
+  reason: 'Deleting the early return lets an unresolved capture fall through to update_capture_tracking, which records an empty definition that register_captured_links skips.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanState#handle_capture'
+  key: '647d629a12aaba18'
+  disposition: equivalent
+  reason: 'Deleting the whole no-target branch makes an unresolved capture a definition with no targets, which register_captured_links skips, so its later usages still reach no link.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanState#handle_capture'
+  key: '1456fcda1345cc4d'
+  disposition: equivalent
+  reason: 'The var_name key of a capture definition is never read, because register_captured_links uses only :targets, so renaming that key changes no link.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanState#handle_capture'
+  key: '0e768f1749db5a70'
+  disposition: equivalent
+  reason: 'The var_name value of a capture definition is never read, because register_captured_links uses only :targets, so setting that value to nil changes no link.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanState#handle_capture'
+  key: '1eba0e1cf2a9b9b7'
+  disposition: equivalent
+  reason: 'Removing the var_name key from a capture definition changes no link, because register_captured_links reads only the :targets key.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanResult#compute_usages'
+  key: 'bbecca9e46e8fb44'
+  disposition: equivalent
+  reason: 'With no prose variables the loop never runs, so removing the early return still yields the same empty hash.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanResult#compute_usages'
+  key: 'bac57051486f7c19'
+  disposition: equivalent
+  reason: 'A condition that is always nil skips the early return, and with no prose variables the loop never runs, so the same empty hash is returned.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanResult#compute_usages'
+  key: '46933eb887939a40'
+  disposition: equivalent
+  reason: 'A condition that is always false skips the early return, and with no prose variables the loop never runs, so the same empty hash is returned.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanResult#compute_usages'
+  key: '3cea3fb53765b731'
+  disposition: equivalent
+  reason: 'The nil value that replaces the return statement is discarded, so the method still reaches the loop and returns the same empty hash.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanResult#compute_usages'
+  key: 'a2eae7da916212df'
+  disposition: equivalent
+  reason: 'The expression {} that replaces the return statement is discarded, so the method still reaches the loop and returns the same empty hash.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanResult#compute_usages'
+  key: '0229559c78d0bbd7'
+  disposition: equivalent
+  reason: 'Without the early return, an empty prose_vars list makes the loop run zero times and the method returns the same empty hash.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanResult#compute_usages'
+  key: '975e9a85a855f281'
+  disposition: equivalent
+  reason: 'Replacing the nil-owner guard with nil stores positions of variables with no owning capture under a nil key, which register_captured_links never reads.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanResult#compute_usages'
+  key: 'ef074a61582d7f7b'
+  disposition: equivalent
+  reason: 'A prose variable is always a Hash, so the guard is always truthy and never skips one, which only adds unread positions under a nil key.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanResult#compute_usages'
+  key: '51e6894e83f95771'
+  disposition: equivalent
+  reason: 'Every prose variable has an :owning_capture_idx key, so fetch returns the same index as [] and the guard skips the same variables.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanResult#compute_usages'
+  key: '71217c0402054f19'
+  disposition: equivalent
+  reason: 'key? is true for every prose variable, so the guard stops skipping nil owners, and their positions go under a nil key that register_captured_links never reads.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanResult#compute_usages'
+  key: 'e0c42e874b83b837'
+  disposition: equivalent
+  reason: 'A guard that is always true never skips a variable, so nil-owner positions go under a nil key that register_captured_links never reads.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanResult#compute_usages'
+  key: 'a5f84ede2f9fa1d8'
+  disposition: equivalent
+  reason: 'Replacing next with nil lets nil-owner positions fall through to the usages assignment under a nil key that register_captured_links never reads.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanResult#compute_usages'
+  key: '5cb8dd14c9991b46'
+  disposition: equivalent
+  reason: 'Removing the nil-owner guard stores nil-owner positions under a nil key that register_captured_links never reads.'
+
+- suite: 'backlinks'
+  subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder::ScanResult#compute_usages'
+  key: 'b943fdf7034958f3'
+  disposition: equivalent
+  reason: 'Every prose variable has an :owning_capture_idx key, so fetch returns the same index as [] for each variable the guard keeps.'
+
+- suite: 'markdown'
+  subject: 'ReferenceLinkScanner.scan'
+  key: '730b126797cccc2b'
+  disposition: equivalent
+  reason: 'find_references always returns a hash with a :full key, so references.fetch(:full) returns the same array as references[:full] for every input.'
+
+- suite: 'markdown'
+  subject: 'ReferenceLinkScanner.scan'
+  key: '5ca4208539152c42'
+  disposition: equivalent
+  reason: 'Every problem hash is built with a :line key in undefined_errors, duplicate_errors, and orphan_errors, so problem.fetch(:line) returns the same value as problem[:line].'
+
+- suite: 'markdown'
+  subject: 'ReferenceLinkScanner.neutralize_liquid'
+  key: 'eb601b51939d2886'
+  disposition: equivalent
+  reason: 'Regexp is unqualified in ReferenceLinkScanner, which defines no Regexp constant of its own, so the block resolves Regexp to the same top-level class as ::Regexp.'
+
+- suite: 'markdown'
+  subject: 'ReferenceLinkScanner.neutralize_liquid'
+  key: '2d8fc8976a3f4a55'
+  disposition: equivalent
+  reason: 'Regexp is unqualified in ReferenceLinkScanner, which defines no Regexp constant of its own, so the fenced-code block resolves Regexp to the same top-level class as ::Regexp.'
+
+- suite: 'markdown'
+  subject: 'ReferenceLinkScanner.neutralize_liquid'
+  key: 'c6e2c8540a284efc'
+  disposition: equivalent
+  reason: 'Regexp is unqualified in ReferenceLinkScanner, which defines no Regexp constant of its own, so the liquid-output block resolves Regexp to the same top-level class as ::Regexp.'
+
+- suite: 'markdown'
+  subject: 'ReferenceLinkScanner.neutralize_liquid'
+  key: '39aed676a425d947'
+  disposition: equivalent
+  reason: 'Regexp is unqualified in ReferenceLinkScanner, which defines no Regexp constant of its own, so the liquid-tag block resolves Regexp to the same top-level class as ::Regexp.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: 'e2f8f8c9a3c14172'
+  disposition: out_of_scope
+  reason: 'Changes only the text of a Jekyll.logger.info message, which no test or output reads.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: 'd6601ffe0cc859a6'
+  disposition: out_of_scope
+  reason: 'Changes only the text of a Jekyll.logger.info message, which no test or output reads.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: 'd1ef776b274542ce'
+  disposition: out_of_scope
+  reason: 'Changes only the text of a Jekyll.logger.info message, which no test or output reads.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: '3f2be61a8a9a7a35'
+  disposition: out_of_scope
+  reason: 'Changes only the text of a Jekyll.logger.info message, which no test or output reads.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: '34fed361cdc3383c'
+  disposition: out_of_scope
+  reason: 'Changes only the text of a Jekyll.logger.info message, which no test or output reads.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: 'a44ff6b0d15a1ca1'
+  disposition: out_of_scope
+  reason: 'Changes only the text of a Jekyll.logger.info message, which no test or output reads.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: '5ccbe17b9c88853d'
+  disposition: out_of_scope
+  reason: 'Changes only the text of a Jekyll.logger.info message, which no test or output reads.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: 'b1ff85f7733723a5'
+  disposition: out_of_scope
+  reason: 'Changes only the text of a Jekyll.logger.info message, which no test or output reads.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: 'a7aefabea715179d'
+  disposition: out_of_scope
+  reason: 'Changes only the text of a Jekyll.logger.info message, which no test or output reads.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: '5d939307d4bcbd90'
+  disposition: out_of_scope
+  reason: 'Changes only the text of a Jekyll.logger.info message, which no test or output reads.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: '79749d642d5b85c2'
+  disposition: out_of_scope
+  reason: 'Changes only the text of a Jekyll.logger.info message, which no test or output reads.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: 'dec921c83e017893'
+  disposition: out_of_scope
+  reason: 'Changes only the text of a Jekyll.logger.info message, which no test or output reads.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: '2b858fe4585aab95'
+  disposition: equivalent
+  reason: 'Line 267 of encode (FileUtils.mkdir_p(File.dirname(output.cache_file))) creates each output directory before encoding, so after a successful encode_all, cache_root exists and the mutated line changes nothing.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: '558be37defdbae6a'
+  disposition: equivalent
+  reason: 'Line 267 of encode (FileUtils.mkdir_p(File.dirname(output.cache_file))) creates each output directory before encoding, so after a successful encode_all, cache_root exists and the mutated line changes nothing.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: '95606ea59aca0c00'
+  disposition: equivalent
+  reason: 'Line 267 of encode (FileUtils.mkdir_p(File.dirname(output.cache_file))) creates each output directory before encoding, so after a successful encode_all, cache_root exists and the mutated line changes nothing.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: 'e4e77d53aee78a31'
+  disposition: equivalent
+  reason: 'Line 267 of encode (FileUtils.mkdir_p(File.dirname(output.cache_file))) creates each output directory before encoding, so after a successful encode_all, cache_root exists and the mutated line changes nothing.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: 'aa76e9e3f0e2d2f6'
+  disposition: equivalent
+  reason: 'Dropping sort from the manifest hash changes only the key order of the JSON written, and every reader parses that into an equal Hash.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: 'd6a78cad3581ad18'
+  disposition: equivalent
+  reason: 'The default block stores its result under nil instead of the file, so each lookup still computes the same digest and the keys are unchanged.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: '8bca5d3f5c8a47b3'
+  disposition: equivalent
+  reason: 'Without the store in the default block the digest is recomputed on every lookup, which changes only time, not any key.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: 'de35560453d4a72a'
+  disposition: equivalent
+  reason: 'The memo holds a Digest object instead of its hex string, and string interpolation calls to_s, which Digest returns as the same hexdigest, so the key text is identical.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: '80de53da52568758'
+  disposition: equivalent
+  reason: 'For String operands, eql? and == agree, so the manifest comparison has the same result for every key.'

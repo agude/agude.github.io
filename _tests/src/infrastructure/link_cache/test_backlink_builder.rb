@@ -30,6 +30,26 @@ class TestBacklinkBuilder < BacklinkBuilderTestCase
     assert_empty backlinks['/books/self-ref.html'] || []
   end
 
+  def test_add_link_excludes_a_self_link_whose_target_url_is_an_equal_copy
+    # A link cache URL is a different String object with the same value as the
+    # source's URL, so the self-link check must compare values.
+    self_ref_book = create_doc(
+      { 'title' => 'Self Ref', 'published' => true },
+      '/books/self-ref.html',
+      'Content.',
+    )
+    site = create_site({}, { 'books' => [self_ref_book] })
+    link_cache = site.data['link_cache']
+    maps = Jekyll::Infrastructure::LinkCache::CacheMaps.new(link_cache)
+    builder = Jekyll::Infrastructure::LinkCache::BacklinkBuilder.new(site, link_cache, maps)
+
+    builder.send(:add_link, '/books/self-ref.html'.dup, self_ref_book, 'book', 1, 0.0, nil)
+    builder.send(:finalize_links)
+
+    assert_empty link_cache['backlinks']['/books/self-ref.html'] || []
+    assert_empty link_cache['forward_links']['/books/self-ref.html'] || []
+  end
+
   def test_handles_empty_content
     empty_book = create_doc(
       { 'title' => 'Empty', 'published' => true },

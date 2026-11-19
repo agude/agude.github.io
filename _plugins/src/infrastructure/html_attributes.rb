@@ -4,7 +4,7 @@ require 'cgi'
 
 module Jekyll
   module Infrastructure
-    # Reads the attributes of one HTML start tag found by a string scan.
+    # Reads and rewrites attributes on an HTML start tag found by a string scan.
     #
     # Post-render injectors (ImageDimensionsInjector,
     # CodeBlockRegionInjector) rewrite start tags in place instead of
