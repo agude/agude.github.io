@@ -94,6 +94,7 @@ LOGIN_RESPONSE = {"did": "did:plc:test123", "accessJwt": "token-abc"}
 PUB_URI = "at://did:plc:test123/site.standard.publication/rkeypub"
 DOC_URI = "at://did:plc:test123/site.standard.document/rkeydoc1"
 NEW_DOC_URI = "at://did:plc:test123/site.standard.document/rknew"
+EXISTING_DOC_URI = "at://did:plc:test123/site.standard.document/rkexisting"
 
 # Config whose desired publication record matches PUB_RECORD_RESPONSE, so
 # sync tests trigger no publication update unless they want one.
@@ -123,6 +124,21 @@ def make_client(transport: MockTransport) -> AtprotoClient:
     return AtprotoClient(
         "https://bsky.social", "handle.bsky.social", "password", _session=transport
     )
+
+
+def write_existing_post(directory: Path) -> dict:
+    """Write one past post and return a listRecords page that already holds it.
+
+    sync_documents refuses an empty corpus, so tests about other behavior
+    need one document. The remote copy matches, so it causes no write.
+    """
+    directory.mkdir(parents=True, exist_ok=True)
+    path = directory / "2020-01-01-existing.md"
+    path.write_text("---\ntitle: Existing\n---\n")
+    rec = parse_post(path)
+    assert rec is not None
+    rec["site"] = PUB_URI
+    return {"records": [{"uri": EXISTING_DOC_URI, "cid": "cidexisting", "value": rec}]}
 
 
 # ---------------------------------------------------------------------------
@@ -450,11 +466,9 @@ class TestOrphanRecord:
     def test_orphan_warns_not_deleted(self, tmp_path: Path, capsys) -> None:
         transport = MockTransport()
         client = make_client(transport)
-        transport.push(
-            {
-                "records": [{"uri": DOC_URI, "value": {"site": PUB_URI, "path": "/blog/gone/"}}],
-            }
-        )
+        page = write_existing_post(tmp_path)
+        page["records"].append({"uri": DOC_URI, "value": {"site": PUB_URI, "path": "/blog/gone/"}})
+        transport.push(page)
 
         sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
 
@@ -572,14 +586,14 @@ class TestSyncSiteTimeCutoff:
         data_out = tmp_path / "out.json"
         transport = MockTransport()
         client = make_client(transport)
-        transport.push({"records": []})
+        transport.push(write_existing_post(tmp_path))
         transport.push({"uri": NEW_DOC_URI})
         cutoff = publish.parse_site_time("2020-01-01T00:00:00-08:00")
 
         sync_documents(client, tmp_path, data_out, PUB_URI, TEST_CONFIG, site_time=cutoff)
 
         assert [c for c in transport.calls if "createRecord" in c[1]] == []
-        assert json.loads(data_out.read_text()) == {}
+        assert json.loads(data_out.read_text()) == {"/blog/existing/": EXISTING_DOC_URI}
 
 
 class TestSyncErrorMessages:
@@ -593,6 +607,7 @@ class TestSyncErrorMessages:
         assert "publication_uri" in str(exc_info.value)
 
     def test_duplicate_remote_path_message_names_path_and_both_rkeys(self, tmp_path: Path) -> None:
+        write_existing_post(tmp_path)
         transport = MockTransport()
         client = make_client(transport)
         transport.push(
@@ -616,6 +631,7 @@ class TestSyncErrorMessages:
         assert "rkeydoc2" in message
 
     def test_publication_without_cid_message_names_getrecord(self, tmp_path: Path) -> None:
+        write_existing_post(tmp_path)
         transport = MockTransport()
         client = make_client(transport)
         stale = dict(PUB_RECORD_RESPONSE["value"], name="Old Name")
@@ -641,7 +657,7 @@ class TestPublicationRecordWrites:
         client = make_client(transport)
         self._drifted(transport)
         transport.push({})  # putRecord (publication)
-        transport.push({"records": []})
+        transport.push(write_existing_post(tmp_path))
 
         sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
 
@@ -654,7 +670,7 @@ class TestPublicationRecordWrites:
         client = make_client(transport)
         self._drifted(transport)
         transport.push({})
-        transport.push({"records": []})
+        transport.push(write_existing_post(tmp_path))
 
         sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
 
@@ -666,7 +682,7 @@ class TestPublicationRecordWrites:
         transport = MockTransport()
         client = make_client(transport)
         self._drifted(transport)
-        transport.push({"records": []})
+        transport.push(write_existing_post(tmp_path))
 
         sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG, dry_run=True)
 
@@ -674,6 +690,7 @@ class TestPublicationRecordWrites:
         assert "[dry-run] Would update publication record" in capsys.readouterr().out
 
     def test_swap_conflict_message_tells_the_operator_to_rerun(self, tmp_path: Path) -> None:
+        write_existing_post(tmp_path)
         transport = MockTransport()
         client = make_client(transport)
         self._drifted(transport)
@@ -688,6 +705,7 @@ class TestPublicationRecordWrites:
         assert "rerun" in message
 
     def test_other_write_failures_get_no_rerun_hint(self, tmp_path: Path) -> None:
+        write_existing_post(tmp_path)
         transport = MockTransport()
         client = make_client(transport)
         self._drifted(transport)
@@ -1598,7 +1616,8 @@ class TestMissingDirs:
     def test_sync_exits_on_missing_posts_dir(self, tmp_path: Path) -> None:
         transport = MockTransport()
         client = make_client(transport)
-        with pytest.raises(publish.PublishError):
+        # The directory check must fire, not the later empty-corpus guard.
+        with pytest.raises(publish.PublishError, match="missing input directory"):
             sync_documents(client, tmp_path / "nope", tmp_path / "out.json", PUB_URI, TEST_CONFIG)
 
 
@@ -1765,6 +1784,30 @@ class TestDeleteOrphans:
 # ---------------------------------------------------------------------------
 # Third review: blast-radius guard, file-prefix filter, timeouts
 # ---------------------------------------------------------------------------
+
+
+class TestSyncEmptyCorpus:
+    @pytest.mark.parametrize("dry_run", [False, True])
+    def test_refuses_and_keeps_the_data_file(self, tmp_path: Path, dry_run: bool) -> None:
+        # An existing-but-wrong --posts-dir must not write {} and drop every
+        # document link tag. The previous data file stays as it was.
+        posts = tmp_path / "posts"
+        books = tmp_path / "books"
+        posts.mkdir()
+        books.mkdir()
+        data_out = tmp_path / "out.json"
+        data_out.write_text('{"/blog/kept/": "at://kept"}\n')
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push({"records": [{"uri": DOC_URI, "value": {"site": PUB_URI, "path": "/a/"}}]})
+
+        with pytest.raises(publish.PublishError, match="no local documents found"):
+            sync_documents(
+                client, posts, data_out, PUB_URI, TEST_CONFIG, books_dir=books, dry_run=dry_run
+            )
+
+        assert data_out.read_text() == '{"/blog/kept/": "at://kept"}\n'
+        assert [c for c in transport.calls if c[0] == "POST" and "createSession" not in c[1]] == []
 
 
 class TestDeleteOrphansBlastRadius:
@@ -1976,7 +2019,7 @@ class TestPublicationRecordSync:
             {"uri": PUB_URI, "cid": "oldcid", "value": stale}
         )
         transport.push({})  # putRecord (publication)
-        transport.push({"records": []})  # listRecords (documents)
+        transport.push(write_existing_post(tmp_path))  # listRecords (documents)
 
         sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
 
@@ -1991,7 +2034,7 @@ class TestPublicationRecordSync:
     def test_matching_publication_not_touched(self, tmp_path: Path) -> None:
         transport = MockTransport()
         client = make_client(transport)
-        transport.push({"records": []})
+        transport.push(write_existing_post(tmp_path))
 
         sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
 
@@ -2003,7 +2046,7 @@ class TestPublicationRecordSync:
         client = make_client(transport)
         stale = dict(PUB_RECORD_RESPONSE["value"], name="Old Name")
         transport.routes["getRecord"] = MockResponse({"uri": PUB_URI, "value": stale})
-        transport.push({"records": []})  # listRecords, if the sync gets that far
+        transport.push(write_existing_post(tmp_path))  # listRecords, if the sync gets that far
 
         with pytest.raises(publish.PublishError, match="cid"):
             sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
@@ -2026,6 +2069,7 @@ class TestPublicationRecordSync:
         assert [c for c in transport.calls if "putRecord" in c[1]] == []
 
     def test_publication_swap_conflict_aborts_with_clear_message(self, tmp_path: Path) -> None:
+        write_existing_post(tmp_path)
         transport = MockTransport()
         client = make_client(transport)
         stale = dict(PUB_RECORD_RESPONSE["value"], name="Old Name")
@@ -2312,6 +2356,7 @@ class TestCredentialFreeDryRun:
         transport = _dry_run_transport(monkeypatch)
         data_out = tmp_path / "out.json"
 
+        write_existing_post(tmp_path / "posts")
         code = _run_main(_publish_argv(tmp_path, data_out, "--dry-run"))
 
         assert code == 0, capsys.readouterr().err
@@ -2327,6 +2372,7 @@ class TestCredentialFreeDryRun:
         monkeypatch.setenv("BSKY_APP_PASSWORD", "password")
         transport = _dry_run_transport(monkeypatch)
 
+        write_existing_post(tmp_path / "posts")
         code = _run_main(_publish_argv(tmp_path, tmp_path / "out.json", "--dry-run"))
 
         assert code == 0, capsys.readouterr().err

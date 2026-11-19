@@ -666,6 +666,15 @@ def sync_documents(
         rec["site"] = publication_uri
         local[rec["path"]] = (doc_file, rec)
 
+    if not local:
+        # The same guard as delete_orphans: an existing-but-wrong input
+        # directory would otherwise mark every remote record as an orphan
+        # and write an empty data file, dropping every document link tag.
+        raise PublishError(
+            "no local documents found — refusing to sync and write an empty "
+            "data file (check --posts-dir/--books-dir)"
+        )
+
     # --- Keep the publication record itself in sync with _config.yml ---
     # Runs only after every local document validated, and only as a
     # compare-and-swap: getRecord's cid is optional in the lexicon, and a

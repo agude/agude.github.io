@@ -479,8 +479,26 @@ class PublishSyncMachine(RuleBasedStateMachine):
 
     # -- sync -----------------------------------------------------------
 
+    def _check_empty_corpus_refused(self, client: AtprotoClient, dry_run: bool) -> None:
+        # With no local documents, sync refuses before any write and leaves
+        # the data file as it was, like delete_orphans.
+        records_before = self.fake.snapshot()
+        data_before = self._data_bytes()
+
+        self.fake.begin_sync()
+        with pytest.raises(PublishError, match="no local documents found"):
+            self._run_sync(client, dry_run=dry_run)
+
+        assert self.fake.log == [], "empty-corpus sync wrote to the PDS"
+        assert self.fake.snapshot() == records_before, "empty-corpus sync changed the store"
+        assert self._data_bytes() == data_before, "empty-corpus sync changed the data file"
+        _count("empty corpus refused")
+
     @rule()
     def sync(self) -> None:
+        if not self.files:
+            self._check_empty_corpus_refused(self.client, dry_run=False)
+            return
         expected = self._expected_writes()
         orphans = self._orphans()
         has_remote_only_update = any(
@@ -535,6 +553,9 @@ class PublishSyncMachine(RuleBasedStateMachine):
         expected = self._expected_writes()
         use_read_only = data.draw(st.booleans(), label="read-only client")
         client = self.read_only_client if use_read_only else self.client
+        if not self.files:
+            self._check_empty_corpus_refused(client, dry_run=True)
+            return
         records_before = self.fake.snapshot()
         data_before = self._data_bytes()
 
