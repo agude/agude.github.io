@@ -20,7 +20,12 @@ module ReferenceLinkScanner
   PLACEHOLDER = 'liquid-placeholder'
 
   COMMENT_BLOCK_RE = /\{%-?\s*comment\s*-?%\}.*?\{%-?\s*endcomment\s*-?%\}/m
-  FENCED_CODE_RE = /^([ \t]*)(`{3,}|~{3,}).*?^\1\2[ \t]*$/m
+  # The closing run must use the same marker and be at least as long.
+  FENCED_CODE_RE = /
+    ^(?<indent>[ \t]*)(?<fence>(?<marker>`|~)\k<marker>{2,})(?!\k<marker>)
+    .*?
+    ^\k<indent>\k<fence>\k<marker>*[ \t]*$
+  /mx
   INLINE_CODE_RE = /(`+)(?:(?!\1)[^\n])+\1/
   LIQUID_OUTPUT_RE = /\{\{.*?\}\}/m
   LIQUID_TAG_RE = /\{%.*?%\}/m
