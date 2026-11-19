@@ -35,6 +35,7 @@ functions:
   x_sync_documents: 8d8fdde6836a
   x__dispatch: 5c31e5477d8e
   x_delete_orphans: 7cabf8446a6a
+  x_validate_documents: 54c02d48d6a2
 survivors:
 - mutant: atproto.publish.x_sync_documents__mutmut_4
   mutation: Wrap the empty-`publication_uri` message in `XX` markers
@@ -269,3 +270,91 @@ survivors:
   mutation: Wrap the `No orphan records found.` line in `XX` markers
   disposition: out_of_scope
   reason: The summary words remain, and existing tests assert the phrase with a substring match.
+- mutant: atproto.publish.x_validate_documents__mutmut_6
+  mutation: Pass `None` instead of the `posts dir` label to `_require_dir`
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing path, which TestValidateInputDirPaths asserts.
+- mutant: atproto.publish.x_validate_documents__mutmut_9
+  mutation: Wrap the `posts dir` label in `XX` markers
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing path, which TestValidateInputDirPaths asserts.
+- mutant: atproto.publish.x_validate_documents__mutmut_10
+  mutation: Upper-case the `posts dir` label
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing path, which TestValidateInputDirPaths asserts.
+- mutant: atproto.publish.x_validate_documents__mutmut_12
+  mutation: Pass `None` instead of the `books dir` label to `_require_dir`
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing path, which TestValidateInputDirPaths asserts.
+- mutant: atproto.publish.x_validate_documents__mutmut_15
+  mutation: Wrap the `books dir` label in `XX` markers
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing path, which TestValidateInputDirPaths asserts.
+- mutant: atproto.publish.x_validate_documents__mutmut_16
+  mutation: Upper-case the `books dir` label
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing path, which TestValidateInputDirPaths asserts.
+- mutant: atproto.publish.x_validate_documents__mutmut_18
+  mutation: Pass `None` instead of the `site dir` label to `_require_dir`
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing path, which TestValidateInputDirPaths asserts.
+- mutant: atproto.publish.x_validate_documents__mutmut_21
+  mutation: Wrap the `site dir` label in `XX` markers
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing path, which TestValidateInputDirPaths asserts.
+- mutant: atproto.publish.x_validate_documents__mutmut_22
+  mutation: Upper-case the `site dir` label
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing path, which TestValidateInputDirPaths asserts.
+- mutant: atproto.publish.x_validate_documents__mutmut_37
+  mutation: Set the message error count to `1` instead of incrementing it
+  disposition: equivalent
+  reason: '`error_count` is read only by `error_count == 0` and is never printed or decremented, so assigning
+    1 leaves it nonzero exactly when `+= 1` would.'
+- mutant: atproto.publish.x_validate_documents__mutmut_39
+  mutation: Increment the message error count by 2
+  disposition: equivalent
+  reason: Only the zero test reads `error_count`, so any positive increment gives the same boolean.
+- mutant: atproto.publish.x_validate_documents__mutmut_62
+  mutation: Set the missing-built-page error count to `1` instead of incrementing it
+  disposition: equivalent
+  reason: Same as mutant 37; the count is only compared with zero.
+- mutant: atproto.publish.x_validate_documents__mutmut_64
+  mutation: Increment the missing-built-page error count by 2
+  disposition: equivalent
+  reason: Same as mutant 39; the count is only compared with zero.
+- mutant: atproto.publish.x_validate_documents__mutmut_74
+  mutation: Set the reverse-sweep error count to `1` instead of incrementing it
+  disposition: equivalent
+  reason: Same as mutant 37; the count is only compared with zero.
+- mutant: atproto.publish.x_validate_documents__mutmut_76
+  mutation: Increment the reverse-sweep error count by 2
+  disposition: equivalent
+  reason: Same as mutant 39; the count is only compared with zero.
+- mutant: atproto.publish.x_validate_documents__mutmut_89
+  mutation: Set the missing-well-known error count to `1` instead of incrementing it
+  disposition: equivalent
+  reason: Same as mutant 37; the count is only compared with zero.
+- mutant: atproto.publish.x_validate_documents__mutmut_91
+  mutation: Increment the missing-well-known error count by 2
+  disposition: equivalent
+  reason: Same as mutant 39; the count is only compared with zero.
+- mutant: atproto.publish.x_validate_documents__mutmut_92
+  mutation: Pass `encoding=None` to the well-known `read_text`
+  disposition: out_of_scope
+  reason: With `encoding=None` the codec is the locale default, which is UTF-8 on the CI runner and every
+    supported dev setup, so decoding is identical there. Only a non-UTF-8 locale differs, and then only
+    for file bytes that are invalid UTF-8 (a decode error becomes a mismatch); both still fail validation.
+- mutant: atproto.publish.x_validate_documents__mutmut_94
+  mutation: Change `"utf-8"` to `"UTF-8"` in the well-known `read_text`
+  disposition: equivalent
+  reason: Python codec names are case-insensitive, so both spellings select the same codec and decode
+    identically.
+- mutant: atproto.publish.x_validate_documents__mutmut_100
+  mutation: Set the content-mismatch error count to `1` instead of incrementing it
+  disposition: equivalent
+  reason: Same as mutant 37; the count is only compared with zero.
+- mutant: atproto.publish.x_validate_documents__mutmut_102
+  mutation: Increment the content-mismatch error count by 2
+  disposition: equivalent
+  reason: Same as mutant 39; the count is only compared with zero.

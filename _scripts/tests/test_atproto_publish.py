@@ -2496,6 +2496,94 @@ class TestWellKnownInSite:
 
 
 # ---------------------------------------------------------------------------
+# Validate failure accounting, input-dir paths, and exact built paths
+# ---------------------------------------------------------------------------
+
+
+class TestValidateFailureAccounting:
+    """Every failure category fails the run, even when another category
+    would cancel it out in a shared error count."""
+
+    def test_message_error_and_missing_page_both_fail(self, tmp_path: Path, capsys) -> None:
+        posts = tmp_path / "posts"
+        posts.mkdir()
+        (posts / "2025-01-01-untitled.md").write_text("---\ntitle: ''\n---\n")
+        site = tmp_path / "_site"
+        (site / "blog").mkdir(parents=True)
+        (site / "books").mkdir()
+        assert validate_documents(posts, site_dir=site) is False
+        err = capsys.readouterr().err
+        assert "2025-01-01-untitled.md" in err
+        assert "not found in built site" in err
+
+    @pytest.mark.parametrize("wk_content", [None, "at://did:plc:wrong/x/y"])
+    def test_well_known_failure_and_orphan_page_both_fail(
+        self, tmp_path: Path, capsys, wk_content: str | None
+    ) -> None:
+        posts = tmp_path / "posts"
+        posts.mkdir()
+        site = tmp_path / "_site"
+        (site / "blog" / "orphan-page").mkdir(parents=True)
+        (site / "blog" / "orphan-page" / "index.html").write_text("<!DOCTYPE html>")
+        (site / "books").mkdir()
+        if wk_content is not None:
+            wk = site / ".well-known"
+            wk.mkdir()
+            (wk / "site.standard.publication").write_text(wk_content)
+        assert validate_documents(posts, site_dir=site, expected_publication_uri=PUB_URI) is False
+        err = capsys.readouterr().err
+        assert "has no AT record" in err
+        assert "site.standard.publication" in err
+
+    def test_error_after_unparseable_file_is_still_reported(self, tmp_path: Path, capsys) -> None:
+        posts = tmp_path / "posts"
+        posts.mkdir()
+        (posts / "2025-01-01-broken.md").write_text("---\ntitle: [unclosed\n---\n")
+        (posts / "2025-01-02-untitled.md").write_text("---\ntitle: ''\n---\n")
+        assert validate_documents(posts) is False
+        err = capsys.readouterr().err
+        assert "2025-01-01-broken.md" in err
+        assert "2025-01-02-untitled.md" in err
+
+
+class TestValidateInputDirPaths:
+    def test_missing_posts_dir_path_is_printed(self, tmp_path: Path, capsys) -> None:
+        missing = tmp_path / "no-posts"
+        assert validate_documents(missing) is False
+        assert str(missing) in capsys.readouterr().err
+
+    def test_missing_books_dir_path_is_printed(self, tmp_path: Path, capsys) -> None:
+        posts = tmp_path / "posts"
+        posts.mkdir()
+        missing = tmp_path / "no-books"
+        assert validate_documents(posts, books_dir=missing) is False
+        assert str(missing) in capsys.readouterr().err
+
+    def test_missing_site_dir_path_is_printed(self, tmp_path: Path, capsys) -> None:
+        posts = tmp_path / "posts"
+        posts.mkdir()
+        missing = tmp_path / "no-site"
+        assert validate_documents(posts, site_dir=missing) is False
+        assert str(missing) in capsys.readouterr().err
+
+
+class TestBuiltPathExactness:
+    def test_book_path_ending_in_uppercase_x_is_found(self, tmp_path: Path) -> None:
+        # The built path is the record path verbatim; stripping characters
+        # beyond slashes would look for /books/Ends_/ and miss the page.
+        posts = tmp_path / "posts"
+        books = tmp_path / "books"
+        posts.mkdir()
+        books.mkdir()
+        (books / "Ends_X.md").write_text("---\ntitle: Book\ndate: 2025-01-01\n---\n")
+        site = tmp_path / "_site"
+        (site / "blog").mkdir(parents=True)
+        (site / "books" / "Ends_X").mkdir(parents=True)
+        (site / "books" / "Ends_X" / "index.html").write_text("<!DOCTYPE html>")
+        assert validate_documents(posts, books_dir=books, site_dir=site) is True
+
+
+# ---------------------------------------------------------------------------
 # Credential-free dry run: read-only client
 # ---------------------------------------------------------------------------
 
