@@ -32,6 +32,11 @@ class TestHtmlAttributes < Minitest::Test
     assert_equal({ 'class' => 'x' }, attributes("<pre\n  class=\"x\"\n>"))
   end
 
+  def test_unquoted_attribute_keeps_a_trailing_slash
+    assert_equal({ 'src' => '/files/example.png/' }, attributes('<img src=/files/example.png/>'))
+    assert_equal({ 'src' => '/files/example.png' }, attributes('<img src=/files/example.png />'))
+  end
+
   # --- remove ---
 
   def test_remove_drops_the_attribute_and_its_leading_space

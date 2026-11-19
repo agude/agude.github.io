@@ -24,7 +24,7 @@ module Jekyll
       #   entity-decoded values; nil for a valueless attribute. The first
       #   occurrence of a name wins, as in an HTML parser.
       def self.parse(tag)
-        body = tag.sub(/\A<[^\s>]+/, '').sub(%r{/?>\z}, '')
+        body = tag.sub(/\A<[^\s>]+/, '').delete_suffix('>')
         body.scan(ATTRIBUTE).each_with_object({}) do |(name, *values), attributes|
           key = name.downcase
           next if attributes.key?(key)
