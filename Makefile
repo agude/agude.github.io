@@ -247,7 +247,7 @@ test: image-build # Depends on the Docker image being built/up-to-date
 		$(TEST)
 	@echo "Tests finished successfully."
 
-.PHONY: test-properties test-mutations
+.PHONY: test-properties test-mutations test-mutations-scripts
 test-properties: DOCKER_RUN_OPTS += -e COVERAGE_PARTIAL=1 -e PROPERTY_CASES="$(CASES)" -e PROPERTY_TARGET="$(TARGET)" $(if $(SEED),-e PROPERTY_SEED="$(SEED)") $(if $(STATS),-e PROPERTY_STATS="$(STATS)")
 test-properties: image-build
 	@case "$(PROFILE)" in quick|discovery) ;; *) echo "Use PROFILE=quick or PROFILE=discovery." >&2; exit 2;; esac
@@ -273,6 +273,16 @@ test-scripts:
 	@echo "Running script tests..."
 	@uv run --project _scripts pytest _scripts/tests/ .agents/skills/parse-book-notes/tests/ -v
 	@echo "Script tests finished."
+
+# Mutation-test the AT Protocol publisher (atproto/publish.py) with mutmut.
+# MUTANTS='<glob>' narrows the run by mutant name, for example
+# MUTANTS='atproto.publish.x_sync_documents*'. The two symlinks let publish.py
+# (parent^3 -> _scripts/_config.yml) and the workflow test (parents[2] ->
+# _scripts/.github) resolve repo files from the mutants/ copy.
+test-mutations-scripts:
+	@[ -L _scripts/_config.yml ] || ln -s ../_config.yml _scripts/_config.yml
+	@[ -L _scripts/.github ] || ln -s ../.github _scripts/.github
+	@cd _scripts && ATPROTO_HYPOTHESIS_PROFILE=quick uv run mutmut run $(if $(MUTANTS),'$(MUTANTS)'); status=$$?; uv run mutmut results; exit $$status
 
 # Run tests and generate a code coverage report.
 test-cov: image-build clean-coverage

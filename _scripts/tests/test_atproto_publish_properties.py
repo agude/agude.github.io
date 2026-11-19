@@ -33,7 +33,6 @@ from hypothesis.stateful import (
     precondition,
     rule,
 )
-from publish import MANAGED_FIELDS, AtprotoClient, PublishError, sync_documents
 from test_atproto_publish import (
     LOGIN_RESPONSE,
     PUB_RECORD_RESPONSE,
@@ -41,6 +40,8 @@ from test_atproto_publish import (
     TEST_CONFIG,
     MockResponse,
 )
+
+from atproto.publish import MANAGED_FIELDS, AtprotoClient, PublishError, sync_documents
 
 # ---------------------------------------------------------------------------
 # Profiles

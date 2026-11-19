@@ -12,6 +12,7 @@ dev = [
     "ruff>=0.16",
     "fonttools[woff]>=4.50",
     "hypothesis>=6.170.15",
+    "mutmut>=3.8.1",
 ]
 # Headless Chromium for ci/check_image_sizes.py and ci/check_color_scheme.py;
 # kept out of `dev` so script tests and lint do not download a browser.
@@ -54,4 +55,14 @@ ignore = [
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["common", "content", "diagnostics", "metadata", "ranking", "skills", "atproto", "ci", "fonts"]
+pythonpath = [".", "common", "content", "diagnostics", "metadata", "ranking", "skills", "atproto", "ci", "fonts"]
+
+# Mutation testing for the AT Protocol publisher (`make test-mutations-scripts`).
+# Only the two publish test files select tests; the quick Hypothesis profile is
+# set by the make target.
+[tool.mutmut]
+source_paths = ["atproto"]
+pytest_add_cli_args_test_selection = [
+    "tests/test_atproto_publish.py",
+    "tests/test_atproto_publish_properties.py",
+]

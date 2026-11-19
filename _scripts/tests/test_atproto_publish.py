@@ -5,11 +5,12 @@ import json
 from datetime import datetime, timedelta
 from pathlib import Path
 
-import publish
 import pytest
 import requests
 import yaml
-from publish import (
+
+from atproto import publish
+from atproto.publish import (
     AtprotoClient,
     _can_derive_date,
     _extract_frontmatter_strict,

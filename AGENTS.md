@@ -59,6 +59,17 @@ Jekyll-based static site (alexgude.com) running in Docker.
   1,000 examples and `PYTEST_ADDOPTS=--hypothesis-show-statistics` to print
   the per-interaction event counts, e.g.
   `ATPROTO_HYPOTHESIS_PROFILE=discovery PYTEST_ADDOPTS=--hypothesis-show-statistics make test-scripts`.
+- **Script mutations:** `make test-mutations-scripts` runs mutmut over
+  `_scripts/atproto/` (the AT Protocol publisher). Only
+  `tests/test_atproto_publish.py` and `tests/test_atproto_publish_properties.py`
+  select tests, under `ATPROTO_HYPOTHESIS_PROFILE=quick`. It creates the
+  symlinks `_scripts/_config.yml` and `_scripts/.github` (gitignored) that
+  `publish.py` and the workflow test need under `_scripts/mutants/`, runs
+  mutmut, then prints `mutmut results`. Narrow it with
+  `MUTANTS='atproto.publish.x_sync_documents*'`. Mutant names use the
+  `x_<function>__mutmut_<n>` form. Survivors are not failures: review each one
+  before deciding whether a test is missing. `mutants/` and `.mutmut-cache` are
+  gitignored.
 - **Hooks:** `make hooks-install` (Install pre-commit hook).
 - **Code docs:** `make doc-index` (List code objects tagged `@validator`,
   `@pipeline`, `@pattern`, or `@gotcha`) / `make doc-show OBJ=<Class>` or
