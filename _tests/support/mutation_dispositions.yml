@@ -436,3 +436,39 @@
   key: 'b943fdf7034958f3'
   disposition: equivalent
   reason: 'Every prose variable has an :owning_capture_idx key, so fetch returns the same index as [] for each variable the guard keeps.'
+
+- suite: 'markdown'
+  subject: 'ReferenceLinkScanner.scan'
+  key: '730b126797cccc2b'
+  disposition: equivalent
+  reason: 'find_references always returns a hash with a :full key, so references.fetch(:full) returns the same array as references[:full] for every input.'
+
+- suite: 'markdown'
+  subject: 'ReferenceLinkScanner.scan'
+  key: '5ca4208539152c42'
+  disposition: equivalent
+  reason: 'Every problem hash is built with a :line key in undefined_errors, duplicate_errors, and orphan_errors, so problem.fetch(:line) returns the same value as problem[:line].'
+
+- suite: 'markdown'
+  subject: 'ReferenceLinkScanner.neutralize_liquid'
+  key: 'eb601b51939d2886'
+  disposition: equivalent
+  reason: 'Regexp is unqualified in ReferenceLinkScanner, which defines no Regexp constant of its own, so the block resolves Regexp to the same top-level class as ::Regexp.'
+
+- suite: 'markdown'
+  subject: 'ReferenceLinkScanner.neutralize_liquid'
+  key: '2d8fc8976a3f4a55'
+  disposition: equivalent
+  reason: 'Regexp is unqualified in ReferenceLinkScanner, which defines no Regexp constant of its own, so the fenced-code block resolves Regexp to the same top-level class as ::Regexp.'
+
+- suite: 'markdown'
+  subject: 'ReferenceLinkScanner.neutralize_liquid'
+  key: 'c6e2c8540a284efc'
+  disposition: equivalent
+  reason: 'Regexp is unqualified in ReferenceLinkScanner, which defines no Regexp constant of its own, so the liquid-output block resolves Regexp to the same top-level class as ::Regexp.'
+
+- suite: 'markdown'
+  subject: 'ReferenceLinkScanner.neutralize_liquid'
+  key: '39aed676a425d947'
+  disposition: equivalent
+  reason: 'Regexp is unqualified in ReferenceLinkScanner, which defines no Regexp constant of its own, so the liquid-tag block resolves Regexp to the same top-level class as ::Regexp.'
