@@ -49,6 +49,11 @@ Jekyll-based static site (alexgude.com) running in Docker.
   every Markdown file in the repository and rewrites unrelated files.
 - **Scripts:** `make scripts` (List available Python scripts with descriptions).
 - **Test Scripts:** `make test-scripts` (Run Python script tests via pytest).
+  The sync property tests (`_scripts/tests/test_atproto_publish_properties.py`)
+  run 100 examples by default. Set `ATPROTO_HYPOTHESIS_PROFILE=discovery` for
+  1,000 examples and `PYTEST_ADDOPTS=--hypothesis-show-statistics` to print
+  the per-interaction event counts, e.g.
+  `ATPROTO_HYPOTHESIS_PROFILE=discovery PYTEST_ADDOPTS=--hypothesis-show-statistics make test-scripts`.
 - **Hooks:** `make hooks-install` (Install pre-commit hook).
 - **Code docs:** `make doc-index` (List code objects tagged `@validator`,
   `@pipeline`, `@pattern`, or `@gotcha`) / `make doc-show OBJ=<Class>` or

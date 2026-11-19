@@ -11,6 +11,7 @@ dev = [
     "isbnlib",
     "ruff>=0.16",
     "fonttools[woff]>=4.50",
+    "hypothesis>=6.170.15",
 ]
 # Headless Chromium for ci/check_image_sizes.py and ci/check_color_scheme.py;
 # kept out of `dev` so script tests and lint do not download a browser.
