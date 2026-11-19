@@ -67,7 +67,7 @@ The first thing you notice when comparing the new schedule (top) to the old
 schedule (bottom) is: there are a lot more trains! Two local trains an hour
 for almost the entire day, compared to just one earlier.
 
-And there is a new type of train: the "South County", which travels
+Second, there is a new type of train: the "South County", which travels
 exclusively between Gilroy and Diridon. This is a consequence of the
 electrification of the northern half of the line. The Gilroy to Diridon leg
 uses the old diesel fleet, while Diridon to San Francisco uses the new
@@ -88,16 +88,14 @@ The morning commute schedule has become much more regular. In 2017, there were
 several different flavors of limited and baby bullets (now called express),
 but they've been standardized in 2026 so every limited stops at the same
 stations, and every express does as well. It makes it much easier to figure
-out what train you need to take!
-
-The starting times have been standardized as well. The express always leaves
-San Francisco 20 minutes after the hour, and Diridon 22 minutes after, morning
-and evening. The locals follow a [clock-face schedule][wiki_clock], leaving at
-the same minutes after the hour.
+out what train you need to take! The starting times have been standardized as
+well, with the local, limited, and express following a [clock-face
+schedule][wiki_clock] for most of the day, leaving at the same minutes after
+the hour.
 
 [wiki_clock]: https://en.wikipedia.org/wiki/Clock-face_scheduling
 
-And Caltrain is hardly making use of their passing tracks for overtaking
+Finally, Caltrain is hardly making use of their passing tracks for overtaking
 anymore. They used to have bullets overtake slower trains regularly, but now
 it only happens once: when southbound Express 506 passes Local 108 at about
 08:20 near Diridon.
