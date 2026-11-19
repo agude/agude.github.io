@@ -12,7 +12,7 @@ class TestPropertyTest < Minitest::Test
   BAD_VALUE = 7
   SEED = 1
   OTHER_SEED = 2
-  PROPERTY_ENV_KEYS = %w[PROPERTY_SEED PROPERTY_CASES PROPERTY_TARGET].freeze
+  PROPERTY_ENV_KEYS = %w[PROPERTY_SEED PROPERTY_CASES PROPERTY_TARGET PROPERTY_STATS].freeze
 
   # Runs the property with a seed that fails on BAD_VALUE. Returns the raised
   # assertion and every input seen, in order, including shrink attempts.
@@ -111,6 +111,108 @@ class TestPropertyTest < Minitest::Test
       assert_includes error.message, 'boom'
       assert_includes error.message.lines.map(&:chomp), expected_replay(SEED, successful + 1)
     end
+  end
+
+  def teardown
+    PropertyStats.clear
+    super
+  end
+
+  # Runs check_property and returns [outcome, inputs seen in order]. The
+  # outcome is :passed, or the failure message when BAD_VALUE is seen.
+  def run_recording(generator, runs:, fail_on: nil, classify: nil, interactions: [])
+    seen = []
+    check_property(generator, seed: SEED, runs: runs, classify: classify, interactions: interactions) do |value|
+      seen << value
+      raise Minitest::Assertion, "bad value #{value}" if value == fail_on
+    end
+    [:passed, seen]
+  rescue Minitest::Assertion => e
+    [e.message, seen]
+  end
+
+  def test_stats_count_distinct_inputs_and_interaction_cases
+    with_property_env('PROPERTY_STATS' => '1') do
+      seen = []
+      classify = ->(value) { [value.even? ? 'even' : 'odd'] }
+      check_property(INPUT, seed: SEED, runs: 100, classify: classify, interactions: %w[even odd never]) do |value|
+        seen << value
+      end
+
+      record = PropertyStats.records.fetch(0)
+      assert_equal "#{self.class.name}#test_stats_count_distinct_inputs_and_interaction_cases", record.test
+      assert_equal 100, record.cases
+      assert_equal seen.uniq.length, record.distinct
+      assert_equal seen.count(&:even?), record.interactions.fetch('even')
+      assert_equal seen.count(&:odd?), record.interactions.fetch('odd')
+      assert_equal 0, record.interactions.fetch('never')
+      assert_equal %w[even odd never], record.interactions.keys
+    end
+  end
+
+  def test_stats_reject_an_undeclared_interaction_name
+    with_property_env('PROPERTY_STATS' => '1') do
+      assert_raises(ArgumentError) do
+        check_property(INPUT, seed: SEED, runs: 5, classify: ->(_value) { ['undeclared'] }, interactions: []) { |v| v }
+      end
+    end
+  end
+
+  def test_stats_are_off_by_default_and_never_classify
+    calls = 0
+    classify = lambda do |_value|
+      calls += 1
+      []
+    end
+    with_property_env do
+      check_property(INPUT, seed: SEED, runs: 20, classify: classify, interactions: []) { |v| v }
+    end
+
+    assert_equal 0, calls
+    assert_empty PropertyStats.records
+  end
+
+  def test_stats_leave_the_generated_sequence_unchanged
+    classify = ->(value) { [value.odd? ? 'odd' : 'even'] }
+    off = with_property_env { run_recording(INPUT, runs: 100) }
+    on = with_property_env('PROPERTY_STATS' => '1') do
+      run_recording(INPUT, runs: 100, classify: classify, interactions: %w[odd even])
+    end
+
+    assert_equal :passed, off.first
+    assert_equal off, on
+    assert_equal 100, on.last.length
+  end
+
+  def test_stats_leave_a_failing_run_unchanged
+    classify = ->(value) { [value.odd? ? 'odd' : 'even'] }
+    off = with_property_env { run_recording(INPUT, runs: 100, fail_on: BAD_VALUE) }
+    on = with_property_env('PROPERTY_STATS' => '1') do
+      run_recording(INPUT, runs: 100, fail_on: BAD_VALUE, classify: classify, interactions: %w[odd even])
+    end
+
+    assert_includes off.first, "[property seed=#{SEED}] bad value #{BAD_VALUE}"
+    assert_equal off, on
+  end
+
+  def test_report_lines_list_zero_count_interactions
+    records = [
+      PropertyStats::Record.new(
+        test: 'TestExample#test_b',
+        cases: 4,
+        distinct: 3,
+        interactions: { 'seen' => 2, 'never' => 0 },
+      ),
+      PropertyStats::Record.new(test: 'TestExample#test_a', cases: 1, distinct: 1, interactions: {}),
+    ]
+
+    expected = [
+      'property-stats TestExample#test_a cases=1 distinct=1',
+      'property-stats TestExample#test_b cases=4 distinct=3',
+      'property-stats TestExample#test_b   interaction seen: 2',
+      'property-stats TestExample#test_b   interaction never: 0',
+    ]
+    assert_equal expected, PropertyStats.report_lines(records)
   end
 
   def test_suite_is_derived_from_the_listing_test_class

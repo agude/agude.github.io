@@ -20,7 +20,12 @@ class TestMarkdownWhitespaceNormalizerProperties < Minitest::Test
   COMMENT_LINES = ['comment text  ', '[not a link][inside]', 'tabbed text\t'].freeze
 
   def test_property_normalizes_generated_prose_around_protected_blocks_and_eof
-    check_property(normalizer_fixture_generator, seed: 5401) do |fixture|
+    check_property(
+      normalizer_fixture_generator,
+      seed: 5401,
+      classify: ->(fixture) { self.class.fixture_interactions(fixture) },
+      interactions: NORMALIZER_INTERACTIONS,
+    ) do |fixture|
       normalized = Normalizer.normalize(fixture.source)
 
       assert_equal fixture.expected, normalized, fixture.source.inspect
@@ -30,13 +35,84 @@ class TestMarkdownWhitespaceNormalizerProperties < Minitest::Test
   end
 
   def test_property_preserves_a_truncated_fence_at_eof_without_a_newline
-    check_property(truncated_fence_fixture_generator, seed: 5402) do |fixture|
+    check_property(
+      truncated_fence_fixture_generator,
+      seed: 5402,
+      classify: ->(fixture) { self.class.fixture_interactions(fixture) & TRUNCATED_INTERACTIONS },
+      interactions: TRUNCATED_INTERACTIONS,
+    ) do |fixture|
       normalized = Normalizer.normalize(fixture.source)
 
       refute fixture.source.end_with?("\n"), fixture.source.inspect
       assert_equal fixture.expected, normalized, fixture.source.inspect
       assert_equal normalized, Normalizer.normalize(normalized), fixture.source.inspect
     end
+  end
+
+  PROTECTED_KINDS = %w[
+    protected_kind:fenced_code
+    protected_kind:indented_code
+    protected_kind:raw_html
+    protected_kind:html_comment
+  ].freeze
+  TRUNCATED_INTERACTIONS = [
+    'truncated_fence_at_eof',
+    'protected_block_at_eof_without_newline',
+    'fence:backtick3',
+    'fence:backtick4',
+    'fence:tilde3',
+    'fence:tilde4',
+    'hard_break_before_protected_block',
+    'leading_blank_lines',
+  ].freeze
+  NORMALIZER_INTERACTIONS = [
+    *PROTECTED_KINDS,
+    'protected_block_at_eof_without_newline',
+    'truncated_fence_at_eof',
+    'fence:backtick3',
+    'fence:backtick4',
+    'fence:tilde3',
+    'fence:tilde4',
+    'prose_after_protected_block',
+    'hard_break_before_protected_block',
+    'leading_blank_lines',
+    'ends_with_newline',
+  ].freeze
+
+  # Names what a generated fixture exercises, from its source and protected
+  # bytes. The check is syntactic: it reads the generated text, not the
+  # normalizer's output.
+  def self.fixture_interactions(fixture)
+    source = fixture.source
+    protected_bytes = fixture.protected_bytes
+    names = []
+    names << protected_kind(protected_bytes)
+    names << 'leading_blank_lines' if source.start_with?("\n")
+    names << 'ends_with_newline' if source.end_with?("\n")
+    at_eof = source.end_with?(protected_bytes)
+    names << 'prose_after_protected_block' unless at_eof
+    if at_eof && !source.end_with?("\n")
+      names << 'protected_block_at_eof_without_newline'
+      names << 'truncated_fence_at_eof' if protected_bytes.match?(/\A(?:`{3,}|~{3,})/)
+    end
+    prefix = source.split(protected_bytes, 2).first.to_s
+    names << 'hard_break_before_protected_block' if prefix.match?(/ {2,}\n+\z/)
+    names << fence_name(protected_bytes) if protected_bytes.match?(/\A(?:`{3,}|~{3,})/)
+    names.compact
+  end
+
+  def self.protected_kind(protected_bytes)
+    case protected_bytes
+    when /\A(?:`{3,}|~{3,})/ then 'protected_kind:fenced_code'
+    when /\A {4}/ then 'protected_kind:indented_code'
+    when /\A<pre>/ then 'protected_kind:raw_html'
+    when /\A<!--/ then 'protected_kind:html_comment'
+    end
+  end
+
+  def self.fence_name(protected_bytes)
+    marker = protected_bytes[/\A(?:`{3,}|~{3,})/]
+    "fence:#{marker.start_with?('`') ? 'backtick' : 'tilde'}#{marker.length}"
   end
 
   private

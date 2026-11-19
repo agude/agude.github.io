@@ -2,29 +2,33 @@
 
 require_relative '../../test_helper'
 require_relative '../../../_plugins/src/seo/book_identity_resolver'
-require 'support/property_test'
 
-# Exercises cache building, candidate selection, and book identity together.
+# Exhaustive checks of cache building, candidate selection, and book identity.
 class TestLinkCacheGeneratorProperties < Minitest::Test
-  include PropertyTestSupport
-
-  Generators = PropCheck::Generators
-  FixtureVariationGenerator = Generators.tuple(Generators.choose(1..17), Generators.choose(1..2))
+  # Every sequence_id in 1..17 crossed with archive_count in 1..2 (34 inputs).
+  VARIATIONS = (1..17).to_a.product((1..2).to_a).freeze
 
   def test_generated_reviews_resolve_from_document_metadata
-    check_property(FixtureVariationGenerator, seed: 4501) do |variation|
-      sequence_id, archive_count = variation
-      fixture = build_fixture(sequence_id, archive_count)
-      site = create_site({}, { 'books' => fixture[:books] }, fixture[:author_pages])
-      cache = site.data.fetch('link_cache')
+    assert_equal 34, VARIATIONS.length
 
-      assert_cache_matches_document_scan(fixture, cache)
-      assert_book_link_matches_document_scan(fixture, site)
-      assert_identities_match_document_metadata(fixture[:books], site)
+    VARIATIONS.each do |sequence_id, archive_count|
+      check_variation(sequence_id, archive_count)
+    rescue Minitest::Assertion => e
+      raise Minitest::Assertion, "sequence_id=#{sequence_id} archive_count=#{archive_count}: #{e.message}"
     end
   end
 
   private
+
+  def check_variation(sequence_id, archive_count)
+    fixture = build_fixture(sequence_id, archive_count)
+    site = create_site({}, { 'books' => fixture[:books] }, fixture[:author_pages])
+    cache = site.data.fetch('link_cache')
+
+    assert_cache_matches_document_scan(fixture, cache)
+    assert_book_link_matches_document_scan(fixture, site)
+    assert_identities_match_document_metadata(fixture[:books], site)
+  end
 
   def build_fixture(sequence_id, archive_count)
     shared_title = "Shared Work #{sequence_id}"

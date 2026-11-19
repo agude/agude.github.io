@@ -104,6 +104,35 @@ class TestHtmlScan < Minitest::Test
     )
   end
 
+  SKIP_INTERACTIONS = {
+    '<!--' => 'skip:comment',
+    '<script>' => 'skip:script',
+    '<style>' => 'skip:style',
+    '<textarea>' => 'skip:textarea',
+  }.freeze
+  SCAN_INTERACTIONS = [
+    *SKIP_INTERACTIONS.values,
+    'fake_target_in_skip_then_live_target',
+    'img_tag_spelling:img',
+    'img_tag_spelling:IMG',
+    'img_tag_spelling:iMg',
+    'near_miss_tag_name',
+    'upper_case_skip_element',
+    'markup_in_attribute_value',
+  ].freeze
+
+  # Names what a generated ScanCase exercises, from its generated fields.
+  def self.scan_interactions(input)
+    opener, closer = SKIP_CASES.fetch(input.skip_kind)
+    names = [SKIP_INTERACTIONS.fetch(opener)]
+    names << 'fake_target_in_skip_then_live_target' if input.html.include?("#{closer}#{input.matches.first}")
+    names.concat(input.html.scan(%r{<(img)(?=[\s/>])}i).flatten.uniq.map { |spelling| "img_tag_spelling:#{spelling}" })
+    names << 'near_miss_tag_name' if input.html.match?(%r{<(?:img-icon|imgur)[\s/>]})
+    names << 'upper_case_skip_element' if input.html.match?(/<(?:SCRIPT|STYLE|TEXTAREA)>/)
+    names << 'markup_in_attribute_value' if input.html.include?('<div data-example=')
+    names
+  end
+
   def images(html, token = TOKEN)
     html.to_enum(:scan, token).filter_map { Regexp.last_match[:img] }
   end
@@ -195,7 +224,13 @@ class TestHtmlScan < Minitest::Test
   def test_property_finds_exact_tags_in_generated_fragment_sequences
     # Compile inside the test so method-level mutations affect this tokenizer.
     token = self.class.image_token
-    check_property(SCAN_CASE_GENERATOR, seed: PROPERTY_SEED, runs: PROPERTY_RUNS) do |input|
+    check_property(
+      SCAN_CASE_GENERATOR,
+      seed: PROPERTY_SEED,
+      runs: PROPERTY_RUNS,
+      classify: ->(input) { self.class.scan_interactions(input) },
+      interactions: SCAN_INTERACTIONS,
+    ) do |input|
       assert_equal input.matches, images(input.html, token), "HTML input: #{input.html.inspect}"
     end
   end

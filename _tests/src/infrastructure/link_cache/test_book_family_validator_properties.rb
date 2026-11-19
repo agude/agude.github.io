@@ -18,8 +18,34 @@ class TestBookFamilyValidatorProperties < Minitest::Test
     Generators.choose(0..2),
   )
 
+  INTERACTIONS = %w[
+    valid_family_with_archives
+    valid_family_without_archives
+    valid_family_slash_variant_canonical
+    valid_family_external_canonical
+    illegal_local_chain
+    illegal_local_chain_slash_variant
+  ].freeze
+
+  # Names what a generated shape builds, from the shape's fields.
+  def self.shape_interactions(shape)
+    sequence_id, _canonical_count, archive_count, chain_length, external_count = shape
+    names = []
+    names << (archive_count.positive? ? 'valid_family_with_archives' : 'valid_family_without_archives')
+    names << 'valid_family_slash_variant_canonical' if (0...archive_count).any? { |i| (sequence_id + i).even? }
+    names << 'valid_family_external_canonical' if external_count.positive?
+    names << 'illegal_local_chain' if chain_length >= 2
+    names << 'illegal_local_chain_slash_variant' if (0...(chain_length - 1)).any? { |i| (sequence_id + i).even? }
+    names
+  end
+
   def test_validator_matches_scan_for_valid_families_and_local_chains
-    check_property(FAMILY_SHAPES_GENERATOR, seed: 4401) do |shape|
+    check_property(
+      FAMILY_SHAPES_GENERATOR,
+      seed: 4401,
+      classify: ->(shape) { self.class.shape_interactions(shape) },
+      interactions: INTERACTIONS,
+    ) do |shape|
       sequence_id, canonical_count, archive_count, chain_length, external_count = shape
       valid_books = build_valid_family(sequence_id, canonical_count, archive_count, external_count)
       assert_validation_matches_scan(valid_books)

@@ -20,6 +20,12 @@ Jekyll-based static site (alexgude.com) running in Docker.
   the cases before it, so `CASES` must exceed N or the replay stops before the
   failing case. A seed stops reproducing a failure once the generator changes,
   so keep each confirmed shrunken input as a literal regression test.
+  Add `STATS=1` to print a report for each property: `property-stats` lines
+  with the test name, cases run, distinct inputs, and a count for each named
+  interaction, zero counts included. Interactions are declared on
+  `check_property` with `classify:` (input to interaction names) and
+  `interactions:` (every name to report). Stats are off by default and do not
+  change inputs, seeds, or results.
 - **Ruby mutations:** `make test-mutations TARGET=html` uses the same suite
   names. Mutant reports surviving changes and exits nonzero when any survive.
 - **Build:** `make build` (Production build to `_site/`).

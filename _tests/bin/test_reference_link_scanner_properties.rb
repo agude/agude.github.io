@@ -13,8 +13,54 @@ class TestReferenceLinkScannerProperties < Minitest::Test
   OpaqueFragment = Struct.new(:kind, :text, keyword_init: true)
   Fixture = Struct.new(:content, :line_offset, :expected, keyword_init: true)
 
+  FINDING_INTERACTIONS = {
+    'undefined reference link' => 'finding:undefined_reference',
+    'duplicate link definition' => 'finding:duplicate_definition',
+    'orphaned link definition' => 'finding:orphaned_definition',
+  }.freeze
+  INTERACTIONS = [
+    *FINDING_INTERACTIONS.values,
+    'finding:all_three_kinds',
+    'opaque:matched_fence',
+    'opaque:multiline_liquid_output',
+    'opaque:multiline_liquid_tag',
+    'opaque:liquid_comment',
+    'opaque:inline_code',
+    'reference:wrapped_label',
+    'reference:implicit_collapsed',
+    'reference:uppercase_id',
+    'eof_without_newline',
+    'line_offset_nonzero',
+  ].freeze
+
+  # Names what a generated fixture exercises. Findings come from the model's
+  # expected output; the rest is read from the generated content.
+  def self.fixture_interactions(fixture)
+    names = fixture.expected.filter_map do |finding|
+      FINDING_INTERACTIONS.find { |prefix, _name| finding[:message].start_with?(prefix) }&.last
+    end.uniq
+    names << 'finding:all_three_kinds' if names.length == FINDING_INTERACTIONS.length
+    content = fixture.content
+    names << 'opaque:matched_fence' if content.match?(/^(?:`{3,}|~{3,})text$/)
+    names << 'opaque:multiline_liquid_output' if content.include?("{{\n  [liquid_output_")
+    names << 'opaque:multiline_liquid_tag' if content.include?('{% assign ')
+    names << 'opaque:liquid_comment' if content.include?('{% comment %}')
+    names << 'opaque:inline_code' if content.include?('Code: `[inline_')
+    names << 'reference:wrapped_label' if content.include?("[Link label\nfor ")
+    names << 'reference:implicit_collapsed' if content.include?("][]\n")
+    names << 'reference:uppercase_id' if content.match?(/\[(?:DEFINED|DUPLICATE|UNDEFINED|SHORTHAND)_\d+\]/)
+    names << 'eof_without_newline' unless content.end_with?("\n")
+    names << 'line_offset_nonzero' if fixture.line_offset.positive?
+    names
+  end
+
   def test_property_reports_independent_reference_issues_with_source_offsets
-    check_property(reference_fixture_generator, seed: 6401) do |fixture|
+    check_property(
+      reference_fixture_generator,
+      seed: 6401,
+      classify: ->(fixture) { self.class.fixture_interactions(fixture) },
+      interactions: INTERACTIONS,
+    ) do |fixture|
       actual = ReferenceLinkScanner.scan(fixture.content, line_offset: fixture.line_offset)
 
       assert_equal fixture.expected, actual, fixture.content.inspect

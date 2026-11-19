@@ -16,8 +16,71 @@ class TestBacklinkBuilderProperties < BacklinkBuilderTestCase
   VARIABLES = %w[ref alt note].freeze
   CAPTURE_TARGETS = [:a, :b, :c, nil].freeze
 
+  INTERACTIONS = %w[
+    rebind_after_use
+    plain_text_reset
+    use_before_first_bind
+    unused_capture
+    direct_link_to_captured_target
+    use_resolves_to_target
+  ].freeze
+
+  # Names what a generated operation history exercises. Each name reads the
+  # generated operations in order; the fixed histories in the test are not
+  # classified because they are the same in every case.
+  def self.history_interactions(operations)
+    names = []
+    used = {}
+    bound = {}
+    captured_targets = {}
+    operations.each_with_index do |op, index|
+      variable = op[:variable]
+      case op.fetch(:kind)
+      when :capture, :rebind
+        names << 'rebind_after_use' if op.fetch(:kind) == :rebind && used[variable]
+        names << 'plain_text_reset' if op.fetch(:kind) == :rebind && op[:target].nil?
+        names << 'unused_capture' unless used_before_next_bind?(operations, index, variable)
+        bound[variable] = true
+        captured_targets[op[:target]] = true if op[:target]
+      when :use
+        names << 'use_before_first_bind' unless bound[variable]
+        names << 'use_resolves_to_target' if bound[variable] && bound_target(operations, index, variable)
+        used[variable] = true
+      when :direct
+        names << 'direct_link_to_captured_target' if captured_targets[op.fetch(:target)]
+      end
+    end
+    names.uniq
+  end
+
+  # True when a `use` of `variable` follows `index` before the next bind of it.
+  def self.used_before_next_bind?(operations, index, variable)
+    operations.drop(index + 1).each do |op|
+      next unless op[:variable] == variable
+
+      return true if op.fetch(:kind) == :use
+      return false if %i[capture rebind].include?(op.fetch(:kind))
+    end
+    false
+  end
+
+  # The target of the latest bind of `variable` before `index`.
+  def self.bound_target(operations, index, variable)
+    operations.take(index).reverse_each do |op|
+      next unless op[:variable] == variable && %i[capture rebind].include?(op.fetch(:kind))
+
+      return op[:target]
+    end
+    nil
+  end
+
   def test_generated_histories_match_reference_model
-    check_property(operation_trace_generator, seed: 410_318) do |generated_operations|
+    check_property(
+      operation_trace_generator,
+      seed: 410_318,
+      classify: ->(operations) { self.class.history_interactions(operations) },
+      interactions: INTERACTIONS,
+    ) do |generated_operations|
       histories = {
         '/books/lifecycle.html' => lifecycle_operations,
         '/books/generated.html' => [operation(:direct, target: :c), *generated_operations],

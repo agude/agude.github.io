@@ -20,8 +20,21 @@ module PropertyTestSupport
     suites.keys.one? ? suites.keys.first : nil
   end
 
-  def check_property(generator, seed:, runs: 100, &property)
-    run_seeded_property(generator, seed: Integer(ENV.fetch('PROPERTY_SEED', seed)), runs: property_cases(runs), &property)
+  # Runs a seeded property. With `classify:`, a lambda that returns the names
+  # of the interactions an input exercises, and `interactions:`, every name
+  # the report must list (even at zero), stats are collected when
+  # PROPERTY_STATS is set (make test-properties STATS=1). Stats are read-only:
+  # they never change the generated inputs, seeds, or pass/fail results, and
+  # the classifier runs only when stats are on.
+  def check_property(generator, seed:, runs: 100, classify: nil, interactions: [], &property)
+    cases = property_cases(runs)
+    recorder = PropertyStats::Recorder.new(self, classify, interactions) if PropertyStats.enabled?
+    run_seeded_property(generator, seed: Integer(ENV.fetch('PROPERTY_SEED', seed)), runs: cases) do |input|
+      property.call(input)
+      recorder&.observe(input)
+    end
+  ensure
+    recorder&.finish
   end
 
   def property_cases(default = 100)
@@ -77,5 +90,85 @@ module PropertyTestSupport
 
   def replay_method
     respond_to?(:name) && name ? name : '<test_method>'
+  end
+end
+
+# Opt-in per-property report: distinct inputs and interaction counts.
+#
+# A failing run records only the cases that completed before the failure.
+# Counts are per case: an input that exercises a name adds one to its count,
+# even if other inputs produced the same value.
+module PropertyStats
+  Record = Struct.new(:test, :cases, :distinct, :interactions, keyword_init: true)
+
+  # Collects one property's stats while its check runs.
+  class Recorder
+    def initialize(owner, classify, interactions)
+      @test = "#{owner.class.name}##{owner.name}"
+      @classify = classify
+      @declared = interactions.to_a
+      @counts = @declared.to_h { |name| [name, 0] }
+      @inputs = Set.new
+      @cases = 0
+      PropertyStats.install_hook
+    end
+
+    def observe(input)
+      @cases += 1
+      @inputs << input
+      return unless @classify
+
+      Array(@classify.call(input)).uniq.each do |name|
+        raise ArgumentError, "#{@test}: undeclared interaction #{name.inspect}" unless @counts.key?(name)
+
+        @counts[name] += 1
+      end
+    end
+
+    def finish
+      PropertyStats.records << Record.new(
+        test: @test,
+        cases: @cases,
+        distinct: @inputs.size,
+        interactions: @counts,
+      )
+    end
+  end
+
+  @records = []
+  @hook_installed = false
+
+  class << self
+    attr_reader :records
+
+    def enabled?
+      value = ENV.fetch('PROPERTY_STATS', '')
+      !value.empty? && value != '0'
+    end
+
+    def clear
+      @records.clear
+    end
+
+    # Report lines for `records`, sorted by test name so the order is stable.
+    def report_lines(records = @records)
+      records.sort_by(&:test).flat_map do |record|
+        header = "property-stats #{record.test} cases=#{record.cases} distinct=#{record.distinct}"
+        counts = record.interactions.map do |name, count|
+          "property-stats #{record.test}   interaction #{name}: #{count}"
+        end
+        [header, *counts]
+      end
+    end
+
+    def install_hook
+      return if @hook_installed
+
+      @hook_installed = true
+      Minitest.after_run do
+        lines = PropertyStats.report_lines
+        puts lines.join("\n") if PropertyStats.enabled? && !lines.empty?
+      end
+    end
   end
 end

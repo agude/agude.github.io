@@ -25,6 +25,18 @@ class TestHtmlAttributes < Minitest::Test
   TAG_NAMES = %w[img pre div].freeze
   PROPERTY_SEED = 0xA771_2026
   PROPERTY_RUNS = 100
+  # [existing attributes, closing delimiter, interaction name] for the final
+  # value that Attributes.append must keep ahead of the new attribute.
+  APPEND_ENDINGS = [
+    ['', '/>', 'no_attributes_self_closing'],
+    ['alt=plot', '>', 'unquoted_final_value_plain_close'],
+    ['alt=plot/', '>', 'unquoted_final_value_slash_bound'],
+    ['alt=plot', ' />', 'unquoted_final_value_real_self_closing'],
+    ['alt="plot"', '/>', 'quoted_final_value_self_closing'],
+    ['alt="plot marker=foo /"', '/>', 'quoted_lookalike_slash_then_self_closing'],
+    ["alt='日本語/'", '/>', 'non_ascii_quoted_final_value_slash'],
+    ['alt=plot hidden', '/>', 'valueless_final_attribute_self_closing'],
+  ].freeze
 
   AttributeEntry = Struct.new(:name, :raw_value, :expected_value, :separator, :quote, keyword_init: true) do
     def render
@@ -129,6 +141,49 @@ class TestHtmlAttributes < Minitest::Test
     TestHtmlAttributes.build_case(target_index, entity_index, closing_index, extra_entries)
   end
 
+  ATTRIBUTE_INTERACTIONS = %w[
+    duplicate_target
+    duplicate_target_with_quoted_lookalike
+    target_name_case_variant
+    quoted_lookalike_value
+    entity_spelling
+    unquoted_value
+    unquoted_value_with_slash
+    valueless_attribute
+    self_closing_delimiter
+    unquoted_final_value_before_self_closing
+    unquoted_final_value_before_bare_close
+  ].freeze
+
+  # Names what a generated AttributeCase exercises, from its generated fields.
+  def self.attribute_interactions(input)
+    target_entries = input.attribute_entries.select { |entry| entry.name.casecmp?(input.target) }
+    lookalikes = input.attribute_entries.select do |entry|
+      entry.name.casecmp?('title') && entry.expected_value.to_s.include?("#{input.target}=")
+    end
+    duplicate = target_entries.length >= 2
+    unquoted = input.attribute_entries.select { |entry| entry.raw_value && entry.quote.nil? }
+    self_closing = input.tag.end_with?(' />')
+    last = input.attribute_entries.last
+    last_unquoted = last&.raw_value && last.quote.nil?
+
+    names = []
+    names << 'duplicate_target' if duplicate
+    names << 'duplicate_target_with_quoted_lookalike' if duplicate && !lookalikes.empty?
+    names << 'target_name_case_variant' if target_entries.any? { |entry| entry.name != input.target }
+    names << 'quoted_lookalike_value' unless lookalikes.empty?
+    names << 'entity_spelling' if input.attribute_entries.any? do |entry|
+      QUOTED_VALUE_TABLE.any? { |spelling, _decoded| entry.raw_value == spelling }
+    end
+    names << 'unquoted_value' unless unquoted.empty?
+    names << 'unquoted_value_with_slash' if unquoted.any? { |entry| entry.raw_value.end_with?('/') }
+    names << 'valueless_attribute' if input.attribute_entries.any? { |entry| entry.raw_value.nil? }
+    names << 'self_closing_delimiter' if self_closing
+    names << 'unquoted_final_value_before_self_closing' if last_unquoted && self_closing
+    names << 'unquoted_final_value_before_bare_close' if last_unquoted && !self_closing
+    names
+  end
+
   def attributes(tag)
     Attributes.parse(tag)
   end
@@ -166,20 +221,15 @@ class TestHtmlAttributes < Minitest::Test
   end
 
   def test_property_appends_attributes_after_the_final_value
-    endings = [
-      ['', '/>'],
-      ['alt=plot', '>'],
-      ['alt=plot/', '>'],
-      ['alt=plot', ' />'],
-      ['alt="plot"', '/>'],
-      ['alt="plot marker=foo /"', '/>'],
-      ["alt='日本語/'", '/>'],
-      ['alt=plot hidden', '/>'],
-    ]
-    input = G.tuple(G.choose(0...endings.length), G.choose(1..4096))
+    input = G.tuple(G.choose(0...APPEND_ENDINGS.length), G.choose(1..4096))
 
-    check_property(input, seed: PROPERTY_SEED) do |index, width|
-      attribute, closing = endings.fetch(index)
+    check_property(
+      input,
+      seed: PROPERTY_SEED,
+      classify: ->((index, _width)) { [APPEND_ENDINGS.fetch(index).last] },
+      interactions: APPEND_ENDINGS.map(&:last),
+    ) do |index, width|
+      attribute, closing, _name = APPEND_ENDINGS.fetch(index)
       prefix = attribute.empty? ? '<img' : "<img #{attribute}"
       added = %( width="#{width}")
 
@@ -207,7 +257,13 @@ class TestHtmlAttributes < Minitest::Test
 
   def test_generated_attributes_match_structured_expectations_and_remove_every_duplicate
     coverage = { duplicate_targets: 0, quoted_lookalikes: 0, entity_spellings: 0 }
-    check_property(ATTRIBUTE_CASE_GENERATOR, seed: PROPERTY_SEED, runs: PROPERTY_RUNS) do |input|
+    check_property(
+      ATTRIBUTE_CASE_GENERATOR,
+      seed: PROPERTY_SEED,
+      runs: PROPERTY_RUNS,
+      classify: ->(input) { self.class.attribute_interactions(input) },
+      interactions: ATTRIBUTE_INTERACTIONS,
+    ) do |input|
       target_entries = input.attribute_entries.select { |entry| entry.name.casecmp?(input.target) }
       lookalikes = input.attribute_entries.select do |entry|
         entry.name.casecmp?('title') && entry.expected_value.to_s.include?("#{input.target}=")
