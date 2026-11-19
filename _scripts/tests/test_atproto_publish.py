@@ -1829,6 +1829,197 @@ class TestDeleteOrphansBlastRadius:
         assert len(delete_calls) == 0
 
 
+def _orphan_dirs(tmp_path: Path) -> tuple[Path, Path]:
+    posts = tmp_path / "posts"
+    books = tmp_path / "books"
+    posts.mkdir()
+    books.mkdir()
+    return posts, books
+
+
+def _calls(transport: MockTransport, method: str, endpoint: str) -> list[tuple]:
+    return [c for c in transport.calls if c[0] == method and endpoint in c[1]]
+
+
+ORPHAN_PAGE = {"records": [{"uri": DOC_URI, "value": {"site": PUB_URI, "path": "/blog/gone/"}}]}
+
+
+class TestDeleteOrphansGuards:
+    """Refusals, scoping, and the confirmation default of delete_orphans."""
+
+    def test_confirmed_defaults_to_false(self, tmp_path: Path, capsys) -> None:
+        posts, books = _orphan_dirs(tmp_path)
+        (posts / "2025-01-01-keep.md").write_text("---\ntitle: Keep\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push(ORPHAN_PAGE)
+
+        publish.delete_orphans(client, posts, books, PUB_URI)
+
+        assert _calls(transport, "POST", "deleteRecord") == []
+        assert "Re-run with --yes" in capsys.readouterr().out
+
+    @pytest.mark.parametrize("missing", ["posts", "books"])
+    def test_missing_input_dir_refused_before_any_request(
+        self, tmp_path: Path, capsys, missing: str
+    ) -> None:
+        posts, books = _orphan_dirs(tmp_path)
+        absent = tmp_path / f"no-{missing}"
+        if missing == "posts":
+            posts = absent
+        else:
+            books = absent
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push(ORPHAN_PAGE)
+
+        with pytest.raises(publish.PublishError, match=r"(?i)missing input directory"):
+            publish.delete_orphans(client, posts, books, PUB_URI, confirmed=True)
+
+        assert str(absent) in capsys.readouterr().err
+        assert _calls(transport, "POST", "deleteRecord") == []
+        assert [c for c in transport.calls if "com.atproto.repo" in c[1]] == []
+
+    def test_empty_publication_uri_refused(self, tmp_path: Path) -> None:
+        posts, books = _orphan_dirs(tmp_path)
+        (posts / "2025-01-01-keep.md").write_text("---\ntitle: Keep\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+
+        with pytest.raises(publish.PublishError, match="publication_uri"):
+            publish.delete_orphans(client, posts, books, "", confirmed=True)
+
+        assert [c for c in transport.calls if "com.atproto.repo" in c[1]] == []
+
+    def test_empty_local_corpus_refusal_names_flags(self, tmp_path: Path) -> None:
+        posts, books = _orphan_dirs(tmp_path)
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push(ORPHAN_PAGE)
+
+        with pytest.raises(publish.PublishError) as exc_info:
+            publish.delete_orphans(client, posts, books, PUB_URI, confirmed=True)
+
+        message = str(exc_info.value)
+        assert "no local documents found" in message.lower()
+        assert "--posts-dir/--books-dir" in message
+        assert _calls(transport, "POST", "deleteRecord") == []
+
+    def test_book_review_counts_as_local_document(self, tmp_path: Path, capsys) -> None:
+        posts, books = _orphan_dirs(tmp_path)
+        (posts / "2025-01-01-keep.md").write_text("---\ntitle: Keep\n---\n")
+        (books / "moby-dick.md").write_text("---\ntitle: Moby Dick\ndate: 2025-01-01\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push(
+            {"records": [{"uri": DOC_URI, "value": {"site": PUB_URI, "path": "/books/moby-dick/"}}]}
+        )
+
+        publish.delete_orphans(client, posts, books, PUB_URI, confirmed=True)
+
+        assert _calls(transport, "POST", "deleteRecord") == []
+        assert "No orphan records found" in capsys.readouterr().out
+
+    def test_unreadable_local_document_aborts_before_delete(self, tmp_path: Path) -> None:
+        posts, books = _orphan_dirs(tmp_path)
+        (posts / "2025-01-01-untitled.md").write_text("---\ntitle: '  '\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push(ORPHAN_PAGE)
+
+        with pytest.raises(publish.PublishError, match=r"2025-01-01-untitled\.md"):
+            publish.delete_orphans(client, posts, books, PUB_URI, confirmed=True)
+
+        assert _calls(transport, "POST", "deleteRecord") == []
+
+    def test_foreign_publication_record_does_not_end_scan(self, tmp_path: Path) -> None:
+        posts, books = _orphan_dirs(tmp_path)
+        (posts / "2025-01-01-keep.md").write_text("---\ntitle: Keep\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        other = {"site": "at://did:plc:other/site.standard.publication/x", "path": "/blog/x/"}
+        ours = {"site": PUB_URI, "path": "/blog/gone/"}
+        transport.push(
+            {
+                "records": [
+                    {"uri": DOC_URI, "value": other},
+                    {"uri": DOC_URI.replace("rkeydoc1", "rkeydoc2"), "value": ours},
+                ]
+            }
+        )
+        transport.push({})  # deleteRecord response
+
+        publish.delete_orphans(client, posts, books, PUB_URI, confirmed=True)
+
+        delete_calls = _calls(transport, "POST", "deleteRecord")
+        assert [c[2]["rkey"] for c in delete_calls] == ["rkeydoc2"]
+
+
+class TestDeleteOrphansOutput:
+    """What delete_orphans sends to the PDS and prints for each orphan."""
+
+    def test_lists_document_collection(self, tmp_path: Path) -> None:
+        posts, books = _orphan_dirs(tmp_path)
+        (posts / "2025-01-01-keep.md").write_text("---\ntitle: Keep\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push({"records": []})
+
+        publish.delete_orphans(client, posts, books, PUB_URI, confirmed=False)
+
+        (list_call,) = _calls(transport, "GET", "listRecords")
+        assert list_call[2]["collection"] == "site.standard.document"
+
+    def test_dry_run_prints_orphan_path_and_rkey(self, tmp_path: Path, capsys) -> None:
+        posts, books = _orphan_dirs(tmp_path)
+        (posts / "2025-01-01-keep.md").write_text("---\ntitle: Keep\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push(ORPHAN_PAGE)
+
+        publish.delete_orphans(client, posts, books, PUB_URI, confirmed=False)
+
+        out = capsys.readouterr().out
+        assert "/blog/gone/" in out
+        assert "rkeydoc1" in out
+        assert _calls(transport, "POST", "deleteRecord") == []
+
+    def test_deletion_sends_collection_and_prints_path_and_rkey(
+        self, tmp_path: Path, capsys
+    ) -> None:
+        posts, books = _orphan_dirs(tmp_path)
+        (posts / "2025-01-01-keep.md").write_text("---\ntitle: Keep\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push(ORPHAN_PAGE)
+        transport.push({})  # deleteRecord response
+
+        publish.delete_orphans(client, posts, books, PUB_URI, confirmed=True)
+
+        (delete_call,) = _calls(transport, "POST", "deleteRecord")
+        assert delete_call[2] == {
+            "repo": client.did,
+            "collection": "site.standard.document",
+            "rkey": "rkeydoc1",
+        }
+        out = capsys.readouterr().out
+        assert "/blog/gone/" in out
+        assert "rkeydoc1" in out
+
+    def test_record_without_path_printed_as_placeholder(self, tmp_path: Path, capsys) -> None:
+        posts, books = _orphan_dirs(tmp_path)
+        (posts / "2025-01-01-keep.md").write_text("---\ntitle: Keep\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push({"records": [{"uri": DOC_URI, "value": {"site": PUB_URI}}]})
+
+        publish.delete_orphans(client, posts, books, PUB_URI, confirmed=False)
+
+        out = capsys.readouterr().out
+        assert "<no path>" in out
+        assert "rkeydoc1" in out
+
+
 class TestSourceFileFilter:
     def test_special_prefix_files_skipped(self, tmp_path: Path) -> None:
         # Jekyll's EntryFilter skips _/./# prefixed and ~ suffixed entries.

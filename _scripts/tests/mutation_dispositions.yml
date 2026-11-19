@@ -34,6 +34,7 @@
 functions:
   x_sync_documents: 8d8fdde6836a
   x__dispatch: 5c31e5477d8e
+  x_delete_orphans: 7cabf8446a6a
 survivors:
 - mutant: atproto.publish.x_sync_documents__mutmut_4
   mutation: Wrap the empty-`publication_uri` message in `XX` markers
@@ -178,3 +179,93 @@ survivors:
   disposition: out_of_scope
   reason: Error wording only. The guard still exits 1, and the stderr line still names `publication_uri`,
     which TestPublicationUriGuards asserts.
+- mutant: atproto.publish.x_delete_orphans__mutmut_4
+  mutation: Wrap the `publication_uri` required message in `XX` markers
+  disposition: out_of_scope
+  reason: The rule text and the term `publication_uri` remain, and TestDeleteOrphansGuards asserts the
+    term.
+- mutant: atproto.publish.x_delete_orphans__mutmut_9
+  mutation: Blank the `posts dir` label in `_require_dir`
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing posts path, which TestDeleteOrphansGuards asserts.
+- mutant: atproto.publish.x_delete_orphans__mutmut_12
+  mutation: Wrap the `posts dir` label in `XX` markers
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing posts path, which TestDeleteOrphansGuards asserts.
+- mutant: atproto.publish.x_delete_orphans__mutmut_13
+  mutation: Upper-case the `posts dir` label
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing posts path, which TestDeleteOrphansGuards asserts.
+- mutant: atproto.publish.x_delete_orphans__mutmut_15
+  mutation: Blank the `books dir` label
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing books path. The missing-check gap is mutant 14, which
+    is killed.
+- mutant: atproto.publish.x_delete_orphans__mutmut_18
+  mutation: Wrap the `books dir` label in `XX` markers
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing books path, which TestDeleteOrphansGuards asserts.
+- mutant: atproto.publish.x_delete_orphans__mutmut_19
+  mutation: Upper-case the `books dir` label
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing books path, which TestDeleteOrphansGuards asserts.
+- mutant: atproto.publish.x_delete_orphans__mutmut_21
+  mutation: Wrap the `missing input directory` message in `XX` markers
+  disposition: out_of_scope
+  reason: The rule words remain, and TestDeleteOrphansGuards matches them case-insensitively.
+- mutant: atproto.publish.x_delete_orphans__mutmut_22
+  mutation: Upper-case the `missing input directory` message
+  disposition: out_of_scope
+  reason: Wording only. TestDeleteOrphansGuards matches the rule words case-insensitively.
+- mutant: atproto.publish.x_delete_orphans__mutmut_34
+  mutation: Change the separator between multiple errors for one file to `XX; XX`
+  disposition: out_of_scope
+  reason: Only the separator between two errors for one file changes. A single error has no separator,
+    so the file name and each error text still appear in the message.
+- mutant: atproto.publish.x_delete_orphans__mutmut_36
+  mutation: Replace the `AssertionError` message with `None`
+  disposition: equivalent
+  reason: Dead branch. `_collect_documents` yields a `None` record only with a non-empty error list, and
+    `if errors:` raises before this check.
+- mutant: atproto.publish.x_delete_orphans__mutmut_37
+  mutation: Wrap the `AssertionError` message in `XX` markers
+  disposition: equivalent
+  reason: Same dead branch as mutant 36.
+- mutant: atproto.publish.x_delete_orphans__mutmut_38
+  mutation: Upper-case the `AssertionError` message
+  disposition: equivalent
+  reason: Same dead branch as mutant 36.
+- mutant: atproto.publish.x_delete_orphans__mutmut_44
+  mutation: Wrap the first half of the empty-corpus message in `XX` markers
+  disposition: out_of_scope
+  reason: The phrase `no local documents found` and the word `refusing` remain, and the refusal test matches
+    the phrase case-insensitively.
+- mutant: atproto.publish.x_delete_orphans__mutmut_46
+  mutation: Wrap the second half of the empty-corpus message in `XX` markers
+  disposition: out_of_scope
+  reason: The flags `--posts-dir/--books-dir` and the phrase `record as an orphan` remain, and TestDeleteOrphansGuards
+    asserts both.
+- mutant: atproto.publish.x_delete_orphans__mutmut_61
+  mutation: Default a missing `path` to `None` in the local-path membership test
+  disposition: equivalent
+  reason: Every local path starts with `/`, so neither `None` nor `""` is in `local_paths`; a record without
+    a path is an orphan under both values.
+- mutant: atproto.publish.x_delete_orphans__mutmut_63
+  mutation: Drop the default in `value.get("path", )` in the membership test
+  disposition: equivalent
+  reason: Calling get without a default returns None for a missing key, the same as mutant 61; no local
+    path is None or empty, so the result is unchanged.
+- mutant: atproto.publish.x_delete_orphans__mutmut_66
+  mutation: Default a missing `path` to `"XXXX"` in the local-path membership test
+  disposition: equivalent
+  reason: Local paths always start with `/`, so neither `"XXXX"` nor `""` is in `local_paths`; a record
+    without a path is an orphan under both values.
+- mutant: atproto.publish.x_delete_orphans__mutmut_75
+  mutation: Wrap the `<no path>` placeholder in `XX` markers
+  disposition: out_of_scope
+  reason: The placeholder text `<no path>` still appears in the printed line, which TestDeleteOrphansOutput
+    asserts.
+- mutant: atproto.publish.x_delete_orphans__mutmut_82
+  mutation: Wrap the `No orphan records found.` line in `XX` markers
+  disposition: out_of_scope
+  reason: The summary words remain, and existing tests assert the phrase with a substring match.
