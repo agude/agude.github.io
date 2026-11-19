@@ -117,6 +117,22 @@ module PropertyTestSuites
         'TestReferenceLinkScannerProperties' => %w[ReferenceLinkScanner.scan ReferenceLinkScanner.neutralize_liquid],
       },
     },
+    'image-derivatives' => {
+      'src/infrastructure/test_image_derivatives' => {
+        'TestImageDerivatives' => %w[
+          Jekyll::Infrastructure::ImageDerivatives.encode_stale
+          Jekyll::Infrastructure::ImageDerivatives.key
+          Jekyll::Infrastructure::ImageDerivatives.read_manifest
+        ],
+      },
+      'src/infrastructure/test_image_derivatives_properties' => {
+        'TestImageDerivativesProperties' => %w[
+          Jekyll::Infrastructure::ImageDerivatives.encode_stale
+          Jekyll::Infrastructure::ImageDerivatives.key
+          Jekyll::Infrastructure::ImageDerivatives.read_manifest
+        ],
+      },
+    },
   }.freeze
 
   # Mutant subject count each suite must match. Mutant silently generates no
@@ -129,6 +145,7 @@ module PropertyTestSuites
     'link-cache' => 10,
     'backlinks' => 4,
     'markdown' => 4,
+    'image-derivatives' => 3,
   }.freeze
 
   def self.fetch(target)

@@ -472,3 +472,129 @@
   key: '39aed676a425d947'
   disposition: equivalent
   reason: 'Regexp is unqualified in ReferenceLinkScanner, which defines no Regexp constant of its own, so the liquid-tag block resolves Regexp to the same top-level class as ::Regexp.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: 'e2f8f8c9a3c14172'
+  disposition: out_of_scope
+  reason: 'Changes only the text of a Jekyll.logger.info message, which no test or output reads.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: 'd6601ffe0cc859a6'
+  disposition: out_of_scope
+  reason: 'Changes only the text of a Jekyll.logger.info message, which no test or output reads.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: 'd1ef776b274542ce'
+  disposition: out_of_scope
+  reason: 'Changes only the text of a Jekyll.logger.info message, which no test or output reads.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: '3f2be61a8a9a7a35'
+  disposition: out_of_scope
+  reason: 'Changes only the text of a Jekyll.logger.info message, which no test or output reads.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: '34fed361cdc3383c'
+  disposition: out_of_scope
+  reason: 'Changes only the text of a Jekyll.logger.info message, which no test or output reads.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: 'a44ff6b0d15a1ca1'
+  disposition: out_of_scope
+  reason: 'Changes only the text of a Jekyll.logger.info message, which no test or output reads.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: '5ccbe17b9c88853d'
+  disposition: out_of_scope
+  reason: 'Changes only the text of a Jekyll.logger.info message, which no test or output reads.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: 'b1ff85f7733723a5'
+  disposition: out_of_scope
+  reason: 'Changes only the text of a Jekyll.logger.info message, which no test or output reads.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: 'a7aefabea715179d'
+  disposition: out_of_scope
+  reason: 'Changes only the text of a Jekyll.logger.info message, which no test or output reads.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: '5d939307d4bcbd90'
+  disposition: out_of_scope
+  reason: 'Changes only the text of a Jekyll.logger.info message, which no test or output reads.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: '79749d642d5b85c2'
+  disposition: out_of_scope
+  reason: 'Changes only the text of a Jekyll.logger.info message, which no test or output reads.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: 'dec921c83e017893'
+  disposition: out_of_scope
+  reason: 'Changes only the text of a Jekyll.logger.info message, which no test or output reads.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: '2b858fe4585aab95'
+  disposition: equivalent
+  reason: 'Line 267 of encode (FileUtils.mkdir_p(File.dirname(output.cache_file))) creates each output directory before encoding, so after a successful encode_all, cache_root exists and the mutated line changes nothing.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: '558be37defdbae6a'
+  disposition: equivalent
+  reason: 'Line 267 of encode (FileUtils.mkdir_p(File.dirname(output.cache_file))) creates each output directory before encoding, so after a successful encode_all, cache_root exists and the mutated line changes nothing.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: '95606ea59aca0c00'
+  disposition: equivalent
+  reason: 'Line 267 of encode (FileUtils.mkdir_p(File.dirname(output.cache_file))) creates each output directory before encoding, so after a successful encode_all, cache_root exists and the mutated line changes nothing.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: 'e4e77d53aee78a31'
+  disposition: equivalent
+  reason: 'Line 267 of encode (FileUtils.mkdir_p(File.dirname(output.cache_file))) creates each output directory before encoding, so after a successful encode_all, cache_root exists and the mutated line changes nothing.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: 'aa76e9e3f0e2d2f6'
+  disposition: equivalent
+  reason: 'Dropping sort from the manifest hash changes only the key order of the JSON written, and every reader parses that into an equal Hash.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: 'd6a78cad3581ad18'
+  disposition: equivalent
+  reason: 'The default block stores its result under nil instead of the file, so each lookup still computes the same digest and the keys are unchanged.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: '8bca5d3f5c8a47b3'
+  disposition: equivalent
+  reason: 'Without the store in the default block the digest is recomputed on every lookup, which changes only time, not any key.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: 'de35560453d4a72a'
+  disposition: equivalent
+  reason: 'The memo holds a Digest object instead of its hex string, and string interpolation calls to_s, which Digest returns as the same hexdigest, so the key text is identical.'
+
+- suite: 'image-derivatives'
+  subject: 'Jekyll::Infrastructure::ImageDerivatives.encode_stale'
+  key: '80de53da52568758'
+  disposition: equivalent
+  reason: 'For String operands, eql? and == agree, so the manifest comparison has the same result for every key.'
