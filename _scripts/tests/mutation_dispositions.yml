@@ -38,6 +38,7 @@ functions:
   x__dispatch: 5c31e5477d8e
   x_delete_orphans: 7cabf8446a6a
   x_validate_documents: 54c02d48d6a2
+  x_init_publication: eb374c4936b4
 survivors:
 - mutant: atproto.publish.x_sync_documents__mutmut_4
   mutation: Wrap the empty-`publication_uri` message in `XX` markers
@@ -360,3 +361,13 @@ survivors:
   mutation: Increment the content-mismatch error count by 2
   disposition: equivalent
   reason: Same as mutant 39; the count is only compared with zero.
+- mutant: atproto.publish.x_init_publication__mutmut_14
+  mutation: Wrap the PDS-refusal instruction sentence in `XX` markers
+  disposition: out_of_scope
+  reason: The refusal still names the existing record URIs and `_config.yml`, both asserted by test_refuses_if_pds_already_has_publication,
+    and only the wrapper text changes.
+- mutant: atproto.publish.x_init_publication__mutmut_15
+  mutation: Lower-case `URI` in the PDS-refusal instruction sentence
+  disposition: out_of_scope
+  reason: The refusal still names the existing record URIs and `_config.yml`, both asserted by test_refuses_if_pds_already_has_publication,
+    and only the word case of the instruction changes.

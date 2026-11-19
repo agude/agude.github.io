@@ -878,6 +878,10 @@ class TestEnvVars:
 # ---------------------------------------------------------------------------
 
 
+INIT_CONFIG = {"title": "T", "description": "D", "url": "https://example.com"}
+OTHER_PUB_URI = "at://did:plc:test123/site.standard.publication/rkeyother"
+
+
 class TestInitPublication:
     def test_creates_publication_record(self, tmp_path: Path) -> None:
         config = {"title": "T", "description": "D", "url": "https://example.com"}
@@ -892,6 +896,38 @@ class TestInitPublication:
         assert len(create_calls) == 1
         assert create_calls[0][2]["record"]["name"] == "T"
 
+    def test_create_body_targets_publication_collection(self, tmp_path: Path) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push({"records": []})
+        transport.push({"uri": PUB_URI})
+
+        init_publication(client, INIT_CONFIG)
+
+        create_calls = [c for c in transport.calls if "createRecord" in c[1]]
+        body = create_calls[0][2]
+        assert body["collection"] == "site.standard.publication"
+        assert body["repo"] == "did:plc:test123"
+        assert body["record"] == {
+            "$type": "site.standard.publication",
+            "url": "https://example.com",
+            "name": "T",
+            "description": "D",
+            "preferences": {"showInDiscover": True},
+        }
+
+    def test_lists_publication_collection_on_pds(self, tmp_path: Path) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push({"records": []})
+        transport.push({"uri": PUB_URI})
+
+        init_publication(client, INIT_CONFIG)
+
+        list_calls = [c for c in transport.calls if "listRecords" in c[1]]
+        assert len(list_calls) == 1
+        assert list_calls[0][2]["collection"] == "site.standard.publication"
+
     def test_refuses_if_pds_already_has_publication(self, tmp_path: Path) -> None:
         config = {"title": "T", "description": "D", "url": "https://example.com"}
         transport = MockTransport()
@@ -900,17 +936,55 @@ class TestInitPublication:
 
         with pytest.raises(publish.PublishError) as exc_info:
             init_publication(client, config)
-        assert "already exist on the PDS" in str(exc_info.value)
+        message = str(exc_info.value)
+        assert "already exist on the PDS" in message
+        assert PUB_URI in message
+        assert "_config.yml" in message
         create_calls = [c for c in transport.calls if "createRecord" in c[1]]
         assert len(create_calls) == 0
+
+    def test_refusal_lists_every_existing_publication(self, tmp_path: Path) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push(
+            {
+                "records": [
+                    {"uri": PUB_URI, "value": {}},
+                    {"uri": OTHER_PUB_URI, "value": {}},
+                ]
+            }
+        )
+
+        with pytest.raises(publish.PublishError) as exc_info:
+            init_publication(client, INIT_CONFIG)
+        assert f"{PUB_URI}, {OTHER_PUB_URI}" in str(exc_info.value)
 
     def test_refuses_if_uri_already_set(self, tmp_path: Path) -> None:
         config = {"standard_site": {"publication_uri": PUB_URI}}
         transport = MockTransport()
         client = make_client(transport)
 
-        with pytest.raises(publish.PublishError):
+        with pytest.raises(publish.PublishError) as exc_info:
             init_publication(client, config)
+        assert PUB_URI in str(exc_info.value)
+        assert "_config.yml" in str(exc_info.value)
+        assert not [c for c in transport.calls if "listRecords" in c[1]]
+        assert not [c for c in transport.calls if "createRecord" in c[1]]
+
+    def test_prints_created_uri_and_config_instruction(
+        self, tmp_path: Path, capsys: pytest.CaptureFixture[str]
+    ) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push({"records": []})
+        transport.push({"uri": PUB_URI})
+
+        init_publication(client, INIT_CONFIG)
+
+        assert capsys.readouterr().out.splitlines() == [
+            f"Publication record created: {PUB_URI}",
+            "Add this URI to _config.yml → standard_site.publication_uri and commit.",
+        ]
 
 
 # ---------------------------------------------------------------------------
