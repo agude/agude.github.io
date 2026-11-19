@@ -94,6 +94,18 @@ module PropertyTestSuites
     },
   }.freeze
 
+  # Mutant subject count each suite must match. Mutant silently generates no
+  # mutants for a subject expression that matches nothing (for example a
+  # method defined in a Struct.new block, or one behind module_function), so
+  # the runner compares Mutant's matched count against this before mutating.
+  # Update the count with the subject list when a subject is added or removed.
+  DECLARED_SUBJECT_COUNTS = {
+    'html' => 4,
+    'link-cache' => 10,
+    'backlinks' => 4,
+    'markdown' => 4,
+  }.freeze
+
   def self.fetch(target)
     SUITES.fetch(target) do
       abort "Unknown Ruby test target #{target.inspect}. Choose #{SUITES.keys.join(', ')}."
@@ -102,6 +114,30 @@ module PropertyTestSuites
 
   def self.load_tests(suite)
     suite.each_key { |path| require_relative "../#{path}" }
+  end
+
+  # Unique Mutant subject expressions for a suite, in declaration order.
+  def self.subjects(suite)
+    suite.values.flat_map(&:values).flatten.uniq
+  end
+
+  # Reads the count from `mutant environment subject list` output, whose first
+  # line is "Subjects in environment: N". Returns nil when the line is absent.
+  def self.parse_subject_count(output)
+    match = output.match(/^Subjects in environment: (\d+)$/)
+    match && match[1].to_i
+  end
+
+  # Returns the error message when Mutant's matched count differs from the
+  # declared count for `target`, or nil when they agree.
+  def self.subject_count_error(target, actual)
+    expected = DECLARED_SUBJECT_COUNTS.fetch(target)
+    return nil if actual == expected
+
+    "Mutation subject count mismatch for suite #{target.inspect}: " \
+      "expected #{expected} subjects, Mutant matched #{actual}. " \
+      'Fix the subject expressions or update DECLARED_SUBJECT_COUNTS in ' \
+      '_tests/support/property_test_suites.rb.'
   end
 end
 

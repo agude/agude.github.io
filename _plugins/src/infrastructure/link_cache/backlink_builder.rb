@@ -65,7 +65,11 @@ module Jekyll
         end
 
         # Result of walking a Liquid AST to extract link data.
-        ScanResult = Struct.new(:capture_defs, :direct_links, :prose_vars, keyword_init: true) do
+        ScanResult = Struct.new(:capture_defs, :direct_links, :prose_vars, keyword_init: true)
+
+        # Defined in a class body rather than a Struct.new block so Mutant can
+        # match compute_usages; it cannot match methods of an anonymous Struct.
+        class ScanResult
           def compute_usages
             return {} if prose_vars.empty?
 
