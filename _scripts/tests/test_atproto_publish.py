@@ -5,6 +5,7 @@ import json
 import time
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
+from typing import ClassVar
 
 import pytest
 import requests
@@ -2599,3 +2600,260 @@ class TestWorkflowDryRun:
         commands = [s["run"] for s in steps if "atproto/publish.py" in s.get("run", "")]
         assert len(commands) == 3
         assert all(flag in command for command in commands)
+
+
+# ---------------------------------------------------------------------------
+# CLI dispatch: argument parsing, client choice, handler arguments, exit codes
+# ---------------------------------------------------------------------------
+
+
+class _HandlerRecorder:
+    """Stands in for a handler and records the exact arguments it receives."""
+
+    def __init__(self, returns: object = None) -> None:
+        self.returns = returns
+        self.calls: list[tuple[tuple, dict]] = []
+
+    def __call__(self, *args, **kwargs):
+        self.calls.append((args, kwargs))
+        return self.returns
+
+
+class _FakeClient:
+    """Stands in for AtprotoClient; records how it was constructed."""
+
+    made: ClassVar[list["_FakeClient"]] = []
+
+    def __init__(self, *args) -> None:
+        self.args = args
+        self.mode = "credentialed"
+        _FakeClient.made.append(self)
+
+    @classmethod
+    def read_only(cls, *args) -> "_FakeClient":
+        client = cls(*args)
+        client.mode = "read-only"
+        return client
+
+
+@pytest.fixture
+def dispatch(monkeypatch: pytest.MonkeyPatch) -> dict[str, _HandlerRecorder]:
+    recorders = {
+        "sync_documents": _HandlerRecorder(),
+        "validate_documents": _HandlerRecorder(returns=True),
+        "delete_orphans": _HandlerRecorder(),
+        "init_publication": _HandlerRecorder(),
+    }
+    for name, recorder in recorders.items():
+        monkeypatch.setattr(publish, name, recorder)
+    monkeypatch.setattr(publish, "AtprotoClient", _FakeClient)
+    monkeypatch.setattr(publish, "load_config", lambda: TEST_CONFIG)
+    monkeypatch.setenv("BSKY_HANDLE", "handle.example")
+    monkeypatch.setenv("BSKY_APP_PASSWORD", "app-password")
+    _FakeClient.made = []
+    return recorders
+
+
+def _exit_code_of(argv: list[str]) -> object:
+    with pytest.raises(SystemExit) as exc:
+        publish.main(argv)
+    return exc.value.code
+
+
+def _publish_flags(tmp_path: Path) -> list[str]:
+    return [
+        "--posts-dir",
+        str(tmp_path / "posts"),
+        "--books-dir",
+        str(tmp_path / "books"),
+        "--data-out",
+        str(tmp_path / "out.json"),
+    ]
+
+
+class TestDispatchSubcommands:
+    def test_subcommand_is_required(self, dispatch: dict[str, _HandlerRecorder]) -> None:
+        assert _exit_code_of([]) == 2
+        assert dispatch["sync_documents"].calls == []
+
+    def test_unknown_subcommand_is_rejected(self, dispatch: dict[str, _HandlerRecorder]) -> None:
+        assert _exit_code_of(["publsh"]) == 2
+
+    def test_publish_passes_every_argument_to_sync_documents(
+        self, tmp_path: Path, dispatch: dict[str, _HandlerRecorder]
+    ) -> None:
+        argv = ["publish", *_publish_flags(tmp_path), "--site-time", "2026-01-02T03:04:05+00:00"]
+
+        publish.main(argv)
+
+        ((args, kwargs),) = dispatch["sync_documents"].calls
+        client, posts, data_out, publication_uri, config = args
+        assert client.args == (publish.PDS_URL, "handle.example", "app-password")
+        assert client.mode == "credentialed"
+        assert posts == tmp_path / "posts"
+        assert data_out == tmp_path / "out.json"
+        assert publication_uri == PUB_URI
+        assert config is TEST_CONFIG
+        assert kwargs == {
+            "books_dir": tmp_path / "books",
+            "dry_run": False,
+            "site_time": datetime.fromisoformat("2026-01-02T03:04:05+00:00"),
+        }
+
+    def test_publish_dry_run_uses_read_only_client_and_skips_credentials(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, dispatch: dict[str, _HandlerRecorder]
+    ) -> None:
+        monkeypatch.delenv("BSKY_HANDLE")
+        monkeypatch.delenv("BSKY_APP_PASSWORD")
+
+        publish.main(["publish", *_publish_flags(tmp_path), "--dry-run"])
+
+        ((args, kwargs),) = dispatch["sync_documents"].calls
+        client = args[0]
+        assert client.mode == "read-only"
+        assert client.args == (publish.PDS_URL, "did:plc:test123")
+        assert len(_FakeClient.made) == 1
+        assert kwargs["dry_run"] is True
+        assert kwargs["site_time"] is None
+
+    def test_publish_missing_path_is_a_parse_error(
+        self, tmp_path: Path, dispatch: dict[str, _HandlerRecorder]
+    ) -> None:
+        flags = _publish_flags(tmp_path)
+        for flag in ("--posts-dir", "--books-dir", "--data-out"):
+            index = flags.index(flag)
+            argv = ["publish", *flags[:index], *flags[index + 2 :]]
+            assert _exit_code_of(argv) == 2, flag
+        assert dispatch["sync_documents"].calls == []
+
+    def test_publish_rejects_unparseable_site_time(
+        self, tmp_path: Path, dispatch: dict[str, _HandlerRecorder]
+    ) -> None:
+        argv = ["publish", *_publish_flags(tmp_path), "--site-time", "yesterday"]
+        assert _exit_code_of(argv) == 2
+        assert dispatch["sync_documents"].calls == []
+
+    def test_validate_passes_every_argument_to_validate_documents(
+        self, tmp_path: Path, dispatch: dict[str, _HandlerRecorder]
+    ) -> None:
+        argv = [
+            "validate",
+            "--posts-dir",
+            str(tmp_path / "posts"),
+            "--books-dir",
+            str(tmp_path / "books"),
+            "--site-dir",
+            str(tmp_path / "site"),
+            "--site-time",
+            "2026-01-02T03:04:05+00:00",
+        ]
+
+        publish.main(argv)
+
+        ((args, kwargs),) = dispatch["validate_documents"].calls
+        assert args == (tmp_path / "posts",)
+        assert kwargs == {
+            "books_dir": tmp_path / "books",
+            "site_dir": tmp_path / "site",
+            "expected_publication_uri": PUB_URI,
+            "site_time": datetime.fromisoformat("2026-01-02T03:04:05+00:00"),
+        }
+        assert dispatch["sync_documents"].calls == []
+        assert _FakeClient.made == []
+
+    def test_validate_exits_one_on_failure_and_zero_on_success(
+        self, tmp_path: Path, dispatch: dict[str, _HandlerRecorder]
+    ) -> None:
+        argv = ["validate", "--posts-dir", str(tmp_path), "--books-dir", str(tmp_path)]
+
+        dispatch["validate_documents"].returns = False
+        assert _exit_code_of(argv) == 1
+
+        dispatch["validate_documents"].returns = True
+        publish.main(argv)
+
+    def test_validate_requires_posts_and_books_dirs(
+        self, tmp_path: Path, dispatch: dict[str, _HandlerRecorder]
+    ) -> None:
+        assert _exit_code_of(["validate", "--books-dir", str(tmp_path)]) == 2
+        assert _exit_code_of(["validate", "--posts-dir", str(tmp_path)]) == 2
+        assert dispatch["validate_documents"].calls == []
+
+    def test_site_dir_and_site_time_default_to_none(
+        self, tmp_path: Path, dispatch: dict[str, _HandlerRecorder]
+    ) -> None:
+        argv = ["validate", "--posts-dir", str(tmp_path), "--books-dir", str(tmp_path)]
+
+        publish.main(argv)
+
+        ((_, kwargs),) = dispatch["validate_documents"].calls
+        assert kwargs["site_dir"] is None
+        assert kwargs["site_time"] is None
+
+    def test_delete_orphans_passes_arguments_and_confirmation(
+        self, tmp_path: Path, dispatch: dict[str, _HandlerRecorder]
+    ) -> None:
+        flags = ["--posts-dir", str(tmp_path / "posts"), "--books-dir", str(tmp_path / "books")]
+
+        publish.main(["delete-orphans", *flags])
+        publish.main(["delete-orphans", "--yes", *flags])
+
+        unconfirmed, confirmed = dispatch["delete_orphans"].calls
+        for (args, kwargs), expected_confirmed in ((unconfirmed, False), (confirmed, True)):
+            client, posts, books, publication_uri = args
+            assert client.args == (publish.PDS_URL, "handle.example", "app-password")
+            assert client.mode == "credentialed"
+            assert posts == tmp_path / "posts"
+            assert books == tmp_path / "books"
+            assert publication_uri == PUB_URI
+            assert kwargs == {"confirmed": expected_confirmed}
+
+    def test_delete_orphans_requires_posts_and_books_dirs(
+        self, tmp_path: Path, dispatch: dict[str, _HandlerRecorder]
+    ) -> None:
+        assert _exit_code_of(["delete-orphans", "--books-dir", str(tmp_path)]) == 2
+        assert _exit_code_of(["delete-orphans", "--posts-dir", str(tmp_path)]) == 2
+        assert dispatch["delete_orphans"].calls == []
+
+    def test_delete_orphans_yes_takes_no_value(
+        self, tmp_path: Path, dispatch: dict[str, _HandlerRecorder]
+    ) -> None:
+        flags = ["--posts-dir", str(tmp_path), "--books-dir", str(tmp_path)]
+
+        publish.main(["delete-orphans", "--yes", *flags])
+
+        ((_, kwargs),) = dispatch["delete_orphans"].calls
+        assert kwargs == {"confirmed": True}
+
+    def test_init_publication_uses_credentialed_client_and_config(
+        self, dispatch: dict[str, _HandlerRecorder]
+    ) -> None:
+        publish.main(["init-publication"])
+
+        ((args, kwargs),) = dispatch["init_publication"].calls
+        client, config = args
+        assert client.args == (publish.PDS_URL, "handle.example", "app-password")
+        assert client.mode == "credentialed"
+        assert config is TEST_CONFIG
+        assert kwargs == {}
+        assert dispatch["sync_documents"].calls == []
+
+    def test_credentials_are_read_from_their_environment_names(
+        self, monkeypatch: pytest.MonkeyPatch, dispatch: dict[str, _HandlerRecorder]
+    ) -> None:
+        monkeypatch.setenv("BSKY_HANDLE", "other.example")
+        monkeypatch.setenv("BSKY_APP_PASSWORD", "other-password")
+
+        publish.main(["init-publication"])
+
+        ((args, _),) = dispatch["init_publication"].calls
+        assert args[0].args == (publish.PDS_URL, "other.example", "other-password")
+
+    def test_missing_credentials_fail_before_the_handler_runs(
+        self, monkeypatch: pytest.MonkeyPatch, capsys, dispatch: dict[str, _HandlerRecorder]
+    ) -> None:
+        monkeypatch.delenv("BSKY_APP_PASSWORD")
+
+        assert _exit_code_of(["init-publication"]) == 1
+        assert "BSKY_APP_PASSWORD" in capsys.readouterr().err
+        assert dispatch["init_publication"].calls == []
