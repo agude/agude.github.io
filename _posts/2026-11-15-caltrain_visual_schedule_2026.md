@@ -3,7 +3,8 @@ layout: post
 title: "Caltrain Visual Schedule: 2026"
 description: >
   Caltrain electrified and rebuilt its schedule since I last drew it as a
-  Marey chart in 2017. Here is the 2026 schedule, side by side with 2017.
+  Marey chart in 2017. Check out the new 2026 schedule, side by side with
+  2017.
 image: /files/caltrain-schedule/two_sp_trains_in_millbrae_ca_in_january_1985_by_roger_puta.jpg
 hide_lead_image: True
 image_alt: >
@@ -24,10 +25,10 @@ categories:
 
 In 2017, I created some [_Marey/Ibry/Serjev_ visual schedules for
 Caltrain][first_post], just to have some fun tweaking plots. A few months
-later, I [updated them when Caltrain changed their
-schedule][update_post] to accommodate the upcoming [electrification
-program][caltrain_wiki]. Now, 9 years later, the electrification work is
-complete, so I updated the plots[^code] to see what changed.
+later, I [updated them when Caltrain changed their schedule][update_post] to
+accommodate the upcoming [electrification program][caltrain_wiki]. Now, 9
+years later, the electrification work is complete, so I updated the
+plots[^code] to see what changed.
 
 [first_post]: {% post_url 2017-05-21-caltrain_visual_schedule %}
 [update_post]: {% post_url 2017-10-07-caltrain_visual_schedule_updates %}
@@ -68,11 +69,11 @@ repository yet.
 
 The first thing you notice when comparing the new schedule (top) to the old
 schedule (bottom) is: there are a lot more trains! Two local trains an hour
-for the entire day, compared to one earlier.
+for almost the entire day, compared to just one earlier.
 
-And there is a new type of train, the "South County" that travels exclusively
-from Gilroy to Diridon. This is a consequence of the electrification of the
-northern-half of the line. Gilroy to Diridon uses part of the old diesel
+And there is a new type of train: the "South County" that travels exclusively
+between Gilroy to Diridon. This is a consequence of the electrification of the
+northern half of the line. The Gilroy to Diridon leg uses the old diesel
 fleet, while Diridon to San Francisco uses the new electric trains.
 
 [![Marey visual train schedule for Caltrain on weekdays in January 2026, including the South County Connector trains to Gilroy][gilroy_2026]][gilroy_2026]
@@ -94,12 +95,15 @@ what train you need to take!
 
 The starting times have been standardized as well. The express always leaves
 San Francisco 20 minutes after the hour, and Diridon 22 minutes after, morning
-and evening. The local leaves at the same minute of the hour for the entire
-day.
+and evening. The locals follow a [clock-face schedule][wiki_clock], leaving at
+the same minute after the hour.
 
-And Caltrain isn't making use of their double tracking for passing much
-anymore either. They used to have bullets overtake the limiteds, but now
-that's almost completely eliminated.
+[wiki_clock]: https://en.wikipedia.org/wiki/Clock-face_scheduling
+
+And Caltrain is hardly making use of their pass tracks for overtaking. They
+used to have bullets overtake slower trains regularly, but now it only happens
+once: when southbound Express 506 passes Local 108 at about 08:20 near
+Diridon.
 
 [![Marey visual train schedule for Caltrain during the weekday morning commute in January 2026][morning_2026]][morning_2026]
 [![Marey visual train schedule for Caltrain during the weekday morning commute in April 2017][morning_2017]][morning_2017]
@@ -117,21 +121,20 @@ example compare the new local train (solid blue line) with the old one
 
 [![Marey chart comparing Local train 101 in April 2017 and January 2026, from San Jose Diridon to San Francisco][local_comparison]][local_comparison]
 
-Same number of stops, but making the trip in 78 minutes instead of 95! 17
+Same number of stops, but making the trip in 78 minutes instead of 95; 17
 whole minutes faster! The limited is just as drastic:
 
 [![Marey chart comparing Limited train 207 in April 2017 with Limited train 401 in January 2026, from San Jose Diridon to San Francisco][limited_comparison]][limited_comparison]
 
-Here I matched two trains with a similar stop pattern since the 2017 limited
-stopped at a different set of stations depending on the exact train. Notice
-the new train is 15 minutes faster _and_ makes more stops! Finally, the
-express:
+Here I matched two trains with similar stop patterns, since 2017's limiteds
+varied from train to train. Notice the new train is 15 minutes faster _and_
+makes more stops! Finally, the express:
 
 [![Marey chart comparing Baby Bullet train 371 in April 2017 with Express train 519 in January 2026, from San Jose Diridon to San Francisco][express_comparison]][express_comparison]
 
 The express shows the least improvement, actually running slower for the first
-part of the trip, but making it up in the end to finish 6 minutes faster and
-again it makes more stops!
+part of the trip---but again, with more stops!---before making it up in the
+end to finish 6 minutes faster.
 
 [local_comparison]: {{ file_dir }}/comparison/local.svg
 [limited_comparison]: {{ file_dir }}/comparison/limited.svg
@@ -139,7 +142,7 @@ again it makes more stops!
 
 ## Weekend
 
-Finally, the weekend is drastically different, see Saturday:
+Finally, the weekend is drastically different. For example, see Saturday:
 
 [![Marey visual train schedule for Caltrain on Saturday in January 2026][saturday_2026]][saturday_2026]
 [![Marey visual train schedule for Caltrain on Saturday in July 2017][saturday_jul2017]][saturday_jul2017]
