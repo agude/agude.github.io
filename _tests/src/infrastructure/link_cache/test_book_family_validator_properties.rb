@@ -3,7 +3,9 @@
 require_relative '../../../test_helper'
 require 'support/property_test'
 
-# Compares family validation with a direct pairwise scan of document metadata.
+# Compares family validation with a direct scan of document metadata: first
+# the canonical_url format check (a local value must spell its target's url
+# exactly), then the pairwise scan for canonical pages that set canonical_url.
 class TestBookFamilyValidatorProperties < Minitest::Test
   include PropertyTestSupport
 
@@ -21,10 +23,10 @@ class TestBookFamilyValidatorProperties < Minitest::Test
   INTERACTIONS = %w[
     valid_family_with_archives
     valid_family_without_archives
-    valid_family_slash_variant_canonical
+    family_slash_variant_rejected
     valid_family_external_canonical
     illegal_local_chain
-    illegal_local_chain_slash_variant
+    local_chain_slash_variant_rejected
   ].freeze
 
   # Names what a generated shape builds, from the shape's fields.
@@ -32,11 +34,18 @@ class TestBookFamilyValidatorProperties < Minitest::Test
     sequence_id, _canonical_count, archive_count, chain_length, external_count = shape
     names = []
     names << (archive_count.positive? ? 'valid_family_with_archives' : 'valid_family_without_archives')
-    names << 'valid_family_slash_variant_canonical' if (0...archive_count).any? { |i| (sequence_id + i).even? }
+    names << 'family_slash_variant_rejected' if archive_count.positive? && slash_variant_shape?(sequence_id)
     names << 'valid_family_external_canonical' if external_count.positive?
     names << 'illegal_local_chain' if chain_length >= 2
-    names << 'illegal_local_chain_slash_variant' if (0...(chain_length - 1)).any? { |i| (sequence_id + i).even? }
+    names << 'local_chain_slash_variant_rejected' if slash_variant_shape?(sequence_id)
     names
+  end
+
+  # One shape in three spells its first local canonical_url without the
+  # trailing slash, which the format check rejects before the pairwise scan.
+  # The rest keep the pairwise scan reachable.
+  def self.slash_variant_shape?(sequence_id)
+    (sequence_id % 3).zero?
   end
 
   def test_validator_matches_scan_for_valid_families_and_local_chains
@@ -69,7 +78,8 @@ class TestBookFamilyValidatorProperties < Minitest::Test
     archived_books = Array.new(archive_count) do |archive_index|
       target_index = (sequence_id + archive_index) % canonical_count
       target_url = canonical_urls[target_index]
-      canonical_url = (sequence_id + archive_index).even? ? target_url.chomp('/') : target_url
+      slash_variant = archive_index.zero? && self.class.slash_variant_shape?(sequence_id)
+      canonical_url = slash_variant ? target_url.chomp('/') : target_url
       archive_url = "/books/archived-#{sequence_id}-#{archive_index}/"
       create_doc(
         {
@@ -110,7 +120,7 @@ class TestBookFamilyValidatorProperties < Minitest::Test
     chain_books = urls.each_with_index.map do |url, index|
       canonical_url = if index == chain_length - 1
                         nil
-                      elsif (sequence_id + index).even?
+                      elsif index.zero? && self.class.slash_variant_shape?(sequence_id)
                         urls[index + 1].chomp('/')
                       else
                         urls[index + 1]
@@ -139,9 +149,17 @@ class TestBookFamilyValidatorProperties < Minitest::Test
   end
 
   def assert_validation_matches_scan(books)
+    error = validation_error(books)
+    offender = books.find { |book| slash_variant_canonical?(book, books) }
+    if offender
+      refute_nil error
+      assert_includes error.message, "canonical_url in '#{offender.relative_path}' is"
+      assert_includes error.message, "but the book page's url is"
+      return
+    end
+
     expected_paths = books.select { |book| violation_by_pairwise_scan?(book, books) }
                           .map(&:relative_path)
-    error = validation_error(books)
 
     if expected_paths.empty?
       assert_nil error
@@ -149,6 +167,15 @@ class TestBookFamilyValidatorProperties < Minitest::Test
       refute_nil error
       assert_equal expected_paths, paths_reported_by(error)
     end
+  end
+
+  # A local canonical_url that names a book page but not with that page's
+  # exact url, differing only in the trailing slash.
+  def slash_variant_canonical?(book, books)
+    value = book.data['canonical_url']
+    return false unless value.is_a?(String) && value.start_with?('/')
+
+    books.any? { |target| target.url != value && target.url.chomp('/') == value.chomp('/') }
   end
 
   def violation_by_pairwise_scan?(candidate, books)

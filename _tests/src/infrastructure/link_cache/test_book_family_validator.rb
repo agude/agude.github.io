@@ -291,7 +291,115 @@ class TestBookFamilyValidator < Minitest::Test
 
     error = assert_raises(Jekyll::Errors::FatalException) { validator.validate }
     assert_includes error.message, archived.relative_path
-    assert_includes error.message, '" /books/canonical-review/ "'
+    assert error.message.end_with?(
+      %(has leading or trailing whitespace: " /books/canonical-review/ ". Remove the whitespace.),
+    ),
+           error.message
+  end
+
+  def test_canonical_url_with_only_leading_or_only_trailing_whitespace_raises
+    [' /books/canonical-review/', '/books/canonical-review/ '].each do |padded|
+      canonical = create_doc({ 'title' => 'Canonical Review', 'published' => true }, '/books/canonical-review/')
+      archived = create_doc(
+        { 'title' => 'Canonical Review', 'published' => true, 'canonical_url' => padded },
+        '/books/canonical-review/old/',
+      )
+
+      error = assert_raises(Jekyll::Errors::FatalException) { build_validator([canonical, archived]).validate }
+      assert_includes error.message, 'leading or trailing whitespace', padded.inspect
+    end
+  end
+
+  def test_format_check_reaches_books_after_a_valid_canonical_url
+    canonical = create_doc({ 'title' => 'Page', 'published' => true }, '/books/page/')
+    valid = create_doc(
+      { 'title' => 'Page', 'published' => true, 'canonical_url' => '/books/page/' },
+      '/books/page-a/',
+    )
+    slashless = create_doc(
+      { 'title' => 'Page', 'published' => true, 'canonical_url' => '/books/page' },
+      '/books/page-b/',
+    )
+
+    error = assert_raises(Jekyll::Errors::FatalException) do
+      build_validator([canonical, valid, slashless]).validate
+    end
+    assert_includes error.message, slashless.relative_path
+  end
+
+  # A slashless local path never equals the canonical page's url, so the
+  # archive would get its own book identity and split the family.
+  def test_local_canonical_url_without_trailing_slash_raises
+    canonical = create_doc(
+      { 'title' => 'Canonical Review', 'published' => true },
+      '/books/canonical-review/',
+    )
+    archived = create_doc(
+      {
+        'title' => 'Canonical Review',
+        'published' => true,
+        'canonical_url' => '/books/canonical-review',
+      },
+      '/books/canonical-review/old/',
+    )
+    validator = build_validator([canonical, archived])
+
+    error = assert_raises(Jekyll::Errors::FatalException) { validator.validate }
+    assert_includes error.message, archived.relative_path
+    assert_includes error.message, %(is "/books/canonical-review", but the book page's url is "/books/canonical-review/")
+  end
+
+  def test_local_canonical_url_with_an_extra_trailing_slash_raises
+    canonical = create_doc({ 'title' => 'Page', 'published' => true }, '/books/page.html')
+    archived = create_doc(
+      { 'title' => 'Page', 'published' => true, 'canonical_url' => '/books/page.html/' },
+      '/books/page-old.html',
+    )
+
+    error = assert_raises(Jekyll::Errors::FatalException) { build_validator([canonical, archived]).validate }
+    assert_includes error.message, 'Use "/books/page.html"'
+  end
+
+  def test_exact_local_canonical_url_without_trailing_slash_is_allowed
+    # Only a mismatch with a real book url splits a family; an exact match
+    # is fine whatever its form.
+    # Equal but distinct strings: the check compares values, not identity.
+    canonical = create_doc({ 'title' => 'Page', 'published' => true }, String.new('/books/page.html'))
+    archived = create_doc(
+      { 'title' => 'Page', 'published' => true, 'canonical_url' => String.new('/books/page.html') },
+      '/books/page-old.html',
+    )
+
+    build_validator([canonical, archived]).validate
+  end
+
+  def test_exact_slashless_canonical_target_that_sets_canonical_url_raises
+    # The family check must treat any local value as a target, not only one
+    # ending in a slash.
+    target = create_doc(
+      { 'title' => 'Page', 'published' => true, 'canonical_url' => 'https://elsewhere.example/page/' },
+      '/books/page.html',
+    )
+    archived = create_doc(
+      { 'title' => 'Page', 'published' => true, 'canonical_url' => '/books/page.html' },
+      '/books/page-old.html',
+    )
+
+    error = assert_raises(Jekyll::Errors::FatalException) { build_validator([target, archived]).validate }
+    assert_includes error.message, "#{target.relative_path} (url: /books/page.html)"
+  end
+
+  def test_external_canonical_url_without_trailing_slash_is_allowed
+    review = create_doc(
+      {
+        'title' => 'Elsewhere',
+        'published' => true,
+        'canonical_url' => 'https://other.example/books/elsewhere',
+      },
+      '/books/elsewhere/',
+    )
+
+    build_validator([review]).validate
   end
 
   # --- Integration tests through create_site ---

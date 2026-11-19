@@ -263,6 +263,48 @@
   disposition: equivalent
   reason: 'A string starts with "/" after lstrip exactly when it does after strip, because both remove the same leading whitespace and NUL characters, so the trailing whitespace that strip removes never affects start_with?.'
 
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#check_canonical_format'
+  key: '6f9691a49af26f2d'
+  disposition: equivalent
+  reason: 'The key? guard above returns early when the books collection is absent, so Hash#fetch("books") returns the same collection as [].'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#check_canonical_format'
+  key: '9118c08bc8d61388'
+  disposition: equivalent
+  reason: 'Jekyll::Document#[] returns data[key] (document.rb line 250 in Jekyll 4.4.1), so book["canonical_url"] reads the same value as book.data["canonical_url"].'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#check_canonical_format'
+  key: '45e2997954b96d21'
+  disposition: out_of_scope
+  reason: 'Only a canonical_url that is a non-String truthy value (a YAML number, list, or mapping) differs: it raises NoMethodError on strip instead of being skipped. Such front matter is malformed.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#check_canonical_format'
+  key: 'a6dbb50a3c6ec954'
+  disposition: equivalent
+  reason: 'YAML front matter produces plain String values, never a String subclass, so instance_of?(String) and is_a?(String) agree for every canonical_url.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#check_canonical_format'
+  key: '44c97632d74a58a5'
+  disposition: equivalent
+  reason: 'The method is defined inside module Jekyll, so the constant Errors::FatalException resolves to Jekyll::Errors::FatalException.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#canonical_format_problem'
+  key: 'f0e66650a6985998'
+  disposition: equivalent
+  reason: 'For two Strings, eql? and == both compare content, so !value.eql?(value.strip) and value != value.strip give the same result.'
+
+- suite: 'link-cache'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#canonical_format_problem'
+  key: '3e1f2342d4871cd0'
+  disposition: equivalent
+  reason: 'target and value are both Strings when compared, and for two Strings eql? and == both compare content.'
+
 - suite: 'backlinks'
   subject: 'Jekyll::Infrastructure::LinkCache::BacklinkBuilder#add_link'
   key: '4a9dad5b53a31f3f'

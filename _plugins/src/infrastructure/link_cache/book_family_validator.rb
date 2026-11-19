@@ -10,33 +10,52 @@ module Jekyll
       #
       # @validator Book referenced as a canonical target by another book also
       #   has `canonical_url` set (copy-paste error).
+      # @validator Book `canonical_url` has surrounding whitespace, or names a
+      #   book page with a different trailing slash than its url.
       class BookFamilyValidator
         def initialize(site)
           @site = site
         end
 
         def validate
-          check_canonical_whitespace
+          check_canonical_format
           errors = find_violations
           raise_if_errors(errors)
         end
 
         private
 
-        # Padding is not trimmed: a local canonical_url with surrounding
-        # whitespace would be read as local by the identity resolver but
-        # not by find_violations, so the build stops instead.
-        def check_canonical_whitespace
+        # canonical_url is read verbatim by many consumers (link cache, book
+        # identity, SEO tags), so a local value must spell the target's url
+        # exactly. Padding would be read as local by the identity resolver
+        # but not by find_violations. A value that differs from a book's url
+        # only in the trailing slash is treated as the same page here, but
+        # gets its own book identity elsewhere, so the family splits in two.
+        def check_canonical_format
           return unless @site.collections.key?('books')
 
-          @site.collections['books'].docs.each do |book|
+          docs = @site.collections['books'].docs
+          url_by_normalized = docs.to_h { |doc| [normalize_url(doc.url), doc.url] }
+          docs.each do |book|
             value = book.data['canonical_url']
-            next unless value.is_a?(String) && value != value.strip
+            next unless value.is_a?(String)
+
+            problem = canonical_format_problem(value, url_by_normalized)
+            next unless problem
 
             raise Jekyll::Errors::FatalException,
-                  "BookFamilyValidator: canonical_url in '#{book.relative_path}' has leading or " \
-                  "trailing whitespace: #{value.inspect}. Remove the whitespace."
+                  "BookFamilyValidator: canonical_url in '#{book.relative_path}' #{problem}"
           end
+        end
+
+        def canonical_format_problem(value, url_by_normalized)
+          return "has leading or trailing whitespace: #{value.inspect}. Remove the whitespace." if value != value.strip
+
+          # Book urls start with "/", so an external value never has a target.
+          target = url_by_normalized[normalize_url(value)]
+          return if target.nil? || target == value
+
+          "is #{value.inspect}, but the book page's url is #{target.inspect}. Use #{target.inspect}."
         end
 
         def find_violations

@@ -38,6 +38,8 @@ module PropertyTestSuites
         'TestBookFamilyValidator' => %w[
           Jekyll::Infrastructure::LinkCache::BookFamilyValidator#initialize
           Jekyll::Infrastructure::LinkCache::BookFamilyValidator#validate
+          Jekyll::Infrastructure::LinkCache::BookFamilyValidator#check_canonical_format
+          Jekyll::Infrastructure::LinkCache::BookFamilyValidator#canonical_format_problem
           Jekyll::Infrastructure::LinkCache::BookFamilyValidator#find_violations
           Jekyll::Infrastructure::LinkCache::BookFamilyValidator#normalize_url
           Jekyll::Infrastructure::LinkCache::BookFamilyValidator#raise_if_errors
@@ -47,6 +49,8 @@ module PropertyTestSuites
         'TestBookFamilyValidatorProperties' => %w[
           Jekyll::Infrastructure::LinkCache::BookFamilyValidator#initialize
           Jekyll::Infrastructure::LinkCache::BookFamilyValidator#validate
+          Jekyll::Infrastructure::LinkCache::BookFamilyValidator#check_canonical_format
+          Jekyll::Infrastructure::LinkCache::BookFamilyValidator#canonical_format_problem
           Jekyll::Infrastructure::LinkCache::BookFamilyValidator#find_violations
           Jekyll::Infrastructure::LinkCache::BookFamilyValidator#normalize_url
           Jekyll::Infrastructure::LinkCache::BookFamilyValidator#raise_if_errors
@@ -142,7 +146,7 @@ module PropertyTestSuites
   # Update the count with the subject list when a subject is added or removed.
   DECLARED_SUBJECT_COUNTS = {
     'html' => 4,
-    'link-cache' => 10,
+    'link-cache' => 12,
     'backlinks' => 4,
     'markdown' => 4,
     'image-derivatives' => 3,
