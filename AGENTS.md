@@ -27,11 +27,18 @@ Jekyll-based static site (alexgude.com) running in Docker.
   `interactions:` (every name to report). Stats are off by default and do not
   change inputs, seeds, or results.
 - **Ruby mutations:** `make test-mutations TARGET=html` uses the same suite
-  names. Mutant reports surviving changes and exits nonzero when any survive.
+  names. With `TESTS=all` it passes only when every surviving mutant is listed
+  in `_tests/support/mutation_dispositions.yml`. It fails on an unlisted
+  survivor (printing its diff and key) and on a stale entry that matches no
+  survivor. Timeouts are printed for review and do not fail the run. Each entry
+  gives the suite, subject, a 16-digit key (SHA-256 of Mutant's mutated method
+  source, so line moves do not change it), a disposition (`equivalent` or
+  `out_of_scope`), and a one-sentence reason.
   Only `PROFILE=quick` is accepted and `CASES` is rejected, so every run uses
   the same 100 cases: Mutant's 5 s timeout counts a slow test as a kill.
   `TESTS=examples` loads only the example files and skips inline property
-  tests; it lists the same subjects as the default `TESTS=all`.
+  tests; it lists the same subjects as the default `TESTS=all`, prints its
+  survivors, and does not apply the dispositions or fail.
 - **Build:** `make build` (Production build to `_site/`).
 - **Deps:** `make lock` (Update Gemfile.lock via Docker).
 - **Lint:** `make lint` / `make format-all`.

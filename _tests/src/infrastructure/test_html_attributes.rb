@@ -220,6 +220,12 @@ class TestHtmlAttributes < Minitest::Test
     assert_equal '<img alt="plot" width="1"/>', Attributes.append('<img alt="plot"/>', ' width="1"')
   end
 
+  def test_append_keeps_a_slash_that_ends_no_value_as_the_self_closing_delimiter
+    # The slash follows `=` with no value before it, so the last unquoted
+    # value (`plot`) does not end at the slash and the slash stays the delimiter.
+    assert_equal '<img alt=plot = width="1"/>', Attributes.append('<img alt=plot =/>', ' width="1"')
+  end
+
   def test_property_appends_attributes_after_the_final_value
     input = G.tuple(G.choose(0...APPEND_ENDINGS.length), G.choose(1..4096))
 

@@ -1,0 +1,102 @@
+# Alive mutants that are accepted, with the reason for each. `make test-mutations`
+# (TESTS=all) fails on any alive mutant that is not listed here, and on any
+# entry here that no alive mutant matches.
+#
+# Fields:
+#   suite        A key of PropertyTestSuites::SUITES (_tests/support/property_test_suites.rb).
+#   subject      A Mutant subject expression of that suite.
+#   key          The first 16 hex digits of SHA-256 over the mutated method source
+#                that Mutant reports (mutation_source in the session file). It has no
+#                line numbers. Quote it: an all-digit key would load as an integer.
+#                Shown as "UNLISTED SURVIVOR <subject> <key>" by a failing run.
+#   disposition  equivalent: no input changes the result, or no input in the
+#                documented domain does.
+#                out_of_scope: only malformed input or performance differs.
+#   reason       One sentence, specific to this mutation.
+#
+# Timed-out mutants are not listed here. A failing run prints them under
+# "TIMED OUT" for review; Mutant counts them as killed.
+
+- suite: 'html'
+  subject: 'Jekyll::Infrastructure::HtmlAttributes.parse'
+  key: 'e1b45fe54146adc3'
+  disposition: equivalent
+  reason: 'Removing the trailing delete_suffix(">") changes no scan result, because a ">" at the end of the tag is never part of a name, an unquoted value, or a quoted value (a quoted value needs a closing quote after it).'
+
+- suite: 'html'
+  subject: 'Jekyll::Infrastructure::HtmlAttributes.parse'
+  key: '355ffb14bc546396'
+  disposition: equivalent
+  reason: 'delete_suffix("") removes nothing, so it returns the same string for every input.'
+
+- suite: 'html'
+  subject: 'Jekyll::Infrastructure::HtmlAttributes.parse'
+  key: '80faa62bd0c5e064'
+  disposition: equivalent
+  reason: 'The three value groups in ATTRIBUTE are alternatives, so at most one is set and values.compact has at most one element, making .first and .last the same.'
+
+- suite: 'html'
+  subject: 'Jekyll::Infrastructure::HtmlAttributes.remove'
+  key: '9aec39103896b2fe'
+  disposition: equivalent
+  reason: 'The shorter head "<x" leaves the rest of the tag name for gsub, which cannot match inside a name because SPACED_ATTRIBUTE begins with whitespace, so the output is the same for every input the original accepts.'
+
+- suite: 'html'
+  subject: 'Jekyll::Infrastructure::HtmlAttributes.remove'
+  key: '8b65eaa53c792b6a'
+  disposition: equivalent
+  reason: 'With an empty head, gsub runs over the whole tag, and it removes the same attributes because the tag name holds no whitespace; the original differs only by raising on input with no tag name, which is not a start tag.'
+
+- suite: 'html'
+  subject: 'Jekyll::Infrastructure::HtmlAttributes.remove'
+  key: '861dc41af6dcc83a'
+  disposition: equivalent
+  reason: 'String#gsub converts a block result with to_s, and nil.to_s is "", so returning nil removes the attribute exactly as returning "" does.'
+
+- suite: 'html'
+  subject: 'Jekyll::Infrastructure::HtmlAttributes.remove'
+  key: '5c486d40561b35cf'
+  disposition: equivalent
+  reason: 'The unless form returns nil for a matching attribute, which gsub turns into "", and returns the attribute otherwise, the same result as the original if/else.'
+
+- suite: 'html'
+  subject: 'Jekyll::Infrastructure::HtmlAttributes.append'
+  key: '32649a7b60b0f168'
+  disposition: equivalent
+  reason: 'The closing-delimiter check only matters for "/>", because for any other closing the character at the offset is ">" or whitespace, which no attribute match ends with, so offset never moves.'
+
+- suite: 'html'
+  subject: 'Jekyll::Infrastructure::HtmlAttributes.append'
+  key: '905046207931fa01'
+  disposition: equivalent
+  reason: 'String#eql? and String#== compare the same way for these two strings, so eql?("/>") selects the same branch as ==.'
+
+- suite: 'html'
+  subject: 'Jekyll::Infrastructure::HtmlAttributes.append'
+  key: '635826d17d56f074'
+  disposition: equivalent
+  reason: 'A literal "/>" is always truthy, so the branch always runs, and as for any non-"/>" closing its offset never moves (see the closing-delimiter check).'
+
+- suite: 'html'
+  subject: 'Jekyll::Infrastructure::HtmlAttributes.append'
+  key: 'b4eb4757c59dfae1'
+  disposition: equivalent
+  reason: 'The branch always runs, and for any closing other than "/>" the offset never moves, so skipping the test changes no output.'
+
+- suite: 'html'
+  subject: 'Jekyll::Infrastructure::HtmlAttributes.append'
+  key: '21fb95ea4cbec10a'
+  disposition: equivalent
+  reason: 'Running the scan with no closing-delimiter check changes no output, because the offset moves only when the last unquoted value ends at the "/", which only a "/>" closing can produce.'
+
+- suite: 'html'
+  subject: 'Jekyll::Infrastructure::HtmlAttributes.append'
+  key: '2ca42576a19a08be'
+  disposition: equivalent
+  reason: 'Integer#eql? compares equal Integers as equal, the same as ==, so the offset check selects the same cases.'
+
+- suite: 'html'
+  subject: 'Jekyll::Infrastructure::HtmlAttributes.append'
+  key: '223573f8f16437a1'
+  disposition: equivalent
+  reason: 'Integer#equal? is identity, and CRuby stores Integers in fixnum range as immediate values, so equal? matches == for string offsets.'
