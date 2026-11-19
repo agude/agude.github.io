@@ -65,11 +65,16 @@ Jekyll-based static site (alexgude.com) running in Docker.
   select tests, under `ATPROTO_HYPOTHESIS_PROFILE=quick`. It creates the
   symlinks `_scripts/_config.yml` and `_scripts/.github` (gitignored) that
   `publish.py` and the workflow test need under `_scripts/mutants/`, runs
-  mutmut, then prints `mutmut results`. Narrow it with
-  `MUTANTS='atproto.publish.x_sync_documents*'`. Mutant names use the
-  `x_<function>__mutmut_<n>` form. Survivors are not failures: review each one
-  before deciding whether a test is missing. `mutants/` and `.mutmut-cache` are
-  gitignored.
+  mutmut, then runs `_scripts/ci/check_mutation_dispositions.py`. Narrow it
+  with `MUTANTS='atproto.publish.x_sync_documents*'`. Mutant names use the
+  `x_<function>__mutmut_<n>` form. The check gates only the functions listed
+  under `functions` in `_scripts/tests/mutation_dispositions.yml`: it fails on
+  a survivor that is not listed, a listed mutant that no longer survives, a
+  function whose source hash changed (mutmut renumbers mutants), or a
+  partly run function. Survivors in other functions are printed as
+  untriaged. To gate a function, triage its survivors, list them, and add the
+  function with the hash from `mutants/atproto/publish.py.meta`. `mutants/`
+  and `.mutmut-cache` are gitignored.
 - **Hooks:** `make hooks-install` (Install pre-commit hook).
 - **Code docs:** `make doc-index` (List code objects tagged `@validator`,
   `@pipeline`, `@pattern`, or `@gotcha`) / `make doc-show OBJ=<Class>` or

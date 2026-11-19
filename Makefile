@@ -282,7 +282,9 @@ test-scripts:
 test-mutations-scripts:
 	@[ -L _scripts/_config.yml ] || ln -s ../_config.yml _scripts/_config.yml
 	@[ -L _scripts/.github ] || ln -s ../.github _scripts/.github
-	@cd _scripts && ATPROTO_HYPOTHESIS_PROFILE=quick uv run mutmut run $(if $(MUTANTS),'$(MUTANTS)'); status=$$?; uv run mutmut results; exit $$status
+	@cd _scripts && ATPROTO_HYPOTHESIS_PROFILE=quick uv run mutmut run $(if $(MUTANTS),'$(MUTANTS)') || exit $$?; \
+		uv run mutmut results --all true | uv run python ci/check_mutation_dispositions.py \
+			--meta mutants/atproto/publish.py.meta --dispositions tests/mutation_dispositions.yml
 
 # Run tests and generate a code coverage report.
 test-cov: image-build clean-coverage
