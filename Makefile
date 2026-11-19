@@ -242,7 +242,7 @@ test: image-build # Depends on the Docker image being built/up-to-date
 	@echo "Tests finished successfully."
 
 .PHONY: test-properties test-mutations
-test-properties: DOCKER_RUN_OPTS += -e COVERAGE_PARTIAL=1 -e PROPERTY_CASES="$(CASES)" $(if $(SEED),-e PROPERTY_SEED="$(SEED)")
+test-properties: DOCKER_RUN_OPTS += -e COVERAGE_PARTIAL=1 -e PROPERTY_CASES="$(CASES)" -e PROPERTY_TARGET="$(TARGET)" $(if $(SEED),-e PROPERTY_SEED="$(SEED)")
 test-properties: image-build
 	@case "$(PROFILE)" in quick|discovery) ;; *) echo "Use PROFILE=quick or PROFILE=discovery." >&2; exit 2;; esac
 	@$(DOCKER_RUN) bundle exec ruby -I _tests _tests/support/property_test_suites.rb "$(TARGET)" $(if $(FILTER),--include "$(FILTER)")

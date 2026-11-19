@@ -14,7 +14,12 @@ Jekyll-based static site (alexgude.com) running in Docker.
 - **Test File:** `make test TEST=_tests/src/path/to/test.rb`
 - **Ruby properties:** `make test-properties TARGET=html`. Choose `link-cache`,
   `backlinks`, or `markdown` for another suite. Use `PROFILE=discovery` for
-  1,000 cases per property. Use `SEED`, `CASES`, and `FILTER` to replay a run.
+  1,000 cases per property. A failure ends with a replay line of the form
+  `make test-properties TARGET=<suite> FILTER=<test_method> SEED=<s> CASES=<N+1>`,
+  where N is the successful-run count PropCheck reports. Each case depends on
+  the cases before it, so `CASES` must exceed N or the replay stops before the
+  failing case. A seed stops reproducing a failure once the generator changes,
+  so keep each confirmed shrunken input as a literal regression test.
 - **Ruby mutations:** `make test-mutations TARGET=html` uses the same suite
   names. Mutant reports surviving changes and exits nonzero when any survive.
 - **Build:** `make build` (Production build to `_site/`).
