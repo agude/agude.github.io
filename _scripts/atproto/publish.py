@@ -83,9 +83,9 @@ def document_instant(date_val: Any) -> datetime:
         return date_val if date_val.tzinfo else date_val.replace(tzinfo=UTC)
     if isinstance(date_val, date):
         return datetime.combine(date_val, dt_time(), SITE_TZ)
+    # A bare quoted date parses to midnight, which then takes the site
+    # timezone like any other timestamp without an offset.
     text = str(date_val).strip()
-    if re.fullmatch(r"\d{4}-\d{2}-\d{2}", text):
-        return datetime.combine(date.fromisoformat(text), dt_time(), SITE_TZ)
     try:
         value = datetime.fromisoformat(text)
     except ValueError as exc:
@@ -274,14 +274,14 @@ def _extract_frontmatter_strict(text: str) -> dict:
 
 def _can_derive_date(date_val: Any) -> bool:
     """Return True if date_val can produce a valid YYYY-MM-DD publishedAt."""
-    if hasattr(date_val, "strftime"):
-        return True
+    # str() of a date or datetime is ISO 8601, so one check covers YAML
+    # dates, YAML timestamps, and quoted strings.
     return bool(re.match(r"^\d{4}-\d{2}-\d{2}", str(date_val)))
 
 
 def _to_publish_date(date_val: Any) -> str:
-    if hasattr(date_val, "strftime"):
-        return date_val.strftime("%Y-%m-%dT00:00:00Z")
+    # str() zero-pads the year; strftime("%Y") does not on glibc, which
+    # would give an invalid RFC 3339 year before 1000.
     return f"{str(date_val)[:10]}T00:00:00Z"
 
 

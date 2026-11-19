@@ -40,6 +40,14 @@ functions:
   x_validate_documents: 54c02d48d6a2
   x_init_publication: eb374c4936b4
   x__reverse_sweep_errors: c34f6c102622
+  x_parse_post: 7c28d8697043
+  x_parse_book: 79a8df574476
+  x_is_future: 2baa2803e969
+  x_parse_site_time: 9749dc84723c
+  x__slugify: f3da2f0fea26
+  x__to_publish_date: 8396a355bd5a
+  x__can_derive_date: 0b43b3215bf1
+  x_document_instant: de0746edb73f
 survivors:
 - mutant: atproto.publish.x_sync_documents__mutmut_4
   mutation: Wrap the empty-`publication_uri` message in `XX` markers
@@ -423,3 +431,64 @@ survivors:
   disposition: out_of_scope
   reason: The page path stays in the message, and test_redirect_stub_does_not_end_the_sweep asserts it;
     only the closing wording changes.
+- mutant: atproto.publish.x_parse_post__mutmut_11
+  mutation: Read the post with encoding=None
+  disposition: out_of_scope
+  reason: Without an explicit encoding the locale codec is used, which is UTF-8 on the CI runner and every
+    supported dev setup, so the file decodes identically there. Only a non-UTF-8 locale differs.
+- mutant: atproto.publish.x_parse_post__mutmut_13
+  mutation: Read the post with encoding="UTF-8"
+  disposition: equivalent
+  reason: Python codec names are case-insensitive, so UTF-8 and utf-8 select the same codec.
+- mutant: atproto.publish.x_parse_book__mutmut_3
+  mutation: Read the review with encoding=None
+  disposition: out_of_scope
+  reason: Without an explicit encoding the locale codec is used, which is UTF-8 on the CI runner and every
+    supported dev setup, so the file decodes identically there. Only a non-UTF-8 locale differs.
+- mutant: atproto.publish.x_parse_book__mutmut_5
+  mutation: Read the review with encoding="UTF-8"
+  disposition: equivalent
+  reason: Python codec names are case-insensitive, so UTF-8 and utf-8 select the same codec.
+- mutant: atproto.publish.x_parse_book__mutmut_17
+  mutation: Wrap the nested fragment of the nested-file error in XX markers
+  disposition: out_of_scope
+  reason: The message still names canonical_url and _books/, which test_nested_file_error_names_both_fixes
+    asserts; only the wrapper text changes.
+- mutant: atproto.publish.x_parse_book__mutmut_18
+  mutation: Upper-case the first line of the nested-file error
+  disposition: out_of_scope
+  reason: The second line keeps canonical_url and the third keeps _books/, and both are asserted; only
+    the capitalization of the first line changes.
+- mutant: atproto.publish.x_parse_book__mutmut_19
+  mutation: Wrap the re-read-reviews fragment of the nested-file error in XX markers
+  disposition: out_of_scope
+  reason: The message still names canonical_url and _books/, which are asserted; only the wrapper text
+    changes.
+- mutant: atproto.publish.x_parse_book__mutmut_20
+  mutation: Upper-case the re-read-reviews line of the nested-file error
+  disposition: out_of_scope
+  reason: The first line keeps canonical_url and the last fragment keeps _books/, and both are asserted;
+    only the capitalization of the middle line changes.
+- mutant: atproto.publish.x_parse_book__mutmut_21
+  mutation: Wrap the to-the-top-of-_books fragment in XX markers
+  disposition: out_of_scope
+  reason: The message still names canonical_url and _books/, which are asserted; only the wrapper text
+    changes.
+- mutant: atproto.publish.x_is_future__mutmut_3
+  mutation: Call datetime.now(None) instead of datetime.now(SITE_TZ)
+  disposition: equivalent
+  reason: now is read only through .timestamp(), and a naive now() yields the same epoch seconds as the
+    aware value, so the int comparison is identical.
+- mutant: atproto.publish.x__slugify__mutmut_2
+  mutation: Initialize pending_hyphen to None
+  disposition: equivalent
+  reason: None and False are both falsy, and pending_hyphen is read only in a truthiness test.
+- mutant: atproto.publish.x__slugify__mutmut_3
+  mutation: Initialize pending_hyphen to True
+  disposition: equivalent
+  reason: The guard pending_hyphen and out is false for the first alphanumeric character because out is
+    still empty, and that character resets the flag, so the initial value is never read as true.
+- mutant: atproto.publish.x__slugify__mutmut_9
+  mutation: Reset pending_hyphen to None after an alphanumeric character
+  disposition: equivalent
+  reason: None and False are both falsy, and pending_hyphen is read only in a truthiness test.

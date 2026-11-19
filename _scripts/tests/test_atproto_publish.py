@@ -3,7 +3,8 @@
 import argparse
 import json
 import time
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, date, datetime, timedelta
+from datetime import time as dt_time
 from pathlib import Path
 from typing import ClassVar
 
@@ -1412,6 +1413,18 @@ class TestParseBook:
         assert rec is not None
         assert "description" not in rec
 
+    def test_nested_file_error_names_both_fixes(self, tmp_path: Path) -> None:
+        # The error must name the fix (add canonical_url) and the alternative
+        # (move the file to the top of _books/).
+        (tmp_path / "sub").mkdir()
+        f = tmp_path / "sub" / "review.md"
+        f.write_text("---\ntitle: Review\ndate: 2025-01-01\n---\n")
+        with pytest.raises(ValueError) as exc:
+            parse_book(f, tmp_path)
+        message = str(exc.value)
+        assert "canonical_url" in message
+        assert "_books/" in message
+
 
 class TestValidateBooks:
     def _dirs(self, tmp_path: Path) -> tuple[Path, Path]:
@@ -2287,6 +2300,14 @@ class TestFutureDatedPosts:
     def test_site_time_requires_an_offset_timestamp(self, text: str) -> None:
         with pytest.raises(argparse.ArgumentTypeError):
             publish.parse_site_time(text)
+
+    @pytest.mark.parametrize("text", ["2026-11-14T23:58:00", "tomorrow"])
+    def test_site_time_error_quotes_the_rejected_value(self, text: str) -> None:
+        # The argparse message is the only place the operator sees which
+        # --site-time value was rejected.
+        with pytest.raises(argparse.ArgumentTypeError) as exc:
+            publish.parse_site_time(text)
+        assert repr(text) in str(exc.value)
 
 
 class TestPublicationVerification:
@@ -3260,3 +3281,25 @@ class TestDispatchSubcommands:
         assert _exit_code_of(["init-publication"]) == 1
         assert "BSKY_APP_PASSWORD" in capsys.readouterr().err
         assert dispatch["init_publication"].calls == []
+
+
+class TestDateHelpers:
+    def test_publish_date_zero_pads_the_year(self) -> None:
+        # strftime("%Y") gives "999" on glibc, which is not RFC 3339.
+        assert publish._to_publish_date(date(999, 1, 1)) == "0999-01-01T00:00:00Z"
+
+    def test_publish_date_of_a_post_before_year_1000(self, tmp_path: Path) -> None:
+        f = tmp_path / "0999-01-01-ancient.md"
+        f.write_text("---\ntitle: Ancient\ndate: 0999-01-01\n---\n")
+
+        rec = parse_post(f)
+
+        assert rec is not None
+        assert rec["publishedAt"] == "0999-01-01T00:00:00Z"
+
+    def test_a_time_of_day_is_not_a_date(self) -> None:
+        assert publish._can_derive_date(dt_time(10, 0)) is False
+
+    def test_impossible_bare_date_names_the_input(self) -> None:
+        with pytest.raises(ValueError, match="'2024-02-30'"):
+            publish.document_instant("2024-02-30")
