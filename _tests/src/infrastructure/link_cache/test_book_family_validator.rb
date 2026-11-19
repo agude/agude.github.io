@@ -272,6 +272,28 @@ class TestBookFamilyValidator < Minitest::Test
     assert_includes error.message, canonical.relative_path
   end
 
+  # The resolver trims canonical_url to detect a local path but keeps the
+  # padded value as identity, so the padding must stop the build.
+  def test_canonical_url_with_surrounding_whitespace_raises
+    canonical = create_doc(
+      { 'title' => 'Canonical Review', 'published' => true },
+      '/books/canonical-review/',
+    )
+    archived = create_doc(
+      {
+        'title' => 'Canonical Review',
+        'published' => true,
+        'canonical_url' => ' /books/canonical-review/ ',
+      },
+      '/books/canonical-review/old/',
+    )
+    validator = build_validator([canonical, archived])
+
+    error = assert_raises(Jekyll::Errors::FatalException) { validator.validate }
+    assert_includes error.message, archived.relative_path
+    assert_includes error.message, '" /books/canonical-review/ "'
+  end
+
   # --- Integration tests through create_site ---
 
   def test_integration_canonical_with_canonical_url_breaks_build

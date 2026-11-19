@@ -56,7 +56,9 @@ class TestBookIdentityResolver < Minitest::Test
     assert_equal @canonical_review.url, resolve(@archived_review)
   end
 
-  def test_padded_local_canonical_url_still_becomes_book_identity
+  # The resolver trims canonical_url only to classify it as local. A padded
+  # value would become a padded identity, so the link cache build stops first.
+  def test_padded_local_canonical_url_stops_the_build
     padded = create_doc(
       {
         'title' => 'Padded Review',
@@ -65,11 +67,21 @@ class TestBookIdentityResolver < Minitest::Test
       },
       '/books/padded-review/',
     )
-    site = create_site({}, { 'books' => [@canonical_review, padded] })
 
-    identity = Jekyll::SEO::BookIdentityResolver.resolve(padded, site)
+    error = assert_raises(Jekyll::Errors::FatalException) do
+      create_site({}, { 'books' => [@canonical_review, padded] })
+    end
+    assert_includes error.message, 'leading or trailing whitespace'
+  end
 
-    assert_equal @canonical_review.url, identity.strip
+  # The resolver alone still classifies a padded local path as local; the
+  # validator, not the resolver, is what rejects the padding.
+  def test_padded_local_canonical_url_is_local_to_the_resolver
+    review = create_doc({}, '/books/padded-review/')
+    map = { '/books/padded-review/' => ' /books/canonical-review/ ' }
+    site = Struct.new(:data).new({ 'link_cache' => { 'url_to_canonical_map' => map } })
+
+    assert_equal ' /books/canonical-review/ ', Jekyll::SEO::BookIdentityResolver.resolve(review, site)
   end
 
   def test_external_canonical_url_does_not_become_book_identity

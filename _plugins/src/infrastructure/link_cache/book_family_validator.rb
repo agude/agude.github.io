@@ -16,11 +16,28 @@ module Jekyll
         end
 
         def validate
+          check_canonical_whitespace
           errors = find_violations
           raise_if_errors(errors)
         end
 
         private
+
+        # Padding is not trimmed: a local canonical_url with surrounding
+        # whitespace would be read as local by the identity resolver but
+        # not by find_violations, so the build stops instead.
+        def check_canonical_whitespace
+          return unless @site.collections.key?('books')
+
+          @site.collections['books'].docs.each do |book|
+            value = book.data['canonical_url']
+            next unless value.is_a?(String) && value != value.strip
+
+            raise Jekyll::Errors::FatalException,
+                  "BookFamilyValidator: canonical_url in '#{book.relative_path}' has leading or " \
+                  "trailing whitespace: #{value.inspect}. Remove the whitespace."
+          end
+        end
 
         def find_violations
           return [] unless @site.collections.key?('books')
