@@ -20,7 +20,7 @@ class TestHtmlAttributes < Minitest::Test
     ['&lt;img&gt;', '<img>'],
     ['&#x2F;', '/'],
   ].freeze
-  UNQUOTED_VALUES = %w[80px no-wrap x_y plain].freeze
+  UNQUOTED_VALUES = %w[80px no-wrap x_y plain x/].freeze
   SEPARATORS = [' ', "\n  ", "\t"].freeze
   TAG_NAMES = %w[img pre div].freeze
   PROPERTY_SEED = 0xA771_2026

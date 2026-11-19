@@ -28,6 +28,10 @@ Jekyll-based static site (alexgude.com) running in Docker.
   change inputs, seeds, or results.
 - **Ruby mutations:** `make test-mutations TARGET=html` uses the same suite
   names. Mutant reports surviving changes and exits nonzero when any survive.
+  Only `PROFILE=quick` is accepted and `CASES` is rejected, so every run uses
+  the same 100 cases: Mutant's 5 s timeout counts a slow test as a kill.
+  `TESTS=examples` loads only the example files and skips inline property
+  tests; it lists the same subjects as the default `TESTS=all`.
 - **Build:** `make build` (Production build to `_site/`).
 - **Deps:** `make lock` (Update Gemfile.lock via Docker).
 - **Lint:** `make lint` / `make format-all`.

@@ -12,7 +12,7 @@ class TestPropertyTest < Minitest::Test
   BAD_VALUE = 7
   SEED = 1
   OTHER_SEED = 2
-  PROPERTY_ENV_KEYS = %w[PROPERTY_SEED PROPERTY_CASES PROPERTY_TARGET PROPERTY_STATS].freeze
+  PROPERTY_ENV_KEYS = %w[PROPERTY_SEED PROPERTY_CASES PROPERTY_TARGET PROPERTY_STATS MUTATION_TEST_TESTS].freeze
 
   # Runs the property with a seed that fails on BAD_VALUE. Returns the raised
   # assertion and every input seen, in order, including shrink attempts.
@@ -110,6 +110,26 @@ class TestPropertyTest < Minitest::Test
       assert_operator successful, :>=, 1, 'seed must fail after at least one successful run'
       assert_includes error.message, 'boom'
       assert_includes error.message.lines.map(&:chomp), expected_replay(SEED, successful + 1)
+    end
+  end
+
+  def test_check_property_is_skipped_in_examples_only_mutation_runs
+    with_property_env('MUTATION_TEST_TESTS' => 'examples') do
+      ran = false
+      assert_raises(Minitest::Skip) do
+        check_property(INPUT, seed: SEED) { ran = true }
+      end
+
+      refute ran
+    end
+  end
+
+  def test_check_property_runs_when_the_mutation_flag_is_all
+    with_property_env('MUTATION_TEST_TESTS' => 'all') do
+      cases = 0
+      check_property(INPUT, seed: SEED, runs: 5) { cases += 1 }
+
+      assert_equal 5, cases
     end
   end
 

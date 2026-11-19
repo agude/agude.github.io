@@ -116,6 +116,38 @@ module PropertyTestSuites
     suite.each_key { |path| require_relative "../#{path}" }
   end
 
+  # Test modes for `make test-mutations TESTS=...`. 'all' loads every test file
+  # and runs every inline property test. 'examples' loads only the example
+  # files and skips inline property tests, so a mutant can be killed only by
+  # an example test. Both modes use the same subjects.
+  TEST_MODES = %w[all examples].freeze
+
+  # Returns `value` when it names a test mode, and raises otherwise.
+  def self.test_mode(value)
+    return value if TEST_MODES.include?(value)
+
+    raise ArgumentError, "Unknown TESTS value #{value.inspect}. Choose #{TEST_MODES.join(', ')}."
+  end
+
+  # True when the mutation run in `env` should skip inline property tests.
+  # check_property reads this flag, so it changes nothing outside a mutation run.
+  def self.examples_only?(env = ENV)
+    test_mode(env.fetch('MUTATION_TEST_TESTS', 'all')) == 'examples'
+  end
+
+  # Files of a suite that a mutation run in `mode` loads and covers. Subjects
+  # come from the whole suite, so the subject list does not depend on the mode.
+  def self.mutation_files(suite, mode)
+    return suite if test_mode(mode) == 'all'
+
+    suite.reject { |path, _tests| property_file?(path) }
+  end
+
+  # The *_properties files hold generated tests only.
+  def self.property_file?(path)
+    path.end_with?('_properties')
+  end
+
   # Unique Mutant subject expressions for a suite, in declaration order.
   def self.subjects(suite)
     suite.values.flat_map(&:values).flatten.uniq

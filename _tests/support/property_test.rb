@@ -27,6 +27,11 @@ module PropertyTestSupport
   # they never change the generated inputs, seeds, or pass/fail results, and
   # the classifier runs only when stats are on.
   def check_property(generator, seed:, runs: 100, classify: nil, interactions: [], &property)
+    # Examples-only mutation runs (make test-mutations TESTS=examples) skip
+    # inline property tests. A skip is not a failure, so Mutant does not count
+    # it as a kill. Normal runs never set the flag.
+    skip 'inline property tests are skipped in examples-only mutation runs' if PropertyTestSuites.examples_only?
+
     cases = property_cases(runs)
     recorder = PropertyStats::Recorder.new(self, classify, interactions) if PropertyStats.enabled?
     run_seeded_property(generator, seed: Integer(ENV.fetch('PROPERTY_SEED', seed)), runs: cases) do |input|

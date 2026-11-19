@@ -7,6 +7,7 @@ require_relative 'property_test_suites'
 # so its own autorun and coverage hooks stay disabled in the worker processes.
 if $PROGRAM_NAME == __FILE__
   target = ENV.fetch('MUTATION_TEST_TARGET')
+  mode = PropertyTestSuites.test_mode(ENV.fetch('MUTATION_TEST_TESTS', 'all'))
   subjects = PropertyTestSuites.subjects(PropertyTestSuites.fetch(target))
 
   # Check the matched count before mutating: an expression that matches
@@ -20,15 +21,16 @@ if $PROGRAM_NAME == __FILE__
   error = PropertyTestSuites.subject_count_error(target, actual)
   abort error if error
 
-  puts "Mutant matched #{actual} subjects for suite #{target.inspect} (declared #{actual})."
+  puts "Mutant matched #{actual} subjects for suite #{target.inspect} (declared #{actual}, tests #{mode})."
   $stdout.flush # exec does not flush Ruby's buffered stdout.
   exec('mutant', 'run', '--', *subjects)
 else
   require 'mutant/minitest/coverage'
 
   suite = PropertyTestSuites.fetch(ENV.fetch('MUTATION_TEST_TARGET'))
-  PropertyTestSuites.load_tests(suite)
-  suite.each_value do |tests|
+  files = PropertyTestSuites.mutation_files(suite, PropertyTestSuites.test_mode(ENV.fetch('MUTATION_TEST_TESTS', 'all')))
+  PropertyTestSuites.load_tests(files)
+  files.each_value do |tests|
     tests.each do |test_class, subjects|
       subjects.each { |subject| Object.const_get(test_class).cover(subject) }
     end

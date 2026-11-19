@@ -1,5 +1,7 @@
 usage: opensource
 jobs: 1
+mutation:
+  operators: full
 integration:
   name: minitest
 includes:

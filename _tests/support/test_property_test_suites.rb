@@ -40,4 +40,49 @@ class TestPropertyTestSuites < Minitest::Test
     assert_includes message, "expected #{declared} subjects"
     assert_includes message, "Mutant matched #{declared - 1}"
   end
+
+  def test_test_mode_accepts_all_and_examples
+    assert_equal 'all', PropertyTestSuites.test_mode('all')
+    assert_equal 'examples', PropertyTestSuites.test_mode('examples')
+  end
+
+  def test_test_mode_rejects_other_values
+    error = assert_raises(ArgumentError) { PropertyTestSuites.test_mode('props') }
+
+    assert_includes error.message, 'Unknown TESTS value "props"'
+  end
+
+  def test_examples_only_flag_comes_from_the_mutation_test_tests_variable
+    refute PropertyTestSuites.examples_only?({})
+    refute PropertyTestSuites.examples_only?({ 'MUTATION_TEST_TESTS' => 'all' })
+    assert PropertyTestSuites.examples_only?({ 'MUTATION_TEST_TESTS' => 'examples' })
+  end
+
+  def test_all_mode_keeps_every_test_file
+    suite = PropertyTestSuites.fetch('html')
+
+    assert_equal suite, PropertyTestSuites.mutation_files(suite, 'all')
+  end
+
+  def test_examples_mode_drops_every_properties_file
+    PropertyTestSuites::SUITES.each do |target, suite|
+      files = PropertyTestSuites.mutation_files(suite, 'examples').keys
+
+      assert_empty files.select { |path| path.end_with?('_properties') }, "examples mode kept properties in #{target}"
+      assert_equal suite.keys.reject { |path| path.end_with?('_properties') }, files
+    end
+  end
+
+  def test_examples_mode_still_covers_every_subject_with_an_example_test
+    # Examples-only runs must not leave a subject with no test that can kill
+    # its mutants.
+    PropertyTestSuites::SUITES.each do |target, suite|
+      examples = PropertyTestSuites.mutation_files(suite, 'examples')
+      covered = examples.values.flat_map { |tests| tests.values.flatten }
+
+      PropertyTestSuites.subjects(suite).each do |subject|
+        assert_includes covered, subject, "examples mode covers no test for #{subject} in #{target}"
+      end
+    end
+  end
 end

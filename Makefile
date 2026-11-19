@@ -47,6 +47,9 @@ COVERAGE_ENV := $(if $(filter command line,$(origin TEST)),-e COVERAGE_PARTIAL=1
 TARGET ?= html
 PROFILE ?= quick
 CASES ?= $(if $(filter discovery,$(PROFILE)),1000,100)
+# Mutation runs: 'all' loads every test file; 'examples' drops the *_properties
+# files and skips inline property tests.
+TESTS ?= all
 
 # Where 'make rank' drops the ranking state file. The ELO tools have no
 # localStorage or query-param loading; the file gets picked through the page's
@@ -247,9 +250,20 @@ test-properties: image-build
 	@case "$(PROFILE)" in quick|discovery) ;; *) echo "Use PROFILE=quick or PROFILE=discovery." >&2; exit 2;; esac
 	@$(DOCKER_RUN) bundle exec ruby -I _tests _tests/support/property_test_suites.rb "$(TARGET)" $(if $(FILTER),--include "$(FILTER)")
 
-test-mutations: DOCKER_RUN_OPTS += -e MUTATION_TEST_TARGET="$(TARGET)" -e PROPERTY_CASES="$(CASES)" $(if $(SEED),-e PROPERTY_SEED="$(SEED)")
-test-mutations: image-build
+test-mutations: DOCKER_RUN_OPTS += -e MUTATION_TEST_TARGET="$(TARGET)" -e PROPERTY_CASES="$(CASES)" -e MUTATION_TEST_TESTS="$(TESTS)" $(if $(SEED),-e PROPERTY_SEED="$(SEED)")
+test-mutations: check-mutation-options image-build
 	@$(DOCKER_RUN) bundle exec ruby _tests/support/mutation_tests.rb
+
+# Reject options that would make a mutation run unsafe or unrepeatable. Mutant
+# kills a mutant when a test times out (MutationTimeout is 5 s), so the run
+# must use the quick profile; discovery's 1,000 cases could time out and
+# score a false kill. A CASES override would change the generated inputs
+# between runs, so every run uses the same profile's case count.
+.PHONY: check-mutation-options
+check-mutation-options:
+	@case "$(PROFILE)" in quick) ;; *) echo "make test-mutations requires PROFILE=quick (got PROFILE=$(PROFILE)). Discovery runs can time out under Mutant's 5 s limit and count as kills." >&2; exit 2;; esac
+	@if [ "$(origin CASES)" != "file" ]; then echo "make test-mutations does not accept CASES (got CASES=$(CASES)). Every mutation run uses the default 100 cases." >&2; exit 2; fi
+	@case "$(TESTS)" in all|examples) ;; *) echo "Use TESTS=all or TESTS=examples (got TESTS=$(TESTS))." >&2; exit 2;; esac
 
 # Run Python tests for repository scripts and skill-local generators.
 test-scripts:
