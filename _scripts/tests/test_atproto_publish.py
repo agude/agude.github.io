@@ -2,7 +2,8 @@
 
 import argparse
 import json
-from datetime import datetime, timedelta
+import time
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 import pytest
@@ -92,6 +93,7 @@ class MockTransport:
 LOGIN_RESPONSE = {"did": "did:plc:test123", "accessJwt": "token-abc"}
 PUB_URI = "at://did:plc:test123/site.standard.publication/rkeypub"
 DOC_URI = "at://did:plc:test123/site.standard.document/rkeydoc1"
+NEW_DOC_URI = "at://did:plc:test123/site.standard.document/rknew"
 
 # Config whose desired publication record matches PUB_RECORD_RESPONSE, so
 # sync tests trigger no publication update unless they want one.
@@ -521,6 +523,314 @@ class TestDataFile:
 
         keys = list(json.loads(data_out.read_text()).keys())
         assert keys == sorted(keys)
+
+    def test_data_file_parent_directories_are_created(self, tmp_path: Path) -> None:
+        (tmp_path / "2025-01-01-alpha.md").write_text("---\ntitle: Alpha\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push({"records": []})
+        transport.push({"uri": NEW_DOC_URI})
+
+        data_out = tmp_path / "_data" / "nested" / "standard_site.json"
+        sync_documents(client, tmp_path, data_out, PUB_URI, TEST_CONFIG)
+
+        assert json.loads(data_out.read_text()) == {"/blog/alpha/": NEW_DOC_URI}
+
+
+# ---------------------------------------------------------------------------
+# sync_documents: guards and output the mutation run found untested
+# ---------------------------------------------------------------------------
+
+
+class TestSyncMissingBooksDir:
+    def test_missing_books_dir_aborts_before_any_write(self, tmp_path: Path, capsys) -> None:
+        posts = tmp_path / "posts"
+        posts.mkdir()
+        (posts / "2025-01-01-alpha.md").write_text("---\ntitle: Alpha\n---\n")
+        books = tmp_path / "no-books"  # never created
+        data_out = tmp_path / "out.json"
+        transport = MockTransport()
+        client = make_client(transport)
+        # Responses the sync would consume if it ignored the missing directory.
+        transport.push({"records": []})
+        transport.push({"uri": NEW_DOC_URI})
+
+        with pytest.raises(publish.PublishError) as exc_info:
+            sync_documents(client, posts, data_out, PUB_URI, TEST_CONFIG, books_dir=books)
+
+        assert "missing input directory" in str(exc_info.value)
+        assert str(books) in capsys.readouterr().err
+        assert [c for c in transport.calls if "createRecord" in c[1]] == []
+        assert not data_out.exists()
+
+
+class TestSyncSiteTimeCutoff:
+    def test_sync_applies_the_given_cutoff_to_every_post(self, tmp_path: Path) -> None:
+        # A post dated after site_time gets no page, so it must get no record.
+        # The cutoff has to reach the sync scan, not only validate.
+        (tmp_path / "2025-01-01-later.md").write_text("---\ntitle: Later\n---\n")
+        data_out = tmp_path / "out.json"
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push({"records": []})
+        transport.push({"uri": NEW_DOC_URI})
+        cutoff = publish.parse_site_time("2020-01-01T00:00:00-08:00")
+
+        sync_documents(client, tmp_path, data_out, PUB_URI, TEST_CONFIG, site_time=cutoff)
+
+        assert [c for c in transport.calls if "createRecord" in c[1]] == []
+        assert json.loads(data_out.read_text()) == {}
+
+
+class TestSyncErrorMessages:
+    def test_empty_publication_uri_message_names_the_uri(self, tmp_path: Path) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+
+        with pytest.raises(publish.PublishError) as exc_info:
+            sync_documents(client, tmp_path, tmp_path / "out.json", "", TEST_CONFIG)
+
+        assert "publication_uri" in str(exc_info.value)
+
+    def test_duplicate_remote_path_message_names_path_and_both_rkeys(self, tmp_path: Path) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push(
+            {
+                "records": [
+                    {"uri": DOC_URI, "value": {"site": PUB_URI, "path": "/blog/alpha/"}},
+                    {
+                        "uri": DOC_URI.replace("rkeydoc1", "rkeydoc2"),
+                        "value": {"site": PUB_URI, "path": "/blog/alpha/"},
+                    },
+                ]
+            }
+        )
+
+        with pytest.raises(publish.PublishError) as exc_info:
+            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
+
+        message = str(exc_info.value)
+        assert "/blog/alpha/" in message
+        assert "rkeydoc1" in message
+        assert "rkeydoc2" in message
+
+    def test_publication_without_cid_message_names_getrecord(self, tmp_path: Path) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+        stale = dict(PUB_RECORD_RESPONSE["value"], name="Old Name")
+        transport.routes["getRecord"] = MockResponse({"uri": PUB_URI, "value": stale})
+
+        with pytest.raises(publish.PublishError) as exc_info:
+            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
+
+        message = str(exc_info.value)
+        assert "getRecord" in message
+        assert "non-atomic" in message
+
+
+class TestPublicationRecordWrites:
+    def _drifted(self, transport: MockTransport) -> None:
+        stale = dict(PUB_RECORD_RESPONSE["value"], name="Old Name")
+        transport.routes["getRecord"] = MockResponse(
+            {"uri": PUB_URI, "cid": "oldcid", "value": stale}
+        )
+
+    def test_update_writes_to_the_publication_rkey(self, tmp_path: Path) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+        self._drifted(transport)
+        transport.push({})  # putRecord (publication)
+        transport.push({"records": []})
+
+        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
+
+        put_call = next(c for c in transport.calls if "putRecord" in c[1])
+        assert put_call[2]["collection"] == "site.standard.publication"
+        assert put_call[2]["rkey"] == "rkeypub"
+
+    def test_update_reports_the_publication_write(self, tmp_path: Path, capsys) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+        self._drifted(transport)
+        transport.push({})
+        transport.push({"records": []})
+
+        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
+
+        assert "Updated publication record" in capsys.readouterr().out
+
+    def test_dry_run_plans_the_publication_update_without_writing(
+        self, tmp_path: Path, capsys
+    ) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+        self._drifted(transport)
+        transport.push({"records": []})
+
+        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG, dry_run=True)
+
+        assert [c for c in transport.calls if "putRecord" in c[1]] == []
+        assert "[dry-run] Would update publication record" in capsys.readouterr().out
+
+    def test_swap_conflict_message_tells_the_operator_to_rerun(self, tmp_path: Path) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+        self._drifted(transport)
+        transport.push({"error": "InvalidSwap", "message": "Record was at bafy-new"}, 400)
+
+        with pytest.raises(publish.PublishError) as exc_info:
+            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
+
+        message = str(exc_info.value)
+        assert message.startswith("Updating the publication record failed. ")
+        assert "InvalidSwap" in message
+        assert "rerun" in message
+
+    def test_other_write_failures_get_no_rerun_hint(self, tmp_path: Path) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+        self._drifted(transport)
+        transport.push({"error": "InternalServerError"}, 500)
+
+        with pytest.raises(publish.PublishError) as exc_info:
+            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
+
+        message = str(exc_info.value)
+        assert message.startswith("Updating the publication record failed. PDS error 500")
+        assert "rerun" not in message
+
+
+class TestSummaryLine:
+    def test_summary_counts_each_updated_document_once(self, tmp_path: Path, capsys) -> None:
+        (tmp_path / "2025-01-01-alpha.md").write_text("---\ntitle: Alpha 2\n---\n")
+        (tmp_path / "2025-01-02-beta.md").write_text("---\ntitle: Beta 2\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        remote = [
+            {
+                "uri": DOC_URI,
+                "cid": "cid1",
+                "value": {
+                    "$type": "site.standard.document",
+                    "site": PUB_URI,
+                    "path": "/blog/alpha/",
+                    "title": "Alpha",
+                    "publishedAt": "2025-01-01T00:00:00Z",
+                },
+            },
+            {
+                "uri": DOC_URI.replace("rkeydoc1", "rkeydoc2"),
+                "cid": "cid2",
+                "value": {
+                    "$type": "site.standard.document",
+                    "site": PUB_URI,
+                    "path": "/blog/beta/",
+                    "title": "Beta",
+                    "publishedAt": "2025-01-02T00:00:00Z",
+                },
+            },
+        ]
+        transport.push({"records": remote})
+        transport.push({})
+        transport.push({})
+
+        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
+
+        lines = capsys.readouterr().out.splitlines()
+        assert lines[-1] == "created=0 updated=2 unchanged=0 orphaned=0"
+
+
+class TestDocumentWriteOutput:
+    def test_update_targets_the_document_collection_and_rkey(self, tmp_path: Path, capsys) -> None:
+        (tmp_path / "2025-01-01-alpha.md").write_text("---\ntitle: New\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        remote_rec = {
+            "$type": "site.standard.document",
+            "site": PUB_URI,
+            "path": "/blog/alpha/",
+            "title": "Old",
+            "publishedAt": "2025-01-01T00:00:00Z",
+        }
+        transport.push({"records": [{"uri": DOC_URI, "cid": "doccid7", "value": remote_rec}]})
+        transport.push({})  # putRecord
+
+        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
+
+        put_call = next(c for c in transport.calls if "putRecord" in c[1])
+        assert put_call[2]["collection"] == "site.standard.document"
+        assert put_call[2]["rkey"] == "rkeydoc1"
+        assert "Updated: /blog/alpha/" in capsys.readouterr().out
+
+    def test_create_reports_the_path_and_new_uri(self, tmp_path: Path, capsys) -> None:
+        (tmp_path / "2025-01-01-alpha.md").write_text("---\ntitle: Alpha\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push({"records": []})
+        transport.push({"uri": NEW_DOC_URI})
+
+        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
+
+        lines = capsys.readouterr().out.splitlines()
+        assert any("/blog/alpha/" in line and NEW_DOC_URI in line for line in lines)
+
+    def test_dry_run_plan_names_each_create_update_and_the_data_file(
+        self, tmp_path: Path, capsys
+    ) -> None:
+        (tmp_path / "2025-01-02-new.md").write_text("---\ntitle: New\n---\n")
+        (tmp_path / "2025-01-01-existing.md").write_text("---\ntitle: Changed\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        remote_rec = {
+            "$type": "site.standard.document",
+            "site": PUB_URI,
+            "path": "/blog/existing/",
+            "title": "Old",
+            "publishedAt": "2025-01-01T00:00:00Z",
+        }
+        transport.push({"records": [{"uri": DOC_URI, "cid": "cid1", "value": remote_rec}]})
+        data_out = tmp_path / "out.json"
+
+        sync_documents(client, tmp_path, data_out, PUB_URI, TEST_CONFIG, dry_run=True)
+
+        out = capsys.readouterr().out
+        assert "[dry-run] Would create: /blog/new/" in out
+        assert "[dry-run] Would update: /blog/existing/" in out
+        assert "Would write" in out
+        assert str(data_out) in out
+
+
+class TestUpdatedAtStamp:
+    def test_updated_at_is_utc_on_a_non_utc_host(self, tmp_path: Path, monkeypatch) -> None:
+        (tmp_path / "2025-01-01-alpha.md").write_text("---\ntitle: Changed\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        remote_rec = {
+            "$type": "site.standard.document",
+            "site": PUB_URI,
+            "path": "/blog/alpha/",
+            "title": "Original",
+            "publishedAt": "2025-01-01T00:00:00Z",
+        }
+        transport.push({"records": [{"uri": DOC_URI, "cid": "cid1", "value": remote_rec}]})
+        transport.push({})
+
+        monkeypatch.setenv("TZ", "America/Los_Angeles")
+        time.tzset()
+        try:
+            assert time.timezone != 0, "tzdata is needed for this test to mean anything"
+            before = datetime.now(UTC).replace(microsecond=0)
+            sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
+            after = datetime.now(UTC)
+        finally:
+            monkeypatch.undo()
+            time.tzset()
+
+        put_call = next(c for c in transport.calls if "putRecord" in c[1])
+        stamp = put_call[2]["record"]["updatedAt"]
+        parsed = datetime.strptime(stamp, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=UTC)
+        assert before <= parsed <= after
 
 
 # ---------------------------------------------------------------------------
