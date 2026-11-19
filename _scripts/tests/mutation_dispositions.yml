@@ -21,6 +21,9 @@
 #                but do not pin prose.
 #   reason       One sentence, specific to this mutant.
 #
+# CLI help text produces no mutants: do_not_mutate_patterns in pyproject.toml
+# skips every line that starts with help= or description=.
+#
 # sync_documents triage (mutmut 3.8.1, quick profile, 234 mutants): before the
 # R11 tests, 163 killed, 70 survived, 1 timeout (mutant 192); after, 208
 # killed, 26 survived, 0 timeouts. Mutant 192 (`updated += 1` -> `updated = 1`)
@@ -30,7 +33,7 @@
 
 functions:
   x_sync_documents: 8d8fdde6836a
-  x__dispatch: 33edb97c8ca7
+  x__dispatch: 5c31e5477d8e
 survivors:
 - mutant: atproto.publish.x_sync_documents__mutmut_4
   mutation: Wrap the empty-`publication_uri` message in `XX` markers
@@ -152,193 +155,25 @@ survivors:
   mutation: Change `"utf-8"` to `"UTF-8"`
   disposition: equivalent
   reason: Python codec names are case-insensitive. The bytes are identical.
-- mutant: atproto.publish.x__dispatch__mutmut_2
-  mutation: Pass `None` as the parser description instead of the module docstring
-  disposition: out_of_scope
-  reason: The parser description only feeds `--help` output; no test pins it.
-- mutant: atproto.publish.x__dispatch__mutmut_12
+- mutant: atproto.publish.x__dispatch__mutmut_10
   mutation: Set `add_help=None` on the shared site-time parent parser
   disposition: equivalent
   reason: '`None` is falsy, the same as `add_help=False`, so argparse adds no `-h` to the parent.'
-- mutant: atproto.publish.x__dispatch__mutmut_16
-  mutation: Drop the `--site-time` help text
-  disposition: out_of_scope
-  reason: Removes help text for `--site-time` only. Parse and default behavior are unchanged.
-- mutant: atproto.publish.x__dispatch__mutmut_19
-  mutation: Remove `default=None` from `--site-time`
-  disposition: equivalent
-  reason: argparse's default for an option with no `default=` is already `None`, so nothing changes.
-- mutant: atproto.publish.x__dispatch__mutmut_20
-  mutation: Drop the `--site-time` help keyword and its text
-  disposition: out_of_scope
-  reason: Removes help text for `--site-time` only. Parse and default behavior are unchanged.
-- mutant: atproto.publish.x__dispatch__mutmut_23
-  mutation: Wrap the start of the `--site-time` help in `XX` markers
-  disposition: out_of_scope
-  reason: 'Help text only: argparse prints it under `--help`, and no test pins it.'
-- mutant: atproto.publish.x__dispatch__mutmut_24
-  mutation: Lower-case the start of the `--site-time` help
-  disposition: out_of_scope
-  reason: 'Help text only: argparse prints it under `--help`, and no test pins it.'
-- mutant: atproto.publish.x__dispatch__mutmut_25
-  mutation: Upper-case the start of the `--site-time` help
-  disposition: out_of_scope
-  reason: 'Help text only: argparse prints it under `--help`, and no test pins it.'
-- mutant: atproto.publish.x__dispatch__mutmut_26
-  mutation: Wrap the end of the `--site-time` help in `XX` markers
-  disposition: out_of_scope
-  reason: 'Help text only: argparse prints it under `--help`, and no test pins it.'
-- mutant: atproto.publish.x__dispatch__mutmut_27
-  mutation: 'Lower-case `Default: now` in the `--site-time` help'
-  disposition: out_of_scope
-  reason: 'Help text only: argparse prints it under `--help`, and no test pins it.'
-- mutant: atproto.publish.x__dispatch__mutmut_28
-  mutation: Upper-case the end of the `--site-time` help
-  disposition: out_of_scope
-  reason: 'Help text only: argparse prints it under `--help`, and no test pins it.'
-- mutant: atproto.publish.x__dispatch__mutmut_32
-  mutation: Drop the help text of the `publish` subcommand
-  disposition: out_of_scope
-  reason: Removes the `publish` subcommand's help line only. Dispatch is unchanged.
-- mutant: atproto.publish.x__dispatch__mutmut_35
-  mutation: Drop the help keyword of the `publish` subcommand
-  disposition: out_of_scope
-  reason: Removes the `publish` subcommand's help line only. Dispatch is unchanged.
-- mutant: atproto.publish.x__dispatch__mutmut_38
-  mutation: Wrap the `publish` help in `XX` markers
-  disposition: out_of_scope
-  reason: 'Help text only: argparse prints it under `--help`, and no test pins it.'
-- mutant: atproto.publish.x__dispatch__mutmut_39
-  mutation: Lower-case the `publish` help
-  disposition: out_of_scope
-  reason: 'Help text only: argparse prints it under `--help`, and no test pins it.'
-- mutant: atproto.publish.x__dispatch__mutmut_40
-  mutation: Upper-case the `publish` help
-  disposition: out_of_scope
-  reason: 'Help text only: argparse prints it under `--help`, and no test pins it.'
-- mutant: atproto.publish.x__dispatch__mutmut_70
-  mutation: Drop the help text of `--dry-run`
-  disposition: out_of_scope
-  reason: Removes `--dry-run` help text only. The flag still sets `dry_run`.
-- mutant: atproto.publish.x__dispatch__mutmut_73
-  mutation: Drop the help keyword of `--dry-run`
-  disposition: out_of_scope
-  reason: Removes `--dry-run` help text only. The flag still sets `dry_run`.
-- mutant: atproto.publish.x__dispatch__mutmut_78
-  mutation: Wrap the start of the `--dry-run` help in `XX` markers
-  disposition: out_of_scope
-  reason: 'Help text only: argparse prints it under `--help`, and no test pins it.'
-- mutant: atproto.publish.x__dispatch__mutmut_79
-  mutation: Lower-case the start of the `--dry-run` help
-  disposition: out_of_scope
-  reason: 'Help text only: argparse prints it under `--help`, and no test pins it.'
-- mutant: atproto.publish.x__dispatch__mutmut_80
-  mutation: Upper-case the start of the `--dry-run` help
-  disposition: out_of_scope
-  reason: 'Help text only: argparse prints it under `--help`, and no test pins it.'
-- mutant: atproto.publish.x__dispatch__mutmut_81
-  mutation: Wrap the end of the `--dry-run` help in `XX` markers
-  disposition: out_of_scope
-  reason: 'Help text only: argparse prints it under `--help`, and no test pins it.'
-- mutant: atproto.publish.x__dispatch__mutmut_82
-  mutation: Upper-case the end of the `--dry-run` help
-  disposition: out_of_scope
-  reason: 'Help text only: argparse prints it under `--help`, and no test pins it.'
-- mutant: atproto.publish.x__dispatch__mutmut_84
-  mutation: Set the `init-publication` help to `None`
-  disposition: out_of_scope
-  reason: Removes the `init-publication` help line only. Dispatch is unchanged.
-- mutant: atproto.publish.x__dispatch__mutmut_86
-  mutation: Drop the `init-publication` help
-  disposition: out_of_scope
-  reason: Removes the `init-publication` help line only. Dispatch is unchanged.
-- mutant: atproto.publish.x__dispatch__mutmut_89
-  mutation: Wrap the `init-publication` help in `XX` markers
-  disposition: out_of_scope
-  reason: 'Help text only: argparse prints it under `--help`, and no test pins it.'
-- mutant: atproto.publish.x__dispatch__mutmut_90
-  mutation: Lower-case the `init-publication` help
-  disposition: out_of_scope
-  reason: 'Help text only: argparse prints it under `--help`, and no test pins it.'
-- mutant: atproto.publish.x__dispatch__mutmut_91
-  mutation: Upper-case the `init-publication` help
-  disposition: out_of_scope
-  reason: 'Help text only: argparse prints it under `--help`, and no test pins it.'
-- mutant: atproto.publish.x__dispatch__mutmut_95
-  mutation: Set the `validate` help to `None`
-  disposition: out_of_scope
-  reason: Removes the `validate` help line only. Dispatch is unchanged.
-- mutant: atproto.publish.x__dispatch__mutmut_98
-  mutation: Drop the help keyword of the `validate` subcommand
-  disposition: out_of_scope
-  reason: Removes the `validate` help line only. Dispatch is unchanged.
-- mutant: atproto.publish.x__dispatch__mutmut_101
-  mutation: Wrap the `validate` help in `XX` markers
-  disposition: out_of_scope
-  reason: 'Help text only: argparse prints it under `--help`, and no test pins it.'
-- mutant: atproto.publish.x__dispatch__mutmut_102
-  mutation: Lower-case the `validate` help
-  disposition: out_of_scope
-  reason: 'Help text only: argparse prints it under `--help`, and no test pins it.'
-- mutant: atproto.publish.x__dispatch__mutmut_103
-  mutation: Upper-case the `validate` help
-  disposition: out_of_scope
-  reason: 'Help text only: argparse prints it under `--help`, and no test pins it.'
-- mutant: atproto.publish.x__dispatch__mutmut_126
+- mutant: atproto.publish.x__dispatch__mutmut_87
   mutation: Remove `default=None` from `--site-dir`
   disposition: equivalent
   reason: argparse's default for an option with no `default=` is already `None`, so nothing changes.
-- mutant: atproto.publish.x__dispatch__mutmut_131
-  mutation: Set the `delete-orphans` help to `None`
-  disposition: out_of_scope
-  reason: Removes the `delete-orphans` help line only. Dispatch is unchanged.
-- mutant: atproto.publish.x__dispatch__mutmut_133
-  mutation: Drop the help keyword of the `delete-orphans` subcommand
-  disposition: out_of_scope
-  reason: Removes the `delete-orphans` help line only. Dispatch is unchanged.
-- mutant: atproto.publish.x__dispatch__mutmut_136
-  mutation: Wrap the `delete-orphans` help in `XX` markers
-  disposition: out_of_scope
-  reason: 'Help text only: argparse prints it under `--help`, and no test pins it.'
-- mutant: atproto.publish.x__dispatch__mutmut_137
-  mutation: Lower-case the `delete-orphans` help
-  disposition: out_of_scope
-  reason: 'Help text only: argparse prints it under `--help`, and no test pins it.'
-- mutant: atproto.publish.x__dispatch__mutmut_138
-  mutation: Upper-case the `delete-orphans` help
-  disposition: out_of_scope
-  reason: 'Help text only: argparse prints it under `--help`, and no test pins it.'
-- mutant: atproto.publish.x__dispatch__mutmut_159
-  mutation: Set the `--yes` help to `None`
-  disposition: out_of_scope
-  reason: Removes `--yes` help text only. The flag still stores True.
-- mutant: atproto.publish.x__dispatch__mutmut_162
-  mutation: Drop the help text of `--yes`
-  disposition: out_of_scope
-  reason: Removes `--yes` help text only. The flag still stores True.
-- mutant: atproto.publish.x__dispatch__mutmut_167
-  mutation: Wrap the `--yes` help in `XX` markers
-  disposition: out_of_scope
-  reason: 'Help text only: argparse prints it under `--help`, and no test pins it.'
-- mutant: atproto.publish.x__dispatch__mutmut_168
-  mutation: Lower-case the `--yes` help
-  disposition: out_of_scope
-  reason: 'Help text only: argparse prints it under `--help`, and no test pins it.'
-- mutant: atproto.publish.x__dispatch__mutmut_169
-  mutation: Upper-case the `--yes` help
-  disposition: out_of_scope
-  reason: 'Help text only: argparse prints it under `--help`, and no test pins it.'
-- mutant: atproto.publish.x__dispatch__mutmut_199
+- mutant: atproto.publish.x__dispatch__mutmut_147
   mutation: Wrap the empty-`publication_uri` message in `XX` markers
   disposition: out_of_scope
   reason: The guard still raises, and the stderr line keeps the term `publication_uri`, which TestPublicationUriGuards
     asserts.
-- mutant: atproto.publish.x__dispatch__mutmut_201
+- mutant: atproto.publish.x__dispatch__mutmut_149
   mutation: Wrap the blank-partition-key message in `XX` markers
   disposition: out_of_scope
   reason: Error wording only. The guard still exits 1, and the stderr line still names `publication_uri`,
     which TestPublicationUriGuards asserts.
-- mutant: atproto.publish.x__dispatch__mutmut_202
+- mutant: atproto.publish.x__dispatch__mutmut_150
   mutation: Upper-case the blank-partition-key message
   disposition: out_of_scope
   reason: Error wording only. The guard still exits 1, and the stderr line still names `publication_uri`,

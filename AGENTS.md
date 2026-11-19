@@ -73,8 +73,11 @@ Jekyll-based static site (alexgude.com) running in Docker.
   function whose source hash changed (mutmut renumbers mutants), or a
   partly run function. Survivors in other functions are printed as
   untriaged. To gate a function, triage its survivors, list them, and add the
-  function with the hash from `mutants/atproto/publish.py.meta`. `mutants/`
-  and `.mutmut-cache` are gitignored.
+  function with the hash from `mutants/atproto/publish.py.meta`. Lines that
+  start with `help=` or `description=` get no mutants
+  (`do_not_mutate_patterns` in `_scripts/pyproject.toml`), so put each CLI
+  help argument on its own line. `mutants/` and `.mutmut-cache` are
+  gitignored.
 - **Hooks:** `make hooks-install` (Install pre-commit hook).
 - **Code docs:** `make doc-index` (List code objects tagged `@validator`,
   `@pipeline`, `@pattern`, or `@gotcha`) / `make doc-show OBJ=<Class>` or

@@ -1020,8 +1020,24 @@ def main(argv: list[str] | None = None) -> None:
         sys.exit(1)
 
 
+# CLI help text. Each help= and description= argument in _dispatch sits on
+# its own line, which mutmut skips (do_not_mutate_patterns in
+# pyproject.toml): help wording is not a contract. Text longer than one line
+# lives here, outside any function, where mutmut does not mutate.
+_SITE_TIME_HELP = (
+    "Jekyll's site.time for the build being checked (ISO 8601 with "
+    "offset); documents dated after it are skipped. Default: now"
+)
+_DRY_RUN_HELP = (
+    "Print the plan without credentials: never log in, read only public "
+    "records, refuse every write, and write no data file"
+)
+
+
 def _dispatch(argv: list[str] | None = None) -> None:
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(
+        description=__doc__,
+    )
     sub = parser.add_subparsers(dest="cmd", required=True)
 
     # publish and validate must apply the same cutoff as the build they
@@ -1031,8 +1047,7 @@ def _dispatch(argv: list[str] | None = None) -> None:
         "--site-time",
         type=parse_site_time,
         default=None,
-        help="Jekyll's site.time for the build being checked (ISO 8601 with "
-        "offset); documents dated after it are skipped. Default: now",
+        help=_SITE_TIME_HELP,
     )
 
     pub_p = sub.add_parser(
@@ -1046,11 +1061,13 @@ def _dispatch(argv: list[str] | None = None) -> None:
     pub_p.add_argument(
         "--dry-run",
         action="store_true",
-        help="Print the plan without credentials: never log in, read only public "
-        "records, refuse every write, and write no data file",
+        help=_DRY_RUN_HELP,
     )
 
-    sub.add_parser("init-publication", help="Create publication record (one-time)")
+    sub.add_parser(
+        "init-publication",
+        help="Create publication record (one-time)",
+    )
 
     val_p = sub.add_parser(
         "validate",
@@ -1067,7 +1084,11 @@ def _dispatch(argv: list[str] | None = None) -> None:
     )
     del_p.add_argument("--posts-dir", required=True, type=Path)
     del_p.add_argument("--books-dir", required=True, type=Path)
-    del_p.add_argument("--yes", action="store_true", help="Actually delete")
+    del_p.add_argument(
+        "--yes",
+        action="store_true",
+        help="Actually delete",
+    )
 
     args = parser.parse_args(argv)
 
