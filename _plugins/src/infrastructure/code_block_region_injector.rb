@@ -89,7 +89,7 @@ module Jekyll
         fail_with(source, "#{tag} sets #{set.join(', ')}; CodeBlockRegionInjector adds them") if set.any?
 
         attributes = %( tabindex="0" role="region" aria-label="#{label(language, source)}")
-        tag.sub(%r{\s*/?>\z}) { |close| "#{attributes}#{close}" }
+        HtmlAttributes.append(tag, attributes)
       end
       private_class_method :region_tag
 

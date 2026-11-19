@@ -45,6 +45,25 @@ module Jekyll
           Regexp.last_match(1).casecmp?(name) ? '' : attribute
         end
       end
+
+      # Insert attributes before the closing delimiter. A slash immediately
+      # after an unquoted value belongs to the value.
+      #
+      # @param tag [String] A whole start tag.
+      # @param attributes [String] Serialized attributes with leading whitespace.
+      # @return [String] The tag with the attributes appended.
+      def self.append(tag, attributes)
+        closing = tag.match(%r{\s*/?>\z})
+        offset = closing.begin(0)
+        if closing[0] == '/>'
+          last_attribute = nil
+          tag.scan(SPACED_ATTRIBUTE) { last_attribute = Regexp.last_match }
+          _, _, _, unquoted_value = last_attribute&.captures
+          offset += 1 if unquoted_value && last_attribute.end(0) == offset + 1
+        end
+
+        "#{tag[...offset]}#{attributes}#{tag[offset..]}"
+      end
     end
   end
 end

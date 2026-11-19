@@ -46,6 +46,11 @@ class TestCodeBlockRegionInjector < Minitest::Test
     assert_equal %(<p>a</p><pre #{REGION} aria-label="Code block">text</pre>), inject('<p>a</p><pre>text</pre>')
   end
 
+  def test_unquoted_final_value_keeps_its_slash
+    assert_equal %(<pre data-label=block/ #{REGION} aria-label="Code block">x</pre>),
+                 inject('<pre data-label=block/>x</pre>')
+  end
+
   def test_every_pre_in_page_is_labeled
     output = inject("#{fence('python')}#{fence('yaml')}<PRE>raw</PRE>")
     assert_equal 3, output.scan(REGION).size
