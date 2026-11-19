@@ -47,6 +47,13 @@ class TestImageDimensionsInjector < Minitest::Test
                  inject('<img src="/files/post/plot.png">')
   end
 
+  # The slash after an unquoted value belongs to the value, so the size
+  # attributes must go after it, not between the value and the slash.
+  def test_unquoted_final_value_keeps_its_slash
+    assert_equal '<img src="/files/post/plot.png" alt=plot/ width="640" height="480">',
+                 inject('<img src="/files/post/plot.png" alt=plot/>')
+  end
+
   def test_single_quoted_src_and_multiline_tag
     html = "<img\n  alt='Plot'\n  src='/files/post/plot.png'\n/>"
     assert_equal "<img\n  alt='Plot'\n  src='/files/post/plot.png' width=\"640\" height=\"480\"\n/>", inject(html)

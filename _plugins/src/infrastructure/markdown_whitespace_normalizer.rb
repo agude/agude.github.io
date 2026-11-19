@@ -15,26 +15,28 @@ module Jekyll
 
       def self.normalize(content)
         stashed = {}
-        content = stash_ranges(content, HtmlRegionParser.protected_ranges(content), stashed)
-        body = stash_code_blocks(content, stashed)
+        placeholder_prefix = STASH_PREFIX
+        placeholder_prefix += '_' while content.include?(placeholder_prefix)
+        content = stash_ranges(content, HtmlRegionParser.protected_ranges(content), stashed, placeholder_prefix)
+        body = stash_code_blocks(content, stashed, placeholder_prefix)
         body = normalize_prose(body)
         restore_code_blocks(body, stashed)
       end
 
-      def self.stash_code_blocks(text, stashed)
+      def self.stash_code_blocks(text, stashed, placeholder_prefix)
         ranges = CodeRegionParser.protected_code_ranges(text)
-        stash_ranges(text, ranges, stashed)
+        stash_ranges(text, ranges, stashed, placeholder_prefix)
       end
       private_class_method :stash_code_blocks
 
-      def self.stash_ranges(text, ranges, stashed)
+      def self.stash_ranges(text, ranges, stashed, placeholder_prefix)
         return text if ranges.empty?
 
         output = []
         position = 0
         ranges.each do |start_index, end_index|
           output << text[position...start_index]
-          output << stash_block(text[start_index...end_index], stashed)
+          output << stash_block(text[start_index...end_index], stashed, placeholder_prefix)
           position = end_index
         end
         output << text[position..]
@@ -42,10 +44,10 @@ module Jekyll
       end
       private_class_method :stash_ranges
 
-      def self.stash_block(block, stashed)
+      def self.stash_block(block, stashed, placeholder_prefix)
         ending = block[/\r?\n\z/] || ''
         protected_content = ending.empty? ? block : block[0...-ending.length]
-        placeholder = "#{STASH_PREFIX}_#{stashed.size}@@"
+        placeholder = "#{placeholder_prefix}_#{stashed.size}@@"
         stashed[placeholder] = protected_content
         "#{placeholder}#{ending}"
       end

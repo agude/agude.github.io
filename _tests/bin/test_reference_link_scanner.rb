@@ -178,6 +178,14 @@ class TestReferenceLinkScanner < Minitest::Test
     assert_empty result
   end
 
+  def test_longer_fence_closes_the_block_and_shorter_fence_stays_inside_it
+    ['`', '~'].each do |marker|
+      content = "#{marker * 4}\n[ref][inside]\n#{marker * 3}\n[ref][also-inside]\n#{marker * 5}\n\n[ref][outside]\n"
+
+      assert_equal [{ line: 7, message: 'undefined reference link [outside]' }], scan(content)
+    end
+  end
+
   def test_brackets_inside_inline_code_are_not_references
     result = scan("Use `data[0]` and `[text][id]` in code.\n")
 

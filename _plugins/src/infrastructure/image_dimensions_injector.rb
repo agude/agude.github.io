@@ -98,7 +98,7 @@ module Jekyll
         tag = HtmlAttributes.remove(tag, 'sizes') if orphan_sizes
         added = { 'width' => width, 'height' => height }.merge(srcset)
         text = added.map { |name, value| %( #{name}="#{value}") }.join
-        tag.sub(%r{\s*/?>\z}) { |close| "#{text}#{close}" }
+        HtmlAttributes.append(tag, text)
       end
       private_class_method :sized_tag
 

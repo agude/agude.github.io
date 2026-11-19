@@ -68,7 +68,7 @@ Why they do not overlap:
     `GeneratedStaticFile`, `MarkdownWhitespaceNormalizer`,
     `MarkdownLinkFormatter`. Post-render hooks that rewrite tags share
     `HtmlScan` (start-tag tokenizer that skips comments and raw text) and
-    `HtmlAttributes` (read or remove attributes); image checks share
+    `HtmlAttributes` (read, add, or remove attributes); image checks share
     `LocalImage` (what counts as a local image and which file it names).
   - `ui/`: Generic components (Cards, Ratings, Citations,
     `MarkdownCardUtils`).
