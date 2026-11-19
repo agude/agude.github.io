@@ -50,6 +50,9 @@ CASES ?= $(if $(filter discovery,$(PROFILE)),1000,100)
 # Mutation runs: 'all' loads every test file; 'examples' drops the *_properties
 # files and skips inline property tests.
 TESTS ?= all
+# Seed for the Minitest order in mutation runs. Mutant's kill for a mutant
+# depends on which test runs first, so every run uses this fixed seed.
+MUTATION_SEED ?= 1
 
 # Where 'make rank' drops the ranking state file. The ELO tools have no
 # localStorage or query-param loading; the file gets picked through the page's
@@ -250,7 +253,7 @@ test-properties: image-build
 	@case "$(PROFILE)" in quick|discovery) ;; *) echo "Use PROFILE=quick or PROFILE=discovery." >&2; exit 2;; esac
 	@$(DOCKER_RUN) bundle exec ruby -I _tests _tests/support/property_test_suites.rb "$(TARGET)" $(if $(FILTER),--include "$(FILTER)")
 
-test-mutations: DOCKER_RUN_OPTS += -e MUTATION_TEST_TARGET="$(TARGET)" -e PROPERTY_CASES="$(CASES)" -e MUTATION_TEST_TESTS="$(TESTS)" $(if $(SEED),-e PROPERTY_SEED="$(SEED)")
+test-mutations: DOCKER_RUN_OPTS += -e MUTATION_TEST_TARGET="$(TARGET)" -e PROPERTY_CASES="$(CASES)" -e MUTATION_TEST_TESTS="$(TESTS)" -e MUTATION_SEED="$(MUTATION_SEED)" $(if $(SEED),-e PROPERTY_SEED="$(SEED)")
 test-mutations: check-mutation-options image-build
 	@$(DOCKER_RUN) bundle exec ruby _tests/support/mutation_tests.rb
 

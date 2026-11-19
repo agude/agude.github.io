@@ -36,6 +36,11 @@ Jekyll-based static site (alexgude.com) running in Docker.
   `out_of_scope`), and a one-sentence reason.
   Only `PROFILE=quick` is accepted and `CASES` is rejected, so every run uses
   the same 100 cases: Mutant's 5 s timeout counts a slow test as a kill.
+  Mutant runs in a scratch copy of the checkout (under the temp dir, without
+  `.git`, `_site`, `vendor`, caches, or `.mutant`), so a mutant that writes a
+  file cannot change the checkout; the session file is copied back into
+  `.mutant/results`. Each run sets the Minitest seed to `MUTATION_SEED`
+  (default `1`) and prints it in the header, so test order and kills repeat.
   `TESTS=examples` loads only the example files and skips inline property
   tests; it lists the same subjects as the default `TESTS=all`, prints its
   survivors, and does not apply the dispositions or fail.
