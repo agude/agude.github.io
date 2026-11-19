@@ -13,6 +13,8 @@
 # Fields:
 #   functions    mutmut function name (x_<name>) -> source hash from
 #                mutants/atproto/publish.py.meta (hash_by_function_name).
+#                mutmut hashes ast.dump output, which differs between Python
+#                versions; _scripts/.python-version pins 3.12 to match CI.
 #   mutant       Full mutmut mutant name.
 #   mutation     Short description of the change.
 #   disposition  equivalent: the mutant cannot change observable behavior.
