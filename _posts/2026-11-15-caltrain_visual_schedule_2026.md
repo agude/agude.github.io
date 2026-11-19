@@ -23,12 +23,12 @@ categories:
 {% capture jul2017 %}{{ file_dir }}/caltrain-20170715{% endcapture %}
 {% capture now %}{{ file_dir }}/caltrain-20261113{% endcapture %}
 
-In 2017, I created some [_Marey/Ibry/Serjev_ visual schedules for
-Caltrain][first_post], just to have some fun tweaking plots. A few months
-later, I [updated them when Caltrain changed their schedule][update_post] to
-accommodate the upcoming [electrification program][caltrain_wiki]. Now, 9
-years later, the electrification work is complete, so I updated the
-plots[^code] to see what changed.
+In 2017, I created some [visual schedules for Caltrain][first_post], just to
+have some fun tweaking plots. A few months later, I [updated them when
+Caltrain changed their schedule][update_post] to accommodate the upcoming
+[electrification program][caltrain_wiki]. Now, 9 years later, the
+electrification work is complete, so I updated the plots[^code] to see what
+changed. You can find the code [here][code].
 
 [first_post]: {% post_url 2017-05-21-caltrain_visual_schedule %}
 [update_post]: {% post_url 2017-10-07-caltrain_visual_schedule_updates %}
@@ -59,11 +59,7 @@ plots[^code] to see what changed.
 
 [python_free]: {% post_url 2025-08-30-llms_make_python_free %}
 
-{% comment -%}
-TODO: Link to the code. The caltrain_schedule_2026 project has no public
-repository yet.
-[code]: https://github.com/agude/TODO
-{%- endcomment %}
+[code]: https://github.com/agude/caltrain-visual-schedule-plotter
 
 ## Weekday
 
@@ -112,6 +108,18 @@ it only happens once: when southbound Express 506 passes Local 108 at about
 [morning_2017]: {{ apr2017 }}/weekday_morning.svg
 [morning_2026]: {{ now }}/weekday_morning.svg
 
+## Weekend
+
+Finally, the weekend is drastically different. For example, see Saturday:
+
+[![Marey visual train schedule for Caltrain on Saturday in January 2026][saturday_2026]][saturday_2026]
+[![Marey visual train schedule for Caltrain on Saturday in July 2017][saturday_jul2017]][saturday_jul2017]
+
+[saturday_2026]: {{ now }}/saturday.svg
+[saturday_jul2017]: {{ jul2017 }}/saturday.svg
+
+Wow! Double the number of trains! But in exchange we lose the express.
+
 ## Electricity
 
 What allows all these changes? Electricity! The new electric trains accelerate
@@ -140,18 +148,6 @@ end to finish 6 minutes faster.
 [local_comparison]: {{ file_dir }}/comparison/local.svg
 [limited_comparison]: {{ file_dir }}/comparison/limited.svg
 [express_comparison]: {{ file_dir }}/comparison/express.svg
-
-## Weekend
-
-Finally, the weekend is drastically different. For example, see Saturday:
-
-[![Marey visual train schedule for Caltrain on Saturday in January 2026][saturday_2026]][saturday_2026]
-[![Marey visual train schedule for Caltrain on Saturday in July 2017][saturday_jul2017]][saturday_jul2017]
-
-[saturday_2026]: {{ now }}/saturday.svg
-[saturday_jul2017]: {{ jul2017 }}/saturday.svg
-
-Wow! Double the number of trains! But in exchange we lose the express.
 
 ## All the Plots
 
