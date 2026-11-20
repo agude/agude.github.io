@@ -7,5 +7,7 @@ description: >
   schedules.
 ---
 
-These articles explore Caltrain's schedules through visualizations that show
-how its trains move throughout the day and how its service changes over time:
+I love public transit, and Caltrain was my rainy-day backup to my bike commute
+for a decade. Being a huge nerd, of course I started turning its timetables
+into data visualizations. Here are my articles showing how its trains move and
+how its service changes over time:
