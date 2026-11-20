@@ -8,21 +8,15 @@ module Jekyll
         review_url = document&.url
         return if blank?(review_url)
 
-        canonical_url = site&.data&.dig('link_cache', 'url_to_canonical_map', review_url)
-        return review_url unless local_path?(canonical_url)
-
-        canonical_url
+        # BookFamilyValidator allows only local canonical_url values, so a
+        # mapped URL is always a page on this site.
+        site&.data&.dig('link_cache', 'url_to_canonical_map', review_url) || review_url
       end
 
       def self.blank?(value)
         value.nil? || value.to_s.strip.empty?
       end
       private_class_method :blank?
-
-      def self.local_path?(value)
-        value.to_s.strip.start_with?('/')
-      end
-      private_class_method :local_path?
     end
   end
 end

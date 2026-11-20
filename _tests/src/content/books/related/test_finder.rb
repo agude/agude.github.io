@@ -109,19 +109,6 @@ class TestRelatedBooksFinder < RelatedBookFinderTestCase
     refute_includes titles, 'Related Archived'
   end
 
-  def test_includes_external_canonical_url
-    _, _, _, context = @helper.setup_external_canonical_scenario
-
-    finder = Jekyll::Books::Related::Finder.new(context.registers[:site], context.registers[:page], DEFAULT_MAX_BOOKS)
-    result = nil
-    Time.stub :now, @test_time_now do
-      result = finder.find
-    end
-
-    titles = result[:books].map { |b| b.data['title'] }
-    assert_includes titles, 'Related External'
-  end
-
   def test_logs_error_when_page_is_missing
     site = create_site(@site_config_base.dup)
     context = create_context({}, { site: site })

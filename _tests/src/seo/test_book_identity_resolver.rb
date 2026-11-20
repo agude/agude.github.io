@@ -18,14 +18,6 @@ class TestBookIdentityResolver < Minitest::Test
       },
       '/books/archived-review/',
     )
-    @external_review = create_doc(
-      {
-        'title' => 'External Review',
-        'book_authors' => ['Author'],
-        'canonical_url' => 'https://other.example/books/external-review/',
-      },
-      '/books/external-review/',
-    )
     @original_antimemetics = create_doc(
       { 'title' => 'There Is No Antimemetics Division (Original Edition)' },
       '/books/there-is-no-antimemetics-division-original/',
@@ -40,7 +32,6 @@ class TestBookIdentityResolver < Minitest::Test
         'books' => [
           @canonical_review,
           @archived_review,
-          @external_review,
           @original_antimemetics,
           @revised_antimemetics,
         ],
@@ -82,10 +73,6 @@ class TestBookIdentityResolver < Minitest::Test
     site = Struct.new(:data).new({ 'link_cache' => { 'url_to_canonical_map' => map } })
 
     assert_equal ' /books/canonical-review/ ', Jekyll::SEO::BookIdentityResolver.resolve(review, site)
-  end
-
-  def test_external_canonical_url_does_not_become_book_identity
-    assert_equal @external_review.url, resolve(@external_review)
   end
 
   def test_missing_or_blank_review_url_has_no_identity

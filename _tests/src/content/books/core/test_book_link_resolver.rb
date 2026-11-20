@@ -296,28 +296,6 @@ class TestBookLinkResolver < Minitest::Test
     assert_equal expected_b, output_b
   end
 
-  def test_does_not_filter_book_with_external_canonical_url
-    # Setup: Two books with the same title, one normal, other points to external canonical URL.
-    # This should still be treated as an ambiguity between two distinct books on our site.
-    book_a_data = { 'title' => 'External Canon Test', 'published' => true, 'book_authors' => ['Author A'] }
-    book_a = create_doc(book_a_data, '/books/ext-a.html')
-    book_b_data = {
-      'title' => 'External Canon Test',
-      'published' => true,
-      'book_authors' => ['Author B'],
-      'canonical_url' => 'http://some-other.site/original',
-    }
-    book_b_external = create_doc(book_b_data, '/books/ext-b.html')
-
-    site = create_site({}, { 'books' => [book_a, book_b_external] }, [@author_a_page, @author_b_page])
-    ctx = create_context({}, { site: site, page: @page })
-
-    err = assert_raises(Jekyll::Errors::FatalException) do
-      Jekyll::Books::Core::BookLinkResolver.new(ctx).resolve('External Canon Test', nil, nil)
-    end
-    assert_match "used by multiple authors: 'Author A'; 'Author B'", err.message
-  end
-
   def test_resolver_handles_nil_site
     # This covers `context&.registers` when context is valid but registers is nil
     context_nil_registers = Struct.new(:registers).new(nil)

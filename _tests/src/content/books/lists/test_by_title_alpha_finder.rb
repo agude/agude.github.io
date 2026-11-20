@@ -31,14 +31,13 @@ class TestBookListByTitleAlphaFinder < Minitest::Test
     result = get_alpha_group_data
 
     assert_empty result[:log_messages].to_s
-    # Expected groups: #, A, B, C, E, Z (based on the published books in setup)
-    assert_equal 6, result[:alpha_groups].size, 'Incorrect number of alpha groups'
+    # Expected groups: #, A, B, C, Z (based on the published books in setup)
+    assert_equal 5, result[:alpha_groups].size, 'Incorrect number of alpha groups'
 
     assert_group_hash_correct(result)
     assert_group_a_correct(result)
     assert_group_b_correct(result)
     assert_group_c_correct(result)
-    assert_group_e_correct(result)
     assert_group_z_correct(result)
     assert_letter_groups_ordered(result)
   end
@@ -136,10 +135,6 @@ class TestBookListByTitleAlphaFinder < Minitest::Test
       { 'title' => 'Archived Book', 'published' => true, 'canonical_url' => '/some/path' },
       '/archived.html',
     )
-    @external_canonical_book = create_doc(
-      { 'title' => 'External Canon Book', 'published' => true, 'canonical_url' => 'http://othersite.com' },
-      '/external.html',
-    )
   end
 
   # Collects all test books into an array
@@ -156,7 +151,6 @@ class TestBookListByTitleAlphaFinder < Minitest::Test
       @book_only_an,
       @unpublished_book,
       @archived_book,
-      @external_canonical_book,
     ]
   end
 
@@ -204,13 +198,6 @@ class TestBookListByTitleAlphaFinder < Minitest::Test
     assert_equal([@book_the_cherry.data['title']], group_c[:books].map { |b| b.data['title'] })
   end
 
-  # --- Assert Group E ---
-  def assert_group_e_correct(result)
-    group_e = result[:alpha_groups].find { |g| g[:letter] == 'E' }
-    refute_nil group_e, "Group 'E' missing"
-    assert_equal([@external_canonical_book.data['title']], group_e[:books].map { |b| b.data['title'] })
-  end
-
   # --- Assert Group Z ---
   # Book: Zebra Zoom
   def assert_group_z_correct(result)
@@ -222,6 +209,6 @@ class TestBookListByTitleAlphaFinder < Minitest::Test
   # --- Assert Overall Order of Letter Groups ---
   def assert_letter_groups_ordered(result)
     letters_ordered = result[:alpha_groups].map { |g| g[:letter] }
-    assert_equal ['#', 'A', 'B', 'C', 'E', 'Z'], letters_ordered, 'Letter groups are not in # then A-Z order'
+    assert_equal ['#', 'A', 'B', 'C', 'Z'], letters_ordered, 'Letter groups are not in # then A-Z order'
   end
 end
