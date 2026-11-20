@@ -74,9 +74,9 @@ uses the old diesel fleet, while Tamien to San Francisco uses the new electric
 trains; they overlap on the Tamien to Diridon section.
 
 [![Marey visual train schedule for Caltrain on weekdays in January 2026, including the South County Connector trains to Gilroy][gilroy_2026]][gilroy_2026]
-[![Marey visual train schedule for Caltrain on weekdays in April 2017, including the stations south of San Jose to Gilroy][gilroy_2017]][gilroy_2017]
+[![Marey visual train schedule for Caltrain on weekdays in April 2017, including the stations south of San Jose to Gilroy][gilroy_apr2017]][gilroy_apr2017]
 
-[gilroy_2017]: {{ apr2017 }}/weekday_gilroy.svg
+[gilroy_apr2017]: {{ apr2017 }}/weekday_gilroy.svg
 [gilroy_2026]: {{ now }}/weekday_gilroy.svg
 
 But beyond those two facts, it's tough to see details unless we focus on a
@@ -102,9 +102,9 @@ it only happens once: when the southbound Express 506 passes Local 108 at
 about 08:20 near Diridon.
 
 [![Marey visual train schedule for Caltrain during the weekday morning commute in January 2026][morning_2026]][morning_2026]
-[![Marey visual train schedule for Caltrain during the weekday morning commute in April 2017][morning_2017]][morning_2017]
+[![Marey visual train schedule for Caltrain during the weekday morning commute in April 2017][morning_apr2017]][morning_apr2017]
 
-[morning_2017]: {{ apr2017 }}/weekday_morning.svg
+[morning_apr2017]: {{ apr2017 }}/weekday_morning.svg
 [morning_2026]: {{ now }}/weekday_morning.svg
 
 ## Weekend
@@ -154,10 +154,10 @@ I made far more plots than I could fit in this post. Here is every one:
 | Chart           |         January 2026 |               July 2017 |              April 2017 |
 | :-------------- | -------------------: | ----------------------: | ----------------------: |
 | Weekday         |  [SVG][weekday_2026] |  [SVG][weekday_jul2017] |  [SVG][weekday_apr2017] |
-| With Gilroy     |   [SVG][gilroy_2026] |   [SVG][gilroy_jul2017] |      [SVG][gilroy_2017] |
+| With Gilroy     |   [SVG][gilroy_2026] |   [SVG][gilroy_jul2017] |   [SVG][gilroy_apr2017] |
 | Northbound      |    [SVG][north_2026] |    [SVG][north_jul2017] |    [SVG][north_apr2017] |
 | Southbound      |    [SVG][south_2026] |    [SVG][south_jul2017] |    [SVG][south_apr2017] |
-| Morning commute |  [SVG][morning_2026] |  [SVG][morning_jul2017] |     [SVG][morning_2017] |
+| Morning commute |  [SVG][morning_2026] |  [SVG][morning_jul2017] |  [SVG][morning_apr2017] |
 | Evening commute |  [SVG][evening_2026] |  [SVG][evening_jul2017] |  [SVG][evening_apr2017] |
 | Saturday        | [SVG][saturday_2026] | [SVG][saturday_jul2017] | [SVG][saturday_apr2017] |
 | Sunday          |   [SVG][sunday_2026] |   [SVG][sunday_jul2017] |   [SVG][sunday_apr2017] |
