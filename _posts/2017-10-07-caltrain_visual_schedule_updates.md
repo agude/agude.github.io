@@ -8,10 +8,11 @@ description: >
 image: /files/caltrain-schedule/an_outbound_sp_commuter_train_sequence_by_roger_puta.jpg
 hide_lead_image: True
 image_alt: >
-  An outbound Southern Pacific Railroad commuter train leaving San Francisco.
-  The train is grey with a bright red square painted on the front containing
-  the letters 'SP' in white.
+  A Southern Pacific commuter train leaving San Francisco, viewed from beside
+  the tracks. Its grey locomotive has a red nose marked "SP", with grey
+  double-decker passenger cars stretching into the background.
 categories:
+  - caltrain
   - data-visualization
 ---
 
@@ -73,3 +74,15 @@ the first and last northbound trains have been removed, along with the final
 two southbound trains. Interestingly, the Sunday trains actually run a bit
 later under the new schedule, with the last train leaving Diridon at just past
 2200, instead of at 2100.
+
+## Other Writings on Caltrain
+
+If you enjoyed this article, here are all the other articles I wrote about
+[Caltrain][caltrain_topic]!
+
+[caltrain_topic]: {% link topics/caltrain.md %}
+
+{% display_category_posts
+  topic="caltrain"
+  exclude_current_page=true
+%}
