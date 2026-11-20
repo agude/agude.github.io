@@ -10,7 +10,7 @@ module Jekyll
       #
       # @validator Book referenced as a canonical target by another book also
       #   has `canonical_url` set (copy-paste error).
-      # @validator Book `canonical_url` is not a local path, has surrounding
+      # @validator Book `canonical_url` is not a string or not a local path, has surrounding
       #   whitespace, or names a book page with a different trailing slash
       #   than its url.
       class BookFamilyValidator
@@ -39,7 +39,7 @@ module Jekyll
           url_by_normalized = docs.to_h { |doc| [normalize_url(doc.url), doc.url] }
           docs.each do |book|
             value = book.data['canonical_url']
-            next unless value.is_a?(String)
+            next if value.nil?
 
             problem = canonical_format_problem(value, url_by_normalized)
             next unless problem
@@ -50,6 +50,9 @@ module Jekyll
         end
 
         def canonical_format_problem(value, url_by_normalized)
+          unless value.is_a?(String)
+            return "is not a string: #{value.inspect}. Use a path on this site, such as /books/<name>/."
+          end
           return "has leading or trailing whitespace: #{value.inspect}. Remove the whitespace." if value != value.strip
           unless local_path?(value)
             return "is not a local path: #{value.inspect}. Use a path on this site, such as /books/<name>/."

@@ -260,43 +260,38 @@
 
 - suite: 'link-cache'
   subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#check_canonical_format'
-  key: '6f9691a49af26f2d'
+  key: '86749f3a41dad2a2'
   disposition: equivalent
   reason: 'The key? guard above returns early when the books collection is absent, so Hash#fetch("books") returns the same collection as [].'
 
 - suite: 'link-cache'
   subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#check_canonical_format'
-  key: '9118c08bc8d61388'
+  key: 'a784b09d5be7bcd6'
   disposition: equivalent
   reason: 'Jekyll::Document#[] returns data[key] (document.rb line 250 in Jekyll 4.4.1), so book["canonical_url"] reads the same value as book.data["canonical_url"].'
 
-- suite: 'link-cache'
-  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#check_canonical_format'
-  key: '45e2997954b96d21'
-  disposition: out_of_scope
-  reason: 'Only a canonical_url that is a non-String truthy value (a YAML number, list, or mapping) differs: it raises NoMethodError on strip instead of being skipped. Such front matter is malformed.'
 
 - suite: 'link-cache'
-  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#check_canonical_format'
-  key: 'a6dbb50a3c6ec954'
+  subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#canonical_format_problem'
+  key: '85876f551e1c4ffe'
   disposition: equivalent
   reason: 'YAML front matter produces plain String values, never a String subclass, so instance_of?(String) and is_a?(String) agree for every canonical_url.'
 
 - suite: 'link-cache'
   subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#check_canonical_format'
-  key: '44c97632d74a58a5'
+  key: '831202846bc82f17'
   disposition: equivalent
   reason: 'The method is defined inside module Jekyll, so the constant Errors::FatalException resolves to Jekyll::Errors::FatalException.'
 
 - suite: 'link-cache'
   subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#canonical_format_problem'
-  key: 'f183c447b38be790'
+  key: '4b1b3d49f86c3bdd'
   disposition: equivalent
   reason: 'For two Strings, eql? and == both compare content, so !value.eql?(value.strip) and value != value.strip give the same result.'
 
 - suite: 'link-cache'
   subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#canonical_format_problem'
-  key: 'b2bb049ee383809b'
+  key: '01e0dc48e784b44e'
   disposition: equivalent
   reason: 'target and value are both Strings when compared, and for two Strings eql? and == both compare content.'
 

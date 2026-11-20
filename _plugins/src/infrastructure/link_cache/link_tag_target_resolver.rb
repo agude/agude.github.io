@@ -77,7 +77,7 @@ module Jekyll
           return nil unless title
 
           locs = @link_cache['books'][normalize(title)]
-                 &.reject { |b| b['canonical_url']&.start_with?('/') }
+                 &.reject { |b| b['canonical_url'] }
           return nil unless locs&.any?
 
           target = BookSelector.select_book(locs, author, @link_cache['authors'])

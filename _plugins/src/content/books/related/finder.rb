@@ -128,7 +128,7 @@ module Jekyll
 
         def build_exclusion_set
           urls = Set.new([page_url])
-          urls.add(@page['canonical_url']) if @page['canonical_url']&.start_with?('/')
+          urls.add(@page['canonical_url']) if @page['canonical_url']
           urls
         end
 
@@ -145,7 +145,7 @@ module Jekyll
         def valid_potential_book?(book, urls_to_exclude, now_unix)
           return false unless book&.data
           return false if book.data['published'] == false
-          return false if book.data['canonical_url']&.start_with?('/')
+          return false if book.data['canonical_url']
           return false if urls_to_exclude.include?(book.url)
           return false unless book.date
 

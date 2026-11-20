@@ -175,6 +175,23 @@ class TestBookFamilyValidator < Minitest::Test
     validator.validate
   end
 
+  # Consumers treat any canonical_url as marking an archived review, so a value
+  # YAML parsed as something other than a string stops the build.
+  def test_non_string_canonical_url_raises
+    [123, ['/books/hyperion/'], { 'url' => '/books/hyperion/' }, true, Date.new(2024, 1, 1)].each do |value|
+      archived = create_doc(
+        { 'title' => 'Hyperion', 'published' => true, 'canonical_url' => value },
+        '/books/hyperion/old/',
+      )
+      canonical = create_doc({ 'title' => 'Hyperion', 'published' => true }, '/books/hyperion/')
+
+      error = assert_raises(Jekyll::Errors::FatalException, value.inspect) do
+        build_validator([archived, canonical]).validate
+      end
+      assert_includes error.message, "is not a string: #{value.inspect}"
+    end
+  end
+
   # canonical_url names the canonical review of a book family on this site;
   # anything that is not a local path stops the build.
   def test_non_local_canonical_url_raises
