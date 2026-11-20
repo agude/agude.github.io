@@ -7,8 +7,8 @@
 #   - a function whose source hash differs from the recorded one, because
 #     mutmut numbers mutants by position and a source change can renumber them;
 #   - a function whose mutants were only partly run.
-# Survivors in functions not listed under `functions` are counted and printed
-# as untriaged, but do not fail the check. Timeouts are printed, not gated.
+# A survivor in a function not listed under `functions` also fails the check
+# (untriaged). Timeouts are printed, not gated.
 #
 # Fields:
 #   functions    mutmut function name (x_<name>) -> source hash from
