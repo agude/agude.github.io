@@ -62,6 +62,9 @@ pythonpath = [".", "common", "content", "diagnostics", "metadata", "ranking", "s
 # set by the make target.
 [tool.mutmut]
 source_paths = ["atproto"]
+# No mutants on lines that only pass CLI help text (see _dispatch): wording
+# is not a contract, and each line would otherwise yield several survivors.
+do_not_mutate_patterns = ['^\s*(help|description)=']
 pytest_add_cli_args_test_selection = [
     "tests/test_atproto_publish.py",
     "tests/test_atproto_publish_properties.py",

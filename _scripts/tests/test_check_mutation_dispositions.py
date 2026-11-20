@@ -87,11 +87,15 @@ class TestCheck:
 
         assert report.errors == ["GATED FUNCTION HAS NO MUTANTS x_sync"]
 
-    def test_survivors_in_ungated_functions_are_counted_not_failed(self) -> None:
+    def test_survivor_in_an_ungated_function_fails(self) -> None:
         report = run_check({f"{F}__mutmut_1": "killed", f"{G}__mutmut_1": "survived"})
 
+        assert report.errors == [f"UNTRIAGED SURVIVOR {G}__mutmut_1: its function is not gated"]
+
+    def test_killed_mutants_in_an_ungated_function_pass(self) -> None:
+        report = run_check({f"{F}__mutmut_1": "killed", f"{G}__mutmut_1": "killed"})
+
         assert report.errors == []
-        assert any("untriaged (not gated): 1 survivors in 1 functions" in n for n in report.notes)
 
     def test_timeout_is_noted_not_failed(self) -> None:
         report = run_check({f"{F}__mutmut_1": "timeout"})

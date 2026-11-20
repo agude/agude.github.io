@@ -71,10 +71,13 @@ Jekyll-based static site (alexgude.com) running in Docker.
   under `functions` in `_scripts/tests/mutation_dispositions.yml`: it fails on
   a survivor that is not listed, a listed mutant that no longer survives, a
   function whose source hash changed (mutmut renumbers mutants), or a
-  partly run function. Survivors in other functions are printed as
-  untriaged. To gate a function, triage its survivors, list them, and add the
-  function with the hash from `mutants/atproto/publish.py.meta`. `mutants/`
-  and `.mutmut-cache` are gitignored.
+  partly run function. A survivor in a function that is not listed also
+  fails (untriaged): triage it, list it, and add the function with the hash
+  from `mutants/atproto/publish.py.meta`. Lines that
+  start with `help=` or `description=` get no mutants
+  (`do_not_mutate_patterns` in `_scripts/pyproject.toml`), so put each CLI
+  help argument on its own line. `mutants/` and `.mutmut-cache` are
+  gitignored.
 - **Hooks:** `make hooks-install` (Install pre-commit hook).
 - **Code docs:** `make doc-index` (List code objects tagged `@validator`,
   `@pipeline`, `@pattern`, or `@gotcha`) / `make doc-show OBJ=<Class>` or

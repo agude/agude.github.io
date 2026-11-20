@@ -13,8 +13,9 @@ when:
 - only some of the function's mutants were run.
 
 A gated function with no mutants run is reported and skipped, so a run
-narrowed with MUTANTS= still passes. Survivors in other functions are counted
-as untriaged and do not fail the check. Timeouts are printed, not gated.
+narrowed with MUTANTS= still passes. A survivor in a function that is not
+listed fails the check as untriaged: triage it and list the function.
+Timeouts are printed, not gated.
 
 Exit codes: 0 when the gate passes, 1 when it fails, 2 when an input is
 missing or malformed.
@@ -31,7 +32,7 @@ import argparse
 import json
 import re
 import sys
-from collections import Counter, defaultdict
+from collections import defaultdict
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -160,17 +161,11 @@ def check(
             if status not in (SURVIVED, NOT_CHECKED):
                 report.errors.append(f"STALE DISPOSITION {mutant}: status is {status or 'absent'}")
 
-    untriaged = Counter(
-        function_of(m)
-        for m, s in statuses.items()
-        if s == SURVIVED and function_of(m) not in functions
-    )
-    if untriaged:
-        report.notes.append(
-            f"untriaged (not gated): {sum(untriaged.values())} survivors in "
-            f"{len(untriaged)} functions; largest: "
-            + ", ".join(f"{name} ({count})" for name, count in untriaged.most_common(5))
-        )
+    for mutant, status in sorted(
+        statuses.items(), key=lambda item: (function_of(item[0]), _number(item[0]))
+    ):
+        if status == SURVIVED and function_of(mutant) not in functions:
+            report.errors.append(f"UNTRIAGED SURVIVOR {mutant}: its function is not gated")
     return report
 
 

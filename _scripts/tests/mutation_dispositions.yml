@@ -7,12 +7,14 @@
 #   - a function whose source hash differs from the recorded one, because
 #     mutmut numbers mutants by position and a source change can renumber them;
 #   - a function whose mutants were only partly run.
-# Survivors in functions not listed under `functions` are counted and printed
-# as untriaged, but do not fail the check. Timeouts are printed, not gated.
+# A survivor in a function not listed under `functions` also fails the check
+# (untriaged). Timeouts are printed, not gated.
 #
 # Fields:
 #   functions    mutmut function name (x_<name>) -> source hash from
 #                mutants/atproto/publish.py.meta (hash_by_function_name).
+#                mutmut hashes ast.dump output, which differs between Python
+#                versions; _scripts/.python-version pins 3.12 to match CI.
 #   mutant       Full mutmut mutant name.
 #   mutation     Short description of the change.
 #   disposition  equivalent: the mutant cannot change observable behavior.
@@ -20,6 +22,9 @@
 #                the identifying content (a path, URI, rule, or record name),
 #                but do not pin prose.
 #   reason       One sentence, specific to this mutant.
+#
+# CLI help text produces no mutants: do_not_mutate_patterns in pyproject.toml
+# skips every line that starts with help= or description=.
 #
 # sync_documents triage (mutmut 3.8.1, quick profile, 234 mutants): before the
 # R11 tests, 163 killed, 70 survived, 1 timeout (mutant 192); after, 208
@@ -30,6 +35,39 @@
 
 functions:
   x_sync_documents: 8d8fdde6836a
+  x__dispatch: 5c31e5477d8e
+  x_delete_orphans: 7cabf8446a6a
+  x_validate_documents: 54c02d48d6a2
+  x_init_publication: eb374c4936b4
+  x__reverse_sweep_errors: c34f6c102622
+  x_parse_post: 7c28d8697043
+  x_parse_book: 79a8df574476
+  x_is_future: 2baa2803e969
+  x_parse_site_time: 9749dc84723c
+  x__slugify: f3da2f0fea26
+  x__to_publish_date: 8396a355bd5a
+  x__can_derive_date: 0b43b3215bf1
+  x_document_instant: de0746edb73f
+  x__collect_documents: 67839e3dc553
+  x__document_sources: bceaa8666c87
+  x__source_files: f20f8bb5f251
+  x__reject_permalink_overrides: 3d716d35f721
+  x__extract_frontmatter_strict: 70fa41027e7b
+  x__extract_rkey: 60b2c950bd27
+  x_desired_publication_record: 01446dfbcebb
+  x__verify_publication: ac408cc38020
+  x_load_config: 0070d3fd9eaa
+  x_get_publication_uri: 575842bcc547
+  x__get_env: 90eca60262b9
+  x_did_from_publication_uri: a328c01eae5f
+  xǁAtprotoClientǁ__init__: f62a2de58101
+  xǁAtprotoClientǁ_init_transport: 23ac8b5815a8
+  xǁAtprotoClientǁ_login: ae7181f1f3b1
+  xǁAtprotoClientǁ_retry_request: e1a3cc765e6c
+  xǁAtprotoClientǁlist_records: b0bcc4467e58
+  xǁAtprotoClientǁget_record: 21cc0477d27d
+  xǁAtprotoClientǁput_record: 5f52478caf82
+  xǁAtprotoClientǁdelete_record: 9164fa9069a5
 survivors:
 - mutant: atproto.publish.x_sync_documents__mutmut_4
   mutation: Wrap the empty-`publication_uri` message in `XX` markers
@@ -151,3 +189,458 @@ survivors:
   mutation: Change `"utf-8"` to `"UTF-8"`
   disposition: equivalent
   reason: Python codec names are case-insensitive. The bytes are identical.
+- mutant: atproto.publish.x__dispatch__mutmut_10
+  mutation: Set `add_help=None` on the shared site-time parent parser
+  disposition: equivalent
+  reason: '`None` is falsy, the same as `add_help=False`, so argparse adds no `-h` to the parent.'
+- mutant: atproto.publish.x__dispatch__mutmut_87
+  mutation: Remove `default=None` from `--site-dir`
+  disposition: equivalent
+  reason: argparse's default for an option with no `default=` is already `None`, so nothing changes.
+- mutant: atproto.publish.x__dispatch__mutmut_147
+  mutation: Wrap the empty-`publication_uri` message in `XX` markers
+  disposition: out_of_scope
+  reason: The guard still raises, and the stderr line keeps the term `publication_uri`, which TestPublicationUriGuards
+    asserts.
+- mutant: atproto.publish.x__dispatch__mutmut_149
+  mutation: Wrap the blank-partition-key message in `XX` markers
+  disposition: out_of_scope
+  reason: Error wording only. The guard still exits 1, and the stderr line still names `publication_uri`,
+    which TestPublicationUriGuards asserts.
+- mutant: atproto.publish.x__dispatch__mutmut_150
+  mutation: Upper-case the blank-partition-key message
+  disposition: out_of_scope
+  reason: Error wording only. The guard still exits 1, and the stderr line still names `publication_uri`,
+    which TestPublicationUriGuards asserts.
+- mutant: atproto.publish.x_delete_orphans__mutmut_4
+  mutation: Wrap the `publication_uri` required message in `XX` markers
+  disposition: out_of_scope
+  reason: The rule text and the term `publication_uri` remain, and TestDeleteOrphansGuards asserts the
+    term.
+- mutant: atproto.publish.x_delete_orphans__mutmut_9
+  mutation: Blank the `posts dir` label in `_require_dir`
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing posts path, which TestDeleteOrphansGuards asserts.
+- mutant: atproto.publish.x_delete_orphans__mutmut_12
+  mutation: Wrap the `posts dir` label in `XX` markers
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing posts path, which TestDeleteOrphansGuards asserts.
+- mutant: atproto.publish.x_delete_orphans__mutmut_13
+  mutation: Upper-case the `posts dir` label
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing posts path, which TestDeleteOrphansGuards asserts.
+- mutant: atproto.publish.x_delete_orphans__mutmut_15
+  mutation: Blank the `books dir` label
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing books path. The missing-check gap is mutant 14, which
+    is killed.
+- mutant: atproto.publish.x_delete_orphans__mutmut_18
+  mutation: Wrap the `books dir` label in `XX` markers
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing books path, which TestDeleteOrphansGuards asserts.
+- mutant: atproto.publish.x_delete_orphans__mutmut_19
+  mutation: Upper-case the `books dir` label
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing books path, which TestDeleteOrphansGuards asserts.
+- mutant: atproto.publish.x_delete_orphans__mutmut_21
+  mutation: Wrap the `missing input directory` message in `XX` markers
+  disposition: out_of_scope
+  reason: The rule words remain, and TestDeleteOrphansGuards matches them case-insensitively.
+- mutant: atproto.publish.x_delete_orphans__mutmut_22
+  mutation: Upper-case the `missing input directory` message
+  disposition: out_of_scope
+  reason: Wording only. TestDeleteOrphansGuards matches the rule words case-insensitively.
+- mutant: atproto.publish.x_delete_orphans__mutmut_34
+  mutation: Change the separator between multiple errors for one file to `XX; XX`
+  disposition: out_of_scope
+  reason: Only the separator between two errors for one file changes. A single error has no separator,
+    so the file name and each error text still appear in the message.
+- mutant: atproto.publish.x_delete_orphans__mutmut_36
+  mutation: Replace the `AssertionError` message with `None`
+  disposition: equivalent
+  reason: Dead branch. `_collect_documents` yields a `None` record only with a non-empty error list, and
+    `if errors:` raises before this check.
+- mutant: atproto.publish.x_delete_orphans__mutmut_37
+  mutation: Wrap the `AssertionError` message in `XX` markers
+  disposition: equivalent
+  reason: Same dead branch as mutant 36.
+- mutant: atproto.publish.x_delete_orphans__mutmut_38
+  mutation: Upper-case the `AssertionError` message
+  disposition: equivalent
+  reason: Same dead branch as mutant 36.
+- mutant: atproto.publish.x_delete_orphans__mutmut_44
+  mutation: Wrap the first half of the empty-corpus message in `XX` markers
+  disposition: out_of_scope
+  reason: The phrase `no local documents found` and the word `refusing` remain, and the refusal test matches
+    the phrase case-insensitively.
+- mutant: atproto.publish.x_delete_orphans__mutmut_46
+  mutation: Wrap the second half of the empty-corpus message in `XX` markers
+  disposition: out_of_scope
+  reason: The flags `--posts-dir/--books-dir` and the phrase `record as an orphan` remain, and TestDeleteOrphansGuards
+    asserts both.
+- mutant: atproto.publish.x_delete_orphans__mutmut_61
+  mutation: Default a missing `path` to `None` in the local-path membership test
+  disposition: equivalent
+  reason: Every local path starts with `/`, so neither `None` nor `""` is in `local_paths`; a record without
+    a path is an orphan under both values.
+- mutant: atproto.publish.x_delete_orphans__mutmut_63
+  mutation: Drop the default in `value.get("path", )` in the membership test
+  disposition: equivalent
+  reason: Calling get without a default returns None for a missing key, the same as mutant 61; no local
+    path is None or empty, so the result is unchanged.
+- mutant: atproto.publish.x_delete_orphans__mutmut_66
+  mutation: Default a missing `path` to `"XXXX"` in the local-path membership test
+  disposition: equivalent
+  reason: Local paths always start with `/`, so neither `"XXXX"` nor `""` is in `local_paths`; a record
+    without a path is an orphan under both values.
+- mutant: atproto.publish.x_delete_orphans__mutmut_75
+  mutation: Wrap the `<no path>` placeholder in `XX` markers
+  disposition: out_of_scope
+  reason: The placeholder text `<no path>` still appears in the printed line, which TestDeleteOrphansOutput
+    asserts.
+- mutant: atproto.publish.x_delete_orphans__mutmut_82
+  mutation: Wrap the `No orphan records found.` line in `XX` markers
+  disposition: out_of_scope
+  reason: The summary words remain, and existing tests assert the phrase with a substring match.
+- mutant: atproto.publish.x_validate_documents__mutmut_6
+  mutation: Pass `None` instead of the `posts dir` label to `_require_dir`
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing path, which TestValidateInputDirPaths asserts.
+- mutant: atproto.publish.x_validate_documents__mutmut_9
+  mutation: Wrap the `posts dir` label in `XX` markers
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing path, which TestValidateInputDirPaths asserts.
+- mutant: atproto.publish.x_validate_documents__mutmut_10
+  mutation: Upper-case the `posts dir` label
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing path, which TestValidateInputDirPaths asserts.
+- mutant: atproto.publish.x_validate_documents__mutmut_12
+  mutation: Pass `None` instead of the `books dir` label to `_require_dir`
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing path, which TestValidateInputDirPaths asserts.
+- mutant: atproto.publish.x_validate_documents__mutmut_15
+  mutation: Wrap the `books dir` label in `XX` markers
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing path, which TestValidateInputDirPaths asserts.
+- mutant: atproto.publish.x_validate_documents__mutmut_16
+  mutation: Upper-case the `books dir` label
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing path, which TestValidateInputDirPaths asserts.
+- mutant: atproto.publish.x_validate_documents__mutmut_18
+  mutation: Pass `None` instead of the `site dir` label to `_require_dir`
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing path, which TestValidateInputDirPaths asserts.
+- mutant: atproto.publish.x_validate_documents__mutmut_21
+  mutation: Wrap the `site dir` label in `XX` markers
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing path, which TestValidateInputDirPaths asserts.
+- mutant: atproto.publish.x_validate_documents__mutmut_22
+  mutation: Upper-case the `site dir` label
+  disposition: out_of_scope
+  reason: The stderr line still prints the missing path, which TestValidateInputDirPaths asserts.
+- mutant: atproto.publish.x_validate_documents__mutmut_37
+  mutation: Set the message error count to `1` instead of incrementing it
+  disposition: equivalent
+  reason: '`error_count` is read only by `error_count == 0` and is never printed or decremented, so assigning
+    1 leaves it nonzero exactly when `+= 1` would.'
+- mutant: atproto.publish.x_validate_documents__mutmut_39
+  mutation: Increment the message error count by 2
+  disposition: equivalent
+  reason: Only the zero test reads `error_count`, so any positive increment gives the same boolean.
+- mutant: atproto.publish.x_validate_documents__mutmut_62
+  mutation: Set the missing-built-page error count to `1` instead of incrementing it
+  disposition: equivalent
+  reason: Same as mutant 37; the count is only compared with zero.
+- mutant: atproto.publish.x_validate_documents__mutmut_64
+  mutation: Increment the missing-built-page error count by 2
+  disposition: equivalent
+  reason: Same as mutant 39; the count is only compared with zero.
+- mutant: atproto.publish.x_validate_documents__mutmut_74
+  mutation: Set the reverse-sweep error count to `1` instead of incrementing it
+  disposition: equivalent
+  reason: Same as mutant 37; the count is only compared with zero.
+- mutant: atproto.publish.x_validate_documents__mutmut_76
+  mutation: Increment the reverse-sweep error count by 2
+  disposition: equivalent
+  reason: Same as mutant 39; the count is only compared with zero.
+- mutant: atproto.publish.x_validate_documents__mutmut_89
+  mutation: Set the missing-well-known error count to `1` instead of incrementing it
+  disposition: equivalent
+  reason: Same as mutant 37; the count is only compared with zero.
+- mutant: atproto.publish.x_validate_documents__mutmut_91
+  mutation: Increment the missing-well-known error count by 2
+  disposition: equivalent
+  reason: Same as mutant 39; the count is only compared with zero.
+- mutant: atproto.publish.x_validate_documents__mutmut_92
+  mutation: Pass `encoding=None` to the well-known `read_text`
+  disposition: out_of_scope
+  reason: With `encoding=None` the codec is the locale default, which is UTF-8 on the CI runner and every
+    supported dev setup, so decoding is identical there. Only a non-UTF-8 locale differs, and then only
+    for file bytes that are invalid UTF-8 (a decode error becomes a mismatch); both still fail validation.
+- mutant: atproto.publish.x_validate_documents__mutmut_94
+  mutation: Change `"utf-8"` to `"UTF-8"` in the well-known `read_text`
+  disposition: equivalent
+  reason: Python codec names are case-insensitive, so both spellings select the same codec and decode
+    identically.
+- mutant: atproto.publish.x_validate_documents__mutmut_100
+  mutation: Set the content-mismatch error count to `1` instead of incrementing it
+  disposition: equivalent
+  reason: Same as mutant 37; the count is only compared with zero.
+- mutant: atproto.publish.x_validate_documents__mutmut_102
+  mutation: Increment the content-mismatch error count by 2
+  disposition: equivalent
+  reason: Same as mutant 39; the count is only compared with zero.
+- mutant: atproto.publish.x_init_publication__mutmut_14
+  mutation: Wrap the PDS-refusal instruction sentence in `XX` markers
+  disposition: out_of_scope
+  reason: The refusal still names the existing record URIs and `_config.yml`, both asserted by test_refuses_if_pds_already_has_publication,
+    and only the wrapper text changes.
+- mutant: atproto.publish.x_init_publication__mutmut_15
+  mutation: Lower-case `URI` in the PDS-refusal instruction sentence
+  disposition: out_of_scope
+  reason: The refusal still names the existing record URIs and `_config.yml`, both asserted by test_refuses_if_pds_already_has_publication,
+    and only the word case of the instruction changes.
+- mutant: atproto.publish.x__reverse_sweep_errors__mutmut_5
+  mutation: Wrap the vacuous-sweep message in `XX` markers
+  disposition: out_of_scope
+  reason: The section path `/blog/` stays in the message, and test_missing_section_is_reported_and_sweep_continues
+    asserts it.
+- mutant: atproto.publish.x__reverse_sweep_errors__mutmut_6
+  mutation: Upper-case the vacuous-sweep message
+  disposition: out_of_scope
+  reason: The section path `/blog/` stays in the message, and test_missing_section_is_reported_and_sweep_continues
+    asserts it.
+- mutant: atproto.publish.x__reverse_sweep_errors__mutmut_16
+  mutation: Pass `encoding=None` when reading a built page
+  disposition: out_of_scope
+  reason: 'Without an explicit encoding the locale codec is used, which is UTF-8 on the CI runner and
+    every supported dev setup, so the 600-character head is identical there. Only a non-UTF-8 locale differs:
+    multi-byte characters would push a refresh tag past the window and report a redirect stub as an orphan,
+    which fails loudly.'
+- mutant: atproto.publish.x__reverse_sweep_errors__mutmut_18
+  mutation: Drop `encoding=` when reading a built page
+  disposition: out_of_scope
+  reason: Same as mutant 16.
+- mutant: atproto.publish.x__reverse_sweep_errors__mutmut_21
+  mutation: Change `"utf-8"` to `"UTF-8"` in the page `open`
+  disposition: equivalent
+  reason: Python codec names are case-insensitive, so both spellings select the same codec and decode
+    identically.
+- mutant: atproto.publish.x__reverse_sweep_errors__mutmut_34
+  mutation: Wrap the `add it to SWEPT_SECTIONS` hint in `XX` markers
+  disposition: out_of_scope
+  reason: The page path stays in the message, and test_redirect_stub_does_not_end_the_sweep asserts it;
+    only the hint wording changes.
+- mutant: atproto.publish.x__reverse_sweep_errors__mutmut_35
+  mutation: Lower-case `SWEPT_SECTIONS` in the hint
+  disposition: out_of_scope
+  reason: The page path stays in the message, and test_redirect_stub_does_not_end_the_sweep asserts it;
+    only the hint wording changes.
+- mutant: atproto.publish.x__reverse_sweep_errors__mutmut_36
+  mutation: Upper-case the `add it to SWEPT_SECTIONS` hint
+  disposition: out_of_scope
+  reason: The page path stays in the message, and test_redirect_stub_does_not_end_the_sweep asserts it;
+    only the hint wording changes.
+- mutant: atproto.publish.x__reverse_sweep_errors__mutmut_37
+  mutation: Wrap `being missed` in `XX` markers
+  disposition: out_of_scope
+  reason: The page path stays in the message, and test_redirect_stub_does_not_end_the_sweep asserts it;
+    only the closing wording changes.
+- mutant: atproto.publish.x__reverse_sweep_errors__mutmut_38
+  mutation: Upper-case `being missed`
+  disposition: out_of_scope
+  reason: The page path stays in the message, and test_redirect_stub_does_not_end_the_sweep asserts it;
+    only the closing wording changes.
+- mutant: atproto.publish.x_parse_post__mutmut_11
+  mutation: Read the post with encoding=None
+  disposition: out_of_scope
+  reason: Without an explicit encoding the locale codec is used, which is UTF-8 on the CI runner and every
+    supported dev setup, so the file decodes identically there. Only a non-UTF-8 locale differs.
+- mutant: atproto.publish.x_parse_post__mutmut_13
+  mutation: Read the post with encoding="UTF-8"
+  disposition: equivalent
+  reason: Python codec names are case-insensitive, so UTF-8 and utf-8 select the same codec.
+- mutant: atproto.publish.x_parse_book__mutmut_3
+  mutation: Read the review with encoding=None
+  disposition: out_of_scope
+  reason: Without an explicit encoding the locale codec is used, which is UTF-8 on the CI runner and every
+    supported dev setup, so the file decodes identically there. Only a non-UTF-8 locale differs.
+- mutant: atproto.publish.x_parse_book__mutmut_5
+  mutation: Read the review with encoding="UTF-8"
+  disposition: equivalent
+  reason: Python codec names are case-insensitive, so UTF-8 and utf-8 select the same codec.
+- mutant: atproto.publish.x_parse_book__mutmut_17
+  mutation: Wrap the nested fragment of the nested-file error in XX markers
+  disposition: out_of_scope
+  reason: The message still names canonical_url and _books/, which test_nested_file_error_names_both_fixes
+    asserts; only the wrapper text changes.
+- mutant: atproto.publish.x_parse_book__mutmut_18
+  mutation: Upper-case the first line of the nested-file error
+  disposition: out_of_scope
+  reason: The second line keeps canonical_url and the third keeps _books/, and both are asserted; only
+    the capitalization of the first line changes.
+- mutant: atproto.publish.x_parse_book__mutmut_19
+  mutation: Wrap the re-read-reviews fragment of the nested-file error in XX markers
+  disposition: out_of_scope
+  reason: The message still names canonical_url and _books/, which are asserted; only the wrapper text
+    changes.
+- mutant: atproto.publish.x_parse_book__mutmut_20
+  mutation: Upper-case the re-read-reviews line of the nested-file error
+  disposition: out_of_scope
+  reason: The first line keeps canonical_url and the last fragment keeps _books/, and both are asserted;
+    only the capitalization of the middle line changes.
+- mutant: atproto.publish.x_parse_book__mutmut_21
+  mutation: Wrap the to-the-top-of-_books fragment in XX markers
+  disposition: out_of_scope
+  reason: The message still names canonical_url and _books/, which are asserted; only the wrapper text
+    changes.
+- mutant: atproto.publish.x_is_future__mutmut_3
+  mutation: Call datetime.now(None) instead of datetime.now(SITE_TZ)
+  disposition: equivalent
+  reason: now is read only through .timestamp(), and a naive now() yields the same epoch seconds as the
+    aware value, so the int comparison is identical.
+- mutant: atproto.publish.x__slugify__mutmut_2
+  mutation: Initialize pending_hyphen to None
+  disposition: equivalent
+  reason: None and False are both falsy, and pending_hyphen is read only in a truthiness test.
+- mutant: atproto.publish.x__slugify__mutmut_3
+  mutation: Initialize pending_hyphen to True
+  disposition: equivalent
+  reason: The guard pending_hyphen and out is false for the first alphanumeric character because out is
+    still empty, and that character resets the flag, so the initial value is never read as true.
+- mutant: atproto.publish.x__slugify__mutmut_9
+  mutation: Reset pending_hyphen to None after an alphanumeric character
+  disposition: equivalent
+  reason: None and False are both falsy, and pending_hyphen is read only in a truthiness test.
+- mutant: atproto.publish.x__collect_documents__mutmut_3
+  mutation: Call datetime.now(None) instead of datetime.now(SITE_TZ) for the default site_time
+  disposition: equivalent
+  reason: The default is consumed only by is_future, which compares int(instant.timestamp()), and datetime.now(None)
+    and datetime.now(SITE_TZ) name the same instant, so the epoch seconds match.
+- mutant: atproto.publish.x__collect_documents__mutmut_24
+  mutation: Wrap the empty-title message in XX markers
+  disposition: out_of_scope
+  reason: The message still contains the field name 'title', which the test asserts; only the XX markers
+    differ.
+- mutant: atproto.publish.x__collect_documents__mutmut_32
+  mutation: Wrap the publishedAt message in XX markers
+  disposition: out_of_scope
+  reason: The message still contains publishedAt, which the test asserts; only the XX markers differ.
+- mutant: atproto.publish.x__reject_permalink_overrides__mutmut_9
+  mutation: Wrap the first message literal in XX markers
+  disposition: out_of_scope
+  reason: The key names slug/permalink, the words not supported, and the 404 consequence remain and are
+    asserted; only the XX markers differ.
+- mutant: atproto.publish.x__reject_permalink_overrides__mutmut_10
+  mutation: Lower-case Jekyll in the first message literal
+  disposition: out_of_scope
+  reason: The key names, not supported, and the 404 consequence remain and are asserted; only the case
+    of the tool name differs.
+- mutant: atproto.publish.x__reject_permalink_overrides__mutmut_12
+  mutation: Wrap the second message literal in XX markers
+  disposition: out_of_scope
+  reason: The key names, not supported, and the 404 consequence remain and are asserted; only the XX markers
+    differ.
+- mutant: atproto.publish.x__reject_permalink_overrides__mutmut_13
+  mutation: Upper-case the second message literal
+  disposition: out_of_scope
+  reason: The key names, not supported, and the 404 consequence remain and are asserted; only the case
+    of the explanation differs.
+- mutant: atproto.publish.x__reject_permalink_overrides__mutmut_14
+  mutation: Wrap the third message literal in XX markers
+  disposition: out_of_scope
+  reason: The 404 consequence remains and is asserted, along with the key names and not supported; only
+    the XX markers differ.
+- mutant: atproto.publish.x__reject_permalink_overrides__mutmut_15
+  mutation: Lower-case AT in the third message literal
+  disposition: out_of_scope
+  reason: The 404 consequence remains and is asserted, along with the key names and not supported; only
+    the case of AT differs.
+- mutant: atproto.publish.x__reject_permalink_overrides__mutmut_16
+  mutation: Upper-case the third message literal
+  disposition: out_of_scope
+  reason: The 404 consequence remains and is asserted, along with the key names and not supported; only
+    the case of the text differs.
+- mutant: atproto.publish.x_load_config__mutmut_1
+  mutation: Remove the `encoding="utf-8"` argument from `config_path.open`
+  disposition: out_of_scope
+  reason: Without the argument, open() uses the locale encoding, so only a non-UTF-8 locale differs; the
+    config still parses to the same dict under UTF-8.
+- mutant: atproto.publish.x_load_config__mutmut_3
+  mutation: Change the encoding literal from `"utf-8"` to `"UTF-8"`
+  disposition: equivalent
+  reason: Python's codec lookup normalizes both spellings to the same UTF-8 codec, so the file decodes
+    identically.
+- mutant: atproto.publish.x_get_publication_uri__mutmut_3
+  mutation: Change the `.get` default from `""` to `None`
+  disposition: equivalent
+  reason: The trailing `or ""` maps a None default to the same empty string as the original default.
+- mutant: atproto.publish.x_get_publication_uri__mutmut_5
+  mutation: Remove the `.get` default argument for `publication_uri`
+  disposition: equivalent
+  reason: A missing default yields None, which the trailing `or ""` maps to the same empty string as the
+    original.
+- mutant: atproto.publish.x__get_env__mutmut_3
+  mutation: Change the `os.environ.get` default from `""` to `None`
+  disposition: equivalent
+  reason: The following `if not val` treats None and "" identically, so both raise the same PublishError
+    and the returned value is always a non-empty string.
+- mutant: atproto.publish.x__get_env__mutmut_5
+  mutation: Remove the `os.environ.get` default argument
+  disposition: equivalent
+  reason: A missing default returns None, which `if not val` treats exactly like the original empty-string
+    default.
+- mutant: atproto.publish.xǁAtprotoClientǁ_init_transport__mutmut_9
+  mutation: Set `self._http.trust_env` to None instead of False
+  disposition: equivalent
+  reason: Requests tests trust_env only for truthiness, and None is falsy like False.
+- mutant: atproto.publish.xǁAtprotoClientǁ_init_transport__mutmut_11
+  mutation: Set the initial `self.did` to None
+  disposition: equivalent
+  reason: _login overwrites did before a logged-in client is returned, and read_only sets did after _init_transport,
+    so the initial value is never read.
+- mutant: atproto.publish.xǁAtprotoClientǁ_init_transport__mutmut_12
+  mutation: Set the initial `self.did` to "XXXX"
+  disposition: equivalent
+  reason: _login or read_only overwrites did before any read, so the initial value is never observable.
+- mutant: atproto.publish.xǁAtprotoClientǁ_init_transport__mutmut_13
+  mutation: Set the initial `self._jwt` to None
+  disposition: equivalent
+  reason: _login sets _jwt before a logged-in client is returned, and _auth returns an empty dict without
+    reading it for read_only clients.
+- mutant: atproto.publish.xǁAtprotoClientǁ_init_transport__mutmut_14
+  mutation: Set the initial `self._jwt` to "XXXX"
+  disposition: equivalent
+  reason: _login sets _jwt before a logged-in client is returned, and _auth returns an empty dict without
+    reading it for read_only clients.
+- mutant: atproto.publish.xǁAtprotoClientǁ_init_transport__mutmut_15
+  mutation: Set the initial `self._read_only` to None
+  disposition: equivalent
+  reason: _read_only is read only for truthiness in _auth and _refuse_write, and None is falsy like False.
+- mutant: atproto.publish.xǁAtprotoClientǁ_retry_request__mutmut_11
+  mutation: Change the backoff to `2 * attempt` seconds
+  disposition: out_of_scope
+  reason: Only the sleep duration changes, while the retry count and the retried responses stay the same,
+    and no test asserts delays.
+- mutant: atproto.publish.xǁAtprotoClientǁ_retry_request__mutmut_12
+  mutation: Change the backoff to `3**attempt` seconds
+  disposition: out_of_scope
+  reason: Only the sleep duration changes, while the retry count and the retried responses stay the same,
+    and no test asserts delays.
+- mutant: atproto.publish.xǁAtprotoClientǁ_retry_request__mutmut_13
+  mutation: Set the unreachable AssertionError message to None
+  disposition: equivalent
+  reason: The line cannot run because READ_RETRIES is 3 and the last attempt always returns or raises.
+- mutant: atproto.publish.xǁAtprotoClientǁ_retry_request__mutmut_14
+  mutation: Change the unreachable AssertionError message to "XXunreachableXX"
+  disposition: equivalent
+  reason: The line cannot run because READ_RETRIES is 3 and the last attempt always returns or raises.
+- mutant: atproto.publish.xǁAtprotoClientǁ_retry_request__mutmut_15
+  mutation: Change the unreachable AssertionError message to "UNREACHABLE"
+  disposition: equivalent
+  reason: The line cannot run because READ_RETRIES is 3 and the last attempt always returns or raises.
+- mutant: atproto.publish.xǁAtprotoClientǁlist_records__mutmut_2
+  mutation: Set the initial `cursor` to an empty string instead of None
+  disposition: equivalent
+  reason: The first `if cursor:` treats an empty string and None alike, and cursor is reassigned from
+    each page before it is read again.

@@ -3,8 +3,10 @@
 import argparse
 import json
 import time
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, date, datetime, timedelta
+from datetime import time as dt_time
 from pathlib import Path
+from typing import ClassVar
 
 import pytest
 import requests
@@ -245,6 +247,26 @@ class TestExtractRkey:
 
     def test_handles_trailing_slash(self) -> None:
         assert _extract_rkey("at://did:plc:abc/site.standard.document/rkey1/") == "rkey1"
+
+    def test_keeps_trailing_x_in_rkey(self) -> None:
+        # Record keys may end in any allowed character; only slashes are stripped.
+        assert _extract_rkey("at://did:plc:abc/site.standard.document/rkeyX") == "rkeyX"
+
+    @pytest.mark.parametrize(
+        "uri",
+        [
+            "rkeyonly",
+            "",
+            "at://did:plc:abc/site.standard.document",
+            "at://did:plc:abc/site.standard.document/",
+            "at://did:plc:abc/site.standard.document/rkey/extra",
+            "https://did:plc:abc/site.standard.document/rkey",
+        ],
+    )
+    def test_uri_without_a_record_key_raises(self, uri: str) -> None:
+        # The rkey addresses writes and deletes; never guess one.
+        with pytest.raises(publish.PublishError, match="not an AT-URI with a record key"):
+            _extract_rkey(uri)
 
 
 class TestRecordsDiffer:
@@ -877,6 +899,10 @@ class TestEnvVars:
 # ---------------------------------------------------------------------------
 
 
+INIT_CONFIG = {"title": "T", "description": "D", "url": "https://example.com"}
+OTHER_PUB_URI = "at://did:plc:test123/site.standard.publication/rkeyother"
+
+
 class TestInitPublication:
     def test_creates_publication_record(self, tmp_path: Path) -> None:
         config = {"title": "T", "description": "D", "url": "https://example.com"}
@@ -891,6 +917,38 @@ class TestInitPublication:
         assert len(create_calls) == 1
         assert create_calls[0][2]["record"]["name"] == "T"
 
+    def test_create_body_targets_publication_collection(self, tmp_path: Path) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push({"records": []})
+        transport.push({"uri": PUB_URI})
+
+        init_publication(client, INIT_CONFIG)
+
+        create_calls = [c for c in transport.calls if "createRecord" in c[1]]
+        body = create_calls[0][2]
+        assert body["collection"] == "site.standard.publication"
+        assert body["repo"] == "did:plc:test123"
+        assert body["record"] == {
+            "$type": "site.standard.publication",
+            "url": "https://example.com",
+            "name": "T",
+            "description": "D",
+            "preferences": {"showInDiscover": True},
+        }
+
+    def test_lists_publication_collection_on_pds(self, tmp_path: Path) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push({"records": []})
+        transport.push({"uri": PUB_URI})
+
+        init_publication(client, INIT_CONFIG)
+
+        list_calls = [c for c in transport.calls if "listRecords" in c[1]]
+        assert len(list_calls) == 1
+        assert list_calls[0][2]["collection"] == "site.standard.publication"
+
     def test_refuses_if_pds_already_has_publication(self, tmp_path: Path) -> None:
         config = {"title": "T", "description": "D", "url": "https://example.com"}
         transport = MockTransport()
@@ -899,17 +957,55 @@ class TestInitPublication:
 
         with pytest.raises(publish.PublishError) as exc_info:
             init_publication(client, config)
-        assert "already exist on the PDS" in str(exc_info.value)
+        message = str(exc_info.value)
+        assert "already exist on the PDS" in message
+        assert PUB_URI in message
+        assert "_config.yml" in message
         create_calls = [c for c in transport.calls if "createRecord" in c[1]]
         assert len(create_calls) == 0
+
+    def test_refusal_lists_every_existing_publication(self, tmp_path: Path) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push(
+            {
+                "records": [
+                    {"uri": PUB_URI, "value": {}},
+                    {"uri": OTHER_PUB_URI, "value": {}},
+                ]
+            }
+        )
+
+        with pytest.raises(publish.PublishError) as exc_info:
+            init_publication(client, INIT_CONFIG)
+        assert f"{PUB_URI}, {OTHER_PUB_URI}" in str(exc_info.value)
 
     def test_refuses_if_uri_already_set(self, tmp_path: Path) -> None:
         config = {"standard_site": {"publication_uri": PUB_URI}}
         transport = MockTransport()
         client = make_client(transport)
 
-        with pytest.raises(publish.PublishError):
+        with pytest.raises(publish.PublishError) as exc_info:
             init_publication(client, config)
+        assert PUB_URI in str(exc_info.value)
+        assert "_config.yml" in str(exc_info.value)
+        assert not [c for c in transport.calls if "listRecords" in c[1]]
+        assert not [c for c in transport.calls if "createRecord" in c[1]]
+
+    def test_prints_created_uri_and_config_instruction(
+        self, tmp_path: Path, capsys: pytest.CaptureFixture[str]
+    ) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push({"records": []})
+        transport.push({"uri": PUB_URI})
+
+        init_publication(client, INIT_CONFIG)
+
+        assert capsys.readouterr().out.splitlines() == [
+            f"Publication record created: {PUB_URI}",
+            "Add this URI to _config.yml → standard_site.publication_uri and commit.",
+        ]
 
 
 # ---------------------------------------------------------------------------
@@ -1337,6 +1433,18 @@ class TestParseBook:
         assert rec is not None
         assert "description" not in rec
 
+    def test_nested_file_error_names_both_fixes(self, tmp_path: Path) -> None:
+        # The error must name the fix (add canonical_url) and the alternative
+        # (move the file to the top of _books/).
+        (tmp_path / "sub").mkdir()
+        f = tmp_path / "sub" / "review.md"
+        f.write_text("---\ntitle: Review\ndate: 2025-01-01\n---\n")
+        with pytest.raises(ValueError) as exc:
+            parse_book(f, tmp_path)
+        message = str(exc.value)
+        assert "canonical_url" in message
+        assert "_books/" in message
+
 
 class TestValidateBooks:
     def _dirs(self, tmp_path: Path) -> tuple[Path, Path]:
@@ -1712,6 +1820,56 @@ class TestReverseSweep:
         assert sorted(chars_read) == index_files
         assert all(count <= 600 for count in chars_read.values()), chars_read
 
+    def test_missing_section_is_reported_and_sweep_continues(self, tmp_path: Path) -> None:
+        # /blog/ is missing and sorts first; the sweep must still check
+        # /books/ and report its orphan rather than stop at the missing section.
+        site = tmp_path / "_site"
+        (site / "books" / "orphan-page").mkdir(parents=True)
+        (site / "books" / "orphan-page" / "index.html").write_text("<!DOCTYPE html>")
+        errors = publish._reverse_sweep_errors(site, set())
+        assert len(errors) == 2
+        assert "/blog/" in errors[0]
+        assert "/books/orphan-page/" in errors[1]
+
+    def test_listing_page_does_not_end_the_sweep(self, tmp_path: Path) -> None:
+        # "by-author" is a skipped listing page and sorts before "orphan-page";
+        # skipping it must not stop the sweep before the orphan is checked.
+        site = self._site(
+            tmp_path,
+            {"/books/by-author/": "<!DOCTYPE html>", "/books/orphan-page/": "<!DOCTYPE html>"},
+        )
+        errors = publish._reverse_sweep_errors(site, set())
+        assert len(errors) == 1
+        assert "/books/orphan-page/" in errors[0]
+
+    def test_redirect_stub_does_not_end_the_sweep(self, tmp_path: Path) -> None:
+        # "old-slug" sorts before "orphan-page", so the stub is read first;
+        # skipping it must not stop the sweep before the orphan is checked.
+        stub = '<!DOCTYPE html><meta http-equiv="refresh" content="0; url=/blog/new/">'
+        site = self._site(
+            tmp_path,
+            {"/blog/old-slug/": stub, "/blog/orphan-page/": "<!DOCTYPE html>"},
+        )
+        errors = publish._reverse_sweep_errors(site, set())
+        assert len(errors) == 1
+        assert "/blog/orphan-page/" in errors[0]
+
+    def test_non_utf8_bytes_do_not_stop_the_sweep(self, tmp_path: Path) -> None:
+        # Pages are read as UTF-8 with errors="replace": a stray byte must
+        # neither raise nor hide a redirect stub's refresh tag.
+        site = tmp_path / "_site"
+        (site / "books").mkdir(parents=True)
+        pages = {
+            "old-slug": b'<!DOCTYPE html><meta http-equiv="refresh" content="0; url=/blog/new/">\xff',
+            "orphan-page": b"<!DOCTYPE html><p>caf\xe9</p>",
+        }
+        for name, content in pages.items():
+            (site / "blog" / name).mkdir(parents=True)
+            (site / "blog" / name / "index.html").write_bytes(content)
+        errors = publish._reverse_sweep_errors(site, set())
+        assert len(errors) == 1
+        assert "/blog/orphan-page/" in errors[0]
+
 
 class TestDeleteOrphans:
     def _dirs(self, tmp_path: Path) -> tuple[Path, Path]:
@@ -1826,6 +1984,197 @@ class TestDeleteOrphansBlastRadius:
         assert "refusing" in str(exc_info.value)
         delete_calls = [c for c in transport.calls if "deleteRecord" in c[1]]
         assert len(delete_calls) == 0
+
+
+def _orphan_dirs(tmp_path: Path) -> tuple[Path, Path]:
+    posts = tmp_path / "posts"
+    books = tmp_path / "books"
+    posts.mkdir()
+    books.mkdir()
+    return posts, books
+
+
+def _calls(transport: MockTransport, method: str, endpoint: str) -> list[tuple]:
+    return [c for c in transport.calls if c[0] == method and endpoint in c[1]]
+
+
+ORPHAN_PAGE = {"records": [{"uri": DOC_URI, "value": {"site": PUB_URI, "path": "/blog/gone/"}}]}
+
+
+class TestDeleteOrphansGuards:
+    """Refusals, scoping, and the confirmation default of delete_orphans."""
+
+    def test_confirmed_defaults_to_false(self, tmp_path: Path, capsys) -> None:
+        posts, books = _orphan_dirs(tmp_path)
+        (posts / "2025-01-01-keep.md").write_text("---\ntitle: Keep\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push(ORPHAN_PAGE)
+
+        publish.delete_orphans(client, posts, books, PUB_URI)
+
+        assert _calls(transport, "POST", "deleteRecord") == []
+        assert "Re-run with --yes" in capsys.readouterr().out
+
+    @pytest.mark.parametrize("missing", ["posts", "books"])
+    def test_missing_input_dir_refused_before_any_request(
+        self, tmp_path: Path, capsys, missing: str
+    ) -> None:
+        posts, books = _orphan_dirs(tmp_path)
+        absent = tmp_path / f"no-{missing}"
+        if missing == "posts":
+            posts = absent
+        else:
+            books = absent
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push(ORPHAN_PAGE)
+
+        with pytest.raises(publish.PublishError, match=r"(?i)missing input directory"):
+            publish.delete_orphans(client, posts, books, PUB_URI, confirmed=True)
+
+        assert str(absent) in capsys.readouterr().err
+        assert _calls(transport, "POST", "deleteRecord") == []
+        assert [c for c in transport.calls if "com.atproto.repo" in c[1]] == []
+
+    def test_empty_publication_uri_refused(self, tmp_path: Path) -> None:
+        posts, books = _orphan_dirs(tmp_path)
+        (posts / "2025-01-01-keep.md").write_text("---\ntitle: Keep\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+
+        with pytest.raises(publish.PublishError, match="publication_uri"):
+            publish.delete_orphans(client, posts, books, "", confirmed=True)
+
+        assert [c for c in transport.calls if "com.atproto.repo" in c[1]] == []
+
+    def test_empty_local_corpus_refusal_names_flags(self, tmp_path: Path) -> None:
+        posts, books = _orphan_dirs(tmp_path)
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push(ORPHAN_PAGE)
+
+        with pytest.raises(publish.PublishError) as exc_info:
+            publish.delete_orphans(client, posts, books, PUB_URI, confirmed=True)
+
+        message = str(exc_info.value)
+        assert "no local documents found" in message.lower()
+        assert "--posts-dir/--books-dir" in message
+        assert _calls(transport, "POST", "deleteRecord") == []
+
+    def test_book_review_counts_as_local_document(self, tmp_path: Path, capsys) -> None:
+        posts, books = _orphan_dirs(tmp_path)
+        (posts / "2025-01-01-keep.md").write_text("---\ntitle: Keep\n---\n")
+        (books / "moby-dick.md").write_text("---\ntitle: Moby Dick\ndate: 2025-01-01\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push(
+            {"records": [{"uri": DOC_URI, "value": {"site": PUB_URI, "path": "/books/moby-dick/"}}]}
+        )
+
+        publish.delete_orphans(client, posts, books, PUB_URI, confirmed=True)
+
+        assert _calls(transport, "POST", "deleteRecord") == []
+        assert "No orphan records found" in capsys.readouterr().out
+
+    def test_unreadable_local_document_aborts_before_delete(self, tmp_path: Path) -> None:
+        posts, books = _orphan_dirs(tmp_path)
+        (posts / "2025-01-01-untitled.md").write_text("---\ntitle: '  '\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push(ORPHAN_PAGE)
+
+        with pytest.raises(publish.PublishError, match=r"2025-01-01-untitled\.md"):
+            publish.delete_orphans(client, posts, books, PUB_URI, confirmed=True)
+
+        assert _calls(transport, "POST", "deleteRecord") == []
+
+    def test_foreign_publication_record_does_not_end_scan(self, tmp_path: Path) -> None:
+        posts, books = _orphan_dirs(tmp_path)
+        (posts / "2025-01-01-keep.md").write_text("---\ntitle: Keep\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        other = {"site": "at://did:plc:other/site.standard.publication/x", "path": "/blog/x/"}
+        ours = {"site": PUB_URI, "path": "/blog/gone/"}
+        transport.push(
+            {
+                "records": [
+                    {"uri": DOC_URI, "value": other},
+                    {"uri": DOC_URI.replace("rkeydoc1", "rkeydoc2"), "value": ours},
+                ]
+            }
+        )
+        transport.push({})  # deleteRecord response
+
+        publish.delete_orphans(client, posts, books, PUB_URI, confirmed=True)
+
+        delete_calls = _calls(transport, "POST", "deleteRecord")
+        assert [c[2]["rkey"] for c in delete_calls] == ["rkeydoc2"]
+
+
+class TestDeleteOrphansOutput:
+    """What delete_orphans sends to the PDS and prints for each orphan."""
+
+    def test_lists_document_collection(self, tmp_path: Path) -> None:
+        posts, books = _orphan_dirs(tmp_path)
+        (posts / "2025-01-01-keep.md").write_text("---\ntitle: Keep\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push({"records": []})
+
+        publish.delete_orphans(client, posts, books, PUB_URI, confirmed=False)
+
+        (list_call,) = _calls(transport, "GET", "listRecords")
+        assert list_call[2]["collection"] == "site.standard.document"
+
+    def test_dry_run_prints_orphan_path_and_rkey(self, tmp_path: Path, capsys) -> None:
+        posts, books = _orphan_dirs(tmp_path)
+        (posts / "2025-01-01-keep.md").write_text("---\ntitle: Keep\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push(ORPHAN_PAGE)
+
+        publish.delete_orphans(client, posts, books, PUB_URI, confirmed=False)
+
+        out = capsys.readouterr().out
+        assert "/blog/gone/" in out
+        assert "rkeydoc1" in out
+        assert _calls(transport, "POST", "deleteRecord") == []
+
+    def test_deletion_sends_collection_and_prints_path_and_rkey(
+        self, tmp_path: Path, capsys
+    ) -> None:
+        posts, books = _orphan_dirs(tmp_path)
+        (posts / "2025-01-01-keep.md").write_text("---\ntitle: Keep\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push(ORPHAN_PAGE)
+        transport.push({})  # deleteRecord response
+
+        publish.delete_orphans(client, posts, books, PUB_URI, confirmed=True)
+
+        (delete_call,) = _calls(transport, "POST", "deleteRecord")
+        assert delete_call[2] == {
+            "repo": client.did,
+            "collection": "site.standard.document",
+            "rkey": "rkeydoc1",
+        }
+        out = capsys.readouterr().out
+        assert "/blog/gone/" in out
+        assert "rkeydoc1" in out
+
+    def test_record_without_path_printed_as_placeholder(self, tmp_path: Path, capsys) -> None:
+        posts, books = _orphan_dirs(tmp_path)
+        (posts / "2025-01-01-keep.md").write_text("---\ntitle: Keep\n---\n")
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push({"records": [{"uri": DOC_URI, "value": {"site": PUB_URI}}]})
+
+        publish.delete_orphans(client, posts, books, PUB_URI, confirmed=False)
+
+        out = capsys.readouterr().out
+        assert "<no path>" in out
+        assert "rkeydoc1" in out
 
 
 class TestSourceFileFilter:
@@ -1971,6 +2320,14 @@ class TestFutureDatedPosts:
     def test_site_time_requires_an_offset_timestamp(self, text: str) -> None:
         with pytest.raises(argparse.ArgumentTypeError):
             publish.parse_site_time(text)
+
+    @pytest.mark.parametrize("text", ["2026-11-14T23:58:00", "tomorrow"])
+    def test_site_time_error_quotes_the_rejected_value(self, text: str) -> None:
+        # The argparse message is the only place the operator sees which
+        # --site-time value was rejected.
+        with pytest.raises(argparse.ArgumentTypeError) as exc:
+            publish.parse_site_time(text)
+        assert repr(text) in str(exc.value)
 
 
 class TestPublicationVerification:
@@ -2158,6 +2515,206 @@ class TestRetries:
         assert client.list_records("site.standard.document") == []
 
 
+class RecordingTransport(MockTransport):
+    """MockTransport that also keeps the method, URL, params, headers and timeout of each call."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.requests: list[dict] = []
+
+    def post(self, url, json=None, headers=None, timeout=None):
+        self.requests.append(
+            {
+                "method": "POST",
+                "url": url,
+                "json": json,
+                "params": None,
+                "headers": headers,
+                "timeout": timeout,
+            }
+        )
+        return super().post(url, json=json, headers=headers, timeout=timeout)
+
+    def get(self, url, params=None, headers=None, timeout=None):
+        self.requests.append(
+            {
+                "method": "GET",
+                "url": url,
+                "json": None,
+                "params": params,
+                "headers": headers,
+                "timeout": timeout,
+            }
+        )
+        return super().get(url, params=params, headers=headers, timeout=timeout)
+
+
+class TestClientRequests:
+    """Pins the URL, params, body, headers and retry count of each client call."""
+
+    XRPC = "https://bsky.social/xrpc/"
+    DID = LOGIN_RESPONSE["did"]
+
+    @staticmethod
+    def _logged_in(transport: RecordingTransport) -> AtprotoClient:
+        transport.push(LOGIN_RESPONSE)
+        return AtprotoClient(
+            "https://bsky.social", "handle.bsky.social", "hunter2", _session=transport
+        )
+
+    @staticmethod
+    def _listings(transport: RecordingTransport) -> list[dict]:
+        return [r for r in transport.requests if r["url"].endswith("listRecords")]
+
+    @pytest.fixture
+    def checked_sleep(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        # Retries wait for real; sleep 0 instead. float() rejects None the way
+        # time.sleep does, so a retry that sleeps for None fails here.
+        real_sleep = time.sleep
+
+        def sleep_zero(seconds):
+            real_sleep(0 * float(seconds))
+
+        monkeypatch.setattr(publish.time, "sleep", sleep_zero)
+
+    def test_login_body_carries_handle_and_password(self) -> None:
+        transport = RecordingTransport()
+        transport.push(LOGIN_RESPONSE)
+        AtprotoClient("https://bsky.social", "handle.bsky.social", "hunter2", _session=transport)
+        login = transport.requests[0]
+        assert login["url"] == f"{self.XRPC}com.atproto.server.createSession"
+        assert login["json"] == {"identifier": "handle.bsky.social", "password": "hunter2"}
+
+    @pytest.mark.parametrize(
+        ("pds_url", "base"),
+        [
+            ("https://bsky.social/", "https://bsky.social"),
+            ("https://pds.example/proxyX//", "https://pds.example/proxyX"),
+        ],
+    )
+    def test_pds_url_trailing_slashes_stripped(self, pds_url: str, base: str) -> None:
+        transport = RecordingTransport()
+        transport.push(LOGIN_RESPONSE)
+        client = AtprotoClient(pds_url, "h", "p", _session=transport)
+        transport.push({"records": []})
+        client.list_records("site.standard.document")
+        assert transport.requests[0]["url"] == f"{base}/xrpc/com.atproto.server.createSession"
+        assert transport.requests[1]["url"] == f"{base}/xrpc/com.atproto.repo.listRecords"
+
+    def test_list_records_params_on_each_page(self) -> None:
+        transport = RecordingTransport()
+        client = self._logged_in(transport)
+        transport.push({"records": [], "cursor": "c1"})
+        transport.push({"records": []})
+        client.list_records("site.standard.document")
+        first, second = transport.requests[1], transport.requests[2]
+        assert first["params"] == {
+            "repo": self.DID,
+            "collection": "site.standard.document",
+            "limit": 100,
+        }
+        assert second["params"] == {
+            "repo": self.DID,
+            "collection": "site.standard.document",
+            "limit": 100,
+            "cursor": "c1",
+        }
+
+    def test_list_records_page_without_records_key_is_empty(self) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push({})
+        assert client.list_records("site.standard.document") == []
+
+    def test_get_record_params_and_timeout(self) -> None:
+        transport = RecordingTransport()
+        client = self._logged_in(transport)
+        transport.push({"uri": PUB_URI, "cid": "pubcid1", "value": {}})
+        client.get_record(self.DID, "site.standard.publication", "rkeypub")
+        req = transport.requests[-1]
+        assert req["url"] == f"{self.XRPC}com.atproto.repo.getRecord"
+        assert req["params"] == {
+            "repo": self.DID,
+            "collection": "site.standard.publication",
+            "rkey": "rkeypub",
+        }
+        assert req["timeout"] == publish.HTTP_TIMEOUT
+
+    def test_get_record_not_found_returns_none(self) -> None:
+        transport = RecordingTransport()
+        client = self._logged_in(transport)
+        transport.push({"error": "RecordNotFound"}, status_code=400)
+        assert client.get_record(self.DID, "site.standard.publication", "gone") is None
+
+    def test_get_record_other_400_raises(self) -> None:
+        transport = RecordingTransport()
+        client = self._logged_in(transport)
+        transport.push({"error": "InvalidRequest"}, status_code=400)
+        with pytest.raises(publish.PublishError, match="PDS error 400"):
+            client.get_record(self.DID, "site.standard.publication", "rkey1")
+
+    def test_put_record_body_auth_and_swap(self) -> None:
+        transport = RecordingTransport()
+        client = self._logged_in(transport)
+        transport.push({})
+        client.put_record("site.standard.document", "rkey1", {"title": "A"}, swap_cid="cid1")
+        req = transport.requests[-1]
+        assert req["url"] == f"{self.XRPC}com.atproto.repo.putRecord"
+        assert req["json"] == {
+            "repo": self.DID,
+            "collection": "site.standard.document",
+            "rkey": "rkey1",
+            "record": {"title": "A"},
+            "swapRecord": "cid1",
+        }
+        assert req["headers"] == {"Authorization": "Bearer token-abc"}
+        assert req["timeout"] == publish.HTTP_TIMEOUT
+
+    def test_put_record_without_swap_omits_swap_record(self) -> None:
+        transport = RecordingTransport()
+        client = self._logged_in(transport)
+        transport.push({})
+        client.put_record("site.standard.document", "rkey1", {"title": "A"})
+        assert transport.requests[-1]["json"] == {
+            "repo": self.DID,
+            "collection": "site.standard.document",
+            "rkey": "rkey1",
+            "record": {"title": "A"},
+        }
+
+    def test_delete_record_body_and_bearer_token(self) -> None:
+        transport = RecordingTransport()
+        client = self._logged_in(transport)
+        transport.push({})
+        client.delete_record("site.standard.document", "rkey1")
+        req = transport.requests[-1]
+        assert req["url"] == f"{self.XRPC}com.atproto.repo.deleteRecord"
+        assert req["json"] == {
+            "repo": self.DID,
+            "collection": "site.standard.document",
+            "rkey": "rkey1",
+        }
+        assert req["headers"] == {"Authorization": "Bearer token-abc"}
+
+    def test_read_retries_server_error_then_succeeds(self, checked_sleep) -> None:
+        transport = RecordingTransport()
+        client = self._logged_in(transport)
+        transport.push({"error": "Boom"}, status_code=500)
+        transport.push({"records": [{"uri": DOC_URI, "value": {}}]})
+        records = client.list_records("site.standard.document")
+        assert [r["uri"] for r in records] == [DOC_URI]
+        assert len(self._listings(transport)) == 2
+
+    def test_read_gives_up_after_three_server_errors(self, checked_sleep) -> None:
+        transport = RecordingTransport()
+        client = self._logged_in(transport)
+        for _ in range(3):
+            transport.push({"error": "Boom"}, status_code=500)
+        with pytest.raises(publish.PublishError, match="PDS error 500"):
+            client.list_records("site.standard.document")
+        assert len(self._listings(transport)) == 3
+
+
 class TestOrphanAnnotations:
     def test_github_actions_warning_annotation(
         self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys
@@ -2301,6 +2858,94 @@ class TestWellKnownInSite:
     def test_no_expected_uri_skips_check(self, tmp_path: Path) -> None:
         posts, site = self._site(tmp_path)
         assert validate_documents(posts, site_dir=site) is True
+
+
+# ---------------------------------------------------------------------------
+# Validate failure accounting, input-dir paths, and exact built paths
+# ---------------------------------------------------------------------------
+
+
+class TestValidateFailureAccounting:
+    """Every failure category fails the run, even when another category
+    would cancel it out in a shared error count."""
+
+    def test_message_error_and_missing_page_both_fail(self, tmp_path: Path, capsys) -> None:
+        posts = tmp_path / "posts"
+        posts.mkdir()
+        (posts / "2025-01-01-untitled.md").write_text("---\ntitle: ''\n---\n")
+        site = tmp_path / "_site"
+        (site / "blog").mkdir(parents=True)
+        (site / "books").mkdir()
+        assert validate_documents(posts, site_dir=site) is False
+        err = capsys.readouterr().err
+        assert "2025-01-01-untitled.md" in err
+        assert "not found in built site" in err
+
+    @pytest.mark.parametrize("wk_content", [None, "at://did:plc:wrong/x/y"])
+    def test_well_known_failure_and_orphan_page_both_fail(
+        self, tmp_path: Path, capsys, wk_content: str | None
+    ) -> None:
+        posts = tmp_path / "posts"
+        posts.mkdir()
+        site = tmp_path / "_site"
+        (site / "blog" / "orphan-page").mkdir(parents=True)
+        (site / "blog" / "orphan-page" / "index.html").write_text("<!DOCTYPE html>")
+        (site / "books").mkdir()
+        if wk_content is not None:
+            wk = site / ".well-known"
+            wk.mkdir()
+            (wk / "site.standard.publication").write_text(wk_content)
+        assert validate_documents(posts, site_dir=site, expected_publication_uri=PUB_URI) is False
+        err = capsys.readouterr().err
+        assert "has no AT record" in err
+        assert "site.standard.publication" in err
+
+    def test_error_after_unparseable_file_is_still_reported(self, tmp_path: Path, capsys) -> None:
+        posts = tmp_path / "posts"
+        posts.mkdir()
+        (posts / "2025-01-01-broken.md").write_text("---\ntitle: [unclosed\n---\n")
+        (posts / "2025-01-02-untitled.md").write_text("---\ntitle: ''\n---\n")
+        assert validate_documents(posts) is False
+        err = capsys.readouterr().err
+        assert "2025-01-01-broken.md" in err
+        assert "2025-01-02-untitled.md" in err
+
+
+class TestValidateInputDirPaths:
+    def test_missing_posts_dir_path_is_printed(self, tmp_path: Path, capsys) -> None:
+        missing = tmp_path / "no-posts"
+        assert validate_documents(missing) is False
+        assert str(missing) in capsys.readouterr().err
+
+    def test_missing_books_dir_path_is_printed(self, tmp_path: Path, capsys) -> None:
+        posts = tmp_path / "posts"
+        posts.mkdir()
+        missing = tmp_path / "no-books"
+        assert validate_documents(posts, books_dir=missing) is False
+        assert str(missing) in capsys.readouterr().err
+
+    def test_missing_site_dir_path_is_printed(self, tmp_path: Path, capsys) -> None:
+        posts = tmp_path / "posts"
+        posts.mkdir()
+        missing = tmp_path / "no-site"
+        assert validate_documents(posts, site_dir=missing) is False
+        assert str(missing) in capsys.readouterr().err
+
+
+class TestBuiltPathExactness:
+    def test_book_path_ending_in_uppercase_x_is_found(self, tmp_path: Path) -> None:
+        # The built path is the record path verbatim; stripping characters
+        # beyond slashes would look for /books/Ends_/ and miss the page.
+        posts = tmp_path / "posts"
+        books = tmp_path / "books"
+        posts.mkdir()
+        books.mkdir()
+        (books / "Ends_X.md").write_text("---\ntitle: Book\ndate: 2025-01-01\n---\n")
+        site = tmp_path / "_site"
+        (site / "blog").mkdir(parents=True)
+        (site / "books" / "Ends_X").mkdir(parents=True)
+        (site / "books" / "Ends_X" / "index.html").write_text("<!DOCTYPE html>")
+        assert validate_documents(posts, books_dir=books, site_dir=site) is True
 
 
 # ---------------------------------------------------------------------------
@@ -2521,6 +3166,68 @@ class TestDidFromPublicationUri:
         with pytest.raises(publish.PublishError):
             publish.did_from_publication_uri(uri)
 
+    def test_error_names_the_rejected_uri(self) -> None:
+        uri = "at://alexgude.com/site.standard.publication/3mqrj32i3mm2t"
+        with pytest.raises(publish.PublishError) as exc_info:
+            publish.did_from_publication_uri(uri)
+        assert "does not name a DID" in str(exc_info.value)
+        assert uri in str(exc_info.value)
+
+
+class TestDesiredPublicationRecord:
+    def test_builds_record_from_config(self) -> None:
+        assert publish.desired_publication_record(TEST_CONFIG) == {
+            "$type": "site.standard.publication",
+            "url": "https://example.com",
+            "name": "Test Site",
+            "description": "Test description",
+            "preferences": {"showInDiscover": True},
+        }
+
+    def test_strips_trailing_slashes_from_url(self) -> None:
+        config = {**TEST_CONFIG, "url": "https://example.com//"}
+        assert publish.desired_publication_record(config)["url"] == "https://example.com"
+
+    def test_keeps_trailing_x_in_url(self) -> None:
+        # Only slashes are stripped from the URL, never other characters.
+        config = {**TEST_CONFIG, "url": "https://example.com/X"}
+        assert publish.desired_publication_record(config)["url"] == "https://example.com/X"
+
+    @pytest.mark.parametrize("key", ["title", "description", "url"])
+    def test_missing_key_error_names_the_key(self, key: str) -> None:
+        config = {k: v for k, v in TEST_CONFIG.items() if k != key}
+        with pytest.raises(publish.PublishError) as exc_info:
+            publish.desired_publication_record(config)
+        assert str(exc_info.value) == f"_config.yml is missing {key!r}"
+
+
+class TestVerifyPublication:
+    def test_queries_repo_collection_and_rkey_from_uri(self) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+
+        remote = publish._verify_publication(client, PUB_URI)
+
+        assert remote == PUB_RECORD_RESPONSE
+        queries = [c[2] for c in _calls(transport, "GET", "getRecord")]
+        assert queries == [
+            {
+                "repo": "did:plc:test123",
+                "collection": "site.standard.publication",
+                "rkey": "rkeypub",
+            }
+        ]
+
+    def test_malformed_uri_error_names_the_uri(self) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+        bad = "at://did:plc:test123/site.standard.publication/a/b"
+
+        with pytest.raises(publish.PublishError) as exc_info:
+            publish._verify_publication(client, bad)
+        assert "is malformed" in str(exc_info.value)
+        assert bad in str(exc_info.value)
+
 
 # ---------------------------------------------------------------------------
 # CI wiring: branch dry run and main-only publish
@@ -2599,3 +3306,362 @@ class TestWorkflowDryRun:
         commands = [s["run"] for s in steps if "atproto/publish.py" in s.get("run", "")]
         assert len(commands) == 3
         assert all(flag in command for command in commands)
+
+
+# ---------------------------------------------------------------------------
+# CLI dispatch: argument parsing, client choice, handler arguments, exit codes
+# ---------------------------------------------------------------------------
+
+
+class _HandlerRecorder:
+    """Stands in for a handler and records the exact arguments it receives."""
+
+    def __init__(self, returns: object = None) -> None:
+        self.returns = returns
+        self.calls: list[tuple[tuple, dict]] = []
+
+    def __call__(self, *args, **kwargs):
+        self.calls.append((args, kwargs))
+        return self.returns
+
+
+class _FakeClient:
+    """Stands in for AtprotoClient; records how it was constructed."""
+
+    made: ClassVar[list["_FakeClient"]] = []
+
+    def __init__(self, *args) -> None:
+        self.args = args
+        self.mode = "credentialed"
+        _FakeClient.made.append(self)
+
+    @classmethod
+    def read_only(cls, *args) -> "_FakeClient":
+        client = cls(*args)
+        client.mode = "read-only"
+        return client
+
+
+@pytest.fixture
+def dispatch(monkeypatch: pytest.MonkeyPatch) -> dict[str, _HandlerRecorder]:
+    recorders = {
+        "sync_documents": _HandlerRecorder(),
+        "validate_documents": _HandlerRecorder(returns=True),
+        "delete_orphans": _HandlerRecorder(),
+        "init_publication": _HandlerRecorder(),
+    }
+    for name, recorder in recorders.items():
+        monkeypatch.setattr(publish, name, recorder)
+    monkeypatch.setattr(publish, "AtprotoClient", _FakeClient)
+    monkeypatch.setattr(publish, "load_config", lambda: TEST_CONFIG)
+    monkeypatch.setenv("BSKY_HANDLE", "handle.example")
+    monkeypatch.setenv("BSKY_APP_PASSWORD", "app-password")
+    _FakeClient.made = []
+    return recorders
+
+
+def _exit_code_of(argv: list[str]) -> object:
+    with pytest.raises(SystemExit) as exc:
+        publish.main(argv)
+    return exc.value.code
+
+
+def _publish_flags(tmp_path: Path) -> list[str]:
+    return [
+        "--posts-dir",
+        str(tmp_path / "posts"),
+        "--books-dir",
+        str(tmp_path / "books"),
+        "--data-out",
+        str(tmp_path / "out.json"),
+    ]
+
+
+class TestDispatchSubcommands:
+    def test_subcommand_is_required(self, dispatch: dict[str, _HandlerRecorder]) -> None:
+        assert _exit_code_of([]) == 2
+        assert dispatch["sync_documents"].calls == []
+
+    def test_unknown_subcommand_is_rejected(self, dispatch: dict[str, _HandlerRecorder]) -> None:
+        assert _exit_code_of(["publsh"]) == 2
+
+    def test_publish_passes_every_argument_to_sync_documents(
+        self, tmp_path: Path, dispatch: dict[str, _HandlerRecorder]
+    ) -> None:
+        argv = ["publish", *_publish_flags(tmp_path), "--site-time", "2026-01-02T03:04:05+00:00"]
+
+        publish.main(argv)
+
+        ((args, kwargs),) = dispatch["sync_documents"].calls
+        client, posts, data_out, publication_uri, config = args
+        assert client.args == (publish.PDS_URL, "handle.example", "app-password")
+        assert client.mode == "credentialed"
+        assert posts == tmp_path / "posts"
+        assert data_out == tmp_path / "out.json"
+        assert publication_uri == PUB_URI
+        assert config is TEST_CONFIG
+        assert kwargs == {
+            "books_dir": tmp_path / "books",
+            "dry_run": False,
+            "site_time": datetime.fromisoformat("2026-01-02T03:04:05+00:00"),
+        }
+
+    def test_publish_dry_run_uses_read_only_client_and_skips_credentials(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, dispatch: dict[str, _HandlerRecorder]
+    ) -> None:
+        monkeypatch.delenv("BSKY_HANDLE")
+        monkeypatch.delenv("BSKY_APP_PASSWORD")
+
+        publish.main(["publish", *_publish_flags(tmp_path), "--dry-run"])
+
+        ((args, kwargs),) = dispatch["sync_documents"].calls
+        client = args[0]
+        assert client.mode == "read-only"
+        assert client.args == (publish.PDS_URL, "did:plc:test123")
+        assert len(_FakeClient.made) == 1
+        assert kwargs["dry_run"] is True
+        assert kwargs["site_time"] is None
+
+    def test_publish_missing_path_is_a_parse_error(
+        self, tmp_path: Path, dispatch: dict[str, _HandlerRecorder]
+    ) -> None:
+        flags = _publish_flags(tmp_path)
+        for flag in ("--posts-dir", "--books-dir", "--data-out"):
+            index = flags.index(flag)
+            argv = ["publish", *flags[:index], *flags[index + 2 :]]
+            assert _exit_code_of(argv) == 2, flag
+        assert dispatch["sync_documents"].calls == []
+
+    def test_publish_rejects_unparseable_site_time(
+        self, tmp_path: Path, dispatch: dict[str, _HandlerRecorder]
+    ) -> None:
+        argv = ["publish", *_publish_flags(tmp_path), "--site-time", "yesterday"]
+        assert _exit_code_of(argv) == 2
+        assert dispatch["sync_documents"].calls == []
+
+    def test_validate_passes_every_argument_to_validate_documents(
+        self, tmp_path: Path, dispatch: dict[str, _HandlerRecorder]
+    ) -> None:
+        argv = [
+            "validate",
+            "--posts-dir",
+            str(tmp_path / "posts"),
+            "--books-dir",
+            str(tmp_path / "books"),
+            "--site-dir",
+            str(tmp_path / "site"),
+            "--site-time",
+            "2026-01-02T03:04:05+00:00",
+        ]
+
+        publish.main(argv)
+
+        ((args, kwargs),) = dispatch["validate_documents"].calls
+        assert args == (tmp_path / "posts",)
+        assert kwargs == {
+            "books_dir": tmp_path / "books",
+            "site_dir": tmp_path / "site",
+            "expected_publication_uri": PUB_URI,
+            "site_time": datetime.fromisoformat("2026-01-02T03:04:05+00:00"),
+        }
+        assert dispatch["sync_documents"].calls == []
+        assert _FakeClient.made == []
+
+    def test_validate_exits_one_on_failure_and_zero_on_success(
+        self, tmp_path: Path, dispatch: dict[str, _HandlerRecorder]
+    ) -> None:
+        argv = ["validate", "--posts-dir", str(tmp_path), "--books-dir", str(tmp_path)]
+
+        dispatch["validate_documents"].returns = False
+        assert _exit_code_of(argv) == 1
+
+        dispatch["validate_documents"].returns = True
+        publish.main(argv)
+
+    def test_validate_requires_posts_and_books_dirs(
+        self, tmp_path: Path, dispatch: dict[str, _HandlerRecorder]
+    ) -> None:
+        assert _exit_code_of(["validate", "--books-dir", str(tmp_path)]) == 2
+        assert _exit_code_of(["validate", "--posts-dir", str(tmp_path)]) == 2
+        assert dispatch["validate_documents"].calls == []
+
+    def test_site_dir_and_site_time_default_to_none(
+        self, tmp_path: Path, dispatch: dict[str, _HandlerRecorder]
+    ) -> None:
+        argv = ["validate", "--posts-dir", str(tmp_path), "--books-dir", str(tmp_path)]
+
+        publish.main(argv)
+
+        ((_, kwargs),) = dispatch["validate_documents"].calls
+        assert kwargs["site_dir"] is None
+        assert kwargs["site_time"] is None
+
+    def test_delete_orphans_passes_arguments_and_confirmation(
+        self, tmp_path: Path, dispatch: dict[str, _HandlerRecorder]
+    ) -> None:
+        flags = ["--posts-dir", str(tmp_path / "posts"), "--books-dir", str(tmp_path / "books")]
+
+        publish.main(["delete-orphans", *flags])
+        publish.main(["delete-orphans", "--yes", *flags])
+
+        unconfirmed, confirmed = dispatch["delete_orphans"].calls
+        for (args, kwargs), expected_confirmed in ((unconfirmed, False), (confirmed, True)):
+            client, posts, books, publication_uri = args
+            assert client.args == (publish.PDS_URL, "handle.example", "app-password")
+            assert client.mode == "credentialed"
+            assert posts == tmp_path / "posts"
+            assert books == tmp_path / "books"
+            assert publication_uri == PUB_URI
+            assert kwargs == {"confirmed": expected_confirmed}
+
+    def test_delete_orphans_requires_posts_and_books_dirs(
+        self, tmp_path: Path, dispatch: dict[str, _HandlerRecorder]
+    ) -> None:
+        assert _exit_code_of(["delete-orphans", "--books-dir", str(tmp_path)]) == 2
+        assert _exit_code_of(["delete-orphans", "--posts-dir", str(tmp_path)]) == 2
+        assert dispatch["delete_orphans"].calls == []
+
+    def test_delete_orphans_yes_takes_no_value(
+        self, tmp_path: Path, dispatch: dict[str, _HandlerRecorder]
+    ) -> None:
+        flags = ["--posts-dir", str(tmp_path), "--books-dir", str(tmp_path)]
+
+        publish.main(["delete-orphans", "--yes", *flags])
+
+        ((_, kwargs),) = dispatch["delete_orphans"].calls
+        assert kwargs == {"confirmed": True}
+
+    def test_init_publication_uses_credentialed_client_and_config(
+        self, dispatch: dict[str, _HandlerRecorder]
+    ) -> None:
+        publish.main(["init-publication"])
+
+        ((args, kwargs),) = dispatch["init_publication"].calls
+        client, config = args
+        assert client.args == (publish.PDS_URL, "handle.example", "app-password")
+        assert client.mode == "credentialed"
+        assert config is TEST_CONFIG
+        assert kwargs == {}
+        assert dispatch["sync_documents"].calls == []
+
+    def test_credentials_are_read_from_their_environment_names(
+        self, monkeypatch: pytest.MonkeyPatch, dispatch: dict[str, _HandlerRecorder]
+    ) -> None:
+        monkeypatch.setenv("BSKY_HANDLE", "other.example")
+        monkeypatch.setenv("BSKY_APP_PASSWORD", "other-password")
+
+        publish.main(["init-publication"])
+
+        ((args, _),) = dispatch["init_publication"].calls
+        assert args[0].args == (publish.PDS_URL, "other.example", "other-password")
+
+    def test_missing_credentials_fail_before_the_handler_runs(
+        self, monkeypatch: pytest.MonkeyPatch, capsys, dispatch: dict[str, _HandlerRecorder]
+    ) -> None:
+        monkeypatch.delenv("BSKY_APP_PASSWORD")
+
+        assert _exit_code_of(["init-publication"]) == 1
+        assert "BSKY_APP_PASSWORD" in capsys.readouterr().err
+        assert dispatch["init_publication"].calls == []
+
+
+class TestDateHelpers:
+    def test_publish_date_zero_pads_the_year(self) -> None:
+        # strftime("%Y") gives "999" on glibc, which is not RFC 3339.
+        assert publish._to_publish_date(date(999, 1, 1)) == "0999-01-01T00:00:00Z"
+
+    def test_publish_date_of_a_post_before_year_1000(self, tmp_path: Path) -> None:
+        f = tmp_path / "0999-01-01-ancient.md"
+        f.write_text("---\ntitle: Ancient\ndate: 0999-01-01\n---\n")
+
+        rec = parse_post(f)
+
+        assert rec is not None
+        assert rec["publishedAt"] == "0999-01-01T00:00:00Z"
+
+    def test_a_time_of_day_is_not_a_date(self) -> None:
+        assert publish._can_derive_date(dt_time(10, 0)) is False
+
+    def test_impossible_bare_date_names_the_input(self) -> None:
+        with pytest.raises(ValueError, match="'2024-02-30'"):
+            publish.document_instant("2024-02-30")
+
+
+class TestCollectDocumentsTriage:
+    def test_bad_post_does_not_hide_later_posts(self, tmp_path: Path) -> None:
+        # A parse error must skip that one file, not end the directory scan.
+        posts = tmp_path / "posts"
+        posts.mkdir()
+        (posts / "2024-01-01-a.md").write_text("---\ntitle: A\nslug: custom\n---\n")
+        (posts / "2024-01-02-b.md").write_text("---\ntitle: B\n---\n")
+        results = list(publish._collect_documents(posts, None))
+        assert [f.name for f, _, _ in results] == ["2024-01-01-a.md", "2024-01-02-b.md"]
+        assert results[0][1] is None
+        assert results[1][1] is not None
+
+    def test_empty_title_error_names_the_title_field(self, tmp_path: Path) -> None:
+        posts = tmp_path / "posts"
+        posts.mkdir()
+        (posts / "2024-01-01-blank.md").write_text('---\ntitle: "   "\n---\n')
+        ((_, rec, errors),) = publish._collect_documents(posts, None)
+        assert rec is not None
+        assert any(isinstance(e, str) and "'title'" in e for e in errors)
+
+    def test_underivable_date_error_names_published_at(self, tmp_path: Path) -> None:
+        posts = tmp_path / "posts"
+        posts.mkdir()
+        (posts / "2024-01-01-undated.md").write_text("---\ntitle: T\ndate: soon\n---\n")
+        ((_, rec, errors),) = publish._collect_documents(posts, None)
+        assert rec is not None
+        assert any(isinstance(e, str) and "publishedAt" in e for e in errors)
+
+    def test_book_dated_after_site_time_is_skipped(self, tmp_path: Path) -> None:
+        # An explicit site_time must reach the book parser, not be replaced
+        # by the wall clock.
+        posts = tmp_path / "posts"
+        books = tmp_path / "books"
+        posts.mkdir()
+        books.mkdir()
+        (books / "hyperion.md").write_text("---\ntitle: Hyperion\ndate: 2021-01-01\n---\n")
+        before = datetime(2020, 1, 1, tzinfo=UTC)
+        after = datetime(2022, 1, 1, tzinfo=UTC)
+        assert list(publish._collect_documents(posts, books, before)) == []
+        results = list(publish._collect_documents(posts, books, after))
+        assert [rec["path"] for _, rec, _ in results] == ["/books/hyperion/"]
+
+
+class TestSourceFilesNestedUnderscore:
+    def test_underscore_directory_below_top_level_is_skipped(self, tmp_path: Path) -> None:
+        # Jekyll skips any _-prefixed directory at any depth, not only the first.
+        (tmp_path / "a" / "_drafts").mkdir(parents=True)
+        (tmp_path / "a" / "_drafts" / "x.md").write_text("---\ntitle: X\n---\n")
+        (tmp_path / "a" / "keep.md").write_text("---\ntitle: K\n---\n")
+        (tmp_path / "keep2.md").write_text("---\ntitle: K\n---\n")
+        names = [f.relative_to(tmp_path).as_posix() for f in publish._source_files(tmp_path)]
+        assert names == ["a/keep.md", "keep2.md"]
+
+
+class TestFrontmatterErrorWording:
+    def test_non_mapping_error_names_the_type(self) -> None:
+        with pytest.raises(ValueError) as exc_info:
+            _extract_frontmatter_strict("---\njust a string\n---\n")
+        message = str(exc_info.value)
+        assert "YAML mapping" in message
+        assert "got str" in message
+
+    def test_non_mapping_front_matter_is_a_parse_error_for_the_file(self, tmp_path: Path) -> None:
+        f = tmp_path / "2025-01-01-post.md"
+        f.write_text("---\njust a string\n---\n")
+        with pytest.raises(ValueError, match="got str"):
+            parse_post(f)
+
+
+class TestPermalinkOverrideMessage:
+    @pytest.mark.parametrize("fm", [{"slug": "custom"}, {"permalink": "/x/"}])
+    def test_rejection_names_the_key_rule_and_the_404(self, fm: dict) -> None:
+        with pytest.raises(ValueError) as exc_info:
+            publish._reject_permalink_overrides(fm)
+        message = str(exc_info.value)
+        assert "slug/permalink" in message
+        assert "not supported" in message
+        assert "404" in message

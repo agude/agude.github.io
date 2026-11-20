@@ -83,9 +83,9 @@ def document_instant(date_val: Any) -> datetime:
         return date_val if date_val.tzinfo else date_val.replace(tzinfo=UTC)
     if isinstance(date_val, date):
         return datetime.combine(date_val, dt_time(), SITE_TZ)
+    # A bare quoted date parses to midnight, which then takes the site
+    # timezone like any other timestamp without an offset.
     text = str(date_val).strip()
-    if re.fullmatch(r"\d{4}-\d{2}-\d{2}", text):
-        return datetime.combine(date.fromisoformat(text), dt_time(), SITE_TZ)
     try:
         value = datetime.fromisoformat(text)
     except ValueError as exc:
@@ -274,14 +274,14 @@ def _extract_frontmatter_strict(text: str) -> dict:
 
 def _can_derive_date(date_val: Any) -> bool:
     """Return True if date_val can produce a valid YYYY-MM-DD publishedAt."""
-    if hasattr(date_val, "strftime"):
-        return True
+    # str() of a date or datetime is ISO 8601, so one check covers YAML
+    # dates, YAML timestamps, and quoted strings.
     return bool(re.match(r"^\d{4}-\d{2}-\d{2}", str(date_val)))
 
 
 def _to_publish_date(date_val: Any) -> str:
-    if hasattr(date_val, "strftime"):
-        return date_val.strftime("%Y-%m-%dT00:00:00Z")
+    # str() zero-pads the year; strftime("%Y") does not on glibc, which
+    # would give an invalid RFC 3339 year before 1000.
     return f"{str(date_val)[:10]}T00:00:00Z"
 
 
@@ -525,7 +525,13 @@ def _check(resp: Any) -> None:
 
 
 def _extract_rkey(uri: str) -> str:
-    return uri.rstrip("/").rsplit("/", 1)[-1]
+    # The rkey addresses writes and deletes, so a URI that is not
+    # at://<authority>/<collection>/<rkey> stops the run instead of
+    # yielding some other segment.
+    m = re.fullmatch(r"at://[^/]+/[^/]+/([^/]+)/?", uri)
+    if not m:
+        raise PublishError(f"not an AT-URI with a record key: {uri!r}")
+    return m.group(1)
 
 
 def _verify_publication(client: AtprotoClient, publication_uri: str) -> dict:
@@ -579,8 +585,9 @@ def _source_files(src_dir: Path) -> list[Path]:
         rel = f.relative_to(src_dir)
         if any(part.startswith("_") for part in rel.parts[:-1]):
             return False
-        # Jekyll's EntryFilter also skips special/backup files.
-        return not (rel.name.startswith(("_", ".", "#")) or rel.name.endswith("~"))
+        # Jekyll's EntryFilter also skips special and backup files. Backups
+        # ending in "~" never match the *.md glob, so only prefixes remain.
+        return not rel.name.startswith(("_", ".", "#"))
 
     return sorted(f for f in src_dir.rglob("*.md") if included(f))
 
@@ -1020,8 +1027,24 @@ def main(argv: list[str] | None = None) -> None:
         sys.exit(1)
 
 
+# CLI help text. Each help= and description= argument in _dispatch sits on
+# its own line, which mutmut skips (do_not_mutate_patterns in
+# pyproject.toml): help wording is not a contract. Text longer than one line
+# lives here, outside any function, where mutmut does not mutate.
+_SITE_TIME_HELP = (
+    "Jekyll's site.time for the build being checked (ISO 8601 with "
+    "offset); documents dated after it are skipped. Default: now"
+)
+_DRY_RUN_HELP = (
+    "Print the plan without credentials: never log in, read only public "
+    "records, refuse every write, and write no data file"
+)
+
+
 def _dispatch(argv: list[str] | None = None) -> None:
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(
+        description=__doc__,
+    )
     sub = parser.add_subparsers(dest="cmd", required=True)
 
     # publish and validate must apply the same cutoff as the build they
@@ -1031,8 +1054,7 @@ def _dispatch(argv: list[str] | None = None) -> None:
         "--site-time",
         type=parse_site_time,
         default=None,
-        help="Jekyll's site.time for the build being checked (ISO 8601 with "
-        "offset); documents dated after it are skipped. Default: now",
+        help=_SITE_TIME_HELP,
     )
 
     pub_p = sub.add_parser(
@@ -1046,11 +1068,13 @@ def _dispatch(argv: list[str] | None = None) -> None:
     pub_p.add_argument(
         "--dry-run",
         action="store_true",
-        help="Print the plan without credentials: never log in, read only public "
-        "records, refuse every write, and write no data file",
+        help=_DRY_RUN_HELP,
     )
 
-    sub.add_parser("init-publication", help="Create publication record (one-time)")
+    sub.add_parser(
+        "init-publication",
+        help="Create publication record (one-time)",
+    )
 
     val_p = sub.add_parser(
         "validate",
@@ -1067,7 +1091,11 @@ def _dispatch(argv: list[str] | None = None) -> None:
     )
     del_p.add_argument("--posts-dir", required=True, type=Path)
     del_p.add_argument("--books-dir", required=True, type=Path)
-    del_p.add_argument("--yes", action="store_true", help="Actually delete")
+    del_p.add_argument(
+        "--yes",
+        action="store_true",
+        help="Actually delete",
+    )
 
     args = parser.parse_args(argv)
 

@@ -278,8 +278,12 @@ test-scripts:
 # MUTANTS='<glob>' narrows the run by mutant name, for example
 # MUTANTS='atproto.publish.x_sync_documents*'. The two symlinks let publish.py
 # (parent^3 -> _scripts/_config.yml) and the workflow test (parents[2] ->
-# _scripts/.github) resolve repo files from the mutants/ copy.
+# _scripts/.github) resolve repo files from the mutants/ copy. mutants/ is
+# removed first: mutmut keeps a mutant's old result while its function's
+# source is unchanged, even after the tests change, so the disposition gate
+# would otherwise judge stale results.
 test-mutations-scripts:
+	@rm -rf _scripts/mutants
 	@[ -L _scripts/_config.yml ] || ln -s ../_config.yml _scripts/_config.yml
 	@[ -L _scripts/.github ] || ln -s ../.github _scripts/.github
 	@cd _scripts && ATPROTO_HYPOTHESIS_PROFILE=quick uv run mutmut run $(if $(MUTANTS),'$(MUTANTS)') || exit $$?; \
