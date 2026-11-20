@@ -380,12 +380,12 @@ class AtprotoClient:
         self._read_only = False
 
     def _login(self, handle: str, password: str) -> None:
-        resp = self._retry_request(
-            lambda: self._http.post(
-                f"{self._pds}/xrpc/com.atproto.server.createSession",
-                json={"identifier": handle, "password": password},
-                timeout=HTTP_TIMEOUT,
-            )
+        # One attempt only: createSession is not idempotent (each call mints
+        # a session) and the PDS rate-limits it, so a failure stops the run.
+        resp = self._http.post(
+            f"{self._pds}/xrpc/com.atproto.server.createSession",
+            json={"identifier": handle, "password": password},
+            timeout=HTTP_TIMEOUT,
         )
         _check(resp)
         data = resp.json()

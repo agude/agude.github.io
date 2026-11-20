@@ -2491,20 +2491,27 @@ class TestRetries:
             self._maybe_fail(url)
             return super().get(url, params=params, headers=headers)
 
-    def test_login_retries_transient_failure(self, monkeypatch: pytest.MonkeyPatch) -> None:
-        monkeypatch.setattr(publish.time, "sleep", lambda s: None)
-        transport = self.FlakyTransport("createSession", failures=2)
-        transport.push(LOGIN_RESPONSE)
-        client = AtprotoClient("https://bsky.social", "h", "p", _session=transport)
-        assert client.did == "did:plc:test123"
-
-    def test_login_gives_up_after_retries(self, monkeypatch: pytest.MonkeyPatch) -> None:
+    def test_login_connection_error_is_not_retried(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        # createSession mints a session per call and is rate-limited, so a
+        # failed login stops the run instead of trying again.
         import requests as _requests
 
         monkeypatch.setattr(publish.time, "sleep", lambda s: None)
-        transport = self.FlakyTransport("createSession", failures=99)
+        transport = self.FlakyTransport("createSession", failures=1)
+        transport.push(LOGIN_RESPONSE)
         with pytest.raises(_requests.ConnectionError):
             AtprotoClient("https://bsky.social", "h", "p", _session=transport)
+        assert transport._failures == 0
+        assert [c for c in transport.calls if "createSession" in c[1]] == []
+
+    def test_login_server_error_is_not_retried(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        monkeypatch.setattr(publish.time, "sleep", lambda s: None)
+        transport = MockTransport()
+        transport.push({"error": "InternalServerError"}, 500)
+        transport.push(LOGIN_RESPONSE)
+        with pytest.raises(publish.PublishError):
+            AtprotoClient("https://bsky.social", "h", "p", _session=transport)
+        assert len([c for c in transport.calls if "createSession" in c[1]]) == 1
 
     def test_list_records_retries(self, monkeypatch: pytest.MonkeyPatch) -> None:
         monkeypatch.setattr(publish.time, "sleep", lambda s: None)
