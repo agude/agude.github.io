@@ -53,6 +53,13 @@ functions:
   x__source_files: f20f8bb5f251
   x__reject_permalink_overrides: 3d716d35f721
   x__extract_frontmatter_strict: 70fa41027e7b
+  x__extract_rkey: d70fe2e2761b
+  x_desired_publication_record: 01446dfbcebb
+  x__verify_publication: ac408cc38020
+  x_load_config: 0070d3fd9eaa
+  x_get_publication_uri: 575842bcc547
+  x__get_env: 90eca60262b9
+  x_did_from_publication_uri: a328c01eae5f
 survivors:
 - mutant: atproto.publish.x_sync_documents__mutmut_4
   mutation: Wrap the empty-`publication_uri` message in `XX` markers
@@ -546,3 +553,42 @@ survivors:
   disposition: out_of_scope
   reason: The 404 consequence remains and is asserted, along with the key names and not supported; only
     the case of the text differs.
+- mutant: atproto.publish.x__extract_rkey__mutmut_4
+  mutation: Drop the `maxsplit` argument from `rsplit("/", 1)`
+  disposition: equivalent
+  reason: With no maxsplit, rsplit splits on every slash, and `[-1]` is still the text after the last
+    slash, as with maxsplit 1.
+- mutant: atproto.publish.x__extract_rkey__mutmut_10
+  mutation: Change `rsplit` maxsplit from 1 to 2
+  disposition: equivalent
+  reason: For any maxsplit of at least 1, `[-1]` of rsplit is the text after the last slash, so the result
+    is unchanged.
+- mutant: atproto.publish.x_load_config__mutmut_1
+  mutation: Remove the `encoding="utf-8"` argument from `config_path.open`
+  disposition: out_of_scope
+  reason: Without the argument, open() uses the locale encoding, so only a non-UTF-8 locale differs; the
+    config still parses to the same dict under UTF-8.
+- mutant: atproto.publish.x_load_config__mutmut_3
+  mutation: Change the encoding literal from `"utf-8"` to `"UTF-8"`
+  disposition: equivalent
+  reason: Python's codec lookup normalizes both spellings to the same UTF-8 codec, so the file decodes
+    identically.
+- mutant: atproto.publish.x_get_publication_uri__mutmut_3
+  mutation: Change the `.get` default from `""` to `None`
+  disposition: equivalent
+  reason: The trailing `or ""` maps a None default to the same empty string as the original default.
+- mutant: atproto.publish.x_get_publication_uri__mutmut_5
+  mutation: Remove the `.get` default argument for `publication_uri`
+  disposition: equivalent
+  reason: A missing default yields None, which the trailing `or ""` maps to the same empty string as the
+    original.
+- mutant: atproto.publish.x__get_env__mutmut_3
+  mutation: Change the `os.environ.get` default from `""` to `None`
+  disposition: equivalent
+  reason: The following `if not val` treats None and "" identically, so both raise the same PublishError
+    and the returned value is always a non-empty string.
+- mutant: atproto.publish.x__get_env__mutmut_5
+  mutation: Remove the `os.environ.get` default argument
+  disposition: equivalent
+  reason: A missing default returns None, which `if not val` treats exactly like the original empty-string
+    default.

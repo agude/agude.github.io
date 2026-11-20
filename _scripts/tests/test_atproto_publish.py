@@ -248,6 +248,14 @@ class TestExtractRkey:
     def test_handles_trailing_slash(self) -> None:
         assert _extract_rkey("at://did:plc:abc/site.standard.document/rkey1/") == "rkey1"
 
+    def test_keeps_trailing_x_in_rkey(self) -> None:
+        # Record keys may end in any allowed character; only slashes are stripped.
+        assert _extract_rkey("at://did:plc:abc/site.standard.document/rkeyX") == "rkeyX"
+
+    def test_string_without_slash_is_returned_unchanged(self) -> None:
+        # Pins current behavior: no separator means the whole input is the segment.
+        assert _extract_rkey("rkeyonly") == "rkeyonly"
+
 
 class TestRecordsDiffer:
     def test_equal_records_do_not_differ(self) -> None:
@@ -2945,6 +2953,68 @@ class TestDidFromPublicationUri:
     def test_rejects_non_did_uris(self, uri: str) -> None:
         with pytest.raises(publish.PublishError):
             publish.did_from_publication_uri(uri)
+
+    def test_error_names_the_rejected_uri(self) -> None:
+        uri = "at://alexgude.com/site.standard.publication/3mqrj32i3mm2t"
+        with pytest.raises(publish.PublishError) as exc_info:
+            publish.did_from_publication_uri(uri)
+        assert "does not name a DID" in str(exc_info.value)
+        assert uri in str(exc_info.value)
+
+
+class TestDesiredPublicationRecord:
+    def test_builds_record_from_config(self) -> None:
+        assert publish.desired_publication_record(TEST_CONFIG) == {
+            "$type": "site.standard.publication",
+            "url": "https://example.com",
+            "name": "Test Site",
+            "description": "Test description",
+            "preferences": {"showInDiscover": True},
+        }
+
+    def test_strips_trailing_slashes_from_url(self) -> None:
+        config = {**TEST_CONFIG, "url": "https://example.com//"}
+        assert publish.desired_publication_record(config)["url"] == "https://example.com"
+
+    def test_keeps_trailing_x_in_url(self) -> None:
+        # Only slashes are stripped from the URL, never other characters.
+        config = {**TEST_CONFIG, "url": "https://example.com/X"}
+        assert publish.desired_publication_record(config)["url"] == "https://example.com/X"
+
+    @pytest.mark.parametrize("key", ["title", "description", "url"])
+    def test_missing_key_error_names_the_key(self, key: str) -> None:
+        config = {k: v for k, v in TEST_CONFIG.items() if k != key}
+        with pytest.raises(publish.PublishError) as exc_info:
+            publish.desired_publication_record(config)
+        assert str(exc_info.value) == f"_config.yml is missing {key!r}"
+
+
+class TestVerifyPublication:
+    def test_queries_repo_collection_and_rkey_from_uri(self) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+
+        remote = publish._verify_publication(client, PUB_URI)
+
+        assert remote == PUB_RECORD_RESPONSE
+        queries = [c[2] for c in _calls(transport, "GET", "getRecord")]
+        assert queries == [
+            {
+                "repo": "did:plc:test123",
+                "collection": "site.standard.publication",
+                "rkey": "rkeypub",
+            }
+        ]
+
+    def test_malformed_uri_error_names_the_uri(self) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+        bad = "at://did:plc:test123/site.standard.publication/a/b"
+
+        with pytest.raises(publish.PublishError) as exc_info:
+            publish._verify_publication(client, bad)
+        assert "is malformed" in str(exc_info.value)
+        assert bad in str(exc_info.value)
 
 
 # ---------------------------------------------------------------------------
