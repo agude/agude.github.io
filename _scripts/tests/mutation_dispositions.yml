@@ -48,6 +48,11 @@ functions:
   x__to_publish_date: 8396a355bd5a
   x__can_derive_date: 0b43b3215bf1
   x_document_instant: de0746edb73f
+  x__collect_documents: 67839e3dc553
+  x__document_sources: bceaa8666c87
+  x__source_files: f20f8bb5f251
+  x__reject_permalink_overrides: 3d716d35f721
+  x__extract_frontmatter_strict: 70fa41027e7b
 survivors:
 - mutant: atproto.publish.x_sync_documents__mutmut_4
   mutation: Wrap the empty-`publication_uri` message in `XX` markers
@@ -492,3 +497,52 @@ survivors:
   mutation: Reset pending_hyphen to None after an alphanumeric character
   disposition: equivalent
   reason: None and False are both falsy, and pending_hyphen is read only in a truthiness test.
+- mutant: atproto.publish.x__collect_documents__mutmut_3
+  mutation: Call datetime.now(None) instead of datetime.now(SITE_TZ) for the default site_time
+  disposition: equivalent
+  reason: The default is consumed only by is_future, which compares int(instant.timestamp()), and datetime.now(None)
+    and datetime.now(SITE_TZ) name the same instant, so the epoch seconds match.
+- mutant: atproto.publish.x__collect_documents__mutmut_24
+  mutation: Wrap the empty-title message in XX markers
+  disposition: out_of_scope
+  reason: The message still contains the field name 'title', which the test asserts; only the XX markers
+    differ.
+- mutant: atproto.publish.x__collect_documents__mutmut_32
+  mutation: Wrap the publishedAt message in XX markers
+  disposition: out_of_scope
+  reason: The message still contains publishedAt, which the test asserts; only the XX markers differ.
+- mutant: atproto.publish.x__reject_permalink_overrides__mutmut_9
+  mutation: Wrap the first message literal in XX markers
+  disposition: out_of_scope
+  reason: The key names slug/permalink, the words not supported, and the 404 consequence remain and are
+    asserted; only the XX markers differ.
+- mutant: atproto.publish.x__reject_permalink_overrides__mutmut_10
+  mutation: Lower-case Jekyll in the first message literal
+  disposition: out_of_scope
+  reason: The key names, not supported, and the 404 consequence remain and are asserted; only the case
+    of the tool name differs.
+- mutant: atproto.publish.x__reject_permalink_overrides__mutmut_12
+  mutation: Wrap the second message literal in XX markers
+  disposition: out_of_scope
+  reason: The key names, not supported, and the 404 consequence remain and are asserted; only the XX markers
+    differ.
+- mutant: atproto.publish.x__reject_permalink_overrides__mutmut_13
+  mutation: Upper-case the second message literal
+  disposition: out_of_scope
+  reason: The key names, not supported, and the 404 consequence remain and are asserted; only the case
+    of the explanation differs.
+- mutant: atproto.publish.x__reject_permalink_overrides__mutmut_14
+  mutation: Wrap the third message literal in XX markers
+  disposition: out_of_scope
+  reason: The 404 consequence remains and is asserted, along with the key names and not supported; only
+    the XX markers differ.
+- mutant: atproto.publish.x__reject_permalink_overrides__mutmut_15
+  mutation: Lower-case AT in the third message literal
+  disposition: out_of_scope
+  reason: The 404 consequence remains and is asserted, along with the key names and not supported; only
+    the case of AT differs.
+- mutant: atproto.publish.x__reject_permalink_overrides__mutmut_16
+  mutation: Upper-case the third message literal
+  disposition: out_of_scope
+  reason: The 404 consequence remains and is asserted, along with the key names and not supported; only
+    the case of the text differs.

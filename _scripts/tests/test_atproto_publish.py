@@ -3303,3 +3303,83 @@ class TestDateHelpers:
     def test_impossible_bare_date_names_the_input(self) -> None:
         with pytest.raises(ValueError, match="'2024-02-30'"):
             publish.document_instant("2024-02-30")
+
+
+class TestCollectDocumentsTriage:
+    def test_bad_post_does_not_hide_later_posts(self, tmp_path: Path) -> None:
+        # A parse error must skip that one file, not end the directory scan.
+        posts = tmp_path / "posts"
+        posts.mkdir()
+        (posts / "2024-01-01-a.md").write_text("---\ntitle: A\nslug: custom\n---\n")
+        (posts / "2024-01-02-b.md").write_text("---\ntitle: B\n---\n")
+        results = list(publish._collect_documents(posts, None))
+        assert [f.name for f, _, _ in results] == ["2024-01-01-a.md", "2024-01-02-b.md"]
+        assert results[0][1] is None
+        assert results[1][1] is not None
+
+    def test_empty_title_error_names_the_title_field(self, tmp_path: Path) -> None:
+        posts = tmp_path / "posts"
+        posts.mkdir()
+        (posts / "2024-01-01-blank.md").write_text('---\ntitle: "   "\n---\n')
+        ((_, rec, errors),) = publish._collect_documents(posts, None)
+        assert rec is not None
+        assert any(isinstance(e, str) and "'title'" in e for e in errors)
+
+    def test_underivable_date_error_names_published_at(self, tmp_path: Path) -> None:
+        posts = tmp_path / "posts"
+        posts.mkdir()
+        (posts / "2024-01-01-undated.md").write_text("---\ntitle: T\ndate: soon\n---\n")
+        ((_, rec, errors),) = publish._collect_documents(posts, None)
+        assert rec is not None
+        assert any(isinstance(e, str) and "publishedAt" in e for e in errors)
+
+    def test_book_dated_after_site_time_is_skipped(self, tmp_path: Path) -> None:
+        # An explicit site_time must reach the book parser, not be replaced
+        # by the wall clock.
+        posts = tmp_path / "posts"
+        books = tmp_path / "books"
+        posts.mkdir()
+        books.mkdir()
+        (books / "hyperion.md").write_text("---\ntitle: Hyperion\ndate: 2021-01-01\n---\n")
+        before = datetime(2020, 1, 1, tzinfo=UTC)
+        after = datetime(2022, 1, 1, tzinfo=UTC)
+        assert list(publish._collect_documents(posts, books, before)) == []
+        results = list(publish._collect_documents(posts, books, after))
+        assert [rec["path"] for _, rec, _ in results] == ["/books/hyperion/"]
+
+
+class TestSourceFilesNestedUnderscore:
+    def test_underscore_directory_below_top_level_is_skipped(self, tmp_path: Path) -> None:
+        # Jekyll skips any _-prefixed directory at any depth, not only the first.
+        (tmp_path / "a" / "_drafts").mkdir(parents=True)
+        (tmp_path / "a" / "_drafts" / "x.md").write_text("---\ntitle: X\n---\n")
+        (tmp_path / "a" / "keep.md").write_text("---\ntitle: K\n---\n")
+        (tmp_path / "keep2.md").write_text("---\ntitle: K\n---\n")
+        names = [f.relative_to(tmp_path).as_posix() for f in publish._source_files(tmp_path)]
+        assert names == ["a/keep.md", "keep2.md"]
+
+
+class TestFrontmatterErrorWording:
+    def test_non_mapping_error_names_the_type(self) -> None:
+        with pytest.raises(ValueError) as exc_info:
+            _extract_frontmatter_strict("---\njust a string\n---\n")
+        message = str(exc_info.value)
+        assert "YAML mapping" in message
+        assert "got str" in message
+
+    def test_non_mapping_front_matter_is_a_parse_error_for_the_file(self, tmp_path: Path) -> None:
+        f = tmp_path / "2025-01-01-post.md"
+        f.write_text("---\njust a string\n---\n")
+        with pytest.raises(ValueError, match="got str"):
+            parse_post(f)
+
+
+class TestPermalinkOverrideMessage:
+    @pytest.mark.parametrize("fm", [{"slug": "custom"}, {"permalink": "/x/"}])
+    def test_rejection_names_the_key_rule_and_the_404(self, fm: dict) -> None:
+        with pytest.raises(ValueError) as exc_info:
+            publish._reject_permalink_overrides(fm)
+        message = str(exc_info.value)
+        assert "slug/permalink" in message
+        assert "not supported" in message
+        assert "404" in message

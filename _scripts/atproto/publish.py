@@ -579,8 +579,9 @@ def _source_files(src_dir: Path) -> list[Path]:
         rel = f.relative_to(src_dir)
         if any(part.startswith("_") for part in rel.parts[:-1]):
             return False
-        # Jekyll's EntryFilter also skips special/backup files.
-        return not (rel.name.startswith(("_", ".", "#")) or rel.name.endswith("~"))
+        # Jekyll's EntryFilter also skips special and backup files. Backups
+        # ending in "~" never match the *.md glob, so only prefixes remain.
+        return not rel.name.startswith(("_", ".", "#"))
 
     return sorted(f for f in src_dir.rglob("*.md") if included(f))
 
