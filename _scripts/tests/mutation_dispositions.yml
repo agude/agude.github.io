@@ -62,7 +62,7 @@ functions:
   x_did_from_publication_uri: a328c01eae5f
   xǁAtprotoClientǁ__init__: f62a2de58101
   xǁAtprotoClientǁ_init_transport: 23ac8b5815a8
-  xǁAtprotoClientǁ_login: ae7181f1f3b1
+  xǁAtprotoClientǁ_login: 99d0a122f7e0
   xǁAtprotoClientǁ_retry_request: e1a3cc765e6c
   xǁAtprotoClientǁlist_records: b0bcc4467e58
   xǁAtprotoClientǁget_record: 21cc0477d27d
