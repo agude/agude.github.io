@@ -16,6 +16,11 @@ visual_book_ranker.html
 _coverage
 .mutant/
 
+# Profiling output: make profile writes Liquid profiles here, and ad hoc
+# stackprof runs write CPU dumps
+/_profile/
+*.dump
+
 # mutmut (make test-mutations-scripts): symlinks that let publish.py and the
 # workflow test find repo files from _scripts/mutants/, plus mutmut's output
 /_scripts/_config.yml
