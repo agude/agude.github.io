@@ -780,6 +780,26 @@ class TestSummaryLine:
         lines = capsys.readouterr().out.splitlines()
         assert lines[-1] == "created=0 updated=2 unchanged=0 orphaned=0"
 
+    def test_summary_counts_each_orphan_once(self, tmp_path: Path, capsys) -> None:
+        # Without this example, a miscounted orphan total is caught only by the
+        # sync property, whose shrinking outlasts mutmut's timeout.
+        page = write_existing_post(tmp_path)
+        for n in (1, 2):
+            page["records"].append(
+                {
+                    "uri": DOC_URI.replace("rkeydoc1", f"rkeygone{n}"),
+                    "value": {"site": PUB_URI, "path": f"/blog/gone-{n}/"},
+                }
+            )
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push(page)
+
+        sync_documents(client, tmp_path, tmp_path / "out.json", PUB_URI, TEST_CONFIG)
+
+        lines = capsys.readouterr().out.splitlines()
+        assert lines[-1] == "created=0 updated=0 unchanged=1 orphaned=2"
+
 
 class TestDocumentWriteOutput:
     def test_update_targets_the_document_collection_and_rkey(self, tmp_path: Path, capsys) -> None:
