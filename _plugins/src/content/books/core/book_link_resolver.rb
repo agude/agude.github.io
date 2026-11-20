@@ -182,17 +182,18 @@ module Jekyll
           end
         end
 
-        # Filter out archived (non-canonical) reviews. Archived reviews have a
-        # local canonical_url (starts with '/') pointing to the canonical page.
-        # BookFamilyValidator guarantees canonical pages never have canonical_url.
+        # Filter out archived (non-canonical) reviews: any book with a
+        # canonical_url. BookFamilyValidator guarantees the value is a local
+        # path to the canonical page, which never sets canonical_url itself.
         #
-        # @gotcha The link resolver rejects books where `canonical_url` starts
-        #   with `/`. This filters archived re-reviews so `book_link` always
-        #   points to the current canonical review. A canonical page must
-        #   never have `canonical_url` set; `BookFamilyValidator` enforces this.
+        # @gotcha The link resolver rejects every book that sets
+        #   `canonical_url`. This filters archived re-reviews so `book_link`
+        #   always points to the current canonical review. A canonical page
+        #   must never have `canonical_url` set; `BookFamilyValidator`
+        #   enforces this.
         def find_candidates
           cache = @site.data['link_cache'] || {}
-          (cache.dig('books', @norm_title) || []).reject { |b| b['canonical_url']&.start_with?('/') }
+          (cache.dig('books', @norm_title) || []).reject { |b| b['canonical_url'] }
         end
 
         # @gotcha When a book_link resolves to "not found" in HTML mode, the

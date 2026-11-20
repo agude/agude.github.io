@@ -28,7 +28,7 @@ module Jekyll
           books = @site.collections['books'].docs.reject { |book| book.data['published'] == false }
           return books if include_archived
 
-          books.reject { |book| book.data['canonical_url']&.start_with?('/') }
+          books.reject { |book| book.data['canonical_url'] }
         end
 
         # Structuring and Sorting
