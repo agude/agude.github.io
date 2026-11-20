@@ -25,7 +25,7 @@ categories:
 
 In 2017, I created some [visual schedules for Caltrain][first_post], just to
 have some fun tweaking plots. A few months later, I [updated them when
-Caltrain changed their schedule][update_post] to accommodate the upcoming
+Caltrain changed its schedule][update_post] to accommodate the upcoming
 [electrification program][caltrain_wiki]. Now, 9 years later, the
 electrification work is complete, so I updated the plots[^code] to see what
 changed. You can find the code [here][code].
@@ -37,8 +37,8 @@ changed. You can find the code [here][code].
 [^code]:
     I had put off updating these plots because, even though all the code was
     written, getting the new data, adjusting the code to handle any schema
-    changes, and then tweaking the plot layout was tedious. But now that AI is
-    so capable, I decided to see if Opus 5.5 could do the job with a simple
+    changes, and then tweaking the plot layout were tedious. But now that AI
+    is so capable, I decided to see if Opus 5.5 could do the job with a simple
     prompt:
 
     <div class="chatgpt-edit-block">
@@ -87,7 +87,7 @@ smaller portion.
 The morning commute schedule has become much more regular! This is clear from
 the plots, where the 2026 schedule has a simple, repeating pattern, but the
 2017 one looks like a tangle. In 2017, there were several different flavors of
-limited and baby bullets (now called express), but they've been standardized
+limiteds and baby bullets (now called express), but they've been standardized
 in 2026 so every limited stops at the same stations, and every express does as
 well. It makes it much easier to figure out what train you need to take! The
 starting times have been standardized too, with the local, limited, and
@@ -96,9 +96,9 @@ leaving at the same minutes after the hour.
 
 [wiki_clock]: https://en.wikipedia.org/wiki/Clock-face_scheduling
 
-Finally, Caltrain has almost completely stopped using their passing tracks for
-overtaking. They used to have bullets overtake slower trains regularly, but
-now it only happens once: when the southbound Express 506 passes Local 108 at
+Finally, Caltrain has almost completely stopped using its passing tracks for
+overtaking. It used to have bullets overtake slower trains regularly, but now
+it only happens once: when the southbound Express 506 passes Local 108 at
 about 08:20 near Diridon.
 
 [![Marey visual train schedule for Caltrain during the weekday morning commute in January 2026][morning_2026]][morning_2026]
@@ -128,7 +128,7 @@ compare the new local train (solid blue line) with the old one (dashed):
 
 [![Marey chart comparing Local train 101 in April 2017 and January 2026, from San Jose Diridon to San Francisco][local_comparison]][local_comparison]
 
-Same number of stops, but making the trip in 78 minutes instead of 95; 17
+Same number of stops, but making the trip in 78 minutes instead of 95: 17
 whole minutes faster! The limited is just as drastic:
 
 [![Marey chart comparing Limited train 207 in April 2017 with Limited train 401 in January 2026, from San Jose Diridon to San Francisco][limited_comparison]][limited_comparison]
