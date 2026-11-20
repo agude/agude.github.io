@@ -8,11 +8,10 @@ description: >
 image: /files/caltrain-schedule/two_sp_trains_in_millbrae_ca_in_january_1985_by_roger_puta.jpg
 hide_lead_image: True
 image_alt: >
-  A Southern Pacific commuter train in Millbrae in January 1985, seen head-on
-  on a curve through eucalyptus trees. The lead locomotive is grey with a red
-  nose, the letters 'SP' in white, and the number 51. The second locomotive is
-  painted in Caltrain's colors: silver with red, blue, and teal stripes.
-  Double-decker passenger cars follow.
+  Two coupled locomotives pull double-decker passenger cars around a curve
+  beside tall trees in Millbrae in January 1985. The leading locomotive is dark
+  grey with a red "SP" nose; the second is silver with colored stripes. The cars
+  recede into haze.
 categories:
   - caltrain
   - data-visualization
