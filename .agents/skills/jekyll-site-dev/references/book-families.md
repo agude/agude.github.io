@@ -20,9 +20,10 @@ _books/hyperion/review-2023-10-17.md    ← archived  (canonical_url: /books/hyp
 
 `BookFamilyValidator` stops the build if a page used as a canonical target
 also sets `canonical_url`. It also stops the build when a `canonical_url`
-has leading or trailing whitespace, or names a book page with a different
-trailing slash than that page's URL (`/books/hyperion` for
-`/books/hyperion/`). Consumers read `canonical_url` verbatim, so a value that
+is not a local path (an external or protocol-relative URL such as
+`https://...` or `//host/...`), has leading or trailing whitespace, or names
+a book page with a different trailing slash than that page's URL
+(`/books/hyperion` for `/books/hyperion/`). Consumers read `canonical_url` verbatim, so a value that
 only nearly matches would give the archive its own book identity and split
 the family. It is tagged `@validator`; list build validators
 with `make doc-index QUERY='has_tag?(:validator)'`. The link resolver excludes

@@ -222,31 +222,4 @@ class RelatedBookFixture
     context = create_context({}, { site: site, page: curr })
     [curr, canon, arch, site, context]
   end
-
-  def setup_external_canonical_scenario
-    coll = MockCollection.new([], 'books')
-    curr = create_book(
-      title: 'Current Book',
-      series: 'Series A',
-      book_num: 1,
-      authors: ['Auth'],
-      date_offset_days: 10,
-      url_suffix: 'current',
-      collection: coll,
-    )
-    ext = create_book(
-      title: 'Related External',
-      series: 'Series A',
-      book_num: 2,
-      authors: ['Auth'],
-      date_offset_days: 5,
-      url_suffix: 'related_ext',
-      collection: coll,
-      extra_fm: { 'canonical_url' => 'http://some.other.site/path' },
-    )
-    coll.docs = [curr, ext].compact
-    site = create_site(@site_config_base.dup, { 'books' => coll.docs })
-    context = create_context({}, { site: site, page: curr })
-    [curr, ext, site, context]
-  end
 end

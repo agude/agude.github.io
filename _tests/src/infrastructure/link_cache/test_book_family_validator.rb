@@ -175,23 +175,22 @@ class TestBookFamilyValidator < Minitest::Test
     validator.validate
   end
 
-  def test_external_canonical_url_is_ignored
-    # External canonical_url should not pollute the canonical_targets set.
-    archived = create_doc(
-      {
-        'title' => 'Hyperion',
-        'published' => true,
-        'canonical_url' => 'https://example.com/books/hyperion/',
-      },
-      '/books/hyperion/old/',
-    )
-    canonical = create_doc(
-      { 'title' => 'Hyperion', 'published' => true },
-      '/books/hyperion/',
-    )
-    validator = build_validator([archived, canonical])
+  # canonical_url names the canonical review of a book family on this site;
+  # anything that is not a local path stops the build.
+  def test_non_local_canonical_url_raises
+    ['https://example.com/books/hyperion/', '//example.com/books/hyperion/', 'books/hyperion/'].each do |value|
+      archived = create_doc(
+        { 'title' => 'Hyperion', 'published' => true, 'canonical_url' => value },
+        '/books/hyperion/old/',
+      )
+      canonical = create_doc({ 'title' => 'Hyperion', 'published' => true }, '/books/hyperion/')
 
-    validator.validate
+      error = assert_raises(Jekyll::Errors::FatalException, value) do
+        build_validator([archived, canonical]).validate
+      end
+      assert_includes error.message, archived.relative_path
+      assert_includes error.message, "is not a local path: #{value.inspect}"
+    end
   end
 
   def test_no_books_collection_does_not_raise
@@ -377,7 +376,7 @@ class TestBookFamilyValidator < Minitest::Test
     # The family check must treat any local value as a target, not only one
     # ending in a slash.
     target = create_doc(
-      { 'title' => 'Page', 'published' => true, 'canonical_url' => 'https://elsewhere.example/page/' },
+      { 'title' => 'Page', 'published' => true, 'canonical_url' => '/books/elsewhere.html' },
       '/books/page.html',
     )
     archived = create_doc(
@@ -387,19 +386,6 @@ class TestBookFamilyValidator < Minitest::Test
 
     error = assert_raises(Jekyll::Errors::FatalException) { build_validator([target, archived]).validate }
     assert_includes error.message, "#{target.relative_path} (url: /books/page.html)"
-  end
-
-  def test_external_canonical_url_without_trailing_slash_is_allowed
-    review = create_doc(
-      {
-        'title' => 'Elsewhere',
-        'published' => true,
-        'canonical_url' => 'https://other.example/books/elsewhere',
-      },
-      '/books/elsewhere/',
-    )
-
-    build_validator([review]).validate
   end
 
   # --- Integration tests through create_site ---

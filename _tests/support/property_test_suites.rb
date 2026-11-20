@@ -60,7 +60,6 @@ module PropertyTestSuites
         'TestBookIdentityResolver' => %w[
           Jekyll::SEO::BookIdentityResolver.resolve
           Jekyll::SEO::BookIdentityResolver.blank?
-          Jekyll::SEO::BookIdentityResolver.local_path?
         ],
       },
       'src/infrastructure/test_link_cache_generator_properties' => {
@@ -69,7 +68,6 @@ module PropertyTestSuites
           Jekyll::Infrastructure::LinkCache::BookCandidateSelector.written_by?
           Jekyll::SEO::BookIdentityResolver.resolve
           Jekyll::SEO::BookIdentityResolver.blank?
-          Jekyll::SEO::BookIdentityResolver.local_path?
         ],
       },
     },
@@ -146,7 +144,7 @@ module PropertyTestSuites
   # Update the count with the subject list when a subject is added or removed.
   DECLARED_SUBJECT_COUNTS = {
     'html' => 4,
-    'link-cache' => 12,
+    'link-cache' => 11,
     'backlinks' => 4,
     'markdown' => 4,
     'image-derivatives' => 3,

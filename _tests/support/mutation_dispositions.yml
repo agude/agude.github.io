@@ -257,11 +257,6 @@
   disposition: out_of_scope
   reason: 'Only a value that is neither nil nor a String differs (to_str raises instead of converting with to_s), and the resolver receives only document urls and canonical map strings.'
 
-- suite: 'link-cache'
-  subject: 'Jekyll::SEO::BookIdentityResolver.local_path?'
-  key: '5dbe8fcfac33d3e3'
-  disposition: equivalent
-  reason: 'A string starts with "/" after lstrip exactly when it does after strip, because both remove the same leading whitespace and NUL characters, so the trailing whitespace that strip removes never affects start_with?.'
 
 - suite: 'link-cache'
   subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#check_canonical_format'
@@ -295,13 +290,13 @@
 
 - suite: 'link-cache'
   subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#canonical_format_problem'
-  key: 'f0e66650a6985998'
+  key: 'f183c447b38be790'
   disposition: equivalent
   reason: 'For two Strings, eql? and == both compare content, so !value.eql?(value.strip) and value != value.strip give the same result.'
 
 - suite: 'link-cache'
   subject: 'Jekyll::Infrastructure::LinkCache::BookFamilyValidator#canonical_format_problem'
-  key: '3e1f2342d4871cd0'
+  key: 'b2bb049ee383809b'
   disposition: equivalent
   reason: 'target and value are both Strings when compared, and for two Strings eql? and == both compare content.'
 

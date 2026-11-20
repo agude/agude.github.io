@@ -9,17 +9,14 @@ require_relative '../../../_plugins/src/seo/book_identity_resolver'
 # production helpers.
 class TestLinkCacheGeneratorProperties < Minitest::Test
   SHARED_TITLE = 'Shared Work'
-  EXTERNAL_TITLE = 'External Edition'
   ADA_CANONICAL_URL = '/books/shared-work/'
   BEA_CANONICAL_URL = '/books/shared-work-bea/'
-  EXTERNAL_CANONICAL_URL = 'https://publisher.example/books/external/'
 
   # Dimensions. Each combination is one case.
   ARCHIVE_COUNTS = [0, 1, 2].freeze
   BEA_FAMILY_PRESENT = [true, false].freeze
   AUTHOR_FILTERS = ['  ada pen name  ', 'ADA AUTHOR', nil, 'Nobody Here'].freeze
   ARCHIVES_FIRST = [true, false].freeze
-  EXTERNAL_REVIEW_PRESENT = [true, false].freeze
   UNPUBLISHED_ARCHIVE_PRESENT = [true, false].freeze
 
   FamilyCase = Struct.new(
@@ -27,20 +24,21 @@ class TestLinkCacheGeneratorProperties < Minitest::Test
     :bea_family,
     :author_filter,
     :archives_first,
-    :external_review,
     :unpublished_archive,
   )
 
   CASES = ARCHIVE_COUNTS
-          .product(BEA_FAMILY_PRESENT, AUTHOR_FILTERS, ARCHIVES_FIRST, EXTERNAL_REVIEW_PRESENT, UNPUBLISHED_ARCHIVE_PRESENT)
+          .product(BEA_FAMILY_PRESENT, AUTHOR_FILTERS, ARCHIVES_FIRST, UNPUBLISHED_ARCHIVE_PRESENT)
           .map { |values| FamilyCase.new(*values) }
           .freeze
 
-  # 3 * 2 * 4 * 2 * 2 * 2 = 192 cases. They cover 46 distinct document
+  # 3 * 2 * 4 * 2 * 2 = 96 cases. They cover 23 distinct document
   # structures: with no archive and no Bea family, document order has no
-  # effect, so the two orders produce the same fixture.
-  EXPECTED_CASE_COUNT = 192
-  EXPECTED_DISTINCT_STRUCTURES = 46
+  # effect, so the two orders produce the same fixture. A canonical_url that
+  # names another site stops the build (BookFamilyValidator), so no case has
+  # one.
+  EXPECTED_CASE_COUNT = 96
+  EXPECTED_DISTINCT_STRUCTURES = 23
 
   def test_generated_families_resolve_from_document_metadata
     assert_equal EXPECTED_CASE_COUNT, CASES.length
@@ -71,7 +69,6 @@ class TestLinkCacheGeneratorProperties < Minitest::Test
       "bea_family=#{test_case.bea_family}, " \
       "author_filter=#{test_case.author_filter.inspect}, " \
       "archives_first=#{test_case.archives_first}, " \
-      "external_review=#{test_case.external_review}, " \
       "unpublished_archive=#{test_case.unpublished_archive}"
   end
 
@@ -87,8 +84,6 @@ class TestLinkCacheGeneratorProperties < Minitest::Test
 
     bea_family = test_case.bea_family ? bea_documents(test_case.archives_first) : []
 
-    external = test_case.external_review ? [external_review_doc] : []
-
     author_pages = [
       create_doc(
         { 'title' => 'Ada Author', 'layout' => 'author_page', 'pen_names' => ['Ada Pen Name'] },
@@ -103,7 +98,7 @@ class TestLinkCacheGeneratorProperties < Minitest::Test
     {
       author_filter: test_case.author_filter,
       author_pages: author_pages,
-      books: ada_family + bea_family + external,
+      books: ada_family + bea_family,
     }
   end
 
@@ -139,18 +134,6 @@ class TestLinkCacheGeneratorProperties < Minitest::Test
       canonical_url: BEA_CANONICAL_URL,
     )
     family_documents(canonical: canonical, archives: [archive], archives_first: archives_first)
-  end
-
-  def external_review_doc
-    create_doc(
-      {
-        'title' => EXTERNAL_TITLE,
-        'published' => true,
-        'book_authors' => ['Cora Author'],
-        'canonical_url' => EXTERNAL_CANONICAL_URL,
-      },
-      '/books/external-edition/',
-    )
   end
 
   def archive_doc(url:, published:, authors:, canonical_url:)
