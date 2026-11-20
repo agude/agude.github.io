@@ -6,7 +6,7 @@ series: null
 book_number: 1
 is_anthology: false
 rating: 5
-image: /books/covers/clarkesworld_issue_160.jpg
+image: /books/covers/clarkesworld_issue_160_cover.jpg
 wikidata_qid: Q85768580
 isbn: null
 date_published: 2020-01-09
