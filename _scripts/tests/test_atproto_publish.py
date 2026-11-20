@@ -252,9 +252,21 @@ class TestExtractRkey:
         # Record keys may end in any allowed character; only slashes are stripped.
         assert _extract_rkey("at://did:plc:abc/site.standard.document/rkeyX") == "rkeyX"
 
-    def test_string_without_slash_is_returned_unchanged(self) -> None:
-        # Pins current behavior: no separator means the whole input is the segment.
-        assert _extract_rkey("rkeyonly") == "rkeyonly"
+    @pytest.mark.parametrize(
+        "uri",
+        [
+            "rkeyonly",
+            "",
+            "at://did:plc:abc/site.standard.document",
+            "at://did:plc:abc/site.standard.document/",
+            "at://did:plc:abc/site.standard.document/rkey/extra",
+            "https://did:plc:abc/site.standard.document/rkey",
+        ],
+    )
+    def test_uri_without_a_record_key_raises(self, uri: str) -> None:
+        # The rkey addresses writes and deletes; never guess one.
+        with pytest.raises(publish.PublishError, match="not an AT-URI with a record key"):
+            _extract_rkey(uri)
 
 
 class TestRecordsDiffer:

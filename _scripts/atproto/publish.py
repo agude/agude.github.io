@@ -525,7 +525,13 @@ def _check(resp: Any) -> None:
 
 
 def _extract_rkey(uri: str) -> str:
-    return uri.rstrip("/").rsplit("/", 1)[-1]
+    # The rkey addresses writes and deletes, so a URI that is not
+    # at://<authority>/<collection>/<rkey> stops the run instead of
+    # yielding some other segment.
+    m = re.fullmatch(r"at://[^/]+/[^/]+/([^/]+)/?", uri)
+    if not m:
+        raise PublishError(f"not an AT-URI with a record key: {uri!r}")
+    return m.group(1)
 
 
 def _verify_publication(client: AtprotoClient, publication_uri: str) -> dict:

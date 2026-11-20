@@ -53,7 +53,7 @@ functions:
   x__source_files: f20f8bb5f251
   x__reject_permalink_overrides: 3d716d35f721
   x__extract_frontmatter_strict: 70fa41027e7b
-  x__extract_rkey: d70fe2e2761b
+  x__extract_rkey: 60b2c950bd27
   x_desired_publication_record: 01446dfbcebb
   x__verify_publication: ac408cc38020
   x_load_config: 0070d3fd9eaa
@@ -553,16 +553,6 @@ survivors:
   disposition: out_of_scope
   reason: The 404 consequence remains and is asserted, along with the key names and not supported; only
     the case of the text differs.
-- mutant: atproto.publish.x__extract_rkey__mutmut_4
-  mutation: Drop the `maxsplit` argument from `rsplit("/", 1)`
-  disposition: equivalent
-  reason: With no maxsplit, rsplit splits on every slash, and `[-1]` is still the text after the last
-    slash, as with maxsplit 1.
-- mutant: atproto.publish.x__extract_rkey__mutmut_10
-  mutation: Change `rsplit` maxsplit from 1 to 2
-  disposition: equivalent
-  reason: For any maxsplit of at least 1, `[-1]` of rsplit is the text after the last slash, so the result
-    is unchanged.
 - mutant: atproto.publish.x_load_config__mutmut_1
   mutation: Remove the `encoding="utf-8"` argument from `config_path.open`
   disposition: out_of_scope
