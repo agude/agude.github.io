@@ -3,8 +3,8 @@ layout: post
 title: "Caltrain Visual Schedule: 2026"
 description: >
   Caltrain electrified and rebuilt its schedule since I last drew it as a
-  Marey chart in 2017. Check out the new 2026 schedule, side by side with
-  2017.
+  Marey chart in 2017, and a lot has changed! Check out the new 2026 schedule,
+  side by side with 2017.
 image: /files/caltrain-schedule/two_sp_trains_in_millbrae_ca_in_january_1985_by_roger_puta.jpg
 hide_lead_image: True
 image_alt: >
@@ -70,8 +70,8 @@ for almost the entire day, compared to just one earlier.
 Second, there is a new type of train: the "South County", which travels
 exclusively between Gilroy and Diridon. This is a consequence of the
 electrification of the northern half of the line. The Gilroy to Diridon leg
-uses the old diesel fleet, while Diridon to San Francisco uses the new
-electric trains.
+uses the old diesel fleet, while Tamien to San Francisco uses the new electric
+trains; they overlap on the Tamien to Diridon section.
 
 [![Marey visual train schedule for Caltrain on weekdays in January 2026, including the South County Connector trains to Gilroy][gilroy_2026]][gilroy_2026]
 [![Marey visual train schedule for Caltrain on weekdays in April 2017, including the stations south of San Jose to Gilroy][gilroy_2017]][gilroy_2017]
@@ -84,21 +84,22 @@ smaller portion.
 
 ### Morning Commute
 
-The morning commute schedule has become much more regular. In 2017, there were
-several different flavors of limited and baby bullets (now called express),
-but they've been standardized in 2026 so every limited stops at the same
-stations, and every express does as well. It makes it much easier to figure
-out what train you need to take! The starting times have been standardized as
-well, with the local, limited, and express following a [clock-face
-schedule][wiki_clock] for most of the day, leaving at the same minutes after
-the hour.
+The morning commute schedule has become much more regular! This is clear from
+the plots, where the 2026 schedule has a simple, repeating pattern, but the
+2017 one looks like a tangle. In 2017, there were several different flavors of
+limited and baby bullets (now called express), but they've been standardized
+in 2026 so every limited stops at the same stations, and every express does as
+well. It makes it much easier to figure out what train you need to take! The
+starting times have been standardized too, with the local, limited, and
+express following a [clock-face schedule][wiki_clock] for most of the day,
+leaving at the same minutes after the hour.
 
 [wiki_clock]: https://en.wikipedia.org/wiki/Clock-face_scheduling
 
-Finally, Caltrain is hardly making use of their passing tracks for overtaking
-anymore. They used to have bullets overtake slower trains regularly, but now
-it only happens once: when southbound Express 506 passes Local 108 at about
-08:20 near Diridon.
+Finally, Caltrain has almost completely stopped using their passing tracks for
+overtaking. They used to have bullets overtake slower trains regularly, but
+now it only happens once: when the southbound Express 506 passes Local 108 at
+about 08:20 near Diridon.
 
 [![Marey visual train schedule for Caltrain during the weekday morning commute in January 2026][morning_2026]][morning_2026]
 [![Marey visual train schedule for Caltrain during the weekday morning commute in April 2017][morning_2017]][morning_2017]
@@ -121,10 +122,9 @@ Wow! Double the number of trains! But in exchange we lose the express.
 ## Electricity
 
 What allows all these changes? Electricity! The new electric trains accelerate
-much faster than the old diesel locomotives. This lets them make the trip much
-faster, or stop in more places and _still_ beat out the old trains. For
-example, compare the new local train (solid blue line) with the old one
-(dashed):
+faster than the old diesel locomotives. This lets them make the trip in less
+time, or stop in more places and _still_ beat out the old trains. For example,
+compare the new local train (solid blue line) with the old one (dashed):
 
 [![Marey chart comparing Local train 101 in April 2017 and January 2026, from San Jose Diridon to San Francisco][local_comparison]][local_comparison]
 
