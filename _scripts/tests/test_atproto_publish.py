@@ -2515,6 +2515,206 @@ class TestRetries:
         assert client.list_records("site.standard.document") == []
 
 
+class RecordingTransport(MockTransport):
+    """MockTransport that also keeps the method, URL, params, headers and timeout of each call."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.requests: list[dict] = []
+
+    def post(self, url, json=None, headers=None, timeout=None):
+        self.requests.append(
+            {
+                "method": "POST",
+                "url": url,
+                "json": json,
+                "params": None,
+                "headers": headers,
+                "timeout": timeout,
+            }
+        )
+        return super().post(url, json=json, headers=headers, timeout=timeout)
+
+    def get(self, url, params=None, headers=None, timeout=None):
+        self.requests.append(
+            {
+                "method": "GET",
+                "url": url,
+                "json": None,
+                "params": params,
+                "headers": headers,
+                "timeout": timeout,
+            }
+        )
+        return super().get(url, params=params, headers=headers, timeout=timeout)
+
+
+class TestClientRequests:
+    """Pins the URL, params, body, headers and retry count of each client call."""
+
+    XRPC = "https://bsky.social/xrpc/"
+    DID = LOGIN_RESPONSE["did"]
+
+    @staticmethod
+    def _logged_in(transport: RecordingTransport) -> AtprotoClient:
+        transport.push(LOGIN_RESPONSE)
+        return AtprotoClient(
+            "https://bsky.social", "handle.bsky.social", "hunter2", _session=transport
+        )
+
+    @staticmethod
+    def _listings(transport: RecordingTransport) -> list[dict]:
+        return [r for r in transport.requests if r["url"].endswith("listRecords")]
+
+    @pytest.fixture
+    def checked_sleep(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        # Retries wait for real; sleep 0 instead. float() rejects None the way
+        # time.sleep does, so a retry that sleeps for None fails here.
+        real_sleep = time.sleep
+
+        def sleep_zero(seconds):
+            real_sleep(0 * float(seconds))
+
+        monkeypatch.setattr(publish.time, "sleep", sleep_zero)
+
+    def test_login_body_carries_handle_and_password(self) -> None:
+        transport = RecordingTransport()
+        transport.push(LOGIN_RESPONSE)
+        AtprotoClient("https://bsky.social", "handle.bsky.social", "hunter2", _session=transport)
+        login = transport.requests[0]
+        assert login["url"] == f"{self.XRPC}com.atproto.server.createSession"
+        assert login["json"] == {"identifier": "handle.bsky.social", "password": "hunter2"}
+
+    @pytest.mark.parametrize(
+        ("pds_url", "base"),
+        [
+            ("https://bsky.social/", "https://bsky.social"),
+            ("https://pds.example/proxyX//", "https://pds.example/proxyX"),
+        ],
+    )
+    def test_pds_url_trailing_slashes_stripped(self, pds_url: str, base: str) -> None:
+        transport = RecordingTransport()
+        transport.push(LOGIN_RESPONSE)
+        client = AtprotoClient(pds_url, "h", "p", _session=transport)
+        transport.push({"records": []})
+        client.list_records("site.standard.document")
+        assert transport.requests[0]["url"] == f"{base}/xrpc/com.atproto.server.createSession"
+        assert transport.requests[1]["url"] == f"{base}/xrpc/com.atproto.repo.listRecords"
+
+    def test_list_records_params_on_each_page(self) -> None:
+        transport = RecordingTransport()
+        client = self._logged_in(transport)
+        transport.push({"records": [], "cursor": "c1"})
+        transport.push({"records": []})
+        client.list_records("site.standard.document")
+        first, second = transport.requests[1], transport.requests[2]
+        assert first["params"] == {
+            "repo": self.DID,
+            "collection": "site.standard.document",
+            "limit": 100,
+        }
+        assert second["params"] == {
+            "repo": self.DID,
+            "collection": "site.standard.document",
+            "limit": 100,
+            "cursor": "c1",
+        }
+
+    def test_list_records_page_without_records_key_is_empty(self) -> None:
+        transport = MockTransport()
+        client = make_client(transport)
+        transport.push({})
+        assert client.list_records("site.standard.document") == []
+
+    def test_get_record_params_and_timeout(self) -> None:
+        transport = RecordingTransport()
+        client = self._logged_in(transport)
+        transport.push({"uri": PUB_URI, "cid": "pubcid1", "value": {}})
+        client.get_record(self.DID, "site.standard.publication", "rkeypub")
+        req = transport.requests[-1]
+        assert req["url"] == f"{self.XRPC}com.atproto.repo.getRecord"
+        assert req["params"] == {
+            "repo": self.DID,
+            "collection": "site.standard.publication",
+            "rkey": "rkeypub",
+        }
+        assert req["timeout"] == publish.HTTP_TIMEOUT
+
+    def test_get_record_not_found_returns_none(self) -> None:
+        transport = RecordingTransport()
+        client = self._logged_in(transport)
+        transport.push({"error": "RecordNotFound"}, status_code=400)
+        assert client.get_record(self.DID, "site.standard.publication", "gone") is None
+
+    def test_get_record_other_400_raises(self) -> None:
+        transport = RecordingTransport()
+        client = self._logged_in(transport)
+        transport.push({"error": "InvalidRequest"}, status_code=400)
+        with pytest.raises(publish.PublishError, match="PDS error 400"):
+            client.get_record(self.DID, "site.standard.publication", "rkey1")
+
+    def test_put_record_body_auth_and_swap(self) -> None:
+        transport = RecordingTransport()
+        client = self._logged_in(transport)
+        transport.push({})
+        client.put_record("site.standard.document", "rkey1", {"title": "A"}, swap_cid="cid1")
+        req = transport.requests[-1]
+        assert req["url"] == f"{self.XRPC}com.atproto.repo.putRecord"
+        assert req["json"] == {
+            "repo": self.DID,
+            "collection": "site.standard.document",
+            "rkey": "rkey1",
+            "record": {"title": "A"},
+            "swapRecord": "cid1",
+        }
+        assert req["headers"] == {"Authorization": "Bearer token-abc"}
+        assert req["timeout"] == publish.HTTP_TIMEOUT
+
+    def test_put_record_without_swap_omits_swap_record(self) -> None:
+        transport = RecordingTransport()
+        client = self._logged_in(transport)
+        transport.push({})
+        client.put_record("site.standard.document", "rkey1", {"title": "A"})
+        assert transport.requests[-1]["json"] == {
+            "repo": self.DID,
+            "collection": "site.standard.document",
+            "rkey": "rkey1",
+            "record": {"title": "A"},
+        }
+
+    def test_delete_record_body_and_bearer_token(self) -> None:
+        transport = RecordingTransport()
+        client = self._logged_in(transport)
+        transport.push({})
+        client.delete_record("site.standard.document", "rkey1")
+        req = transport.requests[-1]
+        assert req["url"] == f"{self.XRPC}com.atproto.repo.deleteRecord"
+        assert req["json"] == {
+            "repo": self.DID,
+            "collection": "site.standard.document",
+            "rkey": "rkey1",
+        }
+        assert req["headers"] == {"Authorization": "Bearer token-abc"}
+
+    def test_read_retries_server_error_then_succeeds(self, checked_sleep) -> None:
+        transport = RecordingTransport()
+        client = self._logged_in(transport)
+        transport.push({"error": "Boom"}, status_code=500)
+        transport.push({"records": [{"uri": DOC_URI, "value": {}}]})
+        records = client.list_records("site.standard.document")
+        assert [r["uri"] for r in records] == [DOC_URI]
+        assert len(self._listings(transport)) == 2
+
+    def test_read_gives_up_after_three_server_errors(self, checked_sleep) -> None:
+        transport = RecordingTransport()
+        client = self._logged_in(transport)
+        for _ in range(3):
+            transport.push({"error": "Boom"}, status_code=500)
+        with pytest.raises(publish.PublishError, match="PDS error 500"):
+            client.list_records("site.standard.document")
+        assert len(self._listings(transport)) == 3
+
+
 class TestOrphanAnnotations:
     def test_github_actions_warning_annotation(
         self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys

@@ -60,6 +60,14 @@ functions:
   x_get_publication_uri: 575842bcc547
   x__get_env: 90eca60262b9
   x_did_from_publication_uri: a328c01eae5f
+  xǁAtprotoClientǁ__init__: f62a2de58101
+  xǁAtprotoClientǁ_init_transport: 23ac8b5815a8
+  xǁAtprotoClientǁ_login: ae7181f1f3b1
+  xǁAtprotoClientǁ_retry_request: e1a3cc765e6c
+  xǁAtprotoClientǁlist_records: b0bcc4467e58
+  xǁAtprotoClientǁget_record: 21cc0477d27d
+  xǁAtprotoClientǁput_record: 5f52478caf82
+  xǁAtprotoClientǁdelete_record: 9164fa9069a5
 survivors:
 - mutant: atproto.publish.x_sync_documents__mutmut_4
   mutation: Wrap the empty-`publication_uri` message in `XX` markers
@@ -582,3 +590,57 @@ survivors:
   disposition: equivalent
   reason: A missing default returns None, which `if not val` treats exactly like the original empty-string
     default.
+- mutant: atproto.publish.xǁAtprotoClientǁ_init_transport__mutmut_9
+  mutation: Set `self._http.trust_env` to None instead of False
+  disposition: equivalent
+  reason: Requests tests trust_env only for truthiness, and None is falsy like False.
+- mutant: atproto.publish.xǁAtprotoClientǁ_init_transport__mutmut_11
+  mutation: Set the initial `self.did` to None
+  disposition: equivalent
+  reason: _login overwrites did before a logged-in client is returned, and read_only sets did after _init_transport,
+    so the initial value is never read.
+- mutant: atproto.publish.xǁAtprotoClientǁ_init_transport__mutmut_12
+  mutation: Set the initial `self.did` to "XXXX"
+  disposition: equivalent
+  reason: _login or read_only overwrites did before any read, so the initial value is never observable.
+- mutant: atproto.publish.xǁAtprotoClientǁ_init_transport__mutmut_13
+  mutation: Set the initial `self._jwt` to None
+  disposition: equivalent
+  reason: _login sets _jwt before a logged-in client is returned, and _auth returns an empty dict without
+    reading it for read_only clients.
+- mutant: atproto.publish.xǁAtprotoClientǁ_init_transport__mutmut_14
+  mutation: Set the initial `self._jwt` to "XXXX"
+  disposition: equivalent
+  reason: _login sets _jwt before a logged-in client is returned, and _auth returns an empty dict without
+    reading it for read_only clients.
+- mutant: atproto.publish.xǁAtprotoClientǁ_init_transport__mutmut_15
+  mutation: Set the initial `self._read_only` to None
+  disposition: equivalent
+  reason: _read_only is read only for truthiness in _auth and _refuse_write, and None is falsy like False.
+- mutant: atproto.publish.xǁAtprotoClientǁ_retry_request__mutmut_11
+  mutation: Change the backoff to `2 * attempt` seconds
+  disposition: out_of_scope
+  reason: Only the sleep duration changes, while the retry count and the retried responses stay the same,
+    and no test asserts delays.
+- mutant: atproto.publish.xǁAtprotoClientǁ_retry_request__mutmut_12
+  mutation: Change the backoff to `3**attempt` seconds
+  disposition: out_of_scope
+  reason: Only the sleep duration changes, while the retry count and the retried responses stay the same,
+    and no test asserts delays.
+- mutant: atproto.publish.xǁAtprotoClientǁ_retry_request__mutmut_13
+  mutation: Set the unreachable AssertionError message to None
+  disposition: equivalent
+  reason: The line cannot run because READ_RETRIES is 3 and the last attempt always returns or raises.
+- mutant: atproto.publish.xǁAtprotoClientǁ_retry_request__mutmut_14
+  mutation: Change the unreachable AssertionError message to "XXunreachableXX"
+  disposition: equivalent
+  reason: The line cannot run because READ_RETRIES is 3 and the last attempt always returns or raises.
+- mutant: atproto.publish.xǁAtprotoClientǁ_retry_request__mutmut_15
+  mutation: Change the unreachable AssertionError message to "UNREACHABLE"
+  disposition: equivalent
+  reason: The line cannot run because READ_RETRIES is 3 and the last attempt always returns or raises.
+- mutant: atproto.publish.xǁAtprotoClientǁlist_records__mutmut_2
+  mutation: Set the initial `cursor` to an empty string instead of None
+  disposition: equivalent
+  reason: The first `if cursor:` treats an empty string and None alike, and cursor is reassigned from
+    each page before it is read again.
