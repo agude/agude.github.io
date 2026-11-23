@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require_relative '../../../ui/cards/markdown_card_utils'
+require_relative '../lists/book_list_renderer_utils'
 
 module Jekyll
   module Books
     module AwardsPage
       # Markdown renderer for awards page content
       class MarkdownRenderer
-        MdCards = Jekyll::UI::Cards::MarkdownCardUtils
-        private_constant :MdCards
+        ListsRenderer = Jekyll::Books::Lists::BookListRendererUtils
+        private_constant :ListsRenderer
 
         def initialize(data)
           @awards_groups = data[:awards_groups]
@@ -30,22 +30,20 @@ module Jekyll
           lines = ['## Major Awards']
           @awards_groups.each do |group|
             lines << "### #{group[:award_name]}"
-            (group[:books] || []).each do |book|
-              lines << MdCards.render_book_card_md(MdCards.book_doc_to_card_data(book))
-            end
+            lines.concat(ListsRenderer.render_cards_markdown(group[:books]))
           end
           lines
         end
 
         def render_favorites
-          displayable = @favorites_lists.select { |l| (l[:books] || []).any? }
+          displayable = @favorites_lists.select { |l| l[:books].any? }
           return [] if displayable.empty?
 
           lines = ['## My Favorite Books Lists']
           displayable.each do |list|
             title = list[:post].data['title']
             lines << "### [#{title}](#{list[:post].url})"
-            list[:books].each { |book| lines << MdCards.render_book_card_md(MdCards.book_doc_to_card_data(book)) }
+            lines.concat(ListsRenderer.render_cards_markdown(list[:books]))
           end
           lines
         end

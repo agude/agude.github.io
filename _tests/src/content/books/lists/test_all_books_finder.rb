@@ -109,37 +109,17 @@ class TestBookListAllBooksFinder < Minitest::Test
   end
 
   def test_find_returns_correct_structure_and_sorting
-    data = get_all_books_data
-
-    # --- Assert Standalone Books ---
-    # Expected order: Apple, Banana, The Zebra (sorts as Zebra)
-    assert_equal 3, data[:standalone_books].size, 'Incorrect number of standalone books'
-    assert_equal @st_apple.data['title'], data[:standalone_books][0].data['title']
-    assert_equal @st_banana.data['title'], data[:standalone_books][1].data['title']
-    assert_equal @st_the_zebra.data['title'], data[:standalone_books][2].data['title']
-
-    # --- Assert Series Groups ---
-    # Expected series order: Series One, Series Two
-    assert_equal 2, data[:series_groups].size, 'Incorrect number of series groups'
-
-    # Series One
-    series_one_group = data[:series_groups].find { |g| g[:name] == 'Series One' }
-    refute_nil series_one_group, 'Series One group missing'
-    assert_equal 2, series_one_group[:books].size, 'Incorrect number of books in Series One'
-    assert_equal @s1_b0_5.data['title'], series_one_group[:books][0].data['title'] # Book 0.5
-    assert_equal @s1_b1.data['title'], series_one_group[:books][1].data['title']   # Book 1
-
-    # Series Two
-    series_two_group = data[:series_groups].find { |g| g[:name] == 'Series Two' }
-    refute_nil series_two_group, 'Series Two group missing'
-    assert_equal 1, series_two_group[:books].size, 'Incorrect number of books in Series Two'
-    assert_equal @s2_b1.data['title'], series_two_group[:books][0].data['title']
-
-    # Ensure overall series group sorting
-    assert_equal 'Series One', data[:series_groups][0][:name]
-    assert_equal 'Series Two', data[:series_groups][1][:name]
-
-    assert_empty data[:log_messages].to_s, 'Expected no log messages for successful display'
+    assert_equal(
+      {
+        standalone_books: [@st_apple, @st_banana, @st_the_zebra],
+        series_groups: [
+          { name: 'Series One', books: [@s1_b0_5, @s1_b1] },
+          { name: 'Series Two', books: [@s2_b1] },
+        ],
+        log_messages: '',
+      },
+      get_all_books_data,
+    )
   end
 
   def test_find_sorts_series_ignoring_articles
@@ -173,15 +153,6 @@ class TestBookListAllBooksFinder < Minitest::Test
       actual_series_order,
       'Series groups were not sorted correctly ignoring articles',
     )
-  end
-
-  def test_find_ignores_unpublished_books
-    data = get_all_books_data
-    all_rendered_titles = data[:standalone_books].map { |book| book.data['title'] } +
-                          data[:series_groups].flat_map do |series_group|
-                            series_group[:books].map { |book| book.data['title'] }
-                          end
-    refute_includes all_rendered_titles, @unpublished_book.data['title']
   end
 
   def test_find_with_empty_collection_returns_empty_groups

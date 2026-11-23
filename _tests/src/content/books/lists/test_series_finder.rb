@@ -93,12 +93,12 @@ class TestBookListSeriesFinder < Minitest::Test
     )
 
     @books_for_series_tests = [
+      @s1_b10,
+      @s1_b_str_num,
+      @s1_b2,
+      @s1_b_nil_num,
       @s1_b0_5,
       @s1_b1,
-      @s1_b2,
-      @s1_b10,
-      @s1_b_nil_num,
-      @s1_b_str_num,
       @unpublished_s1,
       @s2_b1,
     ]
@@ -162,22 +162,14 @@ class TestBookListSeriesFinder < Minitest::Test
   end
 
   def test_find_returns_books_sorted_numerically_with_floats
-    data = get_series_data('Series One')
-    assert_equal 'Series One', data[:series_name]
-    # Expected order: 0.5, 1, 2.0, 10, NilNum, StrNum (Nil/Str sort last due to Float::INFINITY)
-    # Total published in Series One for this test setup: 6
-    assert_equal 6, data[:books].size
-    assert_equal @s1_b0_5.data['title'], data[:books][0].data['title'] # 0.5
-    assert_equal @s1_b1.data['title'],   data[:books][1].data['title'] # 1
-    assert_equal @s1_b2.data['title'],   data[:books][2].data['title'] # 2.0
-    assert_equal @s1_b10.data['title'],  data[:books][3].data['title'] # 10
-
-    # The order of StrNum and NilNum relative to each other depends on secondary title sort
-    last_two_titles = [data[:books][4].data['title'], data[:books][5].data['title']].sort
-    expected_last_two = [@s1_b_nil_num.data['title'], @s1_b_str_num.data['title']].sort
-    assert_equal expected_last_two, last_two_titles
-
-    assert_empty data[:log_messages].to_s, 'Expected no log messages for a successful series lookup'
+    assert_equal(
+      {
+        books: [@s1_b0_5, @s1_b1, @s1_b2, @s1_b10, @s1_b_nil_num, @s1_b_str_num],
+        series_name: 'Series One',
+        log_messages: '',
+      },
+      get_series_data('Series One'),
+    )
   end
 
   def test_find_is_case_insensitive
@@ -213,13 +205,6 @@ class TestBookListSeriesFinder < Minitest::Test
     assert_empty data[:books]
     expected_log_pattern = /<!-- \[WARN\] BOOK_LIST_SERIES_DISPLAY_FAILURE: Reason='Series name filter was empty or nil\.'\s*SeriesFilterInput='   '\s*SourcePage='current_page\.html' -->/
     assert_match(expected_log_pattern, data[:log_messages])
-  end
-
-  def test_find_ignores_unpublished_books
-    data = get_series_data('Series One')
-    assert_equal 6, data[:books].size # Should only find the 6 published ones
-    refute_includes data[:books].map { |book| book.data['title'] }, @unpublished_s1.data['title']
-    assert_empty data[:log_messages].to_s
   end
 
   def test_find_with_missing_books_collection_logs_error

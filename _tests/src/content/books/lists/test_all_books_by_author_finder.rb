@@ -165,71 +165,29 @@ class TestBookListAllBooksByAuthorFinder < Minitest::Test
   end
 
   def test_find_returns_correct_structure_and_sorting
-    data = get_all_books_by_author_data
-
-    assert_empty data[:log_messages].to_s
-    # Expected authors: Author Alpha, author beta, Author Charlie (sorted case-insensitively)
-    assert_equal 3, data[:authors_data].size, 'Incorrect number of author groups found'
-
-    # --- Assert Author Order ---
-    expected_author_names_ordered = [@author_a_cap_name, @author_b_lower_name, @author_c_canonical_name]
-    actual_author_names_ordered = data[:authors_data].map { |ad| ad[:author_name] }
-    assert_equal expected_author_names_ordered,
-                 actual_author_names_ordered,
-                 'Authors not sorted correctly by canonical name'
-
-    assert_author_alpha_data(data[:authors_data][0])
-    assert_author_beta_data(data[:authors_data][1])
-    assert_author_charlie_data(data[:authors_data][2])
-  end
-
-  private
-
-  # Helper to assert Author Alpha's data structure
-  def assert_author_alpha_data(author_a_data)
-    assert_equal @author_a_cap_name, author_a_data[:author_name]
-    # Standalone books should be sorted alphabetically
-    assert_equal 3, author_a_data[:standalone_books].size, 'Incorrect standalone count for Author Alpha'
-    author_a_standalone_titles = author_a_data[:standalone_books].map { |b| b.data['title'] }
-    expected_standalone_titles = [
-      @book_aa_standalone_apple.data['title'],
-      @coauthored_aa_ab.data['title'],
-      @book_aa_standalone_zeta.data['title'],
-    ]
-    assert_equal expected_standalone_titles,
-                 author_a_standalone_titles,
-                 'Standalone books for Author Alpha are not sorted alphabetically'
-    # Series books should be sorted by book_number
-    assert_equal 1, author_a_data[:series_groups].size, 'Incorrect series group count for Author Alpha'
-    series_one_group = author_a_data[:series_groups][0]
-    assert_equal 'Series One', series_one_group[:name]
-    assert_equal 2, series_one_group[:books].size, 'Incorrect number of books in Series One for Author Alpha'
-    assert_equal @book_aa_s1_b0_5.data['title'],
-                 series_one_group[:books][0].data['title'],
-                 'Series One books not sorted correctly by book_number'
-    assert_equal @book_aa_s1_b1.data['title'],
-                 series_one_group[:books][1].data['title'],
-                 'Series One books not sorted correctly by book_number'
-  end
-
-  # Helper to assert author beta's data structure
-  def assert_author_beta_data(author_b_data)
-    assert_equal @author_b_lower_name, author_b_data[:author_name]
-    assert_equal 2, author_b_data[:standalone_books].size, 'Incorrect standalone count for author beta'
-    author_b_standalone_titles = author_b_data[:standalone_books].map { |b| b.data['title'] }
-    assert_includes author_b_standalone_titles, @book_ab_standalone.data['title']
-    assert_includes author_b_standalone_titles, @coauthored_aa_ab.data['title']
-    assert_empty author_b_data[:series_groups], 'author beta should have no series groups'
-  end
-
-  # Helper to assert Author Charlie's data structure
-  def assert_author_charlie_data(author_c_data)
-    assert_equal @author_c_canonical_name, author_c_data[:author_name]
-    assert_equal 2, author_c_data[:standalone_books].size, 'Incorrect standalone count for Author Charlie'
-    author_c_standalone_titles = author_c_data[:standalone_books].map { |b| b.data['title'] }
-    assert_includes author_c_standalone_titles, @book_ac_canonical.data['title']
-    assert_includes author_c_standalone_titles, @book_ac_pen_name.data['title'] # Pen name book
-    assert_empty author_c_data[:series_groups], 'Author Charlie should have no series groups'
+    assert_equal(
+      {
+        authors_data: [
+          {
+            author_name: @author_a_cap_name,
+            standalone_books: [@book_aa_standalone_apple, @coauthored_aa_ab, @book_aa_standalone_zeta],
+            series_groups: [{ name: 'Series One', books: [@book_aa_s1_b0_5, @book_aa_s1_b1] }],
+          },
+          {
+            author_name: @author_b_lower_name,
+            standalone_books: [@coauthored_aa_ab, @book_ab_standalone],
+            series_groups: [],
+          },
+          {
+            author_name: @author_c_canonical_name,
+            standalone_books: [@book_ac_canonical, @book_ac_pen_name],
+            series_groups: [],
+          },
+        ],
+        log_messages: '',
+      },
+      get_all_books_by_author_data,
+    )
   end
 
   def test_find_excludes_malformed_and_unpublished

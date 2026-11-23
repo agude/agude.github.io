@@ -18,32 +18,29 @@ module Jekyll
         AuthorLookup = Jekyll::Infrastructure::LinkCache::AuthorLookup
         private_constant :AuthorLookup
 
-        def initialize(site:, context:)
-          @site = site
-          @context = context
-        end
-
         # Finds and structures all books grouped by author.
         # @return [Hash] Contains :authors_data (Array of Hashes), :log_messages (String).
         def find
-          error = validate_collection({ filter_type: 'all_books_by_author' }, key: :authors_data)
-          return error if error
-
-          books_by_author = group_books_by_canonical_author
-          authors_data_list = build_authors_data_list(books_by_author)
-          log_msg = generate_all_authors_log(authors_data_list)
-
-          { authors_data: authors_data_list, log_messages: log_msg }
+          find_groups(
+            :authors_data,
+            filter_type: 'all_books_by_author',
+            empty_log: {
+              tag_type: 'ALL_BOOKS_BY_AUTHOR_DISPLAY',
+              reason: 'No published books with valid author names found.',
+            },
+          ) do |books|
+            build_authors_data_list(group_books_by_canonical_author(books))
+          end
         end
 
         private
 
-        def group_books_by_canonical_author
+        def group_books_by_canonical_author(books)
           link_cache = @site.data['link_cache'] || {}
           author_cache = link_cache['authors'] || {}
           books_map = {}
 
-          all_published_books(include_archived: false).each do |book|
+          books.each do |book|
             add_book_to_author_map(book, author_cache, books_map)
           end
           books_map
@@ -70,15 +67,6 @@ module Jekyll
             }
           end
           list.sort_by { |entry| entry[:author_name].downcase }
-        end
-
-        def generate_all_authors_log(data)
-          return String.new unless data.empty?
-
-          log_no_results(
-            tag_type: 'ALL_BOOKS_BY_AUTHOR_DISPLAY',
-            reason: 'No published books with valid author names found.',
-          )
         end
       end
     end

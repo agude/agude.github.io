@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative 'shared'
-require_relative '../../../infrastructure/text_processing_utils'
 
 module Jekyll
   module Books
@@ -13,28 +12,19 @@ module Jekyll
       class ByTitleAlphaFinder
         include Jekyll::Books::Lists::Shared
 
-        def initialize(site:, context:)
-          @site = site
-          @context = context
-        end
-
         # Finds and structures all books grouped by title's first letter.
         # @return [Hash] Contains :alpha_groups (Array of Hashes), :log_messages (String).
         def find
-          error = validate_collection({ filter_type: 'all_books_by_title_alpha_group' }, key: :alpha_groups)
-          return error if error
-
-          all_books = all_published_books(include_archived: false)
-          if all_books.empty?
-            return return_info(
-              'ALL_BOOKS_BY_TITLE_ALPHA_GROUP',
-              'No published books found to group by title.',
-              key: :alpha_groups,
-            )
+          find_groups(
+            :alpha_groups,
+            filter_type: 'all_books_by_title_alpha_group',
+            empty_log: {
+              tag_type: 'ALL_BOOKS_BY_TITLE_ALPHA_GROUP',
+              reason: 'No published books found to group by title.',
+            },
+          ) do |books|
+            group_books_by_alpha(books)
           end
-
-          alpha_groups_list = group_books_by_alpha(all_books)
-          { alpha_groups: alpha_groups_list, log_messages: String.new }
         end
 
         private
@@ -49,10 +39,7 @@ module Jekyll
         end
 
         def create_book_alpha_meta(book)
-          sort_title = Jekyll::Infrastructure::TextProcessingUtils.normalize_title(
-            book.data['title'].to_s,
-            strip_articles: true,
-          )
+          sort_title = title_sort_key(book)
           first_letter = sort_title.empty? ? '#' : sort_title[0].upcase
           first_letter = '#' unless first_letter.match?(/[A-Z]/)
           { book: book, sort_title: sort_title, first_letter: first_letter }

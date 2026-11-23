@@ -12,7 +12,7 @@ class TestBookListByAwardFinder < Minitest::Test
     # --- Book Data for Award Display Tests ---
     @award_book_hugo_locus = create_doc(
       {
-        'title' => 'Book A (Hugo & Locus)',
+        'title' => 'The Apple',
         'awards' => %w[Hugo Locus],
         'published' => true,
         'date' => Time.now,
@@ -23,7 +23,7 @@ class TestBookListByAwardFinder < Minitest::Test
       { 'title' => 'Book B (Nebula)', 'awards' => ['Nebula'], 'published' => true, 'date' => Time.now }, '/award_b.html',
     )
     @award_book_hugo_lower = create_doc(
-      { 'title' => 'Book C (hugo)', 'awards' => ['hugo'], 'published' => true, 'date' => Time.now }, '/award_c.html',
+      { 'title' => 'Cherry', 'awards' => ['hugo'], 'published' => true, 'date' => Time.now }, '/award_c.html',
     )
     @award_book_acc = create_doc(
       {
@@ -40,7 +40,7 @@ class TestBookListByAwardFinder < Minitest::Test
     )
     @award_book_locus_only = create_doc(
       {
-        'title' => 'Book F (Locus Only)',
+        'title' => 'Fig',
         'awards' => ['Locus'],
         'published' => true,
         'date' => Time.now,
@@ -148,110 +148,24 @@ class TestBookListByAwardFinder < Minitest::Test
   end
 
   def test_by_award_finder_correct_grouping_and_sorting
-    result = get_all_books_by_award_data
-
-    assert_empty result[:log_messages].to_s
-    # Expected unique formatted awards:
-    # "Another Valid Award", "Arthur C. Clarke Award", "British Fantasy Award", "Hugo Award", "Locus Award",
-    # "Locus For Best Sf Novel Award", "Mixed Case Award Award", "Nebula Award", "Philip K. Dick Award", "Valid Award Award"
-    # The format_award_display_name method appends " Award"
-    # Raw unique awards are: "Another Valid", "arthur c. clarke", "british fantasy", "Hugo" (from Hugo & hugo),
-    # "Locus", "Locus for Best SF Novel", "mIxEd CaSe AwArD", "Nebula", "philip k. dick", "Valid Award"
-    # This makes 10 unique awards.
-    assert_equal 10, result[:awards_data].size, 'Incorrect number of award groups'
-
-    # Check Arthur C. Clarke Award
-    acc_award_data = result[:awards_data].find { |ad| ad[:award_name] == 'Arthur C. Clarke Award' }
-    refute_nil acc_award_data, 'Arthur C. Clarke Award group missing'
-    assert_equal 'arthur-c-clarke-award', acc_award_data[:award_slug]
-    assert_equal 1, acc_award_data[:books].size
-    assert_equal @award_book_acc.data['title'], acc_award_data[:books][0].data['title']
-
-    # Check Hugo Award (combines "Hugo" and "hugo")
-    hugo_award_data = result[:awards_data].find { |ad| ad[:award_name] == 'Hugo Award' }
-    refute_nil hugo_award_data, 'Hugo Award group missing'
-    assert_equal 'hugo-award', hugo_award_data[:award_slug]
-    assert_equal 2, hugo_award_data[:books].size
-    assert_includes hugo_award_data[:books].map { |b| b.data['title'] }, @award_book_hugo_locus.data['title']
-    assert_includes hugo_award_data[:books].map { |b| b.data['title'] }, @award_book_hugo_lower.data['title']
-    # Check internal sort by title
-    assert_equal [@award_book_hugo_locus.data['title'], @award_book_hugo_lower.data['title']].sort,
-                 hugo_award_data[:books].map { |b|
-                   b.data['title']
-                 }.sort
-
-    # Check Locus Award
-    locus_award_data = result[:awards_data].find { |ad| ad[:award_name] == 'Locus Award' }
-    refute_nil locus_award_data, 'Locus Award group missing'
-    assert_equal 'locus-award', locus_award_data[:award_slug]
-    assert_equal 2, locus_award_data[:books].size
-    assert_includes locus_award_data[:books].map { |b| b.data['title'] }, @award_book_hugo_locus.data['title']
-    assert_includes locus_award_data[:books].map { |b| b.data['title'] }, @award_book_locus_only.data['title']
-
-    # Check Locus For Best Sf Novel Award
-    locus_sf_award_data = result[:awards_data].find { |ad| ad[:award_name] == 'Locus For Best Sf Novel Award' }
-    refute_nil locus_sf_award_data, '"Locus For Best Sf Novel Award" group missing'
-    assert_equal 'locus-for-best-sf-novel-award', locus_sf_award_data[:award_slug]
-    assert_equal 1, locus_sf_award_data[:books].size
-    assert_equal @award_book_locus_sf_novel.data['title'], locus_sf_award_data[:books][0].data['title']
-
-    # Check Mixed Case Award Award
-    mixed_award_data = result[:awards_data].find { |ad| ad[:award_name] == 'Mixed Case Award Award' }
-    refute_nil mixed_award_data, 'Mixed Case Award Award group missing'
-    assert_equal 'mixed-case-award-award', mixed_award_data[:award_slug]
-    assert_equal 1, mixed_award_data[:books].size
-    assert_equal @award_book_mixed_case.data['title'], mixed_award_data[:books][0].data['title']
-
-    # Check Nebula Award
-    nebula_award_data = result[:awards_data].find { |ad| ad[:award_name] == 'Nebula Award' }
-    refute_nil nebula_award_data, 'Nebula Award group missing'
-    assert_equal 'nebula-award', nebula_award_data[:award_slug]
-    assert_equal 1, nebula_award_data[:books].size
-    assert_equal @award_book_nebula.data['title'], nebula_award_data[:books][0].data['title']
-
-    # Check "Valid Award" and "Another Valid Award" from @award_book_nil_in_awards
-    valid_award_data = # _format_award_display_name appends " Award"
-      result[:awards_data].find do |ad|
-        ad[:award_name] == 'Valid Award Award'
-      end
-    refute_nil valid_award_data, 'Valid Award Award group missing'
-    assert_equal 1, valid_award_data[:books].size
-    assert_equal @award_book_nil_in_awards.data['title'], valid_award_data[:books][0].data['title']
-
-    another_valid_award_data = result[:awards_data].find { |ad| ad[:award_name] == 'Another Valid Award' }
-    refute_nil another_valid_award_data, 'Another Valid Award group missing'
-    assert_equal 1, another_valid_award_data[:books].size
-    assert_equal @award_book_nil_in_awards.data['title'], another_valid_award_data[:books][0].data['title']
-
-    # Check Philip K. Dick Award (tests multi-initial formatting)
-    pkd_award_data = result[:awards_data].find { |ad| ad[:award_name] == 'Philip K. Dick Award' }
-    refute_nil pkd_award_data, 'Philip K. Dick Award group missing'
-    assert_equal 'philip-k-dick-award', pkd_award_data[:award_slug]
-    assert_equal 1, pkd_award_data[:books].size
-    assert_equal @award_book_pkd.data['title'], pkd_award_data[:books][0].data['title']
-
-    # Check British Fantasy Award (tests multi-word formatting)
-    british_fantasy_award_data = result[:awards_data].find { |ad| ad[:award_name] == 'British Fantasy Award' }
-    refute_nil british_fantasy_award_data, 'British Fantasy Award group missing'
-    assert_equal 'british-fantasy-award', british_fantasy_award_data[:award_slug]
-    assert_equal 1, british_fantasy_award_data[:books].size
-    assert_equal @award_book_british_fantasy.data['title'], british_fantasy_award_data[:books][0].data['title']
-
-    # Check overall sort order of awards (based on formatted names)
-    award_names_in_order = result[:awards_data].map { |ad| ad[:award_name] }
-    expected_award_order = [ # Sorted alphabetically by formatted name
-      'Another Valid Award',
-      'Arthur C. Clarke Award',
-      'British Fantasy Award',
-      'Hugo Award',
-      'Locus Award',
-      'Locus For Best Sf Novel Award',
-      'Mixed Case Award Award',
-      'Nebula Award',
-      'Philip K. Dick Award',
-      'Valid Award Award',
-    ].sort # Ensure test expectation is also sorted for comparison
-    assert_equal expected_award_order, award_names_in_order.sort
+    assert_equal(
+      {
+        awards_data: [
+          { award_name: 'Another Valid Award', award_slug: 'another-valid-award', books: [@award_book_nil_in_awards] },
+          { award_name: 'Arthur C. Clarke Award', award_slug: 'arthur-c-clarke-award', books: [@award_book_acc] },
+          { award_name: 'British Fantasy Award', award_slug: 'british-fantasy-award', books: [@award_book_british_fantasy] },
+          { award_name: 'Hugo Award', award_slug: 'hugo-award', books: [@award_book_hugo_locus, @award_book_hugo_lower] },
+          { award_name: 'Locus Award', award_slug: 'locus-award', books: [@award_book_hugo_locus, @award_book_locus_only] },
+          { award_name: 'Locus For Best Sf Novel Award', award_slug: 'locus-for-best-sf-novel-award', books: [@award_book_locus_sf_novel] },
+          { award_name: 'Mixed Case Award Award', award_slug: 'mixed-case-award-award', books: [@award_book_mixed_case] },
+          { award_name: 'Nebula Award', award_slug: 'nebula-award', books: [@award_book_nebula] },
+          { award_name: 'Philip K. Dick Award', award_slug: 'philip-k-dick-award', books: [@award_book_pkd] },
+          { award_name: 'Valid Award Award', award_slug: 'valid-award-award', books: [@award_book_nil_in_awards] },
+        ],
+        log_messages: '',
+      },
+      get_all_books_by_award_data,
+    )
   end
 
   def test_by_award_finder_no_books_with_awards
@@ -286,12 +200,15 @@ class TestBookListByAwardFinder < Minitest::Test
     assert_empty result[:log_messages].to_s # Finder returns early before logging "no awards found"
   end
 
-  def test_format_award_display_name_handles_nil
-    # This tests line 86: `return '' if award_string_raw.nil? || award_string_raw.to_s.strip.empty?`
-    # Access the private method via send for direct testing
-    finder = Jekyll::Books::Lists::ByAwardFinder.new(site: @site, context: @context)
-    assert_equal '', finder.send(:format_award_display_name, nil)
-    assert_equal '', finder.send(:format_award_display_name, '')
-    assert_equal '', finder.send(:format_award_display_name, '   ')
+  def test_find_ignores_nil_and_blank_award_entries
+    book = create_doc({ 'awards' => [nil, '', '   ', ' Hugo '] }, '/book.html')
+    malformed_book = create_doc({ 'awards' => 'Hugo' }, '/malformed.html')
+    site = create_site({}, { 'books' => [book, malformed_book] })
+    context = create_context({}, { site: site, page: @context.registers[:page] })
+
+    assert_equal(
+      { awards_data: [{ award_name: 'Hugo Award', award_slug: 'hugo-award', books: [book] }], log_messages: '' },
+      get_all_books_by_award_data(site, context),
+    )
   end
 end

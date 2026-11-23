@@ -16,13 +16,6 @@ class TestBookListFavoritesListsFinder < Minitest::Test
   private
 
   def stub_silent_logger(&)
-    silent_logger = Object.new.tap do |logger|
-      def logger.warn(_prefix, _msg); end
-      def logger.error(_prefix, _msg); end
-      def logger.info(_prefix, _msg); end
-      def logger.debug(_prefix, _msg); end
-    end
-
     Jekyll.stub(:logger, silent_logger, &)
   end
 
@@ -30,7 +23,7 @@ class TestBookListFavoritesListsFinder < Minitest::Test
     # --- Mock Books ---
     @book_a = create_doc({ 'title' => 'Apple Book' }, '/books/a.html')
     @book_b = create_doc({ 'title' => 'Banana Book' }, '/books/b.html')
-    @book_z = create_doc({ 'title' => 'Zebra Book' }, '/books/z.html')
+    @book_z = create_doc({ 'title' => 'A Zebra Book' }, '/books/z.html')
 
     # --- Mock Posts ---
     @fav_post_2024 = create_doc(
@@ -66,28 +59,16 @@ class TestBookListFavoritesListsFinder < Minitest::Test
   # --- Happy Path Test ---
 
   def test_find_returns_correctly_structured_and_sorted_data
-    # Instantiate and call the finder directly
-    finder = Jekyll::Books::Lists::FavoritesListsFinder.new(site: @site, context: @context)
-    result = finder.find
-
-    # Assert no error messages
-    assert_empty result[:log_messages].to_s
-    assert_equal 2, result[:favorites_lists].size, 'Should find two favorites lists'
-
-    # Assert lists are sorted by year descending (2024, then 2023)
-    assert_equal @fav_post_2024.url, result[:favorites_lists][0][:post].url
-    assert_equal @fav_post_2023.url, result[:favorites_lists][1][:post].url
-
-    # Assert books within the 2024 list are sorted by title ascending
-    list_2024 = result[:favorites_lists][0]
-    assert_equal 2, list_2024[:books].size
-    assert_equal 'Apple Book', list_2024[:books][0].data['title']
-    assert_equal 'Zebra Book', list_2024[:books][1].data['title']
-
-    # Assert books within the 2023 list
-    list_2023 = result[:favorites_lists][1]
-    assert_equal 1, list_2023[:books].size
-    assert_equal 'Banana Book', list_2023[:books][0].data['title']
+    assert_equal(
+      {
+        favorites_lists: [
+          { post: @fav_post_2024, books: [@book_a, @book_z] },
+          { post: @fav_post_2023, books: [@book_b] },
+        ],
+        log_messages: '',
+      },
+      Jekyll::Books::Lists::FavoritesListsFinder.new(site: @site, context: @context).find,
+    )
   end
 
   # --- Error Path Tests ---

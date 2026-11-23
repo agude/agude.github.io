@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative 'shared'
-require_relative '../../../infrastructure/text_processing_utils'
 
 module Jekyll
   module Books
@@ -12,11 +11,6 @@ module Jekyll
       # fetching posts marked as favorites lists, and organizing books for each list.
       class FavoritesListsFinder
         include Jekyll::Books::Lists::Shared
-
-        def initialize(site:, context:)
-          @site = site
-          @context = context
-        end
 
         # Finds and structures favorites lists.
         # @return [Hash] Contains :favorites_lists (Array of Hashes), :log_messages (String).
@@ -59,13 +53,7 @@ module Jekyll
 
         def create_favorites_list_entry(post, cache)
           books = cache[post.url] || []
-          sorted = books.sort_by do |b|
-            Jekyll::Infrastructure::TextProcessingUtils.normalize_title(
-              b.data['title'].to_s,
-              strip_articles: true,
-            )
-          end
-          { post: post, books: sorted }
+          { post: post, books: sort_books_by_title(books) }
         end
 
         def generate_favorites_log(data)

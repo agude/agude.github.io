@@ -10,6 +10,11 @@ module Jekyll
     module Lists
       # Shared helper methods for all BookList Finder classes.
       module Shared
+        def initialize(site:, context:)
+          @site = site
+          @context = context
+        end
+
         private
 
         # Validation and Prerequisite Checks
@@ -31,6 +36,15 @@ module Jekyll
           books.reject { |book| book.data['canonical_url'] }
         end
 
+        def find_groups(key, filter_type:, empty_log:, include_archived: false)
+          error = validate_collection({ filter_type: filter_type }, key: key)
+          return error if error
+
+          groups = yield all_published_books(include_archived: include_archived)
+          log = groups.empty? ? log_no_results(**empty_log) : String.new
+          { key => groups, log_messages: log }
+        end
+
         # Structuring and Sorting
         def structure_books_for_display(books_to_process)
           standalone, series_books = partition_books(books_to_process)
@@ -47,12 +61,11 @@ module Jekyll
         end
 
         def sort_books_by_title(books)
-          books.sort_by do |book|
-            Jekyll::Infrastructure::TextProcessingUtils.normalize_title(
-              book.data['title'].to_s,
-              strip_articles: true,
-            )
-          end
+          books.sort_by { |book| title_sort_key(book) }
+        end
+
+        def title_sort_key(book)
+          Jekyll::Infrastructure::TextProcessingUtils.normalize_title(book.data['title'].to_s, strip_articles: true)
         end
 
         def group_and_sort_series_books(books)
@@ -68,22 +81,18 @@ module Jekyll
                 book.data['series'].to_s,
                 strip_articles: true,
               ),
-              parse_book_number(book.data['book_number']),
-              Jekyll::Infrastructure::TextProcessingUtils.normalize_title(
-                book.data['title'].to_s,
-                strip_articles: true,
-              ),
+              *series_sort_key(book),
             ]
           end
+        end
+
+        def series_sort_key(book)
+          [Jekyll::Books::Core::BookDataUtils.parse_book_number(book.data['book_number']), title_sort_key(book)]
         end
 
         def map_and_sort_series_groups(grouped)
           grouped.map { |name, list| { name: name, books: list } }
                  .sort_by { |g| Jekyll::Infrastructure::TextProcessingUtils.normalize_title(g[:name], strip_articles: true) }
-        end
-
-        def parse_book_number(book_number_raw)
-          Jekyll::Books::Core::BookDataUtils.parse_book_number(book_number_raw)
         end
 
         # Logging
@@ -101,13 +110,6 @@ module Jekyll
           return { standalone_books: [], series_groups: [], log_messages: log } if structure
 
           { key || :books => [], log_messages: log }
-        end
-
-        def return_info(tag_type, reason, key:)
-          log = Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
-            context: @context, tag_type: tag_type, reason: reason, identifiers: {}, level: :info,
-          )
-          { key => [], log_messages: log }
         end
 
         def log_filter_warning(tag_type:, reason:, identifiers:)

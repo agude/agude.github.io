@@ -8,9 +8,9 @@ module Jekyll
     module AwardsPage
       # Fetches the data shared by the HTML and Markdown awards pages.
       class Finder
-        def initialize(context)
+        def initialize(site:, context:)
           @context = context
-          @site = context.registers[:site]
+          @site = site
         end
 
         def find
@@ -18,9 +18,9 @@ module Jekyll
           favorites = Jekyll::Books::Lists::FavoritesListsFinder.new(site: @site, context: @context).find
 
           {
-            awards_groups: awards[:awards_data] || [],
-            favorites_lists: favorites[:favorites_lists] || [],
-            log_messages: (awards[:log_messages] || '') + (favorites[:log_messages] || ''),
+            awards_groups: awards[:awards_data],
+            favorites_lists: favorites[:favorites_lists],
+            log_messages: awards[:log_messages] + favorites[:log_messages],
           }
         end
       end

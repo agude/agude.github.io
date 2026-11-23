@@ -27,20 +27,25 @@ class TestBookListAuthorFinder < Minitest::Test
   end
 
   def test_find_returns_author_alpha_books_correctly_structured
-    data = get_author_data(@author_alpha_name)
-    assert_author_alpha_structure(data)
+    assert_equal(
+      {
+        standalone_books: [@book_alpha_standalone, @coauthored_alpha_beta],
+        series_groups: [{ name: 'Alpha Series', books: [@book_alpha_series1_book_half, @book_alpha_series1_book1] }],
+        log_messages: '',
+      },
+      get_author_data(@author_alpha_name),
+    )
   end
 
   def test_find_is_case_insensitive_for_author_beta
-    data = get_author_data('AUTHOR BETA')
-    assert_author_beta_structure(data)
-  end
-
-  def test_find_ignores_unpublished_books
-    data = get_author_data(@author_alpha_name)
-    all_rendered_titles = collect_all_rendered_titles(data)
-    refute_includes all_rendered_titles, @unpublished_book_by_alpha.data['title']
-    assert_expected_alpha_counts(data)
+    assert_equal(
+      {
+        standalone_books: [@coauthored_alpha_beta, @book_beta_standalone],
+        series_groups: [{ name: 'Beta Series', books: [@book_beta_series2_book1] }],
+        log_messages: '',
+      },
+      get_author_data('AUTHOR BETA'),
+    )
   end
 
   def test_find_with_nonexistent_author_logs_info
@@ -195,42 +200,5 @@ class TestBookListAuthorFinder < Minitest::Test
   def build_test_context
     page = create_doc({ 'path' => 'current_page.html' }, '/current_page.html')
     create_context({}, { site: @site, page: page })
-  end
-
-  def assert_author_alpha_structure(data)
-    assert_equal 2, data[:standalone_books].size
-    assert_equal 1, data[:series_groups].size
-    alpha_series_group = data[:series_groups].find { |grp| grp[:name] == 'Alpha Series' }
-    refute_nil alpha_series_group
-    assert_equal 2, alpha_series_group[:books].size
-    assert_equal @book_alpha_series1_book_half.data['title'], alpha_series_group[:books][0].data['title']
-    assert_equal @book_alpha_series1_book1.data['title'], alpha_series_group[:books][1].data['title']
-    assert_empty data[:log_messages].to_s
-  end
-
-  def assert_author_beta_structure(data)
-    assert_equal 2, data[:standalone_books].size
-    assert_equal 1, data[:series_groups].size
-    beta_series_group = data[:series_groups].find { |grp| grp[:name] == 'Beta Series' }
-    refute_nil beta_series_group
-    assert_equal 1, beta_series_group[:books].size
-    assert_equal @book_beta_series2_book1.data['title'], beta_series_group[:books][0].data['title']
-    assert_empty data[:log_messages].to_s
-  end
-
-  def collect_all_rendered_titles(data)
-    all_titles = []
-    all_titles.concat(data[:standalone_books].compact.map { |book| book.data['title'] }) if data[:standalone_books]
-    data[:series_groups]&.compact&.each do |series_group|
-      all_titles.concat(series_group[:books].compact.map { |book| book.data['title'] }) if series_group[:books]
-    end
-    all_titles
-  end
-
-  def assert_expected_alpha_counts(data)
-    assert_equal 2, data[:standalone_books].size
-    assert_equal 1, data[:series_groups].size
-    refute_empty data[:series_groups], 'Series groups for Author Alpha should not be empty'
-    assert_equal 2, data[:series_groups][0][:books].size
   end
 end

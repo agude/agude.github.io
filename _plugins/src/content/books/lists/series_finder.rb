@@ -13,9 +13,8 @@ module Jekyll
         include Jekyll::Books::Lists::Shared
 
         def initialize(site:, series_name_filter:, context:)
-          @site = site
+          super(site: site, context: context)
           @series_name_filter = series_name_filter
-          @context = context
         end
 
         # Finds and returns books for the specified series.
@@ -44,16 +43,6 @@ module Jekyll
             Jekyll::Infrastructure::TextProcessingUtils.normalize_title(book.data['series'].to_s) == normalized
           end
           matches.sort_by { |book| series_sort_key(book) }
-        end
-
-        def series_sort_key(book)
-          [
-            parse_book_number(book.data['book_number']),
-            Jekyll::Infrastructure::TextProcessingUtils.normalize_title(
-              book.data['title'].to_s,
-              strip_articles: true,
-            ),
-          ]
         end
 
         def generate_series_log(books, series_name)

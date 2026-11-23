@@ -28,24 +28,19 @@ class TestBookListByTitleAlphaFinder < Minitest::Test
   end
 
   def test_by_title_alpha_finder_correct_grouping_and_sorting
-    result = get_alpha_group_data
-
-    assert_empty result[:log_messages].to_s
-    # Expected groups: #, A, B, C, Z (based on the published books in setup)
-    assert_equal 5, result[:alpha_groups].size, 'Incorrect number of alpha groups'
-
-    assert_group_hash_correct(result)
-    assert_group_a_correct(result)
-    assert_group_b_correct(result)
-    assert_group_c_correct(result)
-    assert_group_z_correct(result)
-    assert_letter_groups_ordered(result)
-  end
-
-  def test_by_title_alpha_finder_ignores_unpublished
-    result = get_alpha_group_data
-    all_rendered_titles = result[:alpha_groups].flat_map { |ag| ag[:books].map { |b| b.data['title'] } }
-    refute_includes all_rendered_titles, @unpublished_book.data['title']
+    assert_equal(
+      {
+        alpha_groups: [
+          { letter: '#', books: [@book_only_an, @book_empty_title_sort, @book_123go] },
+          { letter: 'A', books: [@book_aardvark, @book_another_apple, @book_apple] },
+          { letter: 'B', books: [@book_a_banana] },
+          { letter: 'C', books: [@book_the_cherry] },
+          { letter: 'Z', books: [@book_zebra] },
+        ],
+        log_messages: '',
+      },
+      get_alpha_group_data,
+    )
   end
 
   def test_excludes_archived_reviews
@@ -152,63 +147,5 @@ class TestBookListByTitleAlphaFinder < Minitest::Test
       @unpublished_book,
       @archived_book,
     ]
-  end
-
-  # --- Assert Group # (Hash) ---
-  # Books: "An" (norm: ""), "The " (norm: ""), "123 Go!" (norm: "123 go!")
-  # Order within #: empty sort_titles first (sorted by original title), then "123 go!"
-  def assert_group_hash_correct(result)
-    group_hash = result[:alpha_groups].find { |g| g[:letter] == '#' }
-    refute_nil group_hash, "Group '#' missing"
-    expected_hash_titles = [
-      @book_only_an.data['title'],
-      @book_empty_title_sort.data['title'],
-      @book_123go.data['title'],
-    ]
-    actual_hash_titles = group_hash[:books].map { |b| b.data['title'] }
-    assert_equal expected_hash_titles, actual_hash_titles
-  end
-
-  # --- Assert Group A ---
-  # Books: Aardvark Antics, Another Apple Tale, Apple Pie Adventures (sorted by normalized title)
-  def assert_group_a_correct(result)
-    group_a = result[:alpha_groups].find { |g| g[:letter] == 'A' }
-    refute_nil group_a, "Group 'A' missing"
-    expected_a_titles = [
-      @book_aardvark.data['title'],
-      @book_another_apple.data['title'],
-      @book_apple.data['title'],
-    ]
-    assert_equal(expected_a_titles, group_a[:books].map { |b| b.data['title'] })
-  end
-
-  # --- Assert Group B ---
-  # Book: A Banana Story (normalized: "banana story")
-  def assert_group_b_correct(result)
-    group_b = result[:alpha_groups].find { |g| g[:letter] == 'B' }
-    refute_nil group_b, "Group 'B' missing"
-    assert_equal([@book_a_banana.data['title']], group_b[:books].map { |b| b.data['title'] })
-  end
-
-  # --- Assert Group C ---
-  # Book: The Cherry Chronicle (normalized: "cherry chronicle")
-  def assert_group_c_correct(result)
-    group_c = result[:alpha_groups].find { |g| g[:letter] == 'C' }
-    refute_nil group_c, "Group 'C' missing"
-    assert_equal([@book_the_cherry.data['title']], group_c[:books].map { |b| b.data['title'] })
-  end
-
-  # --- Assert Group Z ---
-  # Book: Zebra Zoom
-  def assert_group_z_correct(result)
-    group_z = result[:alpha_groups].find { |g| g[:letter] == 'Z' }
-    refute_nil group_z, "Group 'Z' missing"
-    assert_equal([@book_zebra.data['title']], group_z[:books].map { |b| b.data['title'] })
-  end
-
-  # --- Assert Overall Order of Letter Groups ---
-  def assert_letter_groups_ordered(result)
-    letters_ordered = result[:alpha_groups].map { |g| g[:letter] }
-    assert_equal ['#', 'A', 'B', 'C', 'Z'], letters_ordered, 'Letter groups are not in # then A-Z order'
   end
 end

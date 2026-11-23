@@ -12,28 +12,20 @@ module Jekyll
       class ByYearFinder
         include Jekyll::Books::Lists::Shared
 
-        def initialize(site:, context:)
-          @site = site
-          @context = context
-        end
-
         # Finds and structures all books grouped by publication year.
         # @return [Hash] Contains :year_groups (Array of Hashes), :log_messages (String).
         def find
-          error = validate_collection({ filter_type: 'all_books_by_year' }, key: :year_groups)
-          return error if error
-
-          all_books = all_published_books(include_archived: true)
-          if all_books.empty?
-            return return_info(
-              'ALL_BOOKS_BY_YEAR_DISPLAY',
-              'No published books found to group by year.',
-              key: :year_groups,
-            )
+          find_groups(
+            :year_groups,
+            filter_type: 'all_books_by_year',
+            empty_log: {
+              tag_type: 'ALL_BOOKS_BY_YEAR_DISPLAY',
+              reason: 'No published books found to group by year.',
+            },
+            include_archived: true,
+          ) do |books|
+            group_books_by_year(books)
           end
-
-          year_groups_list = group_books_by_year(all_books)
-          { year_groups: year_groups_list, log_messages: String.new }
         end
 
         private

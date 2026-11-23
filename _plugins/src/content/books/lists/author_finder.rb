@@ -19,9 +19,8 @@ module Jekyll
         private_constant :AuthorLookup
 
         def initialize(site:, author_name_filter:, context:)
-          @site = site
+          super(site: site, context: context)
           @author_name_filter = author_name_filter
-          @context = context
         end
 
         # Finds and structures books for the specified author.

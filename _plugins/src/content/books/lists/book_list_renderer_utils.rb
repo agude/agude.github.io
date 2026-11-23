@@ -4,126 +4,127 @@ require 'cgi'
 require_relative '../../series/series_link_resolver'
 require_relative '../core/book_card_renderer'
 require_relative '../../../infrastructure/text_processing_utils'
+require_relative '../../../ui/cards/markdown_card_utils'
 
 module Jekyll
   module Books
     module Lists
-      # Utility module for rendering HTML for lists of books.
-      #
-      # Provides methods to render book groups (standalone and series) with
-      # optional A-Z navigation.
+      # @pattern Render finder-ordered groups with shared headings, navigation, and card grids.
       module BookListRendererUtils
-        # --- Public HTML Rendering Helper ---
+        MdCards = Jekyll::UI::Cards::MarkdownCardUtils
+        Text = Jekyll::Infrastructure::TextProcessingUtils
+        private_constant :MdCards, :Text
 
-        # Renders HTML for book groups (standalone and series).
-        # @param data [Hash] Expected to have :standalone_books, :series_groups, and optionally :log_messages.
-        # @param context [Liquid::Context] The Liquid context.
-        # @param series_heading_level [Integer] The HTML heading level for series titles. Defaults to 2.
-        # @param generate_nav [Boolean] If true, generates and prepends an A-Z jump-link navigation.
-        # @param id_prefix [String, nil] Namespaces series heading ids as
-        #   `<id_prefix>--<series-slug>`. A page that lists the same series
-        #   more than once (by author) needs this to keep ids unique.
-        # @return [String] The rendered HTML.
-        def self.render_book_groups_html(data, context, series_heading_level: 2, generate_nav: false, id_prefix: nil)
+        # @gotcha Prefix series anchors with the author slug on the by-author index.
+        #   The same series can occur under multiple authors.
+        def self.render_book_groups_html(data, context, generate_nav: false, id_prefix: nil)
           output = (data[:log_messages] || '').dup
-          standalone_books = data[:standalone_books] || []
-          series_groups = data[:series_groups] || []
+          standalone = data[:standalone_books]
+          series_groups = data[:series_groups]
+          return output if standalone.empty? && series_groups.empty?
 
-          return output if standalone_books.empty? && series_groups.empty?
-
-          renderer = BookGroupsRenderer.new(
-            standalone_books,
-            series_groups,
-            context,
-            series_heading_level,
-            generate_nav,
-            id_prefix,
-          )
-          output + renderer.render
-        end
-
-        # --- Private Rendering Helpers ---
-
-        def self._render_content_buffer(standalone, series_groups, context, options)
-          buffer = String.new
-          buffer << _render_standalone_section(standalone, context, options) if standalone.any?
-
-          series_groups.each do |group|
-            buffer << _render_series_section(group, context, options)
+          anchors = {}
+          level = id_prefix ? 3 : 2
+          content = +''
+          if standalone.any?
+            standalone_id = id_prefix ? "standalone-books-#{id_prefix}" : 'standalone-books'
+            anchors['#'] = standalone_id
+            content << render_headline('Standalone Books', standalone_id, level: level)
+            content << render_card_grid(standalone, context)
           end
-          buffer
+          series_groups.each do |group|
+            name = group[:name]
+            slug = Text.slugify(name)
+            slug = "#{id_prefix}--#{slug}" if id_prefix
+            register_series_anchor(anchors, name, slug) if generate_nav
+
+            link = Jekyll::Series::SeriesLinkResolver.new(context).resolve(name, nil)
+            content << "<h#{level} class=\"series-title\" id=\"#{slug}\">#{link}</h#{level}>\n"
+            content << render_card_grid(group[:books], context)
+          end
+
+          output << render_alpha_nav(anchors, include_hash: true) if generate_nav
+          output << content
         end
 
-        def self._render_standalone_section(books, context, options)
-          slug = 'standalone-books'
-          options[:anchors]['#'] = slug if options[:generate_nav]
-          html = "<h2 class=\"book-list-headline\" id=\"#{slug}\">Standalone Books</h2>\n"
-          html << "<ul class=\"card-grid\">\n"
-          books.each { |b| html << Jekyll::Books::Core::BookCardRenderer.render(b, context) << "\n" }
-          html << "</ul>\n"
-          html
+        def self.render_by_title_html(groups, context)
+          return '' if groups.empty?
+
+          anchors = {}
+          sections = render_sections_html(groups, :letter) do |group|
+            letter = group[:letter]
+            slug = letter == '#' ? 'letter-hash' : "letter-#{letter.downcase}"
+            anchors[letter] = slug
+            [slug, render_card_grid(group[:books], context)]
+          end
+          render_alpha_nav(anchors, include_hash: true) + sections
         end
 
-        def self._render_series_section(group, context, options)
-          name = group[:name]
-          slug = Jekyll::Infrastructure::TextProcessingUtils.slugify(name)
-          slug = "#{options[:id_prefix]}--#{slug}" if options[:id_prefix]
-          _register_series_anchor(name, slug, options) if options[:generate_nav]
+        def self.render_by_year_html(groups, context)
+          return '' if groups.empty?
 
-          heading_level = options[:series_hl]
-          link = Jekyll::Series::SeriesLinkResolver.new(context).resolve(name, nil)
-          html = "<h#{heading_level} class=\"series-title\" id=\"#{slug}\">#{link}</h#{heading_level}>\n"
-          html << "<ul class=\"card-grid\">\n"
-          group[:books].each { |b| html << Jekyll::Books::Core::BookCardRenderer.render(b, context) << "\n" }
-          html << "</ul>\n"
-          html
+          links = []
+          sections = render_sections_html(groups, :year) do |group|
+            year = group[:year]
+            slug = "year-#{year}"
+            links << "<a href=\"##{CGI.escapeHTML(slug)}\">#{CGI.escapeHTML(year)}</a>"
+            [slug, render_card_grid(group[:books], context)]
+          end
+          render_navigation(links, separator: ' &middot; ') + sections
         end
 
-        def self._register_series_anchor(name, slug, options)
-          sort_key = Jekyll::Infrastructure::TextProcessingUtils.normalize_title(name, strip_articles: true).sub(
-            /^series\s+/, '',
-          ).strip
-          letter = sort_key.empty? ? '#' : sort_key[0].upcase
-          options[:anchors][letter] ||= slug
+        def self.render_sections_html(groups, label_key)
+          groups.map do |group|
+            slug, content = yield group
+            render_headline(group[label_key], slug) + content
+          end.join
         end
 
-        def self._render_alpha_nav(anchors)
-          chars = ['#'] + ('A'..'Z').to_a
-          links = chars.map do |char|
-            if anchors.key?(char)
-              "<a href=\"##{anchors[char]}\">#{CGI.escapeHTML(char)}</a>"
+        def self.render_headline(label, slug, level: 2)
+          "<h#{level} class=\"book-list-headline\" id=\"#{CGI.escapeHTML(slug)}\">" \
+            "#{CGI.escapeHTML(label)}</h#{level}>\n"
+        end
+
+        def self.render_alpha_nav(anchors, include_hash: false)
+          letters = ('A'..'Z').to_a
+          letters.unshift('#') if include_hash
+          links = letters.map do |letter|
+            if anchors.key?(letter)
+              "<a href=\"##{CGI.escapeHTML(anchors[letter])}\">#{letter}</a>"
             else
-              "<span>#{CGI.escapeHTML(char)}</span>"
+              "<span>#{letter}</span>"
             end
           end
-          "<nav class=\"alpha-jump-links\">\n  #{links.join(' ')}\n</nav>\n"
+          render_navigation(links, separator: ' ')
         end
 
-        # Helper class to render book groups HTML
-        class BookGroupsRenderer
-          def initialize(standalone_books, series_groups, context, series_heading_level, generate_nav, id_prefix)
-            @standalone_books = standalone_books
-            @series_groups = series_groups
-            @context = context
-            @series_hl = (1..6).include?(series_heading_level.to_i) ? series_heading_level.to_i : 2
-            @generate_nav = generate_nav
-            @id_prefix = id_prefix
-            @anchors = {}
-          end
-
-          def render
-            options = { series_hl: @series_hl, generate_nav: @generate_nav, anchors: @anchors, id_prefix: @id_prefix }
-            content = Jekyll::Books::Lists::BookListRendererUtils._render_content_buffer(
-              @standalone_books, @series_groups, @context, options,
-            )
-
-            return content unless @generate_nav
-
-            nav_html = Jekyll::Books::Lists::BookListRendererUtils._render_alpha_nav(@anchors)
-            nav_html + content
-          end
+        def self.render_navigation(links, separator:)
+          "<nav class=\"alpha-jump-links\">\n  #{links.join(separator)}\n</nav>\n"
         end
-        private_constant :BookGroupsRenderer
+
+        def self.render_card_grid(books, context, append_newline: true)
+          html = +"<ul class=\"card-grid\">\n"
+          books.each do |book|
+            html << Jekyll::Books::Core::BookCardRenderer.render(book, context)
+            html << "\n" if append_newline
+          end
+          html << "</ul>\n"
+        end
+
+        def self.render_sections_markdown(groups, label_key)
+          groups.flat_map { |group| ["## #{group[label_key]}", *yield(group)] }.join("\n")
+        end
+
+        def self.render_cards_markdown(books)
+          books.map { |book| MdCards.render_book_card_md(MdCards.book_doc_to_card_data(book)) }
+        end
+
+        def self.register_series_anchor(anchors, name, slug)
+          sort_key = Text.normalize_title(name, strip_articles: true).sub(/^series\s+/, '').strip
+          letter = sort_key.empty? ? '#' : sort_key[0].upcase
+          anchors[letter] ||= slug
+        end
+        private_class_method :register_series_anchor
       end
     end
   end

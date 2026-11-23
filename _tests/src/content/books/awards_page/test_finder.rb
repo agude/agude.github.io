@@ -1,27 +1,26 @@
 # frozen_string_literal: true
 
 require_relative '../../../../test_helper'
-require_relative '../../../../../_plugins/src/content/books/awards_page/finder'
 
-# Tests shared awards-page data retrieval.
+# Exercises the combined data consumed by both awards page renderers.
 class TestAwardsPageFinder < Minitest::Test
-  def test_fetches_each_source_once_and_combines_logs
-    context = create_context({}, { site: create_site })
-    awards = Minitest::Mock.new
-    awards.expect :find, { awards_data: [:award], log_messages: 'award log' }
-    favorites = Minitest::Mock.new
-    favorites.expect :find, { favorites_lists: [:favorite], log_messages: 'favorite log' }
+  def test_combines_award_groups_and_favorite_lists
+    book = create_doc({ 'title' => 'Example Book', 'awards' => ['Hugo'], 'date' => Time.utc(2024) }, '/books/example.html')
+    post = create_doc(
+      { 'title' => 'Favorites', 'is_favorites_list' => 2024 },
+      '/favorites.html',
+      '{% book_card_lookup title="Example Book" date="2024-01-01" %}',
+    )
+    site = create_site({}, { 'books' => [book] }, [], [post])
+    context = create_context({}, { site: site })
 
-    result = Jekyll::Books::Lists::ByAwardFinder.stub(:new, ->(**) { awards }) do
-      Jekyll::Books::Lists::FavoritesListsFinder.stub(:new, ->(**) { favorites }) do
-        Jekyll::Books::AwardsPage::Finder.new(context).find
-      end
-    end
-
-    assert_equal [:award], result[:awards_groups]
-    assert_equal [:favorite], result[:favorites_lists]
-    assert_equal 'award logfavorite log', result[:log_messages]
-    awards.verify
-    favorites.verify
+    assert_equal(
+      {
+        awards_groups: [{ award_name: 'Hugo Award', award_slug: 'hugo-award', books: [book] }],
+        favorites_lists: [{ post: post, books: [book] }],
+        log_messages: '',
+      },
+      Jekyll::Books::AwardsPage::Finder.new(site: site, context: context).find,
+    )
   end
 end

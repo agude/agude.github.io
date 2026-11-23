@@ -13,11 +13,6 @@ module Jekyll
       class ByAwardFinder
         include Jekyll::Books::Lists::Shared
 
-        def initialize(site:, context:)
-          @site = site
-          @context = context
-        end
-
         # Finds and structures all books grouped by award.
         # @return [Hash] Contains :awards_data (Array of Hashes), :log_messages (String).
         def find
@@ -73,7 +68,7 @@ module Jekyll
 
         def find_books_for_award(all_books, raw_award)
           books = all_books.select { |book| book_has_award?(book, raw_award) }
-          books.sort_by { |b| Jekyll::Infrastructure::TextProcessingUtils.normalize_title(b.data['title'].to_s, strip_articles: true) }
+          sort_books_by_title(books)
         end
 
         def book_has_award?(book, raw_award)
@@ -81,10 +76,8 @@ module Jekyll
             book.data['awards'].any? { |ba| ba.to_s.strip.casecmp(raw_award.strip).zero? }
         end
 
-        def format_award_display_name(award_string_raw)
-          return '' if award_string_raw.nil? || award_string_raw.to_s.strip.empty?
-
-          words = award_string_raw.to_s.strip.split.map do |word|
+        def format_award_display_name(award)
+          words = award.split.map do |word|
             format_award_word(word)
           end
           "#{words.join(' ')} Award"

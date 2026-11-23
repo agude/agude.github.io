@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'cgi'
-require_relative '../core/book_card_renderer'
+require_relative '../lists/book_list_renderer_utils'
 require_relative '../../../infrastructure/text_processing_utils'
 
 module Jekyll
@@ -9,30 +9,24 @@ module Jekyll
     module AwardsPage
       # Renders the awards page as HTML.
       class HtmlRenderer
+        ListsRenderer = Jekyll::Books::Lists::BookListRendererUtils
+        private_constant :ListsRenderer
+
         def initialize(context, data)
           @context = context
           @site = context.registers[:site]
           @baseurl = @site.config['baseurl'] || ''
           @awards_groups = data[:awards_groups]
           @favorites_lists = data[:favorites_lists]
-          @log_messages = data[:log_messages]
         end
 
         def render
-          return @log_messages if empty_data?
+          return '' if @awards_groups.empty? && @favorites_lists.empty?
 
-          output = +@log_messages
-          output << render_navigation
-          output << render_awards_section
-          output << render_favorites_section
-          output
+          render_navigation + render_awards_section + render_favorites_section
         end
 
         private
-
-        def empty_data?
-          @awards_groups.empty? && @favorites_lists.empty?
-        end
 
         def render_navigation
           award_links = generate_award_links
@@ -40,13 +34,13 @@ module Jekyll
 
           return '' if award_links.empty? && fav_links.empty?
 
-          html = +"<nav class=\"alpha-jump-links\">\n"
-          html << "  <div class=\"nav-row\">#{award_links.join(' &middot; ')}</div>\n" if award_links.any?
+          rows = []
+          rows << "<div class=\"nav-row\">#{award_links.join(' &middot; ')}</div>" if award_links.any?
           if fav_links.any?
             fav_content = fav_links.join(' &middot; ')
-            html << "  <div class=\"nav-row\"><span class=\"nav-label\">Best of:</span> #{fav_content}</div>\n"
+            rows << "<div class=\"nav-row\"><span class=\"nav-label\">Best of:</span> #{fav_content}</div>"
           end
-          html << "</nav>\n"
+          ListsRenderer.render_navigation(rows, separator: "\n  ")
         end
 
         def generate_award_links
@@ -75,11 +69,8 @@ module Jekyll
 
           html = +"<h2>Major Awards</h2>\n"
           @awards_groups.each do |group|
-            slug = CGI.escapeHTML(group[:award_slug] || '')
-            name = CGI.escapeHTML(group[:award_name] || '')
-
-            html << "<h3 class=\"book-list-headline\" id=\"#{slug}\">#{name}</h3>\n"
-            html << render_book_grid(group[:books], append_newline: false)
+            html << ListsRenderer.render_headline(group[:award_name], group[:award_slug], level: 3)
+            html << ListsRenderer.render_card_grid(group[:books], @context, append_newline: false)
           end
           html
         end
@@ -90,7 +81,7 @@ module Jekyll
           html = +"<h2>My Favorite Books Lists</h2>\n"
           displayable_favorites.each do |list|
             html << render_favorite_list_header(list[:post])
-            html << render_book_grid(list[:books], append_newline: true)
+            html << ListsRenderer.render_card_grid(list[:books], @context)
           end
           html
         end
@@ -101,15 +92,6 @@ module Jekyll
           slug = Jekyll::Infrastructure::TextProcessingUtils.slugify(post.data['title'])
 
           "<h3 class=\"book-list-headline\" id=\"#{slug}\"><a href=\"#{url}\">#{title}</a></h3>\n"
-        end
-
-        def render_book_grid(books, append_newline:)
-          html = +"<ul class=\"card-grid\">\n"
-          books.each do |book|
-            html << Jekyll::Books::Core::BookCardRenderer.render(book, @context)
-            html << "\n" if append_newline
-          end
-          html << "</ul>\n"
         end
       end
     end

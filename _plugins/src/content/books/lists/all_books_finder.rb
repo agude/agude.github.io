@@ -11,11 +11,6 @@ module Jekyll
       class AllBooksFinder
         include Jekyll::Books::Lists::Shared
 
-        def initialize(site:, context:)
-          @site = site
-          @context = context
-        end
-
         # Finds and structures all published books.
         # @return [Hash] Contains :standalone_books (Array), :series_groups (Array), :log_messages (String).
         def find
