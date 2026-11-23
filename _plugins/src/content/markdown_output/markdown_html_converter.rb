@@ -51,8 +51,9 @@ module Jekyll
         return markdown_body if markdown_body.nil? || markdown_body.empty?
 
         stashed = {}
-        body = stash_raw_html_regions(markdown_body, stashed)
-        body = stash_code_blocks(body, stashed)
+        raw_ranges = HtmlRegionParser.protected_ranges(markdown_body, markdown_div_classes: MARKDOWN_DIV_CLASSES)
+        body = stash_ranges(markdown_body, raw_ranges) { |region| stash(region, stashed) }
+        body = stash_code_ranges(body, stashed)
         body = convert_chatgpt_edit_blocks(body, stashed)
         body = WrapperConverter.convert(body)
         body = convert_disclosures(body)
@@ -65,7 +66,7 @@ module Jekyll
         body = convert_emphasis_tags(body, 'strong', '**')
         body.gsub!(ANCHOR_RE, '[\2](\1)')
 
-        restore_code_blocks(body, stashed)
+        restore_regions(body, stashed)
       end
 
       # --- private helpers ---
@@ -87,14 +88,14 @@ module Jekyll
       private_class_method :convert_chatgpt_edit_blocks
 
       def self.format_chatgpt_quote(content, stashed)
-        content = remove_chatgpt_boundary_lines(restore_code_blocks(content, stashed))
+        content = remove_chatgpt_boundary_lines(restore_regions(content, stashed))
         local_stashed = {}
-        protected_content = stash_code_blocks(content, local_stashed)
+        protected_content = stash_code_ranges(content, local_stashed)
         protected_content.gsub!(BREAK_RE, "\n")
         markdown = convert(protected_content)
         return '    >' if markdown.empty?
 
-        markdown = restore_code_blocks(markdown, local_stashed)
+        markdown = restore_regions(markdown, local_stashed)
         stash(quote_markdown_lines(markdown), stashed)
       end
       private_class_method :format_chatgpt_quote
@@ -134,20 +135,6 @@ module Jekyll
       end
       private_class_method :convert_disclosures
 
-      def self.stash_raw_html_regions(text, stashed)
-        ranges = HtmlRegionParser.protected_ranges(text, markdown_div_classes: MARKDOWN_DIV_CLASSES)
-        output = +''
-        position = 0
-        ranges.each do |start_index, end_index|
-          output << text[position...start_index]
-          output << stash(text[start_index...end_index], stashed)
-          position = end_index
-        end
-        output << text[position..]
-        output
-      end
-      private_class_method :stash_raw_html_regions
-
       def self.convert_emphasis_tags(text, tag_name, delimiter)
         pairs = HtmlRegionParser.tag_pairs(text, tag_name)
         pairs.reverse_each do |open_start, open_end, close_start, close_end, nested|
@@ -177,23 +164,26 @@ module Jekyll
       end
       private_class_method :word_character?
 
-      def self.stash_code_blocks(text, stashed)
-        ranges = CodeRegionParser.protected_code_ranges(text)
-        return text if ranges.empty?
+      def self.stash_code_ranges(text, stashed)
+        stash_ranges(text, CodeRegionParser.protected_code_ranges(text)) do |region|
+          ending = region[/\r?\n\z/] || ''
+          code = ending.empty? ? region : region[0...-ending.length]
+          stash(code, stashed) + ending
+        end
+      end
+      private_class_method :stash_code_ranges
 
+      def self.stash_ranges(text, ranges)
         output = +''
         position = 0
         ranges.each do |start_index, end_index|
           output << text[position...start_index]
-          block = text[start_index...end_index]
-          ending = block[/\r?\n\z/] || ''
-          protected_content = ending.empty? ? block : block[0...-ending.length]
-          output << stash(protected_content, stashed) << ending
+          output << yield(text[start_index...end_index])
           position = end_index
         end
         output << text[position..]
       end
-      private_class_method :stash_code_blocks
+      private_class_method :stash_ranges
 
       def self.stash(original, stashed)
         placeholder = "#{STASH_PREFIX}_#{stashed.size}@@"
@@ -202,14 +192,14 @@ module Jekyll
       end
       private_class_method :stash
 
-      def self.restore_code_blocks(text, stashed)
+      def self.restore_regions(text, stashed)
         stashed.to_a.reverse_each do |placeholder, original|
           # Use block form to avoid backreference interpretation in original.
           text.gsub!(placeholder) { original }
         end
         text
       end
-      private_class_method :restore_code_blocks
+      private_class_method :restore_regions
     end
   end
 end

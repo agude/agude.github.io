@@ -85,6 +85,36 @@ class TestMarkdownHtmlRegionParser < Minitest::Test
     assert_equal ["<div>\n```\n</div>", '<section>x</section>'], protected_text(source)
   end
 
+  def test_masked_line_start_can_make_later_html_indented_code
+    source = "<div>\nx\n</div>    <section>y</section>\n"
+
+    assert_equal ["<div>\nx\n</div>"], protected_text(source)
+  end
+
+  def test_fence_after_masked_region_is_code
+    source = "<div>x</div>\n```\n<section>x</section>\n```\n"
+
+    assert_equal ['<div>x</div>'], protected_text(source)
+  end
+
+  def test_quoted_indented_html_after_blank_quote_line_is_code
+    source = "> <div>a</div>\n>\n>     <section>b</section>\n"
+
+    assert_equal ['<div>a</div>'], protected_text(source)
+  end
+
+  def test_masked_region_after_quote_marker_can_make_later_html_indented_code
+    source = "> <div>a</div>    <section>b</section>\n"
+
+    assert_equal ['<div>a</div>'], protected_text(source)
+  end
+
+  def test_code_span_around_html_after_masked_region_is_code
+    source = 'Text <div>a</div> `b <section>c</section> d`'
+
+    assert_equal ['<div>a</div>'], protected_text(source)
+  end
+
   # Finding code ranges scans the whole text. Doing it again after every
   # region made the parser quadratic in the number of regions.
   def test_code_ranges_are_not_recomputed_for_each_plain_region
