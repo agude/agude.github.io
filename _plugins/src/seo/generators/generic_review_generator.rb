@@ -14,7 +14,7 @@ module Jekyll
 
           Jekyll::SEO::JsonLdBuilder.build('Review', license: true, document: document, site: site) do |review|
             # A review-post is a blog post: carry the CreativeWork fields
-            # BlogPostingLdGenerator emits, minus the Article-only ones.
+            # the BlogPosting schema emits, minus the Article-only ones.
             review.headline document.data['title']
             review.site_author
             review.site_publisher

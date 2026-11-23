@@ -6,13 +6,6 @@ require 'json'
 require 'nokogiri'
 require 'minitest/mock'
 
-require 'src/seo/generators/blog_posting_generator'
-require 'src/seo/generators/book_review_generator'
-require 'src/seo/generators/generic_review_generator'
-require 'src/seo/generators/author_profile_generator'
-require 'src/seo/generators/page_generator'
-require 'src/seo/generators/web_page_generator'
-
 # Base test class with shared setup and helpers for Jekyll::SEO::JsonLdInjector tests.
 #
 # Provides common setup and helper methods for testing JSON-LD injection.
@@ -100,12 +93,6 @@ class TestJsonLdInjectorBase < Minitest::Test
 
   def setup_expected_hashes
     @blog_posting_hash = { '@type' => 'BlogPosting', 'headline' => 'Standard Post', 'test_marker' => 'blog' }
-    @book_review_hash = { '@type' => 'Review', 'itemReviewed' => { '@type' => 'Book' }, 'test_marker' => 'book' }
-    @generic_review_hash = {
-      '@type' => 'Review',
-      'itemReviewed' => { '@type' => 'Product', 'name' => 'Gadget V1' },
-      'test_marker' => 'generic',
-    }
     @author_profile_hash = { '@type' => 'Person', 'name' => 'Author Name', 'test_marker' => 'author' }
   end
 
@@ -140,22 +127,6 @@ class TestJsonLdInjectorBase < Minitest::Test
   rescue JSON::ParserError => e
     flunk "Failed to parse JSON content: #{e.message}\nContent was:\n#{json_content}"
   end
-
-  def stub_all_generators_except(active_generator, active_hash)
-    stubs = {
-      Jekyll::SEO::Generators::BlogPostingLdGenerator => @blog_posting_hash,
-      Jekyll::SEO::Generators::BookReviewLdGenerator => @book_review_hash,
-      Jekyll::SEO::Generators::GenericReviewLdGenerator => @generic_review_hash,
-      Jekyll::SEO::Generators::AuthorProfileLdGenerator => @author_profile_hash,
-    }
-
-    stubs.each_key do |generator|
-      stub_value = generator == active_generator ? active_hash : ->(*) { flunk "#{generator} should not be called" }
-      generator.stub :generate_hash, stub_value do
-        yield if generator == stubs.keys.last
-      end
-    end
-  end
 end
 
 # Tests for successful JSON-LD injection into documents.
@@ -163,56 +134,35 @@ end
 # Verifies that the injector correctly generates and stores JSON-LD scripts.
 class TestJsonLdInjectorInjection < TestJsonLdInjectorBase
   def test_injects_for_standard_blog_post
-    stub_with_active_generator(Jekyll::SEO::Generators::BlogPostingLdGenerator, @blog_posting_hash) do
-      Jekyll::SEO::JsonLdInjector.inject_json_ld(@blog_post_doc, @site)
-    end
-    assert_json_script(@blog_post_doc, @site, @blog_posting_hash)
+    Jekyll::SEO::JsonLdInjector.inject_json_ld(@blog_post_doc, @site)
+    result = JSON.parse(extract_json_from_script(get_script_tag_for_document(@blog_post_doc, @site)))
+
+    assert_equal 'BlogPosting', result['@type']
+    assert_equal 'Standard Post', result['headline']
   end
 
   def test_injects_for_book_review
-    stub_with_active_generator(Jekyll::SEO::Generators::BookReviewLdGenerator, @book_review_hash) do
-      Jekyll::SEO::JsonLdInjector.inject_json_ld(@book_review_doc, @site)
-    end
-    assert_json_script(@book_review_doc, @site, @book_review_hash)
+    Jekyll::SEO::JsonLdInjector.inject_json_ld(@book_review_doc, @site)
+    result = JSON.parse(extract_json_from_script(get_script_tag_for_document(@book_review_doc, @site)))
+
+    assert_equal 'Review', result['@type']
+    assert_equal 'Book', result.dig('itemReviewed', '@type')
   end
 
   def test_injects_for_generic_review_post
-    stub_with_active_generator(Jekyll::SEO::Generators::GenericReviewLdGenerator, @generic_review_hash) do
-      Jekyll::SEO::JsonLdInjector.inject_json_ld(@generic_review_post_doc, @site)
-    end
-    assert_json_script(@generic_review_post_doc, @site, @generic_review_hash)
+    Jekyll::SEO::JsonLdInjector.inject_json_ld(@generic_review_post_doc, @site)
+    result = JSON.parse(extract_json_from_script(get_script_tag_for_document(@generic_review_post_doc, @site)))
+
+    assert_equal 'Review', result['@type']
+    assert_equal({ '@type' => 'Product', 'name' => 'Gadget V1' }, result['itemReviewed'])
   end
 
   def test_injects_for_author_page
-    stub_with_active_generator(Jekyll::SEO::Generators::AuthorProfileLdGenerator, @author_profile_hash) do
-      Jekyll::SEO::JsonLdInjector.inject_json_ld(@author_page_doc, @site)
-    end
-    assert_json_script(@author_page_doc, @site, @author_profile_hash)
-  end
+    Jekyll::SEO::JsonLdInjector.inject_json_ld(@author_page_doc, @site)
+    result = JSON.parse(extract_json_from_script(get_script_tag_for_document(@author_page_doc, @site)))
 
-  private
-
-  def stub_with_active_generator(active_generator, active_hash, &)
-    Jekyll::SEO::Generators::BlogPostingLdGenerator.stub :generate_hash, stub_value_for(Jekyll::SEO::Generators::BlogPostingLdGenerator, active_generator, active_hash) do
-      Jekyll::SEO::Generators::BookReviewLdGenerator.stub :generate_hash, stub_value_for(Jekyll::SEO::Generators::BookReviewLdGenerator, active_generator, active_hash) do
-        Jekyll::SEO::Generators::GenericReviewLdGenerator.stub :generate_hash,
-                                                               stub_value_for(Jekyll::SEO::Generators::GenericReviewLdGenerator, active_generator, active_hash) do
-          Jekyll::SEO::Generators::AuthorProfileLdGenerator.stub(
-            :generate_hash,
-            stub_value_for(Jekyll::SEO::Generators::AuthorProfileLdGenerator, active_generator, active_hash),
-            &
-          )
-        end
-      end
-    end
-  end
-
-  def stub_value_for(generator, active_generator, active_hash)
-    if generator == active_generator
-      active_hash
-    else
-      ->(*) { flunk "#{generator} should not be called" }
-    end
+    assert_equal 'CollectionPage', result['@type']
+    assert_equal 'Author Name - Book Reviews', result['name']
   end
 end
 
@@ -221,21 +171,19 @@ end
 # Verifies that the injector correctly skips invalid or inappropriate documents.
 class TestJsonLdInjectorSkip < TestJsonLdInjectorBase
   def test_skips_injection_for_unhandled_layout
-    stub_all_generators_to_flunk do
-      Jekyll::SEO::JsonLdInjector.inject_json_ld(@other_page_doc, @site)
-    end
+    Jekyll::SEO::JsonLdInjector.inject_json_ld(@other_page_doc, @site)
     assert_no_json_script(@other_page_doc, @site)
   end
 
   def test_skips_injection_if_generator_returns_nil
-    Jekyll::SEO::Generators::BlogPostingLdGenerator.stub :generate_hash, nil do
+    Jekyll::SEO::JsonLdInjector.stub :generate_hash, nil do
       Jekyll::SEO::JsonLdInjector.inject_json_ld(@blog_post_doc, @site)
     end
     assert_no_json_script(@blog_post_doc, @site)
   end
 
   def test_skips_injection_if_generator_returns_empty_hash
-    Jekyll::SEO::Generators::BlogPostingLdGenerator.stub :generate_hash, {} do
+    Jekyll::SEO::JsonLdInjector.stub :generate_hash, {} do
       Jekyll::SEO::JsonLdInjector.inject_json_ld(@blog_post_doc, @site)
     end
     assert_no_json_script(@blog_post_doc, @site)
@@ -258,10 +206,8 @@ class TestJsonLdInjectorSkip < TestJsonLdInjectorBase
       prefix == 'JSON-LD:' && message.include?('Skipping document without URL')
     end
 
-    stub_all_generators_to_flunk do
-      Jekyll.stub :logger, mock_logger do
-        Jekyll::SEO::JsonLdInjector.inject_json_ld(doc_no_url, @site)
-      end
+    Jekyll.stub :logger, mock_logger do
+      Jekyll::SEO::JsonLdInjector.inject_json_ld(doc_no_url, @site)
     end
 
     assert_no_json_script(doc_no_url, @site)
@@ -283,10 +229,8 @@ class TestJsonLdInjectorSkip < TestJsonLdInjectorBase
       prefix == 'JSON-LD:' && message.include?('Skipping document without URL')
     end
 
-    stub_all_generators_to_flunk do
-      Jekyll.stub :logger, mock_logger do
-        Jekyll::SEO::JsonLdInjector.inject_json_ld(doc_empty_url, @site)
-      end
+    Jekyll.stub :logger, mock_logger do
+      Jekyll::SEO::JsonLdInjector.inject_json_ld(doc_empty_url, @site)
     end
 
     assert_no_json_script(doc_empty_url, @site)
@@ -297,20 +241,15 @@ class TestJsonLdInjectorSkip < TestJsonLdInjectorBase
     # Create a hash that will cause JSON.pretty_generate to raise an error
     invalid_hash = { '@type' => 'BlogPosting', 'invalid' => Float::INFINITY }
 
-    mock_logger = Minitest::Mock.new
-    mock_logger.expect(:debug, nil, ['JSON-LD:', String])
-    error = Jekyll::SEO::Generators::BlogPostingLdGenerator.stub :generate_hash, invalid_hash do
-      Jekyll.stub :logger, mock_logger do
-        assert_raises(Jekyll::Errors::FatalException) do
-          Jekyll::SEO::JsonLdInjector.inject_json_ld(@blog_post_doc, @site)
-        end
+    error = Jekyll::SEO::JsonLdInjector.stub :generate_hash, invalid_hash do
+      assert_raises(Jekyll::Errors::FatalException) do
+        Jekyll::SEO::JsonLdInjector.inject_json_ld(@blog_post_doc, @site)
       end
     end
 
     assert_match @blog_post_doc.url, error.message
     assert_match 'Failed to generate JSON', error.message
     assert_no_json_script(@blog_post_doc, @site)
-    mock_logger.verify
   end
 
   # articleBody is post text with entities decoded, so code samples become
@@ -329,7 +268,7 @@ class TestJsonLdInjectorSkip < TestJsonLdInjectorBase
     hostile_bodies.each do |body|
       @site.data['generated_json_ld_scripts'] = {}
       hash = { '@type' => 'BlogPosting', 'articleBody' => body }
-      Jekyll::SEO::Generators::BlogPostingLdGenerator.stub :generate_hash, hash do
+      Jekyll::SEO::JsonLdInjector.stub :generate_hash, hash do
         Jekyll::SEO::JsonLdInjector.inject_json_ld(@blog_post_doc, @site)
       end
 
@@ -355,24 +294,6 @@ class TestJsonLdInjectorSkip < TestJsonLdInjectorBase
     assert_match @generic_review_post_doc.url, error.message
     assert_match 'review.item_name', error.message
   end
-
-  private
-
-  def stub_all_generators_to_flunk(&)
-    Jekyll::SEO::Generators::BlogPostingLdGenerator.stub :generate_hash, ->(*) { flunk 'BlogPosting generator should not be called' } do
-      Jekyll::SEO::Generators::BookReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'BookReview generator should not be called' } do
-        Jekyll::SEO::Generators::GenericReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'GenericReview generator should not be called' } do
-          Jekyll::SEO::Generators::AuthorProfileLdGenerator.stub(
-            :generate_hash,
-            lambda { |*|
-              flunk 'AuthorProfile generator should not be called'
-            },
-            &
-          )
-        end
-      end
-    end
-  end
 end
 
 # Tests for edge cases with non-Document objects (Pages, etc.).
@@ -392,20 +313,11 @@ class TestJsonLdInjectorNonDocuments < TestJsonLdInjectorBase
       'authors/page-author.html',
     )
 
-    # Jekyll::SEO::Generators::AuthorProfileLdGenerator should be called since layout matches
-    mock_hash = { '@type' => 'Person', 'name' => 'Page Author' }
-    mock_logger = Minitest::Mock.new
-    mock_logger.expect(:debug, nil, ['JSON-LD:', String])
+    Jekyll::SEO::JsonLdInjector.inject_json_ld(author_page, @site)
+    result = JSON.parse(extract_json_from_script(get_script_tag_for_document(author_page, @site)))
 
-    Jekyll::SEO::Generators::AuthorProfileLdGenerator.stub :generate_hash, mock_hash do
-      Jekyll.stub :logger, mock_logger do
-        Jekyll::SEO::JsonLdInjector.inject_json_ld(author_page, @site)
-      end
-    end
-
-    # Should have generated script for this page
-    assert_json_script(author_page, @site, mock_hash)
-    mock_logger.verify
+    assert_equal 'CollectionPage', result['@type']
+    assert_equal 'Page Author', result.dig('about', 'name')
   end
 
   def test_handles_page_like_object_with_skipped_layout
@@ -417,10 +329,7 @@ class TestJsonLdInjectorNonDocuments < TestJsonLdInjectorBase
       'regular.html',
     )
 
-    # No generator should be called
-    stub_all_generators_to_flunk do
-      Jekyll::SEO::JsonLdInjector.inject_json_ld(regular_page, @site)
-    end
+    Jekyll::SEO::JsonLdInjector.inject_json_ld(regular_page, @site)
 
     # Should not have generated script
     assert_no_json_script(regular_page, @site)
@@ -436,24 +345,6 @@ class TestJsonLdInjectorNonDocuments < TestJsonLdInjectorBase
 
     assert_raises(Jekyll::Errors::FatalException) do
       Jekyll::SEO::JsonLdInjector.inject_json_ld(unknown_page, @site)
-    end
-  end
-
-  private
-
-  def stub_all_generators_to_flunk(&)
-    Jekyll::SEO::Generators::BlogPostingLdGenerator.stub :generate_hash, ->(*) { flunk 'BlogPosting generator should not be called' } do
-      Jekyll::SEO::Generators::BookReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'BookReview generator should not be called' } do
-        Jekyll::SEO::Generators::GenericReviewLdGenerator.stub :generate_hash, ->(*) { flunk 'GenericReview generator should not be called' } do
-          Jekyll::SEO::Generators::AuthorProfileLdGenerator.stub(
-            :generate_hash,
-            lambda { |*|
-              flunk 'AuthorProfile generator should not be called'
-            },
-            &
-          )
-        end
-      end
     end
   end
 end
@@ -476,7 +367,7 @@ class TestJsonLdInjectorHooks < TestJsonLdInjectorBase
 
   def test_documents_post_convert_hook_injects_json_ld
     # Verify that the hook calls inject_json_ld (evidenced by script generation)
-    Jekyll::SEO::Generators::BlogPostingLdGenerator.stub :generate_hash, @blog_posting_hash do
+    Jekyll::SEO::JsonLdInjector.stub :generate_hash, @blog_posting_hash do
       Jekyll::Hooks.trigger(:documents, :post_convert, @blog_post_doc)
     end
 
@@ -545,7 +436,7 @@ class TestJsonLdInjectorHooks < TestJsonLdInjectorBase
       'page-author.html',
     )
 
-    Jekyll::SEO::Generators::AuthorProfileLdGenerator.stub :generate_hash, @author_profile_hash do
+    Jekyll::SEO::JsonLdInjector.stub :generate_hash, @author_profile_hash do
       Jekyll::Hooks.trigger(:pages, :post_convert, page)
     end
 
@@ -582,60 +473,298 @@ class TestJsonLdInjectorHooks < TestJsonLdInjectorBase
   end
 end
 
-# Tests for page layout routing (page, page-not-on-sidebar, supplementary files).
-#
-# Verifies that different page types are routed to the correct generators.
-class TestJsonLdInjectorPageRouting < TestJsonLdInjectorBase
+# Exercises the document-to-hash boundary for layouts without a custom generator.
+class TestJsonLdLayoutSchemas < Minitest::Test
+  BASE_URL = 'https://example.com'
+  OWNER = {
+    '@type' => 'Person',
+    '@id' => "#{BASE_URL}/resume/#person",
+    'name' => 'Site Owner',
+    'url' => "#{BASE_URL}/resume/",
+  }.freeze
+  WEBSITE = {
+    '@type' => 'WebSite',
+    '@id' => "#{BASE_URL}/#website",
+    'name' => 'Example',
+    'url' => "#{BASE_URL}/",
+  }.freeze
+
   def setup
-    super
-    @page_hash = { '@type' => 'CollectionPage', 'name' => 'Test Page' }
-    @web_page_hash = { '@type' => 'WebPage', 'name' => 'Supplementary Content' }
+    @site = create_site(
+      'url' => BASE_URL,
+      'title' => 'Example',
+      'name' => 'example.com',
+      'description' => 'Site description',
+      'author' => { 'name' => 'Site Owner', 'url' => '/resume/', 'github' => 'owner' },
+    )
   end
 
-  def test_routes_page_layout_to_page_generator
-    page_doc = create_page_like(
-      { 'layout' => 'page', 'title' => 'Book Reviews' },
-      '/books/index.html',
-    )
-
-    Jekyll::SEO::Generators::PageLdGenerator.stub :generate_hash, @page_hash do
-      Jekyll::SEO::JsonLdInjector.inject_json_ld(page_doc, @site)
+  def test_collection_and_web_page_layouts
+    [
+      ['page', '/blog/', 'Blog', 'CollectionPage'],
+      ['papers', '/papers/', 'Publications', 'CollectionPage'],
+      ['page-not-on-sidebar', '/topics/', 'Topics', 'CollectionPage'],
+      ['standalone-page', '/files/', 'Supplement', 'WebPage'],
+    ].each do |layout, path, title, type|
+      doc = create_doc({ 'layout' => layout, 'title' => title, 'description' => '<p>Page description.</p>' }, path)
+      expected = {
+        '@context' => 'https://schema.org',
+        '@type' => type,
+        'name' => title,
+        'url' => BASE_URL + path,
+        'description' => 'Page description.',
+        'author' => OWNER,
+        'isPartOf' => WEBSITE,
+      }
+      assert_equal expected, generate(doc), layout
     end
-
-    assert_json_script(page_doc, @site, @page_hash)
   end
 
-  def test_routes_page_not_on_sidebar_to_page_generator
-    topics_page = create_page_like(
-      { 'layout' => 'page-not-on-sidebar', 'title' => 'Topics' },
-      '/topics/index.html',
+  def test_category_title_takes_precedence_and_falls_back_to_title
+    doc = create_doc(
+      { 'layout' => 'category', 'category-title' => 'Data Science', 'title' => 'Topic', 'description' => 'Articles.' },
+      '/topics/data-science/',
     )
-
-    Jekyll::SEO::Generators::PageLdGenerator.stub :generate_hash, @page_hash do
-      Jekyll::SEO::JsonLdInjector.inject_json_ld(topics_page, @site)
-    end
-
-    assert_json_script(topics_page, @site, @page_hash)
+    expected = {
+      '@context' => 'https://schema.org',
+      '@type' => 'CollectionPage',
+      'name' => 'Data Science - Articles',
+      'url' => "#{BASE_URL}/topics/data-science/",
+      'description' => 'Articles.',
+      'author' => OWNER,
+      'isPartOf' => WEBSITE,
+    }
+    assert_equal expected, generate(doc)
+    doc.data.delete('category-title')
+    assert_equal expected.merge('name' => 'Topic - Articles'), generate(doc)
   end
 
-  def test_routes_standalone_page_to_web_page_generator
-    standalone_page = create_page_like(
-      { 'layout' => 'standalone-page', 'title' => 'Standalone Info' },
-      '/info/standalone.html',
+  def test_series_page_describes_the_series
+    path = '/books/series/bobiverse/'
+    doc = create_doc(
+      { 'layout' => 'series_page', 'title' => 'The<br>Bobiverse', 'description' => 'Series reviews.' }, path,
     )
+    expected = {
+      '@context' => 'https://schema.org',
+      '@type' => 'CollectionPage',
+      'name' => 'The Bobiverse - Book Reviews',
+      'url' => BASE_URL + path,
+      'description' => 'Series reviews.',
+      'author' => OWNER,
+      'isPartOf' => WEBSITE,
+      'about' => { '@type' => 'BookSeries', '@id' => "#{BASE_URL}#{path}#series", 'name' => 'The Bobiverse', 'url' => BASE_URL + path },
+    }
+    assert_equal expected, generate(doc)
+  end
 
-    Jekyll::SEO::Generators::WebPageLdGenerator.stub :generate_hash, @web_page_hash do
-      Jekyll::SEO::JsonLdInjector.inject_json_ld(standalone_page, @site)
+  def test_collection_and_web_pages_omit_missing_or_blank_fields
+    site = create_site('url' => BASE_URL)
+    %w[page papers page-not-on-sidebar standalone-page category series_page].each do |layout|
+      [nil, '   '].each do |description|
+        doc = create_doc({ 'layout' => layout, 'title' => 'A&nbsp;Title<br>Here', 'description' => description }, '/test/')
+        result = generate(doc, site)
+
+        suffix = { 'category' => ' - Articles', 'series_page' => ' - Book Reviews' }.fetch(layout, '')
+        assert_equal "A\u00A0Title Here#{suffix}", result['name'], layout
+        assert_empty result.keys & %w[description author isPartOf], layout
+      end
     end
+  end
 
-    assert_json_script(standalone_page, @site, @web_page_hash)
+  def test_homepage_describes_the_website
+    doc = create_doc({ 'layout' => 'homepage' }, '/')
+    expected = WEBSITE.merge(
+      '@context' => 'https://schema.org',
+      'alternateName' => 'example.com',
+      'description' => 'Site description',
+      'author' => OWNER,
+      'publisher' => OWNER,
+    )
+    assert_equal expected, generate(doc)
+  end
+
+  def test_homepage_omits_unconfigured_site_fields
+    doc = create_doc({ 'layout' => 'homepage' }, '/')
+    assert_equal(
+      { '@context' => 'https://schema.org', '@type' => 'WebSite', '@id' => "#{BASE_URL}/#website", 'url' => "#{BASE_URL}/" },
+      generate(doc, create_site('url' => BASE_URL)),
+    )
+  end
+
+  def test_linktree_describes_the_site_owner
+    @site.config['author'].merge!(
+      'linkedin' => 'owner', 'bluesky' => 'example.com', 'mastodon' => 'owner', 'mastodon_instance' => 'fosstodon.org',
+    )
+    doc = create_doc({ 'layout' => 'linktree', 'title' => 'Find<br>Me', 'description' => 'Social links.' }, '/linktree/')
+    expected = {
+      '@context' => 'https://schema.org',
+      '@type' => 'ProfilePage',
+      'name' => 'Find Me',
+      'url' => "#{BASE_URL}/linktree/",
+      'description' => 'Social links.',
+      'mainEntity' => OWNER.merge(
+        'sameAs' => [
+          'https://www.linkedin.com/in/owner',
+          'https://github.com/owner',
+          'https://bsky.app/profile/example.com',
+          'https://fosstodon.org/@owner',
+        ],
+      ),
+    }
+    assert_equal expected, generate(doc)
+
+    %w[resume post].each do |layout|
+      related = generate(create_doc({ 'layout' => layout, 'title' => 'Title' }, "/#{layout}/"))
+      assert_equal OWNER['@id'], related.dig(layout == 'resume' ? 'mainEntity' : 'author', '@id')
+    end
+  end
+
+  def test_linktree_omits_missing_person_and_social_fields
+    doc = create_doc({ 'layout' => 'linktree', 'title' => 'Find Me' }, '/linktree/')
+    result = generate(doc, create_site('url' => BASE_URL))
+    assert_empty result.keys & %w[description mainEntity]
+
+    @site.config['author'].delete('github')
+    assert_equal OWNER, generate(doc)['mainEntity']
+  end
+
+  def test_author_page_keeps_page_text_and_person_identity_separate
+    doc = create_doc(
+      {
+        'layout' => 'author_page',
+        'title' => 'Jane&nbsp;Doe<br>Jr.',
+        'description' => 'Page description.',
+        'excerpt_output_override' => '<p>Page intro.</p>',
+        'wikidata_qid' => 'Q42',
+        'same_as_urls' => [' https://example.org/jane ', nil, ''],
+        'pen_names' => [' J.D. Writer ', nil, ''],
+      },
+      '/authors/jane/',
+    )
+    url = "#{BASE_URL}/authors/jane/"
+    expected = {
+      '@context' => 'https://schema.org',
+      '@type' => 'CollectionPage',
+      '@id' => url,
+      'url' => url,
+      'name' => "Jane\u00A0Doe Jr. - Book Reviews",
+      'description' => 'Page description.',
+      'author' => OWNER,
+      'isPartOf' => WEBSITE,
+      'about' => {
+        '@type' => 'Person',
+        '@id' => "#{url}#person",
+        'url' => url,
+        'name' => "Jane\u00A0Doe Jr.",
+        'sameAs' => ['https://www.wikidata.org/wiki/Q42', 'https://example.org/jane'],
+        'alternateName' => ['J.D. Writer'],
+      },
+    }
+    assert_equal expected, generate(doc)
+  end
+
+  def test_author_page_keeps_identity_when_optional_fields_are_blank
+    [nil, []].each do |empty|
+      doc = create_doc(
+        {
+          'layout' => 'author_page',
+          'title' => ' ',
+          'description' => '',
+          'same_as_urls' => empty,
+          'pen_names' => empty,
+          'excerpt_output_override' => '<p>Page intro.</p>',
+        },
+        '/authors/jane/',
+      )
+      result = generate(doc)
+
+      assert_empty result.keys & %w[name description]
+      url = "#{BASE_URL}/authors/jane/"
+      assert_equal({ '@type' => 'Person', '@id' => "#{url}#person", 'url' => url }, result['about'])
+    end
+  end
+
+  def test_post_includes_article_metadata_and_visible_text
+    doc = create_doc(
+      {
+        'layout' => 'post',
+        'title' => 'Title<br>Here',
+        'description' => 'Word ' * 60,
+        'excerpt_output_override' => '<p>Excerpt.</p>',
+        'image' => '/images/post.png',
+        'last_modified_at' => Time.utc(2024, 5, 6),
+        'categories' => ['Blog'],
+        'tags' => %w[Blog Tag],
+        'markdown_alternate_href' => '/blog/post.md',
+      },
+      '/blog/post/',
+      '<p>Read <a href="/books/test/">Test<!--book-preview--><span class="book-link-preview">Hidden text.</span><!--/book-preview--></a>.</p>',
+      '2024-01-15T11:00:00-05:00',
+    )
+    expected = {
+      '@context' => 'https://schema.org',
+      '@type' => 'BlogPosting',
+      'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
+      'headline' => 'Title Here',
+      'author' => OWNER,
+      'publisher' => OWNER,
+      'datePublished' => '2024-01-15T11:00:00-05:00',
+      'dateModified' => '2024-05-06T00:00:00Z',
+      'image' => { '@type' => 'ImageObject', 'url' => "#{BASE_URL}/images/post.png" },
+      'url' => "#{BASE_URL}/blog/post/",
+      'mainEntityOfPage' => { '@type' => 'WebPage', '@id' => "#{BASE_URL}/blog/post/" },
+      'description' => "#{'Word ' * 49}Word...",
+      'articleBody' => 'Read Test.',
+      'wordCount' => 2,
+      'keywords' => 'Blog, Tag',
+      'encoding' => { '@type' => 'MediaObject', 'encodingFormat' => 'text/markdown', 'contentUrl' => "#{BASE_URL}/blog/post.md" },
+    }
+    assert_equal expected, generate(doc)
+  end
+
+  def test_post_uses_excerpt_when_description_is_missing_or_blank
+    [nil, '   '].each do |description|
+      doc = create_doc(
+        { 'layout' => 'post', 'title' => 'Post', 'description' => description, 'excerpt_output_override' => '<p>Excerpt.</p>' },
+      )
+
+      assert_equal 'Excerpt.', generate(doc)['description']
+    end
+  end
+
+  def test_post_uses_description_with_no_excerpt
+    doc = create_doc(
+      { 'layout' => 'post', 'title' => 'Post', 'description' => '<p>Summary.</p>', 'excerpt_output_override' => '' },
+    )
+    assert_equal 'Summary.', generate(doc)['description']
+  end
+
+  def test_post_omits_missing_optional_fields
+    doc = create_doc({ 'layout' => 'post', 'title' => 'Post' }, '/blog/post/', '')
+    site = create_site('url' => BASE_URL)
+
+    result = generate(doc, site)
+    assert_empty result.keys & %w[description articleBody wordCount keywords image encoding author publisher]
+    assert_equal doc.date.xmlschema, result['datePublished']
+    assert_equal result['datePublished'], result['dateModified']
+
+    doc.stub :date, nil do
+      assert_empty generate(doc, site).keys & %w[datePublished dateModified]
+    end
+  end
+
+  def test_post_requires_headline_and_url
+    [['   ', '/blog/post/', 'headline'], ['Post', nil, 'url']].each do |title, url, missing|
+      doc = create_doc({ 'layout' => 'post', 'title' => title }, url)
+
+      error = assert_raises(Jekyll::Errors::FatalException) { generate(doc) }
+      assert_includes error.message, "missing required fields: #{missing}"
+    end
   end
 
   private
 
-  def create_page_like(data, url, source_path = nil)
-    page_struct = Struct.new(:site, :data, :url, :path, :relative_path)
-    path = source_path || url.delete_prefix('/')
-    page_struct.new(@site, data, url, path, path)
+  def generate(doc, site = @site)
+    Jekyll::SEO::JsonLdInjector.generate_hash(doc, site)
   end
 end

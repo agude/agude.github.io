@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative '../../../test_helper'
-require_relative '../../../../_plugins/src/seo/generators/generic_review_generator'
 
 # Tests for Jekyll::SEO::Generators::GenericReviewLdGenerator module.
 #
@@ -25,46 +24,10 @@ class TestGenericReviewLdGenerator < Minitest::Test
     @post_collection = MockCollection.new([], 'posts')
   end
 
-  def test_generate_hash_basic_review
-    doc = create_doc(
-      {
-        'layout' => 'post',
-        'title' => 'Review of My Gadget',
-        'review' => {
-          'item_name' => 'My Awesome Gadget',
-          'item_type' => 'Product', # Explicitly Product
-        },
-        'description' => 'This gadget is pretty cool and does things.',
-      },
-      '/reviews/my-gadget.html',
-      'Post content',
-      '2024-05-01',
-      @post_collection,
-    )
-    expected = {
-      '@context' => 'https://schema.org',
-      '@type' => 'Review',
-      'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
-      'author' => { '@type' => 'Person', 'name' => 'Reviewer Name', '@id' => 'https://myreviews.com/stuff/resume/#person', 'url' => 'https://myreviews.com/stuff/resume/' },
-      'publisher' => { '@type' => 'Person', 'name' => 'Reviewer Name', '@id' => 'https://myreviews.com/stuff/resume/#person', 'url' => 'https://myreviews.com/stuff/resume/' },
-      'headline' => 'Review of My Gadget',
-      'datePublished' => Time.parse('2024-05-01').xmlschema,
-      'dateModified' => Time.parse('2024-05-01').xmlschema,
-      'reviewBody' => 'Post content',
-      'url' => 'https://myreviews.com/stuff/reviews/my-gadget.html',
-      'mainEntityOfPage' => { '@type' => 'WebPage', '@id' => 'https://myreviews.com/stuff/reviews/my-gadget.html' },
-      'itemReviewed' => {
-        '@type' => 'Product',
-        'name' => 'My Awesome Gadget',
-      },
-    }
-    assert_equal expected, Jekyll::SEO::Generators::GenericReviewLdGenerator.generate_hash(doc, @site)
-  end
-
   def test_generate_hash_review_with_all_item_fields
     doc = create_doc(
       {
-        'layout' => 'post',
+        'layout' => 'review-post',
         'title' => 'Full Review of Service X',
         'review' => {
           'item_name' => 'Service X',
@@ -73,10 +36,14 @@ class TestGenericReviewLdGenerator < Minitest::Test
           'item_description' => 'A revolutionary new service for tasks.',
         },
         'description' => 'My thoughts on Service X.',
-        'image' => '/images/service_x_logo.png', # This becomes itemReviewed.image
+        'image' => '/images/service_x_logo.png',
+        'categories' => ['Reviews'],
+        'tags' => ['services'],
+        'markdown_alternate_href' => '/reviews/service-x.md',
+        'last_modified_at' => Time.utc(2025, 3, 15),
       },
       '/reviews/service-x.html',
-      'Post content',
+      "<p>First paragraph.</p>\n<p>Second <strong>paragraph</strong>.</p>",
       '2024-05-02',
       @post_collection,
     )
@@ -88,144 +55,45 @@ class TestGenericReviewLdGenerator < Minitest::Test
       'publisher' => { '@type' => 'Person', 'name' => 'Reviewer Name', '@id' => 'https://myreviews.com/stuff/resume/#person', 'url' => 'https://myreviews.com/stuff/resume/' },
       'headline' => 'Full Review of Service X',
       'datePublished' => Time.parse('2024-05-02').xmlschema,
-      'dateModified' => Time.parse('2024-05-02').xmlschema,
+      'dateModified' => '2025-03-15T00:00:00Z',
       'image' => { '@type' => 'ImageObject', 'url' => 'https://myreviews.com/stuff/images/service_x_logo.png' },
-      'reviewBody' => 'Post content',
+      'reviewBody' => 'First paragraph. Second paragraph.',
+      'keywords' => 'Reviews, services',
+      'encoding' => {
+        '@type' => 'MediaObject',
+        'encodingFormat' => 'text/markdown',
+        'contentUrl' => 'https://myreviews.com/stuff/reviews/service-x.md',
+      },
       'url' => 'https://myreviews.com/stuff/reviews/service-x.html',
       'mainEntityOfPage' => { '@type' => 'WebPage', '@id' => 'https://myreviews.com/stuff/reviews/service-x.html' },
       'itemReviewed' => {
         '@type' => 'Service',
         'name' => 'Service X',
         'image' => 'https://myreviews.com/stuff/images/service_x_logo.png',
-        'url' => 'https://myreviews.com/stuff/servicex.com', # Jekyll::Infrastructure::UrlUtils will add baseurl if path is relative
+        'url' => 'https://servicex.com',
         'description' => 'A revolutionary new service for tasks.',
       },
     }
-    # Adjust itemReviewed.url if servicex.com was intended as absolute
-    # For this test, assume item_url is a path relative to site if not absolute
-    expected['itemReviewed']['url'] = if doc.data['review']['item_url'].start_with?('http')
-                                        doc.data['review']['item_url']
-                                      else
-                                        Jekyll::Infrastructure::UrlUtils.absolute_url(doc.data['review']['item_url'], @site)
-                                      end
-
-    assert_equal expected, Jekyll::SEO::Generators::GenericReviewLdGenerator.generate_hash(doc, @site)
-  end
-
-  def test_generate_hash_review_default_item_type
-    doc = create_doc(
-      {
-        'layout' => 'post',
-        'title' => 'Review of Thingy',
-        'review' => { 'item_name' => 'A Thingamajig' }, # No item_type, should default to Product
-      },
-      '/reviews/thingy.html',
-      'Post content',
-      '2024-05-03',
-      @post_collection,
-    )
-    result_hash = Jekyll::SEO::Generators::GenericReviewLdGenerator.generate_hash(doc, @site)
-    assert_equal 'Product', result_hash.dig('itemReviewed', '@type')
-    assert_equal 'A Thingamajig', result_hash.dig('itemReviewed', 'name')
+    assert_equal expected, generate(doc)
   end
 
   def test_generate_hash_review_missing_optional_fields
     doc = create_doc(
-      {
-        'layout' => 'post',
-        'title' => 'Minimal Review',
-        'review' => { 'item_name' => 'Basic Item' },
-        # No description, no page.image, no item_url, no item_description
-      },
+      { 'layout' => 'review-post', 'title' => 'Minimal Review', 'review' => { 'item_name' => 'Basic Item' } },
       '/reviews/minimal.html',
       'Post content',
       '2024-05-04',
       @post_collection,
     )
-    expected = {
-      '@context' => 'https://schema.org',
-      '@type' => 'Review',
-      'license' => 'https://creativecommons.org/licenses/by-sa/4.0/',
-      'author' => { '@type' => 'Person', 'name' => 'Reviewer Name', '@id' => 'https://myreviews.com/stuff/resume/#person', 'url' => 'https://myreviews.com/stuff/resume/' },
-      'publisher' => { '@type' => 'Person', 'name' => 'Reviewer Name', '@id' => 'https://myreviews.com/stuff/resume/#person', 'url' => 'https://myreviews.com/stuff/resume/' },
-      'headline' => 'Minimal Review',
-      'datePublished' => Time.parse('2024-05-04').xmlschema,
-      'dateModified' => Time.parse('2024-05-04').xmlschema,
-      'reviewBody' => 'Post content',
-      'url' => 'https://myreviews.com/stuff/reviews/minimal.html',
-      'mainEntityOfPage' => { '@type' => 'WebPage', '@id' => 'https://myreviews.com/stuff/reviews/minimal.html' },
-      'itemReviewed' => {
-        '@type' => 'Product', # Default
-        'name' => 'Basic Item',
-      },
-    }
-    assert_equal expected, Jekyll::SEO::Generators::GenericReviewLdGenerator.generate_hash(doc, @site)
-  end
 
-  def test_generate_hash_includes_keywords_and_markdown_encoding
-    doc = create_doc(
-      {
-        'layout' => 'review-post',
-        'title' => 'Chair Review',
-        'review' => { 'item_name' => 'Chair' },
-        'categories' => ['Reviews'],
-        'tags' => ['chairs'],
-        'markdown_alternate_href' => '/reviews/chair.md',
-      },
-      '/reviews/chair.html',
-      '<p>Post content.</p>',
-      '2024-05-06',
-      @post_collection,
-    )
-    result = Jekyll::SEO::Generators::GenericReviewLdGenerator.generate_hash(doc, @site)
+    result = generate(doc)
+    assert_equal({ '@type' => 'Product', 'name' => 'Basic Item' }, result['itemReviewed'])
+    assert_equal 'Post content', result['reviewBody']
+    assert_equal result['datePublished'], result['dateModified']
+    assert_empty result.keys & %w[description image keywords encoding reviewRating]
 
-    assert_equal 'Review', result['@type']
-    assert_equal 'Reviews, chairs', result['keywords']
-    expected_encoding = {
-      '@type' => 'MediaObject',
-      'encodingFormat' => 'text/markdown',
-      'contentUrl' => 'https://myreviews.com/stuff/reviews/chair.md',
-    }
-    assert_equal expected_encoding, result['encoding']
-  end
-
-  # The fixtures above have no last_modified_at, so dateModified equals
-  # datePublished there. A later edit date must win.
-  def test_generate_hash_date_modified_uses_last_modified_at
-    doc = create_doc(
-      {
-        'layout' => 'review-post',
-        'title' => 'Chair Review',
-        'review' => { 'item_name' => 'Chair' },
-        'last_modified_at' => Time.parse('2025-03-15'),
-      },
-      '/reviews/chair.html',
-      '<p>Post content.</p>',
-      '2024-05-06',
-      @post_collection,
-    )
-    result = Jekyll::SEO::Generators::GenericReviewLdGenerator.generate_hash(doc, @site)
-
-    assert_equal Time.parse('2024-05-06').xmlschema, result['datePublished']
-    assert_equal Time.parse('2025-03-15').xmlschema, result['dateModified']
-  end
-
-  # reviewBody is the review text itself, not the front-matter summary.
-  def test_generate_hash_review_body_is_full_content_not_description
-    doc = create_doc(
-      {
-        'layout' => 'review-post',
-        'title' => 'Chair Review',
-        'review' => { 'item_name' => 'Chair' },
-        'description' => 'A summary.',
-      },
-      '/reviews/chair.html',
-      "<p>First paragraph.</p>\n<p>Second <strong>paragraph</strong>.</p>", # Kramdown separates blocks
-      '2024-05-06',
-      @post_collection,
-    )
-    result = Jekyll::SEO::Generators::GenericReviewLdGenerator.generate_hash(doc, @site)
-    assert_equal 'First paragraph. Second paragraph.', result['reviewBody']
+    doc.data['review'].merge!('item_type' => 'Product', 'item_url' => ' ', 'item_description' => ' ')
+    assert_equal result, generate(doc)
   end
 
   def test_generate_hash_rejects_missing_item_name
@@ -241,10 +109,16 @@ class TestGenericReviewLdGenerator < Minitest::Test
       @post_collection,
     )
     error = assert_raises(Jekyll::Errors::FatalException) do
-      Jekyll::SEO::Generators::GenericReviewLdGenerator.generate_hash(doc_missing_item_name, @site)
+      generate(doc_missing_item_name)
     end
 
     assert_match '/reviews/bad-data.html', error.message
     assert_match 'review.item_name', error.message
+  end
+
+  private
+
+  def generate(doc)
+    Jekyll::SEO::JsonLdInjector.generate_hash(doc, @site)
   end
 end

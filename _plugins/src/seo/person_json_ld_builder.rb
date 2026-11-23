@@ -5,7 +5,8 @@ require_relative 'json_ld_builder'
 module Jekyll
   module SEO
     # Extends JsonLdBuilder with person/resume-specific schema.org methods.
-    # Used by PersonGenerator, ProfilePageGenerator, and AuthorProfileGenerator.
+    # Used by PersonLdGenerator and the `linktree` and `author_page` schemas
+    # in JsonLdInjector::LAYOUT_GENERATORS.
     class PersonJsonLdBuilder < JsonLdBuilder
       def job_title(value)
         set_if_present('jobTitle', value)
