@@ -246,8 +246,9 @@ Keep these boundaries intact when changing the site:
   `Jekyll::Errors::FatalException`. Do not allow incorrect output to ship
   silently.
 
-When changing plugin architecture, CI workflow, hooks, or the markdown-output
-pipeline, update the matching document in `references/`.
+When changing plugin architecture, hooks, or the markdown-output pipeline,
+update the YARD tags (`@pattern`, `@gotcha`, `@validator`, `@pipeline`) on the
+affected code. Do not add implementation documentation to `references/`.
 
 ## Verification
 

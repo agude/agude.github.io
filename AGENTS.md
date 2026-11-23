@@ -181,6 +181,8 @@ Why they do not overlap:
     `Jekyll::Errors::FatalException` to stop the build. A broken build is
     always better than silently wrong output — wrong output ships to
     production and is discovered much later.
-6.  **Skill doc sync:** When you change plugin architecture, CI workflow,
-    hooks, or the markdown-output pipeline, update the matching file in
-    `.claude/skills/jekyll-site-dev/references/`.
+6.  **Documentation:** Document plugin behavior, architecture, pipelines, and
+    gotchas in YARD tags (`@pattern`, `@gotcha`, `@validator`, `@pipeline`) on
+    the code. `.agents/skills/**/references/` holds only author-facing material
+    (writing, style, Liquid syntax for authors, and operational runbooks). Never
+    add implementation documentation there.
