@@ -91,9 +91,9 @@ module Jekyll
           lines = [heading]
           entries.each do |entry|
             lines << if entry[:authors]
-                       MdCards.render_book_card_md(entry)
+                       MdCards.render_card_md(entry, book: true)
                      else
-                       MdCards.render_article_card_md(entry)
+                       MdCards.render_card_md(entry)
                      end
           end
           lines << ''

@@ -125,7 +125,7 @@ module Jekyll
               url: post.url,
               description: MdCards.extract_plain_description(post.data),
             }
-            return MdCards.render_article_card_md(card)
+            return MdCards.render_card_md(card)
           end
 
           CardRenderer.render(post, context)

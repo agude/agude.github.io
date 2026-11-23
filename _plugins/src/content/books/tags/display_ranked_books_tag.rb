@@ -72,7 +72,9 @@ module Jekyll
           (result[:rating_groups] || []).each do |group|
             stars = MdCards.format_stars(group[:rating])
             lines << "## #{stars}"
-            group[:books].each { |book| lines << MdCards.render_book_card_md(MdCards.book_doc_to_card_data(book)) }
+            group[:books].each do |book|
+              lines << MdCards.render_card_md(MdCards.book_doc_to_card_data(book), book: true)
+            end
           end
           lines.join("\n")
         end

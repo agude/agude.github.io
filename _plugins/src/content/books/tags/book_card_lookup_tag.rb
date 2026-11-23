@@ -155,7 +155,7 @@ module Jekyll
 
         def render_book_card(found_book, context, target_title_input)
           if context.registers[:render_mode] == :markdown
-            return MdCards.render_book_card_md(MdCards.book_doc_to_card_data(found_book))
+            return MdCards.render_card_md(MdCards.book_doc_to_card_data(found_book), book: true)
           end
 
           CardRenderer.render(found_book, context)

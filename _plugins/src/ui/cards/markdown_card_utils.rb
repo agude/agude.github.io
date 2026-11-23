@@ -7,8 +7,8 @@ require_relative '../../infrastructure/rating_parser'
 module Jekyll
   module UI
     module Cards
-      # Converts card data hashes (from BookCardRenderer.extract_data and
-      # ArticleCardRenderer.extract_data) into Markdown list items.
+      # Renders Markdown list items with document URLs. HTML cards resolve
+      # absolute URLs and prepare their titles separately.
       #
       # @see Jekyll::MarkdownOutput::MarkdownBodyHook for the pipeline this
       #   formatting serves.
@@ -45,12 +45,15 @@ module Jekyll
           ('★' * rating_int) + ('☆' * (5 - rating_int))
         end
 
-        def self.render_book_card_md(data)
-          title = Text.markdown_title_text(data[:title])
-          line = "- [_#{Text.escape_link_text(title)}_](#{Text.escape_url(data[:url])})"
-          line += " by #{format_card_authors(data)}" if data[:authors]&.any?
-          stars = format_stars(data[:rating], source: data[:title])
-          line += " --- #{stars}" if stars
+        def self.render_card_md(data, book: false)
+          title = Text.escape_link_text(Text.markdown_title_text(data[:title]))
+          title = "_#{title}_" if book
+          line = "- [#{title}](#{Text.escape_url(data[:url])})"
+          if book
+            line += " by #{format_card_authors(data)}" if data[:authors]&.any?
+            stars = format_stars(data[:rating], source: data[:title])
+            line += " --- #{stars}" if stars
+          end
           line += ": #{data[:description]}" if data[:description]
           line
         end
@@ -64,24 +67,17 @@ module Jekyll
         end
         private_class_method :format_card_authors
 
-        def self.render_article_card_md(data)
-          title = Text.markdown_title_text(data[:title])
-          line = "- [#{Text.escape_link_text(title)}](#{Text.escape_url(data[:url])})"
-          line += ": #{data[:description]}" if data[:description]
-          line
-        end
-
         def self.render_book_groups_md(data, heading_level:)
           prefix = '#' * heading_level
           lines = []
           standalone = data[:standalone_books] || []
           unless standalone.empty?
             lines << "#{prefix} Standalone"
-            standalone.each { |book| lines << render_book_card_md(book_doc_to_card_data(book)) }
+            standalone.each { |book| lines << render_card_md(book_doc_to_card_data(book), book: true) }
           end
           (data[:series_groups] || []).each do |group|
             lines << "#{prefix} #{group[:name]}"
-            group[:books].each { |book| lines << render_book_card_md(book_doc_to_card_data(book)) }
+            group[:books].each { |book| lines << render_card_md(book_doc_to_card_data(book), book: true) }
           end
           lines
         end

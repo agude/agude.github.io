@@ -67,7 +67,7 @@ module Jekyll
           posts = result[:posts] || []
           return '' if posts.empty?
 
-          posts.map { |p| MdCards.render_article_card_md({ title: p.data['title'], url: p.url }) }.join("\n")
+          posts.map { |p| MdCards.render_card_md({ title: p.data['title'], url: p.url }) }.join("\n")
         end
 
         def resolve_topic(context)

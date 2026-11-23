@@ -65,7 +65,7 @@ module Jekyll
               url: item.url,
               description: MdCards.extract_plain_description(item.data, type: :article),
             }
-            MdCards.render_article_card_md(card)
+            MdCards.render_card_md(card)
           end.join("\n")
         end
 

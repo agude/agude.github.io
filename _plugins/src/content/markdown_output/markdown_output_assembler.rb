@@ -131,7 +131,7 @@ module Jekyll
           author_list = authors.is_a?(Array) ? authors : [authors].compact
           author_urls = resolve_author_urls(author_list, cache)
           card_data = MarkdownCardUtils.book_doc_to_card_data(book, author_urls: author_urls)
-          lines << MarkdownCardUtils.render_book_card_md(card_data)
+          lines << MarkdownCardUtils.render_card_md(card_data, book: true)
         end
         lines.join("\n")
       end
@@ -169,7 +169,7 @@ module Jekyll
           author_list = authors.is_a?(Array) ? authors : [authors].compact
           author_urls = resolve_author_urls(author_list, cache)
           card_data = MarkdownCardUtils.book_doc_to_card_data(review, author_urls: author_urls)
-          lines << MarkdownCardUtils.render_book_card_md(card_data)
+          lines << MarkdownCardUtils.render_card_md(card_data, book: true)
         end
         lines.join("\n")
       end
@@ -186,7 +186,7 @@ module Jekyll
         return nil if posts.empty?
 
         lines = ['## Related Posts']
-        posts.each { |post| lines << MarkdownCardUtils.render_article_card_md(post_doc_to_card_data(post)) }
+        posts.each { |post| lines << MarkdownCardUtils.render_card_md(post_doc_to_card_data(post)) }
         lines.join("\n")
       end
 

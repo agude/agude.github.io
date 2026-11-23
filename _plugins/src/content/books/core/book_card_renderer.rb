@@ -60,58 +60,49 @@ module Jekyll
         end
 
         def extract_data
-          extract_base
-          return nil if @base[:site].nil? || @base[:data_source_for_keys].nil?
+          @base, @log_out = CardExtractor.extract_base_data(
+            @book_obj, @context, default_title: DEFAULT_TITLE_FOR_BOOK_CARD, log_tag_type: 'BOOK_CARD_UTIL',
+          )
+          return unless @base
 
-          @data = @base[:data_source_for_keys]
+          @data = @base[:source]
           title = resolve_title
-          {
+          @base.except(:source).merge(
             title: title,
             authors: resolve_authors,
             rating: @data['rating'],
             excerpt: resolve_excerpt,
-            url: @base[:absolute_url],
-            image_url: @base[:absolute_image_url],
             image_alt: resolve_image_alt(title),
-            subtitle: resolve_subtitle,
-          }.freeze
+            subtitle: @subtitle.to_s.strip.empty? ? nil : @subtitle,
+          ).freeze
         end
 
         def render
           data = extract_data
           return @log_out unless data
 
-          card_data = build_card_data(
-            format_title_html(data[:title]),
-            data[:image_alt],
-            data[:excerpt],
-            format_extra_elements(data),
+          card_data = data.merge(
+            base_class: 'book-card',
+            image_div_class: 'card-book-cover',
+            image_sizes: COVER_SIZES,
+            title_html: format_title_html(data[:title]),
+            extra_elements_html: format_extra_elements(data),
+            description_wrapper_html_open: "    <div class=\"card-element card-text\">\n      ",
+            description_wrapper_html_close: "\n    </div>\n",
           )
           @log_out + CardRenderer.render_card(card_data: card_data)
         end
 
         private
 
-        def extract_base
-          @base = CardExtractor.extract_base_data(
-            @book_obj,
-            @context,
-            default_title: DEFAULT_TITLE_FOR_BOOK_CARD,
-            log_tag_type: 'BOOK_CARD_UTIL',
-          )
-          @log_out = @base[:log_output] || ''
-        end
-
-        # --- Data resolution (extract raw values, log issues) ---
-
         def resolve_title
-          t = @title_override.to_s.strip.empty? ? @base[:raw_title] : @title_override
+          t = @title_override.to_s.strip.empty? ? @base[:title] : @title_override
           if t == DEFAULT_TITLE_FOR_BOOK_CARD
             log(
               'BOOK_CARD_MISSING_TITLE',
               'Book title is missing and defaulted.',
               :error,
-              { book_url: @base[:absolute_url] || @data['url'] || 'N/A' },
+              { book_url: @base[:url] || @data['url'] || 'N/A' },
             )
           end
           t
@@ -124,7 +115,7 @@ module Jekyll
               'BOOK_CARD_MISSING_AUTHORS',
               "'book_authors' field resolved to an empty list.",
               :warn,
-              { book_title: @base[:raw_title] },
+              { book_title: @base[:title] },
             )
           end
           names
@@ -132,12 +123,12 @@ module Jekyll
 
         def resolve_excerpt
           html = CardExtractor.extract_description_html(@data, type: :book)
-          if html.strip.empty?
+          if html.empty?
             log(
               'BOOK_CARD_MISSING_EXCERPT',
               'Book excerpt is missing or empty.',
               :warn,
-              { book_title: @base[:raw_title] },
+              { book_title: @base[:title] },
             )
           end
           html
@@ -152,12 +143,6 @@ module Jekyll
           log_image_alt_issue(path)
           "Book cover of #{title}."
         end
-
-        def resolve_subtitle
-          @subtitle.to_s.strip.empty? ? nil : @subtitle
-        end
-
-        # --- HTML formatting ---
 
         def format_title_html(title)
           "<strong><cite class=\"book-title\">#{Typography.prepare_display_title(title)}</cite></strong>"
@@ -190,14 +175,13 @@ module Jekyll
         def format_rating_html(rating)
           return nil unless rating
 
-          html = Ratings.render_rating_stars(rating, 'div')
-          html && !html.empty? ? "    #{html}\n" : nil
+          "    #{Ratings.render_rating_stars(rating, 'div')}\n"
         rescue ArgumentError => e
           log(
             'BOOK_CARD_RATING_ERROR',
             "Invalid or malformed 'rating' value for book: #{e.message}",
             :warn,
-            { title: @base[:raw_title], rating_input: rating.inspect },
+            { title: @base[:title], rating_input: rating.inspect },
           )
           nil
         end
@@ -210,32 +194,16 @@ module Jekyll
               'BOOK_CARD_MISSING_IMAGE_PATH',
               "Required 'image' front matter (path to cover image) is missing for book.",
               :error,
-              { book_title: @base[:raw_title] },
+              { book_title: @base[:title] },
             )
           else
             log(
               'BOOK_CARD_USER_ALT_MISSING',
               "User-provided 'image_alt' front matter missing for book image. Constructing default.",
               :debug,
-              { book_title: @base[:raw_title], image_path: path },
+              { book_title: @base[:title], image_path: path },
             )
           end
-        end
-
-        def build_card_data(title, alt, desc, extras)
-          {
-            base_class: 'book-card',
-            url: @base[:absolute_url],
-            image_url: @base[:absolute_image_url],
-            image_alt: alt,
-            image_div_class: 'card-book-cover',
-            image_sizes: COVER_SIZES,
-            title_html: title,
-            extra_elements_html: extras,
-            description_html: desc,
-            description_wrapper_html_open: "    <div class=\"card-element card-text\">\n      ",
-            description_wrapper_html_close: "\n    </div>\n",
-          }
         end
 
         def log(tag, reason, level, ids)

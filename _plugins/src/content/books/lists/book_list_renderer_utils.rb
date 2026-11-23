@@ -116,7 +116,7 @@ module Jekyll
         end
 
         def self.render_cards_markdown(books)
-          books.map { |book| MdCards.render_book_card_md(MdCards.book_doc_to_card_data(book)) }
+          books.map { |book| MdCards.render_card_md(MdCards.book_doc_to_card_data(book), book: true) }
         end
 
         def self.register_series_anchor(anchors, name, slug)

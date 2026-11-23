@@ -3,367 +3,128 @@
 require_relative '../../../test_helper'
 require_relative '../../../../_plugins/src/ui/cards/markdown_card_utils'
 
-# Tests for Jekyll::UI::Cards::MarkdownCardUtils.
-#
-# Verifies that card data hashes are correctly formatted as Markdown list items.
+# Markdown card data, rendered list items, and rating validation.
 class TestMarkdownCardUtils < Minitest::Test
-  def test_article_card_replaces_title_breaks_and_preserves_link_escaping
-    data = { title: 'Spectrum:<BR /> From [Analysts]', url: '/blog/spectrum/' }
-    result = Jekyll::UI::Cards::MarkdownCardUtils.render_article_card_md(data)
-    assert_equal '- [Spectrum: From \\[Analysts\\]](/blog/spectrum/)', result
-  end
+  Cards = Jekyll::UI::Cards::MarkdownCardUtils
 
-  def test_book_card_replaces_title_breaks
-    data = { title: 'Part<br/>Two', url: '/books/part-two/' }
-    result = Jekyll::UI::Cards::MarkdownCardUtils.render_book_card_md(data)
-    assert_equal '- [_Part Two_](/books/part-two/)', result
-  end
+  def test_book_doc_to_card_data_basic
+    book = create_doc(
+      {
+        'title' => 'Part<br/>Two',
+        'book_authors' => %w[A B],
+        'rating' => 5,
+        'description' => 'Ignored for books.',
+        'excerpt' => '<p>A review of <cite>Part Two</cite>.</p>',
+      },
+      '/books/part-two/',
+    )
+    urls = { 'A' => '/books/authors/a/' }
 
-  def test_render_book_card_md_full_data
-    data = {
-      title: 'The Great Gatsby',
-      authors: ['F. Scott Fitzgerald'],
-      rating: 4,
-      url: '/books/the-great-gatsby/',
-    }
-
-    result = Jekyll::UI::Cards::MarkdownCardUtils.render_book_card_md(data)
-
-    assert_equal "- [_The Great Gatsby_](/books/the-great-gatsby/) by F. Scott Fitzgerald --- \u2605\u2605\u2605\u2605\u2606",
-                 result
-  end
-
-  def test_render_book_card_md_multiple_authors
-    data = {
-      title: 'Collaborative Work',
-      authors: ['Author One', 'Author Two', 'Author Three'],
-      rating: 5,
-      url: '/books/collab/',
-    }
-
-    result = Jekyll::UI::Cards::MarkdownCardUtils.render_book_card_md(data)
-
-    assert_equal "- [_Collaborative Work_](/books/collab/) by Author One, Author Two, Author Three --- \u2605\u2605\u2605\u2605\u2605",
-                 result
-  end
-
-  def test_render_book_card_md_no_authors
-    data = {
-      title: 'Anonymous',
-      authors: [],
-      rating: 3,
-      url: '/books/anon/',
-    }
-
-    result = Jekyll::UI::Cards::MarkdownCardUtils.render_book_card_md(data)
-
-    assert_equal "- [_Anonymous_](/books/anon/) --- \u2605\u2605\u2605\u2606\u2606", result
-  end
-
-  def test_render_book_card_md_no_rating
-    data = {
-      title: 'Unrated Book',
-      authors: ['Author'],
-      rating: nil,
-      url: '/books/unrated/',
-    }
-
-    result = Jekyll::UI::Cards::MarkdownCardUtils.render_book_card_md(data)
-
-    assert_equal '- [_Unrated Book_](/books/unrated/) by Author', result
-  end
-
-  def test_render_book_card_md_no_authors_no_rating
-    data = {
-      title: 'Minimal',
-      authors: nil,
-      rating: nil,
-      url: '/books/minimal/',
-    }
-
-    result = Jekyll::UI::Cards::MarkdownCardUtils.render_book_card_md(data)
-
-    assert_equal '- [_Minimal_](/books/minimal/)', result
-  end
-
-  def test_render_book_card_md_author_linked
-    data = {
-      title: 'Dune',
-      authors: ['Frank Herbert'],
-      author_urls: { 'Frank Herbert' => '/books/authors/frank_herbert/' },
-      rating: 5,
-      url: '/books/dune/',
-    }
-
-    result = Jekyll::UI::Cards::MarkdownCardUtils.render_book_card_md(data)
-
-    assert_equal "- [_Dune_](/books/dune/) by [Frank Herbert](/books/authors/frank_herbert/) --- \u2605\u2605\u2605\u2605\u2605",
-                 result
+    assert_equal(
+      {
+        title: 'Part<br/>Two',
+        url: '/books/part-two/',
+        authors: %w[A B],
+        author_urls: urls,
+        rating: 5,
+        description: 'A review of Part Two.',
+      },
+      Cards.book_doc_to_card_data(book, author_urls: urls),
+    )
+    assert_empty Cards.book_doc_to_card_data(book)[:author_urls]
   end
 
   def test_render_book_card_md_mixed_author_links
-    data = {
-      title: 'Collab',
-      authors: ['Linked Author', 'Unlinked Author'],
-      author_urls: { 'Linked Author' => '/books/authors/linked/' },
-      rating: 4,
-      url: '/books/collab/',
-    }
-
-    result = Jekyll::UI::Cards::MarkdownCardUtils.render_book_card_md(data)
-
-    assert_equal "- [_Collab_](/books/collab/) by [Linked Author](/books/authors/linked/), Unlinked Author --- \u2605\u2605\u2605\u2605\u2606",
-                 result
-  end
-
-  def test_render_article_card_md
-    data = {
-      title: 'My Blog Post',
-      url: '/blog/my-blog-post/',
-    }
-
-    result = Jekyll::UI::Cards::MarkdownCardUtils.render_article_card_md(data)
-
-    assert_equal '- [My Blog Post](/blog/my-blog-post/)', result
-  end
-
-  # --- book_doc_to_card_data ---
-
-  def test_book_doc_to_card_data_basic
-    doc = create_doc(
-      { 'title' => 'Part<br/>Two', 'book_authors' => ['Frank Herbert'], 'rating' => 5 },
-      '/books/dune/',
+    book = create_doc(
+      {
+        'title' => 'Part<br/>Two [Anthology] (Revised)',
+        'book_authors' => ['A [Editor]', 'B', 'C'],
+        'rating' => '4',
+        'excerpt' => "<p>A <strong>collaborative</strong>\n   work.</p>",
+      },
+      '/books/part-two(v2)/',
     )
-    card = Jekyll::UI::Cards::MarkdownCardUtils.book_doc_to_card_data(doc)
-    assert_equal 'Part<br/>Two', card[:title]
-    assert_equal '/books/dune/', card[:url]
-    assert_equal ['Frank Herbert'], card[:authors]
-    assert_equal({}, card[:author_urls])
-    assert_equal 5, card[:rating]
+    card = Cards.book_doc_to_card_data(book, author_urls: { 'A [Editor]' => '/authors/a(editor)/' })
+    expected = '- [_Part Two \[Anthology\] (Revised)_](/books/part-two\(v2\)/) ' \
+               'by [A \[Editor\]](/authors/a\(editor\)/), B, C --- ★★★★☆: A collaborative work.'
+
+    assert_equal expected, Cards.render_card_md(card, book: true)
   end
 
-  def test_book_doc_to_card_data_with_author_urls
-    doc = create_doc(
-      { 'title' => 'Dune', 'book_authors' => ['Frank Herbert'], 'rating' => 5 },
-      '/books/dune/',
+  def test_render_book_card_md_no_authors_no_rating
+    book = create_doc({ 'title' => 'Minimal', 'book_authors' => nil, 'rating' => nil, 'excerpt' => nil }, '/books/minimal/')
+    card = Cards.book_doc_to_card_data(book)
+
+    assert_empty card[:authors]
+    assert_nil card[:description]
+    assert_equal '- [_Minimal_](/books/minimal/)', Cards.render_card_md(card, book: true)
+  end
+
+  def test_render_book_card_md_no_authors
+    assert_equal '- [_Anonymous_](/books/anon/) --- ★☆☆☆☆',
+                 Cards.render_card_md({ title: 'Anonymous', url: '/books/anon/', authors: [], rating: 1 }, book: true)
+  end
+
+  def test_render_book_card_md_no_rating
+    book = create_doc({ 'title' => 'Unrated Book', 'book_authors' => 'Author', 'excerpt' => '' }, '/books/unrated/')
+    card = Cards.book_doc_to_card_data(book)
+
+    assert_equal ['Author'], card[:authors]
+    assert_equal '- [_Unrated Book_](/books/unrated/) by Author', Cards.render_card_md(card, book: true)
+  end
+
+  def test_render_article_card_md_without_description
+    card = { title: 'Post [Update]', url: '/blog/post/' }
+
+    assert_equal '- [Post \[Update\]](/blog/post/)', Cards.render_card_md(card)
+  end
+
+  def test_extract_plain_description_from_html_excerpt
+    data = { 'description' => '  ', 'excerpt' => "<p>HTML <strong>excerpt</strong>\n   text</p>" }
+    assert_equal 'HTML excerpt text', Cards.extract_plain_description(data)
+  end
+
+  def test_extract_plain_description_nil_when_empty
+    [nil, '', '   ', '<p></p>'].each do |blank|
+      assert_nil Cards.extract_plain_description({ 'excerpt' => blank })
+    end
+  end
+
+  def test_render_book_groups_md_standalone_and_series
+    standalone = create_doc({ 'title' => 'Solo', 'rating' => 3 }, '/books/solo/')
+    entry = create_doc({ 'title' => 'Book 1', 'rating' => 5 }, '/books/b1/')
+    data = { standalone_books: [standalone], series_groups: [{ name: 'Epic Series', books: [entry] }] }
+
+    assert_equal(
+      ['## Standalone', '- [_Solo_](/books/solo/) --- ★★★☆☆', '## Epic Series', '- [_Book 1_](/books/b1/) --- ★★★★★'],
+      Cards.render_book_groups_md(data, heading_level: 2),
     )
-    urls = { 'Frank Herbert' => '/books/authors/frank_herbert/' }
-    card = Jekyll::UI::Cards::MarkdownCardUtils.book_doc_to_card_data(doc, author_urls: urls)
-    assert_equal urls, card[:author_urls]
   end
 
-  def test_book_doc_to_card_data_string_authors
-    doc = create_doc(
-      { 'title' => 'Solo', 'book_authors' => 'Single Author', 'rating' => 3 },
-      '/books/solo/',
-    )
-    card = Jekyll::UI::Cards::MarkdownCardUtils.book_doc_to_card_data(doc)
-    assert_equal ['Single Author'], card[:authors]
+  def test_render_book_groups_md_empty_data
+    assert_empty Cards.render_book_groups_md({}, heading_level: 3)
   end
 
-  def test_book_doc_to_card_data_nil_authors
-    doc = create_doc(
-      { 'title' => 'Anon', 'book_authors' => nil, 'rating' => 4 },
-      '/books/anon/',
-    )
-    card = Jekyll::UI::Cards::MarkdownCardUtils.book_doc_to_card_data(doc)
-    assert_equal [], card[:authors]
-  end
+  def test_render_book_groups_md_only_series
+    entry = create_doc({ 'title' => 'Entry' }, '/books/e/')
+    data = { standalone_books: [], series_groups: [{ name: 'Trilogy', books: [entry] }] }
 
-  # --- format_stars ---
-
-  def test_format_stars_full
-    assert_equal "\u2605\u2605\u2605\u2605\u2605",
-                 Jekyll::UI::Cards::MarkdownCardUtils.format_stars(5)
-  end
-
-  def test_format_stars_partial
-    assert_equal "\u2605\u2605\u2605\u2606\u2606",
-                 Jekyll::UI::Cards::MarkdownCardUtils.format_stars(3)
-  end
-
-  def test_format_stars_one
-    assert_equal "\u2605\u2606\u2606\u2606\u2606",
-                 Jekyll::UI::Cards::MarkdownCardUtils.format_stars(1)
+    assert_equal ['### Trilogy', '- [_Entry_](/books/e/)'], Cards.render_book_groups_md(data, heading_level: 3)
   end
 
   def test_format_stars_out_of_range_raises
     [0, 6].each do |raw|
-      assert_raises(Jekyll::Errors::FatalException, raw.inspect) do
-        Jekyll::UI::Cards::MarkdownCardUtils.format_stars(raw)
-      end
+      assert_raises(Jekyll::Errors::FatalException, raw.inspect) { Cards.format_stars(raw) }
     end
   end
 
-  def test_format_stars_string_coercion
-    assert_equal "\u2605\u2605\u2605\u2605\u2606",
-                 Jekyll::UI::Cards::MarkdownCardUtils.format_stars('4')
-  end
-
-  def test_render_book_card_md_escapes_brackets_in_title
-    data = {
-      title: 'We Are Legion (We Are Bob)',
-      authors: ['Dennis E. Taylor'],
-      rating: 4,
-      url: '/books/we_are_legion_we_are_bob/',
-    }
-    result = Jekyll::UI::Cards::MarkdownCardUtils.render_book_card_md(data)
-    # Parentheses in text don't need escaping, but brackets would
-    assert_includes result, '[_We Are Legion (We Are Bob)_]'
-  end
-
-  def test_render_book_card_md_escapes_bracket_in_title
-    data = {
-      title: 'Anthology [Vol. 2]',
-      authors: ['Editor'],
-      rating: 3,
-      url: '/books/anthology-vol-2/',
-    }
-    result = Jekyll::UI::Cards::MarkdownCardUtils.render_book_card_md(data)
-    assert_includes result, 'Anthology \[Vol. 2\]'
-  end
-
-  def test_render_article_card_md_escapes_bracket_in_title
-    data = { title: 'Post [Update]', url: '/blog/post/' }
-    result = Jekyll::UI::Cards::MarkdownCardUtils.render_article_card_md(data)
-    assert_equal '- [Post \[Update\]](/blog/post/)', result
-  end
-
-  # --- description in cards ---
-
-  def test_render_book_card_md_with_description
-    data = {
-      title: 'Dune',
-      authors: ['Frank Herbert'],
-      rating: 5,
-      url: '/books/dune/',
-      description: 'A desert planet epic',
-    }
-    result = Jekyll::UI::Cards::MarkdownCardUtils.render_book_card_md(data)
-    assert_includes result, ': A desert planet epic'
-    assert_match(/\u2605{5}: A desert/, result)
-  end
-
-  def test_render_book_card_md_without_description
-    data = {
-      title: 'Dune',
-      authors: ['Frank Herbert'],
-      rating: 5,
-      url: '/books/dune/',
-    }
-    result = Jekyll::UI::Cards::MarkdownCardUtils.render_book_card_md(data)
-    refute_includes result, ':'
-  end
-
-  def test_render_article_card_md_with_description
-    data = { title: 'My Post', url: '/blog/post/', description: 'A great article' }
-    result = Jekyll::UI::Cards::MarkdownCardUtils.render_article_card_md(data)
-    assert_equal '- [My Post](/blog/post/): A great article', result
-  end
-
-  def test_render_article_card_md_without_description
-    data = { title: 'My Post', url: '/blog/post/' }
-    result = Jekyll::UI::Cards::MarkdownCardUtils.render_article_card_md(data)
-    assert_equal '- [My Post](/blog/post/)', result
-  end
-
-  # --- extract_plain_description ---
-
-  def test_extract_plain_description_from_description_field
-    data = { 'description' => 'A plain text description' }
-    result = Jekyll::UI::Cards::MarkdownCardUtils.extract_plain_description(data)
-    assert_equal 'A plain text description', result
-  end
-
-  def test_extract_plain_description_from_html_excerpt
-    data = { 'excerpt' => '<p>HTML <strong>excerpt</strong> text</p>' }
-    result = Jekyll::UI::Cards::MarkdownCardUtils.extract_plain_description(data)
-    assert_equal 'HTML excerpt text', result
-  end
-
-  def test_extract_plain_description_nil_when_empty
-    data = {}
-    result = Jekyll::UI::Cards::MarkdownCardUtils.extract_plain_description(data)
-    assert_nil result
-  end
-
-  def test_extract_plain_description_collapses_whitespace
-    data = { 'description' => "Line one.\nLine two.\n  Extra   spaces." }
-    result = Jekyll::UI::Cards::MarkdownCardUtils.extract_plain_description(data)
-    assert_equal 'Line one. Line two. Extra spaces.', result
-  end
-
-  def test_extract_plain_description_book_type_uses_excerpt
-    data = { 'description' => 'Ignored for books', 'excerpt' => '<p>Book excerpt</p>' }
-    result = Jekyll::UI::Cards::MarkdownCardUtils.extract_plain_description(data, type: :book)
-    assert_equal 'Book excerpt', result
-  end
-
-  def test_book_doc_to_card_data_includes_description
-    doc = create_doc(
-      {
-        'title' => 'Dune',
-        'book_authors' => ['Frank Herbert'],
-        'rating' => 5,
-        'excerpt' => '<p>A review of Dune</p>',
-      },
-      '/books/dune/',
-    )
-    card = Jekyll::UI::Cards::MarkdownCardUtils.book_doc_to_card_data(doc)
-    assert_equal 'A review of Dune', card[:description]
-  end
-
-  # --- render_book_groups_md ---
-
-  def test_render_book_groups_md_standalone_and_series
-    standalone = [create_doc({ 'title' => 'Solo', 'book_authors' => ['A'], 'rating' => 3 }, '/books/solo/')]
-    series_books = [create_doc({ 'title' => 'Book 1', 'book_authors' => ['B'], 'rating' => 4 }, '/books/b1/')]
-    data = { standalone_books: standalone, series_groups: [{ name: 'Epic Series', books: series_books }] }
-
-    lines = Jekyll::UI::Cards::MarkdownCardUtils.render_book_groups_md(data, heading_level: 2)
-
-    assert_equal '## Standalone', lines[0]
-    assert_match(/Solo/, lines[1])
-    assert_equal '## Epic Series', lines[2]
-    assert_match(/Book 1/, lines[3])
-  end
-
-  def test_render_book_groups_md_empty_data
-    lines = Jekyll::UI::Cards::MarkdownCardUtils.render_book_groups_md({}, heading_level: 3)
-    assert_equal [], lines
-  end
-
-  def test_render_book_groups_md_only_series
-    series_books = [create_doc({ 'title' => 'Entry', 'book_authors' => ['C'], 'rating' => 5 }, '/books/e/')]
-    data = { standalone_books: [], series_groups: [{ name: 'Trilogy', books: series_books }] }
-
-    lines = Jekyll::UI::Cards::MarkdownCardUtils.render_book_groups_md(data, heading_level: 3)
-
-    assert_equal '### Trilogy', lines[0]
-    assert_match(/Entry/, lines[1])
-    assert_equal 2, lines.length
-  end
-
-  # --- format_stars: strict parsing (A19b) ---
-
   def test_format_stars_rejects_text_after_the_number
-    assert_raises(Jekyll::Errors::FatalException) { Jekyll::UI::Cards::MarkdownCardUtils.format_stars('4 stars') }
+    assert_raises(Jekyll::Errors::FatalException) { Cards.format_stars('4 stars') }
   end
 
   def test_format_stars_rejects_fractions_and_blank
     ['4.9', '', 4.9].each do |raw|
-      assert_raises(Jekyll::Errors::FatalException, raw.inspect) do
-        Jekyll::UI::Cards::MarkdownCardUtils.format_stars(raw)
-      end
+      assert_raises(Jekyll::Errors::FatalException, raw.inspect) { Cards.format_stars(raw) }
     end
-  end
-
-  def test_format_stars_nil_omits_rating
-    assert_nil Jekyll::UI::Cards::MarkdownCardUtils.format_stars(nil)
-  end
-
-  def test_format_stars_accepts_integer_and_digit_string
-    assert_equal "\u2605" * 5, Jekyll::UI::Cards::MarkdownCardUtils.format_stars(5)
-    assert_equal "\u2605" * 5, Jekyll::UI::Cards::MarkdownCardUtils.format_stars('5')
   end
 end

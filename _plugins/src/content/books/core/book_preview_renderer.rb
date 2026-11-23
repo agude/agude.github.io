@@ -49,7 +49,7 @@ module Jekyll
         # when the URL is not in the doc map.
         def self.extract_lede(site, url)
           return nil unless url && site
-          return nil if site.data['_building_lede']
+          return nil if building_lede?(site)
 
           base_url = url.to_s.split('#', 2).first
           doc = (site.data['url_to_book_doc'] || {})[base_url]
@@ -74,6 +74,7 @@ module Jekyll
           clean = clean.gsub(%r{</?p[^>]*>}, '').strip
           clean.empty? ? nil : clean
         end
+        private_class_method :sanitize_lede
 
         # Any non-fatal issues encountered while rendering (e.g. an invalid
         # rating value), as an HTML comment. Empty string if none. This is
@@ -105,15 +106,11 @@ module Jekyll
         def render
           "#{Text::PREVIEW_OPEN}<span class=\"book-link-preview\" aria-hidden=\"true\" hidden>" \
             "#{cover_html}<span class=\"book-link-preview-text\">" \
-            "<span class=\"book-link-preview-title\">#{title_html}</span>" \
+            "<span class=\"book-link-preview-title\">#{Typography.prepare_display_title(@canonical_title)}</span>" \
             "#{author_html}#{stars_html}#{series_html}</span>#{lede_html}</span>#{Text::PREVIEW_CLOSE}"
         end
 
         private
-
-        def title_html
-          Typography.prepare_display_title(@canonical_title)
-        end
 
         def cover_html
           return '' if @image.to_s.strip.empty?

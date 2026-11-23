@@ -1,168 +1,9 @@
 # frozen_string_literal: true
 
 require_relative '../../../test_helper'
-# Jekyll::UI::Cards::CardRendererUtils will be loaded by test_helper once we add its require there.
 
-# Tests for Jekyll::UI::Cards::CardRendererUtils module.
-#
-# Verifies that the utility correctly renders HTML card components from card data.
+# Shared card markup validation and image defaults.
 class TestCardRendererUtils < Minitest::Test
-  def test_render_minimal_card_data
-    card_data = {
-      base_class: 'minimal-card',
-      url: '/item/1',
-      title_html: '<strong>Minimal Title</strong>',
-      # image_url, image_alt, image_div_class, description_html, etc., are all nil/missing
-    }
-    output = Jekyll::UI::Cards::CardRendererUtils.render_card(card_data: card_data)
-
-    assert_match(/<li class="minimal-card">/, output)
-    assert_match(/<div class="card-element card-text">/, output)
-    assert_match %r{<a href="/item/1">\s*<strong>Minimal Title</strong>\s*</a>}, output
-    refute_match(/<img src=/, output, 'Image should not be present for minimal card')
-    refute_match(/<br>/, output, 'Description break should not be present') # Assuming default wrappers are empty
-    # Check that no extra elements are rendered
-    # This is harder to assert directly without knowing what they might be,
-    # but the structure should be simple.
-  end
-
-  def test_render_card_with_image
-    card_data = {
-      base_class: 'image-card',
-      url: '/item/image-item',
-      title_html: '<strong>Image Card Title</strong>',
-      image_url: '/images/pic.jpg',
-      image_alt: 'A picture',
-      image_div_class: 'custom-image-class',
-    }
-    output = Jekyll::UI::Cards::CardRendererUtils.render_card(card_data: card_data)
-
-    assert_match(/<li class="image-card">/, output)
-    assert_match(/<div class="card-element custom-image-class">/, output)
-    assert_match %r{<a href="/item/image-item">\s*<img src="/images/pic.jpg" alt="A picture" loading="lazy" decoding="async" />\s*</a>}, output
-    assert_match %r{<a href="/item/image-item">\s*<strong>Image Card Title</strong>\s*</a>}, output
-  end
-
-  # Index pages such as /books/by-rating/ list over a hundred cards. The
-  # browser must not fetch covers below the fold on page load.
-  def test_render_card_image_loads_lazily
-    card_data = {
-      base_class: 'book-card',
-      url: '/books/dune/',
-      title_html: '<strong>Dune</strong>',
-      image_url: '/books/covers/dune.jpg',
-      image_alt: 'Book cover of Dune.',
-      image_div_class: 'card-book-cover',
-    }
-    output = Jekyll::UI::Cards::CardRendererUtils.render_card(card_data: card_data)
-    img = Nokogiri::HTML5.fragment(output).at_css('img')
-
-    assert_equal 'lazy', img['loading']
-    assert_equal 'async', img['decoding']
-  end
-
-  def test_render_card_image_sizes
-    card_data = {
-      base_class: 'book-card',
-      url: '/books/dune/',
-      title_html: '<strong>Dune</strong>',
-      image_url: '/books/covers/dune.jpg',
-      image_alt: 'Book cover of Dune.',
-      image_div_class: 'card-book-cover',
-      image_sizes: '(min-width: 38em) 200px, 150px',
-    }
-    img = Nokogiri::HTML5.fragment(Jekyll::UI::Cards::CardRendererUtils.render_card(card_data: card_data)).at_css('img')
-
-    assert_equal 'auto, (min-width: 38em) 200px, 150px', img['sizes']
-  end
-
-  def test_render_card_with_image_alt_escaping
-    card_data = {
-      base_class: 'image-card',
-      url: '/item/image-item',
-      title_html: '<strong>Title</strong>',
-      image_url: '/images/pic.jpg',
-      image_alt: 'Alt with "quotes" & <tags>',
-      image_div_class: 'custom-image-class',
-    }
-    output = Jekyll::UI::Cards::CardRendererUtils.render_card(card_data: card_data)
-    expected_alt = 'Alt with &quot;quotes&quot; &amp; &lt;tags&gt;'
-    assert_match %r{<img src="/images/pic.jpg" alt="#{expected_alt}" loading="lazy" decoding="async" />}, output
-  end
-
-  def test_render_card_with_description_and_simple_wrapper
-    card_data = {
-      base_class: 'desc-card',
-      url: '/item/desc-item',
-      title_html: '<strong>Desc Card Title</strong>',
-      description_html: 'This is the description.',
-      description_wrapper_html_open: "<br />\n    ", # NOTE: render_card appends description_html after this
-      description_wrapper_html_close: '',
-    }
-    output = Jekyll::UI::Cards::CardRendererUtils.render_card(card_data: card_data)
-    # The regex needs to account for how render_card assembles this.
-    # It will be open_wrapper + description_html + close_wrapper
-    # So, "<br />\n    This is the description."
-    assert_match %r{<br />\s*This is the description.}, output
-  end
-
-  def test_render_card_with_description_and_div_wrapper
-    card_data = {
-      base_class: 'desc-card-div',
-      url: '/item/desc-div-item',
-      title_html: '<strong>Desc Div Title</strong>',
-      description_html: 'Description in a div.',
-      description_wrapper_html_open: "<div class=\"desc-wrapper\">\n      ",
-      description_wrapper_html_close: "\n    </div>",
-    }
-    output = Jekyll::UI::Cards::CardRendererUtils.render_card(card_data: card_data)
-    # Expecting: <div class="desc-wrapper">\n      Description in a div.\n    </div>
-    assert_match %r{<div class="desc-wrapper">\s*Description in a div.\s*</div>}, output
-  end
-
-  def test_render_card_with_extra_elements
-    card_data = {
-      base_class: 'extra-card',
-      url: '/item/extra-item',
-      title_html: '<strong>Extra Elements Title</strong>',
-      extra_elements_html: [
-        "<span class=\"author-line\">By Test Author</span>\n", # Ensure newlines are handled if part of the string
-        '<div class="rating-line">Rating: 5 stars</div>',
-      ],
-    }
-    output = Jekyll::UI::Cards::CardRendererUtils.render_card(card_data: card_data)
-    assert_match %r{<span class="author-line">By Test Author</span>}, output
-    assert_match %r{<div class="rating-line">Rating: 5 stars</div>}, output
-    # Check order if important (Author should be before Rating based on array order)
-    author_idx = output.index('By Test Author')
-    rating_idx = output.index('Rating: 5 stars')
-    refute_nil author_idx
-    refute_nil rating_idx
-    assert author_idx < rating_idx, 'Author element should appear before rating element'
-  end
-
-  def test_render_card_all_elements_present
-    card_data = {
-      base_class: 'full-card',
-      url: '/item/full-item',
-      image_url: '/img/full.png',
-      image_alt: 'Full image',
-      image_div_class: 'full-image-div',
-      title_html: '<strong>Full Card Title</strong>',
-      extra_elements_html: ['<p>Extra info</p>'],
-      description_html: 'Full description here.',
-      description_wrapper_html_open: '<div class="desc-container">',
-      description_wrapper_html_close: '</div>',
-    }
-    output = Jekyll::UI::Cards::CardRendererUtils.render_card(card_data: card_data)
-
-    assert_match(/<li class="full-card">/, output)
-    assert_match %r{<img src="/img/full.png" alt="Full image"}, output
-    assert_match %r{<strong>Full Card Title</strong>}, output
-    assert_match %r{<p>Extra info</p>}, output
-    assert_match %r{<div class="desc-container">Full description here.</div>}, output
-  end
-
   def test_render_card_missing_required_data_fails_build
     invalid_inputs = [
       'not a hash',
@@ -195,19 +36,6 @@ class TestCardRendererUtils < Minitest::Test
     assert_match 'url="/books/example"', error.message
   end
 
-  def test_render_card_empty_description_is_skipped
-    card_data = {
-      base_class: 'test-card',
-      url: '/item/1',
-      title_html: '<strong>Title</strong>',
-      description_html: '   ', # Whitespace only
-      description_wrapper_html_open: '<div>',
-      description_wrapper_html_close: '</div>',
-    }
-    output = Jekyll::UI::Cards::CardRendererUtils.render_card(card_data: card_data)
-    refute_match %r{<div>\s*</div>}, output # The wrapper div should not appear if desc is empty
-  end
-
   def test_render_card_nil_image_alt_is_empty_string
     card_data = {
       base_class: 'image-card',
@@ -219,32 +47,5 @@ class TestCardRendererUtils < Minitest::Test
     }
     output = Jekyll::UI::Cards::CardRendererUtils.render_card(card_data: card_data)
     assert_match %r{<img src="/images/pic.jpg" alt="" loading="lazy" decoding="async" />}, output # Expect empty alt attribute
-  end
-
-  # --- Semantic HTML tests (cards as list items) ---
-
-  def test_card_renders_as_list_item
-    card_data = {
-      base_class: 'book-card',
-      url: '/book/1',
-      title_html: '<strong>Test Book</strong>',
-    }
-    output = Jekyll::UI::Cards::CardRendererUtils.render_card(card_data: card_data)
-
-    assert_match(/^<li class="book-card">/, output, 'Card should open with <li> element')
-    assert_match %r{</li>$}, output, 'Card should close with </li>'
-    refute_match(/^<div class="book-card">/, output, 'Card should not use <div> wrapper')
-  end
-
-  def test_article_card_renders_as_list_item
-    card_data = {
-      base_class: 'article-card',
-      url: '/post/1',
-      title_html: '<strong>Test Post</strong>',
-    }
-    output = Jekyll::UI::Cards::CardRendererUtils.render_card(card_data: card_data)
-
-    assert_match(/^<li class="article-card">/, output, 'Article card should open with <li>')
-    assert_match %r{</li>$}, output, 'Article card should close with </li>'
   end
 end

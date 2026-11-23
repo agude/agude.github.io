@@ -27,7 +27,9 @@ module Jekyll
         def initialize(tag_name, markup, tokens)
           super
           @post_object_markup = markup.strip
-          validate_markup
+          return unless @post_object_markup.empty?
+
+          raise Liquid::SyntaxError, "Syntax Error in 'render_article_card': A post object variable must be provided."
         end
 
         MdCards = Jekyll::UI::Cards::MarkdownCardUtils
@@ -41,9 +43,9 @@ module Jekyll
             card = {
               title: post_object['title'],
               url: post_object['url'],
-              description: MdCards.extract_plain_description(post_object, type: :article),
+              description: MdCards.extract_plain_description(post_object),
             }
-            MdCards.render_article_card_md(card)
+            MdCards.render_card_md(card)
           else
             CardRenderer.render(post_object, context)
           end
@@ -54,12 +56,6 @@ module Jekyll
         end
 
         private
-
-        def validate_markup
-          return unless @post_object_markup.empty?
-
-          raise Liquid::SyntaxError, "Syntax Error in 'render_article_card': A post object variable must be provided."
-        end
 
         def log_nil_object(context)
           Logger.log_liquid_failure(

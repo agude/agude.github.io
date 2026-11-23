@@ -1,193 +1,67 @@
 # frozen_string_literal: true
 
 require_relative '../../../../test_helper'
-require_relative '../../../../../_plugins/src/content/posts/tags/render_article_card_tag' # Load the tag
 
-# Tests for Jekyll::Posts::Tags::RenderArticleCardTag Liquid tag.
-#
-# Verifies that the tag correctly renders article cards from post objects.
+# Liquid article-card errors and Markdown rendering.
 class TestRenderArticleCardTag < Minitest::Test
   def setup
-    @site = create_site({ 'url' => 'http://example.com' }) # For Jekyll::Posts::ArticleCardRenderer -> Jekyll::UI::Cards::CardDataExtractorUtils -> Jekyll::Infrastructure::UrlUtils
-    @post_obj = create_doc({ 'title' => 'Test Post', 'path' => 'test-post.md' }, '/test-post.html')
-    @context = create_context(
-      { 'my_post' => @post_obj, 'nil_post_var' => nil },
-      { site: @site, page: create_doc({ 'path' => 'current_page.md' }, '/current-page.html') }, # Page path for SourcePage
-    )
-
-    @silent_logger_stub = silent_logger
-  end
-
-  def render_tag(markup, context = @context)
-    output = ''
-    # Stub Jekyll.logger to silence console output from Jekyll::Infrastructure::PluginLoggerUtils during most tests
-    Jekyll.stub :logger, @silent_logger_stub do
-      output = Liquid::Template.parse("{% render_article_card #{markup} %}").render!(context)
-    end
-    output
+    @site = create_site({ 'url' => 'http://example.com', 'baseurl' => '/site' })
+    @post = create_doc({ 'title' => 'Part<BR /> Two [Update]', 'description' => 'Read <em>more</em>.' }, '/post(v2)/')
+    @context = create_context({ 'post' => @post, 'nil_post_var' => nil }, { site: @site, page: create_doc })
   end
 
   def test_fatal_card_error_stops_liquid_render
-    failure = ->(*) { raise Jekyll::Errors::FatalException, 'invalid article card' }
+    @post.data['image'] = { 'path' => '/image.jpg' }
 
-    error = Jekyll::Posts::ArticleCardRenderer.stub(:render, failure) do
-      assert_raises(Jekyll::Errors::FatalException) { render_tag('my_post') }
-    end
-    assert_match 'invalid article card', error.message
+    error = assert_raises(Jekyll::Errors::FatalException) { render_tag('post') }
+    assert_match(/Front-matter image .*must be a string path or URL/, error.message)
   end
 
-  # --- Test Cases ---
-
-  # 1. Syntax Error
   def test_syntax_error_if_markup_is_empty
-    err = assert_raises Liquid::SyntaxError do
-      Liquid::Template.parse('{% render_article_card %}')
+    ['{% render_article_card %}', '{% render_article_card    %}'].each do |markup|
+      error = assert_raises(Liquid::SyntaxError) { Liquid::Template.parse(markup) }
+      assert_match 'A post object variable must be provided', error.message
     end
-    assert_match 'A post object variable must be provided', err.message
-
-    err_whitespace = assert_raises Liquid::SyntaxError do
-      Liquid::Template.parse('{% render_article_card    %}')
-    end
-    assert_match 'A post object variable must be provided', err_whitespace.message
   end
 
-  # 2. Render - Success
-  def test_render_success_calls_article_card_utils
-    markup = 'my_post' # 'my_post' is @post_obj in context
-    expected_card_html = "<div class='article-card'>Rendered Test Post</div>"
-    captured_args = nil
-
-    Jekyll::Posts::ArticleCardRenderer.stub :render,
-                                            lambda { |post_arg, context_arg|
-                                              captured_args = { post: post_arg, context: context_arg }
-                                              expected_card_html
-                                            } do
-      output = render_tag(markup)
-      assert_equal expected_card_html, output
-    end
-
-    refute_nil captured_args, 'Jekyll::Posts::ArticleCardRenderer.render should have been called'
-    assert_equal @post_obj, captured_args[:post], 'Incorrect post object passed to Jekyll::Posts::ArticleCardRenderer'
-    assert_equal @context, captured_args[:context], 'Incorrect context passed to Jekyll::Posts::ArticleCardRenderer'
-  end
-
-  # 3. Render - Failure: Post object resolves to nil
   def test_render_failure_if_post_object_is_nil
-    markup = 'nil_post_var' # 'nil_post_var' resolves to nil
-    expected_log_html = '<!-- RENDER_ARTICLE_CARD_TAG: NIL POST OBJECT -->'
-    captured_log_args = nil
-
-    # Enable logging for this specific tag type for this test
     @site.config['plugin_logging']['RENDER_ARTICLE_CARD_TAG'] = true
 
-    Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure,
-                                                   lambda { |args|
-                                                     captured_log_args = args
-                                                     expected_log_html # Return the stubbed HTML comment
-                                                   } do
+    %w[nil_post_var missing_post_var].each do |markup|
       output = render_tag(markup)
-      assert_equal expected_log_html, output
-    end
 
-    refute_nil captured_log_args, 'Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure should have been called'
-    assert_equal @context, captured_log_args[:context]
-    assert_equal 'RENDER_ARTICLE_CARD_TAG', captured_log_args[:tag_type]
-    assert_match "Post object variable '#{markup}' resolved to nil", captured_log_args[:reason]
-    assert_equal({ markup: markup }, captured_log_args[:identifiers])
-    # Default level for this log in the tag is :error
-    assert_equal :error, captured_log_args[:level]
+      assert_includes output, '[ERROR] RENDER_ARTICLE_CARD_TAG_FAILURE'
+      assert_includes output, "Post object variable &#39;#{markup}&#39; resolved to nil."
+    end
   end
 
-  def test_render_failure_if_post_variable_not_found
-    markup = 'non_existent_post_var' # Variable does not exist in context
-    expected_log_html = '<!-- RENDER_ARTICLE_CARD_TAG: NON-EXISTENT POST VAR -->'
-    captured_log_args = nil
-
-    @site.config['plugin_logging']['RENDER_ARTICLE_CARD_TAG'] = true
-
-    Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure,
-                                                   lambda { |args|
-                                                     captured_log_args = args
-                                                     expected_log_html
-                                                   } do
-      output = render_tag(markup)
-      assert_equal expected_log_html, output
-    end
-
-    refute_nil captured_log_args
-    assert_equal 'RENDER_ARTICLE_CARD_TAG', captured_log_args[:tag_type]
-    assert_match "Post object variable '#{markup}' resolved to nil", captured_log_args[:reason]
-  end
-
-  # 4. Render - Failure: Jekyll::Posts::ArticleCardRenderer.render raises an error
   def test_render_failure_if_article_card_utils_raises_error
-    markup = 'my_post'
-    error_message = 'Something went wrong in ArticleCardRenderer'
-    expected_log_html = '<!-- RENDER_ARTICLE_CARD_TAG: UTIL ERROR -->'
-    captured_log_args = nil
-
     @site.config['plugin_logging']['RENDER_ARTICLE_CARD_TAG'] = true
+    failure = ->(*) { raise StandardError, "Invalid card\nBacktrace details" }
 
-    Jekyll::Posts::ArticleCardRenderer.stub :render, ->(_post, _ctx) { raise StandardError, error_message } do
-      Jekyll::Infrastructure::PluginLoggerUtils.stub :log_liquid_failure,
-                                                     lambda { |args|
-                                                       captured_log_args = args
-                                                       expected_log_html
-                                                     } do
-        output = render_tag(markup)
-        assert_equal expected_log_html, output
-      end
+    Jekyll::Posts::ArticleCardRenderer.stub :render, failure do
+      output = render_tag('post')
+
+      assert_includes output, '[ERROR] RENDER_ARTICLE_CARD_TAG_FAILURE'
+      assert_includes output, 'Error rendering article card: Invalid card'
+      assert_includes output, "post_markup='post'"
+      assert_includes output, "error_class='StandardError'"
+      assert_includes output, "error_message='Invalid card'"
     end
-
-    refute_nil captured_log_args, 'Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure should have been called for util error'
-    assert_equal @context, captured_log_args[:context]
-    assert_equal 'RENDER_ARTICLE_CARD_TAG', captured_log_args[:tag_type]
-    assert_match "Error rendering article card: #{error_message}", captured_log_args[:reason]
-    assert_equal(
-      { post_markup: markup, error_class: 'StandardError', error_message: error_message.slice(0, 100) },
-      captured_log_args[:identifiers],
-    )
-    assert_equal :error, captured_log_args[:level]
   end
 
-  # --- Markdown Mode Tests ---
-
-  # 5. Markdown mode renders markdown list item
-  def test_markdown_mode_renders_markdown_link
-    md_context = create_context(
-      { 'my_post' => @post_obj },
-      { site: @site, page: create_doc({}, '/current.html'), render_mode: :markdown },
-    )
-    output = render_tag('my_post', md_context)
-    assert_equal '- [Test Post](/test-post.html)', output
-  end
-
-  # 6. Markdown mode works with DocumentDrop (regression test for the real
-  #    Liquid pipeline where variables resolve to Drops, not Documents)
   def test_markdown_mode_works_with_document_drop
-    drop = Jekyll::Drops::DocumentDrop.new(@post_obj)
-    md_context = create_context(
-      { 'my_post' => drop },
-      { site: @site, page: create_doc({}, '/current.html'), render_mode: :markdown },
-    )
-    output = render_tag('my_post', md_context)
-    assert_equal '- [Test Post](/test-post.html)', output
+    drop = Jekyll::Drops::DocumentDrop.new(@post)
+    context = create_context({ 'post' => drop }, { site: @site, render_mode: :markdown })
+
+    assert_equal '- [Part Two \[Update\]](/post\(v2\)/): Read more.', render_tag('post', context)
   end
 
-  # 7. Markdown mode does not call ArticleCardRenderer (HTML renderer)
-  def test_markdown_mode_does_not_call_html_renderer
-    md_context = create_context(
-      { 'my_post' => @post_obj },
-      { site: @site, page: create_doc({}, '/current.html'), render_mode: :markdown },
-    )
-    called = false
-    Jekyll::Posts::ArticleCardRenderer.stub :render,
-                                            lambda { |_p, _c|
-                                              called = true
-                                              ''
-                                            } do
-      render_tag('my_post', md_context)
+  private
+
+  def render_tag(markup, context = @context)
+    Jekyll.stub :logger, silent_logger do
+      Liquid::Template.parse("{% render_article_card #{markup} %}").render!(context)
     end
-    refute called, 'ArticleCardRenderer.render should not be called in markdown mode'
   end
 end
