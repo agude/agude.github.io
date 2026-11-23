@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../tag_argument_utils'
-require_relative '../text_processing_utils'
+require_relative '../links/link_resolver_support'
 require_relative 'book_candidate_selector'
 require_relative 'short_story_location_selector'
 
@@ -28,11 +28,13 @@ module Jekyll
       class LinkTagTargetResolver
         BookSelector = Jekyll::Infrastructure::LinkCache::BookCandidateSelector
         LocationSelector = Jekyll::Infrastructure::LinkCache::ShortStoryLocationSelector
+        ResolverSupport = Jekyll::Infrastructure::Links::LinkResolverSupport
+        Text = Jekyll::Infrastructure::TextProcessingUtils
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         # The unquoted values Liquid reads as literals rather than variable
         # names. Liquid literals are case-sensitive, so `FALSE` is a variable.
         LINK_LITERALS = %w[true false nil].freeze
-        private_constant :BookSelector, :LocationSelector, :TagArgs, :LINK_LITERALS
+        private_constant :BookSelector, :LocationSelector, :ResolverSupport, :Text, :TagArgs, :LINK_LITERALS
 
         # @param link_cache [Hash] the site link cache.
         # @param url_to_doc [Hash] URL => book document or author page.
@@ -76,12 +78,12 @@ module Jekyll
           title = literal(args.subject)
           return nil unless title
 
-          locs = @link_cache['books'][normalize(title)]
-                 &.reject { |b| b['canonical_url'] }
-          return nil unless locs&.any?
+          entries = @link_cache['books'][Text.normalize_title(title)]
+          candidates = ResolverSupport.canonical_book_candidates(entries)
+          return nil if candidates.empty?
 
-          target = BookSelector.select_book(locs, author, @link_cache['authors'])
-          target.is_a?(Hash) ? [{ url: target['url'], type: 'book' }] : nil
+          target = BookSelector.select_book(candidates, author, @link_cache['authors'])
+          single_target(target, 'book')
         end
 
         def extract_series_link(args, node, doc)
@@ -90,7 +92,7 @@ module Jekyll
           title = args.subject == 'page.series' ? doc.data['series'] : literal(args.subject)
           return nil if title.nil? || title.to_s.strip.empty?
 
-          books = @link_cache['series_map'][normalize(title)]
+          books = @link_cache['series_map'][Text.normalize_title(title)]
           return nil unless books&.any?
 
           books.map { |book| { url: book.url, type: 'series' } }
@@ -102,11 +104,11 @@ module Jekyll
           title = literal(args.subject)
           return nil unless title
 
-          locs = @link_cache['short_stories'][normalize(title)]
+          locs = @link_cache['short_stories'][Text.normalize_title(title)]
           return nil if locs.nil? || locs.empty?
 
           target = LocationSelector.select_location(locs, @link_cache['url_to_canonical_map'], from_book)
-          target.is_a?(Hash) ? [{ url: target['url'], type: 'short_story' }] : nil
+          single_target(target, 'short_story')
         end
 
         # Mirrors AuthorLinkResolver: pen names resolve through the 'authors'
@@ -117,10 +119,14 @@ module Jekyll
           name = literal(args.subject)
           return nil unless name
 
-          entry = (@link_cache['authors'] || {})[normalize(name)]
+          entry = (@link_cache['authors'] || {})[Text.normalize_title(name)]
           return nil unless entry && @url_to_doc[entry['url']]
 
-          [{ url: entry['url'], type: 'author' }]
+          single_target(entry, 'author')
+        end
+
+        def single_target(entry, type)
+          [{ url: entry['url'], type: type }] if entry.is_a?(Hash)
         end
 
         # The content of a quoted literal, or nil for a variable, which the
@@ -155,10 +161,6 @@ module Jekyll
           raise_variable_option(:link, markup, node, doc) if value.nil?
 
           TagArgs.false_value?(value)
-        end
-
-        def normalize(title)
-          Jekyll::Infrastructure::TextProcessingUtils.normalize_title(title)
         end
       end
     end

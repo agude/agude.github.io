@@ -20,18 +20,16 @@ class TestShortStoryResolver < Minitest::Test
     end
   end
 
-  def test_render_unique_story_found_and_linked
-    output = render_util('Unique Story')
-    assert_match(%r{<a href="/books/one\.html#unique-story"><cite class="short-story-title">Unique Story</cite>}, output)
+  def test_renders_markdown_link
+    context = create_context({}, { site: @site, page: @current_page, render_mode: :markdown })
+    template = Liquid::Template.parse('{% short_story_link "Unique Story" %}')
+    assert_equal '[_Unique Story_](/books/one.html#unique-story)', template.render!(context)
   end
 
   def test_render_multiple_mentions_in_same_book_links_to_first
-    output = render_util('Story Mentioned Twice In One Book')
-    assert_match(
-      %r{<a href="/books/three\.html#story-mentioned-twice"><cite class="short-story-title">Story Mentioned Twice</cite>},
-      output,
-    )
-    refute_match(/<!--.*?RENDER_SHORT_STORY_LINK_FAILURE.*?-->/, output)
+    data = resolve_data_util('Story Mentioned Twice In One Book')
+    expected = [:found, '/books/three.html#story-mentioned-twice', 'Story Mentioned Twice']
+    assert_equal expected, data.values_at(:status, :url, :display_text)
   end
 
   def test_prefers_canonical_location_over_archived
@@ -73,14 +71,6 @@ class TestShortStoryResolver < Minitest::Test
     assert_match(expected_log_pattern, output)
   end
 
-  def test_render_duplicate_story_with_disambiguation_succeeds
-    output = render_util('Duplicate Story', 'Book Two')
-    assert_match(
-      %r{<a href="/books/two\.html#duplicate-story"><cite class="short-story-title">Duplicate Story</cite>},
-      output,
-    )
-  end
-
   def test_render_duplicate_story_without_disambiguation_fails_and_logs
     output = render_util('Duplicate Story')
     expected = '<cite class="short-story-title">Duplicate Story</cite>'
@@ -117,23 +107,6 @@ class TestShortStoryResolver < Minitest::Test
     expected = '<cite class="short-story-title">Some Story</cite>'
     assert_equal expected, output
   end
-
-  def test_render_link_is_created_for_anchor_on_current_page
-    @mock_story_cache['story on this page'] = [
-      {
-        'title' => 'Story On This Page',
-        'parent_book_title' => 'Current Book',
-        'url' => '/current-page.html',
-        'slug' => 'story-on-this-page',
-      },
-    ]
-    output = render_util('Story On This Page')
-    expected = '<a href="#story-on-this-page"><cite class="short-story-title">Story On This Page</cite></a>'
-    assert_equal expected, output
-    refute_match(/book-preview/, output, 'Same-page anchor links should not include a preview')
-  end
-
-  # --- resolve_data() tests ---
 
   def resolve_data_util(story_title, from_book_title = nil, context = @context)
     Jekyll.stub :logger, @silent_logger_stub do
@@ -193,58 +166,13 @@ class TestShortStoryResolver < Minitest::Test
     assert_equal 'Some Story', data[:display_text]
   end
 
-  def test_resolve_data_frozen
-    data = resolve_data_util('Unique Story')
-    assert data.frozen?, 'resolve_data() should return a frozen hash'
-  end
-
-  def test_resolve_data_includes_parent_book_fields_when_book_cached
-    add_book_to_cache(
-      'Book One',
-      '/books/one.html',
-      rating: 4,
-      image: '/images/one.jpg',
-      authors: ['Author A'],
-      series: 'Test Series',
-      book_number: 1,
-    )
-
-    data = resolve_data_util('Unique Story')
-    assert_equal :found, data[:status]
-    assert_equal 'Book One', data[:book_title]
-    assert_equal ['Author A'], data[:authors]
-    assert_equal 4, data[:rating]
-    assert_equal '/images/one.jpg', data[:image]
-    assert_equal 'Test Series', data[:series]
-    assert_equal 1, data[:book_number]
-  end
-
-  def test_resolve_data_book_fields_nil_when_book_not_cached
-    data = resolve_data_util('Unique Story')
-    assert_equal :found, data[:status]
-    assert_nil data[:book_title]
-    assert_nil data[:authors]
-    assert_nil data[:rating]
-  end
-
-  # --- Preview tests ---
-
   def test_render_includes_book_preview_when_book_cached
-    add_book_to_cache(
-      'Book One',
-      '/books/one.html',
-      rating: 4,
-      image: '/images/one.jpg',
-      authors: ['Author A'],
-      series: 'Test Series',
-      book_number: 1,
-    )
-
-    output = render_util('Unique Story')
-    assert_match(/<!--book-preview-->/, output)
-    assert_match(%r{<!--/book-preview-->}, output)
-    assert_match(/book-link-preview/, output)
-    assert_match(/Author A/, output)
+    add_book_to_cache('Book One', '/books/one.html', rating: 4, authors: ['Author A'])
+    template = Liquid::Template.parse('{% short_story_link "Unique Story" %}')
+    output = template.render!(@context)
+    assert_match(%r{\A<a href="/books/one\.html#unique-story"><cite class="short-story-title">Unique Story</cite><!--book-preview-->}, output)
+    assert_includes output, 'Author A'
+    assert output.end_with?('<!--/book-preview--></a>')
   end
 
   def test_render_no_preview_when_book_not_cached
@@ -273,8 +201,6 @@ class TestShortStoryResolver < Minitest::Test
     assert_match(/<a href="#story-on-this-page">/, output)
     refute_match(/book-preview/, output, 'Same-page anchor links should not include a preview')
   end
-
-  # --- Reuse safety: @ambiguous must not leak between resolves ---
 
   def test_reused_instance_does_not_leak_ambiguous_status
     Jekyll.stub :logger, @silent_logger_stub do

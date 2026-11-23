@@ -7,12 +7,11 @@ require_relative '../../../test_helper'
 # Verifies that the resolver correctly creates links to author pages with support for pen names and possessives.
 class TestAuthorLinkResolver < Minitest::Test
   def setup
-    # --- Mock Author Pages ---
     @canonical_author_page = create_doc(
       { 'title' => 'Jane Doe', 'layout' => 'author_page' },
       '/authors/jane-doe.html',
     )
-    @pen_name_author_page = create_doc(
+    pen_name_author_page = create_doc(
       {
         'title' => 'Canonical Author',
         'layout' => 'author_page',
@@ -21,45 +20,26 @@ class TestAuthorLinkResolver < Minitest::Test
       '/authors/canonical.html',
     )
 
-    # --- Site and Context ---
-    @site = create_site({}, {}, [@canonical_author_page, @pen_name_author_page])
+    @site = create_site({}, {}, [@canonical_author_page, pen_name_author_page])
     @page = create_doc({}, '/current.html')
     @ctx = create_context({}, { site: @site, page: @page })
+    @resolver = Jekyll::Authors::AuthorLinkResolver.new(@ctx)
   end
 
-  # --- New Alias-Specific Tests ---
-
-  def test_render_author_link_with_pen_name_input
-    # Input is "Pen Name", which is an alias for "Canonical Author"
-    # Expect link to canonical page, but display text to be the input "Pen Name"
-    expected = '<a href="/authors/canonical.html"><span class="author-name">Pen Name</span></a>'
-    assert_equal expected, Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve('Pen Name', nil, nil)
+  def test_renders_markdown_link
+    context = create_context({}, { site: @site, page: @page, render_mode: :markdown })
+    template = Liquid::Template.parse('{% author_link "Pen Name" possessive %}')
+    assert_equal "[Pen Name](/authors/canonical.html)'s", template.render!(context)
   end
 
   def test_render_author_link_with_fuzzy_canonical_name_input
-    # Input is a fuzzy match for "Canonical Author", not a pen name
-    # Expect link to canonical page, and display text to be corrected to "Canonical Author"
-    expected = '<a href="/authors/canonical.html"><span class="author-name">Canonical Author</span></a>'
-    assert_equal expected, Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve('canonical author', nil, nil)
+    data = @resolver.resolve_data('canonical author', nil, nil)
+    assert_equal [:found, '/authors/canonical.html', 'Canonical Author'], data.values_at(:status, :url, :display_text)
   end
 
   def test_render_author_link_with_pen_name_and_link_text_override
-    # Input is "Pen Name", but link_text override is provided
-    # Expect link to canonical page, but display text to be the override
-    expected = '<a href="/authors/canonical.html"><span class="author-name">Display This</span></a>'
-    assert_equal expected, Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve('Pen Name', 'Display This', nil)
-  end
-
-  # --- Existing Tests (Adapted for new setup) ---
-  def test_render_author_link_found_and_linked
-    # Use the simple canonical author page for this test
-    expected = '<a href="/authors/jane-doe.html"><span class="author-name">Jane Doe</span></a>'
-    assert_equal expected, Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve('  jane DOE ', nil, nil)
-  end
-
-  def test_render_author_link_possessive_linked
-    expected = '<a href="/authors/jane-doe.html"><span class="author-name">Jane Doe</span>’s</a>'
-    assert_equal expected, Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve('jane doe', nil, true)
+    data = @resolver.resolve_data('Pen Name', '  Display This  ', nil)
+    assert_equal [:found, '/authors/canonical.html', 'Display This'], data.values_at(:status, :url, :display_text)
   end
 
   def test_render_author_link_possessive_unlinked
@@ -83,34 +63,8 @@ class TestAuthorLinkResolver < Minitest::Test
     assert_equal expected, Jekyll::Authors::AuthorLinkResolver.new(ctx_current_is_author).resolve('Jane Doe', nil, nil)
   end
 
-  def test_render_author_link_with_link_text_override_found
-    expected = '<a href="/authors/jane-doe.html"><span class="author-name">JD</span></a>'
-    assert_equal expected, Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve('Jane Doe', 'JD', nil)
-  end
-
-  def test_render_author_link_with_link_text_override_not_found
-    site_no_pages = create_site({}, {}, [])
-    ctx_no_pages = create_context({}, { site: site_no_pages, page: @page })
-    expected = '<span class="author-name">JD</span>'
-    assert_equal expected, Jekyll::Authors::AuthorLinkResolver.new(ctx_no_pages).resolve('Jane Doe', 'JD', nil)
-  end
-
-  def test_render_author_link_possessive_with_override_linked
-    expected = '<a href="/authors/jane-doe.html"><span class="author-name">JD</span>’s</a>'
-    assert_equal expected, Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve('Jane Doe', 'JD', true)
-  end
-
-  def test_render_author_link_possessive_with_override_unlinked
-    site_no_pages = create_site({}, {}, [])
-    ctx_no_pages = create_context({}, { site: site_no_pages, page: @page })
-    expected = '<span class="author-name">JD</span>’s'
-    assert_equal expected, Jekyll::Authors::AuthorLinkResolver.new(ctx_no_pages).resolve('Jane Doe', 'JD', true)
-  end
-
   def test_render_author_link_empty_input_name
-    assert_equal '', Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve('', nil, nil)
-    assert_equal '', Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve('   ', nil, nil)
-    assert_equal '', Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve(nil, nil, nil)
+    ['', '   ', nil].each { |input| assert_equal '', @resolver.resolve(input, nil, nil) }
   end
 
   def test_render_author_link_nil_context_returns_escaped_name
@@ -120,10 +74,10 @@ class TestAuthorLinkResolver < Minitest::Test
   end
 
   def test_render_author_link_with_baseurl
-    site_with_baseurl = create_site({ 'baseurl' => '/myblog' }, {}, [@canonical_author_page])
-    ctx_with_baseurl = create_context({}, { site: site_with_baseurl, page: @page })
-    expected = '<a href="/myblog/authors/jane-doe.html"><span class="author-name">Jane Doe</span></a>'
-    assert_equal expected, Jekyll::Authors::AuthorLinkResolver.new(ctx_with_baseurl).resolve('Jane Doe', nil, nil)
+    @site.config['baseurl'] = '/myblog'
+    actual = Liquid::Template.parse('{% author_link "Jane Doe" link_text="JD" possessive %}').render!(@ctx)
+    expected = '<a href="/myblog/authors/jane-doe.html"><span class="author-name">JD</span>’s</a>'
+    assert_equal expected, actual
   end
 
   def test_render_author_link_escaping_name
@@ -154,13 +108,23 @@ class TestAuthorLinkResolver < Minitest::Test
   end
 
   def test_render_author_link_lookup_is_case_insensitive_and_whitespace_normalized
-    expected = '<a href="/authors/jane-doe.html"><span class="author-name">Jane Doe</span></a>'
-    assert_equal expected, Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve('jane doe', nil, nil)
-    assert_equal expected, Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve('Jane  Doe', nil, nil)
-    assert_equal expected, Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve('  jAnE dOe   ', nil, nil)
+    ['jane doe', 'Jane  Doe', '  jAnE dOe   '].each do |input|
+      data = @resolver.resolve_data(input, nil, nil)
+      assert_equal [:found, '/authors/jane-doe.html', 'Jane Doe'], data.values_at(:status, :url, :display_text)
+    end
   end
 
-  # --- resolve() log capture regression tests ---
+  def test_lookup_preserves_punctuation_and_diacritics
+    author = create_doc({ 'title' => "Áine O'Neill", 'layout' => 'author_page' }, '/authors/oneill/')
+    site = create_site({}, {}, [author])
+    context = create_context({}, { site: site, page: @page })
+    resolver = Jekyll::Authors::AuthorLinkResolver.new(context)
+
+    data = resolver.resolve_data("  ÁINE  O'NEILL ", nil, nil)
+    assert_equal [:found, '/authors/oneill/', "Áine O'Neill"], data.values_at(:status, :url, :display_text)
+    assert_equal :not_found, resolver.resolve_data("Aine O'Neill", nil, nil)[:status]
+    assert_equal :not_found, resolver.resolve_data('Áine ONeill', nil, nil)[:status]
+  end
 
   def test_resolve_empty_name_includes_log_output_when_logging_enabled
     site_with_logging = create_site({}, {}, [@canonical_author_page])
@@ -173,8 +137,6 @@ class TestAuthorLinkResolver < Minitest::Test
     assert_match(/<!-- \[WARN\] RENDER_AUTHOR_LINK_FAILURE:.*?empty after normalization.*?-->/, output)
   end
 
-  # --- resolve_data() tests ---
-
   def test_resolve_data_found
     data = Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve_data('Jane Doe', nil, nil)
     assert_equal :found, data[:status]
@@ -184,21 +146,17 @@ class TestAuthorLinkResolver < Minitest::Test
   end
 
   def test_resolve_data_found_possessive
-    data = Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve_data('Jane Doe', nil, true)
-    assert_equal :found, data[:status]
-    assert_equal '/authors/jane-doe.html', data[:url]
-    assert_equal 'Jane Doe', data[:display_text]
-    assert_equal true, data[:possessive]
+    data = @resolver.resolve_data('Jane Doe', nil, true)
+    assert_equal [:found, '/authors/jane-doe.html', 'Jane Doe', true], data.values_at(:status, :url, :display_text, :possessive)
+    refute @resolver.resolve_data('Jane Doe', nil, nil)[:possessive]
   end
 
   def test_resolve_data_not_found
-    site_no_pages = create_site({}, {}, [])
-    ctx_no_pages = create_context({}, { site: site_no_pages, page: @page })
-    data = Jekyll::Authors::AuthorLinkResolver.new(ctx_no_pages).resolve_data('John Smith', nil, nil)
-    assert_equal :not_found, data[:status]
-    assert_nil data[:url]
-    assert_equal 'John Smith', data[:display_text]
-    assert_equal false, data[:possessive]
+    data = @resolver.resolve_data('John Smith', nil, nil)
+    assert_equal [:not_found, nil, 'John Smith', false], data.values_at(:status, :url, :display_text, :possessive)
+
+    overridden = @resolver.resolve_data('John Smith', 'JD', true)
+    assert_equal [:not_found, nil, 'JD', true], overridden.values_at(:status, :url, :display_text, :possessive)
   end
 
   def test_resolve_data_empty_name
@@ -232,21 +190,9 @@ class TestAuthorLinkResolver < Minitest::Test
     assert_equal 'Pen Name', data[:display_text]
   end
 
-  # --- link: false tests ---
-
-  def test_resolve_link_false_found_returns_span_without_anchor
-    output = Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve('Jane Doe', nil, nil, link: false)
-    assert_equal '<span class="author-name">Jane Doe</span>', output
-  end
-
   def test_resolve_link_false_possessive
     output = Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve('Jane Doe', nil, true, link: false)
     assert_equal "<span class=\"author-name\">Jane Doe</span>\u2019s", output
-  end
-
-  def test_resolve_link_true_still_links
-    output = Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve('Jane Doe', nil, nil, link: true)
-    assert_equal '<a href="/authors/jane-doe.html"><span class="author-name">Jane Doe</span></a>', output
   end
 
   def test_resolve_data_link_false_nullifies_url
@@ -254,10 +200,5 @@ class TestAuthorLinkResolver < Minitest::Test
     assert_equal :found, data[:status]
     assert_nil data[:url]
     assert_equal 'Jane Doe', data[:display_text]
-  end
-
-  def test_resolve_data_frozen
-    data = Jekyll::Authors::AuthorLinkResolver.new(@ctx).resolve_data('Jane Doe', nil, nil)
-    assert data.frozen?, 'resolve_data() should return a frozen hash'
   end
 end

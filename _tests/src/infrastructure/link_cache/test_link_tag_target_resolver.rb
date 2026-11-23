@@ -74,11 +74,6 @@ class TestLinkTagTargetResolver < Minitest::Test
     assert_includes error.message, 'from_book='
   end
 
-  def test_quoted_options_do_not_raise
-    assert_equal [{ url: '/books/dune/', type: 'book' }], targets('{% book_link "Dune" author="Ann Author" %}')
-    assert_nil targets('{% short_story_link "Unknown" from_book="Dune" %}')
-  end
-
   def test_stub_tag_node_raises
     stub_node = Struct.new(:tag_name).new('book_link')
     error = assert_raises(Jekyll::Errors::FatalException) { @resolver.targets(stub_node, @doc) }

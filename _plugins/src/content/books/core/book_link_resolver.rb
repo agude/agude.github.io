@@ -15,8 +15,9 @@ module Jekyll
 
         Typography = Jekyll::Infrastructure::TypographyUtils
         BookSelector = Jekyll::Infrastructure::LinkCache::BookCandidateSelector
+        ResolverSupport = Jekyll::Infrastructure::Links::LinkResolverSupport
         PreviewRenderer = Jekyll::Books::Core::BookPreviewRenderer
-        private_constant :Typography, :BookSelector, :PreviewRenderer
+        private_constant :Typography, :BookSelector, :PreviewRenderer, :ResolverSupport
 
         # Renders the book link/cite HTML directly from title and URL data.
         # Used when the book data is already known (e.g., from backlinks).
@@ -24,32 +25,27 @@ module Jekyll
         # @param title [String] The canonical title to display (will be processed).
         # @param url [String] The URL of the book page.
         # @param cite [Boolean] true (default) for <cite> wrapper, false for span.book-text.
-        # @param preview_html [String, nil] Optional hover-preview markup to embed in the link.
-        #   Callers outside this class (e.g. backlinks/ranking renderers) never pass this, so
-        #   they get no preview.
+        # @param preview_html [String, nil] Optional hover-preview markup for cross-page links.
         # @return [String] The generated HTML.
         def render_from_data(title, url, cite: true, preview_html: nil)
-          inner_element = cite ? build_book_cite_element(title) : build_book_text_element(title)
-          wrap_with_link(inner_element, url, preview_html)
-        end
-
-        def resolve(title_raw, text_override, author_filter, date_filter = nil, cite: true)
-          data = resolve_data(title_raw, text_override, author_filter, date_filter, cite: cite)
-          render_html_from_data(data)
+          wrap_with_link(build_book_element(title, cite: cite), url, preview_html)
         end
 
         def resolve_data(title_raw, text_override, author_filter, date_filter = nil, cite: true)
           return no_site_result(title_raw) unless @site
 
-          initialize_resolve_state(title_raw, date_filter, cite)
+          initialize_resolve_state(title_raw, date_filter)
           return empty_title_result if @norm_title.empty?
 
-          candidates = find_candidates
-          display_text = determine_display_text(text_override)
-          return not_found_result(display_text, cite) if candidates.empty?
+          override = text_override.to_s.strip if text_override && !text_override.to_s.empty?
+          candidates = ResolverSupport.canonical_book_candidates(find_in_cache('books', @norm_title))
+          result = candidates.empty? ? log_not_found : filter_candidates(candidates, author_filter)
+          if result.is_a?(String)
+            @log_output = result
+            return not_found_result(override || @title, cite)
+          end
 
-          result = filter_candidates(candidates, author_filter)
-          build_result_hash(result, display_text, text_override, cite)
+          build_result_hash(result, override || result['title'], cite)
         end
 
         private
@@ -64,11 +60,10 @@ module Jekyll
           }.freeze
         end
 
-        def initialize_resolve_state(title_raw, date_filter, cite)
+        def initialize_resolve_state(title_raw, date_filter)
           @title = title_raw.to_s
           @norm_title = Text.normalize_title(@title)
           @date_filter = normalize_date_filter(date_filter)
-          @cite = cite
           @log_output = ''
         end
 
@@ -89,7 +84,6 @@ module Jekyll
         end
 
         def not_found_result(display_text, cite)
-          @log_output = log_not_found
           {
             status: :not_found,
             url: nil,
@@ -99,23 +93,11 @@ module Jekyll
           }.freeze
         end
 
-        def build_result_hash(result, display_text, text_override, cite)
-          if result.is_a?(String)
-            @log_output = result
-            return {
-              status: :not_found,
-              url: nil,
-              display_text: display_text,
-              canonical_title: nil,
-              cite: cite,
-            }.freeze
-          end
-
-          found_display = text_override && !text_override.to_s.empty? ? text_override.to_s.strip : result['title']
+        def build_result_hash(result, display_text, cite)
           {
             status: :found,
             url: result['url'],
-            display_text: found_display,
+            display_text: display_text,
             canonical_title: result['title'],
             cite: cite,
             rating: result['rating'],
@@ -126,74 +108,15 @@ module Jekyll
           }.freeze
         end
 
-        def render_html_from_data(data)
-          case data[:status]
-          when :no_site
-            fallback(data[:display_text])
-          when :empty_title
-            @log_output
-          when :not_found
-            @log_output.to_s + fallback(data[:display_text])
-          when :found
-            preview_html = build_preview_html(data)
-            @log_output.to_s + render_from_data(
-              data[:display_text],
-              data[:url],
-              cite: @cite,
-              preview_html: preview_html,
-            )
-          end
-        end
-
-        # Builds the hover-preview markup for a found book, accumulating any
-        # non-fatal logging (e.g. an invalid rating) into @log_output rather
-        # than embedding it inside the preview span itself.
-        def build_preview_html(data)
-          return nil if PreviewRenderer.building_lede?(@site)
-
-          preview = PreviewRenderer.new(
-            @context,
-            data[:canonical_title],
-            data[:authors],
-            data[:rating],
-            data[:image],
-            series: data[:series],
-            book_number: data[:book_number],
-            lede_html: PreviewRenderer.extract_lede(@site, data[:url]),
-          )
-          html = preview.render
-          @log_output = @log_output.to_s + preview.log_output.to_s
-          html
-        end
-
-        def fallback(title)
-          if @cite == false
-            build_book_text_element(title.to_s)
+        def link_content(data)
+          if data[:status] == :found
+            preview = build_preview_html(PreviewRenderer, data, data[:canonical_title])
+            cite = data[:cite]
           else
-            build_book_cite_element(title.to_s)
+            cite = data[:cite] != false
           end
-        end
 
-        def determine_display_text(text_override)
-          if text_override && !text_override.to_s.empty?
-            text_override.to_s.strip
-          else
-            @title
-          end
-        end
-
-        # Filter out archived (non-canonical) reviews: any book with a
-        # canonical_url. BookFamilyValidator guarantees the value is a local
-        # path to the canonical page, which never sets canonical_url itself.
-        #
-        # @gotcha The link resolver rejects every book that sets
-        #   `canonical_url`. This filters archived re-reviews so `book_link`
-        #   always points to the current canonical review. A canonical page
-        #   must never have `canonical_url` set; `BookFamilyValidator`
-        #   enforces this.
-        def find_candidates
-          cache = @site.data['link_cache'] || {}
-          (cache.dig('books', @norm_title) || []).reject { |b| b['canonical_url'] }
+          [build_book_element(data[:display_text], cite: cite), preview]
         end
 
         # @gotcha When a book_link resolves to "not found" in HTML mode, the
@@ -215,17 +138,9 @@ module Jekyll
           return unless page && page['url'] && !@norm_title.empty?
 
           tracker = @site.data['mention_tracker']
-          initialize_tracker_entry(tracker)
-          update_tracker_entry(tracker, page)
-        end
-
-        def initialize_tracker_entry(tracker)
-          tracker[@norm_title] ||= { original_titles: Hash.new(0), sources: Set.new }
-        end
-
-        def update_tracker_entry(tracker, page)
-          tracker[@norm_title][:original_titles][@title.strip] += 1
-          tracker[@norm_title][:sources] << page['url']
+          mention = tracker[@norm_title] ||= { original_titles: Hash.new(0), sources: Set.new }
+          mention[:original_titles][@title.strip] += 1
+          mention[:sources] << page['url']
         end
 
         # The author rule lives in BookCandidateSelector, which
@@ -303,14 +218,13 @@ module Jekyll
           MSG
         end
 
-        def build_book_cite_element(display_text)
+        def build_book_element(display_text, cite:)
           prepared_display_text = Typography.prepare_display_title(display_text)
-          "<cite class=\"book-title\">#{prepared_display_text}</cite>"
-        end
-
-        def build_book_text_element(display_text)
-          prepared_display_text = Typography.prepare_display_title(display_text)
-          "<span class=\"book-text\">#{prepared_display_text}</span>"
+          if cite
+            "<cite class=\"book-title\">#{prepared_display_text}</cite>"
+          else
+            "<span class=\"book-text\">#{prepared_display_text}</span>"
+          end
         end
       end
     end

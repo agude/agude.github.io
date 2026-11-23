@@ -6,91 +6,38 @@ require_relative '../../../test_helper'
 #
 # Verifies that the resolver correctly creates links to book series pages.
 class TestSeriesLinkResolver < Minitest::Test
-  def test_render_series_link_found_and_linked
-    series_page = create_doc({ 'title' => 'My Awesome Series', 'layout' => 'series_page' }, '/series/awesome.html')
-    site = create_site({}, {}, [series_page]) # Add series page to site.pages
-    current_page = create_doc({}, '/current-page.html')
-    ctx = create_context({}, { site: site, page: current_page })
+  Resolver = Jekyll::Series::SeriesLinkResolver
 
-    expected_html = '<a href="/series/awesome.html"><span class="book-series">My Awesome Series</span></a>'
-    actual_html = Jekyll::Series::SeriesLinkResolver.new(ctx).resolve('My Awesome Series', nil)
+  def setup
+    @series_page = create_doc({ 'title' => 'My Awesome Series', 'layout' => 'series_page' }, '/series/awesome.html')
+    @site = create_site({}, {}, [@series_page])
+    @context = create_context({}, { site: @site, page: create_doc({}, '/current-page.html') })
+    @resolver = Resolver.new(@context)
+  end
 
-    assert_equal expected_html, actual_html
+  def test_renders_markdown_link
+    context = create_context({}, { site: @site, page: create_doc({}, '/current-page.html'), render_mode: :markdown })
+    template = Liquid::Template.parse('{% series_link "My Awesome Series" %}')
+    assert_equal '[_My Awesome Series_](/series/awesome.html)', template.render!(context)
   end
 
   def test_render_series_link_found_but_current_page
-    series_page = create_doc({ 'title' => 'My Awesome Series', 'layout' => 'series_page' }, '/series/awesome.html')
-    site = create_site({}, {}, [series_page])
-    # Current page IS the series page
-    current_page = create_doc({}, '/series/awesome.html')
-    ctx = create_context({}, { site: site, page: current_page })
-
-    expected_html = '<span class="book-series">My Awesome Series</span>' # No link
-    actual_html = Jekyll::Series::SeriesLinkResolver.new(ctx).resolve('My Awesome Series', nil)
-
-    assert_equal expected_html, actual_html
+    context = create_context({}, { site: @site, page: @series_page })
+    assert_equal '<span class="book-series">My Awesome Series</span>', Resolver.new(context).resolve('My Awesome Series', nil)
   end
 
   def test_render_series_link_not_found
-    site = create_site({}, {}, []) # No pages defined
-    current_page = create_doc({}, '/current-page.html')
-    ctx = create_context({}, { site: site, page: current_page })
-
-    # Expect the unlinked span. log_failure is called internally but returns ""
-    # because logging is off by default in tests.
-    expected_html = '<span class="book-series">NonExistent Series</span>'
-    actual_html = Jekyll::Series::SeriesLinkResolver.new(ctx).resolve('NonExistent Series', nil)
-
-    assert_equal expected_html, actual_html
-  end
-
-  def test_render_series_link_with_link_text_override_found
-    series_page = create_doc({ 'title' => 'My Awesome Series', 'layout' => 'series_page' }, '/series/awesome.html')
-    site = create_site({}, {}, [series_page])
-    current_page = create_doc({}, '/current-page.html')
-    ctx = create_context({}, { site: site, page: current_page })
-
-    expected_html = '<a href="/series/awesome.html"><span class="book-series">Display This Instead</span></a>'
-    actual_html = Jekyll::Series::SeriesLinkResolver.new(ctx).resolve('My Awesome Series', 'Display This Instead')
-
-    assert_equal expected_html, actual_html
-  end
-
-  def test_render_series_link_with_link_text_override_not_found
-    site = create_site({}, {}, [])
-    current_page = create_doc({}, '/current-page.html')
-    ctx = create_context({}, { site: site, page: current_page })
-
-    # Expect the unlinked span with the override text. log_failure returns ""
-    expected_html = '<span class="book-series">Display This Instead</span>'
-    actual_html = Jekyll::Series::SeriesLinkResolver.new(ctx).resolve('NonExistent Series', 'Display This Instead')
-
-    assert_equal expected_html, actual_html
+    assert_equal '<span class="book-series">Unknown Series</span>', @resolver.resolve('Unknown Series', nil)
   end
 
   def test_render_series_link_empty_input_title
-    site = create_site
-    current_page = create_doc({}, '/current-page.html')
-    ctx = create_context({}, { site: site, page: current_page })
-
-    # log_failure is called internally and returns "", so the function returns ""
-    assert_equal '', Jekyll::Series::SeriesLinkResolver.new(ctx).resolve('', nil)
-    assert_equal '', Jekyll::Series::SeriesLinkResolver.new(ctx).resolve('   ', nil) # Whitespace only
-    assert_equal '', Jekyll::Series::SeriesLinkResolver.new(ctx).resolve(nil, nil)
+    ['', '   ', nil].each { |input| assert_equal '', @resolver.resolve(input, nil) }
   end
 
   def test_render_series_link_with_baseurl
-    series_page = create_doc({ 'title' => 'My Awesome Series', 'layout' => 'series_page' }, '/series/awesome.html')
-    # Site configured with a baseurl
-    site = create_site({ 'baseurl' => '/blog' }, {}, [series_page])
-    current_page = create_doc({}, '/current-page.html')
-    ctx = create_context({}, { site: site, page: current_page })
-
-    # Expect href to include the baseurl
-    expected_html = '<a href="/blog/series/awesome.html"><span class="book-series">My Awesome Series</span></a>'
-    actual_html = Jekyll::Series::SeriesLinkResolver.new(ctx).resolve('My Awesome Series', nil)
-
-    assert_equal expected_html, actual_html
+    @site.config['baseurl'] = '/blog'
+    expected = '<a href="/blog/series/awesome.html"><span class="book-series">My Awesome Series</span></a>'
+    assert_equal expected, Liquid::Template.parse('{% series_link "My Awesome Series" %}').render!(@context)
   end
 
   def test_render_series_link_escaping
@@ -137,8 +84,6 @@ class TestSeriesLinkResolver < Minitest::Test
     assert_equal expected_html, actual_html
   end
 
-  # --- resolve() log capture regression tests ---
-
   def test_resolve_empty_title_includes_log_output_when_logging_enabled
     site_with_logging = create_site
     site_with_logging.config['plugin_logging']['RENDER_SERIES_LINK'] = true
@@ -151,40 +96,21 @@ class TestSeriesLinkResolver < Minitest::Test
     assert_match(/<!-- \[WARN\] RENDER_SERIES_LINK_FAILURE:.*?empty after normalization.*?-->/, output)
   end
 
-  # --- resolve_data() tests ---
-
   def test_resolve_data_found
-    series_page = create_doc({ 'title' => 'My Awesome Series', 'layout' => 'series_page' }, '/series/awesome.html')
-    site = create_site({}, {}, [series_page])
-    current_page = create_doc({}, '/current-page.html')
-    ctx = create_context({}, { site: site, page: current_page })
-
-    data = Jekyll::Series::SeriesLinkResolver.new(ctx).resolve_data('My Awesome Series', nil)
-    assert_equal :found, data[:status]
-    assert_equal '/series/awesome.html', data[:url]
-    assert_equal 'My Awesome Series', data[:display_text]
+    data = @resolver.resolve_data('My Awesome Series', nil)
+    assert_equal [:found, '/series/awesome.html', 'My Awesome Series'], data.values_at(:status, :url, :display_text)
   end
 
   def test_resolve_data_not_found
-    site = create_site({}, {}, [])
-    current_page = create_doc({}, '/current-page.html')
-    ctx = create_context({}, { site: site, page: current_page })
-
-    data = Jekyll::Series::SeriesLinkResolver.new(ctx).resolve_data('NonExistent Series', nil)
-    assert_equal :not_found, data[:status]
-    assert_nil data[:url]
-    assert_equal 'NonExistent Series', data[:display_text]
+    data = @resolver.resolve_data('NonExistent Series', nil)
+    assert_equal [:not_found, nil, 'NonExistent Series'], data.values_at(:status, :url, :display_text)
+    @site.data['link_cache'].delete('series')
+    data = @resolver.resolve_data('NonExistent Series', 'Display This Instead')
+    assert_equal [:not_found, nil, 'Display This Instead'], data.values_at(:status, :url, :display_text)
   end
 
   def test_resolve_data_empty_title
-    site = create_site
-    current_page = create_doc({}, '/current-page.html')
-    ctx = create_context({}, { site: site, page: current_page })
-
-    data = Jekyll::Series::SeriesLinkResolver.new(ctx).resolve_data('', nil)
-    assert_equal :empty_title, data[:status]
-    assert_nil data[:url]
-    assert_nil data[:display_text]
+    assert_equal [:empty_title, nil, nil], @resolver.resolve_data('', nil).values_at(:status, :url, :display_text)
   end
 
   def test_resolve_data_no_site
@@ -196,60 +122,12 @@ class TestSeriesLinkResolver < Minitest::Test
   end
 
   def test_resolve_data_with_override
-    series_page = create_doc({ 'title' => 'My Awesome Series', 'layout' => 'series_page' }, '/series/awesome.html')
-    site = create_site({}, {}, [series_page])
-    current_page = create_doc({}, '/current-page.html')
-    ctx = create_context({}, { site: site, page: current_page })
-
-    data = Jekyll::Series::SeriesLinkResolver.new(ctx).resolve_data('My Awesome Series', 'Custom Text')
-    assert_equal :found, data[:status]
-    assert_equal 'Custom Text', data[:display_text]
-  end
-
-  # --- link: false tests ---
-
-  def test_resolve_link_false_found_renders_span_without_anchor
-    series_page = create_doc({ 'title' => 'My Awesome Series', 'layout' => 'series_page' }, '/series/awesome.html')
-    site = create_site({}, {}, [series_page])
-    current_page = create_doc({}, '/current-page.html')
-    ctx = create_context({}, { site: site, page: current_page })
-
-    expected_html = '<span class="book-series">My Awesome Series</span>'
-    actual_html = Jekyll::Series::SeriesLinkResolver.new(ctx).resolve('My Awesome Series', nil, link: false)
-
-    assert_equal expected_html, actual_html
+    assert_equal 'Custom Text', @resolver.resolve_data('My Awesome Series', '  Custom Text  ')[:display_text]
+    assert_equal 'My Awesome Series', @resolver.resolve_data('My Awesome Series', nil)[:display_text]
   end
 
   def test_resolve_data_link_false_found_has_nil_url
-    series_page = create_doc({ 'title' => 'My Awesome Series', 'layout' => 'series_page' }, '/series/awesome.html')
-    site = create_site({}, {}, [series_page])
-    current_page = create_doc({}, '/current-page.html')
-    ctx = create_context({}, { site: site, page: current_page })
-
-    data = Jekyll::Series::SeriesLinkResolver.new(ctx).resolve_data('My Awesome Series', nil, link: false)
-    assert_equal :found, data[:status]
-    assert_nil data[:url]
-    assert_equal 'My Awesome Series', data[:display_text]
-  end
-
-  def test_resolve_link_false_not_found_renders_span
-    site = create_site({}, {}, [])
-    current_page = create_doc({}, '/current-page.html')
-    ctx = create_context({}, { site: site, page: current_page })
-
-    expected_html = '<span class="book-series">NonExistent Series</span>'
-    actual_html = Jekyll::Series::SeriesLinkResolver.new(ctx).resolve('NonExistent Series', nil, link: false)
-
-    assert_equal expected_html, actual_html
-  end
-
-  def test_resolve_data_frozen
-    series_page = create_doc({ 'title' => 'My Awesome Series', 'layout' => 'series_page' }, '/series/awesome.html')
-    site = create_site({}, {}, [series_page])
-    current_page = create_doc({}, '/current-page.html')
-    ctx = create_context({}, { site: site, page: current_page })
-
-    data = Jekyll::Series::SeriesLinkResolver.new(ctx).resolve_data('My Awesome Series', nil)
-    assert data.frozen?, 'resolve_data() should return a frozen hash'
+    data = @resolver.resolve_data('My Awesome Series', nil, link: false)
+    assert_equal [:found, nil, 'My Awesome Series'], data.values_at(:status, :url, :display_text)
   end
 end

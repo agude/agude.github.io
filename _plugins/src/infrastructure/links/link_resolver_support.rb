@@ -10,8 +10,9 @@ module Jekyll
   module Infrastructure
     module Links
       # Shared plumbing for link resolvers. Provides initialization, cache
-      # lookup, link wrapping, and logging helpers. Each resolver keeps its
-      # own `resolve`, `resolve_data`, and rendering logic.
+      # lookup, HTML rendering, and logging. Each resolver supplies
+      # `resolve_data` and `link_content`, which returns the inner element
+      # and any hover preview.
       #
       # @pattern Resolvers include this module directly rather than going
       #   through a separate `*_link_util.rb` wrapper — all resolution logic
@@ -28,7 +29,55 @@ module Jekyll
           @log_output = ''
         end
 
+        def resolve(...)
+          render_html_from_data(resolve_data(...))
+        end
+
+        # Both rendered links and backlink targets select from current reviews.
+        # @gotcha A review that sets canonical_url is an archive.
+        def self.canonical_book_candidates(entries)
+          (entries || []).reject { |book| book['canonical_url'] }
+        end
+
         private
+
+        def render_html_from_data(data)
+          case data[:status]
+          when :no_site
+            no_site_html(data)
+          when :empty_name, :empty_title
+            @log_output
+          when :found, :not_found, :ambiguous
+            content, preview = link_content(data)
+            @log_output.to_s + wrap_with_link(content, data[:url], preview)
+          else
+            raise Jekyll::Errors::FatalException,
+                  "#{self.class.name}#render_html_from_data: unrecognized status #{data[:status].inspect}"
+          end
+        end
+
+        def no_site_html(data)
+          link_content(data).first
+        end
+
+        # Keep non-fatal diagnostics outside the preview span.
+        def build_preview_html(renderer, data, title)
+          return nil if renderer.building_lede?(@site)
+
+          preview = renderer.new(
+            @context,
+            title,
+            data[:authors],
+            data[:rating],
+            data[:image],
+            series: data[:series],
+            book_number: data[:book_number],
+            lede_html: renderer.extract_lede(@site, data[:url]),
+          )
+          html = preview.render
+          @log_output = @log_output.to_s + preview.log_output.to_s
+          html
+        end
 
         # Look up a normalized key in a link-cache section.
         # Returns the cached entry or nil.
