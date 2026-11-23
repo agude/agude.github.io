@@ -168,6 +168,18 @@ build: image-build
 	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) -e JEKYLL_ENV=production $(IMAGE) \
 		bundle exec jekyll build --config _config.yml,.jekyll-cache/production.yml
 
+.PHONY: golden
+# Compare production output with `make golden BASE=<ref>`. Mount the git archive
+# and working tree separately, each with a fresh cache and output directory.
+# Set site.time once in a config overlay because the feeds and sidebar show it.
+# Give archived PDFs their working-tree mtimes because jekyll-sitemap emits them
+# as lastmod and git archive substitutes the commit time. Compare all output bytes.
+# STANDARD_SITE=1 supplies _data/standard_site.json for a post and a book review.
+# Print missing, extra and changed paths to stdout. An empty diff exits zero.
+# Build errors and differences fail the target. Remove the scratch trees on exit.
+golden:
+	@bash _bin/golden.sh "$(MAKE_COMMAND)"
+
 # Profile separately so its configuration cannot displace another mode's cache.
 serve-profile: image-build
 	@$(PREPARE_BUILD) profile
