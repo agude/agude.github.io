@@ -2,10 +2,10 @@
 
 require 'jekyll'
 require 'liquid'
-require 'cgi'
 
 require_relative '../related/finder'
-require_relative '../related/renderer'
+require_relative '../core/book_card_renderer'
+require_relative '../../card_grid'
 
 # Displays related book reviews based on series, author, and recency.
 #
@@ -26,12 +26,9 @@ module Jekyll
           finder = Jekyll::Books::Related::Finder.new(site, page)
           result = finder.find
 
-          return result[:logs] if result[:books].empty?
-
-          renderer = Jekyll::Books::Related::Renderer.new(context, result[:books])
-          html_output = renderer.render
-
-          result[:logs] + html_output
+          result[:logs] + Jekyll::Content::CardGrid.render(result[:books], heading: '<h2>Related Books</h2>') do |book|
+            "#{Jekyll::Books::Core::BookCardRenderer.render(book, context)}\n"
+          end
         end
       end
     end

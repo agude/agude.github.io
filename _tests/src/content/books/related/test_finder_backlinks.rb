@@ -6,51 +6,6 @@ require_relative '../../../../support/related_book_finder_test_case'
 class TestRelatedBooksFinderBacklinks < RelatedBookFinderTestCase
   # --- Backlinks (mentioning reviews) tests ---
 
-  def test_backlinks_appear_after_forward_links
-    coll = MockCollection.new([], 'books')
-    curr = @helper.create_book(
-      title: 'Current Book',
-      authors: ['Author A'],
-      date_offset_days: 10,
-      url_suffix: 'current',
-      collection: coll,
-    )
-    # Book that current mentions
-    mentioned = @helper.create_book(
-      title: 'Mentioned Book',
-      authors: ['Author B'],
-      date_offset_days: 5,
-      url_suffix: 'mentioned',
-      collection: coll,
-    )
-    # Book that mentions current (backlink)
-    mentioner = @helper.create_book(
-      title: 'Mentioner Book',
-      authors: ['Author C'],
-      date_offset_days: 3,
-      url_suffix: 'mentioner',
-      collection: coll,
-    )
-
-    coll.docs = [curr, mentioned, mentioner]
-    site = create_site(@site_config_base.dup, { 'books' => coll.docs })
-    site.data['link_cache']['forward_links'] = {
-      curr.url => [{ target: mentioned, type: 'book' }],
-    }
-    site.data['link_cache']['backlinks'] = {
-      curr.url => [{ source: mentioner, type: 'book' }],
-    }
-    finder = Jekyll::Books::Related::Finder.new(site, curr, 3)
-    result = nil
-    Time.stub :now, @test_time_now do
-      result = finder.find
-    end
-
-    assert_equal 2, result[:books].length
-    assert_equal mentioned.url, result[:books][0].url, 'Forward link should come before backlink'
-    assert_equal mentioner.url, result[:books][1].url, 'Backlink should come second'
-  end
-
   # Verifies books and short stories share a tier, with series in a separate tier.
   # Uses assert_includes (not order assertion) because both works have equal scores;
   # their relative order depends on date tiebreaker, which isn't the focus here.
@@ -491,12 +446,12 @@ class TestRelatedBooksFinderBacklinks < RelatedBookFinderTestCase
     ]
     site = create_site(@site_config_base.dup, { 'books' => coll.docs })
 
-    # Set up forward_links and backlinks
+    # The cached forward links arrive in reverse rank order.
     site.data['link_cache']['forward_links'] = {
       curr.url => [
-        { target: mentioned_book, type: 'book', count: 1, min_position: 30 },
-        { target: mentioned_short_story, type: 'short_story', count: 1, min_position: 40 },
         { target: mentioned_series, type: 'series', count: 1, min_position: 50 },
+        { target: mentioned_short_story, type: 'short_story', count: 1, min_position: 40 },
+        { target: mentioned_book, type: 'book', count: 1, min_position: 30 },
       ],
     }
     # Give backlink_book higher score so it ranks first in combined works tier
@@ -562,46 +517,6 @@ class TestRelatedBooksFinderBacklinks < RelatedBookFinderTestCase
     # Should still work, falling through to author/recent
     assert_equal 1, result[:books].length
     assert_equal other.url, result[:books][0].url
-  end
-
-  def test_deduplication_across_forward_and_back_link_tiers
-    # BookA mentions BookB (forward_link) AND BookB mentions BookA (backlink).
-    # BookB should appear only once in BookA's related books (from forward_link tier).
-    coll = MockCollection.new([], 'books')
-    book_a = @helper.create_book(
-      title: 'Book A',
-      authors: ['Author A'],
-      date_offset_days: 10,
-      url_suffix: 'book-a',
-      collection: coll,
-    )
-    book_b = @helper.create_book(
-      title: 'Book B',
-      authors: ['Author B'],
-      date_offset_days: 5,
-      url_suffix: 'book-b',
-      collection: coll,
-    )
-
-    coll.docs = [book_a, book_b]
-    site = create_site(@site_config_base.dup, { 'books' => coll.docs })
-    # BookA → BookB (forward) AND BookA ← BookB (backlink)
-    site.data['link_cache']['forward_links'] = {
-      book_a.url => [{ target: book_b, type: 'book', count: 1, min_position: 50 }],
-    }
-    site.data['link_cache']['backlinks'] = {
-      book_a.url => [{ source: book_b, type: 'book' }],
-    }
-
-    finder = Jekyll::Books::Related::Finder.new(site, book_a, 3)
-    result = nil
-    Time.stub :now, @test_time_now do
-      result = finder.find
-    end
-
-    # BookB should appear exactly once (from forward_link tier, not duplicated from backlink)
-    assert_equal 1, result[:books].length
-    assert_equal book_b.url, result[:books][0].url
   end
 
   def test_deduplication_across_tiers

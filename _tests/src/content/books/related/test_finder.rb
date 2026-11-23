@@ -8,21 +8,12 @@ class TestRelatedBooksFinder < RelatedBookFinderTestCase
   # --- Integration tests ---
 
   def test_returns_correct_structure_with_empty_books
-    site = create_site(@site_config_base.dup, {})
-    page = create_doc({ 'title' => 'Test', 'url' => '/test.html', 'path' => 'test.md' }, '/test.html')
-    context = create_context({}, { site: site, page: page })
+    site = create_site(@site_config_base, { 'books' => [] })
+    page = create_doc({ 'title' => 'Test' }, '/test.html')
 
-    finder = Jekyll::Books::Related::Finder.new(context.registers[:site], context.registers[:page], DEFAULT_MAX_BOOKS)
-    result = nil
-    Time.stub :now, @test_time_now do
-      Jekyll.stub :logger, @helper.instance_variable_get(:@silent_logger_stub) do
-        result = finder.find
-      end
-    end
+    result = Jekyll::Books::Related::Finder.new(site, page).find
 
-    assert_kind_of Hash, result
-    assert_kind_of String, result[:logs]
-    assert_kind_of Array, result[:books]
+    assert_equal({ logs: '', books: [] }, result)
   end
 
   def test_returns_series_books_in_correct_order
@@ -417,13 +408,6 @@ class TestRelatedBooksFinder < RelatedBookFinderTestCase
     ]
     actual_titles = result[:books].map { |b| b.data['title'] }
     assert_equal expected_titles, actual_titles
-  end
-
-  def test_private_method_parse_book_num_with_hash
-    finder = Jekyll::Books::Related::Finder.new(@context.registers[:site], @context.registers[:page], DEFAULT_MAX_BOOKS)
-    hash_obj = { 'book_number' => '3.14' }
-    result = finder.send(:parse_book_num, hash_obj)
-    assert_equal 3.14, result
   end
 
   # --- Config-driven limit tests ---

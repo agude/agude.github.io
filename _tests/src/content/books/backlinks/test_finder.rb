@@ -27,8 +27,7 @@ class TestBacklinksFinder < Minitest::Test
     finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
     result = finder.find
 
-    assert_equal 1, result[:backlinks].length
-    assert_equal 'Book A', result[:backlinks].first[0]
+    assert_equal [['Book A', @book_a.url, 'book']], result[:backlinks]
   end
 
   def test_returns_empty_when_no_backlinks
@@ -62,32 +61,6 @@ class TestBacklinksFinder < Minitest::Test
     assert_empty result[:backlinks]
   end
 
-  def test_sorts_backlinks_by_title
-    book_z = create_doc(
-      { 'title' => 'Zebra Book', 'published' => true },
-      '/books/z.html',
-      "{% book_link 'Target' %}",
-    )
-    book_a = create_doc(
-      { 'title' => 'Apple Book', 'published' => true },
-      '/books/apple.html',
-      "{% book_link 'Target' %}",
-    )
-    target = create_doc(
-      { 'title' => 'Target', 'published' => true },
-      '/books/target.html',
-    )
-
-    site = create_site({}, { 'books' => [book_z, book_a, target] })
-    context = create_context({}, { site: site, page: target })
-
-    finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
-    result = finder.find
-
-    assert_equal 'Apple Book', result[:backlinks].first[0]
-    assert_equal 'Zebra Book', result[:backlinks].last[0]
-  end
-
   def test_strips_articles_when_sorting
     the_book = create_doc(
       { 'title' => 'The Amazing Book', 'published' => true },
@@ -111,7 +84,7 @@ class TestBacklinksFinder < Minitest::Test
     result = finder.find
 
     # "The Amazing Book" should sort as "Amazing Book" before "Basic Book"
-    assert_equal 'The Amazing Book', result[:backlinks].first[0]
+    assert_equal ['The Amazing Book', 'Basic Book'], result[:backlinks].map(&:first)
   end
 
   def test_handles_missing_site
@@ -200,17 +173,6 @@ class TestBacklinksFinder < Minitest::Test
     # Should find the linker as a series backlink
     titles = result[:backlinks].map(&:first)
     assert_includes titles, 'Linker'
-  end
-
-  def test_returns_backlink_type
-    site = create_site({}, { 'books' => [@book_a, @book_b] })
-    context = create_context({}, { site: site, page: @book_b })
-
-    finder = Jekyll::Books::Backlinks::Finder.new(context.registers[:site], context.registers[:page])
-    result = finder.find
-
-    # Result format is [title, url, type]
-    assert_equal 'book', result[:backlinks].first[2]
   end
 
   def test_skips_backlink_source_with_empty_title

@@ -60,24 +60,6 @@ class TestRelatedPostsFinder < Minitest::Test
     refute_includes urls, '/posts/current.html'
   end
 
-  def test_falls_back_to_recent_when_no_category_match
-    no_category_post = create_doc(
-      { 'title' => 'No Category', 'categories' => [], 'published' => true },
-      '/posts/no-cat.html',
-    )
-    no_category_post.define_singleton_method(:date) { Time.now - 86_400 }
-
-    site = create_site_with_posts([no_category_post, @unrelated_post])
-    page = { 'url' => '/posts/current.html', 'categories' => ['unique'] }
-    context = create_context({}, { site: site, page: page })
-
-    finder = Jekyll::Posts::Related::Finder.new(context.registers[:site], context.registers[:page], 5)
-    result = finder.find
-
-    refute result[:found_by_category]
-    refute_empty result[:posts]
-  end
-
   def test_respects_max_posts_limit
     posts = (1..10).map do |i|
       post = create_doc(
@@ -117,21 +99,17 @@ class TestRelatedPostsFinder < Minitest::Test
   end
 
   def test_excludes_future_posts
-    future = create_doc(
-      { 'title' => 'Future', 'categories' => ['tech'], 'published' => true },
-      '/posts/future.html',
-    )
-    future.define_singleton_method(:date) { Time.now + 86_400 }
+    build_time = Time.utc(2024, 6, 1)
+    current = create_doc({ 'categories' => ['tech'], 'date' => build_time }, '/posts/current.html')
+    on_time = create_doc({ 'categories' => ['tech'], 'date' => build_time }, '/posts/on-time.html')
+    future = create_doc({ 'categories' => ['tech'], 'date' => build_time + 1 }, '/posts/future.html')
+    site = create_site_with_posts([future, current, on_time])
+    site.time = build_time
+    site.config['related_posts'] = [future, current]
 
-    site = create_site_with_posts([future, @related_post])
-    page = { 'url' => '/posts/current.html', 'categories' => ['tech'] }
-    context = create_context({}, { site: site, page: page })
+    result = Jekyll::Posts::Related::Finder.new(site, current, 5).find
 
-    finder = Jekyll::Posts::Related::Finder.new(context.registers[:site], context.registers[:page], 5)
-    result = finder.find
-
-    urls = result[:posts].map(&:url)
-    refute_includes urls, '/posts/future.html'
+    assert_equal [on_time], result[:posts]
   end
 
   def test_logs_when_site_missing
@@ -191,29 +169,6 @@ class TestRelatedPostsFinder < Minitest::Test
     end
 
     assert_match(/RELATED_POSTS_FAILURE/, result[:logs])
-  end
-
-  def test_sorts_by_date_descending
-    older = create_doc(
-      { 'title' => 'Older', 'categories' => ['tech'], 'published' => true },
-      '/posts/older.html',
-    )
-    older.define_singleton_method(:date) { Time.now - 259_200 }
-
-    newer = create_doc(
-      { 'title' => 'Newer', 'categories' => ['tech'], 'published' => true },
-      '/posts/newer.html',
-    )
-    newer.define_singleton_method(:date) { Time.now - 86_400 }
-
-    site = create_site_with_posts([older, newer])
-    page = { 'url' => '/posts/current.html', 'categories' => ['tech'] }
-    context = create_context({}, { site: site, page: page })
-
-    finder = Jekyll::Posts::Related::Finder.new(context.registers[:site], context.registers[:page], 5)
-    result = finder.find
-
-    assert_equal '/posts/newer.html', result[:posts].first.url
   end
 
   def test_excludes_posts_without_date

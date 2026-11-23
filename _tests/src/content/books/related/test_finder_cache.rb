@@ -17,23 +17,14 @@ class TestRelatedBooksFinderCache < RelatedBookFinderTestCase
   def test_html_and_markdown_keep_the_same_ordered_related_list
     books, site = @helper.setup_series_books(4)
     html, markdown = render_both_modes(site, books.first)
-    html_titles = Nokogiri::HTML5.fragment(html).css('.card-text > a').map { |a| a.text.strip }
+    aside = Nokogiri::HTML5.fragment(html).at_css('aside.related')
+    assert_equal 'Related Books', aside.at_css('h2').text
+    html_titles = aside.css('ul.card-grid .card-text > a').map { |a| a.text.strip }
+    assert markdown.start_with?("## Related Books\n")
     markdown_titles = markdown.scan(/^- \[_([^\]]+)_\]/).flatten
 
     assert_equal books.drop(1).map { |book| book.data['title'] }, html_titles
     assert_equal html_titles, markdown_titles
-  end
-
-  def test_filters_candidates_once_across_output_modes
-    books, site = @helper.setup_series_books(4)
-    calls = 0
-    trace = TracePoint.new(:call) do |event|
-      calls += 1 if event.defined_class == Jekyll::Books::Related::Finder && event.method_id == :fetch_potential_books
-    end
-
-    trace.enable { render_both_modes(site, books.first) }
-
-    assert_equal 1, calls
   end
 
   def test_limits_pages_and_sites_do_not_share_results

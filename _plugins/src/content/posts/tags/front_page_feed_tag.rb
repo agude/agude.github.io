@@ -5,7 +5,9 @@ require 'liquid'
 require_relative '../feed_utils'
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../../../infrastructure/plugin_logger_utils'
-require_relative '../feed/renderer'
+require_relative '../article_card_renderer'
+require_relative '../../books/core/book_card_renderer'
+require_relative '../../card_grid'
 require_relative '../../../ui/cards/markdown_card_utils'
 
 # Renders a feed combining recent posts and book reviews.
@@ -26,8 +28,7 @@ module Jekyll
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         Logger = Jekyll::Infrastructure::PluginLoggerUtils
         FeedUtils = Jekyll::Posts::FeedUtils
-        Renderer = Jekyll::Posts::Feed::Renderer
-        private_constant :TagArgs, :Logger, :FeedUtils, :Renderer
+        private_constant :TagArgs, :Logger, :FeedUtils
 
         def initialize(tag_name, markup, tokens)
           super
@@ -48,13 +49,44 @@ module Jekyll
           if context.registers[:render_mode] == :markdown
             render_markdown(feed_items)
           else
-            log_output = log_empty_feed(context, limit) if feed_items.empty?
-            renderer = Renderer.new(context, feed_items)
-            (log_output || '') + renderer.render
+            render_html(context, feed_items, limit)
           end
         end
 
         private
+
+        def render_html(context, items, limit)
+          return log_empty_feed(context, limit) if items.empty?
+
+          logs = +''
+          grid = Jekyll::Content::CardGrid.render(items) do |item|
+            label = item.respond_to?(:collection) && item.collection&.label
+            case label
+            when 'books'
+              "#{Jekyll::Books::Core::BookCardRenderer.render(item, context)}\n"
+            when 'posts'
+              "#{Jekyll::Posts::ArticleCardRenderer.render(item, context)}\n"
+            else
+              logs << log_unknown_item(context, item) << "\n"
+              ''
+            end
+          end
+          logs + grid
+        end
+
+        def log_unknown_item(context, item)
+          Logger.log_liquid_failure(
+            context: context,
+            tag_type: 'FRONT_PAGE_FEED',
+            reason: 'Unknown item type in feed.',
+            identifiers: {
+              item_title: item.data['title'] || 'N/A',
+              item_url: item.url || 'N/A',
+              item_collection: item.collection&.label || 'N/A',
+            },
+            level: :warn,
+          )
+        end
 
         def render_markdown(items)
           return '' if items.empty?

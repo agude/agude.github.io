@@ -2,10 +2,10 @@
 
 require 'jekyll'
 require 'liquid'
-require 'cgi'
 
 require_relative '../related/finder'
-require_relative '../related/renderer'
+require_relative '../article_card_renderer'
+require_relative '../../card_grid'
 
 # Displays related or recent blog posts based on category matching.
 #
@@ -26,16 +26,10 @@ module Jekyll
           finder = Jekyll::Posts::Related::Finder.new(site, page)
           result = finder.find
 
-          return result[:logs] if result[:posts].empty?
-
-          renderer = Jekyll::Posts::Related::Renderer.new(
-            context,
-            result[:posts],
-            result[:found_by_category],
-          )
-          html_output = renderer.render
-
-          result[:logs] + html_output
+          heading = result[:found_by_category] ? 'Related Posts' : 'Recent Posts'
+          result[:logs] + Jekyll::Content::CardGrid.render(result[:posts], heading: "<h2>#{heading}</h2>") do |post|
+            "#{Jekyll::Posts::ArticleCardRenderer.render(post, context)}\n"
+          end
         end
       end
     end

@@ -21,10 +21,7 @@ module Jekyll
           log_message = check_prerequisites
           return { logs: log_message, reviews: [] } if log_message
 
-          archived_docs = find_archived_docs
-          sorted_docs = archived_docs.sort_by(&:date).reverse
-
-          { logs: '', reviews: sorted_docs }
+          { logs: '', reviews: archived_reviews_newest_first }
         end
 
         private
@@ -53,10 +50,10 @@ module Jekyll
           end
         end
 
-        def find_archived_docs
+        def archived_reviews_newest_first
           @site.collections['books'].docs.select do |book|
             book.data['canonical_url'] == page_url && book != @page
-          end
+          end.sort_by(&:date).reverse
         end
       end
     end

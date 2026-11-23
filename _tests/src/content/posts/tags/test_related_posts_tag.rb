@@ -277,8 +277,9 @@ class TestRelatedPostsTag < Minitest::Test
   # ========================================================================
 
   def test_renderer_returns_empty_string_for_empty_posts
-    renderer = Jekyll::Posts::Related::Renderer.new(@context, [], false)
-    output = renderer.render
+    finder = Object.new
+    finder.define_singleton_method(:find) { { logs: '', posts: [], found_by_category: false } }
+    output = Jekyll::Posts::Related::Finder.stub(:new, finder) { render_tag(@context) }
 
     assert_equal '', output
   end
@@ -286,11 +287,12 @@ class TestRelatedPostsTag < Minitest::Test
   def test_renderer_generates_correct_html_structure_related_posts
     posts = [@post_review1, @post_tech1]
 
-    renderer = Jekyll::Posts::Related::Renderer.new(@context, posts, true)
+    finder = Object.new
+    finder.define_singleton_method(:find) { { logs: '', posts: posts, found_by_category: true } }
     output = nil
 
     Jekyll::Posts::ArticleCardRenderer.stub :render, ->(p, _ctx) { "<div>#{p.data['title']}</div>\n" } do
-      output = renderer.render
+      output = Jekyll::Posts::Related::Finder.stub(:new, finder) { render_tag(@context) }
     end
 
     assert_match(/^<aside class="related">/, output)
@@ -304,11 +306,12 @@ class TestRelatedPostsTag < Minitest::Test
   def test_renderer_generates_correct_html_structure_recent_posts
     posts = [@post_uncat1, @post_tech2]
 
-    renderer = Jekyll::Posts::Related::Renderer.new(@context, posts, false)
+    finder = Object.new
+    finder.define_singleton_method(:find) { { logs: '', posts: posts, found_by_category: false } }
     output = nil
 
     Jekyll::Posts::ArticleCardRenderer.stub :render, ->(p, _ctx) { "<div>#{p.data['title']}</div>\n" } do
-      output = renderer.render
+      output = Jekyll::Posts::Related::Finder.stub(:new, finder) { render_tag(@context) }
     end
 
     assert_match(/^<aside class="related">/, output)

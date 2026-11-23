@@ -3,7 +3,8 @@
 require 'jekyll'
 require 'liquid'
 require_relative '../reviews/finder'
-require_relative '../reviews/renderer'
+require_relative '../core/book_card_renderer'
+require_relative '../../card_grid'
 
 # Displays previous reviews of the same book sorted by date.
 #
@@ -32,12 +33,13 @@ module Jekyll
           finder = Jekyll::Books::Reviews::Finder.new(site, page)
           result = finder.find
 
-          return result[:logs] if result[:reviews].empty?
-
-          renderer = Jekyll::Books::Reviews::Renderer.new(context, result[:reviews])
-          html_output = renderer.render
-
-          result[:logs] + html_output
+          heading = '<h2 class="previous-reviews-headline">Previous Reviews</h2>'
+          reviews = result[:reviews]
+          grid = Jekyll::Content::CardGrid.render(reviews, heading: heading, aside_class: 'previous-reviews') do |doc|
+            subtitle = "Review from #{doc.date.strftime('%B %d, %Y')}"
+            Jekyll::Books::Core::BookCardRenderer.render(doc, context, subtitle: subtitle)
+          end
+          result[:logs] + grid
         end
       end
     end

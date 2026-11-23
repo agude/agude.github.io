@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../core/book_data_utils'
+require_relative '../../related_candidates'
 require_relative '../../../infrastructure/plugin_logger_utils'
 require_relative '../../../infrastructure/front_matter_utils'
 require_relative '../../../infrastructure/page_url'
@@ -41,7 +42,6 @@ module Jekyll
           @page = page
           @max_books = max_books || @site&.config&.dig('display_limits', 'related_books') || DEFAULT_MAX_BOOKS
           @logs = String.new
-          @candidate_books = []
         end
 
         def find
@@ -55,8 +55,9 @@ module Jekyll
         private
 
         def select_books
+          @candidate_books = []
           find_related_books
-          final_books = @candidate_books.uniq(&:url).slice(0, @max_books)
+          final_books = Jekyll::Content::RelatedCandidates.limit(@candidate_books, @max_books)
 
           { logs: @logs, books: final_books }
         end
@@ -123,7 +124,7 @@ module Jekyll
           process_series(all_potential_books)
           process_authors(books_by_date_desc)
           LINK_TIERS.each_value { |tier| process_link_tier(**tier) }
-          process_recent(books_by_date_desc)
+          @candidate_books.concat(books_by_date_desc)
         end
 
         def build_exclusion_set
@@ -132,24 +133,11 @@ module Jekyll
           urls
         end
 
-        # Jekyll keeps future-dated books in the collection but does not
-        # write them, judging "future" by site.time. Use the same clock, or a
-        # book dated between site.time and now becomes a link to no page.
         def fetch_potential_books(urls_to_exclude)
-          now_unix = @site.time.to_i
-          @site.collections['books'].docs.select do |book|
-            valid_potential_book?(book, urls_to_exclude, now_unix)
-          end.compact
-        end
-
-        def valid_potential_book?(book, urls_to_exclude, now_unix)
-          return false unless book&.data
-          return false if book.data['published'] == false
-          return false if book.data['canonical_url']
-          return false if urls_to_exclude.include?(book.url)
-          return false unless book.date
-
-          book.date.to_time.to_i <= now_unix
+          books = @site.collections['books'].docs
+          Jekyll::Content::RelatedCandidates.select(books, urls_to_exclude, @site.time.to_i) do |book|
+            book&.data && !book.data['canonical_url']
+          end
         end
 
         def process_series(all_books)
@@ -274,21 +262,6 @@ module Jekyll
             position = entry[:direct_min_position] || entry[:min_position] || 100
             count = entry[:count] || 0
             [-count, position, -book.date.to_i, book.data['title'].to_s.downcase]
-          end
-        end
-
-        def process_recent(books_by_date)
-          needed = @max_books - @candidate_books.uniq(&:url).length
-          return if needed <= 0
-
-          current_urls = Set.new(@candidate_books.map(&:url))
-          books_by_date.each do |book|
-            break if needed <= 0
-            next if current_urls.include?(book.url)
-
-            @candidate_books << book
-            current_urls.add(book.url)
-            needed -= 1
           end
         end
 

@@ -25,12 +25,7 @@ module Jekyll
           return { logs: '', backlinks: [] } unless canonical_url
 
           entries = gather_backlinks(canonical_url)
-          return { logs: '', backlinks: [] } if entries.empty?
-
-          sorted = sort_entries(entries, canonical_url)
-          return { logs: '', backlinks: [] } if sorted.empty?
-
-          { logs: '', backlinks: sorted }
+          { logs: '', backlinks: sort_entries(entries, canonical_url) }
         end
 
         private
@@ -159,13 +154,11 @@ module Jekyll
         end
 
         def sort_entries(entries, current_canon)
-          sortable = build_sortable_entries(entries, current_canon)
-          sorted = sortable.sort_by(&:first)
-          sorted.map { |t| t[1..3] }
+          build_sortable_entries(entries, current_canon).sort_by(&:first).map { |entry| entry[1..3] }
         end
 
         def build_sortable_entries(entries, current_canon)
-          entries.map do |e|
+          entries.filter_map do |e|
             src = e[:source]
             src_canon = @caches[:canonical_map][src.url] || src.url
             next if src_canon == current_canon
@@ -179,7 +172,7 @@ module Jekyll
               src.url,
               e[:type],
             ]
-          end.compact
+          end
         end
       end
     end

@@ -5,7 +5,8 @@ require 'liquid'
 require_relative '../post_list_utils'
 require_relative '../../../infrastructure/tag_argument_utils'
 require_relative '../../../infrastructure/plugin_logger_utils'
-require_relative '../category/renderer'
+require_relative '../article_card_renderer'
+require_relative '../../card_grid'
 require_relative '../../../ui/cards/markdown_card_utils'
 require_relative '../../../ui/tags/display_tag_renderable'
 
@@ -28,8 +29,7 @@ module Jekyll
         TagArgs = Jekyll::Infrastructure::TagArgumentUtils
         Logger = Jekyll::Infrastructure::PluginLoggerUtils
         ListUtils = Jekyll::Posts::PostListUtils
-        Renderer = Jekyll::Posts::Category::Renderer
-        private_constant :TagArgs, :Logger, :ListUtils, :Renderer
+        private_constant :TagArgs, :Logger, :ListUtils
 
         ALLOWED_KEYS = %w[topic exclude_current_page].freeze
         REQUIRED_KEYS = ['topic'].freeze
@@ -56,8 +56,10 @@ module Jekyll
             exclude_url: url_to_exclude,
           )
 
-          render_display_tag(context, result) do |d|
-            Renderer.new(context, d[:posts]).render
+          render_display_tag(context, result) do |data|
+            Jekyll::Content::CardGrid.render(data[:posts]) do |post|
+              "#{Jekyll::Posts::ArticleCardRenderer.render(post, context)}\n"
+            end
           end
         end
 

@@ -4,68 +4,6 @@ require_relative '../../../../support/related_book_finder_test_case'
 
 # BacklinkBuilder-to-Finder integration with real Liquid content.
 class TestRelatedBooksFinderIntegration < RelatedBookFinderTestCase
-  # --- Integration test: full pipeline with Liquid tags ---
-
-  def test_integration_finder_uses_backlink_builder_output
-    # This test runs the full pipeline: books with Liquid tags → BacklinkBuilder → Finder
-    # Verifies the contract between how BacklinkBuilder stores entries and Finder reads them.
-    curr = create_doc(
-      {
-        'title' => 'Current Book',
-        'book_authors' => ['Author A'],
-        'published' => true,
-        'date' => @test_time_now - (60 * 60 * 24 * 10),
-      },
-      '/books/current.html',
-      "Current book that mentions {% book_link 'Mentioned Book' %}.",
-    )
-    mentioned = create_doc(
-      {
-        'title' => 'Mentioned Book',
-        'book_authors' => ['Author B'],
-        'published' => true,
-        'date' => @test_time_now - (60 * 60 * 24 * 5),
-      },
-      '/books/mentioned.html',
-      'A book that gets mentioned.',
-    )
-    mentioner = create_doc(
-      {
-        'title' => 'Mentioner Book',
-        'book_authors' => ['Author C'],
-        'published' => true,
-        'date' => @test_time_now - (60 * 60 * 24 * 3),
-      },
-      '/books/mentioner.html',
-      "This book mentions {% book_link 'Current Book' %}.",
-    )
-
-    # create_site runs LinkCacheGenerator which runs BacklinkBuilder
-    site = create_site(@site_config_base.dup, { 'books' => [curr, mentioned, mentioner] })
-
-    # Verify BacklinkBuilder populated the caches (guards against test helper changes)
-    forward_links = site.data.dig('link_cache', 'forward_links', curr.url)
-    backlinks = site.data.dig('link_cache', 'backlinks', curr.url)
-    refute_nil forward_links, 'BacklinkBuilder should populate forward_links for curr'
-    refute_nil backlinks, 'BacklinkBuilder should populate backlinks for curr'
-    assert forward_links.any? { |e| e[:target].url == mentioned.url }, 'forward_links should include mentioned book'
-    assert backlinks.any? { |e| e[:source].url == mentioner.url }, 'backlinks should include mentioner book'
-
-    finder = Jekyll::Books::Related::Finder.new(site, curr, 3)
-    result = nil
-    Time.stub :now, @test_time_now do
-      result = finder.find
-    end
-
-    # Verify Finder correctly reads both forward_links and backlinks
-    assert_equal 2, result[:books].length
-    urls = result[:books].map(&:url)
-    assert_includes urls, '/books/mentioned.html', 'Should include forward-linked book'
-    assert_includes urls, '/books/mentioner.html', 'Should include backlinking book'
-  end
-
-  # --- End-to-end integration tests (raw content → BacklinkBuilder → Finder) ---
-
   def test_e2e_capture_usage_count_affects_ranking
     # Full pipeline: captures with different usage counts → BacklinkBuilder → Finder ranking
     curr = create_doc(

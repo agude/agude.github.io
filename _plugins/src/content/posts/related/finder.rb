@@ -2,6 +2,7 @@
 
 require_relative '../../../infrastructure/plugin_logger_utils'
 require_relative '../../../infrastructure/page_url'
+require_relative '../../related_candidates'
 
 module Jekyll
   module Posts
@@ -17,8 +18,7 @@ module Jekyll
           @site = site
           @page = page
           @max_posts = max_posts || @site&.config&.dig('display_limits', 'related_posts') || DEFAULT_MAX_POSTS
-          # Jekyll's own clock for "future" content; see Books::Related::Finder.
-          @now_unix = @site ? @site.time.to_i : Time.now.to_i
+          @now_unix = @site.time.to_i if @site
           @found_by_category = false
         end
 
@@ -99,7 +99,7 @@ module Jekyll
         end
 
         def gather_posts
-          @current_url = page_url
+          @excluded_urls = [page_url]
           @all_posts = filter_and_sort_posts(@site.posts.docs)
 
           # Waterfall priority: category matches > config posts > recent posts
@@ -108,22 +108,14 @@ module Jekyll
           candidates.concat(find_from_config) if candidates.length < @max_posts
           candidates.concat(@all_posts) if candidates.length < @max_posts
 
-          candidates.uniq(&:url).slice(0, @max_posts)
+          Jekyll::Content::RelatedCandidates.limit(candidates, @max_posts)
         end
 
         def filter_and_sort_posts(posts)
-          posts.select { |p| valid_post?(p) }
-               .sort_by(&:date)
-               .reverse
-        end
-
-        def valid_post?(post)
-          return false unless post.respond_to?(:data) && post.respond_to?(:url) && post.respond_to?(:date)
-          return false if post.data['published'] == false
-          return false if post.url == @current_url
-          return false unless post.date
-
-          post.date.to_time.to_i <= @now_unix
+          eligible = Jekyll::Content::RelatedCandidates.select(posts, @excluded_urls, @now_unix) do |post|
+            post.respond_to?(:data) && post.respond_to?(:url) && post.respond_to?(:date)
+          end
+          eligible.sort_by(&:date).reverse
         end
 
         def find_by_category
