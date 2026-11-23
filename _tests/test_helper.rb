@@ -142,7 +142,6 @@ require 'src/content/books/tags/display_ranked_books_tag'
 require 'src/content/books/tags/display_ranked_by_backlinks_tag'
 require 'src/content/books/tags/display_unreviewed_mentions_tag'
 require 'src/content/posts/tags/front_page_feed_tag'
-require 'src/infrastructure/log_failure_tag'
 require 'src/ui/tags/rating_stars_tag'
 require 'src/ui/tags/resume_experience_tag'
 require 'src/ui/tags/resume_skills_tag'
@@ -154,7 +153,6 @@ require 'src/content/books/tags/related_books_tag'
 require 'src/content/posts/tags/related_posts_tag'
 require 'src/content/posts/tags/render_article_card_tag'
 require 'src/content/books/tags/render_book_awards_tag'
-require 'src/content/books/tags/render_book_card_tag'
 require 'src/content/series/tags/series_link_tag'
 require 'src/content/series/tags/series_text_tag'
 require 'src/content/short_stories/tags/short_story_link_tag'
@@ -531,7 +529,6 @@ def test_plugin_logging_config
     'RELATED_POSTS' => false,
     'RENDER_ARTICLE_CARD_TAG' => false,
     'RENDER_AUTHOR_LINK' => false,
-    'RENDER_BOOK_CARD_TAG' => false,
     'RENDER_BOOK_LINK' => false,
     'RENDER_SERIES_LINK' => false,
     'RENDER_SHORT_STORY_LINK' => false,

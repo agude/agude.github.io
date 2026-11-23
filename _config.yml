@@ -47,7 +47,6 @@ plugin_logging:
     RELATED_POSTS: true
     RENDER_ARTICLE_CARD_TAG: true
     RENDER_AUTHOR_LINK: true
-    RENDER_BOOK_CARD_TAG: true
     RENDER_BOOK_LINK: true
     RENDER_SERIES_LINK: true
     RENDER_SHORT_STORY_LINK: true

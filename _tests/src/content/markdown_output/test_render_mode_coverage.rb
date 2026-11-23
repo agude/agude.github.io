@@ -16,7 +16,6 @@ class TestRenderModeCoverage < Minitest::Test
       'content/books/tags/display_previous_reviews_tag.rb',
       'content/books/tags/related_books_tag.rb',
       'content/posts/tags/related_posts_tag.rb',
-      'content/books/tags/render_book_card_tag.rb',
 
       # --- Layout header tags: assembler builds author/series links directly
       # using the link cache, bypassing these tags. ---
@@ -25,9 +24,6 @@ class TestRenderModeCoverage < Minitest::Test
       # --- Admin/statistics pages: not reader-facing content. ---
       'content/books/tags/display_ranked_by_backlinks_tag.rb',
       'content/books/tags/display_unreviewed_mentions_tag.rb',
-
-      # --- Infrastructure: not content output. ---
-      'infrastructure/log_failure_tag.rb',
 
       # --- llms.txt index: only used in llms.txt (plain text), never
       # rendered through the markdown pipeline. ---
