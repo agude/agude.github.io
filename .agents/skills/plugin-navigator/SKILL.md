@@ -90,9 +90,12 @@ cross-cutting test filenames intentionally allowlisted by the script:
 - `test_json_ld_rendered_site.rb` (SEO output built with a fixture site)
 - `test_dark_mode_contrast.rb` (color contrast defined in
   `_sass/_variables.scss`)
-- `test_skill_docs_paths.rb` and `test_skill_docs_yard_objects.rb` (paths and
-  YARD objects referenced by skill documentation)
+- `test_skill_docs_paths.rb`, `test_skill_docs_yard_objects.rb`, and
+  `test_skill_docs_references.rb` (paths, YARD objects, and reference files
+  of skill documentation)
 - `test_warning_filter.rb` (warning filtering in `_tests/test_helper.rb`)
+- `test_build_failures.rb` and `test_rendered_site.rb` (build contract tests
+  in `_tests/src/contract/`, built with fixture sites)
 
 When adding a cross-cutting test, add its filename to `ALLOWED_ORPHANS` in
 `orphan-tests` and to this list.

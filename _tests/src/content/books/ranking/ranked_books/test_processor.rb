@@ -84,6 +84,18 @@ class TestRankedBooksProcessor < Minitest::Test
     assert_includes error.message, "Collection 'books' not found"
   end
 
+  def test_wraps_unexpected_processing_error
+    site = create_site({}, { 'books' => [@book_5star] })
+    context = create_context({}, { site: site, page: @book_5star })
+    processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(context, 'my_list')
+    lookup = ->(_name) { raise ArgumentError, 'lookup failed' }
+
+    context.stub(:[], lookup) do
+      error = assert_raises(Jekyll::Errors::FatalException) { processor.process }
+      assert_equal "Ranked books: Error processing 'my_list': lookup failed", error.message
+    end
+  end
+
   def test_skips_unpublished_books
     unpublished = create_doc(
       { 'title' => 'Unpublished', 'published' => false, 'rating' => 5 },

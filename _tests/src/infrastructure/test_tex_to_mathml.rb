@@ -84,6 +84,33 @@ class TestTexToMathml < Minitest::Test
     end
   end
 
+  def test_rejects_a_sequence_that_leaves_input_unconsumed
+    parser = Tex.const_get(:Parser).new('x')
+
+    parser.stub(:sequence, '') do
+      error = assert_raises(Tex::Error) { parser.parse }
+      assert_equal "unexpected 'x'", error.message
+    end
+  end
+
+  def test_duplicate_subscript_raises
+    error = assert_raises(Tex::Error) { mathml('x_i_j') }
+
+    assert_equal "double '_'", error.message
+  end
+
+  def test_textrm_requires_a_braced_argument
+    error = assert_raises(Tex::Error) { mathml('\\textrm x') }
+
+    assert_equal '\\textrm needs {text}', error.message
+  end
+
+  def test_textrm_requires_a_closing_brace
+    error = assert_raises(Tex::Error) { mathml('\\textrm{x') }
+
+    assert_equal "unclosed '{'", error.message
+  end
+
   def test_engine_stops_the_build_with_the_expression
     element = Kramdown::Element.new(:math, '\\int x', nil, category: :span, location: 12)
     error = assert_raises(Jekyll::Errors::FatalException) { Tex::KramdownEngine.call(nil, element, {}) }

@@ -104,6 +104,12 @@ class TestRatingUtils < Minitest::Test
     assert_match(/expected an integer from 1 to 5/, err_neg_str.message)
   end
 
+  def test_rating_validator_rejects_nil
+    error = assert_raises(ArgumentError) { Jekyll::UI::Ratings::RatingUtils._validate_and_convert_rating(nil) }
+
+    assert_equal 'Invalid rating input: nil.', error.message
+  end
+
   def test_render_rating_stars_nil_input_returns_empty
     assert_equal '', Jekyll::UI::Ratings::RatingUtils.render_rating_stars(nil), 'Nil input should return empty string'
   end

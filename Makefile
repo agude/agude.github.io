@@ -310,7 +310,12 @@ test-mutations-scripts:
 		uv run mutmut results --all true | uv run python ci/check_mutation_dispositions.py \
 			--meta mutants/atproto/publish.py.meta --dispositions tests/mutation_dispositions.yml
 
+.PHONY: raise-sites
+raise-sites: image-build
+	@$(DOCKER_RUN) bundle exec ruby _tests/support/raise_sites.rb
+
 # Run tests and generate a code coverage report.
+test-cov: DOCKER_RUN_OPTS += $(if $(RAISE_EVENTS_FILE),-e RAISE_EVENTS_FILE="$(RAISE_EVENTS_FILE)")
 test-cov: image-build clean-coverage
 	@echo "Running tests and generating coverage report..."
 	@# The test command is the same as 'test', but SimpleCov (enabled in test_helper)

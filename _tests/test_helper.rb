@@ -76,6 +76,26 @@ SimpleCov.configure do
 end
 SimpleCov.start unless ENV['MUTATION_TEST_TARGET']
 
+if (raise_events_file = ENV.fetch('RAISE_EVENTS_FILE', nil))
+  require 'fileutils'
+
+  plugin_root = "#{File.expand_path('../_plugins', __dir__)}/"
+  raise_events = {}
+  trace = TracePoint.new(:raise) do |event|
+    path = File.expand_path(event.path)
+    next unless path.start_with?(plugin_root)
+
+    relative_path = path.delete_prefix(plugin_root)
+    raise_events["_plugins/#{relative_path}:#{event.lineno}"] = true
+  end
+  trace.enable
+  at_exit do
+    trace.disable
+    FileUtils.mkdir_p(File.dirname(raise_events_file))
+    File.open(raise_events_file, 'w') { |file| file.puts(raise_events.keys.sort) }
+  end
+end
+
 if ENV['MUTATION_TEST_TARGET']
   require 'minitest'
 else

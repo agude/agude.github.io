@@ -18,7 +18,10 @@ ALLOWED_ORPHANS=(
     "test_dark_mode_contrast.rb"
     "test_skill_docs_paths.rb"
     "test_skill_docs_yard_objects.rb"
+    "test_skill_docs_references.rb"
     "test_warning_filter.rb"
+    "test_build_failures.rb"
+    "test_rendered_site.rb"
 )
 
 is_allowed_orphan() {

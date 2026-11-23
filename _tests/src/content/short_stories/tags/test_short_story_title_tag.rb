@@ -34,6 +34,16 @@ class TestShortStoryTitleTag < Minitest::Test
     assert_match "Unknown argument 'bad_arg'", err.message
   end
 
+  def test_rejects_a_missing_title_after_argument_parsing
+    tag = Jekyll::ShortStories::Tags::ShortStoryTitleTag.allocate
+    parse_context = Liquid::ParseContext.new
+
+    tag.stub(:parse_title, nil) do
+      error = assert_raises(Liquid::SyntaxError) { tag.send(:initialize, 'short_story_title', '', parse_context) }
+      assert_includes error.message, 'Title value is missing or empty'
+    end
+  end
+
   # --- Orchestration Tests ---
 
   def test_calls_util_with_correct_title_from_literal
