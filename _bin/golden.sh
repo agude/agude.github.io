@@ -48,4 +48,4 @@ render() (
 
 render "$base" "$scratch/before"
 render "$root" "$scratch/after"
-python3 "$root/_bin/golden_diff.py" "$scratch/before/site" "$scratch/after/site"
+python3 "$root/_scripts/diagnostics/golden_diff.py" "$scratch/before/site" "$scratch/after/site"

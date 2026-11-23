@@ -5,7 +5,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-SCRIPT = Path(__file__).resolve().parents[2] / "_bin/golden_diff.py"
+SCRIPT = Path(__file__).resolve().parents[2] / "_scripts/diagnostics/golden_diff.py"
 
 
 def test_complete_tree_diff(tmp_path):

@@ -27,7 +27,7 @@ def matches(before: Path, after: Path, kind: str) -> bool:
         return True
     if kind == "link":
         # Path.readlink() discards spelling differences such as a leading "./".
-        return os.readlink(before) == os.readlink(after)
+        return os.readlink(before) == os.readlink(after)  # noqa: PTH115
     return filecmp.cmp(before, after, shallow=False)
 
 
@@ -39,8 +39,7 @@ def compare(before: Path, after: Path) -> bool:
     changed = {
         path
         for path in base.keys() & candidate.keys()
-        if base[path] != candidate[path]
-        or not matches(before / path, after / path, base[path])
+        if base[path] != candidate[path] or not matches(before / path, after / path, base[path])
     }
 
     for kind, paths in (("missing", missing), ("extra", extra), ("changed", changed)):
