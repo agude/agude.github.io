@@ -20,14 +20,12 @@ module Jekyll
 
           def process
             ranked_list = resolve_list
-            return { rating_groups: [], log_messages: '' } if ranked_list.empty?
+            return [] if ranked_list.empty?
 
             book_map = build_book_map
             validator = Validator.new(@list_variable_markup)
 
-            rating_groups = process_list(ranked_list, book_map, validator)
-
-            { rating_groups: rating_groups, log_messages: '' }
+            group_by_rating(ranked_list, book_map, validator)
           rescue Jekyll::Errors::FatalException
             raise
           rescue StandardError => e
@@ -73,27 +71,13 @@ module Jekyll
             map[normalized] = book
           end
 
-          def process_list(ranked_list, book_map, validator)
-            groups = []
-            current_rating = nil
-            current_books = []
-
-            ranked_list.each_with_index do |title_raw, index|
-              book = find_book(title_raw, book_map)
-
-              rating = validator.validate(title_raw, index, book)
-
-              if rating != current_rating
-                groups << { rating: current_rating, books: current_books } if current_rating && current_books.any?
-                current_rating = rating
-                current_books = []
-              end
-
-              current_books << book
+          def group_by_rating(ranked_list, book_map, validator)
+            groups = ranked_list.each_with_index.with_object({}) do |(title, index), by_rating|
+              book = find_book(title, book_map)
+              rating = validator.validate(title, index, book)
+              (by_rating[rating] ||= []) << book
             end
-
-            groups << { rating: current_rating, books: current_books } if current_rating && current_books.any?
-            groups
+            groups.map { |rating, books| { rating: rating, books: books } }
           end
 
           def find_book(title_raw, book_map)

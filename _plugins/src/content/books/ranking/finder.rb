@@ -5,62 +5,78 @@ require_relative '../../../infrastructure/plugin_logger_utils'
 module Jekyll
   module Books
     module Ranking
-      module RankedByBacklinks
-        # Finds and ranks books by their backlink count.
-        #
-        # Returns a hash with:
-        #   - logs: Error/warning messages (empty string if none)
-        #   - ranked_list: Array of hashes with { title:, url:, count: } sorted by count descending
-        class Finder
-          def initialize(context)
-            @context = context
-            @site = context.registers[:site]
+      # Ranks reviewed and unreviewed works using the site's recorded mentions.
+      class Finder
+        def initialize(context)
+          @context = context
+          @site = context.registers[:site]
+        end
+
+        def by_backlinks
+          cache = @site&.data&.[]('link_cache')
+          if cache && cache['backlinks'] && cache['books']
+            items = backlink_items(cache['backlinks'], books_by_url(cache['books']))
+            return { logs: '', ranked_list: rank_by_count(items) }
           end
 
-          def find
-            log_message = check_prerequisites
-            return { logs: log_message, ranked_list: [] } if log_message
+          logs = log_missing_data(
+            'RANKED_BY_BACKLINKS', 'Prerequisites missing: link_cache, backlinks, or books cache.',
+          )
+          { logs: logs, ranked_list: [] }
+        end
 
-            url_to_book_map = build_url_to_book_map(@site.data['link_cache']['books'])
-            ranked_list = build_ranked_list(@site.data['link_cache']['backlinks'], url_to_book_map)
-
-            { logs: '', ranked_list: ranked_list }
+        def unreviewed_mentions
+          data = @site&.data
+          if data && data['mention_tracker'] && data.dig('link_cache', 'books')
+            items = unreviewed_items(data['mention_tracker'], data['link_cache']['books'])
+            return { logs: '', mentions: rank_by_count(items) }
           end
 
-          private
+          logs = log_missing_data(
+            'UNREVIEWED_MENTIONS', "Prerequisites missing: mention_tracker or link_cache['books'] not found.",
+          )
+          { logs: logs, mentions: [] }
+        end
 
-          def check_prerequisites
-            return nil if @site&.data&.dig('link_cache', 'backlinks') && @site.data.dig('link_cache', 'books')
+        private
 
-            Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
-              context: @context,
-              tag_type: 'RANKED_BY_BACKLINKS',
-              reason: 'Prerequisites missing: link_cache, backlinks, or books cache.',
-              level: :error,
-            )
+        def log_missing_data(tag_type, reason)
+          Jekyll::Infrastructure::PluginLoggerUtils.log_liquid_failure(
+            context: @context, tag_type: tag_type, reason: reason, level: :error,
+          )
+        end
+
+        def books_by_url(books_cache)
+          books_cache.values.flatten.each_with_object({}) do |book, by_url|
+            by_url[book['url']] ||= book
           end
+        end
 
-          def build_url_to_book_map(books_cache)
-            url_to_book_map = {}
-            books_cache.values.flatten.each do |book_data|
-              url_to_book_map[book_data['url']] ||= book_data
-            end
-            url_to_book_map
+        # @gotcha Counts cached sources per review URL. The review page's
+        #   backlinks merge book families and series links before display.
+        def backlink_items(backlinks, books)
+          backlinks.filter_map do |url, sources|
+            book = books[url]
+            next unless book
+
+            { title: book['title'], url: url, count: sources.length }
           end
+        end
 
-          def build_ranked_list(backlinks_cache, url_to_book_map)
-            items = backlinks_cache.map do |url, sources|
-              book_data = url_to_book_map[url]
-              next unless book_data
+        def unreviewed_items(tracker, books)
+          tracker.filter_map do |normalized_title, data|
+            next if books.key?(normalized_title)
 
-              {
-                title: book_data['title'],
-                url: url,
-                count: sources.length,
-              }
-            end
-            items.compact.sort_by { |item| -item[:count] }
+            { title: find_display_title(data, normalized_title), count: data[:sources].size }
           end
+        end
+
+        def find_display_title(data, normalized_title)
+          data[:original_titles].max_by { |_, count| count }&.first || normalized_title
+        end
+
+        def rank_by_count(items)
+          items.sort_by { |item| -item[:count] }
         end
       end
     end

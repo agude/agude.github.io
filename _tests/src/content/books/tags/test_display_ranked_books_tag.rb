@@ -1,158 +1,24 @@
 # frozen_string_literal: true
 
 require_relative '../../../../test_helper'
-require_relative '../../../../../_plugins/src/content/books/tags/display_ranked_books_tag'
 
-# Tests for Jekyll::Books::Tags::DisplayRankedBooksTag Liquid tag and its components.
-#
-# This test suite is organized into four sections:
-# 1. Validator tests - Test validation logic directly
-# 2. Processor tests - Test data processing logic directly
-# 3. Renderer tests - Test HTML generation directly
-# 4. Tag integration tests - Test the tag orchestration
+# Exercises ranked-book validation and both formats through Liquid.
 class TestDisplayRankedBooksTag < Minitest::Test
   def setup
-    @site_dev = create_site({ 'environment' => 'development', 'url' => 'http://example.com' })
-    @site_prod = create_site({ 'environment' => 'production', 'url' => 'http://example.com' })
+    books = [
+      create_doc({ 'title' => 'Book A (5 Stars)', 'rating' => 5 }, '/b5a.html'),
+      create_doc({ 'title' => 'Book B (5 Stars)', 'rating' => '5' }, '/b5b.html'),
+      create_doc({ 'title' => 'Book C (4 Stars)', 'rating' => 4 }, '/b4a.html'),
+      create_doc({ 'title' => 'Book D (1 Star)', 'rating' => 1 }, '/b1a.html'),
+    ]
+    titles = books.map { |book| book.data['title'] }
+    books << create_doc({ 'title' => 'Book Invalid Rating', 'rating' => 'five_stars' }, '/bir.html')
 
-    setup_book_documents
-    setup_ranked_lists
-
-    # Initial page data for context
-    # Using .dup for lists to prevent modification across tests if context is reused (though we re-assign directly)
-    @page_data_dev = { 'ranked_list' => @valid_ranked_list.dup, 'path' => 'test_page.md' }
-    @page_data_prod = { 'ranked_list' => @valid_ranked_list.dup, 'path' => 'test_page.md' }
-
-    @context_dev = create_context(
-      { 'page' => @page_data_dev },
-      # Ensure page in registers also has data and a URL for any internal Jekyll processes
-      { site: @site_dev, page: create_doc(@page_data_dev.merge({ 'url' => '/test_page.html' }), '/test_page.html') },
-    )
-    @context_prod = create_context(
-      { 'page' => @page_data_prod },
-      { site: @site_prod, page: create_doc(@page_data_prod.merge({ 'url' => '/test_page.html' }), '/test_page.html') },
-    )
-
-    @mock_card_html_generic = "<div class='mock-book-card'>Rendered Book Card</div>\n"
-    @mock_stars_html_generic = '<span>Mock Stars</span>'
-
-    # General silent logger for tests NOT focused on Jekyll.logger output
-    @silent_logger_stub = silent_logger
-  end
-
-  # Helper to set up book documents
-  def setup_book_documents
-    @book5a = create_doc({ 'title' => 'Book A (5 Stars)', 'rating' => 5, 'published' => true }, '/b5a.html')
-    @book5b = create_doc({ 'title' => 'Book B (5 Stars)', 'rating' => '5', 'published' => true }, '/b5b.html') # Rating as string
-    @book4a = create_doc({ 'title' => 'Book C (4 Stars)', 'rating' => 4, 'published' => true }, '/b4a.html')
-    @book1a = create_doc({ 'title' => 'Book D (1 Star)', 'rating' => 1, 'published' => true }, '/b1a.html') # For singular test
-    @book_invalid_rating = create_doc(
-      { 'title' => 'Book Invalid Rating', 'rating' => 'five_stars', 'published' => true }, '/bir.html',
-    )
-    @book_unlisted = create_doc({ 'title' => 'Book Unlisted In Map', 'rating' => 3, 'published' => true }, '/bul.html') # Not in ranked_list
-
-    @all_books_for_map = [@book5a, @book5b, @book4a, @book1a, @book_invalid_rating, @book_unlisted]
-    # Ensure collections are hashes for direct key assignment
-    @site_dev.collections = { 'books' => MockCollection.new(@all_books_for_map, 'books') }
-    @site_prod.collections = { 'books' => MockCollection.new(@all_books_for_map, 'books') }
-  end
-
-  # Helper to set up ranked lists
-  def setup_ranked_lists
-    @valid_ranked_list = ['Book A (5 Stars)', 'Book B (5 Stars)', 'Book C (4 Stars)', 'Book D (1 Star)']
-    @non_existent_title_list = ['Book A (5 Stars)', 'Non Existent Book', 'Book C (4 Stars)']
-    @invalid_rating_list = ['Book A (5 Stars)', 'Book Invalid Rating', 'Book C (4 Stars)']
-    @monotonic_violation_list = ['Book C (4 Stars)', 'Book A (5 Stars)'] # 4 then 5
-  end
-
-  def render_tag(list_variable_name, context, logger_override = @silent_logger_stub)
-    output = ''
-    Jekyll.stub :logger, logger_override do
-      output = Liquid::Template.parse("{% display_ranked_books #{list_variable_name} %}").render!(context)
-    end
-    output
-  end
-
-  # ========================================================================
-  # Validator Tests - Test validation logic directly
-  # ========================================================================
-
-  def test_validator_accepts_valid_book_in_dev_mode
-    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new('test_list')
-
-    assert_silent do
-      validator.validate('Book A (5 Stars)', 0, @book5a)
-      validator.validate('Book B (5 Stars)', 1, @book5b)
-    end
-  end
-
-  def test_validator_raises_error_for_missing_book_in_dev_mode
-    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new('test_list')
-
-    err = assert_raises Jekyll::Errors::FatalException do
-      validator.validate('Non Existent Book', 1, nil)
-    end
-    assert_match "Title 'Non Existent Book' (position 2 in 'test_list') not found", err.message
-  end
-
-  def test_validator_raises_error_for_invalid_rating_in_dev_mode
-    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new('test_list')
-
-    err = assert_raises Jekyll::Errors::FatalException do
-      validator.validate('Book Invalid Rating', 1, @book_invalid_rating)
-    end
-    assert_match "Title 'Book Invalid Rating' (position 2 in 'test_list') has invalid non-integer rating", err.message
-  end
-
-  def test_validator_raises_error_for_monotonicity_violation_in_dev_mode
-    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new('test_list')
-
-    validator.validate('Book C (4 Stars)', 0, @book4a)
-
-    err = assert_raises Jekyll::Errors::FatalException do
-      validator.validate('Book A (5 Stars)', 1, @book5a)
-    end
-    assert_match 'Monotonicity violation', err.message
-    assert_match "Title 'Book A (5 Stars)' (Rating: 5) at position 2", err.message
-  end
-
-  def test_processor_returns_correct_structure
-    processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(@context_dev, 'page.ranked_list')
-    result = processor.process
-
-    assert_kind_of Hash, result
-    assert_kind_of Array, result[:rating_groups]
-    assert_kind_of String, result[:log_messages]
-  end
-
-  def test_processor_groups_books_by_rating_correctly
-    processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(@context_dev, 'page.ranked_list')
-    result = processor.process
-
-    assert_equal 3, result[:rating_groups].length
-
-    # Check 5-star group
-    group5 = result[:rating_groups].find { |g| g[:rating] == 5 }
-    assert_equal 2, group5[:books].length
-    assert_equal(['Book A (5 Stars)', 'Book B (5 Stars)'], group5[:books].map { |b| b.data['title'] })
-
-    # Check 4-star group
-    group4 = result[:rating_groups].find { |g| g[:rating] == 4 }
-    assert_equal 1, group4[:books].length
-    assert_equal 'Book C (4 Stars)', group4[:books][0].data['title']
-
-    # Check 1-star group
-    group1 = result[:rating_groups].find { |g| g[:rating] == 1 }
-    assert_equal 1, group1[:books].length
-    assert_equal 'Book D (1 Star)', group1[:books][0].data['title']
-  end
-
-  def test_processor_returns_empty_groups_for_empty_list
-    @context_dev['page']['ranked_list'] = []
-    processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(@context_dev, 'page.ranked_list')
-    result = processor.process
-
-    assert_empty result[:rating_groups]
+    @non_existent_title_list = [titles[0], 'Non Existent Book', titles[2]]
+    @invalid_rating_list = [titles[0], 'Book Invalid Rating', titles[2]]
+    @monotonic_violation_list = [titles[2], titles[0]]
+    @context_dev = ranked_context(books, titles, environment: 'development')
+    @context_prod = ranked_context(books, titles, environment: 'production')
   end
 
   def test_processor_rejects_missing_book_in_production_mode
@@ -170,78 +36,6 @@ class TestDisplayRankedBooksTag < Minitest::Test
     error = assert_raises(Jekyll::Errors::FatalException) { processor.process }
     assert_match 'invalid non-integer rating', error.message
   end
-
-  def test_renderer_returns_empty_string_for_empty_groups
-    renderer = Jekyll::Books::Ranking::RankedBooks::Renderer.new(@context_dev, [])
-    output = renderer.render
-
-    assert_equal '', output
-  end
-
-  def test_renderer_generates_correct_html_structure
-    rating_groups = [
-      { rating: 5, books: [@book5a, @book5b] },
-      { rating: 4, books: [@book4a] },
-    ]
-
-    renderer = Jekyll::Books::Ranking::RankedBooks::Renderer.new(@context_dev, rating_groups)
-    output = nil
-
-    Jekyll::Books::Core::BookCardRenderer.stub :render, @mock_card_html_generic do
-      Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, @mock_stars_html_generic do
-        output = renderer.render
-      end
-    end
-
-    assert_match(/<nav class="alpha-jump-links">/, output)
-    assert_match(/<h2 class="book-list-headline" id="rating-5">/, output)
-    assert_match(/<h2 class="book-list-headline" id="rating-4">/, output)
-    assert_match(/<ul class="card-grid">/, output)
-    assert_equal 3, output.scan('mock-book-card').count
-  end
-
-  def test_renderer_calls_book_card_utils_for_each_book
-    rating_groups = [{ rating: 5, books: [@book5a, @book5b, @book4a] }]
-    card_render_count = 0
-
-    renderer = Jekyll::Books::Ranking::RankedBooks::Renderer.new(@context_dev, rating_groups)
-    Jekyll::Books::Core::BookCardRenderer.stub :render,
-                                               lambda { |_book_obj, _ctx|
-                                                 card_render_count += 1
-                                                 @mock_card_html_generic
-                                               } do
-      Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, @mock_stars_html_generic do
-        renderer.render
-      end
-    end
-
-    assert_equal 3, card_render_count
-  end
-
-  def test_renderer_generates_correct_navigation_links
-    rating_groups = [
-      { rating: 5, books: [@book5a] },
-      { rating: 4, books: [@book4a] },
-      { rating: 1, books: [@book1a] },
-    ]
-
-    renderer = Jekyll::Books::Ranking::RankedBooks::Renderer.new(@context_dev, rating_groups)
-    output = nil
-
-    Jekyll::Books::Core::BookCardRenderer.stub :render, @mock_card_html_generic do
-      Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars, @mock_stars_html_generic do
-        output = renderer.render
-      end
-    end
-
-    assert_match('<a href="#rating-5">5&nbsp;Stars</a>', output)
-    assert_match('<a href="#rating-4">4&nbsp;Stars</a>', output)
-    assert_match('<a href="#rating-1">1&nbsp;Star</a>', output)
-  end
-
-  # ========================================================================
-  # Tag Integration Tests - Test orchestration
-  # ========================================================================
 
   def test_syntax_error_missing_list_variable
     err = assert_raises Liquid::SyntaxError do
@@ -264,12 +58,6 @@ class TestDisplayRankedBooksTag < Minitest::Test
       render_tag('page.ranked_list', @context_dev)
     end
     assert_match "Collection 'books' not found", err.message
-  end
-
-  def test_renders_empty_if_ranked_list_is_empty
-    @context_dev['page']['ranked_list'] = []
-    output = render_tag('page.ranked_list', @context_dev)
-    assert_equal '', output.strip
   end
 
   def test_dev_mode_raises_error_for_non_existent_title_in_list
@@ -317,89 +105,52 @@ class TestDisplayRankedBooksTag < Minitest::Test
     assert_match 'invalid non-integer rating', error.message
   end
 
-  def test_processor_skips_book_with_empty_title
-    # This tests line 72 in processor.rb: `return unless title && !title.to_s.strip.empty?`
-    book_empty_title = create_doc({ 'title' => '', 'rating' => 5, 'published' => true }, '/empty.html')
-    book_whitespace_title = create_doc({ 'title' => '   ', 'rating' => 5, 'published' => true }, '/ws.html')
-    books_with_empty = [@book5a, book_empty_title, book_whitespace_title]
+  def test_renders_empty_if_ranked_list_is_empty
+    @context_dev['page']['ranked_list'] = []
 
-    site = create_site({ 'environment' => 'development' })
-    site.collections = { 'books' => MockCollection.new(books_with_empty, 'books') }
-
-    # The ranked list has the empty titles (which won't be in the book map)
-    page_data = { 'ranked_list' => ['Book A (5 Stars)'], 'path' => 'test.md' }
-    context = create_context(
-      { 'page' => page_data },
-      { site: site, page: create_doc(page_data.merge({ 'url' => '/test.html' }), '/test.html') },
-    )
-
-    processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(context, 'page.ranked_list')
-    result = processor.process
-
-    # Only Book A should be in the result (empty title books aren't in the map)
-    assert_equal 1, result[:rating_groups].length
-    assert_equal 1, result[:rating_groups][0][:books].length
-    assert_equal 'Book A (5 Stars)', result[:rating_groups][0][:books][0].data['title']
+    assert_equal '', render_tag('page.ranked_list', @context_dev)
   end
 
-  # --- Markdown mode ---
-
   def test_markdown_mode_renders_star_headings_and_book_links
-    md_context = create_context(
-      { 'page' => @page_data_dev },
-      { site: @site_dev, page: create_doc(@page_data_dev.merge({ 'url' => '/test.html' }), '/test.html'), render_mode: :markdown },
-    )
-    output = ''
-    Jekyll.stub :logger, @silent_logger_stub do
-      output = Liquid::Template.parse('{% display_ranked_books page.ranked_list %}').render!(md_context)
-    end
-    assert_match(/^## ★/, output)
-    assert_match(/^- \[_.*_\]\(.*\)/, output)
-    refute_match(/<div/, output)
-    refute_match(/<nav/, output)
+    @context_dev.registers[:render_mode] = :markdown
+    output = render_tag('page.ranked_list', @context_dev)
+
+    assert_equal ['## ★★★★★', '## ★★★★☆', '## ★☆☆☆☆'], output.lines.grep(/^## /).map(&:chomp)
+    assert_equal ['/b5a.html', '/b5b.html', '/b4a.html', '/b1a.html'], output.scan(/^- \[_.*?_\]\(([^)]+)\)/).flatten
+    refute_match(/<(?:ul|nav|div)\b/, output)
   end
 
   def test_correct_html_structure_and_grouping_for_valid_list
-    @context_dev['page']['ranked_list'] = @valid_ranked_list.dup # Ensure it's using the valid list
-    output = ''
-    Jekyll::Books::Core::BookCardRenderer.stub :render,
-                                               lambda { |book_obj, _ctx|
-                                                 "<div class='mock-book-card'>#{CGI.escapeHTML(book_obj.data['title'])}</div>\n"
-                                               } do
-      Jekyll::UI::Ratings::RatingUtils.stub :render_rating_stars,
-                                            lambda { |rating, _wrapper|
-                                              "<span>Rating #{rating} #{rating == 1 ? 'Star' : 'Stars'}</span>"
-                                            } do
-        output = render_tag('page.ranked_list', @context_dev)
-      end
+    output = render_tag('page.ranked_list', @context_dev)
+    fragment = Nokogiri::HTML.fragment(output)
+    nav = fragment.at_css('nav.alpha-jump-links')
+    expected_nav_links = '<a href="#rating-5">5&nbsp;Stars</a> &middot; ' \
+                         '<a href="#rating-4">4&nbsp;Stars</a> &middot; <a href="#rating-1">1&nbsp;Star</a>'
+    assert_includes output, expected_nav_links
+    jump_targets = nav.css('a').map { |link| link['href'] }
+    heading_ids = fragment.css('h2.book-list-headline').map { |heading| heading['id'] }
+    assert_equal %w[#rating-5 #rating-4 #rating-1], jump_targets
+    assert_equal %w[rating-5 rating-4 rating-1], heading_ids
+    assert_equal ['★★★★★', '★★★★☆', '★☆☆☆☆'], fragment.css('h2 > span.book-rating').map(&:text)
+
+    titles = fragment.css('h2 + ul.card-grid').map do |grid|
+      grid.css('li.book-card cite.book-title').map(&:text)
     end
-
-    assert_jump_links_navigation(output)
-    assert_rating_group(output, rating: 5, expected_titles: ['Book A (5 Stars)', 'Book B (5 Stars)'])
-    assert_rating_group(output, rating: 4, expected_titles: ['Book C (4 Stars)'])
-    assert_rating_group(output, rating: 1, expected_titles: ['Book D (1 Star)'])
-
-    assert_equal 4, output.scan('mock-book-card').count
+    assert_equal [['Book A (5 Stars)', 'Book B (5 Stars)'], ['Book C (4 Stars)'], ['Book D (1 Star)']], titles
   end
 
   private
 
-  # Helper to assert jump links navigation structure
-  def assert_jump_links_navigation(output)
-    assert_match(/<nav class="alpha-jump-links">/, output)
-    expected_nav_links = '<a href="#rating-5">5&nbsp;Stars</a> &middot; <a href="#rating-4">4&nbsp;Stars</a> &middot; <a href="#rating-1">1&nbsp;Star</a>'
-    assert_match expected_nav_links, output
+  def ranked_context(books, titles, environment:)
+    site = create_site({ 'environment' => environment, 'url' => 'http://example.com' })
+    site.collections = { 'books' => MockCollection.new(books, 'books') }
+    page = { 'ranked_list' => titles.dup, 'path' => 'test_page.md' }
+    create_context({ 'page' => page }, { site: site, page: create_doc(page, '/test_page.html') })
   end
 
-  # Helper to assert a rating group's structure and content
-  def assert_rating_group(output, rating:, expected_titles:)
-    star_label = rating == 1 ? 'Star' : 'Stars'
-    # Assert header
-    assert_match %r{<h2 class="book-list-headline" id="rating-#{rating}"><span>Rating #{rating} #{star_label}</span></h2>\s*<ul class="card-grid">},
-                 output
-
-    # Build regex to match all titles in the group
-    titles_pattern = expected_titles.map { |title| Regexp.escape(title) }.join('.*?')
-    assert_match %r{id="rating-#{rating}">.*?#{titles_pattern}.*?</ul>}m, output
+  def render_tag(list_variable_name, context)
+    Jekyll.stub(:logger, silent_logger) do
+      Liquid::Template.parse("{% display_ranked_books #{list_variable_name} %}").render!(context)
+    end
   end
 end

@@ -15,10 +15,6 @@ class TestRankedBooksProcessor < Minitest::Test
       { 'title' => 'Four Star Book', 'published' => true, 'rating' => 4 },
       '/books/four.html',
     )
-    @book_3star = create_doc(
-      { 'title' => 'Three Star Book', 'published' => true, 'rating' => 3 },
-      '/books/three.html',
-    )
   end
 
   def test_returns_empty_groups_for_empty_list
@@ -28,40 +24,27 @@ class TestRankedBooksProcessor < Minitest::Test
     processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(context, 'my_list')
     result = processor.process
 
-    assert_empty result[:rating_groups]
+    assert_empty result
   end
 
   def test_groups_books_by_rating
-    site = create_site({}, { 'books' => [@book_5star, @book_4star] })
+    other_five = create_doc({ 'title' => 'The Other Five', 'rating' => '5' }, '/books/another.html')
+    archived = create_doc({ 'title' => 'The Other Five', 'rating' => 3 }, '/books/older.html')
+    blank_titles = [nil, '', '   '].map { |title| create_doc({ 'title' => title }) }
+    site = create_site
+    site.collections = { 'books' => MockCollection.new([@book_4star, archived, other_five, @book_5star, *blank_titles], 'books') }
     context = create_context(
-      { 'my_list' => ['Five Star Book', 'Four Star Book'] },
+      { 'my_list' => [' the other five ', 'Five Star Book', 'Four Star Book'] },
       { site: site, page: @book_5star },
     )
 
-    processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(context, 'my_list')
-    result = processor.process
+    result = Jekyll::Books::Ranking::RankedBooks::Processor.new(context, 'my_list').process
 
-    assert_equal 2, result[:rating_groups].length
-    assert_equal 5, result[:rating_groups][0][:rating]
-    assert_equal 4, result[:rating_groups][1][:rating]
-  end
-
-  def test_combines_books_with_same_rating
-    book_5star_b = create_doc(
-      { 'title' => 'Another Five Star', 'published' => true, 'rating' => 5 },
-      '/books/five-b.html',
-    )
-    site = create_site({}, { 'books' => [@book_5star, book_5star_b] })
-    context = create_context(
-      { 'my_list' => ['Five Star Book', 'Another Five Star'] },
-      { site: site, page: @book_5star },
-    )
-
-    processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(context, 'my_list')
-    result = processor.process
-
-    assert_equal 1, result[:rating_groups].length
-    assert_equal 2, result[:rating_groups][0][:books].length
+    expected = [
+      { rating: 5, books: [other_five, @book_5star] },
+      { rating: 4, books: [@book_4star] },
+    ]
+    assert_equal expected, result
   end
 
   def test_raises_when_list_not_array

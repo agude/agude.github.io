@@ -1,36 +1,38 @@
 # frozen_string_literal: true
 
+require 'cgi'
 require_relative '../core/book_link_resolver'
 
 module Jekyll
   module Books
     module Ranking
-      module RankedByBacklinks
-        # Renders a ranked list of books as HTML.
-        #
-        # Takes an array of ranked book data and generates an ordered list
-        # with book links and mention counts.
-        class Renderer
-          def initialize(context, ranked_list)
-            @ranked_list = ranked_list
-            @resolver = Jekyll::Books::Core::BookLinkResolver.new(context)
-          end
-
-          def render
-            return '<p>No books have been mentioned yet.</p>' if @ranked_list.empty?
-
-            output = +"<ol class=\"ranked-list\">\n"
-
-            @ranked_list.each do |item|
-              book_link_html = @resolver.render_from_data(item[:title], item[:url])
-              mention_text = item[:count] == 1 ? '1 mention' : "#{item[:count]} mentions"
-              output << "  <li>#{book_link_html} <span class=\"mention-count\">(#{mention_text})</span></li>\n"
-            end
-
-            output << '</ol>'
-            output
+      # Renders the authoring tags' ordered lists with per-work mention counts.
+      module Renderer
+        def self.render_backlinks(context, items)
+          resolver = Jekyll::Books::Core::BookLinkResolver.new(context)
+          render(items, '<p>No books have been mentioned yet.</p>') do |item|
+            resolver.render_from_data(item[:title], item[:url])
           end
         end
+
+        def self.render_unreviewed_mentions(items)
+          render(items, '<p>No unreviewed works have been mentioned yet.</p>') do |item|
+            "<cite>#{CGI.escapeHTML(item[:title])}</cite>"
+          end
+        end
+
+        def self.render(items, empty_message)
+          return empty_message if items.empty?
+
+          output = +"<ol class=\"ranked-list\">\n"
+          items.each do |item|
+            count = item[:count]
+            mention_text = count == 1 ? '1 mention' : "#{count} mentions"
+            output << "  <li>#{yield(item)} <span class=\"mention-count\">(#{mention_text})</span></li>\n"
+          end
+          output << '</ol>'
+        end
+        private_class_method :render
       end
     end
   end

@@ -146,4 +146,43 @@ class TestRankedBooksValidator < Minitest::Test
     assert_equal 5, Jekyll::Books::Ranking::RankedBooks::Validator.new('list').validate('Rated', 0, rated(5))
     assert_equal 5, Jekyll::Books::Ranking::RankedBooks::Validator.new('list').validate('Rated', 0, rated('5'))
   end
+
+  def test_validator_accepts_valid_book_in_dev_mode
+    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new('test_list')
+
+    assert_silent do
+      validator.validate('Book A (5 Stars)', 0, @book_5star)
+      validator.validate('Book B (5 Stars)', 1, rated('5'))
+    end
+  end
+
+  def test_validator_raises_error_for_missing_book_in_dev_mode
+    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new('test_list')
+
+    err = assert_raises Jekyll::Errors::FatalException do
+      validator.validate('Non Existent Book', 1, nil)
+    end
+    assert_match "Title 'Non Existent Book' (position 2 in 'test_list') not found", err.message
+  end
+
+  def test_validator_raises_error_for_invalid_rating_in_dev_mode
+    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new('test_list')
+
+    err = assert_raises Jekyll::Errors::FatalException do
+      validator.validate('Book Invalid Rating', 1, rated('five_stars'))
+    end
+    assert_match "Title 'Book Invalid Rating' (position 2 in 'test_list') has invalid non-integer rating", err.message
+  end
+
+  def test_validator_raises_error_for_monotonicity_violation_in_dev_mode
+    validator = Jekyll::Books::Ranking::RankedBooks::Validator.new('test_list')
+
+    validator.validate('Book C (4 Stars)', 0, @book_4star)
+
+    err = assert_raises Jekyll::Errors::FatalException do
+      validator.validate('Book A (5 Stars)', 1, @book_5star)
+    end
+    assert_match 'Monotonicity violation', err.message
+    assert_match "Title 'Book A (5 Stars)' (Rating: 5) at position 2", err.message
+  end
 end

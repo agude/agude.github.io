@@ -2,31 +2,17 @@
 
 require 'jekyll'
 require 'liquid'
-require_relative '../../../infrastructure/plugin_logger_utils'
-require_relative '../ranking/unreviewed_mentions/finder'
-require_relative '../ranking/unreviewed_mentions/renderer'
+require_relative '../ranking/finder'
+require_relative '../ranking/renderer'
 
-# Displays a ranked list of unreviewed books mentioned in the site.
-#
-# Shows books that have been referenced but don't have review pages yet,
-# ranked by mention count.
-#
-# Usage in Liquid templates:
 module Jekyll
-  #   {% display_unreviewed_mentions %}
   module Books
     module Tags
-      # Liquid tag for displaying unreviewed books mentioned on the site.
-      # Shows books referenced without review pages, ranked by mention count.
+      # Displays unreviewed works ranked by the number of pages mentioning them.
       class DisplayUnreviewedMentionsTag < Liquid::Tag
         def render(context)
-          finder = Jekyll::Books::Ranking::UnreviewedMentions::Finder.new(context)
-          result = finder.find
-
-          renderer = Jekyll::Books::Ranking::UnreviewedMentions::Renderer.new(result[:mentions])
-          html_output = renderer.render
-
-          result[:logs] + html_output
+          result = Jekyll::Books::Ranking::Finder.new(context).unreviewed_mentions
+          result[:logs] + Jekyll::Books::Ranking::Renderer.render_unreviewed_mentions(result[:mentions])
         end
       end
     end

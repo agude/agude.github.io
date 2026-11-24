@@ -1,139 +1,115 @@
 # frozen_string_literal: true
 
 require_relative '../../../../test_helper'
-require_relative '../../../../../_plugins/src/content/books/ranking/finder'
 
-# Tests for Jekyll::Books::Ranking::RankedByBacklinks::Finder.
-#
-# Verifies that the Finder correctly processes backlinks cache and ranks books.
+# Exercises both mention rankings against the data each consumes.
 class TestRankedByBacklinksFinder < Minitest::Test
   def setup
     @site = create_site
+    @cache = @site.data['link_cache']
     @context = create_context({}, { site: @site })
-
-    # Pre-populate the link_cache for tests
-    @site.data['link_cache']['books'] = {
-      'book a' => [{ 'url' => '/a.html', 'title' => 'Book A', 'authors' => [] }],
-      'book b' => [{ 'url' => '/b.html', 'title' => 'Book B', 'authors' => [] }],
-      'book c' => [{ 'url' => '/c.html', 'title' => 'Book C', 'authors' => [] }],
-    }
-  end
-
-  def test_returns_empty_ranked_list_when_no_backlinks_exist
-    @site.data['link_cache']['backlinks'] = {}
-
-    finder = Jekyll::Books::Ranking::RankedByBacklinks::Finder.new(@context)
-    result = finder.find
-
-    assert_equal '', result[:logs]
-    assert_equal [], result[:ranked_list]
   end
 
   def test_finds_and_ranks_books_correctly_sorted
-    setup_backlink_data_for_ranking_test
+    @cache['books'] = {
+      'book a' => [{ 'url' => '/a.html', 'title' => 'Book A' }],
+      'book b' => [{ 'url' => '/b.html', 'title' => 'Book B' }],
+      'book c' => [{ 'url' => '/c.html', 'title' => 'Book C' }],
+      'duplicate' => [{ 'url' => '/a.html', 'title' => 'Duplicate' }],
+    }
+    @cache['backlinks'] = {
+      '/c.html' => [{ type: 'series' }],
+      '/unknown.html' => [{ type: 'book' }, { type: 'book' }, { type: 'book' }],
+      '/a.html' => [{ type: 'book' }],
+      '/b.html' => [{ type: 'book' }, { type: 'series' }],
+    }
 
-    finder = Jekyll::Books::Ranking::RankedByBacklinks::Finder.new(@context)
-    result = finder.find
+    expected = {
+      logs: '',
+      ranked_list: [
+        { title: 'Book B', url: '/b.html', count: 2 },
+        { title: 'Book C', url: '/c.html', count: 1 },
+        { title: 'Book A', url: '/a.html', count: 1 },
+      ],
+    }
+    assert_equal expected, find
+  end
 
-    assert_equal '', result[:logs]
-    assert_equal 3, result[:ranked_list].length
-
-    # Verify correct sorting: Book B (3), Book A (2), Book C (1)
-    assert_equal 'Book B', result[:ranked_list][0][:title]
-    assert_equal '/b.html', result[:ranked_list][0][:url]
-    assert_equal 3, result[:ranked_list][0][:count]
-
-    assert_equal 'Book A', result[:ranked_list][1][:title]
-    assert_equal '/a.html', result[:ranked_list][1][:url]
-    assert_equal 2, result[:ranked_list][1][:count]
-
-    assert_equal 'Book C', result[:ranked_list][2][:title]
-    assert_equal '/c.html', result[:ranked_list][2][:url]
-    assert_equal 1, result[:ranked_list][2][:count]
+  def test_returns_empty_ranked_list_when_no_backlinks_exist
+    assert_equal({ logs: '', ranked_list: [] }, find)
   end
 
   def test_returns_error_when_link_cache_missing
-    fresh_site = create_site
-    fresh_site.data.delete('link_cache')
-    fresh_context = create_context({}, { site: fresh_site })
-    fresh_site.config['plugin_logging']['RANKED_BY_BACKLINKS'] = true
-
-    finder = Jekyll::Books::Ranking::RankedByBacklinks::Finder.new(fresh_context)
-    result = nil
-
-    capture_io do
-      result = finder.find
-    end
-
-    refute_empty result[:logs]
-    assert_match(/RANKED_BY_BACKLINKS_FAILURE/, result[:logs])
-    assert_match(/Prerequisites missing/, result[:logs])
-    assert_equal [], result[:ranked_list]
-  end
-
-  def test_returns_error_when_backlinks_key_missing
-    @site.data['link_cache'].delete('backlinks')
     @site.config['plugin_logging']['RANKED_BY_BACKLINKS'] = true
+    missing_caches = [nil, @cache.except('backlinks'), @cache.except('books')]
+    missing_caches.each do |cache|
+      @site.data['link_cache'] = cache
 
-    finder = Jekyll::Books::Ranking::RankedByBacklinks::Finder.new(@context)
-    result = nil
+      result = Jekyll.stub(:logger, silent_logger) { find }
 
-    capture_io do
-      result = finder.find
+      assert_empty result[:ranked_list]
+      assert_includes result[:logs], 'RANKED_BY_BACKLINKS_FAILURE'
+      assert_includes result[:logs], 'Prerequisites missing: link_cache, backlinks, or books cache.'
     end
-
-    refute_empty result[:logs]
-    assert_match(/RANKED_BY_BACKLINKS_FAILURE/, result[:logs])
-    assert_equal [], result[:ranked_list]
-  end
-
-  def test_returns_error_when_books_key_missing
-    @site.data['link_cache'].delete('books')
-    @site.config['plugin_logging']['RANKED_BY_BACKLINKS'] = true
-
-    finder = Jekyll::Books::Ranking::RankedByBacklinks::Finder.new(@context)
-    result = nil
-
-    capture_io do
-      result = finder.find
-    end
-
-    refute_empty result[:logs]
-    assert_match(/RANKED_BY_BACKLINKS_FAILURE/, result[:logs])
-    assert_equal [], result[:ranked_list]
-  end
-
-  def test_excludes_books_not_in_books_cache
-    # Add a backlink for a book that doesn't exist in the books cache
-    @site.data['link_cache']['backlinks'] = {
-      '/a.html' => [{ source: create_doc, type: 'book' }],
-      '/unknown.html' => [{ source: create_doc, type: 'book' }],
-    }
-
-    finder = Jekyll::Books::Ranking::RankedByBacklinks::Finder.new(@context)
-    result = finder.find
-
-    assert_equal 1, result[:ranked_list].length
-    assert_equal 'Book A', result[:ranked_list][0][:title]
   end
 
   private
 
-  def setup_backlink_data_for_ranking_test
-    # Book B is mentioned most (3), then A (2), then C (1)
-    @site.data['link_cache']['backlinks'] = {
-      '/a.html' => [
-        { source: create_doc, type: 'book' },
-        { source: create_doc, type: 'series' },
-      ],
-      '/b.html' => [
-        { source: create_doc, type: 'book' },
-        { source: create_doc, type: 'book' },
-        { source: create_doc, type: 'direct' },
-      ],
-      '/c.html' => [
-        { source: create_doc, type: 'book' },
+  def find
+    Jekyll::Books::Ranking::Finder.new(@context).by_backlinks
+  end
+end
+
+# Exercises the mention tracker and reviewed-title filter.
+class TestUnreviewedMentionsFinder < Minitest::Test
+  def setup
+    @site = create_site
+    @site.data['link_cache']['books']['reviewed book'] = [{ 'url' => '/books/reviewed.html' }]
+    @context = create_context({}, { site: @site })
+  end
+
+  def test_ranks_by_mention_count
+    @site.data['mention_tracker'] = {
+      'few mentions' => { sources: Set['/one.html'], original_titles: { 'Few Mentions' => 2, 'Few mentions' => 2 } },
+      'many mentions' => {
+        sources: Set['/one.html', '/two.html', '/three.html'],
+        original_titles: { 'many mentions' => 1, 'Many Mentions' => 4 },
+      },
+      'reviewed book' => { sources: Set['/one.html'], original_titles: { 'Reviewed Book' => 1 } },
+      'fallback title' => { sources: Set['/one.html'], original_titles: {} },
+    }
+
+    expected = {
+      logs: '',
+      mentions: [
+        { title: 'Many Mentions', count: 3 },
+        { title: 'Few Mentions', count: 1 },
+        { title: 'fallback title', count: 1 },
       ],
     }
+    assert_equal expected, find
+  end
+
+  def test_returns_empty_when_no_mentions
+    assert_equal({ logs: '', mentions: [] }, find)
+  end
+
+  def test_find_logs_error_if_mention_tracker_is_missing
+    @site.config['plugin_logging']['UNREVIEWED_MENTIONS'] = true
+    %w[mention_tracker link_cache].each do |key|
+      data = @site.data.delete(key)
+      result = Jekyll.stub(:logger, silent_logger) { find }
+      @site.data[key] = data
+
+      assert_empty result[:mentions]
+      assert_includes result[:logs], 'UNREVIEWED_MENTIONS_FAILURE'
+      assert_includes result[:logs], 'Prerequisites missing: mention_tracker or link_cache[&#39;books&#39;] not found.'
+    end
+  end
+
+  private
+
+  def find
+    Jekyll::Books::Ranking::Finder.new(@context).unreviewed_mentions
   end
 end

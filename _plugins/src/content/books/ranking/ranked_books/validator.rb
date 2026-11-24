@@ -6,7 +6,7 @@ module Jekyll
   module Books
     module Ranking
       module RankedBooks
-        # Validates a ranked books list for correctness.
+        # @validator Validates that ranked books exist and their integer ratings never increase.
         #
         # Ensures that:
         # 1. Each title exists in the books collection

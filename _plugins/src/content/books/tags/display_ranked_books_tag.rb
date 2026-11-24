@@ -2,31 +2,10 @@
 
 require 'jekyll'
 require 'liquid'
-require 'cgi'
 
 require_relative '../ranking/ranked_books/processor'
 require_relative '../ranking/ranked_books/renderer'
-require_relative '../../../ui/cards/markdown_card_utils'
 
-# Liquid Tag to validate and render a list of books
-# grouped by rating, based on a monotonically sorted list of titles.
-# (e.g., page.ranked_list).
-#
-# Combines the logic previously in check_monotonic_rating and render_ranked_books.
-#
-# Validation:
-# 1. Each title in the ranked list exists in the site.books collection
-#    and has a valid integer rating.
-# 2. The rating associated with each title is less than or equal to the
-#    rating of the preceding title in the list.
-# Validation failures raise an error, halting the build.
-#
-# Rendering:
-# - Outputs books grouped by rating using H2 tags and book cards.
-# - Uses LiquidUtils helpers for stars and cards.
-#
-# Syntax: {% display_ranked_books list_variable %}
-# Example: {% display_ranked_books page.ranked_list %}
 module Jekyll
   module Books
     module Tags
@@ -36,47 +15,17 @@ module Jekyll
         def initialize(tag_name, markup, tokens)
           super
           @list_variable_markup = markup.strip
-          return if @list_variable_markup && !@list_variable_markup.empty?
+          return unless @list_variable_markup.empty?
 
           raise Liquid::SyntaxError,
                 "Syntax Error in 'display_ranked_books': A variable name holding the list must be provided."
         end
 
-        MdCards = Jekyll::UI::Cards::MarkdownCardUtils
-        private_constant :MdCards
-
         def render(context)
-          processor = Jekyll::Books::Ranking::RankedBooks::Processor.new(
-            context,
-            @list_variable_markup,
-          )
-          result = processor.process
+          groups = Jekyll::Books::Ranking::RankedBooks::Processor.new(context, @list_variable_markup).process
+          renderer = Jekyll::Books::Ranking::RankedBooks::Renderer.new(context, groups)
 
-          return result[:log_messages] if result[:rating_groups].empty?
-
-          if context.registers[:render_mode] == :markdown
-            render_markdown(result)
-          else
-            renderer = Jekyll::Books::Ranking::RankedBooks::Renderer.new(
-              context,
-              result[:rating_groups],
-            )
-            result[:log_messages] + renderer.render
-          end
-        end
-
-        private
-
-        def render_markdown(result)
-          lines = []
-          (result[:rating_groups] || []).each do |group|
-            stars = MdCards.format_stars(group[:rating])
-            lines << "## #{stars}"
-            group[:books].each do |book|
-              lines << MdCards.render_card_md(MdCards.book_doc_to_card_data(book), book: true)
-            end
-          end
-          lines.join("\n")
+          context.registers[:render_mode] == :markdown ? renderer.render_markdown : renderer.render
         end
       end
     end
