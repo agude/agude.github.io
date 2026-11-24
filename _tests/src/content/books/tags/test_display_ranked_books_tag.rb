@@ -105,6 +105,11 @@ class TestDisplayRankedBooksTag < Minitest::Test
     assert_match 'invalid non-integer rating', error.message
   end
 
+  def test_renderer_keeps_grid_for_rating_group_without_books
+    output = Jekyll::Books::Ranking::RankedBooks::Renderer.new(@context_dev, [{ rating: 4, books: [] }]).render
+    assert_includes output, '<ul class="card-grid">'
+  end
+
   def test_renders_empty_if_ranked_list_is_empty
     @context_dev['page']['ranked_list'] = []
 

@@ -59,7 +59,7 @@ module Jekyll
 
         def self.render_description(data)
           excerpt = data[:excerpt]
-          return '' if excerpt.to_s.strip.empty?
+          return '' unless excerpt && !excerpt.strip.empty?
 
           "#{data[:description_wrapper_html_open]}#{excerpt}#{data[:description_wrapper_html_close]}"
         end

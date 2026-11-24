@@ -31,7 +31,7 @@ module Jekyll
 
             @rating_groups.each do |group|
               output << render_group_header(group[:rating])
-              output << Jekyll::Content::CardGrid.render(group[:books]) do |book|
+              output << Jekyll::Content::CardGrid.render(group[:books], render_empty: true) do |book|
                 "#{Jekyll::Books::Core::BookCardRenderer.render(book, @context)}\n"
               end
             end

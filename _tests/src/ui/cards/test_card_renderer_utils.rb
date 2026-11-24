@@ -48,4 +48,19 @@ class TestCardRendererUtils < Minitest::Test
     output = Jekyll::UI::Cards::CardRendererUtils.render_card(card_data: card_data)
     assert_match %r{<img src="/images/pic.jpg" alt="" loading="lazy" decoding="async" />}, output # Expect empty alt attribute
   end
+
+  def test_render_card_omits_false_excerpt
+    output = Jekyll::UI::Cards::CardRendererUtils.render_card(
+      card_data: { base_class: 'card', url: '/x/', title_html: 'X', excerpt: false },
+    )
+    refute_includes output, 'false'
+  end
+
+  def test_render_card_rejects_non_string_excerpt
+    assert_raises(NoMethodError) do
+      Jekyll::UI::Cards::CardRendererUtils.render_card(
+        card_data: { base_class: 'card', url: '/x/', title_html: 'X', excerpt: ['Atlas'] },
+      )
+    end
+  end
 end
