@@ -33,6 +33,9 @@
 RUBY_IMAGE="jekyll-image-agude"
 PRETTIER_IMAGE="prettier-image-agude"
 MOUNT="/workspace"
+# Run containers as the host user so autocorrected files stay owned by the
+# user instead of root. HOME=/tmp gives that user a writable home.
+DOCKER_USER_OPTS=(--user "$(id -u):$(id -g)" -e HOME=/tmp)
 
 OVERALL_EXIT=0
 
@@ -149,6 +152,7 @@ if [ ${#STAGED_RUBY_FILES[@]} -gt 0 ]; then
   echo "---"
 
   docker run --rm \
+    "${DOCKER_USER_OPTS[@]}" \
     -v "$(pwd):$MOUNT" \
     -w "$MOUNT" \
     "$RUBY_IMAGE" \
@@ -187,6 +191,7 @@ if [ ${#STAGED_MD_FILES[@]} -gt 0 ]; then
   echo "---"
 
   docker run --rm \
+    "${DOCKER_USER_OPTS[@]}" \
     -v "$(pwd):$MOUNT" \
     -w "$MOUNT" \
     "$PRETTIER_IMAGE" \

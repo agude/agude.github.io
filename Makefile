@@ -1,5 +1,5 @@
 # Makefile
-IMAGE := jekyll-image-agude
+IMAGE ?= jekyll-image-agude
 PRETTIER_IMAGE := prettier-image-agude
 MOUNT := /workspace
 
@@ -25,6 +25,14 @@ BASE_RUBY_IMAGE := ruby:$(RUBY_VERSION)
 USER_ID := $(shell id -u)
 GROUP_ID := $(shell id -g)
 DOCKER_RUN_OPTS := --user $(USER_ID):$(GROUP_ID) -e HOME=/tmp
+
+# Host ports for `make serve` and `make serve-drafts`. Override both to run a
+# second server at once, e.g. from another worktree:
+#   make serve PORT=4001 LIVERELOAD_PORT=35730
+# The LiveReload port is passed to Jekyll too, because the injected client
+# script connects to it from the browser.
+PORT ?= 4000
+LIVERELOAD_PORT ?= 35729
 
 # Define reusable Docker run command to reduce boilerplate
 DOCKER_RUN = docker run --rm $(DOCKER_RUN_OPTS) $(COVERAGE_ENV) -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE)
@@ -171,9 +179,9 @@ serve-profile: image-build
 # This target contains the solution to the '0.0.0.0' URL issue in browsers.
 serve: image-build
 	@$(PREPARE_BUILD) serve
-	@echo "Serving site at http://localhost:4000..."
-	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) -p 4000:4000 -p 35729:35729 -e JEKYLL_ENV=docker $(IMAGE) \
-		bundle exec jekyll serve --config _config.yml,_config_docker.yml,.jekyll-cache/serve.yml --watch --incremental --livereload
+	@echo "Serving site at http://localhost:$(PORT)..."
+	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) -p $(PORT):4000 -p $(LIVERELOAD_PORT):$(LIVERELOAD_PORT) -e JEKYLL_ENV=docker $(IMAGE) \
+		bundle exec jekyll serve --config _config.yml,_config_docker.yml,.jekyll-cache/serve.yml --watch --incremental --livereload --livereload-port $(LIVERELOAD_PORT)
 #
 # WHY THIS COMMAND IS STRUCTURED THIS WAY:
 #
@@ -196,14 +204,14 @@ serve: image-build
 # Uses same logic to avoid 0.0.0.0 bug as serve
 serve-drafts: image-build
 	@$(PREPARE_BUILD) serve-drafts
-	@echo "Serving site with drafts at http://localhost:4000..."
-	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) -p 4000:4000 -p 35729:35729 -e JEKYLL_ENV=docker $(IMAGE) \
-		bundle exec jekyll serve --config _config.yml,_config_docker.yml,.jekyll-cache/serve-drafts.yml --drafts --future --watch --incremental --livereload
+	@echo "Serving site with drafts at http://localhost:$(PORT)..."
+	@docker run --rm $(DOCKER_RUN_OPTS) -v $(PWD):$(MOUNT) -w $(MOUNT) -p $(PORT):4000 -p $(LIVERELOAD_PORT):$(LIVERELOAD_PORT) -e JEKYLL_ENV=docker $(IMAGE) \
+		bundle exec jekyll serve --config _config.yml,_config_docker.yml,.jekyll-cache/serve-drafts.yml --drafts --future --watch --incremental --livereload --livereload-port $(LIVERELOAD_PORT)
 
 # Interactive session within the image. Depends on image-build existing.
 debug: image-build
 	@echo "Starting interactive debug session in container..."
-	@docker run -it $(DOCKER_RUN_OPTS) -p 4000:4000 -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) /bin/bash
+	@docker run -it $(DOCKER_RUN_OPTS) -p $(PORT):4000 -v $(PWD):$(MOUNT) -w $(MOUNT) $(IMAGE) /bin/bash
 
 # List available scripts with one-line descriptions and invocations.
 scripts:
