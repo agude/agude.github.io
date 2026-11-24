@@ -35,6 +35,20 @@ class TestDisplayRankedByBacklinksTag < Minitest::Test
     assert_equal RANKED_LIST, render_tag
   end
 
+  def test_renders_empty_message_when_no_backlinks
+    @site.config['plugin_logging']['RANKED_BY_BACKLINKS'] = true
+    @site.data['link_cache']['backlinks'] = {}
+
+    assert_equal '<p>No books have been mentioned yet.</p>', render_tag
+  end
+
+  def test_renders_empty_message_when_all_backlink_targets_are_unknown
+    @site.config['plugin_logging']['RANKED_BY_BACKLINKS'] = true
+    @site.data['link_cache']['backlinks'] = { '/books/unknown/' => [{ type: 'book' }] }
+
+    assert_equal '<p>No books have been mentioned yet.</p>', render_tag
+  end
+
   def test_prepends_error_log_when_prerequisites_missing
     @site.data.delete('link_cache')
     @site.config['plugin_logging']['RANKED_BY_BACKLINKS'] = true

@@ -81,6 +81,21 @@ class TestBookLinkResolver < Minitest::Test
     ).render
   end
 
+  def test_render_rejects_status_from_another_resolver
+    resolver = Jekyll::Books::Core::BookLinkResolver.new(nil)
+    data = { status: :ambiguous, url: nil, display_text: 'Example' }
+
+    error = assert_raises(Jekyll::Errors::FatalException) { resolver.send(:render_html_from_data, data) }
+
+    assert_includes error.message, 'unrecognized status :ambiguous'
+  end
+
+  def test_render_returns_nil_for_an_unknown_status
+    resolver = Jekyll::Books::Core::BookLinkResolver.new(nil)
+
+    assert_nil resolver.send(:render_html_from_data, { status: :bogus, url: nil, display_text: 'Example' })
+  end
+
   def test_renders_markdown_link
     context = create_context({}, { site: @site, page: @page, render_mode: :markdown })
     template = Liquid::Template.parse('{% book_link "Unique Book" %}')

@@ -8,6 +8,8 @@ module Jekyll
     class SeriesLinkResolver
       include Jekyll::Infrastructure::Links::LinkResolverSkeleton
 
+      LINK_STATUSES = [:empty_title].freeze
+
       CACHE_SECTION = 'series'
       TAG_TYPE = 'RENDER_SERIES_LINK'
       ENTITY_NAME = 'series'
@@ -16,6 +18,14 @@ module Jekyll
       EMPTY_INPUT_KEY = :TitleInput
       NOT_FOUND_KEY = :Series
       SPAN_CLASS = 'book-series'
+
+      def resolve(title_raw, override_raw, link: true)
+        super
+      end
+
+      def resolve_data(title_raw, override_raw, link: true)
+        resolve_link_data(title_raw, override_raw, link: link)
+      end
     end
   end
 end

@@ -8,6 +8,8 @@ module Jekyll
     class AuthorLinkResolver
       include Jekyll::Infrastructure::Links::LinkResolverSkeleton
 
+      LINK_STATUSES = [:empty_name].freeze
+
       CACHE_SECTION = 'authors'
       TAG_TYPE = 'RENDER_AUTHOR_LINK'
       ENTITY_NAME = 'author'
@@ -18,7 +20,7 @@ module Jekyll
       SPAN_CLASS = 'author-name'
 
       def resolve_data(name_raw, override, possessive, link: true)
-        super(name_raw, override, link: link, possessive: possessive ? true : false)
+        resolve_link_data(name_raw, override, link: link, possessive: possessive ? true : false)
       end
 
       private

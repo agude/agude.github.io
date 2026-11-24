@@ -16,9 +16,10 @@ module Jekyll
     #   Markdown links after inner tags; title `<cite>` elements and supported
     #   emphasis become Markdown syntax, and thematic rules receive blank-line
     #   boundaries.
-    # @gotcha Convert emphasis only when delimiter and word boundaries preserve
-    #   its rendered meaning. Nested, whitespace-padded, or delimiter-edge
-    #   cases stay HTML. Disclosure blocks are flattened inside-out, preserving
+    # @gotcha Emphasis conversion skips inner tags nested within the same tag
+    #   name. Mixed tags can remain partly HTML. Empty content, whitespace
+    #   at either end, blank lines, delimiter characters, and adjacent word
+    #   characters also prevent conversion. Disclosure blocks flatten inside-out, preserving
     #   summary/body order and protecting code fences. ChatGPT edit blocks
     #   retain Prompt and Output labels and quote their content as Markdown
     #   continuation lines; recognized presentation wrappers are removed

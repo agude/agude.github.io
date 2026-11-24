@@ -16,6 +16,8 @@ module Jekyll
     class ShortStoryResolver
       include Jekyll::Infrastructure::Links::LinkResolverSupport
 
+      LINK_STATUSES = %i[empty_title ambiguous].freeze
+
       Typography = Jekyll::Infrastructure::TypographyUtils
       PreviewRenderer = Jekyll::Books::Core::BookPreviewRenderer
       LocationSelector = Jekyll::Infrastructure::LinkCache::ShortStoryLocationSelector

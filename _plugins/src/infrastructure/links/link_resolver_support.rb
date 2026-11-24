@@ -38,13 +38,26 @@ module Jekyll
         # Both rendered links and backlink targets select from current reviews.
         # @gotcha A review that sets canonical_url is an archive.
         def self.canonical_book_candidates(entries)
-          (entries || []).reject { |book| book['canonical_url'] }
+          entries&.reject { |book| book['canonical_url'] }
         end
+
+        COMMON_STATUSES = %i[no_site found not_found].freeze
+        SPECIAL_STATUSES = %i[empty_name empty_title ambiguous].freeze
+        private_constant :COMMON_STATUSES, :SPECIAL_STATUSES
 
         private
 
-        def render_html_from_data(data)
-          case data[:status]
+        def render_html_from_data(data, strict: false)
+          status = data[:status]
+          allowed = COMMON_STATUSES.include?(status) || self.class::LINK_STATUSES.include?(status)
+          unless allowed
+            return nil unless strict || SPECIAL_STATUSES.include?(status)
+
+            raise Jekyll::Errors::FatalException,
+                  "#{self.class.name}#render_html_from_data: unrecognized status #{status.inspect}"
+          end
+
+          case status
           when :no_site
             no_site_html(data)
           when :empty_name, :empty_title
@@ -52,9 +65,6 @@ module Jekyll
           when :found, :not_found, :ambiguous
             content, preview = link_content(data)
             @log_output.to_s + wrap_with_link(content, data[:url], preview)
-          else
-            raise Jekyll::Errors::FatalException,
-                  "#{self.class.name}#render_html_from_data: unrecognized status #{data[:status].inspect}"
           end
         end
 

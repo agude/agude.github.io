@@ -38,10 +38,9 @@ module Jekyll
     # With no `image_derivatives` key nothing is generated, and
     # ImageDimensionsInjector adds no `srcset`.
     #
-    # Outputs for `books/covers/dune.jpg` are `books/covers/derived/dune-300.webp`
-    # and `dune-600.webp`. A width at or above the original's is skipped;
-    # the original then joins the `srcset` at its own width, so a 2x screen
-    # never gets an upscaled or too-small copy.
+    # For `books/covers/dune.jpg`, a 300 px derivative is cached at
+    # `.jekyll-cache/image-derivatives/books/covers/derived/dune-300.webp`
+    # and published as `books/covers/derived/dune-300.webp`.
     #
     # Encoding is the slow part (about 30 s for 400 outputs on 4 cores), so
     # outputs are cached under `.jekyll-cache/image-derivatives/`. A manifest
@@ -53,12 +52,13 @@ module Jekyll
     # otherwise `convert` (version 6, as on Ubuntu runners).
     #
     # @pipeline Read configured image sets, validate their sources and widths,
-    #   create smaller WebP files under each source directory's `derived/`
-    #   folder, then publish the `srcset` and `sizes` table for
-    #   ImageDimensionsInjector. Original images remain the fallback source.
-    # @gotcha A width at or above the source width is not encoded; the original
-    #   is added at its intrinsic width instead. Distinct source files that
-    #   would produce the same derived filename stop the build.
+    #   encode smaller WebP files in the cache and publish them under
+    #   `derived/` beside the original's public path. Build the `srcset`
+    #   and `sizes` table for ImageDimensionsInjector.
+    # @gotcha A `srcset` requires at least one smaller derivative. If a configured
+    #   width is at or above the source width, add the original to that `srcset`
+    #   at its intrinsic width. Distinct source files that would produce the
+    #   same derived filename stop the build.
     # @validator A configured `source_dir` that is missing or holds a file
     #   that is not a JPEG or PNG; a `front_matter` collection that does not
     #   exist, or a document `image` that is remote, missing, or not a JPEG,

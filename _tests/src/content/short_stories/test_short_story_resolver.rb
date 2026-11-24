@@ -20,6 +20,21 @@ class TestShortStoryResolver < Minitest::Test
     end
   end
 
+  def test_render_rejects_status_from_another_resolver
+    resolver = Jekyll::ShortStories::ShortStoryResolver.new(nil)
+    data = { status: :empty_name, url: nil, display_text: 'Example' }
+
+    error = assert_raises(Jekyll::Errors::FatalException) { resolver.send(:render_html_from_data, data) }
+
+    assert_includes error.message, 'unrecognized status :empty_name'
+  end
+
+  def test_render_returns_nil_for_an_unknown_status
+    resolver = Jekyll::ShortStories::ShortStoryResolver.new(nil)
+
+    assert_nil resolver.send(:render_html_from_data, { status: :bogus, url: nil, display_text: 'Example' })
+  end
+
   def test_renders_markdown_link
     context = create_context({}, { site: @site, page: @current_page, render_mode: :markdown })
     template = Liquid::Template.parse('{% short_story_link "Unique Story" %}')

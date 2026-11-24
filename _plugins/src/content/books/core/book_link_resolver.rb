@@ -13,6 +13,8 @@ module Jekyll
       class BookLinkResolver
         include Jekyll::Infrastructure::Links::LinkResolverSupport
 
+        LINK_STATUSES = [:empty_title].freeze
+
         Typography = Jekyll::Infrastructure::TypographyUtils
         BookSelector = Jekyll::Infrastructure::LinkCache::BookCandidateSelector
         ResolverSupport = Jekyll::Infrastructure::Links::LinkResolverSupport
@@ -38,7 +40,8 @@ module Jekyll
           return empty_title_result if @norm_title.empty?
 
           override = text_override.to_s.strip if text_override && !text_override.to_s.empty?
-          candidates = ResolverSupport.canonical_book_candidates(find_in_cache('books', @norm_title))
+          entries = find_in_cache('books', @norm_title) || []
+          candidates = ResolverSupport.canonical_book_candidates(entries)
           result = candidates.empty? ? log_not_found : filter_candidates(candidates, author_filter)
           if result.is_a?(String)
             @log_output = result

@@ -11,7 +11,9 @@ module Jekyll
       module LinkResolverSkeleton
         include LinkResolverSupport
 
-        def resolve_data(input_raw, override_raw, link: true, **extra_fields)
+        private
+
+        def resolve_link_data(input_raw, override_raw, link:, **extra_fields)
           @log_output = ''
           input = input_raw.to_s
           empty_fields = { url: nil, display_text: nil, **extra_fields.transform_values { nil } }
@@ -33,7 +35,9 @@ module Jekyll
           }.freeze
         end
 
-        private
+        def render_html_from_data(data)
+          super(data, strict: true)
+        end
 
         def log_empty_input(input_raw)
           @log_output = log_failure(

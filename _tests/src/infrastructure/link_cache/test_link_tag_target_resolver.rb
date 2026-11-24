@@ -34,6 +34,16 @@ class TestLinkTagTargetResolver < Minitest::Test
     assert_equal [{ url: '/books/dune/', type: 'book' }], targets("{% book_link 'Dune' %}")
   end
 
+  def test_missing_book_title_has_no_target
+    assert_nil targets('{% book_link "Missing" %}')
+  end
+
+  def test_false_book_entry_raises
+    @link_cache['books']['dune'] = false
+
+    assert_raises(NoMethodError) { targets('{% book_link "Dune" %}') }
+  end
+
   def test_variable_subject_has_no_target
     assert_nil targets('{% book_link some_title link_text="Dune" %}')
   end

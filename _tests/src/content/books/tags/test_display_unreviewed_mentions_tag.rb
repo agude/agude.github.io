@@ -30,6 +30,23 @@ class TestDisplayUnreviewedMentionsTag < Minitest::Test
     assert_equal RANKED_LIST, render_tag
   end
 
+  def test_renders_empty_message_when_tracker_is_empty
+    @site.config['plugin_logging']['UNREVIEWED_MENTIONS'] = true
+    @site.data['mention_tracker'] = {}
+
+    assert_equal '<p>No unreviewed works have been mentioned yet.</p>', render_tag
+  end
+
+  def test_renders_empty_message_when_all_mentions_are_reviewed
+    @site.config['plugin_logging']['UNREVIEWED_MENTIONS'] = true
+    @site.data['link_cache']['books'] = {
+      'unreviewed book' => [{ 'url' => '/books/one/' }],
+      'book sequel' => [{ 'url' => '/books/two/' }],
+    }
+
+    assert_equal '<p>No unreviewed works have been mentioned yet.</p>', render_tag
+  end
+
   def test_tag_includes_error_logs_when_prerequisites_missing
     @site.data.delete('mention_tracker')
     @site.config['plugin_logging']['UNREVIEWED_MENTIONS'] = true

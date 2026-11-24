@@ -29,8 +29,9 @@ module Jekyll
       # @gotcha Read `link_arguments` from the actual Liquid tag node; parsing
       #   the raw markup again can mistake another quoted option (such as
       #   `link_text=`) for the subject. `link=false` is shared with the
-      #   renderer's case-insensitive false-value rule. Quote non-literal
-      #   option values; the backlink scan cannot evaluate variables.
+      #   renderer's case-insensitive false-value rule. Supply literal values
+      #   for `author=`, `from_book=`, and `link=`. Display-only options such
+      #   as `link_text=` can use variables.
       class LinkTagTargetResolver
         BookSelector = Jekyll::Infrastructure::LinkCache::BookCandidateSelector
         LocationSelector = Jekyll::Infrastructure::LinkCache::ShortStoryLocationSelector
@@ -86,7 +87,7 @@ module Jekyll
 
           entries = @link_cache['books'][Text.normalize_title(title)]
           candidates = ResolverSupport.canonical_book_candidates(entries)
-          return nil if candidates.empty?
+          return nil unless candidates&.any?
 
           target = BookSelector.select_book(candidates, author, @link_cache['authors'])
           single_target(target, 'book')

@@ -28,9 +28,9 @@ module Jekyll
       #   positions come from later prose uses of the capture variable.
       # @gotcha A capture always rebinds its variable. If its link tags have no
       #   resolvable target, later uses attach to nothing rather than to an older
-      #   capture with the same name. Liquid syntax errors and unresolved option
-      #   variables stop the build; backlink extraction must not guess at a link
-      #   that rendered output may not contain.
+      #   capture with the same name. Liquid syntax errors and variables in
+      #   target-affecting `author=`, `from_book=`, or `link=` options stop
+      #   the build. Supply the intended literal value for these options.
       # @gotcha This generator-phase scan finishes before post-render preview
       #   injection, so copied footnote preview links do not become extra edges.
       class BacklinkBuilder

@@ -15,6 +15,19 @@ class TestSeriesLinkResolver < Minitest::Test
     @resolver = Resolver.new(@context)
   end
 
+  def test_resolve_rejects_unknown_keywords
+    assert_raises(ArgumentError) { @resolver.resolve('Missing', nil, url: '/wrong/') }
+  end
+
+  def test_render_rejects_status_from_another_resolver
+    resolver = Jekyll::Series::SeriesLinkResolver.new(nil)
+    data = { status: :ambiguous, url: nil, display_text: 'Example' }
+
+    error = assert_raises(Jekyll::Errors::FatalException) { resolver.send(:render_html_from_data, data) }
+
+    assert_includes error.message, 'unrecognized status :ambiguous'
+  end
+
   def test_renders_markdown_link
     context = create_context({}, { site: @site, page: create_doc({}, '/current-page.html'), render_mode: :markdown })
     template = Liquid::Template.parse('{% series_link "My Awesome Series" %}')

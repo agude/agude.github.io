@@ -5,10 +5,9 @@ require 'jekyll'
 
 # Renders each page and document separately with strict Liquid settings.
 # This is not a full site build: it reads and generates the site, then runs a
-# Jekyll::Renderer for each document. `feed.xml`, `feed/books.xml`, and
-# `sitemap.xml` are excluded because they are generated outputs; vendor paths
-# are excluded from the per-document loop as well. Undefined Liquid variables
-# and other render errors are reported with the source path.
+# Jekyll::Renderer for each document. The loop skips the site's root feed
+# template (`feed.xml`), `feed/books.xml`, `sitemap.xml`, and vendor paths.
+# Undefined Liquid variables and other render errors include the source path.
 
 def main
   failures = []

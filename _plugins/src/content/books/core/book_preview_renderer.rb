@@ -13,23 +13,17 @@ module Jekyll
       # (cover thumbnail, title, authors, rating). Data-in, HTML-out — does
       # not fetch data itself.
       #
-      # The output is a single line with no newlines: it is inserted inline
-      # into markdown paragraphs and must not be split by kramdown. The
-      # `<!--book-preview-->` / `<!--/book-preview-->` comment markers are
-      # load-bearing: downstream pipelines match on them to strip the
-      # preview when reusing rendered HTML as plain text (meta descriptions,
-      # RSS feeds, etc).
-      #
-      # @pattern Emits one phrasing-only span containing the optional cover,
-      #   title, authors, rating, series, and excerpt lede. The span is hidden
-      #   and `aria-hidden`; its comment markers let text consumers remove the
-      #   duplicate content without parsing or reserializing the surrounding
-      #   page. Keep the output on one line so kramdown does not split a
-      #   paragraph around the preview.
+      # @pattern Emits a hidden, `aria-hidden` outer span containing the
+      #   optional cover, title, authors, rating, series, and excerpt lede.
+      #   The `<!--book-preview-->` and `<!--/book-preview-->` markers let
+      #   consumers strip the preview from meta descriptions, feeds, and
+      #   other reused HTML. For inline output in a Markdown paragraph,
+      #   supply phrasing-only markup and keep input fields on one line.
+      #   Lede sanitization strips previews, links, and paragraph tags and
+      #   can leave other markup, such as lists, and internal line breaks.
       # @gotcha Excerpt output is lazy and may render links back to this book.
       #   The site-level `_building_lede` guard prevents recursive preview
-      #   construction, and the live URL-to-document map stays outside the
-      #   serializable link cache.
+      #   construction. The lede lookup reads `site.data['url_to_book_doc']`.
       class BookPreviewRenderer
         Typography = Jekyll::Infrastructure::TypographyUtils
         Text = Jekyll::Infrastructure::TextProcessingUtils

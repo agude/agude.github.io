@@ -44,6 +44,17 @@ class TestRenderModeCoverage < Minitest::Test
     ],
   ).freeze
 
+  BOOK_LISTS_FILE = 'content/books/tags/display_book_lists_tag.rb'
+  BOOK_LIST_MARKDOWN_TESTS = {
+    'display_all_books_grouped' => 'test_all_books_markdown',
+    'display_awards_page' => 'test_awards_markdown',
+    'display_books_by_author' => 'test_author_markdown',
+    'display_books_by_author_then_series' => 'test_all_authors_markdown',
+    'display_books_by_title_alpha_group' => 'test_title_markdown',
+    'display_books_by_year' => 'test_year_markdown',
+    'display_books_for_series' => 'test_series_markdown',
+  }.freeze
+
   PLUGINS_ROOT = File.expand_path('../../../../_plugins/src', __dir__)
   TESTS_ROOT = File.expand_path('../../', __dir__)
 
@@ -54,7 +65,7 @@ class TestRenderModeCoverage < Minitest::Test
     missing = []
     tag_files.each do |path|
       relative_path = path.delete_prefix("#{PLUGINS_ROOT}/")
-      next if ALLOWLIST.include?(relative_path)
+      next if ALLOWLIST.include?(relative_path) || relative_path == BOOK_LISTS_FILE
 
       test_path = File.join(TESTS_ROOT, File.dirname(relative_path), "test_#{File.basename(path)}")
       test_methods = File.exist?(test_path) ? File.read(test_path).scan(/^\s*def (test_\w+)/).flatten : []
@@ -65,6 +76,18 @@ class TestRenderModeCoverage < Minitest::Test
                  'Reader-facing tags need a Markdown behavior test ' \
                  "or an ALLOWLIST justification:\n  " \
                  "#{missing.join("\n  ")}"
+  end
+
+  def test_each_book_list_tag_has_its_own_markdown_behavior_test
+    registered_names = Jekyll::Books::Tags::DisplayBookListsTag::LISTS.keys
+    assert_equal registered_names.sort, BOOK_LIST_MARKDOWN_TESTS.keys.sort
+    assert_equal BOOK_LIST_MARKDOWN_TESTS.size, BOOK_LIST_MARKDOWN_TESTS.values.uniq.size
+
+    test_path = File.join(TESTS_ROOT, 'content/books/tags/test_display_book_lists_tag.rb')
+    test_methods = File.read(test_path).scan(/^  def (test_\w+)/).flatten
+    BOOK_LIST_MARKDOWN_TESTS.each do |tag_name, test_method|
+      assert_includes test_methods, test_method, "#{tag_name} needs #{test_method}"
+    end
   end
 
   def test_allowlisted_tags_still_exist

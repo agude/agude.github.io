@@ -26,9 +26,9 @@ module Jekyll
     #   footers include related posts.
     # @gotcha Pass document objects directly to the finders. They read URLs
     #   through PageUrl and accept document accessors or Liquid page hashes;
-    #   copying a document to add a `url` key is unnecessary. Related-book
-    #   results are shared with HTML by the page URL and limit, with live
-    #   documents kept out of the serializable link cache.
+    #   copying a document to add a `url` key is unnecessary. The related-book
+    #   finder shares final selections with HTML by page URL and limit in
+    #   `site.data['related_books_cache']`.
     # @gotcha The whitespace normalizer protects code blocks and Markdown
     #   HTML regions before trimming prose. It preserves code bytes, hard
     #   break spaces, and placeholders that could otherwise collide with

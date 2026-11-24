@@ -14,10 +14,11 @@ module Jekyll
     # HTML does not hide later HTML.
     #
     # @pattern Protect comments and CommonMark raw-block tag families before
-    #   Markdown conversion. `markdown="1"`, `markdown="block"`, and
-    #   `markdown="span"` keep an element eligible; lookalike attributes and
-    #   disabled values do not. Supported ChatGPT edit containers are handled
-    #   by their specialized converter.
+    #   Markdown conversion. The first `markdown=` match in the raw attribute
+    #   text keeps the element eligible when its value is `1`, `block`, or
+    #   `span`. The pattern excludes name prefixes such as `data-` but can
+    #   match inside another attribute's quoted value. The specialized
+    #   converter handles supported ChatGPT edit containers.
     # @gotcha Pair tags before walking the source and query code ranges only
     #   in increasing source order. Mask earlier raw regions before deciding
     #   whether a later tag is inside code, or code punctuation can hide valid

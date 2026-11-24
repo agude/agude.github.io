@@ -7,8 +7,8 @@ require_relative 'reference_link_scanner'
 # Scan Markdown source for reference-style link problems; any result exits 1:
 # - Undefined: [text][id] with no [id]: definition. Kramdown emits the
 #   literal source text, so raw markdown ships to the page.
-# - Duplicate: [id]: defined twice. Kramdown silently keeps the first, so
-#   the second link points somewhere its author did not intend.
+# - Duplicate: [id]: defined twice. Kramdown warns and uses the last
+#   definition for every reference to that ID.
 # - Orphaned:  [id]: with no full-form or shorthand reference. Usually means
 #   a link was set up and never attached. Five such cases were found on this
 #   site when the check was first written, which is why this is an error and
@@ -19,9 +19,14 @@ require_relative 'reference_link_scanner'
 # `[id]` references are ambiguous with editorial brackets. This check scans
 # source Markdown because rendered HTML has no link for an unresolved
 # reference, and strict Liquid checks variables rather than Markdown
-# definitions. Put a definition after its full paragraph: in Kramdown a
-# definition ends that paragraph. Scanner behavior belongs in
-# reference_link_scanner.rb and its tests, not in this site-loading wrapper.
+# definitions. Leave a blank line before a definition that follows prose,
+# so Kramdown parses it as a definition.
+#
+#     Read the [example][id].
+#
+#     [id]: /example/
+#
+# See reference_link_scanner.rb and its tests for the scanner rules.
 
 def main
   site = setup_site

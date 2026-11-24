@@ -183,7 +183,7 @@ module Jekyll
         end
 
         json_ld_hash = generate_hash(document, site)
-        _store_script(json_ld_hash, site, doc_url) if json_ld_hash && !json_ld_hash.empty?
+        _store_script(json_ld_hash, site, doc_url) if json_ld_hash
       end
 
       def self.generate_hash(document, site)
@@ -193,10 +193,10 @@ module Jekyll
 
         Jekyll.logger.debug 'JSON-LD:', "#{type_name} -> #{_doc_id(document)}"
         json_ld_hash = generator.call(document, site)
-        if json_ld_hash.nil? || json_ld_hash.empty?
-          Jekyll.logger.debug 'JSON-LD:', "Empty or nil hash for: #{_doc_id(document)}"
-        end
-        json_ld_hash
+        return json_ld_hash if json_ld_hash && !json_ld_hash.empty?
+
+        Jekyll.logger.debug 'JSON-LD:', "Empty or nil hash for: #{_doc_id(document)}"
+        nil
       end
 
       def self._doc_id(doc)

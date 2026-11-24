@@ -3,6 +3,7 @@
 # Tested by: _tests/src/content/books/tags/test_display_book_lists_tag.rb
 
 require 'cgi'
+require_relative '../../card_grid'
 require_relative '../../series/series_link_resolver'
 require_relative '../core/book_card_renderer'
 require_relative '../../../infrastructure/text_processing_utils'
@@ -105,12 +106,10 @@ module Jekyll
         end
 
         def self.render_card_grid(books, context, append_newline: true)
-          html = +"<ul class=\"card-grid\">\n"
-          books.each do |book|
-            html << Jekyll::Books::Core::BookCardRenderer.render(book, context)
-            html << "\n" if append_newline
+          Jekyll::Content::CardGrid.render(books, render_empty: true) do |book|
+            card = Jekyll::Books::Core::BookCardRenderer.render(book, context)
+            append_newline ? "#{card}\n" : card
           end
-          html << "</ul>\n"
         end
 
         def self.render_sections_markdown(groups, label_key)

@@ -73,12 +73,25 @@ class TestDisplayBookListsTag < Minitest::Test
     assert_syntax_error('display_books_for_series', 'display_books_for_series', 'Series name (string literal or variable) is required.')
   end
 
+  def test_card_grid_preserves_empty_wrapper_and_card_newlines
+    renderer = Jekyll::Books::Lists::BookListRendererUtils
+    book_renderer = Jekyll::Books::Core::BookCardRenderer
+
+    assert_equal "<ul class=\"card-grid\">\n</ul>\n", renderer.render_card_grid([], nil)
+    book_renderer.stub(:render, '<li>Book</li>') do
+      assert_equal "<ul class=\"card-grid\">\n<li>Book</li>\n</ul>\n", renderer.render_card_grid([@books.first], nil)
+      assert_equal "<ul class=\"card-grid\">\n<li>Book</li></ul>\n",
+                   renderer.render_card_grid([@books.first], nil, append_newline: false)
+    end
+  end
+
   def test_all_books_html
     html = Nokogiri::HTML.fragment(render('display_all_books_grouped'))
 
     assert_equal [['#', '#standalone-books'], ['A', '#the-amazing-series'], ['B', '#series-beta']], nav_links(html)
     assert_equal %w[C D E F G H I J K L M N O P Q R S T U V W X Y Z], html.css('nav > span').map(&:text)
     assert_equal ['Standalone Books', 'The Amazing Series', 'Series Beta'], html.css('h2').map(&:text)
+    assert_nav_targets(html, ['Standalone Books', 'The Amazing Series', 'Series Beta'])
     assert_equal [%w[1984 Apricot], ['The Apple', 'The Zebra'], ['A Berry']], card_grids(html)
   end
 
@@ -95,6 +108,13 @@ class TestDisplayBookListsTag < Minitest::Test
       ## Series Beta
       - [_A Berry_](/books/berry.html)
     MARKDOWN
+  end
+
+  def test_all_books_markdown_with_only_standalone_books
+    site = create_site({}, { 'books' => [@books[3]] })
+
+    assert_equal "## Standalone\n- [_Apricot_](/books/apricot.html) by Solo Author",
+                 render('display_all_books_grouped', site: site, mode: :markdown)
   end
 
   def test_author_html
@@ -117,14 +137,25 @@ class TestDisplayBookListsTag < Minitest::Test
     MARKDOWN
   end
 
+  def test_author_markdown_with_only_series_books
+    assert_equal "## The Amazing Series\n- [_The Apple_](/books/apple.html) by Jane & Doe, John Roe",
+                 render("display_books_by_author 'John Roe'", mode: :markdown)
+  end
+
+  def test_author_markdown_with_only_standalone_books
+    assert_equal "## Standalone\n- [_Apricot_](/books/apricot.html) by Solo Author",
+                 render("display_books_by_author 'Solo Author'", mode: :markdown)
+  end
+
   def test_all_authors_html
     output = render('display_books_by_author_then_series')
     html = Nokogiri::HTML.fragment(output)
 
     assert_includes output, 'Jane &amp; Doe'
     assert_equal [['J', '#jane-doe'], ['S', '#solo-author']], nav_links(html)
-    assert_includes html.css('nav > span').map(&:text), 'A', 'Z'
-    assert_equal ['Jane & Doe', 'John Roe', 'Solo Author'], html.css('h2').map(&:text)
+    assert_equal ('A'..'Z').to_a - %w[J S], html.css('nav > span').map(&:text)
+    assert_equal ['Jane & Doe', 'John Roe', 'Solo Author'], html.css('h2.book-list-headline').map(&:text)
+    assert_nav_targets(html, ['Jane & Doe', 'Solo Author'])
     assert_equal(
       %w[standalone-books-jane-doe jane-doe--the-amazing-series john-roe--the-amazing-series standalone-books-solo-author],
       html.css('h3').map { |heading| heading['id'] },
@@ -151,13 +182,35 @@ class TestDisplayBookListsTag < Minitest::Test
     MARKDOWN
   end
 
+  def test_all_authors_html_prepends_finder_diagnostic
+    site = create_site({}, { 'books' => [@books.last] })
+    site.config['plugin_logging']['ALL_BOOKS_BY_AUTHOR_DISPLAY'] = true
+
+    output = render('display_books_by_author_then_series', site: site)
+
+    assert_match(
+      /\A<!-- \[INFO\] ALL_BOOKS_BY_AUTHOR_DISPLAY_FAILURE: Reason='No published books with valid author names found\.'/,
+      output,
+    )
+  end
+
   def test_title_html
     html = Nokogiri::HTML.fragment(render('display_books_by_title_alpha_group'))
 
     assert_equal [['#', '#letter-hash'], ['A', '#letter-a'], ['B', '#letter-b'], ['Z', '#letter-z']], nav_links(html)
-    assert_includes html.css('nav > span').map(&:text), 'C'
-    assert_equal %w[# A B Z], html.css('h2').map(&:text)
+    assert_equal ('A'..'Z').to_a - %w[A B Z], html.css('nav > span').map(&:text)
+    assert_equal %w[# A B Z], html.css('h2.book-list-headline').map(&:text)
+    assert_nav_targets(html, %w[# A B Z])
     assert_equal [%w[1984], ['The Apple', 'Apricot'], ['A Berry'], ['The Zebra']], card_grids(html)
+  end
+
+  def test_title_html_without_numeric_titles
+    site = create_site({}, { 'books' => [@books.last] })
+    html = Nokogiri::HTML.fragment(render('display_books_by_title_alpha_group', site: site))
+
+    assert_equal [['B', '#letter-b']], nav_links(html)
+    assert_equal ['#', *(('A'..'Z').to_a - ['B'])], html.css('nav > span').map(&:text)
+    assert_nav_targets(html, ['B'])
   end
 
   def test_title_markdown
@@ -181,7 +234,8 @@ class TestDisplayBookListsTag < Minitest::Test
 
     assert_equal [['2024', '#year-2024'], ['2022', '#year-2022']], nav_links(html)
     assert_equal '2024 · 2022', html.at_css('nav').text.strip
-    assert_equal %w[2024 2022], html.css('h2').map(&:text)
+    assert_equal %w[2024 2022], html.css('h2.book-list-headline').map(&:text)
+    assert_nav_targets(html, %w[2024 2022])
     assert_equal [['The Zebra', 'The Apple'], ['A Berry', 'Apricot', '1984']], card_grids(html)
   end
 
@@ -298,6 +352,7 @@ class TestDisplayBookListsTag < Minitest::Test
 
     assert_equal ['My Favorite Books Lists'], html.css('h2').map(&:text)
     assert_equal [['2024', '#favorites-2024']], nav_links(html)
+    assert_equal 'Best of: 2024', html.at_css('nav').text.strip
   end
 
   def test_awards_renders_only_diagnostics_when_both_sources_are_missing
@@ -325,6 +380,17 @@ class TestDisplayBookListsTag < Minitest::Test
 
   def nav_links(html)
     html.css('nav a').map { |link| [link.text, link['href']] }
+  end
+
+  def assert_nav_targets(html, expected_heading_texts)
+    headings = html.css('h2, h3')
+    target_texts = html.css('nav a[href^="#"]').map do |link|
+      id = link['href'].delete_prefix('#')
+      matches = headings.select { |heading| heading['id'] == id }
+      assert_equal 1, matches.size, "Expected exactly one heading for ##{id}"
+      matches.first.text
+    end
+    assert_equal expected_heading_texts, target_texts
   end
 
   def card_grids(html)

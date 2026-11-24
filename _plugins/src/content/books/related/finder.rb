@@ -19,18 +19,19 @@ module Jekyll
       #   nearby books in the same series, books by the same authors,
       #   forward-linked works, forward-linked series, backlink works,
       #   backlink series, then remaining books by date. Same-series books
-      #   interleave before and after the current number; if it is unparseable,
-      #   all books in that series are used in number order. Work tiers combine
+      #   are selected by alternating before and after the current number, then
+      #   displayed in number order. If the current number is unparseable,
+      #   candidates are taken in number order. Work tiers combine
       #   book and short-story links. A short-story link targets its parent
       #   book URL, so mentions of that book and its stories share one score.
       #   Link tiers sort by count descending, direct-link position when present
       #   (otherwise earliest position) ascending, date descending, then title.
-      # @gotcha Selection contains live documents, so it belongs outside the
-      #   serializable link_cache. HTML and Markdown share results by page URL
-      #   and limit in `site.data['related_books_cache']`; the `:site,
-      #   :post_read` hook clears that cache before each build.
-      # @gotcha Exclude the current page, pages with `canonical_url`,
-      #   unpublished books, and future-dated books before they can fill a slot.
+      # @gotcha HTML and Markdown share final selections by page URL and limit
+      #   in `site.data['related_books_cache']`. The `:site, :post_read` hook
+      #   clears this memo before each build.
+      # @gotcha Collection-derived tiers skip the current page, its canonical
+      #   URL, archived reviews, unpublished books, and future-dated books.
+      #   The link tiers take documents directly from the link-cache graph.
       class Finder
         DEFAULT_MAX_BOOKS = 3
         LINK_TIERS = {
@@ -130,7 +131,19 @@ module Jekyll
           process_series(all_potential_books)
           process_authors(books_by_date_desc)
           LINK_TIERS.each_value { |tier| process_link_tier(**tier) }
-          @candidate_books.concat(books_by_date_desc)
+          process_recent(books_by_date_desc)
+        end
+
+        def process_recent(books_by_date)
+          selected_urls = Set.new(@candidate_books.map(&:url))
+          return if selected_urls.size >= @max_books
+
+          books_by_date.each do |book|
+            next unless selected_urls.add?(book.url)
+
+            @candidate_books << book
+            break if selected_urls.size >= @max_books
+          end
         end
 
         def build_exclusion_set

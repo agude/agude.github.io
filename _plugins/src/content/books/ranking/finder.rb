@@ -13,9 +13,10 @@ module Jekyll
         end
 
         def by_backlinks
-          cache = @site&.data&.[]('link_cache')
-          if cache && cache['backlinks'] && cache['books']
-            items = backlink_items(cache['backlinks'], books_by_url(cache['books']))
+          data = @site&.data
+          backlinks = data&.dig('link_cache', 'backlinks')
+          if backlinks && (books = data.dig('link_cache', 'books'))
+            items = backlink_items(backlinks, books_by_url(books))
             return { logs: '', ranked_list: rank_by_count(items) }
           end
 

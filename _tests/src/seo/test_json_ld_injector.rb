@@ -176,14 +176,21 @@ class TestJsonLdInjectorSkip < TestJsonLdInjectorBase
   end
 
   def test_skips_injection_if_generator_returns_nil
-    Jekyll::SEO::JsonLdInjector.stub :generate_hash, nil do
+    Jekyll::SEO::JsonLdInjector.stub :_generator_for_layout, [->(*_args) {}, 'Post'] do
+      Jekyll::SEO::JsonLdInjector.inject_json_ld(@blog_post_doc, @site)
+    end
+    assert_no_json_script(@blog_post_doc, @site)
+  end
+
+  def test_skips_injection_if_generator_returns_false
+    Jekyll::SEO::JsonLdInjector.stub :_generator_for_layout, [->(*_args) { false }, 'Post'] do
       Jekyll::SEO::JsonLdInjector.inject_json_ld(@blog_post_doc, @site)
     end
     assert_no_json_script(@blog_post_doc, @site)
   end
 
   def test_skips_injection_if_generator_returns_empty_hash
-    Jekyll::SEO::JsonLdInjector.stub :generate_hash, {} do
+    Jekyll::SEO::JsonLdInjector.stub :_generator_for_layout, [->(*_args) { {} }, 'Post'] do
       Jekyll::SEO::JsonLdInjector.inject_json_ld(@blog_post_doc, @site)
     end
     assert_no_json_script(@blog_post_doc, @site)

@@ -39,6 +39,12 @@ class TestRankedByBacklinksFinder < Minitest::Test
     assert_equal({ logs: '', ranked_list: [] }, find)
   end
 
+  def test_raises_when_link_cache_is_false
+    @site.data['link_cache'] = false
+
+    assert_raises(TypeError) { find }
+  end
+
   def test_returns_error_when_link_cache_missing
     @site.config['plugin_logging']['RANKED_BY_BACKLINKS'] = true
     missing_caches = [nil, @cache.except('backlinks'), @cache.except('books')]
