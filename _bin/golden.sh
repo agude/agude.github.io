@@ -7,6 +7,10 @@ case ${STANDARD_SITE:-0} in
     0|1) ;;
     *) echo 'Use STANDARD_SITE=0 or STANDARD_SITE=1.' >&2; exit 2 ;;
 esac
+case ${EDGES:-0} in
+    0|1) ;;
+    *) echo 'Use EDGES=0 or EDGES=1.' >&2; exit 2 ;;
+esac
 
 root=$(pwd -P)
 mkdir -p .jekyll-cache
@@ -42,8 +46,20 @@ render() (
         rm -f "$cache/_data/standard_site.json"
         cp "$root/_bin/golden_standard_site.json" "$cache/_data/standard_site.json"
     fi
+    if [[ ${EDGES:-0} == 1 ]]; then
+        for path in _posts _books _drafts books/authors books/series; do
+            staged="$cache/edges/$path"
+            mkdir -p "$staged"
+            if [[ -d "$1/$path" ]]; then cp -R "$1/$path/." "$staged/"; fi
+            cp -R "$root/_bin/golden_edges/$path/." "$staged/"
+            if [[ "$path" == _drafts ]]; then
+                # This existing draft references a deleted SVG and cannot build with --drafts.
+                rm -f "$staged/2018-10-23-my_sons_colors.md"
+            fi
+        done
+    fi
     "$make_command" --no-print-directory -f Makefile -f "$root/_bin/golden.mk" \
-        golden-render "PWD=$PWD" "GOLDEN_CACHE=$cache"
+        golden-render "PWD=$PWD" "GOLDEN_CACHE=$cache" "EDGES=${EDGES:-0}"
 )
 
 render "$base" "$scratch/before"

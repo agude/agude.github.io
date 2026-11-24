@@ -9,7 +9,9 @@ golden-render:
 		docker run --rm $(DOCKER_RUN_OPTS) -e JEKYLL_ENV=production \
 			-v "$(PWD):$(MOUNT):ro" -w "$(MOUNT)" \
 			$(if $(filter 1,$(STANDARD_SITE)),-v "$(GOLDEN_CACHE)/_data:$(MOUNT)/_data:ro") \
+			$(if $(filter 1,$(EDGES)),$(foreach path,_posts _books _drafts books/authors books/series,-v "$(GOLDEN_CACHE)/edges/$(path):$(MOUNT)/$(path):ro")) \
 			-v "$(GOLDEN_CACHE):$(MOUNT)/.jekyll-cache" "$$image" \
 			bundle exec jekyll build --config _config.yml,.jekyll-cache/golden.yml \
+			$(if $(filter 1,$(EDGES)),--drafts --future --unpublished) \
 			--destination .jekyll-cache/site > "$(GOLDEN_CACHE)/build.log" 2>&1 || \
 			{ cat "$(GOLDEN_CACHE)/build.log" >&2; exit 1; }
