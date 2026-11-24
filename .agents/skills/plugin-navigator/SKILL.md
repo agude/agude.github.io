@@ -104,6 +104,9 @@ cross-cutting test filenames intentionally allowlisted by the script:
 - `test_warning_filter.rb` (warning filtering in `_tests/test_helper.rb`)
 - `test_build_failures.rb` and `test_rendered_site.rb` (build contract tests
   in `_tests/src/contract/`, built with fixture sites)
+- `test_by_author_page_rendered.rb`, `test_book_cover_loading_rendered.rb`,
+  and `test_heading_anchors_rendered.rb` (real layouts and includes rendered
+  in a fixture site)
 
 When adding a cross-cutting test, add its filename to `ALLOWED_ORPHANS` in
 `orphan-tests` and to this list.
