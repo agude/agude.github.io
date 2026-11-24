@@ -3,9 +3,12 @@
 
 require 'jekyll'
 
-# This script ensures that all documents can be rendered under Jekyll's strict
-# mode for Liquid. It helps catch undeclared variables in page content by
-# programmatically overriding the site's Liquid configuration.
+# Renders each page and document separately with strict Liquid settings.
+# This is not a full site build: it reads and generates the site, then runs a
+# Jekyll::Renderer for each document. `feed.xml`, `feed/books.xml`, and
+# `sitemap.xml` are excluded because they are generated outputs; vendor paths
+# are excluded from the per-document loop as well. Undefined Liquid variables
+# and other render errors are reported with the source path.
 
 def main
   failures = []

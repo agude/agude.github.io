@@ -12,6 +12,11 @@ module Jekyll
       # both call it, so a rendered link and its backlink follow one author
       # rule. It is pure: callers do their own logging and raise their own
       # errors.
+      #
+      # @pattern With no non-blank `author=`, return the sole candidate or
+      #   `:ambiguous`. With an author filter, resolve pen names through the
+      #   author cache and choose the first matching book, or return
+      #   `:author_mismatch`. Callers handle those reason symbols separately.
       module BookCandidateSelector
         # @param candidates [Array<Hash>] the non-empty cached books with the
         #   title, archived reviews already removed, each with 'authors'.

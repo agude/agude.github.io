@@ -6,8 +6,12 @@ require_relative 'markdown_html_region_parser'
 module Jekyll
   module Infrastructure
     # Normalizes prose whitespace while preserving Markdown code and hard breaks.
-    # @pattern Protect code blocks before normalizing prose so source whitespace
-    #   inside code fences and indented code remains unchanged.
+    # @pattern Protect raw HTML regions and fenced, indented, and inline code
+    #   before normalizing prose. Preserve code bytes and hard-break spaces,
+    #   collapse excess blank lines, and trim prose line endings.
+    # @gotcha Extend the placeholder prefix until it is absent from the source;
+    #   otherwise literal text that looks like a temporary placeholder could
+    #   be replaced with unrelated code or HTML.
     module MarkdownWhitespaceNormalizer
       CodeRegionParser = Jekyll::Infrastructure::MarkdownCodeRegionParser
       HtmlRegionParser = Jekyll::Infrastructure::MarkdownHtmlRegionParser

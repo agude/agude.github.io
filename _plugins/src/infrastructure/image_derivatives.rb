@@ -52,6 +52,13 @@ module Jekyll
     # ImageMagick does the encoding: `magick` (version 7) when present,
     # otherwise `convert` (version 6, as on Ubuntu runners).
     #
+    # @pipeline Read configured image sets, validate their sources and widths,
+    #   create smaller WebP files under each source directory's `derived/`
+    #   folder, then publish the `srcset` and `sizes` table for
+    #   ImageDimensionsInjector. Original images remain the fallback source.
+    # @gotcha A width at or above the source width is not encoded; the original
+    #   is added at its intrinsic width instead. Distinct source files that
+    #   would produce the same derived filename stop the build.
     # @validator A configured `source_dir` that is missing or holds a file
     #   that is not a JPEG or PNG; a `front_matter` collection that does not
     #   exist, or a document `image` that is remote, missing, or not a JPEG,

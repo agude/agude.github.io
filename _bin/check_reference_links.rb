@@ -4,20 +4,24 @@
 require 'jekyll'
 require_relative 'reference_link_scanner'
 
-# Scan markdown source for reference-style link problems, all of them fatal:
+# Scan Markdown source for reference-style link problems; any result exits 1:
 # - Undefined: [text][id] with no [id]: definition. Kramdown emits the
 #   literal source text, so raw markdown ships to the page.
 # - Duplicate: [id]: defined twice. Kramdown silently keeps the first, so
 #   the second link points somewhere its author did not intend.
-# - Orphaned:  [id]: with no reference. Usually means a link was set up and
-#   never attached — the prose renders as plain text with nothing to show
-#   for it. Five such cases were found on this site when the check was
-#   first written, which is why this is an error and not a warning.
+# - Orphaned:  [id]: with no full-form or shorthand reference. Usually means
+#   a link was set up and never attached. Five such cases were found on this
+#   site when the check was first written, which is why this is an error and
+#   not a warning.
 #
-# Kramdown itself warns about undefined references, but Jekyll drops those
-# warnings unless show_warnings is set, they are never fatal, and they fire
-# on shorthand [id] references, which are indistinguishable from editorial
-# brackets in prose. The scanning logic lives in reference_link_scanner.rb.
+# Kramdown warnings are not a substitute: Jekyll drops them unless
+# show_warnings is set, they are not fatal, and shorthand
+# `[id]` references are ambiguous with editorial brackets. This check scans
+# source Markdown because rendered HTML has no link for an unresolved
+# reference, and strict Liquid checks variables rather than Markdown
+# definitions. Put a definition after its full paragraph: in Kramdown a
+# definition ends that paragraph. Scanner behavior belongs in
+# reference_link_scanner.rb and its tests, not in this site-loading wrapper.
 
 def main
   site = setup_site

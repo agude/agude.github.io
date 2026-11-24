@@ -8,6 +8,14 @@ module Jekyll
       # ShortStoryResolver (rendering) and LinkTagTargetResolver (backlinks)
       # both call it, so a rendered link and its backlink follow one rule.
       # It is pure: callers do their own logging.
+      #
+      # @pattern Select in this order: the sole location whose book is
+      #   canonical; the location when every entry has the same URL; then a
+      #   case-insensitive `from_book=` match. Without a match, return
+      #   `:ambiguous` or `:not_found_in_book` for the caller to handle.
+      # @gotcha A matching `from_book=` does not override a sole canonical
+      #   location. Archived-review locations map to the canonical book before
+      #   that option is considered.
       module ShortStoryLocationSelector
         # The rules, in order:
         # 1. The only location whose book is canonical (maps to itself in

@@ -44,6 +44,15 @@ module Jekyll
     # The full HTML string is never round-tripped through Nokogiri to avoid
     # DOCTYPE mangling: Nokogiri::HTML5 is used read-only for extraction;
     # injection uses targeted string replacement on the original string.
+    #
+    # @pipeline Parse footnote list items with Nokogiri::HTML5, copy and
+    #   sanitize each body into phrasing-only spans, then inject each preview
+    #   into its matching `<sup>` in the original HTML string. Per-reference
+    #   anchor names keep repeated footnote previews attached to their own ref.
+    # @gotcha HTML5 parsing can close a `<p>` before a nested `<figure>` and
+    #   make it a sibling. Flattening every known block tag in the copied body
+    #   preserves the complete copy while keeping the injected preview inline;
+    #   the original page is never serialized from the parsed tree.
     module FootnotePreviewInjector
       Text = Jekyll::Infrastructure::TextProcessingUtils
       private_constant :Text

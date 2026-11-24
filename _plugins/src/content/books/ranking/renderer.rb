@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# Tested by: _tests/src/content/books/tags/test_display_ranked_by_backlinks_tag.rb
+# Tested by: _tests/src/content/books/tags/test_display_unreviewed_mentions_tag.rb
+
 require 'cgi'
 require_relative '../core/book_link_resolver'
 

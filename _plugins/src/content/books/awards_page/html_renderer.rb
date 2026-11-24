@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# Tested by: _tests/src/content/books/tags/test_display_book_lists_tag.rb
+
 require 'cgi'
 require_relative '../lists/book_list_renderer_utils'
 require_relative '../../../infrastructure/text_processing_utils'

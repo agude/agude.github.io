@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# Tested by: _tests/src/infrastructure/links/test_link_resolver_skeleton.rb
+
 require 'jekyll'
 require 'cgi'
 require_relative 'link_helper_utils'

@@ -130,6 +130,11 @@ module Jekyll
       # rendered HTML as plain text (meta descriptions, RSS feeds, etc), where the
       # hidden preview's text would otherwise leak through.
       #
+      # @gotcha Match the explicit preview markers so the hidden duplicate is
+      #   removed before HTML is flattened to text. `strip_tags` and
+      #   `clean_text_from_html` also remove footnote previews; `feed.xml` uses
+      #   the Liquid filter, while the XML post-render hook strips other XML
+      #   pages. Apply this filter to any new output that reuses rendered HTML.
       # @param html [String, nil] The HTML string to clean.
       # @return [String] The HTML string with preview spans removed.
       def self.strip_link_previews(html)

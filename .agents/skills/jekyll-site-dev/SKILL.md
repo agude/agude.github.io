@@ -213,20 +213,22 @@ matches the change:
   about HTML compression and build caches. Required when changing build or
   serve targets.
 
-- [Book Families & `canonical_url`](references/book-families.md) — re-review
-  workflow and canonical URL rules. Required for book reviews, especially
-  re-reviews.
-- [Content Authoring](references/content-authoring.md) — excerpts, Liquid
-  tags, links, and front matter enforced by the AT Protocol pipeline. Required
-  for blog posts and book reviews.
-- [Markdown Output](references/markdown-output.md) — pre-render hook behavior,
-  page payload updates, and fatal generation failures. Required for the
-  Markdown output pipeline.
-- [Links, Backlinks, and Previews](references/links-and-previews.md) — raw
-  Liquid scanning, related-book scoring, canonical URL filtering, hover and
-  footnote previews, reference-link validation, and strict-Liquid constraints.
-  Required for link resolution, the link cache, previews,
-  `check_reference_links.rb`, or `check_strict.rb`.
+- [Book Families & `canonical_url`](references/book-families.md) — author
+  rules for canonical and archived reviews, family metadata, and invalid
+  canonical URL values that stop the build. Required for book reviews,
+  especially re-reviews.
+- [Content Authoring](references/content-authoring.md) — rules for excerpts,
+  links, media titles, images, code blocks, markup, math, abbreviations, and
+  post/book front matter. Required for blog posts and book reviews.
+- [Markdown Output](references/markdown-output.md) — what the figure, video,
+  and ChatGPT edit includes emit in Markdown mode. Implementation details are
+  in the `@pipeline` and `@gotcha` tags on `MarkdownBodyHook`,
+  `MarkdownOutputAssembler`, and `MarkdownHtmlConverter`.
+- [Strict Liquid Include Parameters](references/strict-liquid-includes.md) —
+  pass include parameters explicitly at the call site. The reference-link and
+  strict-Liquid checks are documented in the headers of
+  `_bin/check_reference_links.rb`, `_bin/reference_link_scanner.rb`, and
+  `_bin/check_strict.rb`.
 - [AT Protocol / standard.site](references/atproto-standard-site.md) —
   domain-as-handle DNS wiring, the publish script, the well-known generator,
   link tags, CI flow, and operational procedures for orphaned records,

@@ -55,7 +55,7 @@ if $list_missing; then
     else
         for domain in $(echo "${!domain_missing[@]}" | tr ' ' '\n' | LC_ALL=C sort); do
             echo -n "${domain_missing[$domain]:-}"
-        done | grep -v '^$' | LC_ALL=C sort
+        done | { grep -v '^$' || true; } | LC_ALL=C sort
     fi
 
     echo ""

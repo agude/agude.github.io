@@ -17,7 +17,7 @@ class TestSkillDocsReferences < Minitest::Test
     jekyll-site-dev/references/book-families.md
     jekyll-site-dev/references/build-performance.md
     jekyll-site-dev/references/content-authoring.md
-    jekyll-site-dev/references/links-and-previews.md
+    jekyll-site-dev/references/strict-liquid-includes.md
     jekyll-site-dev/references/markdown-output.md
   ].freeze
 

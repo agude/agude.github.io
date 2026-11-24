@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# Tested by: _tests/src/content/books/tags/test_display_book_lists_tag.rb
+
 require_relative '../lists/book_list_renderer_utils'
 
 module Jekyll

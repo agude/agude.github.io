@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# Tested by: _tests/src/content/books/tags/test_display_ranked_books_tag.rb
+
 require_relative '../../../../ui/ratings/rating_utils'
 require_relative '../../../../ui/cards/markdown_card_utils'
 require_relative '../../../card_grid'

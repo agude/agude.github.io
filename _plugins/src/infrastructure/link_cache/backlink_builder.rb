@@ -21,6 +21,18 @@ module Jekyll
       # the count/position from A's content appears in both A's forward link to B
       # and B's backlink from A.
       #
+      # @pipeline Scan each book's raw Liquid source without rendering or
+      #   executing conditional branches. Walk captures, tags, and variable
+      #   usages; resolve targets from parsed tag arguments; then record direct
+      #   and captured links in both directions. Captured-link counts and
+      #   positions come from later prose uses of the capture variable.
+      # @gotcha A capture always rebinds its variable. If its link tags have no
+      #   resolvable target, later uses attach to nothing rather than to an older
+      #   capture with the same name. Liquid syntax errors and unresolved option
+      #   variables stop the build; backlink extraction must not guess at a link
+      #   that rendered output may not contain.
+      # @gotcha This generator-phase scan finishes before post-render preview
+      #   injection, so copied footnote preview links do not become extra edges.
       class BacklinkBuilder
         LINK_TYPE_PRIORITY = { 'book' => 4, 'author' => 3, 'short_story' => 2, 'series' => 1 }.freeze
 

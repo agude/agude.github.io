@@ -12,6 +12,9 @@ require 'html-proofer'
 # Post layouts supply the page title as the <h1>, so sections in post
 # Markdown start at `##`.
 #
+# This check is an html-proofer pass over built HTML, not a build hook. It
+# checks the final heading outline after layouts and includes have rendered.
+#
 # This runs over the built site rather than as a post_render hook because
 # it applies to every page: as a hook it would also fire on the minimal
 # fixture sites and fake pages the plugin tests build, none of which have

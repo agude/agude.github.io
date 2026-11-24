@@ -112,8 +112,7 @@ switch. The color tokens are `light-dark()` values, so a lost or overridden
 `color-scheme` silently pins them to light; the Ruby contrast test cannot see
 that. CI runs it; run it locally after changing colors or `color-scheme`.
 
-Why they do not overlap:
-`.claude/skills/jekyll-site-dev/references/links-and-previews.md`.
+Why they do not overlap: the header of `_bin/check_reference_links.rb`.
 
 ## Architecture Map
 
@@ -175,6 +174,9 @@ Why they do not overlap:
     - **Finders** fetch data; **Renderers** generate HTML.
 2.  **Error Handling:** Use `PluginLoggerUtils.log_liquid_failure`.
 3.  **Testing:** Create a matching test file in `_tests/` for every new class.
+    A class covered only by a subsystem-level test names that test in a
+    comment line, `# Tested by: _tests/<path>.rb`, which the plugin navigator
+    reads.
 4.  **Link Cache:** The site relies on `site.data['link_cache']` (built by
     `LinkCacheGenerator`) for O(1) lookups of books/authors.
 5.  **Break, don't fail silently.** When an invariant is violated, raise

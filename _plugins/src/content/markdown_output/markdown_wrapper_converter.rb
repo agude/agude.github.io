@@ -3,6 +3,13 @@
 module Jekyll
   module MarkdownOutput
     # Converts the site's supported span and div wrappers with balanced tags.
+    #
+    # @pattern Strip presentation spans with classes `author-name`,
+    #   `book-series`, `written-by`, `nowrap`, or `band-name`; strip
+    #   `low-width-table` divs and spans whose only inline style is `color`.
+    #   A `written-by` div becomes its own Markdown paragraphs. Recognized
+    #   ChatGPT edit wrapper divs are removed while their content remains;
+    #   unrecognized wrappers stay HTML.
     module MarkdownWrapperConverter
       SPAN_CLASSES = %w[author-name book-series written-by nowrap band-name].freeze
       WRITTEN_BY_DIV_CLASSES = %w[written-by].freeze

@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# Tested by: _tests/src/content/books/tags/test_display_book_lists_tag.rb
+# Tested by: _tests/src/content/books/lists/test_all_books_finder.rb
+
 require_relative '../core/book_data_utils'
 require_relative '../../../infrastructure/plugin_logger_utils'
 require_relative '../../../infrastructure/text_processing_utils'

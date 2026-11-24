@@ -9,6 +9,10 @@ module Jekyll
   module SEO
     module Generators
       # Generates JSON-LD Review schema for book reviews.
+      #
+      # @gotcha Book-family reviews share the resolved Book `@id` and `url`,
+      #   while each Review keeps its own document URL, publication date, and
+      #   rating. `canonical_url` maps only the reviewed Book identity.
       module BookReviewLdGenerator
         # rubocop:disable-next Metrics/AbcSize -- builder DSL calls inflate branch count
         def self.generate_hash(document, site)

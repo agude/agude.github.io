@@ -1,44 +1,20 @@
-# Book Families & `canonical_url`
+# Book Families and `canonical_url`
 
-When a book is re-reviewed, the old review moves to a subdirectory and a new
-canonical review takes its place:
+When a book is re-reviewed, keep the new review at the canonical book path and
+move each older review into a subdirectory under that book's name.
 
-```
-_books/hyperion.md                      ← canonical (NO canonical_url)
-_books/hyperion/review-2023-10-17.md    ← archived  (canonical_url: /books/hyperion/)
-```
+- The canonical review must not have `canonical_url` in its front matter.
+- Each archived review sets `canonical_url` to the canonical review's exact
+  local URL, including its trailing slash. This keeps book links pointed at
+  the current review. Do not add whitespace or use an external or
+  protocol-relative URL.
+- If an archived review is used as a canonical target, that target must not
+  itself set `canonical_url`.
+- A canonical URL that is not a string or local path, has surrounding
+  whitespace, or differs from an existing book URL by its trailing slash
+  stops the build. A canonical page that also has `canonical_url` stops the
+  build.
+- Reviews of the same edition share `wikidata_qid`, `isbn`, and
+  `same_as_urls` values. Different editions have separate canonical pages
+  and do not belong to one family.
 
-## Rules
-
-- The **canonical review** (top-level file) must **never** have `canonical_url`
-  in its front matter. It _is_ the canonical page.
-- **Archived reviews** set `canonical_url` to the canonical page's URL so the
-  link resolver filters them out and `book_link` always points to the current
-  review.
-- When adding metadata (ISBN, Wikidata, etc.) to book families, do **not**
-  copy `canonical_url` from an archived review into the canonical file.
-
-`BookFamilyValidator` stops the build if a page used as a canonical target
-also sets `canonical_url`. It also stops the build when a `canonical_url`
-is not a local path (an external or protocol-relative URL such as
-`https://...` or `//host/...`), has leading or trailing whitespace, or names
-a book page with a different trailing slash than that page's URL
-(`/books/hyperion` for `/books/hyperion/`). Consumers read `canonical_url` verbatim, so a value that
-only nearly matches would give the archive its own book identity and split
-the family. It is tagged `@validator`; list build validators
-with `make doc-index QUERY='has_tag?(:validator)'`. The link resolver excludes
-archived reviews by rejecting entries with a local `canonical_url`.
-
-## Metadata and SEO
-
-- All reviews in a family share the same `wikidata_qid`, `isbn`, and
-  `same_as_urls` values because they describe the same book.
-- `BookIdentityResolver` maps an archived review to the canonical review's
-  URL. Every review in the family therefore uses the same Book `@id`
-  (`/books/hyperion/#book`) and Book `url`. Each review keeps its own `Review`
-  URL, date, and rating.
-- Each archived review is distinct content, so its HTML canonical link points
-  to its own URL.
-- A book family contains multiple reviews of one edition. Different editions,
-  such as the original and revised _There Is No Antimemetics Division_, each
-  get their own canonical page and do not form a family.

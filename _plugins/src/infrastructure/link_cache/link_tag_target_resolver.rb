@@ -25,6 +25,12 @@ module Jekyll
       # value can record a backlink the rendered page does not have, or miss
       # one it does. For `link=`, the unquoted Liquid literals `true`,
       # `false`, and `nil` are values, not variables.
+      #
+      # @gotcha Read `link_arguments` from the actual Liquid tag node; parsing
+      #   the raw markup again can mistake another quoted option (such as
+      #   `link_text=`) for the subject. `link=false` is shared with the
+      #   renderer's case-insensitive false-value rule. Quote non-literal
+      #   option values; the backlink scan cannot evaluate variables.
       class LinkTagTargetResolver
         BookSelector = Jekyll::Infrastructure::LinkCache::BookCandidateSelector
         LocationSelector = Jekyll::Infrastructure::LinkCache::ShortStoryLocationSelector

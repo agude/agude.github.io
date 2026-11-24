@@ -19,6 +19,17 @@ module Jekyll
       # load-bearing: downstream pipelines match on them to strip the
       # preview when reusing rendered HTML as plain text (meta descriptions,
       # RSS feeds, etc).
+      #
+      # @pattern Emits one phrasing-only span containing the optional cover,
+      #   title, authors, rating, series, and excerpt lede. The span is hidden
+      #   and `aria-hidden`; its comment markers let text consumers remove the
+      #   duplicate content without parsing or reserializing the surrounding
+      #   page. Keep the output on one line so kramdown does not split a
+      #   paragraph around the preview.
+      # @gotcha Excerpt output is lazy and may render links back to this book.
+      #   The site-level `_building_lede` guard prevents recursive preview
+      #   construction, and the live URL-to-document map stays outside the
+      #   serializable link cache.
       class BookPreviewRenderer
         Typography = Jekyll::Infrastructure::TypographyUtils
         Text = Jekyll::Infrastructure::TextProcessingUtils

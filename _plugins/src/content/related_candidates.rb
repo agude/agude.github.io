@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# Tested by: _tests/src/content/books/related/test_finder.rb
+# Tested by: _tests/src/content/posts/related/test_finder.rb
+
 module Jekyll
   module Content
     # Shared selection rules for the collection and configured fallback lists.

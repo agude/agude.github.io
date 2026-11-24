@@ -19,6 +19,21 @@ module Jekyll
     # :pre_render hooks. Runs as a :site, :post_render hook after all
     # documents and pages have been rendered.
     #
+    # @pipeline For each item with a stored Markdown body, build its header,
+    #   body, and eligible related-content footer; normalize whitespace; then
+    #   add a generated static `.md` file at the item's alternate path. Book
+    #   footers include backlinks, previous reviews, and related books; post
+    #   footers include related posts.
+    # @gotcha Pass document objects directly to the finders. They read URLs
+    #   through PageUrl and accept document accessors or Liquid page hashes;
+    #   copying a document to add a `url` key is unnecessary. Related-book
+    #   results are shared with HTML by the page URL and limit, with live
+    #   documents kept out of the serializable link cache.
+    # @gotcha The whitespace normalizer protects code blocks and Markdown
+    #   HTML regions before trimming prose. It preserves code bytes, hard
+    #   break spaces, and placeholders that could otherwise collide with
+    #   literal source text. Card and page titles replace `<br>` variants
+    #   with one space before Markdown link text is escaped.
     # @see MarkdownBodyHook for the full pipeline data flow.
     module MarkdownOutputAssembler
       Normalizer = Jekyll::Infrastructure::MarkdownWhitespaceNormalizer

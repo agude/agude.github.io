@@ -8,6 +8,11 @@ require_relative '../books/core/book_preview_renderer'
 module Jekyll
   module ShortStories
     # Helper class to handle resolution logic.
+    #
+    # @gotcha A short-story link's preview uses its resolved parent book's
+    #   title, authors, rating, cover, series, and number. The story link
+    #   still points to the selected story anchor; only the preview data
+    #   comes from the parent book.
     class ShortStoryResolver
       include Jekyll::Infrastructure::Links::LinkResolverSupport
 

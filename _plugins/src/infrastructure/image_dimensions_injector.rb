@@ -49,6 +49,11 @@ module Jekyll
     # `style`, and `textarea` are passed through unchanged, because an
     # `<img>` inside them is text, not an image.
     #
+    # @gotcha A tag's own `sizes` describes a different image slot and is kept
+    #   when a derivative `srcset` exists. If there is no `srcset`, an orphan
+    #   `sizes` value is removed because `sizes` alone is invalid HTML. Lazy
+    #   images without a template-specific value get `auto, <configured sizes>`;
+    #   eager images use only the configured value.
     # @validator An `<img>` with no `src`, a remote or relative `src`, a
     #   `src` naming a file missing from the source tree or one
     #   ImageDimensions cannot size, an author-set `width` or `height`, or

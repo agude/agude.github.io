@@ -25,6 +25,16 @@ module Jekyll
     # @validator Any other command or character stops the build, naming the
     #   expression and the page. Add the command here; do not reach for a
     #   math library.
+    # @gotcha The math engine sees expressions only where kramdown parses
+    #   Markdown. Raw HTML blocks and MathJax-style `\(...\)` delimiters do
+    #   not reach this converter; figure captions opt into Markdown parsing.
+    # @pipeline Kramdown's `mathjax` engine calls this converter for each math
+    #   expression. It parses the TeX into MathML; display equations are wrapped
+    #   in `.math-display` so a wide equation can scroll within its column.
+    # @gotcha Plain fence characters stay fixed-size; only `\left` and
+    #   `\right` delimiters stretch. A lone operator used as a script gets zero
+    #   left and right spacing to match TeX. Rebuild the Gude Math subset when a
+    #   converter change adds a character the font must render.
     module TexToMathml
       # Command name => [MathML element, content].
       SYMBOLS = {

@@ -21,6 +21,9 @@ module Jekyll
     module Tags
       # @pattern Each book-list tag selects a finder and two renderers. Only the
       #   author and series filters accept a Liquid literal or variable.
+      # @gotcha `display_awards_page` uses AwardsPage::Finder to fetch awards
+      #   and favorites data once, then dispatches to the HTML or Markdown
+      #   renderer selected by `render_mode`.
       class DisplayBookListsTag < Liquid::Tag
         include Jekyll::UI::DisplayTagRenderable
 

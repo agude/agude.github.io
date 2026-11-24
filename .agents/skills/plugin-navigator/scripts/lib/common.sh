@@ -23,6 +23,21 @@ get_test_patterns_for_plugin() {
     echo "$TESTS_DIR/$dir/test_${name}_*.rb"
 }
 
+# Test files a plugin names in "# Tested by: <path>" comment lines.
+# Used when a subsystem-level test covers a file with no same-name test.
+# Input: _plugins/src/subdir/foo.rb
+# Output: Named test paths that exist (relative to project root)
+declared_tests_for_plugin() {
+    local plugin_path="$1"
+    local test_path
+
+    grep -oE '^[[:space:]]*# Tested by: _tests/[^[:space:]]+\.rb' "$PROJECT_ROOT/$plugin_path" 2>/dev/null |
+        sed -E 's/^[[:space:]]*# Tested by: //' |
+        while IFS= read -r test_path; do
+            [[ -f "$PROJECT_ROOT/$test_path" ]] && echo "$test_path"
+        done
+}
+
 # Check if any test exists for a plugin
 # Returns 0 if found, 1 if not
 plugin_has_test() {
@@ -35,7 +50,7 @@ plugin_has_test() {
         fi
     done < <(get_test_patterns_for_plugin "$plugin_path")
 
-    return 1
+    [[ -n "$(declared_tests_for_plugin "$plugin_path")" ]]
 }
 
 # Find all tests for a plugin
@@ -54,6 +69,11 @@ find_tests_for_plugin() {
             fi
         done
     done < <(get_test_patterns_for_plugin "$plugin_path")
+
+    while IFS= read -r f; do
+        echo "$f"
+        found=true
+    done < <(declared_tests_for_plugin "$plugin_path")
 
     $found
 }

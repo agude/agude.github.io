@@ -38,7 +38,19 @@ module Jekyll
     # Controlled by `enable_markdown_output` (default: true); documents/pages
     # opt out with `markdown_output: false` in front matter.
     #
-    # @pipeline markdown output: pre-render -> post-render assembly -> llms.txt
+    # @pipeline Eligible posts, books, and pages are rendered again in
+    #   `:pre_render` with `render_mode: :markdown`; the body is converted and
+    #   stored with its Markdown alternate path. `MarkdownOutputAssembler`
+    #   combines headers, bodies, and eligible related-content footers at
+    #   `:post_render`, writes `.md` static files, and the `llms.txt` tag
+    #   indexes eligible documents. Global `enable_markdown_output: false`
+    #   or per-item `markdown_output: false` skips generation.
+    # @gotcha The Markdown pass must restore the previous `render_mode` before
+    #   Jekyll's HTML render. Pages also need the alternate path copied into
+    #   `payload['page']` because their Liquid page hash is a snapshot.
+    # @gotcha Any render or conversion error for an eligible item becomes a
+    #   FatalException containing the item's URL; do not drop a failed Markdown
+    #   twin and let the build succeed with incomplete output.
     # @gotcha `Document#to_liquid` returns a live `DocumentDrop` (delegates
     #   `[]` to `data`), but `Page#to_liquid` returns a plain `Hash`
     #   (snapshot at call time). Jekyll's `Renderer#run` calls `to_liquid`

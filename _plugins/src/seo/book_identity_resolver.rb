@@ -3,6 +3,10 @@
 module Jekyll
   module SEO
     # Resolves the site-owned identity URL for a reviewed book.
+    #
+    # @gotcha An archived review resolves to its local canonical review URL
+    #   for the Book entity. The review page itself keeps its own document URL;
+    #   this resolver changes only the identity of the book being reviewed.
     class BookIdentityResolver
       def self.resolve(document, site)
         review_url = document&.url

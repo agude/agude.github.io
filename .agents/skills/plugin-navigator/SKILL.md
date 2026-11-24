@@ -39,6 +39,14 @@ _tests/src/<path>/test_<name>.rb
 _tests/src/<path>/test_<name>_*.rb
 ```
 
+A plugin covered only by a subsystem-level test names that test in a comment
+line. `test-for-plugin` prints each named test that exists, and
+`coverage-stats` counts the plugin as tested:
+
+```ruby
+# Tested by: _tests/src/content/books/tags/test_display_book_lists_tag.rb
+```
+
 If no test matches, it prints `MISSING` and exits with status 1.
 
 `plugin-for-test` accepts one test path under `_tests/src/`. It prints the

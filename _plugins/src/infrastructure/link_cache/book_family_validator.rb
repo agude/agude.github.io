@@ -3,10 +3,10 @@
 module Jekyll
   module Infrastructure
     module LinkCache
-      # Validates that canonical book pages do not have canonical_url in front
-      # matter. A canonical page is one that other books reference via their
-      # canonical_url field. If the target itself also has canonical_url,
-      # find_candidates will reject it and book_link resolution silently breaks.
+      # Validates canonical_url values and rejects a canonical book page that
+      # also points to another canonical page. Consumers read the value
+      # verbatim, so a local canonical_url must exactly match the target page's
+      # URL, including its trailing slash.
       #
       # @validator Book referenced as a canonical target by another book also
       #   has `canonical_url` set (copy-paste error).
@@ -26,12 +26,10 @@ module Jekyll
 
         private
 
-        # canonical_url is read verbatim by many consumers (link cache, book
-        # identity, SEO tags), so a local value must spell the target's url
-        # exactly. Padding would be read as local by the identity resolver
-        # but not by find_violations. A value that differs from a book's url
-        # only in the trailing slash is treated as the same page here, but
-        # gets its own book identity elsewhere, so the family splits in two.
+        # canonical_url is read verbatim by the link cache, book identity,
+        # and SEO code, so a local value must spell the target's url exactly.
+        # Normalize only to find a possible target; reject whitespace and
+        # trailing-slash differences before consumers can split the family.
         def check_canonical_format
           return unless @site.collections.key?('books')
 

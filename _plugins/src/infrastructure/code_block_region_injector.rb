@@ -32,6 +32,14 @@ module Jekyll
     # ImageDimensionsInjector. Comments and the raw-text elements `script`,
     # `style`, and `textarea` are passed through unchanged.
     #
+    # @pipeline At low `:post_render` priority, label each `<pre>` with a
+    #   spoken language name or `Code block`, and make it keyboard-focusable.
+    #   Running after FootnotePreviewInjector keeps the copied, hidden
+    #   footnote preview free of a tab stop; the original footnote code block
+    #   still receives one.
+    # @gotcha Every `<pre>` gets a tab stop because static HTML cannot tell
+    #   which code block will overflow its column. Do not add these attributes
+    #   in templates; this injector owns `tabindex`, `role`, and `aria-label`.
     # @validator A `<pre>` that already has a `tabindex`, `role`, or
     #   `aria-label` attribute, with or without a value, or a code fence in a language missing from
     #   LANGUAGE_NAMES. Add the language there to give it a spoken name.

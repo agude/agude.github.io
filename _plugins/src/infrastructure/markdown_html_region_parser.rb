@@ -12,6 +12,16 @@ module Jekyll
     # the text. Code detection runs on the text with earlier regions blanked
     # using MaskedCodeRanges, so a backtick or fence marker inside raw
     # HTML does not hide later HTML.
+    #
+    # @pattern Protect comments and CommonMark raw-block tag families before
+    #   Markdown conversion. `markdown="1"`, `markdown="block"`, and
+    #   `markdown="span"` keep an element eligible; lookalike attributes and
+    #   disabled values do not. Supported ChatGPT edit containers are handled
+    #   by their specialized converter.
+    # @gotcha Pair tags before walking the source and query code ranges only
+    #   in increasing source order. Mask earlier raw regions before deciding
+    #   whether a later tag is inside code, or code punctuation can hide valid
+    #   HTML after that region.
     module MarkdownHtmlRegionParser
       HTML_TOKEN_RE = %r{<!--.*?-->|</?[a-z][^>]*>}im
       # CommonMark block HTML tag families, excluding thematic-break `hr`

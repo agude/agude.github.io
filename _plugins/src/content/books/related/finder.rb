@@ -12,19 +12,25 @@ module Jekyll
     module Related
       # Finds and ranks related books using a waterfall of criteria.
       #
-      # Priority order: series → author → mentioned works (books + short stories) →
-      # mentioned series → backlink works → backlink series → recent.
-      #
-      # Books and short stories compete by score within the same tier, allowing
-      # a frequently-mentioned short story to outrank a rarely-mentioned book.
-      # Tiebreaker when scores match: position asc, date desc, title asc.
-      #
       # This class handles the data retrieval logic for finding related books.
       # It does not produce any HTML output.
       #
+      # @pipeline Fill up to the configured limit (default 3) in this order:
+      #   nearby books in the same series, books by the same authors,
+      #   forward-linked works, forward-linked series, backlink works,
+      #   backlink series, then remaining books by date. Same-series books
+      #   interleave before and after the current number; if it is unparseable,
+      #   all books in that series are used in number order. Work tiers combine
+      #   book and short-story links. A short-story link targets its parent
+      #   book URL, so mentions of that book and its stories share one score.
+      #   Link tiers sort by count descending, direct-link position when present
+      #   (otherwise earliest position) ascending, date descending, then title.
       # @gotcha Selection contains live documents, so it belongs outside the
       #   serializable link_cache. HTML and Markdown share results by page URL
-      #   and limit; :site, :post_read clears them before each build.
+      #   and limit in `site.data['related_books_cache']`; the `:site,
+      #   :post_read` hook clears that cache before each build.
+      # @gotcha Exclude the current page, pages with `canonical_url`,
+      #   unpublished books, and future-dated books before they can fill a slot.
       class Finder
         DEFAULT_MAX_BOOKS = 3
         LINK_TIERS = {

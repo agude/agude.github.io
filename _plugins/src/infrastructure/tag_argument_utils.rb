@@ -6,6 +6,11 @@ require 'strscan'
 module Jekyll
   module Infrastructure
     # Utility module for parsing and resolving Liquid tag arguments.
+    #
+    # @pattern Use `parse_named_arguments` for the named tail of a tag's
+    #   markup. It rejects malformed syntax, unknown or repeated keys, and
+    #   missing required keys before a resolver runs; positional subjects
+    #   remain the tag's responsibility.
     module TagArgumentUtils
       NAMED_ARGUMENT = /([\w-]+)\s*=\s*(#{Liquid::QuotedFragment}|\S+)/o
 

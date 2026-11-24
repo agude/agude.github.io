@@ -10,6 +10,11 @@ module Jekyll
   module SEO
     # Generates SEO meta tag values for Jekyll documents and pages.
     # Replaces jekyll-seo-tag functionality with custom control over output.
+    #
+    # @gotcha A book's front-matter `canonical_url` groups archived reviews
+    #   into a book family; it does not set the page's HTML canonical link.
+    #   The HTML canonical uses the document's own URL (except layouts in
+    #   `NO_CANONICAL_LAYOUTS`), so archived reviews remain distinct pages.
     class SeoMetaGenerator
       ARTICLE_LAYOUTS = %w[book post review-post].freeze
 

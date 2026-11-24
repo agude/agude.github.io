@@ -17,6 +17,10 @@ module Jekyll
       #   {% movie_title "The Matrix" %}
       #   {% movie_title page.movie %}
       #
+      # @pattern Resolve quoted text or a Liquid variable, then emit the
+      #   `<cite>` wrapper in HTML mode and underscore emphasis in Markdown
+      #   mode. Empty values emit nothing; a missing argument fails during
+      #   Liquid parsing.
       # HTML mode:     <cite class="movie-title">The Matrix</cite>
       # Markdown mode: _The Matrix_
       class CiteTitleTag < Liquid::Tag

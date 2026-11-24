@@ -10,6 +10,10 @@ module Jekyll
   module SEO
     # Block-based DSL for building JSON-LD structured data.
     # Handles context binding, snake_case to camelCase conversion, and nested schemas.
+    #
+    # @gotcha `articleBody` and `wordCount` share one memoized plain-text
+    #   extraction for the document. Description fields use their own priority
+    #   rules and must not reuse that article-body cache.
     # rubocop:disable-next Metrics/ClassLength -- builder has many small field methods by design
     class JsonLdBuilder
       AWARD_NAMES = {

@@ -10,6 +10,19 @@ module Jekyll
     # markdown body strings.  Uses a "stash and replace" strategy:
     # code blocks are stashed before conversion and restored after,
     # so HTML examples inside code are never touched.
+    #
+    # @pipeline Protect raw HTML regions and code first, convert the supported
+    #   wrappers and inline tags, then restore protected bytes. Anchors become
+    #   Markdown links after inner tags; title `<cite>` elements and supported
+    #   emphasis become Markdown syntax, and thematic rules receive blank-line
+    #   boundaries.
+    # @gotcha Convert emphasis only when delimiter and word boundaries preserve
+    #   its rendered meaning. Nested, whitespace-padded, or delimiter-edge
+    #   cases stay HTML. Disclosure blocks are flattened inside-out, preserving
+    #   summary/body order and protecting code fences. ChatGPT edit blocks
+    #   retain Prompt and Output labels and quote their content as Markdown
+    #   continuation lines; recognized presentation wrappers are removed
+    #   while their content remains.
     module MarkdownHtmlConverter
       # Placeholder prefix unlikely to collide with real content.
       STASH_PREFIX = '@@MDSTASH'

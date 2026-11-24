@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-# Finds markdown reference-link problems in a single document's source.
+# Finds Markdown reference-link problems in one document's Liquid source.
+# This pure scanner has no Jekyll dependency; check_reference_links.rb loads
+# the site and supplies each document body and its file-line offset.
 #
 # The source is Liquid-flavored markdown, so it cannot be parsed as pure
 # markdown: Liquid appears inside link URLs (`[id]: {% post_url ... %}`),
@@ -9,10 +11,12 @@
 # placeholder word that preserves the surrounding markdown structure and the
 # original line count, so reported line numbers match the file on disk.
 #
-# Deleting Liquid is what causes false positives: dropping a `{% capture %}`
-# body loses the references inside it, and truncating a definition line at
-# its first Liquid tag loses references that follow (footnote definitions
-# routinely contain both).
+# Replacing Liquid rather than deleting it keeps references inside capture
+# bodies and after Liquid tags on definition lines visible to the scanner.
+# Full-form references are checked for undefined IDs. Shorthand `[id]`
+# references count only when deciding whether a definition is orphaned; they
+# are not reported as undefined because they are ambiguous with editorial
+# brackets.
 module ReferenceLinkScanner
   # Stands in for any Liquid construct. Must be a bare word so that it is a
   # valid URL body in `[id]: <placeholder>` and valid link text in

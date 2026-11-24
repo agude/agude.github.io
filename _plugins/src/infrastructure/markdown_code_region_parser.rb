@@ -3,6 +3,12 @@
 module Jekyll
   module Infrastructure
     # Finds source ranges for Markdown block and inline code.
+    #
+    # @pattern Share one range parser between HTML conversion and whitespace
+    #   normalization so both stages preserve the same code bytes. Fences can
+    #   sit in nested blockquote/list containers, including tab-indented list
+    #   fences; inline code uses matching backtick-run lengths and does not
+    #   cross a blank-line boundary.
     module MarkdownCodeRegionParser
       Fence = Struct.new(:marker, :fence_length, :containers, :info, keyword_init: true)
       private_constant :Fence
