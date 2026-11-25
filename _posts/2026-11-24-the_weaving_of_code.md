@@ -83,11 +83,11 @@ This economic force drives jobs to be split into tasks by skill.[^skill]
 [split]: {% post_url 2021-05-31-the_data_science_split %}
 [engineeriness]: {% post_url 2021-06-01-data_science_job_spectrum %}
 
-Babbage saw the bottom tier of Prony's skill division and thought adding and
-subtracting numbers [was a good task to automate][de]. He failed. Human
+Babbage saw the bottom tier of Prony's skill division and thought that adding
+and subtracting numbers [was a good task to automate][de]. He failed. Human
 computers survived for over a century, until electronic computers replaced
-them post-war era. Some of them weren't replaced, though. They moved up.
-Former computers like [McNulty][mcnulty], [Snyder][snyder],
+them in the post-war era. Some of them weren't replaced, though. They moved
+up. Former computers like [McNulty][mcnulty], [Snyder][snyder],
 [Wescoff][wescoff], [Lichterman][lichterman], [Jennings][jennings], and
 [Bilas][bilas] were recruited to program one of the first electronic
 computers, [ENIAC][eniac].
@@ -207,7 +207,7 @@ do. But we live now, not in three years.
 [at]: https://atilloy.com/about/
 [dragon]: https://atilloy.com/2026/11/16/the-short-age-of-dragon-riders/
 
-The machines have already moved up, just not everywhere at once. The frontier
+The machines have already moved up, but not everywhere at once. The frontier
 is jagged. Some math theorems fall with just "do a breakthrough"; others still
 require human direction. At work I'm still in the saddle, riding the dragon. I
 don't write code, but I decide what my agents will work on. Maybe I'll get one
@@ -217,9 +217,9 @@ maybe not.
 For a while I thought I could make a career of sliding down the dragon's tail.
 Tech used to work like that: build something at a cutting-edge company, then
 sell it down the line to less and less sophisticated companies as they
-realized they needed it. But [the bitter lesson][bl] came for that too. Once a
-company can just say "automate away my workforce, do a breakthrough", it
-doesn't need my expertise.
+realized they too needed it. But [the bitter lesson][bl] came for that also.
+Once a company can just say "automate away my workforce, do a breakthrough",
+it doesn't need my expertise.
 
 [bl]: https://en.wikipedia.org/wiki/Bitter_lesson
 
