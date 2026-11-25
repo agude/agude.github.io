@@ -16,9 +16,9 @@ categories:
 ---
 
 I think most software engineers are starting to wonder about their and their
-field's future with the rise of LLM coding. We prided ourselves on our
-_technical ability_, but in less then a year machines have completely
-surpassed us. What do we bring to the table if not that?
+field's future with the rise of LLM coding. I certainly am. We prided
+ourselves on our _technical ability_, but in less then a year machines have
+completely surpassed us. What do we bring to the table if not that?
 
 [prony_cadastre]: https://en.wikipedia.org/wiki/Gaspard_de_Prony#The_trigonometric_and_logarithmic_tables_of_the_cadastre
 
@@ -109,6 +109,50 @@ computers lasted about 350 years, junior engineers around 70. I'm not sure how
 long senior and staff engineers will hold on.
 
 ## Lovelace
+
+In 1843, [Ada Lovelace][lovelace] wrote in her notes on Babbage's [Analytical
+Engine][ae] that:
+
+[lovelace]: https://en.wikipedia.org/wiki/Ada_Lovelace
+
+{% citedquote
+  author_first="Ada"
+  author_last="Lovelace"
+  work_title="Translator's Notes to M. Menabrea's Memoir, Note A"
+  container_title="Scientific Memoirs"
+  editor="Richard Taylor"
+  volume="3"
+  publisher="Richard and John E. Taylor"
+  date="1843"
+  page="696"
+  url="https://en.wikisource.org/wiki/Page:Scientific_Memoirs,_Vol._3_(1843).djvu/706"
+%}
+We may say most aptly that the Analytical Engine _weaves algebraical patterns_
+just as the Jacquard-loom weaves flowers and leaves.
+{% endcitedquote %}
+
+But, looking at the division of skill, she too drew the line low:
+
+{% citedquote
+  author_first="Ada"
+  author_last="Lovelace"
+  work_title="Translator's Notes to M. Menabrea's Memoir, Note G"
+  container_title="Scientific Memoirs"
+  editor="Richard Taylor"
+  volume="3"
+  publisher="Richard and John E. Taylor"
+  date="1843"
+  page="722"
+  url="https://en.wikisource.org/wiki/Page:Scientific_Memoirs,_Vol._3_(1843).djvu/732"
+%}
+The Analytical Engine has no pretensions whatever to _originate_ any thing. It
+can do whatever we _know how to order it_ to perform. It can _follow_
+analysis; but it has no power of _anticipating_ any analytical relations or
+truths. Its province is to assist us in making _available_ what we are already
+acquainted with.
+{% endcitedquote %}
+
+That's what changed in 2026.
 
 [Antoine Tilloy's][at] [_The short age of dragon riders_][dragon]
 
