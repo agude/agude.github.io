@@ -112,8 +112,7 @@ engineers will hold on.
 Babbage later designed a general-purpose machine, the [Analytical Engine][ae],
 using [punched cards][cards] inspired by the Jacquard loom to tell it what to
 do. Those same cards stuck around through ENIAC and other early electronic
-computers. In 1843, [Ada Lovelace][lovelace] wrote in her notes on the Engine
-that:
+computers. In 1843, [Ada Lovelace][lovelace] wrote in her notes on the Engine:
 
 [cards]: https://en.wikipedia.org/wiki/Punched_card
 [lovelace]: https://en.wikipedia.org/wiki/Ada_Lovelace
