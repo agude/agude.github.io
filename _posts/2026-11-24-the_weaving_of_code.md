@@ -5,7 +5,7 @@ description: >
   We stopped hiring junior engineers and laid off most of the ones we had. As
   AI climbs the ladder of abstraction, I turn to Prony, Babbage, and Lovelace
   to work out what happens to my job next.
-image: /files/weaving-of-code/power_loom_weaving_1835.jpg
+image: /files/weaving-of-code/power_loom_weaving_1835_cropped.jpg
 image_alt: >
   A black and white engraving of a long mill hall lined with rows of power
   looms, driven by belts from overhead shafts. Women tend the looms while a
