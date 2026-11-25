@@ -19,11 +19,11 @@ categories:
 I think most software engineers are starting to wonder about their future and
 that of their field with the rise of LLM coding. I certainly am. We prided
 ourselves on our _technical ability_, but in the past year machines have
-completely surpassed us. What do we bring to the table if not that?
+completely surpassed us. What are we good for if not that?
 
 ## Prony
 
-In 1791, [Gaspard de Prony][gdp] was tasked with computing 19 books full of
+In 1791, [Gaspard de Prony][gdp] was tasked with computing books full of
 logarithms and trigonometric functions for the French geographic survey. He
 divided the labor into three tiers:
 
@@ -35,7 +35,7 @@ divided the labor into three tiers:
 2. _Planners_, who figured out how to implement the algorithms and supervised
    the computers.
 
-3. _Computers_, many former hairdressers, who did the actual tedious
+3. _Computers_, many of them former hairdressers, who did the tedious
    calculations.
 
 [legendre]: https://en.wikipedia.org/wiki/Adrien-Marie_Legendre
@@ -46,16 +46,15 @@ companies, with staff engineers looking at large-scale direction, senior
 engineers figuring out how to implement the directive, and juniors churning
 out the raw code. The difference, of course, is Prony's hairdressers were
 never expected to become planners or mathematicians, whereas a junior was
-expected to learn and become a senior. Lately I keep having the same
-conversation over and over:
+expected to learn and become a senior. But that pipeline is breaking. Lately I
+keep having some version of this conversation:
 
-> **Me**: We don't really hire junior engineers anymore, do we? In fact, we
-> just laid a bunch off.
+> **Me**: Are people still hiring junior engineers? We just laid a bunch off.
 >
-> **Friend**: Yeah... Where are the next senior and staff engineers going to
-> come from if juniors don't learn on the job?
+> **Friend**: I know... Where are the next senior engineers supposed to come
+> from if nobody trains them?
 >
-> **Me**: Companies seem to think that's someone else's problem. But... did
+> **Me**: Everyone seems to think that's someone else's problem. But... did
 > they need another generation of apprentices once the [Jacquard
 > loom][jl_wiki] was invented?
 
@@ -69,7 +68,7 @@ used for his survey into what is now known as the ["Babbage
 Principle"][babbage_principle]. He explained that highly skilled---and hence
 highly paid!---workers spend some of their time doing tasks below their skill
 level, and that it is better to hire those tasks out to lower-skill workers.
-This economic force drives jobs to be split into tasks by skill.[^skill]
+This economic force splits jobs into tiers by skill.[^skill]
 
 [babbage]: https://en.wikipedia.org/wiki/Charles_Babbage
 [babbage_principle]: https://en.wikipedia.org/wiki/Charles_Babbage#%22Babbage_principle%22
@@ -87,10 +86,10 @@ Babbage saw the bottom tier of Prony's skill division and thought that adding
 and subtracting numbers [was a good task to automate][de]. He failed. Human
 computers survived for over a century, until electronic computers replaced
 them in the post-war era. Some of them weren't replaced, though. They moved
-up. Former computers like [McNulty][mcnulty], [Snyder][snyder],
+up. Six former computers---[McNulty][mcnulty], [Snyder][snyder],
 [Wescoff][wescoff], [Lichterman][lichterman], [Jennings][jennings], and
-[Bilas][bilas] were recruited to program one of the first electronic
-computers, [ENIAC][eniac].
+[Bilas][bilas]---were recruited to program [ENIAC][eniac], one of the first
+electronic computers.
 
 [de]: https://en.wikipedia.org/wiki/Difference_engine
 [mcnulty]: https://en.wikipedia.org/wiki/Kathleen_Antonelli
@@ -169,7 +168,7 @@ In January of 2026, [Erdős problem][erdos_problems] 728 was solved by an AI,
 with little human intervention according to [Terence Tao][tao]. In July, the
 [Dinitz--Garg--Goemans conjecture][dgg] was disproved by asking an AI to "do a
 breakthrough". In September, AI solved [Navier--Stokes existence and
-smoothness][ns], one of the [Millennium Problem][millennium]. In November, an
+smoothness][ns], one of the [Millennium Problems][millennium]. In November, an
 AI-assisted human proved the [Riemann Hypothesis][riemann], which had stood
 for 167 years and was considered the holy grail by many mathematicians.
 
@@ -186,8 +185,8 @@ The last of Prony's tiers fell to automation.
 
 It was [Antoine Tilloy's][at] [_The short age of dragon riders_][dragon] that
 got me thinking about all this again. His conclusion is similar to mine, that
-some people will move up a level of abstraction and "ride the dragon" that is
-AI, until they don't:
+some people will move up a tier and "ride the dragon" that is AI, until they
+don't:
 
 {% citedquote
   author_first="Antoine"
@@ -207,12 +206,13 @@ do. But we live now, not in three years.
 [at]: https://atilloy.com/about/
 [dragon]: https://atilloy.com/2026/11/16/the-short-age-of-dragon-riders/
 
-The machines have already moved up, but not everywhere at once. The frontier
-is jagged. Some math theorems fall with just "do a breakthrough"; others still
+The machines have already moved up, just not everywhere at once. The frontier
+is jagged. Some math theorems fall with "do a breakthrough"; others still
 require human direction. At work I'm still in the saddle, riding the dragon. I
-don't write code, but I decide what my agents will work on. Maybe I'll get one
-more warning as the seniors get laid off, leaving only us staff engineers, or
-maybe not.
+don't write code, but I decide what my agents will work on. I led a team of 8
+data scientists for two years, and this feels a lot more like that manager
+role than my IC role. Maybe I'll get one more warning as the seniors get laid
+off, leaving only us staff engineers. Or maybe not.
 
 For a while I thought I could make a career of sliding down the dragon's tail.
 Tech used to work like that: build something at a cutting-edge company, then
