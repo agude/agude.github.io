@@ -2,9 +2,9 @@
 layout: post
 title: "The Weaving of Code"
 description: >
-  We stopped hiring junior engineers and laid off most of the ones we had. As
-  AI climbs the ladder of abstraction, I turn to Prony, Babbage, and Lovelace
-  to work out what happens to my job next.
+  Tech stopped hiring junior engineers and started laying them off. I don't
+  have answers, so I turn to Prony, Babbage, and Lovelace to think through
+  what happens to my job next.
 image: /files/weaving-of-code/power_loom_weaving_1835_cropped.jpg
 image_alt: >
   A black and white engraving of a man in a cap and waistcoat standing beside
@@ -157,15 +157,15 @@ truths. Its province is to assist us in making _available_ what we are already
 acquainted with.
 {% endcitedquote %}
 
-That's what changed in 2026. In 2022, AI could fill in the next line of code.
-By 2025, coding agents could write the entire thing. Computers had suddenly
-moved up and taken the junior engineer's job. Then in 2026, they made [the
-next leap][ai_discoveries].
+That's what finally broke. In 2022, AI could fill in the next line of code. By
+2025, coding agents could write the entire thing. Computers had suddenly moved
+up and taken the junior engineer's job. Then in 2026, they made [the next
+leap][ai_discoveries].
 
 [ai_discoveries]: https://en.wikipedia.org/wiki/List_of_mathematical_discoveries_made_with_artificial_intelligence
 
-In January of 2026, [Erdős problem][erdos_problems] 728 was solved by an AI,
-with little human intervention according to [Terence Tao][tao]. In July, the
+In January, [Erdős problem][erdos_problems] 728 was solved by an AI, with
+little human intervention according to [Terence Tao][tao]. In July, the
 [Dinitz--Garg--Goemans conjecture][dgg] was disproved by asking an AI to "do a
 breakthrough". In September, AI solved [Navier--Stokes existence and
 smoothness][ns], one of the [Millennium Problems][millennium]. In November, an
@@ -210,16 +210,16 @@ The machines have already moved up, just not everywhere at once. The frontier
 is jagged. Some math theorems fall with "do a breakthrough"; others still
 require human direction. At work I'm still in the saddle, riding the dragon. I
 don't write code, but I decide what my agents will work on. I led a team of 8
-data scientists for two years, and this feels a lot more like that manager
-role than my IC role. Maybe I'll get one more warning as the seniors get laid
-off, leaving only us staff engineers. Or maybe not.
+data scientists for 2 years, and this feels a lot more like that manager role
+than my IC role. Maybe I'll get one more warning as the seniors get laid off,
+leaving only us staff engineers. Or maybe not.
 
 For a while I thought I could make a career of sliding down the dragon's tail.
 Tech used to work like that: build something at a cutting-edge company, then
 sell it down the line to less and less sophisticated companies as they
-realized they too needed it. But [the bitter lesson][bl] came for that also.
-Once a company can just say "automate away my workforce, do a breakthrough",
-it doesn't need my expertise.
+realized they needed it. But [the bitter lesson][bl] came for that too. Once a
+company can just say "automate away my workforce, do a breakthrough", it
+doesn't need my expertise.
 
 [bl]: https://en.wikipedia.org/wiki/Bitter_lesson
 
