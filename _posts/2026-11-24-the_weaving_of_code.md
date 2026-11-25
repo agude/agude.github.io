@@ -2,8 +2,9 @@
 layout: post
 title: "The Weaving of Code"
 description: >
-  TODO: One or two sentences. Junior engineers are the new drawboys, I am a
-  dragon rider, and the loom has a history of climbing the ladder.
+  We stopped hiring junior engineers and laid off most of the ones we had. As
+  AI climbs the ladder of abstraction, I turn to Prony, Babbage, and Lovelace
+  to work out what happens to my job next.
 image: /files/weaving-of-code/power_loom_weaving_1835.jpg
 image_alt: >
   A black and white engraving of a long mill hall lined with rows of power
