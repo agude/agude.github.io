@@ -16,9 +16,9 @@ categories:
   - opinions
 ---
 
-I think most software engineers are starting to wonder about their and their
-field's future with the rise of LLM coding. I certainly am. We prided
-ourselves on our _technical ability_, but in less than a year machines have
+I think most software engineers are starting to wonder about their future and
+that of their field with the rise of LLM coding. I certainly am. We prided
+ourselves on our _technical ability_, but in the past year machines have
 completely surpassed us. What do we bring to the table if not that?
 
 ## Prony
@@ -46,8 +46,8 @@ companies, with staff engineers looking at large-scale direction, senior
 engineers figuring out how to implement the directive, and juniors churning
 out the raw code. The difference, of course, is Prony's hairdressers were
 never expected to become planners or mathematicians, whereas a junior was
-expected to learn and become a senior. Recently, though, I've been having
-variations of this conversation:
+expected to learn and become a senior. Lately I keep having the same
+conversation over and over:
 
 > **Me**: We don't really hire junior engineers anymore, do we? In fact, we
 > just laid a bunch off.
@@ -86,8 +86,8 @@ This economic force drives jobs to be split into tasks by skill.[^skill]
 Babbage saw the bottom tier of Prony's skill division and thought adding and
 subtracting numbers [was a good task to automate][de]. He failed. Human
 computers survived for over a century, until electronic computers replaced
-them between the 1940s and the 1960s. Some of them weren't replaced, though.
-They moved up. Former computers like [McNulty][mcnulty], [Snyder][snyder],
+them post-war era. Some of them weren't replaced, though. They moved up.
+Former computers like [McNulty][mcnulty], [Snyder][snyder],
 [Wescoff][wescoff], [Lichterman][lichterman], [Jennings][jennings], and
 [Bilas][bilas] were recruited to program one of the first electronic
 computers, [ENIAC][eniac].
@@ -101,12 +101,13 @@ computers, [ENIAC][eniac].
 [bilas]: https://en.wikipedia.org/wiki/Frances_Spence
 [eniac]: https://en.wikipedia.org/wiki/ENIAC
 
-If you think about it, the junior--senior--staff leveling system already
-leaves out that old bottom rung. We work with computers too, just not the
-human kind---electronic ones took that job, leaving junior engineers at the
-bottom. Now LLMs are moving up another step on the ladder. Human computers
-lasted about 350 years, junior engineers around 70. I'm not sure how long
-senior and staff engineers will hold on.
+Look closer, though, and the junior--senior--staff leveling system doesn't fit
+Prony's. It leaves out the old bottom rung. Computers still exist; they're
+made of silicon now. Junior and senior engineers are really both planners,
+split into two jobs by the Babbage Principle. Now LLMs are moving up another
+step on the ladder, taking the junior half. Human computers lasted about 350
+years, junior engineers around 70. I'm not sure how long senior and staff
+engineers will hold on.
 
 ## Lovelace
 
@@ -158,22 +159,23 @@ acquainted with.
 {% endcitedquote %}
 
 That's what changed in 2026. In 2022, AI could fill in the next line of code.
-By 2025, it could write the entire thing. Computers had suddenly moved up and
-taken the junior engineer's job. Then in 2026, they made [the next
-leap][ai_discoveries].
+By 2025, coding agents could write the entire thing. Computers had suddenly
+moved up and taken the junior engineer's job. Then in 2026, they made [the
+next leap][ai_discoveries].
+
+[ai_discoveries]: https://en.wikipedia.org/wiki/List_of_mathematical_discoveries_made_with_artificial_intelligence
 
 In January of 2026, [Erdős problem][erdos_problems] 728 was solved by an AI,
 with little human intervention according to [Terence Tao][tao]. In July, the
 [Dinitz--Garg--Goemans conjecture][dgg] was disproved by asking an AI to "do a
-breakthrough". In September, AI solved the [Navier--Stokes existence and
-smoothness problem][ns], a [Millennium Problem][millennium]. In November, an
-AI assisted human proved the [Riemann Hypothesis][riemann], which had stood
+breakthrough". In September, AI solved [Navier--Stokes existence and
+smoothness][ns], one of the [Millennium Problem][millennium]. In November, an
+AI-assisted human proved the [Riemann Hypothesis][riemann], which had stood
 for 167 years and was considered the holy grail by many mathematicians.
 
 [erdos_problems]: https://en.wikipedia.org/wiki/Erd%C5%91s_problems
 [tao]: https://en.wikipedia.org/wiki/Terence_Tao
 [dgg]: https://en.wikipedia.org/wiki/Dinitz%E2%80%93Garg%E2%80%93Goemans_conjecture
-[ai_discoveries]: https://en.wikipedia.org/wiki/List_of_mathematical_discoveries_made_with_artificial_intelligence
 [ns]: https://en.wikipedia.org/wiki/Navier%E2%80%93Stokes_existence_and_smoothness
 [millennium]: https://en.wikipedia.org/wiki/Millennium_Prize_Problems
 [riemann]: https://en.wikipedia.org/wiki/Riemann_hypothesis
@@ -206,11 +208,20 @@ do. But we live now, not in three years.
 [dragon]: https://atilloy.com/2026/11/16/the-short-age-of-dragon-riders/
 
 The machines have already moved up, just not everywhere at once. The frontier
-is jagged. Some math theorems fall with just a "do a breakthrough"; others
-still require human direction. At work I'm still in the saddle, riding the
-dragon. I don't write code, but I decide what my agents will work on. Maybe
-I'll get one more warning as the seniors get laid off, leaving only us staff
-engineers, or maybe not.
+is jagged. Some math theorems fall with just "do a breakthrough"; others still
+require human direction. At work I'm still in the saddle, riding the dragon. I
+don't write code, but I decide what my agents will work on. Maybe I'll get one
+more warning as the seniors get laid off, leaving only us staff engineers, or
+maybe not.
+
+For a while I thought I could make a career of sliding down the dragon's tail.
+Tech used to work like that: build something at a cutting-edge company, then
+sell it down the line to less and less sophisticated companies as they
+realized they needed it. But [the bitter lesson][bl] came for that too. Once a
+company can just say "automate away my workforce, do a breakthrough", it
+doesn't need my expertise.
+
+[bl]: https://en.wikipedia.org/wiki/Bitter_lesson
 
 Machines first wove flowers and leaves, then algebraical patterns, and now
 code. Soon they will move up again, but we live now, not in three years.
