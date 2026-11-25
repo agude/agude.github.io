@@ -200,5 +200,12 @@ what to do. But we live now, not in three years.
 [at]: https://atilloy.com/about/
 [dragon]: https://atilloy.com/2026/11/16/the-short-age-of-dragon-riders/
 
-Machines first wove flowers and leaves, then algebraical patterns, and finally
-code. It is only a matter of time before they move up again.
+The machines have already moved up, just not everywhere at once. The frontier
+is jagged. Some math theorems fall with just a "do a breakthrough", others
+still require human direction. At work I'm still in the saddle, riding the
+dragon. I don't write code, but I decide what my agents will work on. Maybe
+I'll get one more warning as the seniors get laid off leaving only us staff
+engineers, or maybe not.
+
+Machines first wove flowers and leaves, then algebraical patterns, and now
+code. Soon they will move up again, but we live now, not in three years.
