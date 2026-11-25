@@ -175,7 +175,12 @@ The final of Prony's tiers fell to automation.
 [millennium]: https://en.wikipedia.org/wiki/Millennium_Prize_Problems
 [riemann]: https://en.wikipedia.org/wiki/Riemann_hypothesis
 
-[Antoine Tilloy's][at] [_The short age of dragon riders_][dragon]
+## The End?
+
+It was [Antoine Tilloy's][at] [_The short age of dragon riders_][dragon] that
+got me thinking about all this again. His conclusion is similar to mine, that
+some people will move up a level of abstraction and "ride the dragon" that is
+AI, until they don't:
 
 {% citedquote
   author_first="Antoine"
@@ -194,3 +199,6 @@ what to do. But we live now, not in three years.
 
 [at]: https://atilloy.com/about/
 [dragon]: https://atilloy.com/2026/11/16/the-short-age-of-dragon-riders/
+
+Machines first wove flowers and leaves, then algebraical patterns, and finally
+code. It is only a matter of time before they move up again.
