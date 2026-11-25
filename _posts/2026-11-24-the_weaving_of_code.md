@@ -64,7 +64,7 @@ variations of this conversation:
 
 In 1832, [Charles Babbage][babbage] published {% book_link "On the Economy of
 Machinery and Manufactures" %}, which codified the division of labor Prony had
-invented for his survey into what is now known as the ["Babbage
+used for his survey into what is now known as the ["Babbage
 Principle"][babbage_principle]. He explained that highly skilled---and hence
 highly paid!---workers spend some of their time doing tasks below their skill
 level, and that it is better to hire those tasks out to lower-skill workers.
@@ -165,9 +165,9 @@ In January of 2026, [Erdős problem][erdos_problems] 728 was solved by an AI,
 with little human intervention according to [Terence Tao][tao]. In July, the
 [Dinitz--Garg--Goemans conjecture][dgg] was disproved by asking an AI to "do a
 breakthrough". In September, AI solved the [Navier--Stokes existence and
-smoothness problem][ns], a [Millennium Problem][millennium]. In November, AI
-proved the [Riemann Hypothesis][riemann], which had stood for 167 years and
-was considered the holy grail by many mathematicians.
+smoothness problem][ns], a [Millennium Problem][millennium]. In November, an
+AI assisted human proved the [Riemann Hypothesis][riemann], which had stood
+for 167 years and was considered the holy grail by many mathematicians.
 
 [erdos_problems]: https://en.wikipedia.org/wiki/Erd%C5%91s_problems
 [tao]: https://en.wikipedia.org/wiki/Terence_Tao
