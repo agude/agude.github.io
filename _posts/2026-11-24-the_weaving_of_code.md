@@ -23,23 +23,22 @@ completely surpassed us. What are we good for if not that?
 
 ## Prony
 
-In 1791, [Gaspard de Prony][gdp] was tasked with computing books full of
-logarithms and trigonometric functions for the French geographic survey. He
+In 1793, [Gaspard de Prony][gdp] was tasked with computing books full of
+logarithms and trigonometric functions for the French national land survey. He
 divided the labor into three tiers:
 
 [gdp]: https://en.wikipedia.org/wiki/Gaspard_de_Prony
 
-1. _Mathematicians_, including luminaries like [Legendre][legendre] and
-   [Carnot][carnot], who did the high-level algorithm work.
+1. _Mathematicians_, including [Legendre][legendre], who did the high-level
+   algorithm work.
 
-2. _Planners_, who figured out how to implement the algorithms and supervised
-   the computers.
+2. _Planners_, who turned the algorithms into worksheets and checked the
+   computers' work.
 
-3. _Computers_, many of them former hairdressers, who did the tedious
+3. _Computers_, some of them former hairdressers, who did the tedious
    calculations.
 
 [legendre]: https://en.wikipedia.org/wiki/Adrien-Marie_Legendre
-[carnot]: https://en.wikipedia.org/wiki/Lazare_Carnot
 
 If you squint at it, that's almost the same way we structure software
 companies, with staff engineers looking at large-scale direction, senior
@@ -65,7 +64,7 @@ keep having some version of this conversation:
 In 1832, [Charles Babbage][babbage] published {% book_link "On the Economy of
 Machinery and Manufactures" %}, which codified the division of labor Prony had
 used for his survey into what is now known as the ["Babbage
-Principle"][babbage_principle]. He explained that highly skilled---and hence
+principle"][babbage_principle]. He explained that highly skilled---and hence
 highly paid!---workers spend some of their time doing tasks below their skill
 level, and that it is better to hire those tasks out to lower-skill workers.
 This economic force splits jobs into tiers by skill.[^skill]
@@ -82,14 +81,14 @@ This economic force splits jobs into tiers by skill.[^skill]
 [split]: {% post_url 2021-05-31-the_data_science_split %}
 [engineeriness]: {% post_url 2021-06-01-data_science_job_spectrum %}
 
-Babbage saw the bottom tier of Prony's skill division and thought that adding
-and subtracting numbers [was a good task to automate][de]. He failed. Human
-computers survived for over a century, until electronic computers replaced
-them in the post-war era. Some of them weren't replaced, though. They moved
-up. Six former computers---[McNulty][mcnulty], [Snyder][snyder],
-[Wescoff][wescoff], [Lichterman][lichterman], [Jennings][jennings], and
-[Bilas][bilas]---were recruited to program [ENIAC][eniac], one of the first
-electronic computers.
+Babbage had already looked at the bottom tier of Prony's skill division and
+thought that adding and subtracting numbers [was a good task to automate][de].
+He failed. Human computers survived for over a century, until electronic
+computers replaced them in the post-war era. Some of them weren't replaced,
+though. They moved up. Six former computers---[McNulty][mcnulty],
+[Snyder][snyder], [Wescoff][wescoff], [Lichterman][lichterman],
+[Jennings][jennings], and [Bilas][bilas]---were recruited to program
+[ENIAC][eniac], one of the first electronic computers.
 
 [de]: https://en.wikipedia.org/wiki/Difference_engine
 [mcnulty]: https://en.wikipedia.org/wiki/Kathleen_Antonelli
@@ -103,7 +102,7 @@ electronic computers.
 Look closer, though, and the junior--senior--staff leveling system doesn't fit
 Prony's. It leaves out the old bottom rung. Computers still exist; they're
 made of silicon now. Junior and senior engineers are really both planners,
-split into two jobs by the Babbage Principle. Now LLMs are moving up another
+split into two jobs by the Babbage principle. Now LLMs are moving up another
 step on the ladder, taking the junior half. Human computers lasted about 350
 years, junior engineers around 70. I'm not sure how long senior and staff
 engineers will hold on.
@@ -164,8 +163,8 @@ leap][ai_discoveries].
 
 [ai_discoveries]: https://en.wikipedia.org/wiki/List_of_mathematical_discoveries_made_with_artificial_intelligence
 
-In January, [Erdős problem][erdos_problems] 728 was solved by an AI, with
-little human intervention according to [Terence Tao][tao]. In July, the
+In January, [Erdős problem][erdos_problems] #728 was [solved by an
+AI][ep_solved], with little human intervention. In July, the
 [Dinitz--Garg--Goemans conjecture][dgg] was disproved by asking an AI to "do a
 breakthrough". In September, AI solved [Navier--Stokes existence and
 smoothness][ns], one of the [Millennium Problems][millennium]. In November, an
@@ -173,7 +172,7 @@ AI-assisted human proved the [Riemann Hypothesis][riemann], which had stood
 for 167 years and was considered the holy grail by many mathematicians.
 
 [erdos_problems]: https://en.wikipedia.org/wiki/Erd%C5%91s_problems
-[tao]: https://en.wikipedia.org/wiki/Terence_Tao
+[ep_solved]: https://arxiv.org/abs/2601.07421
 [dgg]: https://en.wikipedia.org/wiki/Dinitz%E2%80%93Garg%E2%80%93Goemans_conjecture
 [ns]: https://en.wikipedia.org/wiki/Navier%E2%80%93Stokes_existence_and_smoothness
 [millennium]: https://en.wikipedia.org/wiki/Millennium_Prize_Problems
