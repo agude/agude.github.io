@@ -84,7 +84,7 @@ economic force drives jobs to be split into tasks by skill.[^skill]
 [engineeriness]: {% post_url 2021-06-01-data_science_job_spectrum %}
 
 Babbage saw the bottom tier of Prony's skill division and thought that adding
-and subtracting numbers [seemed like a good task to automate][ae]. He failed.
+and subtracting numbers [seemed like a good task to automate][de]. He failed.
 Human computers survived for another 100 yeas until the electronic computers
 of the 1960s started to replace them. Some of them weren't replaced though,
 they moved up. Former computers like [McNulty][mcnulty], [Snyder][snyder],
@@ -92,7 +92,7 @@ they moved up. Former computers like [McNulty][mcnulty], [Snyder][snyder],
 [Bilas][bilas] were recruited to program the first electronic computer,
 [ENIAC][eniac].
 
-[ae]: https://en.wikipedia.org/wiki/Analytical_engine
+[de]: https://en.wikipedia.org/wiki/Difference_engine
 [mcnulty]: https://en.wikipedia.org/wiki/Kathleen_Antonelli
 [snyder]: https://en.wikipedia.org/wiki/Betty_Holberton
 [wescoff]: https://en.wikipedia.org/wiki/Marlyn_Meltzer
@@ -114,6 +114,7 @@ In 1843, [Ada Lovelace][lovelace] wrote in her notes on Babbage's [Analytical
 Engine][ae] that:
 
 [lovelace]: https://en.wikipedia.org/wiki/Ada_Lovelace
+[ae]: https://en.wikipedia.org/wiki/Analytical_engine
 
 {% citedquote
   author_first="Ada"
@@ -152,7 +153,27 @@ truths. Its province is to assist us in making _available_ what we are already
 acquainted with.
 {% endcitedquote %}
 
-That's what changed in 2026.
+That's what changed in 2026. In 2022, AI could file in the next line of code.
+By 2025 they could write the entire thing. Computers had suddenly moved up and
+taken the junior engineer's job. Then in, 2026 they made the next leap.
+
+In January of 2026, [Erdős problem][erdos_problems] 728 was solved by an AI,
+with "little human intervention" according to [Terence Tao][tao]. In July, the
+[Dinitz--Garg--Goemans conjecture][dgg] was disproved by asking an AI to "do a
+breakthrough". In September, AI solved the [Navier--Stokes existence and
+smoothness problem][ns], a [Millennium Problem][millennium]. In November, AI
+proved the [Riemann Hypothesis][riemann], which had stood for 187 years and
+was considered the holy grail by many mathematicians.
+
+The final of Prony's tiers fell to automation.
+
+[erdos_problems]: https://en.wikipedia.org/wiki/Erd%C5%91s_problems
+[tao]: https://en.wikipedia.org/wiki/Terence_Tao
+[dgg]: https://en.wikipedia.org/wiki/Dinitz%E2%80%93Garg%E2%80%93Goemans_conjecture
+[ai_discoveries]: https://en.wikipedia.org/wiki/List_of_mathematical_discoveries_made_with_artificial_intelligence
+[ns]: https://en.wikipedia.org/wiki/Navier%E2%80%93Stokes_existence_and_smoothness
+[millennium]: https://en.wikipedia.org/wiki/Millennium_Prize_Problems
+[riemann]: https://en.wikipedia.org/wiki/Riemann_hypothesis
 
 [Antoine Tilloy's][at] [_The short age of dragon riders_][dragon]
 
