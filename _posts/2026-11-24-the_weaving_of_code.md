@@ -7,9 +7,9 @@ description: >
   to work out what happens to my job next.
 image: /files/weaving-of-code/power_loom_weaving_1835_cropped.jpg
 image_alt: >
-  A black and white engraving of a long mill hall lined with rows of power
-  looms, driven by belts from overhead shafts. Women tend the looms while a
-  man stands in the center aisle and a woman kneels beside a loom at his feet.
+  A black and white engraving of a man in a cap and waistcoat standing beside
+  a power loom while a woman kneels to adjust its gears, with rows of looms
+  and women workers behind them.
 categories:
   - career-advice
   - machine-learning-engineering
@@ -32,7 +32,8 @@ divided the labor into three tiers:
 1. _Mathematicians_, including luminaries like [Legendre][legendre] and
    [Carnot][carnot], who did the high-level algorithm work.
 
-2. _Planners_, who figured out how to implement the algorithms and supervised.
+2. _Planners_, who figured out how to implement the algorithms and supervised
+   the computers.
 
 3. _Computers_, many former hairdressers, who did the actual tedious
    calculations.
@@ -177,7 +178,7 @@ for 167 years and was considered the holy grail by many mathematicians.
 [millennium]: https://en.wikipedia.org/wiki/Millennium_Prize_Problems
 [riemann]: https://en.wikipedia.org/wiki/Riemann_hypothesis
 
-The final of Prony's tiers fell to automation.
+The last of Prony's tiers fell to automation.
 
 ## The End?
 
@@ -205,7 +206,7 @@ do. But we live now, not in three years.
 [dragon]: https://atilloy.com/2026/11/16/the-short-age-of-dragon-riders/
 
 The machines have already moved up, just not everywhere at once. The frontier
-is jagged. Some math theorems fall with just a "do a breakthrough", others
+is jagged. Some math theorems fall with just a "do a breakthrough"; others
 still require human direction. At work I'm still in the saddle, riding the
 dragon. I don't write code, but I decide what my agents will work on. Maybe
 I'll get one more warning as the seniors get laid off, leaving only us staff
