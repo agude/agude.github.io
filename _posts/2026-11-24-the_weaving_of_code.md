@@ -43,15 +43,15 @@ tiers:
 [carnot]: https://en.wikipedia.org/wiki/Lazare_Carnot
 
 If you squint at it, that's almost the same way we structure software
-companies, with Staff engineers looking that large scale direction, senior
+companies, with staff engineers looking that large scale direction, senior
 engineers figuring out how to implement the directive, and juniors churning
 out the raw code. The difference, of course, is Prony's hairdressers were
-never expected to become planners or mathematicians, where as a junior was
+never expected to become planners or mathematicians, whereas a junior was
 expected to learn and become a senior. Recently though I've been having
 variations of this conversation:
 
-> **Me**: We don't really hire junior engineers anymore. In fact we just laid
-> a bunch off.
+> **Me**: We don't really hire junior engineers anymore, do we? In fact we
+> just laid a bunch off.
 >
 > **Friend**: Yeah... Where are the next senior and staff engineers going to
 > come from if juniors don't learn on the job?
