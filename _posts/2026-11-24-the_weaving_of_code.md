@@ -18,7 +18,7 @@ categories:
 
 I think most software engineers are starting to wonder about their and their
 field's future with the rise of LLM coding. I certainly am. We prided
-ourselves on our _technical ability_, but in less then a year machines have
+ourselves on our _technical ability_, but in less than a year machines have
 completely surpassed us. What do we bring to the table if not that?
 
 ## Prony
@@ -30,7 +30,7 @@ divided the labor into three tiers:
 [gdp]: https://en.wikipedia.org/wiki/Gaspard_de_Prony
 
 1. _Mathematicians_, including luminaries like [Legendre][legendre] and
-   [Carnot][carnot], who did the high level algorithm work.
+   [Carnot][carnot], who did the high-level algorithm work.
 
 2. _Planners_, who figured out how to implement the algorithms and supervised.
 
@@ -41,14 +41,14 @@ divided the labor into three tiers:
 [carnot]: https://en.wikipedia.org/wiki/Lazare_Carnot
 
 If you squint at it, that's almost the same way we structure software
-companies, with staff engineers looking that large scale direction, senior
+companies, with staff engineers looking at large-scale direction, senior
 engineers figuring out how to implement the directive, and juniors churning
 out the raw code. The difference, of course, is Prony's hairdressers were
 never expected to become planners or mathematicians, whereas a junior was
-expected to learn and become a senior. Recently though I've been having
+expected to learn and become a senior. Recently, though, I've been having
 variations of this conversation:
 
-> **Me**: We don't really hire junior engineers anymore, do we? In fact we
+> **Me**: We don't really hire junior engineers anymore, do we? In fact, we
 > just laid a bunch off.
 >
 > **Friend**: Yeah... Where are the next senior and staff engineers going to
@@ -115,7 +115,7 @@ do. Those same cards stuck around through ENIAC and other early electronic
 computers. In 1843, [Ada Lovelace][lovelace] wrote in her notes on the Engine
 that:
 
-[card]: https://en.wikipedia.org/wiki/Punched_card
+[cards]: https://en.wikipedia.org/wiki/Punched_card
 [lovelace]: https://en.wikipedia.org/wiki/Ada_Lovelace
 [ae]: https://en.wikipedia.org/wiki/Analytical_engine
 
@@ -156,19 +156,18 @@ truths. Its province is to assist us in making _available_ what we are already
 acquainted with.
 {% endcitedquote %}
 
-That's what changed in 2026. In 2022, AI could file in the next line of code.
-By 2025 they could write the entire thing. Computers had suddenly moved up and
-taken the junior engineer's job. Then in, 2026 they made the next leap.
+That's what changed in 2026. In 2022, AI could fill in the next line of code.
+By 2025, it could write the entire thing. Computers had suddenly moved up and
+taken the junior engineer's job. Then in 2026, they made [the next
+leap][ai_discoveries].
 
 In January of 2026, [Erdős problem][erdos_problems] 728 was solved by an AI,
-with "little human intervention" according to [Terence Tao][tao]. In July, the
+with little human intervention according to [Terence Tao][tao]. In July, the
 [Dinitz--Garg--Goemans conjecture][dgg] was disproved by asking an AI to "do a
 breakthrough". In September, AI solved the [Navier--Stokes existence and
 smoothness problem][ns], a [Millennium Problem][millennium]. In November, AI
 proved the [Riemann Hypothesis][riemann], which had stood for 167 years and
 was considered the holy grail by many mathematicians.
-
-The final of Prony's tiers fell to automation.
 
 [erdos_problems]: https://en.wikipedia.org/wiki/Erd%C5%91s_problems
 [tao]: https://en.wikipedia.org/wiki/Terence_Tao
@@ -177,6 +176,8 @@ The final of Prony's tiers fell to automation.
 [ns]: https://en.wikipedia.org/wiki/Navier%E2%80%93Stokes_existence_and_smoothness
 [millennium]: https://en.wikipedia.org/wiki/Millennium_Prize_Problems
 [riemann]: https://en.wikipedia.org/wiki/Riemann_hypothesis
+
+The final of Prony's tiers fell to automation.
 
 ## The End?
 
@@ -193,11 +194,11 @@ AI, until they don't:
   date="2026-11-16"
   url="https://atilloy.com/2026/11/16/the-short-age-of-dragon-riders/"
 %}
-I suspect the value of good dragon riders will increase exponentially until
-it collapses dramatically. At some point it will not be possible to raise
-the bar, stay above the wave, and it is plausible that nothing biological
-will be able to give valuable insights to the silicon. The dragon will know
-what to do. But we live now, not in three years.
+I suspect the value of good dragon riders will increase exponentially until it
+collapses dramatically. At some point it will not be possible to raise the
+bar, stay above the wave, and it is plausible that nothing biological will be
+able to give valuable insights to the silicon. The dragon will know what to
+do. But we live now, not in three years.
 {% endcitedquote %}
 
 [at]: https://atilloy.com/about/
@@ -207,7 +208,7 @@ The machines have already moved up, just not everywhere at once. The frontier
 is jagged. Some math theorems fall with just a "do a breakthrough", others
 still require human direction. At work I'm still in the saddle, riding the
 dragon. I don't write code, but I decide what my agents will work on. Maybe
-I'll get one more warning as the seniors get laid off leaving only us staff
+I'll get one more warning as the seniors get laid off, leaving only us staff
 engineers, or maybe not.
 
 Machines first wove flowers and leaves, then algebraical patterns, and now
