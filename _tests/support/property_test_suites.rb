@@ -135,6 +135,14 @@ module PropertyTestSuites
         ],
       },
     },
+    'isbn' => {
+      'src/seo/test_front_matter_validator' => {
+        'TestFrontMatterValidator' => %w[
+          Jekyll::SEO::FrontMatterValidator.validate_isbn
+          Jekyll::SEO::FrontMatterValidator.valid_isbn?
+        ],
+      },
+    },
   }.freeze
 
   # Mutant subject count each suite must match. Mutant silently generates no
@@ -148,6 +156,7 @@ module PropertyTestSuites
     'backlinks' => 4,
     'markdown' => 4,
     'image-derivatives' => 3,
+    'isbn' => 2,
   }.freeze
 
   def self.fetch(target)

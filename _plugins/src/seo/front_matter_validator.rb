@@ -16,8 +16,7 @@ module Jekyll
     # @validator Missing required front matter fields for a collection; on a
     #   book or author page, a malformed `wikidata_qid`, a `same_as_urls`
     #   that is not a list, or a Wikidata URL in `same_as_urls`; on a book,
-    #   an `isbn` that YAML parsed as a non-string (an unquoted, unhyphenated
-    #   ISBN reads as an Integer, octal-looking ones with different digits).
+    #   an `isbn` that is not a string or fails ISBN-10 or ISBN-13 validation.
     module FrontMatterValidator
       # Default configuration
       DEFAULT_REQUIRED_FIELDS_CONFIG = {
@@ -170,16 +169,41 @@ module Jekyll
       end
 
       # YAML 1.1 reads an unquoted `isbn: 0306406152` as an octal Integer with
-      # different digits, and the JSON-LD would publish them with no error.
-      # A set `isbn` must therefore be a String.
+      # different digits. Validate the string before publishing it in JSON-LD.
       def self.validate_isbn(doc)
         isbn = doc.data['isbn']
-        return if isbn.nil? || isbn.is_a?(String)
+        return if isbn.nil?
 
-        msg = "Document '#{doc_id(doc)}' has isbn #{isbn.inspect}, which YAML parsed as type " \
-              "#{isbn.class} and not as text, so its digits may be wrong. Quote the ISBN " \
-              '(isbn: "0306406152") or write it with hyphens (isbn: 978-0-306-40615-7).'
+        unless isbn.is_a?(String)
+          msg = "Document '#{doc_id(doc)}' has isbn #{isbn.inspect}, which YAML parsed as type " \
+                "#{isbn.class} and not as text, so its digits may be wrong. Quote the ISBN " \
+                '(isbn: "0306406152") or write it with hyphens (isbn: 978-0-306-40615-7).'
+          fail_validation(msg)
+        end
+
+        return if valid_isbn?(isbn.delete(' -').upcase)
+
+        msg = "Document '#{doc_id(doc)}' has invalid isbn #{isbn.inspect}. " \
+              'Use an ISBN-10 or ISBN-13 with a valid check digit.'
         fail_validation(msg)
+      end
+
+      def self.valid_isbn?(isbn)
+        case isbn
+        when /\A[0-9]{9}[0-9X]\z/
+          sum = isbn.each_char.with_index.sum do |digit, index|
+            value = digit == 'X' ? 10 : digit.to_i
+            value * (10 - index)
+          end
+          (sum % 11).zero?
+        when /\A97[89][0-9]{10}\z/
+          sum = isbn.each_char.with_index.sum do |digit, index|
+            digit.to_i * (index.even? ? 1 : 3)
+          end
+          (sum % 10).zero?
+        else
+          false
+        end
       end
 
       def self.doc_id(doc)

@@ -30,11 +30,15 @@ class TestBuildFailures < Minitest::Test
   end
 
   def test_boolean_isbn_stops_book_build
-    assert_invalid_isbn('false', 'FalseClass')
+    assert_invalid_isbn('false', 'has isbn false, which YAML parsed as type FalseClass')
   end
 
   def test_array_isbn_stops_book_build
-    assert_invalid_isbn('[1]', 'Array')
+    assert_invalid_isbn('[1]', 'has isbn [1], which YAML parsed as type Array')
+  end
+
+  def test_bad_isbn_checksum_stops_book_build
+    assert_invalid_isbn('978-0-671-87624-0', 'has invalid isbn "978-0-671-87624-0"')
   end
 
   def test_single_character_llms_index_argument_stops_build
@@ -72,7 +76,7 @@ class TestBuildFailures < Minitest::Test
 
   private
 
-  def assert_invalid_isbn(value, yaml_type)
+  def assert_invalid_isbn(value, diagnostic)
     assert_build_fails(
       '_books/fixture.md',
       <<~MARKDOWN,
@@ -85,7 +89,7 @@ class TestBuildFailures < Minitest::Test
         ---
         A book review.
       MARKDOWN
-      "has isbn #{value}, which YAML parsed as type #{yaml_type}",
+      diagnostic,
       'books/authors/fixture_author.md' => AUTHOR_PAGE,
     )
   end

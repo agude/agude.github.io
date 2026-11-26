@@ -8,7 +8,7 @@ is_anthology: false
 rating: 3
 image: /books/covers/field_of_dishonor.jpg
 wikidata_qid: Q2870331
-isbn: 978-0-671-87624-0
+isbn: 978-0-671-87624-1
 date_published: 1994-10
 same_as_urls:
   - "https://en.wikipedia.org/wiki/Field_of_Dishonor"

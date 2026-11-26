@@ -267,11 +267,19 @@ class TestFrontMatterValidator < Minitest::Test
     assert_match 'hyphen', err.message
   end
 
-  def test_string_isbn_passes
-    ['978-0-306-40615-7', '0306406152'].each do |isbn|
+  def test_valid_isbn_strings_pass
+    ['978-0-306-40615-7', '9791090636071', '0306406152', '0 87795 769 x'].each do |isbn|
       Jekyll.stub :logger, @silent_logger_stub do
         assert_nil Jekyll::SEO::FrontMatterValidator.validate_document(create_book_doc('isbn' => isbn))
       end
+    end
+  end
+
+  def test_invalid_isbn_strings_raise_error_naming_the_path
+    ['978-0-87795-793-7', '978-0-671-87624-0', '0306406153', 'X306406152', '4006381333931', ''].each do |isbn|
+      err = assert_validation_error(create_book_doc('isbn' => isbn))
+      assert_includes err.message, "Document 'dune.html' has invalid isbn #{isbn.inspect}"
+      assert_includes err.message, 'valid check digit'
     end
   end
 

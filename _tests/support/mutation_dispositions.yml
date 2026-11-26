@@ -630,3 +630,39 @@
   key: '80de53da52568758'
   disposition: equivalent
   reason: 'For String operands, eql? and == agree, so the manifest comparison has the same result for every key.'
+
+- suite: 'isbn'
+  subject: 'Jekyll::SEO::FrontMatterValidator.validate_isbn'
+  key: '7423ea8f1974dbc1'
+  disposition: equivalent
+  reason: 'Jekyll::Document#[] reads the same ISBN value from its data hash.'
+
+- suite: 'isbn'
+  subject: 'Jekyll::SEO::FrontMatterValidator.validate_isbn'
+  key: 'a8365ab234501e27'
+  disposition: equivalent
+  reason: 'YAML front matter produces plain String values for ISBNs, so instance_of?(String) and is_a?(String) agree.'
+
+- suite: 'isbn'
+  subject: 'Jekyll::SEO::FrontMatterValidator.valid_isbn?'
+  key: 'fc549a83c7e341fb'
+  disposition: equivalent
+  reason: 'Both operands in the X comparison are Strings, so eql? and == agree.'
+
+- suite: 'isbn'
+  subject: 'Jekyll::SEO::FrontMatterValidator.valid_isbn?'
+  key: 'eaff7025b606305c'
+  disposition: equivalent
+  reason: 'In the ISBN-10 branch, the regex and the X check ensure that Integer and to_i receive the same single ASCII digit.'
+
+- suite: 'isbn'
+  subject: 'Jekyll::SEO::FrontMatterValidator.valid_isbn?'
+  key: 'cd897a07765432c0'
+  disposition: equivalent
+  reason: 'In the ISBN-13 branch, Integer and to_i convert each single ASCII digit identically.'
+
+- suite: 'isbn'
+  subject: 'Jekyll::SEO::FrontMatterValidator.valid_isbn?'
+  key: 'dbde81c477321e9b'
+  disposition: equivalent
+  reason: 'The validator uses the return value as a predicate, so nil and false both reject malformed input.'

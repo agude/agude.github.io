@@ -8,7 +8,7 @@ is_anthology: false
 rating: 5
 image: /books/covers/count_zero.jpg
 wikidata_qid: Q2384854
-isbn: 978-0-87795-793-7
+isbn: 978-0-87795-769-0
 date_published: 1986-03
 same_as_urls:
   - "https://en.wikipedia.org/wiki/Count_Zero"
